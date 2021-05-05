@@ -492,12 +492,12 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Data output stream implements [`OutputStream`](crate::OutputStream) and includes functions for</span>
+    <span class="doccomment">/// Data output stream implements [`crate::OutputStream`] and includes functions for</span>
     <span class="doccomment">/// writing data directly to an output stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DataOutputStreamExt`](trait@crate::prelude::DataOutputStreamExt), [`FilterOutputStreamExt`](trait@crate::prelude::FilterOutputStreamExt), [`OutputStreamExt`](trait@crate::prelude::OutputStreamExt), [`trait@glib::object::ObjectExt`], [`SeekableExt`](trait@crate::prelude::SeekableExt), [`OutputStreamExtManual`](trait@crate::prelude::OutputStreamExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::DataOutputStreamExt`], [`trait@crate::prelude::FilterOutputStreamExt`], [`trait@crate::prelude::OutputStreamExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::SeekableExt`], [`trait@crate::prelude::OutputStreamExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DataOutputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GDataOutputStream</span>, <span class="ident">ffi::GDataOutputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">FilterOutputStream</span>, <span class="ident">OutputStream</span>, @<span class="ident">implements</span> <span class="ident">Seekable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -508,11 +508,11 @@
 <span class="kw">impl</span> <span class="ident">DataOutputStream</span> {
     <span class="doccomment">/// Creates a new data output stream for `base_stream`.</span>
     <span class="doccomment">/// ## `base_stream`</span>
-    <span class="doccomment">/// a [`OutputStream`](crate::OutputStream).</span>
+    <span class="doccomment">/// a [`crate::OutputStream`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DataOutputStream`](crate::DataOutputStream).</span>
+    <span class="doccomment">/// [`crate::DataOutputStream`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">OutputStream</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">base_stream</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DataOutputStream</span> {
         <span class="kw">unsafe</span> {
@@ -572,13 +572,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`DataOutputStream`](struct@crate::DataOutputStream)</span>
+<span class="doccomment">/// [`struct@crate::DataOutputStream`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">DataOutputStreamExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the byte order for the stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`DataStreamByteOrder`](crate::DataStreamByteOrder) for the `self`.</span>
+    <span class="doccomment">/// the [`crate::DataStreamByteOrder`] for the `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_get_byte_order&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_byte_order&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">byte_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DataStreamByteOrder</span>;
@@ -587,7 +587,7 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `guchar`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -603,7 +603,7 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `gint16`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -619,7 +619,7 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `gint32`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -635,7 +635,7 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `gint64`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -651,7 +651,7 @@
     <span class="doccomment">/// ## `str`</span>
     <span class="doccomment">/// a string.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -667,7 +667,7 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `guint16`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -683,7 +683,7 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `guint32`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -699,7 +699,7 @@
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// a `guint64`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -713,7 +713,7 @@
 
     <span class="doccomment">/// Sets the byte order of the data output stream to `order`.</span>
     <span class="doccomment">/// ## `order`</span>
-    <span class="doccomment">/// a [`DataStreamByteOrder`].</span>
+    <span class="doccomment">/// a [`crate::DataStreamByteOrder`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_output_stream_set_byte_order&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_byte_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">order</span>: <span class="ident">DataStreamByteOrder</span>);
 

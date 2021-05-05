@@ -11,15 +11,15 @@
 current entity tag.</p>
 <p>When this operation has completed, <code>callback</code> will be called with
 <code>user_user</code> data, and the operation can be finalized with
-<a href="crate::File::replace_contents_finish()"><code>File::replace_contents_finish()</code></a>.</p>
+[<code>crate::File::replace_contents_finish()</code>].</p>
 <p>If <code>cancellable</code> is not <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
-was cancelled, the error [<code>IOErrorEnum::Cancelled</code>] will be returned.</p>
+was cancelled, the error <a href="../enum.IOErrorEnum.html#variant.Cancelled" title="crate::IOErrorEnum::Cancelled"><code>crate::IOErrorEnum::Cancelled</code></a> will be returned.</p>
 <p>If <code>make_backup</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, this function will attempt to
 make a backup of <code>self</code>.</p>
 <p>Note that no copy of <code>contents</code> will be made, so it must stay valid
-until <code>callback</code> is called. See <a href="crate::File::replace_contents_bytes_async()"><code>File::replace_contents_bytes_async()</code></a>
-for a <a href="../../glib/bytes/struct.Bytes.html"><code>glib::Bytes</code></a> version that will automatically hold a reference to the
+until <code>callback</code> is called. See [<code>crate::File::replace_contents_bytes_async()</code>]
+for a <a href="../../glib/bytes/struct.Bytes.html" title="crate::glib::Bytes"><code>crate::glib::Bytes</code></a> version that will automatically hold a reference to the
 contents (without copying) for the duration of the call.</p>
 <h2 id="contents" class="section-header"><a href="#contents"><code>contents</code></a></h2>
 <p>string of contents to replace the file with</p>
@@ -30,9 +30,9 @@ contents (without copying) for the duration of the call.</p>
 <h2 id="make_backup" class="section-header"><a href="#make_backup"><code>make_backup</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if a backup should be created</p>
 <h2 id="flags" class="section-header"><a href="#flags"><code>flags</code></a></h2>
-<p>a set of <a href="../struct.FileCreateFlags.html"><code>FileCreateFlags</code></a></p>
+<p>a set of <a href="../struct.FileCreateFlags.html" title="crate::FileCreateFlags"><code>crate::FileCreateFlags</code></a></p>
 <h2 id="cancellable" class="section-header"><a href="#cancellable"><code>cancellable</code></a></h2>
-<p>optional <a href="../struct.Cancellable.html"><code>Cancellable</code></a> object, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to ignore</p>
+<p>optional <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a> object, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to ignore</p>
 <h2 id="callback" class="section-header"><a href="#callback"><code>callback</code></a></h2>
 <p>a <code>GAsyncReadyCallback</code> to call when the request is satisfied</p>
 <h2 id="user_data" class="section-header"><a href="#user_data"><code>user_data</code></a></h2>

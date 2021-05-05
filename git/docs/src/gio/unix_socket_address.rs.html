@@ -200,16 +200,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">UnixSocketAddress</span> {
-    <span class="doccomment">/// Creates a new [`UnixSocketAddress`](crate::UnixSocketAddress) for `path`.</span>
+    <span class="doccomment">/// Creates a new [`crate::UnixSocketAddress`] for `path`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To create abstract socket addresses, on systems that support that,</span>
-    <span class="doccomment">/// use [`new_abstract()`](Self::new_abstract()).</span>
+    <span class="doccomment">/// use [`Self::new_abstract()`].</span>
     <span class="doccomment">/// ## `path`</span>
     <span class="doccomment">/// the socket path</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`UnixSocketAddress`](crate::UnixSocketAddress)</span>
+    <span class="doccomment">/// a new [`crate::UnixSocketAddress`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_socket_address_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">path::Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddress</span> {
         <span class="kw">unsafe</span> {
@@ -218,34 +218,34 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`UnixSocketAddress`](crate::UnixSocketAddress) of type `type_` with name `path`.</span>
+    <span class="doccomment">/// Creates a new [`crate::UnixSocketAddress`] of type `type_` with name `path`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `type_` is [`UnixSocketAddressType::Path`], this is equivalent to</span>
-    <span class="doccomment">/// calling [`new()`](Self::new()).</span>
+    <span class="doccomment">/// If `type_` is [`crate::UnixSocketAddressType::Path`], this is equivalent to</span>
+    <span class="doccomment">/// calling [`Self::new()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `type_` is [`UnixSocketAddressType::Anonymous`], `path` and `path_len` will be</span>
+    <span class="doccomment">/// If `type_` is [`crate::UnixSocketAddressType::Anonymous`], `path` and `path_len` will be</span>
     <span class="doccomment">/// ignored.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `path_type` is [`UnixSocketAddressType::Abstract`], then `path_len`</span>
+    <span class="doccomment">/// If `path_type` is [`crate::UnixSocketAddressType::Abstract`], then `path_len`</span>
     <span class="doccomment">/// bytes of `path` will be copied to the socket&#39;s path, and only those</span>
     <span class="doccomment">/// bytes will be considered part of the name. (If `path_len` is -1,</span>
     <span class="doccomment">/// then `path` is assumed to be NUL-terminated.) For example, if `path`</span>
-    <span class="doccomment">/// was &quot;test&quot;, then calling [`SocketAddressExt::get_native_size()`](crate::SocketAddressExt::get_native_size()) on the</span>
+    <span class="doccomment">/// was &quot;test&quot;, then calling [`crate::prelude::SocketAddressExt::get_native_size()`] on the</span>
     <span class="doccomment">/// returned socket would return 7 (2 bytes of overhead, 1 byte for the</span>
     <span class="doccomment">/// abstract-socket indicator byte, and 4 bytes for the name &quot;test&quot;).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `path_type` is [`UnixSocketAddressType::AbstractPadded`], then</span>
+    <span class="doccomment">/// If `path_type` is [`crate::UnixSocketAddressType::AbstractPadded`], then</span>
     <span class="doccomment">/// `path_len` bytes of `path` will be copied to the socket&#39;s path, the</span>
     <span class="doccomment">/// rest of the path will be padded with 0 bytes, and the entire</span>
     <span class="doccomment">/// zero-padded buffer will be considered the name. (As above, if</span>
     <span class="doccomment">/// `path_len` is -1, then `path` is assumed to be NUL-terminated.) In</span>
-    <span class="doccomment">/// this case, [`SocketAddressExt::get_native_size()`](crate::SocketAddressExt::get_native_size()) will always return</span>
+    <span class="doccomment">/// this case, [`crate::prelude::SocketAddressExt::get_native_size()`] will always return</span>
     <span class="doccomment">/// the full size of a `struct sockaddr_un`, although</span>
-    <span class="doccomment">/// [`UnixSocketAddressExt::get_path_len()`](crate::UnixSocketAddressExt::get_path_len()) will still return just the</span>
+    <span class="doccomment">/// [`crate::prelude::UnixSocketAddressExt::get_path_len()`] will still return just the</span>
     <span class="doccomment">/// length of `path`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UnixSocketAddressType::Abstract`] is preferred over</span>
-    <span class="doccomment">/// [`UnixSocketAddressType::AbstractPadded`] for new programs. Of course,</span>
+    <span class="doccomment">/// [`crate::UnixSocketAddressType::Abstract`] is preferred over</span>
+    <span class="doccomment">/// [`crate::UnixSocketAddressType::AbstractPadded`] for new programs. Of course,</span>
     <span class="doccomment">/// when connecting to a server created by another process, you must</span>
     <span class="doccomment">/// use the appropriate type corresponding to how that process created</span>
     <span class="doccomment">/// its listening socket.</span>
@@ -254,11 +254,11 @@
     <span class="doccomment">/// ## `path_len`</span>
     <span class="doccomment">/// the length of `path`, or -1</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// a [`UnixSocketAddressType`](crate::UnixSocketAddressType)</span>
+    <span class="doccomment">/// a [`crate::UnixSocketAddressType`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`UnixSocketAddress`](crate::UnixSocketAddress)</span>
+    <span class="doccomment">/// a new [`crate::UnixSocketAddress`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_socket_address_new_with_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_type</span>(<span class="ident">address_type</span>: <span class="ident">UnixSocketAddressPath</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">use</span> <span class="self">self</span><span class="ident">::UnixSocketAddressPath</span>::<span class="kw-2">*</span>;
@@ -287,7 +287,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Guaranteed to be zero-terminated, but an abstract socket</span>
     <span class="doccomment">/// may contain embedded zeros, and thus you should use</span>
-    <span class="doccomment">/// [`UnixSocketAddressExt::get_path_len()`](crate::UnixSocketAddressExt::get_path_len()) to get the true length</span>
+    <span class="doccomment">/// [`crate::prelude::UnixSocketAddressExt::get_path_len()`] to get the true length</span>
     <span class="doccomment">/// of this string.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>

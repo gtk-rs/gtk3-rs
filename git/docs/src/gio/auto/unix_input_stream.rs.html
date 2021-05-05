@@ -78,7 +78,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`UnixInputStream`](crate::UnixInputStream) implements [`InputStream`](crate::InputStream) for reading from a UNIX</span>
+    <span class="doccomment">/// [`crate::UnixInputStream`] implements [`crate::InputStream`] for reading from a UNIX</span>
     <span class="doccomment">/// file descriptor, including asynchronous operations. (If the file</span>
     <span class="doccomment">/// descriptor refers to a socket or pipe, this will use `poll()` to do</span>
     <span class="doccomment">/// asynchronous I/O. If it refers to a regular file, it will fall back</span>
@@ -90,7 +90,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UnixInputStreamExt`](trait@crate::prelude::UnixInputStreamExt), [`InputStreamExt`](trait@crate::prelude::InputStreamExt), [`trait@glib::object::ObjectExt`], [`PollableInputStreamExt`](trait@crate::prelude::PollableInputStreamExt), [`UnixInputStreamExtManual`](trait@crate::prelude::UnixInputStreamExtManual), [`InputStreamExtManual`](trait@crate::prelude::InputStreamExtManual), [`PollableInputStreamExtManual`](trait@crate::prelude::PollableInputStreamExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::UnixInputStreamExt`], [`trait@crate::prelude::InputStreamExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::PollableInputStreamExt`], [`trait@crate::prelude::UnixInputStreamExtManual`], [`trait@crate::prelude::InputStreamExtManual`], [`trait@crate::prelude::PollableInputStreamExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UnixInputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GUnixInputStream</span>, <span class="ident">ffi::GUnixInputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="ident">PollableInputStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -104,7 +104,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`UnixInputStream`](struct@crate::UnixInputStream)</span>
+<span class="doccomment">/// [`struct@crate::UnixInputStream`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">UnixInputStreamExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns whether the file descriptor of `self` will be</span>
     <span class="doccomment">/// closed when the stream is closed.</span>

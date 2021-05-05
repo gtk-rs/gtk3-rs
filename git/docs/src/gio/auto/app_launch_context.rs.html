@@ -303,7 +303,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AppLaunchContextExt`](trait@crate::prelude::AppLaunchContextExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::AppLaunchContextExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AppLaunchContext</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GAppLaunchContext</span>, <span class="ident">ffi::GAppLaunchContextClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -317,7 +317,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`AppLaunchContext`](crate::AppLaunchContext).</span>
+    <span class="doccomment">/// a [`crate::AppLaunchContext`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_launch_context_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AppLaunchContext</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_app_launch_context_new</span>()) }
@@ -336,15 +336,15 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`AppLaunchContext`](struct@crate::AppLaunchContext)</span>
+<span class="doccomment">/// [`struct@crate::AppLaunchContext`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AppLaunchContextExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the display string for the `self`. This is used to ensure new</span>
     <span class="doccomment">/// applications are started on the same display as the launching</span>
     <span class="doccomment">/// application, by setting the `DISPLAY` environment variable.</span>
     <span class="doccomment">/// ## `info`</span>
-    <span class="doccomment">/// a [`AppInfo`](crate::AppInfo)</span>
+    <span class="doccomment">/// a [`crate::AppInfo`]</span>
     <span class="doccomment">/// ## `files`</span>
-    <span class="doccomment">/// a [`glib::List`](crate::glib::List) of [`File`](crate::File) objects</span>
+    <span class="doccomment">/// a [`crate::glib::List`] of [`crate::File`] objects</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -372,9 +372,9 @@
     <span class="doccomment">/// Startup notification IDs are defined in the</span>
     <span class="doccomment">/// [FreeDesktop.Org Startup Notifications standard](http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt).</span>
     <span class="doccomment">/// ## `info`</span>
-    <span class="doccomment">/// a [`AppInfo`](crate::AppInfo)</span>
+    <span class="doccomment">/// a [`crate::AppInfo`]</span>
     <span class="doccomment">/// ## `files`</span>
-    <span class="doccomment">/// a [`glib::List`](crate::glib::List) of of [`File`](crate::File) objects</span>
+    <span class="doccomment">/// a [`crate::glib::List`] of of [`crate::File`] objects</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -386,9 +386,9 @@
         <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Called when an application has failed to launch, so that it can cancel</span>
-    <span class="doccomment">/// the application startup notification started in [`get_startup_notify_id()`](Self::get_startup_notify_id()).</span>
+    <span class="doccomment">/// the application startup notification started in [`Self::get_startup_notify_id()`].</span>
     <span class="doccomment">/// ## `startup_notify_id`</span>
-    <span class="doccomment">/// the startup notification id that was returned by [`get_startup_notify_id()`](Self::get_startup_notify_id()).</span>
+    <span class="doccomment">/// the startup notification id that was returned by [`Self::get_startup_notify_id()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_launch_context_launch_failed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">launch_failed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">startup_notify_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
@@ -408,7 +408,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_launch_context_unsetenv&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unsetenv</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::ffi::OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">variable</span>: <span class="ident">P</span>);
 
-    <span class="doccomment">/// The ::launch-failed signal is emitted when a [`AppInfo`](crate::AppInfo) launch</span>
+    <span class="doccomment">/// The ::launch-failed signal is emitted when a [`crate::AppInfo`] launch</span>
     <span class="doccomment">/// fails. The startup notification id is provided, so that the launcher</span>
     <span class="doccomment">/// can cancel the startup notification.</span>
     <span class="doccomment">/// ## `startup_notify_id`</span>
@@ -416,13 +416,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;launch-failed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_launch_failed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The ::launched signal is emitted when a [`AppInfo`](crate::AppInfo) is successfully</span>
+    <span class="doccomment">/// The ::launched signal is emitted when a [`crate::AppInfo`] is successfully</span>
     <span class="doccomment">/// launched. The `platform_data` is an GVariant dictionary mapping</span>
     <span class="doccomment">/// strings to variants (ie a{sv}), which contains additional,</span>
     <span class="doccomment">/// platform-specific data about this launch. On UNIX, at least the</span>
     <span class="doccomment">/// &quot;pid&quot; and &quot;startup-notification-id&quot; keys will be present.</span>
     <span class="doccomment">/// ## `info`</span>
-    <span class="doccomment">/// the [`AppInfo`](crate::AppInfo) that was just launched</span>
+    <span class="doccomment">/// the [`crate::AppInfo`] that was just launched</span>
     <span class="doccomment">/// ## `platform_data`</span>
     <span class="doccomment">/// additional platform-specific data for this launch</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;launched&quot;</span>)]</span>

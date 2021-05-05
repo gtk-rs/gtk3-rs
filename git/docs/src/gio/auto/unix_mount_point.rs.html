@@ -339,7 +339,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon)</span>
+    <span class="doccomment">/// a [`crate::Icon`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_mount_point_guess_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guess_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Icon</span> {
         <span class="kw">unsafe</span> {
@@ -369,7 +369,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon)</span>
+    <span class="doccomment">/// a [`crate::Icon`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_mount_point_guess_symbolic_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guess_symbolic_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Icon</span> {
         <span class="kw">unsafe</span> {
@@ -421,7 +421,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets a [`UnixMountPoint`](crate::UnixMountPoint) for a given mount path. If `time_read` is set, it</span>
+    <span class="doccomment">/// Gets a [`crate::UnixMountPoint`] for a given mount path. If `time_read` is set, it</span>
     <span class="doccomment">/// will be filled with a unix timestamp for checking if the mount points have</span>
     <span class="doccomment">/// changed since with `g_unix_mount_points_changed_since()`.</span>
     <span class="doccomment">///</span>
@@ -434,7 +434,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`UnixMountPoint`](crate::UnixMountPoint), or [`None`] if no match</span>
+    <span class="doccomment">/// a [`crate::UnixMountPoint`], or [`None`] if no match</span>
     <span class="doccomment">/// is found.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>

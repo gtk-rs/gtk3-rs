@@ -311,24 +311,24 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Font`](crate::Font) structure is used to represent</span>
+    <span class="doccomment">/// The [`crate::Font`] structure is used to represent</span>
     <span class="doccomment">/// a font in a rendering-system-independent matter.</span>
-    <span class="doccomment">/// To create an implementation of a [`Font`](crate::Font),</span>
+    <span class="doccomment">/// To create an implementation of a [`crate::Font`],</span>
     <span class="doccomment">/// the rendering-system specific code should allocate</span>
     <span class="doccomment">/// a larger structure that contains a nested</span>
-    <span class="doccomment">/// [`Font`](crate::Font), fill in the `&lt;structfield&gt;`klass`&lt;/structfield&gt;` member of</span>
-    <span class="doccomment">/// the nested [`Font`](crate::Font) with a pointer to</span>
-    <span class="doccomment">/// a appropriate [`FontClass`](crate::FontClass), then call</span>
+    <span class="doccomment">/// [`crate::Font`], fill in the `&lt;structfield&gt;`klass`&lt;/structfield&gt;` member of</span>
+    <span class="doccomment">/// the nested [`crate::Font`] with a pointer to</span>
+    <span class="doccomment">/// a appropriate [`crate::FontClass`], then call</span>
     <span class="doccomment">/// `pango_font_init()` on the structure.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`Font`](crate::Font) structure contains one member</span>
+    <span class="doccomment">/// The [`crate::Font`] structure contains one member</span>
     <span class="doccomment">/// which the implementation fills in.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FontExt`](trait@crate::prelude::FontExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::FontExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Font</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::PangoFont</span>, <span class="ident">ffi::PangoFontClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -342,25 +342,25 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Font`](struct@crate::Font)</span>
+<span class="doccomment">/// [`struct@crate::Font`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FontExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns a description of the font, with font size set in points.</span>
-    <span class="doccomment">/// Use [`describe_with_absolute_size()`](Self::describe_with_absolute_size()) if you want the font</span>
+    <span class="doccomment">/// Use [`Self::describe_with_absolute_size()`] if you want the font</span>
     <span class="doccomment">/// size in device units.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly-allocated [`FontDescription`](crate::FontDescription) object.</span>
+    <span class="doccomment">/// a newly-allocated [`crate::FontDescription`] object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_describe&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">describe</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FontDescription</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns a description of the font, with absolute font size set</span>
-    <span class="doccomment">/// (in device units). Use [`describe()`](Self::describe()) if you want the font</span>
+    <span class="doccomment">/// (in device units). Use [`Self::describe()`] if you want the font</span>
     <span class="doccomment">/// size in points.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly-allocated [`FontDescription`](crate::FontDescription) object.</span>
+    <span class="doccomment">/// a newly-allocated [`crate::FontDescription`] object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_describe_with_absolute_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">describe_with_absolute_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FontDescription</span><span class="op">&gt;</span>;
 
@@ -387,17 +387,17 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly-allocated [`Coverage`](crate::Coverage)</span>
+    <span class="doccomment">/// a newly-allocated [`crate::Coverage`]</span>
     <span class="doccomment">///  object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_get_coverage&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_coverage&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">coverage</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">language</span>: <span class="kw-2">&amp;</span><span class="ident">Language</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Coverage</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the [`FontFace`](crate::FontFace) to which `self` belongs.</span>
+    <span class="doccomment">/// Gets the [`crate::FontFace`] to which `self` belongs.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`FontFace`](crate::FontFace)</span>
+    <span class="doccomment">/// the [`crate::FontFace`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_get_face&quot;</span>)]</span>
@@ -417,12 +417,12 @@
     <span class="doccomment">/// map will be finalized even if there are fonts created with the font</span>
     <span class="doccomment">/// map that are still alive. In that case this function will return [`None`].</span>
     <span class="doccomment">/// It is the responsibility of the user to ensure that the font map is kept</span>
-    <span class="doccomment">/// alive. In most uses this is not an issue as a [`Context`](crate::Context) holds</span>
+    <span class="doccomment">/// alive. In most uses this is not an issue as a [`crate::Context`] holds</span>
     <span class="doccomment">/// a reference to the font map.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`FontMap`](crate::FontMap) for the</span>
+    <span class="doccomment">/// the [`crate::FontMap`] for the</span>
     <span class="doccomment">///  font, or [`None`] if `self` is [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_get_font_map&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_font_map&quot;</span>)]</span>
@@ -469,7 +469,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`FontMetrics`](crate::FontMetrics) object. The caller must call [`FontMetrics::unref()`](crate::FontMetrics::unref())</span>
+    <span class="doccomment">/// a [`crate::FontMetrics`] object. The caller must call [`crate::FontMetrics::unref()`]</span>
     <span class="doccomment">///  when finished using the object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_get_metrics&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_metrics&quot;</span>)]</span>

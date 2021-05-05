@@ -72,26 +72,26 @@
 <span class="kw">impl</span> <span class="ident">DBusMethodInvocation</span> {
     <span class="doccomment">/// Finishes handling a D-Bus method call by returning an error.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`DBusError::encode_gerror()`](crate::DBusError::encode_gerror()) for details about what error name</span>
+    <span class="doccomment">/// See [`crate::DBusError::encode_gerror()`] for details about what error name</span>
     <span class="doccomment">/// will be returned on the wire. In a nutshell, if the given error is</span>
-    <span class="doccomment">/// registered using [`DBusError::register_error()`](crate::DBusError::register_error()) the name given</span>
+    <span class="doccomment">/// registered using [`crate::DBusError::register_error()`] the name given</span>
     <span class="doccomment">/// during registration is used. Otherwise, a name of the form</span>
     <span class="doccomment">/// `org.gtk.GDBus.UnmappedGError.Quark...` is used. This provides</span>
-    <span class="doccomment">/// transparent mapping of [`glib::Error`](crate::glib::Error) between applications using GDBus.</span>
+    <span class="doccomment">/// transparent mapping of [`crate::glib::Error`] between applications using GDBus.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you are writing an application intended to be portable,</span>
-    <span class="doccomment">/// always register errors with [`DBusError::register_error()`](crate::DBusError::register_error())</span>
-    <span class="doccomment">/// or use [`return_dbus_error()`](Self::return_dbus_error()).</span>
+    <span class="doccomment">/// always register errors with [`crate::DBusError::register_error()`]</span>
+    <span class="doccomment">/// or use [`Self::return_dbus_error()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method will take ownership of `self`. See</span>
-    <span class="doccomment">/// [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) for more information about the ownership of</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceVTable`] for more information about the ownership of</span>
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since 2.48, if the method call requested for a reply not to be sent</span>
     <span class="doccomment">/// then this call will free `self` but otherwise do nothing (as per</span>
     <span class="doccomment">/// the recommendations of the D-Bus specification).</span>
     <span class="doccomment">/// ## `domain`</span>
-    <span class="doccomment">/// A [`glib::Quark`](crate::glib::Quark) for the [`glib::Error`](crate::glib::Error) error domain.</span>
+    <span class="doccomment">/// A [`crate::glib::Quark`] for the [`crate::glib::Error`] error domain.</span>
     <span class="doccomment">/// ## `code`</span>
     <span class="doccomment">/// The error code.</span>
     <span class="doccomment">/// ## `format`</span>
@@ -107,14 +107,14 @@
         }
     }
 
-    <span class="doccomment">/// Like [`return_error()`](Self::return_error()) but takes a [`glib::Error`](crate::glib::Error)</span>
+    <span class="doccomment">/// Like [`Self::return_error()`] but takes a [`crate::glib::Error`]</span>
     <span class="doccomment">/// instead of the error domain, error code and message.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method will take ownership of `self`. See</span>
-    <span class="doccomment">/// [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) for more information about the ownership of</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceVTable`] for more information about the ownership of</span>
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">/// ## `error`</span>
-    <span class="doccomment">/// A [`glib::Error`](crate::glib::Error).</span>
+    <span class="doccomment">/// A [`crate::glib::Error`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">return_gerror</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">error</span>: <span class="ident">glib::Error</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_dbus_method_invocation_return_gerror</span>(

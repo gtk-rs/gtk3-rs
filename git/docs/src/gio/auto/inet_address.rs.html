@@ -712,20 +712,20 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`InetAddress`](crate::InetAddress) represents an IPv4 or IPv6 internet address. Use</span>
-    <span class="doccomment">/// [`ResolverExt::lookup_by_name()`](crate::ResolverExt::lookup_by_name()) or [`ResolverExt::lookup_by_name_async()`](crate::ResolverExt::lookup_by_name_async()) to</span>
-    <span class="doccomment">/// look up the [`InetAddress`](crate::InetAddress) for a hostname. Use</span>
-    <span class="doccomment">/// [`ResolverExt::lookup_by_address()`](crate::ResolverExt::lookup_by_address()) or</span>
-    <span class="doccomment">/// [`ResolverExt::lookup_by_address_async()`](crate::ResolverExt::lookup_by_address_async()) to look up the hostname for a</span>
-    <span class="doccomment">/// [`InetAddress`](crate::InetAddress).</span>
+    <span class="doccomment">/// [`crate::InetAddress`] represents an IPv4 or IPv6 internet address. Use</span>
+    <span class="doccomment">/// [`crate::prelude::ResolverExt::lookup_by_name()`] or [`crate::prelude::ResolverExt::lookup_by_name_async()`] to</span>
+    <span class="doccomment">/// look up the [`crate::InetAddress`] for a hostname. Use</span>
+    <span class="doccomment">/// [`crate::prelude::ResolverExt::lookup_by_address()`] or</span>
+    <span class="doccomment">/// [`crate::prelude::ResolverExt::lookup_by_address_async()`] to look up the hostname for a</span>
+    <span class="doccomment">/// [`crate::InetAddress`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To actually connect to a remote host, you will need a</span>
-    <span class="doccomment">/// [`InetSocketAddress`](crate::InetSocketAddress) (which includes a [`InetAddress`](crate::InetAddress) as well as a</span>
+    <span class="doccomment">/// [`crate::InetSocketAddress`] (which includes a [`crate::InetAddress`] as well as a</span>
     <span class="doccomment">/// port number).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`InetAddressExt`](trait@crate::prelude::InetAddressExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::InetAddressExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InetAddress</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GInetAddress</span>, <span class="ident">ffi::GInetAddressClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -734,45 +734,45 @@
 }
 
 <span class="kw">impl</span> <span class="ident">InetAddress</span> {
-    <span class="doccomment">/// Creates a [`InetAddress`](crate::InetAddress) for the &quot;any&quot; address (unassigned/&quot;don&#39;t</span>
+    <span class="doccomment">/// Creates a [`crate::InetAddress`] for the &quot;any&quot; address (unassigned/&quot;don&#39;t</span>
     <span class="doccomment">/// care&quot;) for `family`.</span>
     <span class="doccomment">/// ## `family`</span>
     <span class="doccomment">/// the address family</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`InetAddress`](crate::InetAddress) corresponding to the &quot;any&quot; address</span>
+    <span class="doccomment">/// a new [`crate::InetAddress`] corresponding to the &quot;any&quot; address</span>
     <span class="doccomment">/// for `family`.</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_address_new_any&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_any</span>(<span class="ident">family</span>: <span class="ident">SocketFamily</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InetAddress</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_inet_address_new_any</span>(<span class="ident">family</span>.<span class="ident">into_glib</span>())) }
     }
 
-    <span class="doccomment">/// Parses `string` as an IP address and creates a new [`InetAddress`](crate::InetAddress).</span>
+    <span class="doccomment">/// Parses `string` as an IP address and creates a new [`crate::InetAddress`].</span>
     <span class="doccomment">/// ## `string`</span>
     <span class="doccomment">/// a string representation of an IP address</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`InetAddress`](crate::InetAddress) corresponding</span>
+    <span class="doccomment">/// a new [`crate::InetAddress`] corresponding</span>
     <span class="doccomment">/// to `string`, or [`None`] if `string` could not be parsed.</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_address_new_from_string&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_string&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_string</span>(<span class="ident">string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">InetAddress</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_inet_address_new_from_string</span>(<span class="ident">string</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Creates a [`InetAddress`](crate::InetAddress) for the loopback address for `family`.</span>
+    <span class="doccomment">/// Creates a [`crate::InetAddress`] for the loopback address for `family`.</span>
     <span class="doccomment">/// ## `family`</span>
     <span class="doccomment">/// the address family</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`InetAddress`](crate::InetAddress) corresponding to the loopback address</span>
+    <span class="doccomment">/// a new [`crate::InetAddress`] corresponding to the loopback address</span>
     <span class="doccomment">/// for `family`.</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_inet_address_new_loopback&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_loopback</span>(<span class="ident">family</span>: <span class="ident">SocketFamily</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InetAddress</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_inet_address_new_loopback</span>(<span class="ident">family</span>.<span class="ident">into_glib</span>())) }
@@ -795,11 +795,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`InetAddress`](struct@crate::InetAddress)</span>
+<span class="doccomment">/// [`struct@crate::InetAddress`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InetAddressExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Checks if two [`InetAddress`](crate::InetAddress) instances are equal, e.g. the same address.</span>
+    <span class="doccomment">/// Checks if two [`crate::InetAddress`] instances are equal, e.g. the same address.</span>
     <span class="doccomment">/// ## `other_address`</span>
-    <span class="doccomment">/// Another [`InetAddress`](crate::InetAddress).</span>
+    <span class="doccomment">/// Another [`crate::InetAddress`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -912,7 +912,7 @@
     <span class="kw">fn</span> <span class="ident">is_site_local</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the size of the native raw binary address for `self`. This</span>
-    <span class="doccomment">/// is the size of the data that you get from [`InetAddress::to_bytes()`](crate::InetAddress::to_bytes()).</span>
+    <span class="doccomment">/// is the size of the data that you get from [`crate::InetAddress::to_bytes()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

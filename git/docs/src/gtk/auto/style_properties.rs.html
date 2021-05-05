@@ -253,25 +253,25 @@
 
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `[Deprecated since 3.16]` `StyleProperties` provides the storage for style information</span>
-    <span class="doccomment">/// that is used by [`StyleContext`](crate::StyleContext) and other [`StyleProvider`](crate::StyleProvider)</span>
+    <span class="doccomment">/// that is used by [`crate::StyleContext`] and other [`crate::StyleProvider`]</span>
     <span class="doccomment">/// implementations.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Before style properties can be stored in `StyleProperties`, they</span>
-    <span class="doccomment">/// must be registered with [`register_property()`](Self::register_property()).</span>
+    <span class="doccomment">/// must be registered with [`Self::register_property()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Unless you are writing a [`StyleProvider`](crate::StyleProvider) implementation, you</span>
-    <span class="doccomment">/// are unlikely to use this API directly, as [`StyleContextExt::get()`](crate::StyleContextExt::get())</span>
+    <span class="doccomment">/// Unless you are writing a [`crate::StyleProvider`] implementation, you</span>
+    <span class="doccomment">/// are unlikely to use this API directly, as [`crate::prelude::StyleContextExt::get()`]</span>
     <span class="doccomment">/// and its variants are the preferred way to access styling information</span>
     <span class="doccomment">/// from widget implementations and theming engine implementations</span>
-    <span class="doccomment">/// should use the APIs provided by [`ThemingEngine`](crate::ThemingEngine) instead.</span>
+    <span class="doccomment">/// should use the APIs provided by [`crate::ThemingEngine`] instead.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StyleProperties`](crate::StyleProperties) has been deprecated in GTK 3.16. The CSS</span>
+    <span class="doccomment">/// [`crate::StyleProperties`] has been deprecated in GTK 3.16. The CSS</span>
     <span class="doccomment">/// machinery does not use it anymore and all users of this object</span>
     <span class="doccomment">/// have been deprecated.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StylePropertiesExt`](trait@crate::prelude::StylePropertiesExt), [`trait@glib::object::ObjectExt`], [`StyleProviderExt`](trait@crate::prelude::StyleProviderExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::StylePropertiesExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::StyleProviderExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StyleProperties</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkStyleProperties</span>, <span class="ident">ffi::GtkStylePropertiesClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">StyleProvider</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -280,15 +280,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">StyleProperties</span> {
-    <span class="doccomment">/// Returns a newly created [`StyleProperties`](crate::StyleProperties)</span>
+    <span class="doccomment">/// Returns a newly created [`crate::StyleProperties`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StyleProperties`](crate::StyleProperties) are deprecated.</span>
+    <span class="doccomment">/// [`crate::StyleProperties`] are deprecated.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`StyleProperties`](crate::StyleProperties)</span>
+    <span class="doccomment">/// a new [`crate::StyleProperties`]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.16&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_style_properties_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StyleProperties</span> {
@@ -309,13 +309,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`StyleProperties`](struct@crate::StyleProperties)</span>
+<span class="doccomment">/// [`struct@crate::StyleProperties`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StylePropertiesExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Clears all style information from `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StyleProperties`](crate::StyleProperties) are deprecated.</span>
+    <span class="doccomment">/// [`crate::StyleProperties`] are deprecated.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.16&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_style_properties_clear&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -325,11 +325,11 @@
     <span class="comment">//fn get(&amp;self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);</span>
 
     <span class="doccomment">/// Gets a style property from `self` for the given state. When done with `value`,</span>
-    <span class="doccomment">/// [`glib::object::Value::unset()`](crate::glib::object::Value::unset()) needs to be called to free any allocated memory.</span>
+    <span class="doccomment">/// [`crate::glib::object::Value::unset()`] needs to be called to free any allocated memory.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StyleProperties`](crate::StyleProperties) are deprecated.</span>
+    <span class="doccomment">/// [`crate::StyleProperties`] are deprecated.</span>
     <span class="doccomment">/// ## `property`</span>
     <span class="doccomment">/// style property name</span>
     <span class="doccomment">/// ## `state`</span>
@@ -357,9 +357,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StyleProperties`](crate::StyleProperties) are deprecated.</span>
+    <span class="doccomment">/// [`crate::StyleProperties`] are deprecated.</span>
     <span class="doccomment">/// ## `props_to_merge`</span>
-    <span class="doccomment">/// a second [`StyleProperties`](crate::StyleProperties)</span>
+    <span class="doccomment">/// a second [`crate::StyleProperties`]</span>
     <span class="doccomment">/// ## `replace`</span>
     <span class="doccomment">/// whether to replace values or not</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.16&quot;</span>)]</span>
@@ -374,7 +374,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StyleProperties`](crate::StyleProperties) are deprecated.</span>
+    <span class="doccomment">/// [`crate::StyleProperties`] are deprecated.</span>
     <span class="doccomment">/// ## `property`</span>
     <span class="doccomment">/// styling property to set</span>
     <span class="doccomment">/// ## `state`</span>
@@ -393,7 +393,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StyleProperties`](crate::StyleProperties) are deprecated.</span>
+    <span class="doccomment">/// [`crate::StyleProperties`] are deprecated.</span>
     <span class="doccomment">/// ## `property`</span>
     <span class="doccomment">/// property to unset</span>
     <span class="doccomment">/// ## `state`</span>

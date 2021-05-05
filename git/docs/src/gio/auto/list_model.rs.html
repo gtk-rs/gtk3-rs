@@ -262,15 +262,15 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`ListModel`](crate::ListModel) is an interface that represents a mutable list of</span>
+    <span class="doccomment">/// [`crate::ListModel`] is an interface that represents a mutable list of</span>
     <span class="doccomment">/// `GObjects`. Its main intention is as a model for various widgets in</span>
     <span class="doccomment">/// user interfaces, such as list views, but it can also be used as a</span>
     <span class="doccomment">/// convenient method of returning lists of data, with support for</span>
     <span class="doccomment">/// updates.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Each object in the list may also report changes in itself via some</span>
-    <span class="doccomment">/// mechanism (normally the [`glib::object::Object::notify`](crate::glib::object::Object::notify) signal). Taken together</span>
-    <span class="doccomment">/// with the [`ListModel::items-changed`](crate::ListModel::items-changed) signal, this provides for a list</span>
+    <span class="doccomment">/// mechanism (normally the [`crate::glib::object::Object::notify`] signal). Taken together</span>
+    <span class="doccomment">/// with the [`crate::ListModel::items-changed`] signal, this provides for a list</span>
     <span class="doccomment">/// that can change its membership, and in which the members can change</span>
     <span class="doccomment">/// their individual properties.</span>
     <span class="doccomment">///</span>
@@ -278,22 +278,22 @@
     <span class="doccomment">/// points, where each access point can report dynamic properties such as</span>
     <span class="doccomment">/// signal strength.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is important to note that the [`ListModel`](crate::ListModel) itself does not report</span>
+    <span class="doccomment">/// It is important to note that the [`crate::ListModel`] itself does not report</span>
     <span class="doccomment">/// changes to the individual items. It only reports changes to the list</span>
     <span class="doccomment">/// membership. If you want to observe changes to the objects themselves</span>
     <span class="doccomment">/// then you need to connect signals to the objects that you are</span>
     <span class="doccomment">/// interested in.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// All items in a [`ListModel`](crate::ListModel) are of (or derived from) the same type.</span>
-    <span class="doccomment">/// [`get_item_type()`](Self::get_item_type()) returns that type. The type may be an</span>
+    <span class="doccomment">/// All items in a [`crate::ListModel`] are of (or derived from) the same type.</span>
+    <span class="doccomment">/// [`Self::get_item_type()`] returns that type. The type may be an</span>
     <span class="doccomment">/// interface, in which case all objects in the list must implement it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The semantics are close to that of an array:</span>
-    <span class="doccomment">/// [`get_n_items()`](Self::get_n_items()) returns the number of items in the list and</span>
-    <span class="doccomment">/// [`get_item()`](Self::get_item()) returns an item at a (0-based) position. In</span>
+    <span class="doccomment">/// [`Self::get_n_items()`] returns the number of items in the list and</span>
+    <span class="doccomment">/// [`Self::get_item()`] returns an item at a (0-based) position. In</span>
     <span class="doccomment">/// order to allow implementations to calculate the list length lazily,</span>
     <span class="doccomment">/// you can also iterate over items: starting from 0, repeatedly call</span>
-    <span class="doccomment">/// [`get_item()`](Self::get_item()) until it returns [`None`].</span>
+    <span class="doccomment">/// [`Self::get_item()`] until it returns [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An implementation may create objects lazily, but must take care to</span>
     <span class="doccomment">/// return the same object for a given position until all references to</span>
@@ -312,7 +312,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ListModelExt`](trait@crate::prelude::ListModelExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ListModelExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ListModel</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GListModel</span>, <span class="ident">ffi::GListModelInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -326,18 +326,18 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ListModel`](struct@crate::ListModel), [`ListStore`](struct@crate::ListStore)</span>
+<span class="doccomment">/// [`struct@crate::ListModel`], [`struct@crate::ListStore`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ListModelExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the type of the items in `self`. All items returned from</span>
     <span class="doccomment">/// `g_list_model_get_type()` are of that type or a subtype, or are an</span>
     <span class="doccomment">/// implementation of that interface.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The item type of a [`ListModel`](crate::ListModel) can not change during the life of the</span>
+    <span class="doccomment">/// The item type of a [`crate::ListModel`] can not change during the life of the</span>
     <span class="doccomment">/// model.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`glib::Type`](crate::glib::Type) of the items contained in `self`.</span>
+    <span class="doccomment">/// the [`crate::glib::Type`] of the items contained in `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_list_model_get_item_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_item_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">item_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::types::Type</span>;
@@ -346,7 +346,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Depending on the model implementation, calling this function may be</span>
     <span class="doccomment">/// less efficient than iterating the list with increasing values for</span>
-    <span class="doccomment">/// `position` until [`ListModel::get_item()`](crate::ListModel::get_item()) returns [`None`].</span>
+    <span class="doccomment">/// `position` until [`crate::ListModel::get_item()`] returns [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -359,7 +359,7 @@
     <span class="doccomment">/// items in `self`, [`None`] is returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`None`] is never returned for an index that is smaller than the length</span>
-    <span class="doccomment">/// of the list. See [`ListModel::get_n_items()`](crate::ListModel::get_n_items()).</span>
+    <span class="doccomment">/// of the list. See [`crate::ListModel::get_n_items()`].</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position of the item to fetch</span>
     <span class="doccomment">///</span>
@@ -370,20 +370,20 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_object&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Emits the [`ListModel::items-changed`](crate::ListModel::items-changed) signal on `self`.</span>
+    <span class="doccomment">/// Emits the [`crate::ListModel::items-changed`] signal on `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function should only be called by classes implementing</span>
-    <span class="doccomment">/// [`ListModel`](crate::ListModel). It has to be called after the internal representation</span>
+    <span class="doccomment">/// [`crate::ListModel`]. It has to be called after the internal representation</span>
     <span class="doccomment">/// of `self` has been updated, because handlers connected to this signal</span>
     <span class="doccomment">/// might query the new state of the list.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Implementations must only make changes to the model (as visible to</span>
     <span class="doccomment">/// its consumer) in places that will not cause problems for that</span>
     <span class="doccomment">/// consumer. For models that are driven directly by a write API (such</span>
-    <span class="doccomment">/// as [`ListStore`](crate::ListStore)), changes can be reported in response to uses of that</span>
+    <span class="doccomment">/// as [`crate::ListStore`]), changes can be reported in response to uses of that</span>
     <span class="doccomment">/// API. For models that represent remote data, changes should only be</span>
     <span class="doccomment">/// made from a fresh mainloop dispatch. It is particularly not</span>
-    <span class="doccomment">/// permitted to make changes in response to a call to the [`ListModel`](crate::ListModel)</span>
+    <span class="doccomment">/// permitted to make changes in response to a call to the [`crate::ListModel`]</span>
     <span class="doccomment">/// consumer API.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Stated another way: in general, it is assumed that code making a</span>

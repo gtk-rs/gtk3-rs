@@ -292,14 +292,14 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`EventControllerKey`](crate::EventControllerKey) is an event controller meant for situations</span>
+    <span class="doccomment">/// [`crate::EventControllerKey`] is an event controller meant for situations</span>
     <span class="doccomment">/// where you need access to key events.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This object was added in 3.24.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EventControllerExt`](trait@crate::prelude::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::EventControllerExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventControllerKey</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkEventControllerKey</span>, <span class="ident">ffi::GtkEventControllerKeyClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">EventController</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -432,7 +432,7 @@
     <span class="doccomment">/// ## `keycode`</span>
     <span class="doccomment">/// the raw code of the pressed key.</span>
     <span class="doccomment">/// ## `state`</span>
-    <span class="doccomment">/// the bitmask, representing the state of modifier keys and pointer buttons. See [`gdk::ModifierType`](crate::gdk::ModifierType).</span>
+    <span class="doccomment">/// the bitmask, representing the state of modifier keys and pointer buttons. See [`crate::gdk::ModifierType`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -477,7 +477,7 @@
     <span class="doccomment">/// ## `keycode`</span>
     <span class="doccomment">/// the raw code of the released key.</span>
     <span class="doccomment">/// ## `state`</span>
-    <span class="doccomment">/// the bitmask, representing the state of modifier keys and pointer buttons. See [`gdk::ModifierType`](crate::gdk::ModifierType).</span>
+    <span class="doccomment">/// the bitmask, representing the state of modifier keys and pointer buttons. See [`crate::gdk::ModifierType`].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;key-released&quot;</span>)]</span>

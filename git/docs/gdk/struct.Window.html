@@ -3,13 +3,13 @@
 <link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc struct"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../gdk/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Struct Window</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#implementations">Methods</a><div class="sidebar-links"><a href="#method.accepts_focus">accepts_focus</a><a href="#method.beep">beep</a><a href="#method.begin_draw_frame">begin_draw_frame</a><a href="#method.begin_move_drag">begin_move_drag</a><a href="#method.begin_move_drag_for_device">begin_move_drag_for_device</a><a href="#method.begin_paint_rect">begin_paint_rect</a><a href="#method.begin_paint_region">begin_paint_region</a><a href="#method.begin_resize_drag">begin_resize_drag</a><a href="#method.begin_resize_drag_for_device">begin_resize_drag_for_device</a><a href="#method.children">children</a><a href="#method.clip_region">clip_region</a><a href="#method.connect_create_surface">connect_create_surface</a><a href="#method.connect_cursor_notify">connect_cursor_notify</a><a href="#method.connect_pick_embedded_child">connect_pick_embedded_child</a><a href="#method.constrain_size">constrain_size</a><a href="#method.coords_from_parent">coords_from_parent</a><a href="#method.coords_to_parent">coords_to_parent</a><a href="#method.create_gl_context">create_gl_context</a><a href="#method.create_similar_image_surface">create_similar_image_surface</a><a href="#method.create_similar_surface">create_similar_surface</a><a href="#method.cursor">cursor</a><a href="#method.decorations">decorations</a><a href="#method.deiconify">deiconify</a><a href="#method.destroy">destroy</a><a href="#method.destroy_notify">destroy_notify</a><a href="#method.device_cursor">device_cursor</a><a href="#method.device_events">device_events</a><a href="#method.device_position">device_position</a><a href="#method.device_position_double">device_position_double</a><a href="#method.display">display</a><a href="#method.does_event_compression">does_event_compression</a><a href="#method.drag_protocol">drag_protocol</a><a href="#method.effective_parent">effective_parent</a><a href="#method.effective_toplevel">effective_toplevel</a><a href="#method.end_draw_frame">end_draw_frame</a><a href="#method.end_paint">end_paint</a><a href="#method.ensure_native">ensure_native</a><a href="#method.events">events</a><a href="#method.focus">focus</a><a href="#method.frame_clock">frame_clock</a><a href="#method.frame_extents">frame_extents</a><a href="#method.freeze_toplevel_updates_libgtk_only">freeze_toplevel_updates_libgtk_only</a><a href="#method.freeze_updates">freeze_updates</a><a href="#method.fullscreen">fullscreen</a><a href="#method.fullscreen_mode">fullscreen_mode</a><a href="#method.fullscreen_on_monitor">fullscreen_on_monitor</a><a href="#method.geometry">geometry</a><a href="#method.geometry_changed">geometry_changed</a><a href="#method.gets_focus_on_map">gets_focus_on_map</a><a href="#method.group">group</a><a href="#method.has_native">has_native</a><a href="#method.height">height</a><a href="#method.hide">hide</a><a href="#method.iconify">iconify</a><a href="#method.input_shape_combine_region">input_shape_combine_region</a><a href="#method.invalidate_maybe_recurse">invalidate_maybe_recurse</a><a href="#method.invalidate_rect">invalidate_rect</a><a href="#method.invalidate_region">invalidate_region</a><a href="#method.is_composited">is_composited</a><a href="#method.is_destroyed">is_destroyed</a><a href="#method.is_input_only">is_input_only</a><a href="#method.is_modal_hint">is_modal_hint</a><a href="#method.is_pass_through">is_pass_through</a><a href="#method.is_shaped">is_shaped</a><a href="#method.is_viewable">is_viewable</a><a href="#method.is_visible">is_visible</a><a href="#method.lower">lower</a><a href="#method.mark_paint_from_clip">mark_paint_from_clip</a><a href="#method.maximize">maximize</a><a href="#method.merge_child_input_shapes">merge_child_input_shapes</a><a href="#method.merge_child_shapes">merge_child_shapes</a><a href="#method.move_">move_</a><a href="#method.move_region">move_region</a><a href="#method.move_resize">move_resize</a><a href="#method.move_to_rect">move_to_rect</a><a href="#method.new">new</a><a href="#method.origin">origin</a><a href="#method.parent">parent</a><a href="#method.peek_children">peek_children</a><a href="#method.position">position</a><a href="#method.process_all_updates">process_all_updates</a><a href="#method.process_updates">process_updates</a><a href="#method.raise">raise</a><a href="#method.register_dnd">register_dnd</a><a href="#method.reparent">reparent</a><a href="#method.resize">resize</a><a href="#method.restack">restack</a><a href="#method.root_coords">root_coords</a><a href="#method.root_origin">root_origin</a><a href="#method.scale_factor">scale_factor</a><a href="#method.screen">screen</a><a href="#method.scroll">scroll</a><a href="#method.set_accept_focus">set_accept_focus</a><a href="#method.set_background_rgba">set_background_rgba</a><a href="#method.set_child_input_shapes">set_child_input_shapes</a><a href="#method.set_child_shapes">set_child_shapes</a><a href="#method.set_composited">set_composited</a><a href="#method.set_cursor">set_cursor</a><a href="#method.set_debug_updates">set_debug_updates</a><a href="#method.set_decorations">set_decorations</a><a href="#method.set_device_cursor">set_device_cursor</a><a href="#method.set_device_events">set_device_events</a><a href="#method.set_event_compression">set_event_compression</a><a href="#method.set_events">set_events</a><a href="#method.set_focus_on_map">set_focus_on_map</a><a href="#method.set_fullscreen_mode">set_fullscreen_mode</a><a href="#method.set_functions">set_functions</a><a href="#method.set_geometry_hints">set_geometry_hints</a><a href="#method.set_group">set_group</a><a href="#method.set_icon_list">set_icon_list</a><a href="#method.set_icon_name">set_icon_name</a><a href="#method.set_keep_above">set_keep_above</a><a href="#method.set_keep_below">set_keep_below</a><a href="#method.set_modal_hint">set_modal_hint</a><a href="#method.set_opacity">set_opacity</a><a href="#method.set_opaque_region">set_opaque_region</a><a href="#method.set_override_redirect">set_override_redirect</a><a href="#method.set_pass_through">set_pass_through</a><a href="#method.set_role">set_role</a><a href="#method.set_shadow_width">set_shadow_width</a><a href="#method.set_skip_pager_hint">set_skip_pager_hint</a><a href="#method.set_skip_taskbar_hint">set_skip_taskbar_hint</a><a href="#method.set_source_events">set_source_events</a><a href="#method.set_startup_id">set_startup_id</a><a href="#method.set_static_gravities">set_static_gravities</a><a href="#method.set_support_multidevice">set_support_multidevice</a><a href="#method.set_title">set_title</a><a href="#method.set_transient_for">set_transient_for</a><a href="#method.set_type_hint">set_type_hint</a><a href="#method.set_urgency_hint">set_urgency_hint</a><a href="#method.shape_combine_region">shape_combine_region</a><a href="#method.show">show</a><a href="#method.show_unraised">show_unraised</a><a href="#method.show_window_menu">show_window_menu</a><a href="#method.source_events">source_events</a><a href="#method.state">state</a><a href="#method.stick">stick</a><a href="#method.supports_multidevice">supports_multidevice</a><a href="#method.thaw_toplevel_updates_libgtk_only">thaw_toplevel_updates_libgtk_only</a><a href="#method.thaw_updates">thaw_updates</a><a href="#method.toplevel">toplevel</a><a href="#method.type_hint">type_hint</a><a href="#method.unfullscreen">unfullscreen</a><a href="#method.unmaximize">unmaximize</a><a href="#method.unstick">unstick</a><a href="#method.update_area">update_area</a><a href="#method.visible_region">visible_region</a><a href="#method.visual">visual</a><a href="#method.width">width</a><a href="#method.window_type">window_type</a><a href="#method.withdraw">withdraw</a></div><a class="sidebar-title" href="#trait-implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-Debug">Debug</a><a href="#impl-Display">Display</a><a href="#impl-Eq">Eq</a><a href="#impl-Hash">Hash</a><a href="#impl-Ord">Ord</a><a href="#impl-ParentClassIs">ParentClassIs</a><a href="#impl-PartialEq%3CT%3E">PartialEq&lt;T&gt;</a><a href="#impl-PartialOrd%3CT%3E">PartialOrd&lt;T&gt;</a><a href="#impl-StaticType">StaticType</a><a href="#impl-StructuralEq">StructuralEq</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-RefUnwindSafe">RefUnwindSafe</a><a href="#impl-Send">!Send</a><a href="#impl-Sync">!Sync</a><a href="#impl-Unpin">Unpin</a><a href="#impl-UnwindSafe">UnwindSafe</a></div><a class="sidebar-title" href="#blanket-implementations">Blanket Implementations</a><div class="sidebar-links"><a href="#impl-Any">Any</a><a href="#impl-Borrow%3CT%3E">Borrow&lt;T&gt;</a><a href="#impl-BorrowMut%3CT%3E">BorrowMut&lt;T&gt;</a><a href="#impl-CanDowncast%3CSub%3E">CanDowncast&lt;Sub&gt;</a><a href="#impl-Cast">Cast</a><a href="#impl-From%3CT%3E">From&lt;T&gt;</a><a href="#impl-FromValueOptional%3C%27a%3E">FromValueOptional&lt;&#39;a&gt;</a><a href="#impl-Into%3CU%3E">Into&lt;U&gt;</a><a href="#impl-ObjectExt">ObjectExt</a><a href="#impl-ToOwned">ToOwned</a><a href="#impl-ToSendValue">ToSendValue</a><a href="#impl-ToString">ToString</a><a href="#impl-TryFrom%3CU%3E">TryFrom&lt;U&gt;</a><a href="#impl-TryInto%3CU%3E">TryInto&lt;U&gt;</a></div></div><p class="location"><a href="index.html">gdk</a></p><div id="sidebar-vars" data-name="Window" data-ty="struct" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gdk</a>::<wbr><a class="struct" href="">Window</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gdk/auto/window.rs.html#49-62" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct Window(_);</pre></div><div class="docblock"><p>This is an Abstract Base Class, you cannot instantiate it.</p>
 <h1 id="implements" class="section-header"><a href="#implements">Implements</a></h1>
-<p><a href="prelude/trait.WindowExtManual.html"><code>WindowExtManual</code></a></p>
+<p><a href="prelude/trait.WindowExtManual.html" title="crate::prelude::WindowExtManual"><code>crate::prelude::WindowExtManual</code></a></p>
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#64-3107" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.beep" class="method"><code>pub fn <a href="#method.beep" class="fnname">beep</a>(&amp;self)</code><a href="#method.beep" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#74-78" title="goto source code">[src]</a></h4><div class="docblock"><p>Emits a short beep associated to <code>self</code> in the appropriate
 display, if supported. Otherwise, emits a short beep on
-the display just as <a href="struct.Display.html#method.beep"><code>Display::beep()</code></a>.</p>
+the display just as <a href="struct.Display.html#method.beep" title="crate::Display::beep()"><code>crate::Display::beep()</code></a>.</p>
 </div><h4 id="method.begin_draw_frame" class="method"><code>pub fn <a href="#method.begin_draw_frame" class="fnname">begin_draw_frame</a>(&amp;self, region: &amp;<a class="struct" href="../cairo/region/struct.Region.html" title="struct cairo::region::Region">Region</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.DrawingContext.html" title="struct gdk::DrawingContext">DrawingContext</a>&gt;</code><a href="#method.begin_draw_frame" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#118-125" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_22</code></strong> only.</div></div><div class="docblock"><p>Indicates that you are beginning the process of redrawing <code>region</code>
-on <code>self</code>, and provides you with a <a href="struct.DrawingContext.html"><code>DrawingContext</code></a>.</p>
-<p>If <code>self</code> is a top level <a href="struct.Window.html"><code>Window</code></a>, backed by a native window
+on <code>self</code>, and provides you with a <a href="struct.DrawingContext.html" title="crate::DrawingContext"><code>crate::DrawingContext</code></a>.</p>
+<p>If <code>self</code> is a top level <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>, backed by a native window
 implementation, a backing store (offscreen buffer) large enough to
 contain <code>region</code> will be created. The backing store will be initialized
 with the background color or background surface for <code>self</code>. Then, all
@@ -20,26 +20,26 @@ on screen. Only the part of <code>self</code> contained in <code>region</code> w
 modified; that is, drawing operations are clipped to <code>region</code>.</p>
 <p>The net result of all this is to remove flicker, because the user
 sees the finished product appear all at once when you call
-<a href="struct.Window.html#method.end_draw_frame"><code>end_draw_frame()</code></a>. If you draw to <code>self</code> directly without
-calling <a href="struct.Window.html#method.begin_draw_frame"><code>begin_draw_frame()</code></a>, the user may see flicker
+<a href="struct.Window.html#method.end_draw_frame" title="Self::end_draw_frame()"><code>Self::end_draw_frame()</code></a>. If you draw to <code>self</code> directly without
+calling <a href="struct.Window.html#method.begin_draw_frame" title="Self::begin_draw_frame()"><code>Self::begin_draw_frame()</code></a>, the user may see flicker
 as individual drawing operations are performed in sequence.</p>
 <p>When using GTK+, the widget system automatically places calls to
-<a href="struct.Window.html#method.begin_draw_frame"><code>begin_draw_frame()</code></a> and <a href="struct.Window.html#method.end_draw_frame"><code>end_draw_frame()</code></a> around
+<a href="struct.Window.html#method.begin_draw_frame" title="Self::begin_draw_frame()"><code>Self::begin_draw_frame()</code></a> and <a href="struct.Window.html#method.end_draw_frame" title="Self::end_draw_frame()"><code>Self::end_draw_frame()</code></a> around
 emissions of the <code>GtkWidget::draw</code> signal. That is, if you’re
 drawing the contents of the widget yourself, you can assume that the
 widget has a cleared background, is already set as the clip region,
 and already has a backing store. Therefore in most cases, application
-code in GTK does not need to call <a href="struct.Window.html#method.begin_draw_frame"><code>begin_draw_frame()</code></a>
+code in GTK does not need to call <a href="struct.Window.html#method.begin_draw_frame" title="Self::begin_draw_frame()"><code>Self::begin_draw_frame()</code></a>
 explicitly.</p>
 <h2 id="region" class="section-header"><a href="#region"><code>region</code></a></h2>
 <p>a Cairo region</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a <a href="struct.DrawingContext.html"><code>DrawingContext</code></a> context that should be
+<p>a <a href="struct.DrawingContext.html" title="crate::DrawingContext"><code>crate::DrawingContext</code></a> context that should be
 used to draw the contents of the window; the returned context is owned
 by GDK.</p>
 </div><h4 id="method.begin_move_drag" class="method"><code>pub fn <a href="#method.begin_move_drag" class="fnname">begin_move_drag</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;button: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;root_x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;root_y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;timestamp: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><br>)</code><a href="#method.begin_move_drag" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#141-151" title="goto source code">[src]</a></h4><div class="docblock"><p>Begins a window move operation (for a toplevel window).</p>
 <p>This function assumes that the drag is controlled by the
-client pointer device, use <a href="struct.Window.html#method.begin_move_drag_for_device"><code>begin_move_drag_for_device()</code></a>
+client pointer device, use <a href="struct.Window.html#method.begin_move_drag_for_device" title="Self::begin_move_drag_for_device()"><code>Self::begin_move_drag_for_device()</code></a>
 to begin a drag with a different device.</p>
 <h2 id="button" class="section-header"><a href="#button"><code>button</code></a></h2>
 <p>the button being used to drag, or 0 for a keyboard-initiated drag</p>
@@ -64,11 +64,11 @@ but has a fallback implementation for other window managers.</p>
 <p>root window Y coordinate of mouse click that began the drag</p>
 <h2 id="timestamp-1" class="section-header"><a href="#timestamp-1"><code>timestamp</code></a></h2>
 <p>timestamp of mouse click that began the drag</p>
-</div><h4 id="method.begin_paint_rect" class="method"><code>pub fn <a href="#method.begin_paint_rect" class="fnname">begin_paint_rect</a>(&amp;self, rectangle: &amp;<a class="struct" href="struct.Rectangle.html" title="struct gdk::Rectangle">Rectangle</a>)</code><a href="#method.begin_paint_rect" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#200-204" title="goto source code">[src]</a></h4><div class="docblock"><p>A convenience wrapper around <a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a> which
+</div><h4 id="method.begin_paint_rect" class="method"><code>pub fn <a href="#method.begin_paint_rect" class="fnname">begin_paint_rect</a>(&amp;self, rectangle: &amp;<a class="struct" href="struct.Rectangle.html" title="struct gdk::Rectangle">Rectangle</a>)</code><a href="#method.begin_paint_rect" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#200-204" title="goto source code">[src]</a></h4><div class="docblock"><p>A convenience wrapper around <a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a> which
 creates a rectangular region for you. See
-<a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a> for details.</p>
+<a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a> for details.</p>
 <h1 id="deprecated-since-322" class="section-header"><a href="#deprecated-since-322">Deprecated since 3.22</a></h1>
-<p>Use <a href="struct.Window.html#method.begin_draw_frame"><code>begin_draw_frame()</code></a> instead</p>
+<p>Use <a href="struct.Window.html#method.begin_draw_frame" title="Self::begin_draw_frame()"><code>Self::begin_draw_frame()</code></a> instead</p>
 <h2 id="rectangle" class="section-header"><a href="#rectangle"><code>rectangle</code></a></h2>
 <p>rectangle you intend to draw to</p>
 </div><h4 id="method.begin_paint_region" class="method"><code>pub fn <a href="#method.begin_paint_region" class="fnname">begin_paint_region</a>(&amp;self, region: &amp;<a class="struct" href="../cairo/region/struct.Region.html" title="struct cairo::region::Region">Region</a>)</code><a href="#method.begin_paint_region" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#252-256" title="goto source code">[src]</a></h4><div class="docblock"><p>Indicates that you are beginning the process of redrawing <code>region</code>.
@@ -76,43 +76,43 @@ A backing store (offscreen buffer) large enough to contain <code>region</code>
 will be created. The backing store will be initialized with the
 background color or background surface for <code>self</code>. Then, all
 drawing operations performed on <code>self</code> will be diverted to the
-backing store. When you call <a href="struct.Window.html#method.end_paint"><code>end_paint()</code></a>, the backing
+backing store. When you call <a href="struct.Window.html#method.end_paint" title="Self::end_paint()"><code>Self::end_paint()</code></a>, the backing
 store will be copied to <code>self</code>, making it visible onscreen. Only
 the part of <code>self</code> contained in <code>region</code> will be modified; that is,
 drawing operations are clipped to <code>region</code>.</p>
 <p>The net result of all this is to remove flicker, because the user
 sees the finished product appear all at once when you call
-<a href="struct.Window.html#method.end_paint"><code>end_paint()</code></a>. If you draw to <code>self</code> directly without
-calling <a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a>, the user may see flicker
+<a href="struct.Window.html#method.end_paint" title="Self::end_paint()"><code>Self::end_paint()</code></a>. If you draw to <code>self</code> directly without
+calling <a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a>, the user may see flicker
 as individual drawing operations are performed in sequence. The
 clipping and background-initializing features of
-<a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a> are conveniences for the
+<a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a> are conveniences for the
 programmer, so you can avoid doing that work yourself.</p>
 <p>When using GTK+, the widget system automatically places calls to
-<a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a> and <a href="struct.Window.html#method.end_paint"><code>end_paint()</code></a> around
+<a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a> and <a href="struct.Window.html#method.end_paint" title="Self::end_paint()"><code>Self::end_paint()</code></a> around
 emissions of the expose_event signal. That is, if you’re writing an
 expose event handler, you can assume that the exposed area in
-<a href="struct.EventExpose.html"><code>EventExpose</code></a> has already been cleared to the window background,
+<a href="struct.EventExpose.html" title="crate::EventExpose"><code>crate::EventExpose</code></a> has already been cleared to the window background,
 is already set as the clip region, and already has a backing store.
 Therefore in most cases, application code need not call
-<a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a>. (You can disable the automatic
+<a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a>. (You can disable the automatic
 calls around expose events on a widget-by-widget basis by calling
 <code>gtk_widget_set_double_buffered()</code>.)</p>
 <p>If you call this function multiple times before calling the
-matching <a href="struct.Window.html#method.end_paint"><code>end_paint()</code></a>, the backing stores are pushed onto
-a stack. <a href="struct.Window.html#method.end_paint"><code>end_paint()</code></a> copies the topmost backing store
+matching <a href="struct.Window.html#method.end_paint" title="Self::end_paint()"><code>Self::end_paint()</code></a>, the backing stores are pushed onto
+a stack. <a href="struct.Window.html#method.end_paint" title="Self::end_paint()"><code>Self::end_paint()</code></a> copies the topmost backing store
 onscreen, subtracts the topmost region from all other regions in
 the stack, and pops the stack. All drawing operations affect only
 the topmost backing store in the stack. One matching call to
-<a href="struct.Window.html#method.end_paint"><code>end_paint()</code></a> is required for each call to
-<a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a>.</p>
+<a href="struct.Window.html#method.end_paint" title="Self::end_paint()"><code>Self::end_paint()</code></a> is required for each call to
+<a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a>.</p>
 <h1 id="deprecated-since-322-1" class="section-header"><a href="#deprecated-since-322-1">Deprecated since 3.22</a></h1>
-<p>Use <a href="struct.Window.html#method.begin_draw_frame"><code>begin_draw_frame()</code></a> instead</p>
+<p>Use <a href="struct.Window.html#method.begin_draw_frame" title="Self::begin_draw_frame()"><code>Self::begin_draw_frame()</code></a> instead</p>
 <h2 id="region-1" class="section-header"><a href="#region-1"><code>region</code></a></h2>
 <p>region you intend to draw to</p>
 </div><h4 id="method.begin_resize_drag" class="method"><code>pub fn <a href="#method.begin_resize_drag" class="fnname">begin_resize_drag</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;edge: <a class="enum" href="enum.WindowEdge.html" title="enum gdk::WindowEdge">WindowEdge</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;button: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;root_x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;root_y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;timestamp: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><br>)</code><a href="#method.begin_resize_drag" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#274-292" title="goto source code">[src]</a></h4><div class="docblock"><p>Begins a window resize operation (for a toplevel window).</p>
 <p>This function assumes that the drag is controlled by the
-client pointer device, use <a href="struct.Window.html#method.begin_resize_drag_for_device"><code>begin_resize_drag_for_device()</code></a>
+client pointer device, use <a href="struct.Window.html#method.begin_resize_drag_for_device" title="Self::begin_resize_drag_for_device()"><code>Self::begin_resize_drag_for_device()</code></a>
 to begin a drag with a different device.</p>
 <h2 id="edge" class="section-header"><a href="#edge"><code>edge</code></a></h2>
 <p>the edge or corner from which the drag is started</p>
@@ -144,17 +144,17 @@ but has a fallback implementation for other window managers.</p>
 <p>timestamp of mouse click that began the drag (use <code>gdk_event_get_time()</code>)</p>
 </div><h4 id="method.coords_from_parent" class="method"><code>pub fn <a href="#method.coords_from_parent" class="fnname">coords_from_parent</a>(&amp;self, parent_x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, parent_y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.coords_from_parent" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#360-375" title="goto source code">[src]</a></h4><div class="docblock"><p>Transforms window coordinates from a parent window to a child
 window, where the parent window is the normal parent as returned by
-<a href="Self::get_parent()"><code>get_parent()</code></a> for normal windows, and the window’s
+[<code>Self::get_parent()</code>] for normal windows, and the window’s
 embedder as returned by <code>gdk_offscreen_window_get_embedder()</code> for
 offscreen windows.</p>
 <p>For normal windows, calling this function is equivalent to subtracting
-the return values of <a href="Self::get_position()"><code>get_position()</code></a> from the parent coordinates.
+the return values of [<code>Self::get_position()</code>] from the parent coordinates.
 For offscreen windows however (which can be arbitrarily transformed),
 this function calls the <code>Window</code>::from-embedder: signal to translate
 the coordinates.</p>
 <p>You should always use this function when writing generic code that
 walks down a window hierarchy.</p>
-<p>See also: <a href="struct.Window.html#method.coords_to_parent"><code>coords_to_parent()</code></a></p>
+<p>See also: <a href="struct.Window.html#method.coords_to_parent" title="Self::coords_to_parent()"><code>Self::coords_to_parent()</code></a></p>
 <h2 id="parent_x" class="section-header"><a href="#parent_x"><code>parent_x</code></a></h2>
 <p>X coordinate in parent’s coordinate system</p>
 <h2 id="parent_y" class="section-header"><a href="#parent_y"><code>parent_y</code></a></h2>
@@ -165,17 +165,17 @@ walks down a window hierarchy.</p>
 <p>return location for Y coordinate in child’s coordinate system</p>
 </div><h4 id="method.coords_to_parent" class="method"><code>pub fn <a href="#method.coords_to_parent" class="fnname">coords_to_parent</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.coords_to_parent" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#404-419" title="goto source code">[src]</a></h4><div class="docblock"><p>Transforms window coordinates from a child window to its parent
 window, where the parent window is the normal parent as returned by
-<a href="Self::get_parent()"><code>get_parent()</code></a> for normal windows, and the window’s
+[<code>Self::get_parent()</code>] for normal windows, and the window’s
 embedder as returned by <code>gdk_offscreen_window_get_embedder()</code> for
 offscreen windows.</p>
 <p>For normal windows, calling this function is equivalent to adding
-the return values of <a href="Self::get_position()"><code>get_position()</code></a> to the child coordinates.
+the return values of [<code>Self::get_position()</code>] to the child coordinates.
 For offscreen windows however (which can be arbitrarily transformed),
 this function calls the <code>Window</code>::to-embedder: signal to translate
 the coordinates.</p>
 <p>You should always use this function when writing generic code that
 walks up a window hierarchy.</p>
-<p>See also: <a href="struct.Window.html#method.coords_from_parent"><code>coords_from_parent()</code></a></p>
+<p>See also: <a href="struct.Window.html#method.coords_from_parent" title="Self::coords_from_parent()"><code>Self::coords_from_parent()</code></a></p>
 <h2 id="x-1" class="section-header"><a href="#x-1"><code>x</code></a></h2>
 <p>X coordinate in child’s coordinate system</p>
 <h2 id="y-1" class="section-header"><a href="#y-1"><code>y</code></a></h2>
@@ -186,18 +186,18 @@ in parent’s coordinate system, or <a href="https://doc.rust-lang.org/nightly/c
 <h2 id="parent_y-1" class="section-header"><a href="#parent_y-1"><code>parent_y</code></a></h2>
 <p>return location for Y coordinate
 in parent’s coordinate system, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
-</div><h4 id="method.create_gl_context" class="method"><code>pub fn <a href="#method.create_gl_context" class="fnname">create_gl_context</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="struct.GLContext.html" title="struct gdk::GLContext">GLContext</a>, <a class="struct" href="../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a href="#method.create_gl_context" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#437-447" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Creates a new <a href="struct.GLContext.html"><code>GLContext</code></a> matching the
-framebuffer format to the visual of the <a href="struct.Window.html"><code>Window</code></a>. The context
+</div><h4 id="method.create_gl_context" class="method"><code>pub fn <a href="#method.create_gl_context" class="fnname">create_gl_context</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="struct.GLContext.html" title="struct gdk::GLContext">GLContext</a>, <a class="struct" href="../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a href="#method.create_gl_context" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#437-447" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Creates a new <a href="struct.GLContext.html" title="crate::GLContext"><code>crate::GLContext</code></a> matching the
+framebuffer format to the visual of the <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>. The context
 is disconnected from any particular window or surface.</p>
-<p>If the creation of the <a href="struct.GLContext.html"><code>GLContext</code></a> failed, <code>error</code> will be set.</p>
-<p>Before using the returned <a href="struct.GLContext.html"><code>GLContext</code></a>, you will need to
-call <a href="struct.GLContext.html#method.make_current"><code>GLContext::make_current()</code></a> or <a href="struct.GLContext.html#method.realize"><code>GLContext::realize()</code></a>.</p>
+<p>If the creation of the <a href="struct.GLContext.html" title="crate::GLContext"><code>crate::GLContext</code></a> failed, <code>error</code> will be set.</p>
+<p>Before using the returned <a href="struct.GLContext.html" title="crate::GLContext"><code>crate::GLContext</code></a>, you will need to
+call <a href="struct.GLContext.html#method.make_current" title="crate::GLContext::make_current()"><code>crate::GLContext::make_current()</code></a> or <a href="struct.GLContext.html#method.realize" title="crate::GLContext::realize()"><code>crate::GLContext::realize()</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>the newly created <a href="struct.GLContext.html"><code>GLContext</code></a>, or
+<p>the newly created <a href="struct.GLContext.html" title="crate::GLContext"><code>crate::GLContext</code></a>, or
 <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> on error</p>
 </div><h4 id="method.deiconify" class="method"><code>pub fn <a href="#method.deiconify" class="fnname">deiconify</a>(&amp;self)</code><a href="#method.deiconify" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#455-459" title="goto source code">[src]</a></h4><div class="docblock"><p>Attempt to deiconify (unminimize) <code>self</code>. On X11 the window manager may
 choose to ignore the request to deiconify. When using GTK+,
-use <code>gtk_window_deiconify()</code> instead of the <a href="struct.Window.html"><code>Window</code></a> variant. Or better yet,
+use <code>gtk_window_deiconify()</code> instead of the <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> variant. Or better yet,
 you probably want to use <code>gtk_window_present_with_time()</code>, which raises the window, focuses it,
 unminimizes it, and puts it on the current desktop.</p>
 </div><h4 id="method.destroy" class="method"><code>pub fn <a href="#method.destroy" class="fnname">destroy</a>(&amp;self)</code><a href="#method.destroy" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#468-472" title="goto source code">[src]</a></h4><div class="docblock"><p>Destroys the window system resources associated with <code>self</code> and decrements <code>self</code>’s
@@ -207,18 +207,18 @@ destroyed, but the children’s reference counts are not decremented.</p>
 reaches zero. You must call this function yourself before that happens.</p>
 </div><h4 id="method.destroy_notify" class="method"><code>pub fn <a href="#method.destroy_notify" class="fnname">destroy_notify</a>(&amp;self)</code><a href="#method.destroy_notify" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#475-479" title="goto source code">[src]</a></h4><h4 id="method.end_draw_frame" class="method"><code>pub fn <a href="#method.end_draw_frame" class="fnname">end_draw_frame</a>(&amp;self, context: &amp;<a class="struct" href="struct.DrawingContext.html" title="struct gdk::DrawingContext">DrawingContext</a>)</code><a href="#method.end_draw_frame" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#493-497" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_22</code></strong> only.</div></div><div class="docblock"><p>Indicates that the drawing of the contents of <code>self</code> started with
 <code>gdk_window_begin_frame()</code> has been completed.</p>
-<p>This function will take care of destroying the <a href="struct.DrawingContext.html"><code>DrawingContext</code></a>.</p>
+<p>This function will take care of destroying the <a href="struct.DrawingContext.html" title="crate::DrawingContext"><code>crate::DrawingContext</code></a>.</p>
 <p>It is an error to call this function without a matching
 <code>gdk_window_begin_frame()</code> first.</p>
 <h2 id="context" class="section-header"><a href="#context"><code>context</code></a></h2>
-<p>the <a href="struct.DrawingContext.html"><code>DrawingContext</code></a> created by <a href="struct.Window.html#method.begin_draw_frame"><code>begin_draw_frame()</code></a></p>
+<p>the <a href="struct.DrawingContext.html" title="crate::DrawingContext"><code>crate::DrawingContext</code></a> created by <a href="struct.Window.html#method.begin_draw_frame" title="Self::begin_draw_frame()"><code>Self::begin_draw_frame()</code></a></p>
 </div><h4 id="method.end_paint" class="method"><code>pub fn <a href="#method.end_paint" class="fnname">end_paint</a>(&amp;self)</code><a href="#method.end_paint" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#508-512" title="goto source code">[src]</a></h4><div class="docblock"><p>Indicates that the backing store created by the most recent call
-to <a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a> should be copied onscreen and
+to <a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a> should be copied onscreen and
 deleted, leaving the next-most-recent backing store or no backing
 store at all as the active paint region. See
-<a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a> for full details.</p>
+<a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a> for full details.</p>
 <p>It is an error to call this function without a matching
-<a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a> first.</p>
+<a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a> first.</p>
 </div><h4 id="method.ensure_native" class="method"><code>pub fn <a href="#method.ensure_native" class="fnname">ensure_native</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.ensure_native" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#525-527" title="goto source code">[src]</a></h4><div class="docblock"><p>Tries to ensure that there is a window-system native window for this
 <code>Window</code>. This may fail in some situations, returning <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>.</p>
 <p>Offscreen window and children of them can never have native windows.</p>
@@ -231,10 +231,10 @@ should be used on a <code>GtkWindow</code>, rather than calling this function.</
 <p>timestamp of the event triggering the window focus</p>
 </div><h4 id="method.freeze_toplevel_updates_libgtk_only" class="method"><code>pub fn <a href="#method.freeze_toplevel_updates_libgtk_only" class="fnname">freeze_toplevel_updates_libgtk_only</a>(&amp;self)</code><a href="#method.freeze_toplevel_updates_libgtk_only" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#556-560" title="goto source code">[src]</a></h4><div class="docblock"><p>Temporarily freezes a window and all its descendants such that it won’t
 receive expose events. The window will begin receiving expose events
-again when <a href="struct.Window.html#method.thaw_toplevel_updates_libgtk_only"><code>thaw_toplevel_updates_libgtk_only()</code></a> is called. If
-<a href="struct.Window.html#method.freeze_toplevel_updates_libgtk_only"><code>freeze_toplevel_updates_libgtk_only()</code></a>
+again when <a href="struct.Window.html#method.thaw_toplevel_updates_libgtk_only" title="Self::thaw_toplevel_updates_libgtk_only()"><code>Self::thaw_toplevel_updates_libgtk_only()</code></a> is called. If
+<a href="struct.Window.html#method.freeze_toplevel_updates_libgtk_only" title="Self::freeze_toplevel_updates_libgtk_only()"><code>Self::freeze_toplevel_updates_libgtk_only()</code></a>
 has been called more than once,
-<a href="struct.Window.html#method.thaw_toplevel_updates_libgtk_only"><code>thaw_toplevel_updates_libgtk_only()</code></a> must be called
+<a href="struct.Window.html#method.thaw_toplevel_updates_libgtk_only" title="Self::thaw_toplevel_updates_libgtk_only()"><code>Self::thaw_toplevel_updates_libgtk_only()</code></a> must be called
 an equal number of times to begin processing exposes.</p>
 <p>This function is not part of the GDK public API and is only
 for use by GTK+.</p>
@@ -242,8 +242,8 @@ for use by GTK+.</p>
 <p>This symbol was never meant to be used outside of GTK+</p>
 </div><h4 id="method.freeze_updates" class="method"><code>pub fn <a href="#method.freeze_updates" class="fnname">freeze_updates</a>(&amp;self)</code><a href="#method.freeze_updates" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#568-572" title="goto source code">[src]</a></h4><div class="docblock"><p>Temporarily freezes a window such that it won’t receive expose
 events. The window will begin receiving expose events again when
-<a href="struct.Window.html#method.thaw_updates"><code>thaw_updates()</code></a> is called. If <a href="struct.Window.html#method.freeze_updates"><code>freeze_updates()</code></a>
-has been called more than once, <a href="struct.Window.html#method.thaw_updates"><code>thaw_updates()</code></a> must be called
+<a href="struct.Window.html#method.thaw_updates" title="Self::thaw_updates()"><code>Self::thaw_updates()</code></a> is called. If <a href="struct.Window.html#method.freeze_updates" title="Self::freeze_updates()"><code>Self::freeze_updates()</code></a>
+has been called more than once, <a href="struct.Window.html#method.thaw_updates" title="Self::thaw_updates()"><code>Self::thaw_updates()</code></a> must be called
 an equal number of times to begin processing exposes.</p>
 </div><h4 id="method.fullscreen" class="method"><code>pub fn <a href="#method.fullscreen" class="fnname">fullscreen</a>(&amp;self)</code><a href="#method.fullscreen" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#588-592" title="goto source code">[src]</a></h4><div class="docblock"><p>Moves the window into fullscreen mode. This means the
 window covers the entire screen and is above any panels
@@ -282,52 +282,52 @@ other factors such as if the window is obscured by other windows,
 but no area outside of this region will be affected by drawing
 primitives.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
-<p>a <a href="../cairo/region/struct.Region.html"><code>cairo::Region</code></a>. This must be freed with <code>cairo_region_destroy()</code>
+<p>a <a href="../cairo/region/struct.Region.html" title="crate::cairo::Region"><code>crate::cairo::Region</code></a>. This must be freed with <code>cairo_region_destroy()</code>
 when you are done.</p>
 </div><h4 id="method.is_composited" class="method"><code>pub fn <a href="#method.is_composited" class="fnname">is_composited</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.is_composited" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#690-692" title="goto source code">[src]</a></h4><div class="docblock"><p>Determines whether <code>self</code> is composited.</p>
-<p>See <a href="struct.Window.html#method.set_composited"><code>set_composited()</code></a>.</p>
+<p>See <a href="struct.Window.html#method.set_composited" title="Self::set_composited()"><code>Self::set_composited()</code></a>.</p>
 <h1 id="deprecated-since-316-1" class="section-header"><a href="#deprecated-since-316-1">Deprecated since 3.16</a></h1>
 <p>Compositing is an outdated technology that
 only ever worked on X11.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window is composited.</p>
-</div><h4 id="method.cursor" class="method"><code>pub fn <a href="#method.cursor" class="fnname">cursor</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a>&gt;</code><a href="#method.cursor" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#707-709" title="goto source code">[src]</a></h4><div class="docblock"><p>Retrieves a <a href="struct.Cursor.html"><code>Cursor</code></a> pointer for the cursor currently set on the
-specified <a href="struct.Window.html"><code>Window</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. If the return value is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then
+</div><h4 id="method.cursor" class="method"><code>pub fn <a href="#method.cursor" class="fnname">cursor</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a>&gt;</code><a href="#method.cursor" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#707-709" title="goto source code">[src]</a></h4><div class="docblock"><p>Retrieves a <a href="struct.Cursor.html" title="crate::Cursor"><code>crate::Cursor</code></a> pointer for the cursor currently set on the
+specified <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. If the return value is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then
 there is no custom cursor set on the specified window, and it is
 using the cursor for its parent window.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
-<p>a <a href="struct.Cursor.html"><code>Cursor</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. The
-returned object is owned by the <a href="struct.Window.html"><code>Window</code></a> and should not be
-unreferenced directly. Use <a href="struct.Window.html#method.set_cursor"><code>set_cursor()</code></a> to unset the
+<p>a <a href="struct.Cursor.html" title="crate::Cursor"><code>crate::Cursor</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. The
+returned object is owned by the <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> and should not be
+unreferenced directly. Use <a href="struct.Window.html#method.set_cursor" title="Self::set_cursor()"><code>Self::set_cursor()</code></a> to unset the
 cursor of the window</p>
 </div><h4 id="method.decorations" class="method"><code>pub fn <a href="#method.decorations" class="fnname">decorations</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.WMDecoration.html" title="struct gdk::WMDecoration">WMDecoration</a>&gt;</code><a href="#method.decorations" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#721-735" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the decorations set on the <code>Window</code> with
-<a href="struct.Window.html#method.set_decorations"><code>set_decorations()</code></a>.</p>
+<a href="struct.Window.html#method.set_decorations" title="Self::set_decorations()"><code>Self::set_decorations()</code></a>.</p>
 <h2 id="decorations" class="section-header"><a href="#decorations"><code>decorations</code></a></h2>
 <p>The window decorations will be written here</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window has decorations set, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
-</div><h4 id="method.device_cursor" class="method"><code>pub fn <a href="#method.device_cursor" class="fnname">device_cursor</a>(&amp;self, device: &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a>&gt;</code><a href="#method.device_cursor" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#752-759" title="goto source code">[src]</a></h4><div class="docblock"><p>Retrieves a <a href="struct.Cursor.html"><code>Cursor</code></a> pointer for the <code>device</code> currently set on the
-specified <a href="struct.Window.html"><code>Window</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. If the return value is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then
+</div><h4 id="method.device_cursor" class="method"><code>pub fn <a href="#method.device_cursor" class="fnname">device_cursor</a>(&amp;self, device: &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a>&gt;</code><a href="#method.device_cursor" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#752-759" title="goto source code">[src]</a></h4><div class="docblock"><p>Retrieves a <a href="struct.Cursor.html" title="crate::Cursor"><code>crate::Cursor</code></a> pointer for the <code>device</code> currently set on the
+specified <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. If the return value is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then
 there is no custom cursor set on the specified window, and it is
 using the cursor for its parent window.</p>
 <h2 id="device-2" class="section-header"><a href="#device-2"><code>device</code></a></h2>
-<p>a master, pointer <a href="struct.Device.html"><code>Device</code></a>.</p>
+<p>a master, pointer <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a>.</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
-<p>a <a href="struct.Cursor.html"><code>Cursor</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. The
-returned object is owned by the <a href="struct.Window.html"><code>Window</code></a> and should not be
-unreferenced directly. Use <a href="struct.Window.html#method.set_cursor"><code>set_cursor()</code></a> to unset the
+<p>a <a href="struct.Cursor.html" title="crate::Cursor"><code>crate::Cursor</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. The
+returned object is owned by the <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> and should not be
+unreferenced directly. Use <a href="struct.Window.html#method.set_cursor" title="Self::set_cursor()"><code>Self::set_cursor()</code></a> to unset the
 cursor of the window</p>
 </div><h4 id="method.device_events" class="method"><code>pub fn <a href="#method.device_events" class="fnname">device_events</a>(&amp;self, device: &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>) -&gt; <a class="struct" href="struct.EventMask.html" title="struct gdk::EventMask">EventMask</a></code><a href="#method.device_events" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#770-777" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the event mask for <code>self</code> corresponding to an specific device.</p>
 <h2 id="device-3" class="section-header"><a href="#device-3"><code>device</code></a></h2>
-<p>a <a href="struct.Device.html"><code>Device</code></a>.</p>
+<p>a <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a>.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
 <p>device event mask for <code>self</code></p>
 </div><h4 id="method.device_position" class="method"><code>pub fn <a href="#method.device_position" class="fnname">device_position</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;device: &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="struct" href="struct.ModifierType.html" title="struct gdk::ModifierType">ModifierType</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.device_position" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#800-817" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the current device position and modifier state.
 The position is given in coordinates relative to the upper left
 corner of <code>self</code>.</p>
-<p>Use <a href="Self::get_device_position_double()"><code>get_device_position_double()</code></a> if you need subpixel precision.</p>
+<p>Use [<code>Self::get_device_position_double()</code>] if you need subpixel precision.</p>
 <h2 id="device-4" class="section-header"><a href="#device-4"><code>device</code></a></h2>
-<p>pointer <a href="struct.Device.html"><code>Device</code></a> to query to.</p>
+<p>pointer <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a> to query to.</p>
 <h2 id="x-2" class="section-header"><a href="#x-2"><code>x</code></a></h2>
 <p>return location for the X coordinate of <code>device</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h2 id="y-2" class="section-header"><a href="#y-2"><code>y</code></a></h2>
@@ -336,13 +336,13 @@ corner of <code>self</code>.</p>
 <p>return location for the modifier mask, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>
 <p>The window underneath <code>device</code>
-(as with <a href="crate::Device::get_window_at_position()"><code>Device::get_window_at_position()</code></a>), or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the
+(as with [<code>crate::Device::get_window_at_position()</code>]), or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the
 window is not known to GDK.</p>
 </div><h4 id="method.device_position_double" class="method"><code>pub fn <a href="#method.device_position_double" class="fnname">device_position_double</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;device: &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="struct" href="struct.ModifierType.html" title="struct gdk::ModifierType">ModifierType</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.device_position_double" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#838-858" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the current device position in doubles and modifier state.
 The position is given in coordinates relative to the upper left
 corner of <code>self</code>.</p>
 <h2 id="device-5" class="section-header"><a href="#device-5"><code>device</code></a></h2>
-<p>pointer <a href="struct.Device.html"><code>Device</code></a> to query to.</p>
+<p>pointer <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a> to query to.</p>
 <h2 id="x-3" class="section-header"><a href="#x-3"><code>x</code></a></h2>
 <p>return location for the X coordinate of <code>device</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h2 id="y-3" class="section-header"><a href="#y-3"><code>y</code></a></h2>
@@ -351,11 +351,11 @@ corner of <code>self</code>.</p>
 <p>return location for the modifier mask, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h1 id="returns-12" class="section-header"><a href="#returns-12">Returns</a></h1>
 <p>The window underneath <code>device</code>
-(as with <a href="crate::Device::get_window_at_position()"><code>Device::get_window_at_position()</code></a>), or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the
+(as with [<code>crate::Device::get_window_at_position()</code>]), or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the
 window is not known to GDK.</p>
-</div><h4 id="method.display" class="method"><code>pub fn <a href="#method.display" class="fnname">display</a>(&amp;self) -&gt; <a class="struct" href="struct.Display.html" title="struct gdk::Display">Display</a></code><a href="#method.display" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#867-869" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <a href="struct.Display.html"><code>Display</code></a> associated with a <a href="struct.Window.html"><code>Window</code></a>.</p>
+</div><h4 id="method.display" class="method"><code>pub fn <a href="#method.display" class="fnname">display</a>(&amp;self) -&gt; <a class="struct" href="struct.Display.html" title="struct gdk::Display">Display</a></code><a href="#method.display" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#867-869" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <a href="struct.Display.html" title="crate::Display"><code>crate::Display</code></a> associated with a <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>.</p>
 <h1 id="returns-13" class="section-header"><a href="#returns-13">Returns</a></h1>
-<p>the <a href="struct.Display.html"><code>Display</code></a> associated with <code>self</code></p>
+<p>the <a href="struct.Display.html" title="crate::Display"><code>crate::Display</code></a> associated with <code>self</code></p>
 </div><h4 id="method.drag_protocol" class="method"><code>pub fn <a href="#method.drag_protocol" class="fnname">drag_protocol</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="enum" href="enum.DragProtocol.html" title="enum gdk::DragProtocol">DragProtocol</a>, <a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.drag_protocol" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#882-891" title="goto source code">[src]</a></h4><div class="docblock"><p>Finds out the DND protocol supported by a window.</p>
 <h2 id="target" class="section-header"><a href="#target"><code>target</code></a></h2>
 <p>location of the window
@@ -364,14 +364,14 @@ or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#varia
 <h1 id="returns-14" class="section-header"><a href="#returns-14">Returns</a></h1>
 <p>the supported DND protocol.</p>
 </div><h4 id="method.effective_parent" class="method"><code>pub fn <a href="#method.effective_parent" class="fnname">effective_parent</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;</code><a href="#method.effective_parent" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#904-906" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the parent of <code>self</code>, as known to GDK. Works like
-<a href="Self::get_parent()"><code>get_parent()</code></a> for normal windows, but returns the
+[<code>Self::get_parent()</code>] for normal windows, but returns the
 window’s embedder for offscreen windows.</p>
 <p>See also: <code>gdk_offscreen_window_get_embedder()</code></p>
 <h1 id="returns-15" class="section-header"><a href="#returns-15">Returns</a></h1>
 <p>effective parent of <code>self</code></p>
 </div><h4 id="method.effective_toplevel" class="method"><code>pub fn <a href="#method.effective_toplevel" class="fnname">effective_toplevel</a>(&amp;self) -&gt; <a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a></code><a href="#method.effective_toplevel" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#920-926" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the toplevel window that’s an ancestor of <code>self</code>.</p>
-<p>Works like <a href="Self::get_toplevel()"><code>get_toplevel()</code></a>, but treats an offscreen window’s
-embedder as its parent, using <a href="Self::get_effective_parent()"><code>get_effective_parent()</code></a>.</p>
+<p>Works like [<code>Self::get_toplevel()</code>], but treats an offscreen window’s
+embedder as its parent, using [<code>Self::get_effective_parent()</code>].</p>
 <p>See also: <code>gdk_offscreen_window_get_embedder()</code></p>
 <h1 id="returns-16" class="section-header"><a href="#returns-16">Returns</a></h1>
 <p>the effective toplevel window containing <code>self</code></p>
@@ -379,7 +379,7 @@ embedder as its parent, using <a href="Self::get_effective_parent()"><code>get_e
 <h1 id="returns-17" class="section-header"><a href="#returns-17">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if motion events will be compressed</p>
 </div><h4 id="method.events" class="method"><code>pub fn <a href="#method.events" class="fnname">events</a>(&amp;self) -&gt; <a class="struct" href="struct.EventMask.html" title="struct gdk::EventMask">EventMask</a></code><a href="#method.events" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#947-949" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the event mask for <code>self</code> for all master input devices. See
-<a href="struct.Window.html#method.set_events"><code>set_events()</code></a>.</p>
+<a href="struct.Window.html#method.set_events" title="Self::set_events()"><code>Self::set_events()</code></a>.</p>
 <h1 id="returns-18" class="section-header"><a href="#returns-18">Returns</a></h1>
 <p>event mask for <code>self</code></p>
 </div><h4 id="method.gets_focus_on_map" class="method"><code>pub fn <a href="#method.gets_focus_on_map" class="fnname">gets_focus_on_map</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.gets_focus_on_map" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#960-962" title="goto source code">[src]</a></h4><div class="docblock"><p>Determines whether or not the desktop environment should be hinted that the
@@ -395,12 +395,12 @@ window.</p>
 </div><h4 id="method.frame_extents" class="method"><code>pub fn <a href="#method.frame_extents" class="fnname">frame_extents</a>(&amp;self) -&gt; <a class="struct" href="struct.Rectangle.html" title="struct gdk::Rectangle">Rectangle</a></code><a href="#method.frame_extents" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#985-991" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the bounding box of the window, including window manager
 titlebar/borders if any. The frame position is given in root window
 coordinates. To get the position of the window itself (rather than
-the frame) in root window coordinates, use <a href="Self::get_origin()"><code>get_origin()</code></a>.</p>
+the frame) in root window coordinates, use [<code>Self::get_origin()</code>].</p>
 <h2 id="rect" class="section-header"><a href="#rect"><code>rect</code></a></h2>
 <p>rectangle to fill with bounding box of the window frame</p>
-</div><h4 id="method.fullscreen_mode" class="method"><code>pub fn <a href="#method.fullscreen_mode" class="fnname">fullscreen_mode</a>(&amp;self) -&gt; <a class="enum" href="enum.FullscreenMode.html" title="enum gdk::FullscreenMode">FullscreenMode</a></code><a href="#method.fullscreen_mode" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1000-1002" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the <a href="enum.FullscreenMode.html"><code>FullscreenMode</code></a> of the <code>self</code>.</p>
+</div><h4 id="method.fullscreen_mode" class="method"><code>pub fn <a href="#method.fullscreen_mode" class="fnname">fullscreen_mode</a>(&amp;self) -&gt; <a class="enum" href="enum.FullscreenMode.html" title="enum gdk::FullscreenMode">FullscreenMode</a></code><a href="#method.fullscreen_mode" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1000-1002" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the <a href="enum.FullscreenMode.html" title="crate::FullscreenMode"><code>crate::FullscreenMode</code></a> of the <code>self</code>.</p>
 <h1 id="returns-21" class="section-header"><a href="#returns-21">Returns</a></h1>
-<p>The <a href="enum.FullscreenMode.html"><code>FullscreenMode</code></a> applied to the window when fullscreen.</p>
+<p>The <a href="enum.FullscreenMode.html" title="crate::FullscreenMode"><code>crate::FullscreenMode</code></a> applied to the window when fullscreen.</p>
 </div><h4 id="method.geometry" class="method"><code>pub fn <a href="#method.geometry" class="fnname">geometry</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.geometry" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1034-1053" title="goto source code">[src]</a></h4><div class="docblock"><p>Any of the return location arguments to this function may be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>,
 if you aren’t interested in getting the value of that field.</p>
 <p>The X and Y coordinates returned are relative to the parent window
@@ -410,13 +410,13 @@ root window (screen-size background window).</p>
 <p>On the X11 platform, the geometry is obtained from the X server,
 so reflects the latest position of <code>self</code>; this may be out-of-sync
 with the position of <code>self</code> delivered in the most-recently-processed
-<a href="struct.EventConfigure.html"><code>EventConfigure</code></a>. <a href="Self::get_position()"><code>get_position()</code></a> in contrast gets the
+<a href="struct.EventConfigure.html" title="crate::EventConfigure"><code>crate::EventConfigure</code></a>. [<code>Self::get_position()</code>] in contrast gets the
 position from the most recent configure event.</p>
 <p>Note: If <code>self</code> is not a toplevel, it is much better
-to call <a href="Self::get_position()"><code>get_position()</code></a>, <a href="Self::get_width()"><code>get_width()</code></a> and
-<a href="Self::get_height()"><code>get_height()</code></a> instead, because it avoids the roundtrip to
+to call [<code>Self::get_position()</code>], [<code>Self::get_width()</code>] and
+[<code>Self::get_height()</code>] instead, because it avoids the roundtrip to
 the X server and because these functions support the full 32-bit
-coordinate space, whereas <a href="Self::get_geometry()"><code>get_geometry()</code></a> is restricted to
+coordinate space, whereas [<code>Self::get_geometry()</code>] is restricted to
 the 16-bit coordinates of X11.</p>
 <h2 id="x-4" class="section-header"><a href="#x-4"><code>x</code></a></h2>
 <p>return location for X coordinate of window (relative to its parent)</p>
@@ -426,7 +426,7 @@ the 16-bit coordinates of X11.</p>
 <p>return location for width of window</p>
 <h2 id="height" class="section-header"><a href="#height"><code>height</code></a></h2>
 <p>return location for height of window</p>
-</div><h4 id="method.group" class="method"><code>pub fn <a href="#method.group" class="fnname">group</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;</code><a href="#method.group" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1062-1064" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the group leader window for <code>self</code>. See <a href="struct.Window.html#method.set_group"><code>set_group()</code></a>.</p>
+</div><h4 id="method.group" class="method"><code>pub fn <a href="#method.group" class="fnname">group</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;</code><a href="#method.group" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1062-1064" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the group leader window for <code>self</code>. See <a href="struct.Window.html#method.set_group" title="Self::set_group()"><code>Self::set_group()</code></a>.</p>
 <h1 id="returns-22" class="section-header"><a href="#returns-22">Returns</a></h1>
 <p>the group leader window for <code>self</code></p>
 </div><h4 id="method.height" class="method"><code>pub fn <a href="#method.height" class="fnname">height</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a href="#method.height" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1077-1079" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the height of the given <code>self</code>.</p>
@@ -440,8 +440,8 @@ has modal behaviour.</p>
 <h1 id="returns-24" class="section-header"><a href="#returns-24">Returns</a></h1>
 <p>whether or not the window has the modal hint set.</p>
 </div><h4 id="method.origin" class="method"><code>pub fn <a href="#method.origin" class="fnname">origin</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.origin" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1107-1117" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the position of a window in root window coordinates.
-(Compare with <a href="Self::get_position()"><code>get_position()</code></a> and
-<a href="Self::get_geometry()"><code>get_geometry()</code></a> which return the position of a window
+(Compare with [<code>Self::get_position()</code>] and
+[<code>Self::get_geometry()</code>] which return the position of a window
 relative to its parent window.)</p>
 <h2 id="x-5" class="section-header"><a href="#x-5"><code>x</code></a></h2>
 <p>return location for X coordinate</p>
@@ -450,23 +450,23 @@ relative to its parent window.)</p>
 <h1 id="returns-25" class="section-header"><a href="#returns-25">Returns</a></h1>
 <p>not meaningful, ignore</p>
 </div><h4 id="method.parent" class="method"><code>pub fn <a href="#method.parent" class="fnname">parent</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;</code><a href="#method.parent" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1136-1138" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the parent of <code>self</code>, as known to GDK. Does not query the
-X server; thus this returns the parent as passed to <a href="struct.Window.html#method.new"><code>new()</code></a>,
+X server; thus this returns the parent as passed to <a href="struct.Window.html#method.new" title="Self::new()"><code>Self::new()</code></a>,
 not the actual parent. This should never matter unless you’re using
 Xlib calls mixed with GDK calls on the X11 platform. It may also
 matter for toplevel windows, because the window manager may choose
 to reparent them.</p>
-<p>Note that you should use <a href="Self::get_effective_parent()"><code>get_effective_parent()</code></a> when
+<p>Note that you should use [<code>Self::get_effective_parent()</code>] when
 writing generic code that walks up a window hierarchy, because
-<a href="Self::get_parent()"><code>get_parent()</code></a> will most likely not do what you expect if
+[<code>Self::get_parent()</code>] will most likely not do what you expect if
 there are offscreen windows in the hierarchy.</p>
 <h1 id="returns-26" class="section-header"><a href="#returns-26">Returns</a></h1>
 <p>parent of <code>self</code></p>
 </div><h4 id="method.is_pass_through" class="method"><code>pub fn <a href="#method.is_pass_through" class="fnname">is_pass_through</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.is_pass_through" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1148-1150" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_18</code></strong> only.</div></div><div class="docblock"><p>Returns whether input to the window is passed through to the window
 below.</p>
-<p>See <a href="struct.Window.html#method.set_pass_through"><code>set_pass_through()</code></a> for details</p>
+<p>See <a href="struct.Window.html#method.set_pass_through" title="Self::set_pass_through()"><code>Self::set_pass_through()</code></a> for details</p>
 </div><h4 id="method.position" class="method"><code>pub fn <a href="#method.position" class="fnname">position</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.position" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1165-1174" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the position of the window as reported in the
-most-recently-processed <a href="struct.EventConfigure.html"><code>EventConfigure</code></a>. Contrast with
-<a href="Self::get_geometry()"><code>get_geometry()</code></a> which queries the X server for the
+most-recently-processed <a href="struct.EventConfigure.html" title="crate::EventConfigure"><code>crate::EventConfigure</code></a>. Contrast with
+[<code>Self::get_geometry()</code>] which queries the X server for the
 current window position, regardless of which events have been
 received or processed.</p>
 <p>The position coordinates are relative to the window’s parent window.</p>
@@ -476,7 +476,7 @@ received or processed.</p>
 <p>Y coordinate of window</p>
 </div><h4 id="method.root_coords" class="method"><code>pub fn <a href="#method.root_coords" class="fnname">root_coords</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.root_coords" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1190-1205" title="goto source code">[src]</a></h4><div class="docblock"><p>Obtains the position of a window position in root
 window coordinates. This is similar to
-<a href="Self::get_origin()"><code>get_origin()</code></a> but allows you to pass
+[<code>Self::get_origin()</code>] but allows you to pass
 in any position in the window, not just the origin.</p>
 <h2 id="x-7" class="section-header"><a href="#x-7"><code>x</code></a></h2>
 <p>X coordinate in window</p>
@@ -504,17 +504,17 @@ with higher resolution data.</p>
 a configure event will be sent to the toplevel window.</p>
 <h1 id="returns-27" class="section-header"><a href="#returns-27">Returns</a></h1>
 <p>the scale factor</p>
-</div><h4 id="method.screen" class="method"><code>pub fn <a href="#method.screen" class="fnname">screen</a>(&amp;self) -&gt; <a class="struct" href="struct.Screen.html" title="struct gdk::Screen">Screen</a></code><a href="#method.screen" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1255-1257" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <a href="struct.Screen.html"><code>Screen</code></a> associated with a <a href="struct.Window.html"><code>Window</code></a>.</p>
+</div><h4 id="method.screen" class="method"><code>pub fn <a href="#method.screen" class="fnname">screen</a>(&amp;self) -&gt; <a class="struct" href="struct.Screen.html" title="struct gdk::Screen">Screen</a></code><a href="#method.screen" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1255-1257" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <a href="struct.Screen.html" title="crate::Screen"><code>crate::Screen</code></a> associated with a <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>.</p>
 <h1 id="returns-28" class="section-header"><a href="#returns-28">Returns</a></h1>
-<p>the <a href="struct.Screen.html"><code>Screen</code></a> associated with <code>self</code></p>
+<p>the <a href="struct.Screen.html" title="crate::Screen"><code>crate::Screen</code></a> associated with <code>self</code></p>
 </div><h4 id="method.source_events" class="method"><code>pub fn <a href="#method.source_events" class="fnname">source_events</a>(&amp;self, source: <a class="enum" href="enum.InputSource.html" title="enum gdk::InputSource">InputSource</a>) -&gt; <a class="struct" href="struct.EventMask.html" title="struct gdk::EventMask">EventMask</a></code><a href="#method.source_events" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1269-1276" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the event mask for <code>self</code> corresponding to the device class specified
 by <code>source</code>.</p>
 <h2 id="source" class="section-header"><a href="#source"><code>source</code></a></h2>
-<p>a <a href="enum.InputSource.html"><code>InputSource</code></a> to define the source class.</p>
+<p>a <a href="enum.InputSource.html" title="crate::InputSource"><code>crate::InputSource</code></a> to define the source class.</p>
 <h1 id="returns-29" class="section-header"><a href="#returns-29">Returns</a></h1>
 <p>source event mask for <code>self</code></p>
 </div><h4 id="method.state" class="method"><code>pub fn <a href="#method.state" class="fnname">state</a>(&amp;self) -&gt; <a class="struct" href="struct.WindowState.html" title="struct gdk::WindowState">WindowState</a></code><a href="#method.state" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1286-1288" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the bitwise OR of the currently active window state flags,
-from the <a href="struct.WindowState.html"><code>WindowState</code></a> enumeration.</p>
+from the <a href="struct.WindowState.html" title="crate::WindowState"><code>crate::WindowState</code></a> enumeration.</p>
 <h1 id="returns-30" class="section-header"><a href="#returns-30">Returns</a></h1>
 <p>window state bitfield</p>
 </div><h4 id="method.supports_multidevice" class="method"><code>pub fn <a href="#method.supports_multidevice" class="fnname">supports_multidevice</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.supports_multidevice" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1298-1304" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window is aware of the existence of multiple
@@ -522,12 +522,12 @@ devices.</p>
 <h1 id="returns-31" class="section-header"><a href="#returns-31">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window handles multidevice features.</p>
 </div><h4 id="method.toplevel" class="method"><code>pub fn <a href="#method.toplevel" class="fnname">toplevel</a>(&amp;self) -&gt; <a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a></code><a href="#method.toplevel" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1322-1324" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the toplevel window that’s an ancestor of <code>self</code>.</p>
-<p>Any window type but <a href="enum.WindowType.html#variant.Child" title="WindowType::Child"><code>WindowType::Child</code></a> is considered a
-toplevel window, as is a <a href="enum.WindowType.html#variant.Child" title="WindowType::Child"><code>WindowType::Child</code></a> window that
+<p>Any window type but <a href="enum.WindowType.html#variant.Child" title="crate::WindowType::Child"><code>crate::WindowType::Child</code></a> is considered a
+toplevel window, as is a <a href="enum.WindowType.html#variant.Child" title="crate::WindowType::Child"><code>crate::WindowType::Child</code></a> window that
 has a root window as parent.</p>
-<p>Note that you should use <a href="Self::get_effective_toplevel()"><code>get_effective_toplevel()</code></a> when
+<p>Note that you should use [<code>Self::get_effective_toplevel()</code>] when
 you want to get to a window’s toplevel as seen on screen, because
-<a href="Self::get_toplevel()"><code>get_toplevel()</code></a> will most likely not do what you expect
+[<code>Self::get_toplevel()</code>] will most likely not do what you expect
 if there are offscreen windows in the hierarchy.</p>
 <h1 id="returns-32" class="section-header"><a href="#returns-32">Returns</a></h1>
 <p>the toplevel window containing <code>self</code></p>
@@ -538,7 +538,7 @@ if there are offscreen windows in the hierarchy.</p>
 of the function. That is, after calling this function, <code>self</code> will
 no longer have an invalid/dirty region; the update area is removed
 from <code>self</code> and handed to you. If a window has no update area,
-<a href="Self::get_update_area()"><code>get_update_area()</code></a> returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. You are responsible for
+[<code>Self::get_update_area()</code>] returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. You are responsible for
 calling <code>cairo_region_destroy()</code> on the returned region if it’s non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h1 id="returns-34" class="section-header"><a href="#returns-34">Returns</a></h1>
 <p>the update area for <code>self</code></p>
@@ -547,22 +547,22 @@ This does not necessarily take into account if the window is
 obscured by other windows, but no area outside of this region
 is visible.</p>
 <h1 id="returns-35" class="section-header"><a href="#returns-35">Returns</a></h1>
-<p>a <a href="../cairo/region/struct.Region.html"><code>cairo::Region</code></a>. This must be freed with <code>cairo_region_destroy()</code>
+<p>a <a href="../cairo/region/struct.Region.html" title="crate::cairo::Region"><code>crate::cairo::Region</code></a>. This must be freed with <code>cairo_region_destroy()</code>
 when you are done.</p>
-</div><h4 id="method.visual" class="method"><code>pub fn <a href="#method.visual" class="fnname">visual</a>(&amp;self) -&gt; <a class="struct" href="struct.Visual.html" title="struct gdk::Visual">Visual</a></code><a href="#method.visual" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1375-1377" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <a href="struct.Visual.html"><code>Visual</code></a> describing the pixel format of <code>self</code>.</p>
+</div><h4 id="method.visual" class="method"><code>pub fn <a href="#method.visual" class="fnname">visual</a>(&amp;self) -&gt; <a class="struct" href="struct.Visual.html" title="struct gdk::Visual">Visual</a></code><a href="#method.visual" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1375-1377" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <a href="struct.Visual.html" title="crate::Visual"><code>crate::Visual</code></a> describing the pixel format of <code>self</code>.</p>
 <h1 id="returns-36" class="section-header"><a href="#returns-36">Returns</a></h1>
-<p>a <a href="struct.Visual.html"><code>Visual</code></a></p>
+<p>a <a href="struct.Visual.html" title="crate::Visual"><code>crate::Visual</code></a></p>
 </div><h4 id="method.width" class="method"><code>pub fn <a href="#method.width" class="fnname">width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a href="#method.width" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1390-1392" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the width of the given <code>self</code>.</p>
 <p>On the X11 platform the returned size is the size reported in the
 most-recently-processed configure event, rather than the current
 size on the X server.</p>
 <h1 id="returns-37" class="section-header"><a href="#returns-37">Returns</a></h1>
 <p>The width of <code>self</code></p>
-</div><h4 id="method.window_type" class="method"><code>pub fn <a href="#method.window_type" class="fnname">window_type</a>(&amp;self) -&gt; <a class="enum" href="enum.WindowType.html" title="enum gdk::WindowType">WindowType</a></code><a href="#method.window_type" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1401-1403" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the type of the window. See <a href="enum.WindowType.html"><code>WindowType</code></a>.</p>
+</div><h4 id="method.window_type" class="method"><code>pub fn <a href="#method.window_type" class="fnname">window_type</a>(&amp;self) -&gt; <a class="enum" href="enum.WindowType.html" title="enum gdk::WindowType">WindowType</a></code><a href="#method.window_type" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1401-1403" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the type of the window. See <a href="enum.WindowType.html" title="crate::WindowType"><code>crate::WindowType</code></a>.</p>
 <h1 id="returns-38" class="section-header"><a href="#returns-38">Returns</a></h1>
 <p>type of window</p>
 </div><h4 id="method.has_native" class="method"><code>pub fn <a href="#method.has_native" class="fnname">has_native</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.has_native" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1412-1414" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks whether the window has a native window or not. Note that
-you can use <a href="struct.Window.html#method.ensure_native"><code>ensure_native()</code></a> if a native window is needed.</p>
+you can use <a href="struct.Window.html#method.ensure_native" title="Self::ensure_native()"><code>Self::ensure_native()</code></a> if a native window is needed.</p>
 <h1 id="returns-39" class="section-header"><a href="#returns-39">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the <code>self</code> has a native window, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h4 id="method.hide" class="method"><code>pub fn <a href="#method.hide" class="fnname">hide</a>(&amp;self)</code><a href="#method.hide" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1421-1425" title="goto source code">[src]</a></h4><div class="docblock"><p>For toplevel windows, withdraws them, so they will no longer be
@@ -573,7 +573,7 @@ part of <code>gtk_widget_hide()</code>.</p>
 to ignore the request, but normally will honor it. Using
 <code>gtk_window_iconify()</code> is preferred, if you have a <code>GtkWindow</code> widget.</p>
 <p>This function only makes sense when <code>self</code> is a toplevel window.</p>
-</div><h4 id="method.input_shape_combine_region" class="method"><code>pub fn <a href="#method.input_shape_combine_region" class="fnname">input_shape_combine_region</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;shape_region: &amp;<a class="struct" href="../cairo/region/struct.Region.html" title="struct cairo::region::Region">Region</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;offset_x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;offset_y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>)</code><a href="#method.input_shape_combine_region" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1462-1476" title="goto source code">[src]</a></h4><div class="docblock"><p>Like <a href="struct.Window.html#method.shape_combine_region"><code>shape_combine_region()</code></a>, but the shape applies
+</div><h4 id="method.input_shape_combine_region" class="method"><code>pub fn <a href="#method.input_shape_combine_region" class="fnname">input_shape_combine_region</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;shape_region: &amp;<a class="struct" href="../cairo/region/struct.Region.html" title="struct cairo::region::Region">Region</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;offset_x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;offset_y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>)</code><a href="#method.input_shape_combine_region" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1462-1476" title="goto source code">[src]</a></h4><div class="docblock"><p>Like <a href="struct.Window.html#method.shape_combine_region" title="Self::shape_combine_region()"><code>Self::shape_combine_region()</code></a>, but the shape applies
 only to event handling. Mouse events which happen while
 the pointer position corresponds to an unset bit in the
 mask will be passed on the window below <code>self</code>.</p>
@@ -594,28 +594,28 @@ function does nothing.</p>
 <p>Y position of <code>shape_region</code> in <code>self</code> coordinates</p>
 </div><h4 id="method.invalidate_maybe_recurse" class="method"><code>pub fn <a href="#method.invalidate_maybe_recurse" class="fnname">invalidate_maybe_recurse</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;region: &amp;<a class="struct" href="../cairo/region/struct.Region.html" title="struct cairo::region::Region">Region</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;child_func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;mut dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;<br>)</code><a href="#method.invalidate_maybe_recurse" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1502-1536" title="goto source code">[src]</a></h4><div class="docblock"><p>Adds <code>region</code> to the update area for <code>self</code>. The update area is the
 region that needs to be redrawn, or “dirty region.” The call
-<a href="struct.Window.html#method.process_updates"><code>process_updates()</code></a> sends one or more expose events to the
+<a href="struct.Window.html#method.process_updates" title="Self::process_updates()"><code>Self::process_updates()</code></a> sends one or more expose events to the
 window, which together cover the entire update area. An
 application would normally redraw the contents of <code>self</code> in
 response to those expose events.</p>
-<p>GDK will call <a href="struct.Window.html#method.process_all_updates"><code>process_all_updates()</code></a> on your behalf
+<p>GDK will call <a href="struct.Window.html#method.process_all_updates" title="Self::process_all_updates()"><code>Self::process_all_updates()</code></a> on your behalf
 whenever your program returns to the main loop and becomes idle, so
 normally there’s no need to do that manually, you just need to
 invalidate regions that you know should be redrawn.</p>
 <p>The <code>child_func</code> parameter controls whether the region of
 each child window that intersects <code>region</code> will also be invalidated.
-Only children for which <code>child_func</code> returns <a href="crate::true"><code>true</code></a> will have the area
+Only children for which <code>child_func</code> returns [<code>crate::true</code>] will have the area
 invalidated.</p>
 <h2 id="region-2" class="section-header"><a href="#region-2"><code>region</code></a></h2>
-<p>a <a href="../cairo/region/struct.Region.html"><code>cairo::Region</code></a></p>
+<p>a <a href="../cairo/region/struct.Region.html" title="crate::cairo::Region"><code>crate::cairo::Region</code></a></p>
 <h2 id="child_func" class="section-header"><a href="#child_func"><code>child_func</code></a></h2>
 <p>function to use to decide if to
 recurse to a child, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> means never recurse.</p>
 <h2 id="user_data" class="section-header"><a href="#user_data"><code>user_data</code></a></h2>
 <p>data passed to <code>child_func</code></p>
-</div><h4 id="method.invalidate_rect" class="method"><code>pub fn <a href="#method.invalidate_rect" class="fnname">invalidate_rect</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;rect: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="struct.Rectangle.html" title="struct gdk::Rectangle">Rectangle</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;invalidate_children: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>)</code><a href="#method.invalidate_rect" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1547-1555" title="goto source code">[src]</a></h4><div class="docblock"><p>A convenience wrapper around <a href="struct.Window.html#method.invalidate_region"><code>invalidate_region()</code></a> which
+</div><h4 id="method.invalidate_rect" class="method"><code>pub fn <a href="#method.invalidate_rect" class="fnname">invalidate_rect</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;rect: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="struct.Rectangle.html" title="struct gdk::Rectangle">Rectangle</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;invalidate_children: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>)</code><a href="#method.invalidate_rect" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1547-1555" title="goto source code">[src]</a></h4><div class="docblock"><p>A convenience wrapper around <a href="struct.Window.html#method.invalidate_region" title="Self::invalidate_region()"><code>Self::invalidate_region()</code></a> which
 invalidates a rectangular region. See
-<a href="struct.Window.html#method.invalidate_region"><code>invalidate_region()</code></a> for details.</p>
+<a href="struct.Window.html#method.invalidate_region" title="Self::invalidate_region()"><code>Self::invalidate_region()</code></a> for details.</p>
 <h2 id="rect-1" class="section-header"><a href="#rect-1"><code>rect</code></a></h2>
 <p>rectangle to invalidate or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to invalidate the whole
 window</p>
@@ -623,11 +623,11 @@ window</p>
 <p>whether to also invalidate child windows</p>
 </div><h4 id="method.invalidate_region" class="method"><code>pub fn <a href="#method.invalidate_region" class="fnname">invalidate_region</a>(&amp;self, region: &amp;<a class="struct" href="../cairo/region/struct.Region.html" title="struct cairo::region::Region">Region</a>, invalidate_children: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.invalidate_region" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1579-1587" title="goto source code">[src]</a></h4><div class="docblock"><p>Adds <code>region</code> to the update area for <code>self</code>. The update area is the
 region that needs to be redrawn, or “dirty region.” The call
-<a href="struct.Window.html#method.process_updates"><code>process_updates()</code></a> sends one or more expose events to the
+<a href="struct.Window.html#method.process_updates" title="Self::process_updates()"><code>Self::process_updates()</code></a> sends one or more expose events to the
 window, which together cover the entire update area. An
 application would normally redraw the contents of <code>self</code> in
 response to those expose events.</p>
-<p>GDK will call <a href="struct.Window.html#method.process_all_updates"><code>process_all_updates()</code></a> on your behalf
+<p>GDK will call <a href="struct.Window.html#method.process_all_updates" title="Self::process_all_updates()"><code>Self::process_all_updates()</code></a> on your behalf
 whenever your program returns to the main loop and becomes idle, so
 normally there’s no need to do that manually, you just need to
 invalidate regions that you know should be redrawn.</p>
@@ -637,7 +637,7 @@ If <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="fa
 unaffected. See gdk_window_invalidate_maybe_recurse if you need
 fine grained control over which children are invalidated.</p>
 <h2 id="region-3" class="section-header"><a href="#region-3"><code>region</code></a></h2>
-<p>a <a href="../cairo/region/struct.Region.html"><code>cairo::Region</code></a></p>
+<p>a <a href="../cairo/region/struct.Region.html" title="crate::cairo::Region"><code>crate::cairo::Region</code></a></p>
 <h2 id="invalidate_children-1" class="section-header"><a href="#invalidate_children-1"><code>invalidate_children</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to also invalidate child windows</p>
 </div><h4 id="method.is_destroyed" class="method"><code>pub fn <a href="#method.is_destroyed" class="fnname">is_destroyed</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.is_destroyed" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1595-1597" title="goto source code">[src]</a></h4><div class="docblock"><p>Check to see if a window is destroyed..</p>
@@ -655,27 +655,27 @@ we only check as far as we have GDK window parents, not to the root
 window.)</p>
 <h1 id="returns-43" class="section-header"><a href="#returns-43">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window is viewable</p>
-</div><h4 id="method.is_visible" class="method"><code>pub fn <a href="#method.is_visible" class="fnname">is_visible</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.is_visible" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1639-1641" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks whether the window has been mapped (with <a href="struct.Window.html#method.show"><code>show()</code></a> or
-<a href="struct.Window.html#method.show_unraised"><code>show_unraised()</code></a>).</p>
+</div><h4 id="method.is_visible" class="method"><code>pub fn <a href="#method.is_visible" class="fnname">is_visible</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.is_visible" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1639-1641" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks whether the window has been mapped (with <a href="struct.Window.html#method.show" title="Self::show()"><code>Self::show()</code></a> or
+<a href="struct.Window.html#method.show_unraised" title="Self::show_unraised()"><code>Self::show_unraised()</code></a>).</p>
 <h1 id="returns-44" class="section-header"><a href="#returns-44">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window is mapped</p>
 </div><h4 id="method.lower" class="method"><code>pub fn <a href="#method.lower" class="fnname">lower</a>(&amp;self)</code><a href="#method.lower" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1654-1658" title="goto source code">[src]</a></h4><div class="docblock"><p>Lowers <code>self</code> to the bottom of the Z-order (stacking order), so that
 other windows with the same parent window appear above <code>self</code>.
 This is true whether or not the other windows are visible.</p>
 <p>If <code>self</code> is a toplevel, the window manager may choose to deny the
-request to move the window in the Z-order, <a href="struct.Window.html#method.lower"><code>lower()</code></a> only
+request to move the window in the Z-order, <a href="struct.Window.html#method.lower" title="Self::lower()"><code>Self::lower()</code></a> only
 requests the restack, does not guarantee it.</p>
-<p>Note that <a href="struct.Window.html#method.show"><code>show()</code></a> raises the window again, so don’t call this
-function before <a href="struct.Window.html#method.show"><code>show()</code></a>. (Try <a href="struct.Window.html#method.show_unraised"><code>show_unraised()</code></a>.)</p>
-</div><h4 id="method.mark_paint_from_clip" class="method"><code>pub fn <a href="#method.mark_paint_from_clip" class="fnname">mark_paint_from_clip</a>(&amp;self, cr: &amp;<a class="struct" href="../cairo/context/struct.Context.html" title="struct cairo::context::Context">Context</a>)</code><a href="#method.mark_paint_from_clip" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1673-1680" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>If you call this during a paint (e.g. between <a href="struct.Window.html#method.begin_paint_region"><code>begin_paint_region()</code></a>
-and <a href="struct.Window.html#method.end_paint"><code>end_paint()</code></a> then GDK will mark the current clip region of the
+<p>Note that <a href="struct.Window.html#method.show" title="Self::show()"><code>Self::show()</code></a> raises the window again, so don’t call this
+function before <a href="struct.Window.html#method.show" title="Self::show()"><code>Self::show()</code></a>. (Try <a href="struct.Window.html#method.show_unraised" title="Self::show_unraised()"><code>Self::show_unraised()</code></a>.)</p>
+</div><h4 id="method.mark_paint_from_clip" class="method"><code>pub fn <a href="#method.mark_paint_from_clip" class="fnname">mark_paint_from_clip</a>(&amp;self, cr: &amp;<a class="struct" href="../cairo/context/struct.Context.html" title="struct cairo::context::Context">Context</a>)</code><a href="#method.mark_paint_from_clip" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1673-1680" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>If you call this during a paint (e.g. between <a href="struct.Window.html#method.begin_paint_region" title="Self::begin_paint_region()"><code>Self::begin_paint_region()</code></a>
+and <a href="struct.Window.html#method.end_paint" title="Self::end_paint()"><code>Self::end_paint()</code></a> then GDK will mark the current clip region of the
 window as being drawn. This is required when mixing GL rendering via
 <code>gdk_cairo_draw_from_gl()</code> and cairo rendering, as otherwise GDK has no way
 of knowing when something paints over the GL-drawn regions.</p>
 <p>This is typically called automatically by GTK+ and you don’t need
 to care about this.</p>
 <h2 id="cr" class="section-header"><a href="#cr"><code>cr</code></a></h2>
-<p>a <a href="../cairo/context/struct.Context.html"><code>cairo::Context</code></a></p>
+<p>a <a href="../cairo/context/struct.Context.html" title="crate::cairo::Context"><code>crate::cairo::Context</code></a></p>
 </div><h4 id="method.maximize" class="method"><code>pub fn <a href="#method.maximize" class="fnname">maximize</a>(&amp;self)</code><a href="#method.maximize" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1694-1698" title="goto source code">[src]</a></h4><div class="docblock"><p>Maximizes the window. If the window was already maximized, then
 this function does nothing.</p>
 <p>On X11, asks the window manager to maximize <code>self</code>, if the window
@@ -688,15 +688,15 @@ and GDK makes a best effort to get it to happen.</p>
 </div><h4 id="method.merge_child_input_shapes" class="method"><code>pub fn <a href="#method.merge_child_input_shapes" class="fnname">merge_child_input_shapes</a>(&amp;self)</code><a href="#method.merge_child_input_shapes" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1709-1713" title="goto source code">[src]</a></h4><div class="docblock"><p>Merges the input shape masks for any child windows into the
 input shape mask for <code>self</code>. i.e. the union of all input masks
 for <code>self</code> and its children will become the new input mask
-for <code>self</code>. See <a href="struct.Window.html#method.input_shape_combine_region"><code>input_shape_combine_region()</code></a>.</p>
-<p>This function is distinct from <a href="struct.Window.html#method.set_child_input_shapes"><code>set_child_input_shapes()</code></a>
+for <code>self</code>. See <a href="struct.Window.html#method.input_shape_combine_region" title="Self::input_shape_combine_region()"><code>Self::input_shape_combine_region()</code></a>.</p>
+<p>This function is distinct from <a href="struct.Window.html#method.set_child_input_shapes" title="Self::set_child_input_shapes()"><code>Self::set_child_input_shapes()</code></a>
 because it includes <code>self</code>’s input shape mask in the set of
 shapes to be merged.</p>
 </div><h4 id="method.merge_child_shapes" class="method"><code>pub fn <a href="#method.merge_child_shapes" class="fnname">merge_child_shapes</a>(&amp;self)</code><a href="#method.merge_child_shapes" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1724-1728" title="goto source code">[src]</a></h4><div class="docblock"><p>Merges the shape masks for any child windows into the
 shape mask for <code>self</code>. i.e. the union of all masks
 for <code>self</code> and its children will become the new mask
-for <code>self</code>. See <a href="struct.Window.html#method.shape_combine_region"><code>shape_combine_region()</code></a>.</p>
-<p>This function is distinct from <a href="struct.Window.html#method.set_child_shapes"><code>set_child_shapes()</code></a>
+for <code>self</code>. See <a href="struct.Window.html#method.shape_combine_region" title="Self::shape_combine_region()"><code>Self::shape_combine_region()</code></a>.</p>
+<p>This function is distinct from <a href="struct.Window.html#method.set_child_shapes" title="Self::set_child_shapes()"><code>Self::set_child_shapes()</code></a>
 because it includes <code>self</code>’s shape mask in the set of shapes to
 be merged.</p>
 </div><h4 id="method.move_" class="method"><code>pub fn <a href="#method.move_" class="fnname">move_</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a href="#method.move_" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1732-1736" title="goto source code">[src]</a></h4><h4 id="method.move_region" class="method"><code>pub fn <a href="#method.move_region" class="fnname">move_region</a>(&amp;self, region: &amp;<a class="struct" href="../cairo/region/struct.Region.html" title="struct cairo::region::Region">Region</a>, dx: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, dy: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a href="#method.move_region" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1750-1754" title="goto source code">[src]</a></h4><div class="docblock"><p>Move the part of <code>self</code> indicated by <code>region</code> by <code>dy</code> pixels in the Y
@@ -704,15 +704,15 @@ direction and <code>dx</code> pixels in the X direction. The portions of <code>r
 that not covered by the new position of <code>region</code> are invalidated.</p>
 <p>Child windows are not moved.</p>
 <h2 id="region-4" class="section-header"><a href="#region-4"><code>region</code></a></h2>
-<p>The <a href="../cairo/region/struct.Region.html"><code>cairo::Region</code></a> to move</p>
+<p>The <a href="../cairo/region/struct.Region.html" title="crate::cairo::Region"><code>crate::cairo::Region</code></a> to move</p>
 <h2 id="dx" class="section-header"><a href="#dx"><code>dx</code></a></h2>
 <p>Amount to move in the X direction</p>
 <h2 id="dy" class="section-header"><a href="#dy"><code>dy</code></a></h2>
 <p>Amount to move in the Y direction</p>
-</div><h4 id="method.move_resize" class="method"><code>pub fn <a href="#method.move_resize" class="fnname">move_resize</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a href="#method.move_resize" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1769-1773" title="goto source code">[src]</a></h4><div class="docblock"><p>Equivalent to calling <a href="Self::move()"><code>move()</code></a> and <a href="struct.Window.html#method.resize"><code>resize()</code></a>,
+</div><h4 id="method.move_resize" class="method"><code>pub fn <a href="#method.move_resize" class="fnname">move_resize</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a href="#method.move_resize" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1769-1773" title="goto source code">[src]</a></h4><div class="docblock"><p>Equivalent to calling [<code>Self::move()</code>] and <a href="struct.Window.html#method.resize" title="Self::resize()"><code>Self::resize()</code></a>,
 except that both operations are performed at once, avoiding strange
 visual effects. (i.e. the user may be able to see the window first
-move, then resize, if you don’t use <a href="struct.Window.html#method.move_resize"><code>move_resize()</code></a>.)</p>
+move, then resize, if you don’t use <a href="struct.Window.html#method.move_resize" title="Self::move_resize()"><code>Self::move_resize()</code></a>.)</p>
 <h2 id="x-9" class="section-header"><a href="#x-9"><code>x</code></a></h2>
 <p>new X position relative to window’s parent</p>
 <h2 id="y-9" class="section-header"><a href="#y-9"><code>y</code></a></h2>
@@ -728,13 +728,13 @@ transient for. <code>rect_anchor</code> and <code>window_anchor</code> determine
 offset by <code>rect_anchor_dx</code> and <code>rect_anchor_dy</code>, which is equivalent to
 offsetting the position of <code>self</code>.</p>
 <p><code>anchor_hints</code> determines how <code>self</code> will be moved if the anchor points cause
-it to move off-screen. For example, [<code>AnchorHints::FlipX</code>] will replace
-<a href="enum.Gravity.html#variant.NorthWest" title="Gravity::NorthWest"><code>Gravity::NorthWest</code></a> with <a href="enum.Gravity.html#variant.NorthEast" title="Gravity::NorthEast"><code>Gravity::NorthEast</code></a> and vice versa if
+it to move off-screen. For example, [<code>crate::AnchorHints::FlipX</code>] will replace
+<a href="enum.Gravity.html#variant.NorthWest" title="crate::Gravity::NorthWest"><code>crate::Gravity::NorthWest</code></a> with <a href="enum.Gravity.html#variant.NorthEast" title="crate::Gravity::NorthEast"><code>crate::Gravity::NorthEast</code></a> and vice versa if
 <code>self</code> extends beyond the left or right edges of the monitor.</p>
-<p>Connect to the <a href="crate::Window::moved-to-rect"><code>Window::moved-to-rect</code></a> signal to find out how it was
+<p>Connect to the [<code>crate::Window::moved-to-rect</code>] signal to find out how it was
 actually positioned.</p>
 <h2 id="rect-2" class="section-header"><a href="#rect-2"><code>rect</code></a></h2>
-<p>the destination <a href="struct.Rectangle.html"><code>Rectangle</code></a> to align <code>self</code> with</p>
+<p>the destination <a href="struct.Rectangle.html" title="crate::Rectangle"><code>crate::Rectangle</code></a> to align <code>self</code> with</p>
 <h2 id="rect_anchor" class="section-header"><a href="#rect_anchor"><code>rect_anchor</code></a></h2>
 <p>the point on <code>rect</code> to align with <code>self</code>’s anchor point</p>
 <h2 id="window_anchor" class="section-header"><a href="#window_anchor"><code>window_anchor</code></a></h2>
@@ -746,14 +746,14 @@ actually positioned.</p>
 point</p>
 <h2 id="rect_anchor_dy" class="section-header"><a href="#rect_anchor_dy"><code>rect_anchor_dy</code></a></h2>
 <p>vertical offset to shift <code>self</code>, i.e. <code>rect</code>’s anchor point</p>
-</div><h4 id="method.peek_children" class="method"><code>pub fn <a href="#method.peek_children" class="fnname">peek_children</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;</code><a href="#method.peek_children" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1836-1842" title="goto source code">[src]</a></h4><div class="docblock"><p>Like <a href="Self::get_children()"><code>get_children()</code></a>, but does not copy the list of
+</div><h4 id="method.peek_children" class="method"><code>pub fn <a href="#method.peek_children" class="fnname">peek_children</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;</code><a href="#method.peek_children" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1836-1842" title="goto source code">[src]</a></h4><div class="docblock"><p>Like [<code>Self::get_children()</code>], but does not copy the list of
 children, so the list does not need to be freed.</p>
 <h1 id="returns-45" class="section-header"><a href="#returns-45">Returns</a></h1>
 <p>a reference to the list of child windows in <code>self</code></p>
 </div><h4 id="method.process_updates" class="method"><code>pub fn <a href="#method.process_updates" class="fnname">process_updates</a>(&amp;self, update_children: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.process_updates" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1859-1863" title="goto source code">[src]</a></h4><div class="docblock"><p>Sends one or more expose events to <code>self</code>. The areas in each
 expose event will cover the entire update area for the window (see
-<a href="struct.Window.html#method.invalidate_region"><code>invalidate_region()</code></a> for details). Normally GDK calls
-<a href="struct.Window.html#method.process_all_updates"><code>process_all_updates()</code></a> on your behalf, so there’s no
+<a href="struct.Window.html#method.invalidate_region" title="Self::invalidate_region()"><code>Self::invalidate_region()</code></a> for details). Normally GDK calls
+<a href="struct.Window.html#method.process_all_updates" title="Self::process_all_updates()"><code>Self::process_all_updates()</code></a> on your behalf, so there’s no
 need to call this function unless you want to force expose events
 to be delivered immediately and synchronously (vs. the usual
 case, where GDK delivers them in an idle handler). Occasionally
@@ -764,7 +764,7 @@ this is useful to produce nicer scrolling behavior, for example.</p>
 other windows with the same parent window appear below <code>self</code>.
 This is true whether or not the windows are visible.</p>
 <p>If <code>self</code> is a toplevel, the window manager may choose to deny the
-request to move the window in the Z-order, <a href="struct.Window.html#method.raise"><code>raise()</code></a> only
+request to move the window in the Z-order, <a href="struct.Window.html#method.raise" title="Self::raise()"><code>Self::raise()</code></a> only
 requests the restack, does not guarantee it.</p>
 </div><h4 id="method.register_dnd" class="method"><code>pub fn <a href="#method.register_dnd" class="fnname">register_dnd</a>(&amp;self)</code><a href="#method.register_dnd" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1881-1885" title="goto source code">[src]</a></h4><div class="docblock"><p>Registers a window as a potential drop destination.</p>
 </div><h4 id="method.reparent" class="method"><code>pub fn <a href="#method.reparent" class="fnname">reparent</a>(&amp;self, new_parent: &amp;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a href="#method.reparent" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1901-1905" title="goto source code">[src]</a></h4><div class="docblock"><p>Reparents <code>self</code> into the given <code>new_parent</code>. The window being
@@ -779,7 +779,7 @@ reparented will be unmapped as a side effect.</p>
 the window. The window manager may not allow the resize. When using GTK+,
 use <code>gtk_window_resize()</code> instead of this low-level GDK function.</p>
 <p>Windows may not be resized below 1x1.</p>
-<p>If you’re also planning to move the window, use <a href="struct.Window.html#method.move_resize"><code>move_resize()</code></a>
+<p>If you’re also planning to move the window, use <a href="struct.Window.html#method.move_resize" title="Self::move_resize()"><code>Self::move_resize()</code></a>
 to both move and resize simultaneously, for a nicer visual effect.</p>
 <h2 id="width-2" class="section-header"><a href="#width-2"><code>width</code></a></h2>
 <p>new width of the window</p>
@@ -791,10 +791,10 @@ it is above <code>sibling</code> (if <code>above</code> is <a href="https://doc.
 <p>If <code>sibling</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, then this either raises (if <code>above</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>) or
 lowers the window.</p>
 <p>If <code>self</code> is a toplevel, the window manager may choose to deny the
-request to move the window in the Z-order, <a href="struct.Window.html#method.restack"><code>restack()</code></a> only
+request to move the window in the Z-order, <a href="struct.Window.html#method.restack" title="Self::restack()"><code>Self::restack()</code></a> only
 requests the restack, does not guarantee it.</p>
 <h2 id="sibling" class="section-header"><a href="#sibling"><code>sibling</code></a></h2>
-<p>a <a href="struct.Window.html"><code>Window</code></a> that is a sibling of <code>self</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> that is a sibling of <code>self</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="above" class="section-header"><a href="#above"><code>above</code></a></h2>
 <p>a boolean</p>
 </div><h4 id="method.scroll" class="method"><code>pub fn <a href="#method.scroll" class="fnname">scroll</a>(&amp;self, dx: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, dy: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a href="#method.scroll" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1967-1971" title="goto source code">[src]</a></h4><div class="docblock"><p>Scroll the contents of <code>self</code>, both pixels and children, by the
@@ -818,20 +818,20 @@ hint. ICCCM-compliant window manager usually respect it.</p>
 <h2 id="accept_focus" class="section-header"><a href="#accept_focus"><code>accept_focus</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window should receive input focus</p>
 </div><h4 id="method.set_background_rgba" class="method"><code>pub fn <a href="#method.set_background_rgba" class="fnname">set_background_rgba</a>(&amp;self, rgba: &amp;<a class="struct" href="struct.RGBA.html" title="struct gdk::RGBA">RGBA</a>)</code><a href="#method.set_background_rgba" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#1998-2002" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the background color of <code>self</code>.</p>
-<p>See also <a href="Self::set_background_pattern()"><code>set_background_pattern()</code></a>.</p>
+<p>See also [<code>Self::set_background_pattern()</code>].</p>
 <h1 id="deprecated-since-322-3" class="section-header"><a href="#deprecated-since-322-3">Deprecated since 3.22</a></h1>
 <p>Don’t use this function</p>
 <h2 id="rgba" class="section-header"><a href="#rgba"><code>rgba</code></a></h2>
-<p>a <a href="struct.RGBA.html"><code>RGBA</code></a> color</p>
+<p>a <a href="struct.RGBA.html" title="crate::RGBA"><code>crate::RGBA</code></a> color</p>
 </div><h4 id="method.set_child_input_shapes" class="method"><code>pub fn <a href="#method.set_child_input_shapes" class="fnname">set_child_input_shapes</a>(&amp;self)</code><a href="#method.set_child_input_shapes" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2009-2013" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the input shape mask of <code>self</code> to the union of input shape masks
 for all children of <code>self</code>, ignoring the input shape mask of <code>self</code>
-itself. Contrast with <a href="struct.Window.html#method.merge_child_input_shapes"><code>merge_child_input_shapes()</code></a> which includes
+itself. Contrast with <a href="struct.Window.html#method.merge_child_input_shapes" title="Self::merge_child_input_shapes()"><code>Self::merge_child_input_shapes()</code></a> which includes
 the input shape mask of <code>self</code> in the masks to be merged.</p>
 </div><h4 id="method.set_child_shapes" class="method"><code>pub fn <a href="#method.set_child_shapes" class="fnname">set_child_shapes</a>(&amp;self)</code><a href="#method.set_child_shapes" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2020-2024" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the shape mask of <code>self</code> to the union of shape masks
 for all children of <code>self</code>, ignoring the shape mask of <code>self</code>
-itself. Contrast with <a href="struct.Window.html#method.merge_child_shapes"><code>merge_child_shapes()</code></a> which includes
+itself. Contrast with <a href="struct.Window.html#method.merge_child_shapes" title="Self::merge_child_shapes()"><code>Self::merge_child_shapes()</code></a> which includes
 the shape mask of <code>self</code> in the masks to be merged.</p>
-</div><h4 id="method.set_composited" class="method"><code>pub fn <a href="#method.set_composited" class="fnname">set_composited</a>(&amp;self, composited: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_composited" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2057-2061" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets a <a href="struct.Window.html"><code>Window</code></a> as composited, or unsets it. Composited
+</div><h4 id="method.set_composited" class="method"><code>pub fn <a href="#method.set_composited" class="fnname">set_composited</a>(&amp;self, composited: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_composited" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2057-2061" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets a <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> as composited, or unsets it. Composited
 windows do not automatically have their contents drawn to
 the screen. Drawing is redirected to an offscreen buffer
 and an expose event is emitted on the parent of the composited
@@ -839,7 +839,7 @@ window. It is the responsibility of the parent’s expose handler
 to manually merge the off-screen content onto the screen in
 whatever way it sees fit.</p>
 <p>It only makes sense for child windows to be composited; see
-<a href="struct.Window.html#method.set_opacity"><code>set_opacity()</code></a> if you need translucent toplevel
+<a href="struct.Window.html#method.set_opacity" title="Self::set_opacity()"><code>Self::set_opacity()</code></a> if you need translucent toplevel
 windows.</p>
 <p>An additional effect of this call is that the area of this
 window is no longer clipped from regions marked for
@@ -847,7 +847,7 @@ invalidation on its parent. Draws done on the parent
 window are also no longer clipped by the child.</p>
 <p>This call is only supported on some systems (currently,
 only X11 with new enough Xcomposite and Xdamage extensions).
-You must call <a href="struct.Display.html#method.supports_composite"><code>Display::supports_composite()</code></a> to check if
+You must call <a href="struct.Display.html#method.supports_composite" title="crate::Display::supports_composite()"><code>crate::Display::supports_composite()</code></a> to check if
 setting a window as composited is supported before
 attempting to do so.</p>
 <h1 id="deprecated-since-316-2" class="section-header"><a href="#deprecated-since-316-2">Deprecated since 3.16</a></h1>
@@ -855,47 +855,47 @@ attempting to do so.</p>
 only ever worked on X11.</p>
 <h2 id="composited" class="section-header"><a href="#composited"><code>composited</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to set the window as composited</p>
-</div><h4 id="method.set_cursor" class="method"><code>pub fn <a href="#method.set_cursor" class="fnname">set_cursor</a>(&amp;self, cursor: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a>&gt;)</code><a href="#method.set_cursor" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2075-2079" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the default mouse pointer for a <a href="struct.Window.html"><code>Window</code></a>.</p>
+</div><h4 id="method.set_cursor" class="method"><code>pub fn <a href="#method.set_cursor" class="fnname">set_cursor</a>(&amp;self, cursor: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a>&gt;)</code><a href="#method.set_cursor" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2075-2079" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the default mouse pointer for a <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>.</p>
 <p>Note that <code>cursor</code> must be for the same display as <code>self</code>.</p>
-<p>Use <a href="crate::Cursor::new_for_display()"><code>Cursor::new_for_display()</code></a> or <a href="crate::Cursor::new_from_pixbuf()"><code>Cursor::new_from_pixbuf()</code></a> to
-create the cursor. To make the cursor invisible, use [<code>CursorType::BlankCursor</code>].
-Passing <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for the <code>cursor</code> argument to <a href="struct.Window.html#method.set_cursor"><code>set_cursor()</code></a> means
+<p>Use [<code>crate::Cursor::new_for_display()</code>] or [<code>crate::Cursor::new_from_pixbuf()</code>] to
+create the cursor. To make the cursor invisible, use <a href="enum.CursorType.html#variant.BlankCursor" title="crate::CursorType::BlankCursor"><code>crate::CursorType::BlankCursor</code></a>.
+Passing <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for the <code>cursor</code> argument to <a href="struct.Window.html#method.set_cursor" title="Self::set_cursor()"><code>Self::set_cursor()</code></a> means
 that <code>self</code> will use the cursor of its parent window. Most windows
 should use this default.</p>
 <h2 id="cursor" class="section-header"><a href="#cursor"><code>cursor</code></a></h2>
 <p>a cursor</p>
-</div><h4 id="method.set_decorations" class="method"><code>pub fn <a href="#method.set_decorations" class="fnname">set_decorations</a>(&amp;self, decorations: <a class="struct" href="struct.WMDecoration.html" title="struct gdk::WMDecoration">WMDecoration</a>)</code><a href="#method.set_decorations" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2098-2102" title="goto source code">[src]</a></h4><div class="docblock"><p>“Decorations” are the features the window manager adds to a toplevel <a href="struct.Window.html"><code>Window</code></a>.
+</div><h4 id="method.set_decorations" class="method"><code>pub fn <a href="#method.set_decorations" class="fnname">set_decorations</a>(&amp;self, decorations: <a class="struct" href="struct.WMDecoration.html" title="struct gdk::WMDecoration">WMDecoration</a>)</code><a href="#method.set_decorations" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2098-2102" title="goto source code">[src]</a></h4><div class="docblock"><p>“Decorations” are the features the window manager adds to a toplevel <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>.
 This function sets the traditional Motif window manager hints that tell the
 window manager which decorations you would like your window to have.
 Usually you should use <code>gtk_window_set_decorated()</code> on a <code>GtkWindow</code> instead of
 using the GDK function directly.</p>
 <p>The <code>decorations</code> argument is the logical OR of the fields in
-the <a href="struct.WMDecoration.html"><code>WMDecoration</code></a> enumeration. If <a href="crate::WMDecoration::All"><code>WMDecoration::All</code></a> is included in the
+the <a href="struct.WMDecoration.html" title="crate::WMDecoration"><code>crate::WMDecoration</code></a> enumeration. If [<code>crate::WMDecoration::All</code>] is included in the
 mask, the other bits indicate which decorations should be turned off.
-If <a href="crate::WMDecoration::All"><code>WMDecoration::All</code></a> is not included, then the other bits indicate
+If [<code>crate::WMDecoration::All</code>] is not included, then the other bits indicate
 which decorations should be turned on.</p>
 <p>Most window managers honor a decorations hint of 0 to disable all decorations,
 but very few honor all possible combinations of bits.</p>
 <h2 id="decorations-1" class="section-header"><a href="#decorations-1"><code>decorations</code></a></h2>
 <p>decoration hint mask</p>
-</div><h4 id="method.set_device_cursor" class="method"><code>pub fn <a href="#method.set_device_cursor" class="fnname">set_device_cursor</a>(&amp;self, device: &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>, cursor: &amp;<a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a>)</code><a href="#method.set_device_cursor" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2115-2123" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets a specific <a href="struct.Cursor.html"><code>Cursor</code></a> for a given device when it gets inside <code>self</code>.
-Use <a href="crate::Cursor::new_for_display()"><code>Cursor::new_for_display()</code></a> or <a href="crate::Cursor::new_from_pixbuf()"><code>Cursor::new_from_pixbuf()</code></a> to create
-the cursor. To make the cursor invisible, use [<code>CursorType::BlankCursor</code>]. Passing
-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for the <code>cursor</code> argument to <a href="struct.Window.html#method.set_cursor"><code>set_cursor()</code></a> means that
+</div><h4 id="method.set_device_cursor" class="method"><code>pub fn <a href="#method.set_device_cursor" class="fnname">set_device_cursor</a>(&amp;self, device: &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>, cursor: &amp;<a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a>)</code><a href="#method.set_device_cursor" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2115-2123" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets a specific <a href="struct.Cursor.html" title="crate::Cursor"><code>crate::Cursor</code></a> for a given device when it gets inside <code>self</code>.
+Use [<code>crate::Cursor::new_for_display()</code>] or [<code>crate::Cursor::new_from_pixbuf()</code>] to create
+the cursor. To make the cursor invisible, use <a href="enum.CursorType.html#variant.BlankCursor" title="crate::CursorType::BlankCursor"><code>crate::CursorType::BlankCursor</code></a>. Passing
+<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for the <code>cursor</code> argument to <a href="struct.Window.html#method.set_cursor" title="Self::set_cursor()"><code>Self::set_cursor()</code></a> means that
 <code>self</code> will use the cursor of its parent window. Most windows should
 use this default.</p>
 <h2 id="device-6" class="section-header"><a href="#device-6"><code>device</code></a></h2>
-<p>a master, pointer <a href="struct.Device.html"><code>Device</code></a></p>
+<p>a master, pointer <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a></p>
 <h2 id="cursor-1" class="section-header"><a href="#cursor-1"><code>cursor</code></a></h2>
-<p>a <a href="struct.Cursor.html"><code>Cursor</code></a></p>
+<p>a <a href="struct.Cursor.html" title="crate::Cursor"><code>crate::Cursor</code></a></p>
 </div><h4 id="method.set_device_events" class="method"><code>pub fn <a href="#method.set_device_events" class="fnname">set_device_events</a>(&amp;self, device: &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>, event_mask: <a class="struct" href="struct.EventMask.html" title="struct gdk::EventMask">EventMask</a>)</code><a href="#method.set_device_events" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2137-2145" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the event mask for a given device (Normally a floating device, not
 attached to any visible pointer) to <code>self</code>. For example, an event mask
-including <a href="crate::EventMask::ButtonPressMask"><code>EventMask::ButtonPressMask</code></a> means the window should report button
+including [<code>crate::EventMask::ButtonPressMask</code>] means the window should report button
 press events. The event mask is the bitwise OR of values from the
-<a href="struct.EventMask.html"><code>EventMask</code></a> enumeration.</p>
+<a href="struct.EventMask.html" title="crate::EventMask"><code>crate::EventMask</code></a> enumeration.</p>
 <p>See the [input handling overview][event-masks] for details.</p>
 <h2 id="device-7" class="section-header"><a href="#device-7"><code>device</code></a></h2>
-<p><a href="struct.Device.html"><code>Device</code></a> to enable events for.</p>
+<p><a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a> to enable events for.</p>
 <h2 id="event_mask" class="section-header"><a href="#event_mask"><code>event_mask</code></a></h2>
 <p>event mask for <code>self</code></p>
 </div><h4 id="method.set_event_compression" class="method"><code>pub fn <a href="#method.set_event_compression" class="fnname">set_event_compression</a>(&amp;self, event_compression: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_event_compression" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2158-2165" title="goto source code">[src]</a></h4><div class="docblock"><p>Determines whether or not extra unprocessed motion events in
@@ -908,9 +908,9 @@ motion events and will benefit from turning off event compression.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if motion events should be compressed</p>
 </div><h4 id="method.set_events" class="method"><code>pub fn <a href="#method.set_events" class="fnname">set_events</a>(&amp;self, event_mask: <a class="struct" href="struct.EventMask.html" title="struct gdk::EventMask">EventMask</a>)</code><a href="#method.set_events" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2177-2181" title="goto source code">[src]</a></h4><div class="docblock"><p>The event mask for a window determines which events will be reported
 for that window from all master input devices. For example, an event mask
-including <a href="crate::EventMask::ButtonPressMask"><code>EventMask::ButtonPressMask</code></a> means the window should report button
+including [<code>crate::EventMask::ButtonPressMask</code>] means the window should report button
 press events. The event mask is the bitwise OR of values from the
-<a href="struct.EventMask.html"><code>EventMask</code></a> enumeration.</p>
+<a href="struct.EventMask.html" title="crate::EventMask"><code>crate::EventMask</code></a> enumeration.</p>
 <p>See the [input handling overview][event-masks] for details.</p>
 <h2 id="event_mask-1" class="section-header"><a href="#event_mask-1"><code>event_mask</code></a></h2>
 <p>event mask for <code>self</code></p>
@@ -925,16 +925,16 @@ manager extension specification should respect it.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window should receive input focus when mapped</p>
 </div><h4 id="method.set_fullscreen_mode" class="method"><code>pub fn <a href="#method.set_fullscreen_mode" class="fnname">set_fullscreen_mode</a>(&amp;self, mode: <a class="enum" href="enum.FullscreenMode.html" title="enum gdk::FullscreenMode">FullscreenMode</a>)</code><a href="#method.set_fullscreen_mode" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2220-2224" title="goto source code">[src]</a></h4><div class="docblock"><p>Specifies whether the <code>self</code> should span over all monitors (in a multi-head
 setup) or only the current monitor when in fullscreen mode.</p>
-<p>The <code>mode</code> argument is from the <a href="enum.FullscreenMode.html"><code>FullscreenMode</code></a> enumeration.
-If <a href="enum.FullscreenMode.html#variant.AllMonitors"><code>FullscreenMode::AllMonitors</code></a> is specified, the fullscreen <code>self</code> will
-span over all monitors from the <a href="struct.Screen.html"><code>Screen</code></a>.</p>
-<p>On X11, searches through the list of monitors from the <a href="struct.Screen.html"><code>Screen</code></a> the ones
-which delimit the 4 edges of the entire <a href="struct.Screen.html"><code>Screen</code></a> and will ask the window
+<p>The <code>mode</code> argument is from the <a href="enum.FullscreenMode.html" title="crate::FullscreenMode"><code>crate::FullscreenMode</code></a> enumeration.
+If <a href="enum.FullscreenMode.html#variant.AllMonitors" title="crate::FullscreenMode::AllMonitors"><code>crate::FullscreenMode::AllMonitors</code></a> is specified, the fullscreen <code>self</code> will
+span over all monitors from the <a href="struct.Screen.html" title="crate::Screen"><code>crate::Screen</code></a>.</p>
+<p>On X11, searches through the list of monitors from the <a href="struct.Screen.html" title="crate::Screen"><code>crate::Screen</code></a> the ones
+which delimit the 4 edges of the entire <a href="struct.Screen.html" title="crate::Screen"><code>crate::Screen</code></a> and will ask the window
 manager to span the <code>self</code> over these monitors.</p>
 <p>If the XINERAMA extension is not available or not usable, this function
 has no effect.</p>
 <p>Not all window managers support this, so you can’t rely on the fullscreen
-window to span over the multiple monitors when <a href="enum.FullscreenMode.html#variant.AllMonitors"><code>FullscreenMode::AllMonitors</code></a>
+window to span over the multiple monitors when <a href="enum.FullscreenMode.html#variant.AllMonitors" title="crate::FullscreenMode::AllMonitors"><code>crate::FullscreenMode::AllMonitors</code></a>
 is specified.</p>
 <h2 id="mode" class="section-header"><a href="#mode"><code>mode</code></a></h2>
 <p>fullscreen mode</p>
@@ -945,9 +945,9 @@ manager hint for this purpose. However, few window managers do
 anything reliable or interesting with this hint. Many ignore it
 entirely.</p>
 <p>The <code>functions</code> argument is the logical OR of values from the
-<a href="struct.WMFunction.html"><code>WMFunction</code></a> enumeration. If the bitmask includes <a href="crate::WMFunction::All"><code>WMFunction::All</code></a>,
+<a href="struct.WMFunction.html" title="crate::WMFunction"><code>crate::WMFunction</code></a> enumeration. If the bitmask includes [<code>crate::WMFunction::All</code>],
 then the other bits indicate which functions to disable; if
-it doesn’t include <a href="crate::WMFunction::All"><code>WMFunction::All</code></a>, it indicates which functions to
+it doesn’t include [<code>crate::WMFunction::All</code>], it indicates which functions to
 enable.</p>
 <h2 id="functions" class="section-header"><a href="#functions"><code>functions</code></a></h2>
 <p>bitmask of operations to allow on <code>self</code></p>
@@ -959,15 +959,15 @@ acceptable sizes for a toplevel window. The purpose of
 this is to constrain user resizing, but the windowing system
 will typically (but is not required to) also constrain the
 current size of the window to the provided values and
-constrain programatic resizing via <a href="struct.Window.html#method.resize"><code>resize()</code></a> or
-<a href="struct.Window.html#method.move_resize"><code>move_resize()</code></a>.</p>
+constrain programatic resizing via <a href="struct.Window.html#method.resize" title="Self::resize()"><code>Self::resize()</code></a> or
+<a href="struct.Window.html#method.move_resize" title="Self::move_resize()"><code>Self::move_resize()</code></a>.</p>
 <p>Note that on X11, this effect has no effect on windows
-of type <a href="enum.WindowType.html#variant.Temp" title="WindowType::Temp"><code>WindowType::Temp</code></a> or windows where override redirect
-has been turned on via <a href="struct.Window.html#method.set_override_redirect"><code>set_override_redirect()</code></a>
+of type <a href="enum.WindowType.html#variant.Temp" title="crate::WindowType::Temp"><code>crate::WindowType::Temp</code></a> or windows where override redirect
+has been turned on via <a href="struct.Window.html#method.set_override_redirect" title="Self::set_override_redirect()"><code>Self::set_override_redirect()</code></a>
 since these windows are not resizable by the user.</p>
 <p>Since you can’t count on the windowing system doing the
 constraints for programmatic resizes, you should generally
-call <a href="struct.Window.html#method.constrain_size"><code>constrain_size()</code></a> yourself to determine
+call <a href="struct.Window.html#method.constrain_size" title="Self::constrain_size()"><code>Self::constrain_size()</code></a> yourself to determine
 appropriate sizes.</p>
 <h2 id="geometry" class="section-header"><a href="#geometry"><code>geometry</code></a></h2>
 <p>geometry hints</p>
@@ -998,10 +998,10 @@ icon by a small amount or not at all.</p>
 name they display in their titlebar. Most of the time this is a bad
 idea from a user interface standpoint. But you can set such a name
 with this function, if you like.</p>
-<p>After calling this with a non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> <code>name</code>, calls to <a href="struct.Window.html#method.set_title"><code>set_title()</code></a>
+<p>After calling this with a non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> <code>name</code>, calls to <a href="struct.Window.html#method.set_title" title="Self::set_title()"><code>Self::set_title()</code></a>
 will not update the icon title.</p>
 <p>Using <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for <code>name</code> unsets the icon title; further calls to
-<a href="struct.Window.html#method.set_title"><code>set_title()</code></a> will again update the icon title as well.</p>
+<a href="struct.Window.html#method.set_title" title="Self::set_title()"><code>Self::set_title()</code></a> will again update the icon title as well.</p>
 <p>Note that some platforms don’t support window icons.</p>
 <h2 id="name" class="section-header"><a href="#name"><code>name</code></a></h2>
 <p>name of window while iconified (minimized)</p>
@@ -1030,7 +1030,7 @@ that a certain window has modal behaviour. The window manager
 can use this information to handle modal windows in a special
 way.</p>
 <p>You should only use this on windows for which you have
-previously called <a href="struct.Window.html#method.set_transient_for"><code>set_transient_for()</code></a></p>
+previously called <a href="struct.Window.html#method.set_transient_for" title="Self::set_transient_for()"><code>Self::set_transient_for()</code></a></p>
 <h2 id="modal" class="section-header"><a href="#modal"><code>modal</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the window is modal, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h4 id="method.set_opacity" class="method"><code>pub fn <a href="#method.set_opacity" class="fnname">set_opacity</a>(&amp;self, opacity: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>)</code><a href="#method.set_opacity" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2422-2426" title="goto source code">[src]</a></h4><div class="docblock"><p>Set <code>self</code> to render as partially transparent,
@@ -1045,8 +1045,8 @@ that the entire window is (potentially) non-opaque, and draw your content
 with alpha, or use <code>gtk_widget_set_opacity()</code> to set an overall opacity
 for your widgets.</p>
 <p>For child windows this function only works for non-native windows.</p>
-<p>For setting up per-pixel alpha topelevels, see <a href="crate::Screen::get_rgba_visual()"><code>Screen::get_rgba_visual()</code></a>,
-and for non-toplevels, see <a href="struct.Window.html#method.set_composited"><code>set_composited()</code></a>.</p>
+<p>For setting up per-pixel alpha topelevels, see [<code>crate::Screen::get_rgba_visual()</code>],
+and for non-toplevels, see <a href="struct.Window.html#method.set_composited" title="Self::set_composited()"><code>Self::set_composited()</code></a>.</p>
 <p>Support for non-toplevel windows was added in 3.8.</p>
 <h2 id="opacity" class="section-header"><a href="#opacity"><code>opacity</code></a></h2>
 <p>opacity</p>
@@ -1121,7 +1121,7 @@ to create toplevel windows.</p>
 </div><h4 id="method.set_skip_pager_hint" class="method"><code>pub fn <a href="#method.set_skip_pager_hint" class="fnname">set_skip_pager_hint</a>(&amp;self, skips_pager: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_skip_pager_hint" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2558-2562" title="goto source code">[src]</a></h4><div class="docblock"><p>Toggles whether a window should appear in a pager (workspace
 switcher, or other desktop utility program that displays a small
 thumbnail representation of the windows on the desktop). If a
-window’s semantic type as specified with <a href="struct.Window.html#method.set_type_hint"><code>set_type_hint()</code></a>
+window’s semantic type as specified with <a href="struct.Window.html#method.set_type_hint" title="Self::set_type_hint()"><code>Self::set_type_hint()</code></a>
 already fully describes the window, this function should
 not be called in addition, instead you should
 allow the window to be treated according to standard policy for
@@ -1130,7 +1130,7 @@ its semantic type.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to skip the pager</p>
 </div><h4 id="method.set_skip_taskbar_hint" class="method"><code>pub fn <a href="#method.set_skip_taskbar_hint" class="fnname">set_skip_taskbar_hint</a>(&amp;self, skips_taskbar: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_skip_taskbar_hint" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2573-2577" title="goto source code">[src]</a></h4><div class="docblock"><p>Toggles whether a window should appear in a task list or window
 list. If a window’s semantic type as specified with
-<a href="struct.Window.html#method.set_type_hint"><code>set_type_hint()</code></a> already fully describes the window, this
+<a href="struct.Window.html#method.set_type_hint" title="Self::set_type_hint()"><code>Self::set_type_hint()</code></a> already fully describes the window, this
 function should not be called in addition,
 instead you should allow the window to be treated according to
 standard policy for its semantic type.</p>
@@ -1141,7 +1141,7 @@ visible pointer) that has the source defined as <code>source</code>. This event
 mask will be applied both to currently existing, newly added devices
 after this call, and devices being attached/detached.</p>
 <h2 id="source-1" class="section-header"><a href="#source-1"><code>source</code></a></h2>
-<p>a <a href="enum.InputSource.html"><code>InputSource</code></a> to define the source class.</p>
+<p>a <a href="enum.InputSource.html" title="crate::InputSource"><code>crate::InputSource</code></a> to define the source class.</p>
 <h2 id="event_mask-2" class="section-header"><a href="#event_mask-2"><code>event_mask</code></a></h2>
 <p>event mask for <code>self</code></p>
 </div><h4 id="method.set_startup_id" class="method"><code>pub fn <a href="#method.set_startup_id" class="fnname">set_startup_id</a>(&amp;self, startup_id: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a href="#method.set_startup_id" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2603-2607" title="goto source code">[src]</a></h4><div class="docblock"><p>When using GTK+, typically you should use <code>gtk_window_set_startup_id()</code>
@@ -1166,7 +1166,7 @@ per device enter/leave events, device grabs and grab ownerships.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to enable multidevice support in <code>self</code>.</p>
 </div><h4 id="method.set_title" class="method"><code>pub fn <a href="#method.set_title" class="fnname">set_title</a>(&amp;self, title: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a href="#method.set_title" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2659-2663" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets the title of a toplevel window, to be displayed in the titlebar.
 If you haven’t explicitly set the icon name for the window
-(using <a href="struct.Window.html#method.set_icon_name"><code>set_icon_name()</code></a>), the icon name will be set to
+(using <a href="struct.Window.html#method.set_icon_name" title="Self::set_icon_name()"><code>Self::set_icon_name()</code></a>), the icon name will be set to
 <code>title</code> as well. <code>title</code> must be in UTF-8 encoding (as with all
 user-readable strings in GDK/GTK+). <code>title</code> may not be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h2 id="title" class="section-header"><a href="#title"><code>title</code></a></h2>
@@ -1178,7 +1178,7 @@ keep <code>self</code> above <code>parent</code>.</p>
 <p>See <code>gtk_window_set_transient_for()</code> if you’re using <code>GtkWindow</code> or
 <code>GtkDialog</code>.</p>
 <h2 id="parent" class="section-header"><a href="#parent"><code>parent</code></a></h2>
-<p>another toplevel <a href="struct.Window.html"><code>Window</code></a></p>
+<p>another toplevel <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a></p>
 </div><h4 id="method.set_type_hint" class="method"><code>pub fn <a href="#method.set_type_hint" class="fnname">set_type_hint</a>(&amp;self, hint: <a class="enum" href="enum.WindowTypeHint.html" title="enum gdk::WindowTypeHint">WindowTypeHint</a>)</code><a href="#method.set_type_hint" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2690-2694" title="goto source code">[src]</a></h4><div class="docblock"><p>The application can use this call to provide a hint to the window
 manager about the functionality of a window. The window manager
 can use this information when determining the decoration and behaviour
@@ -1207,15 +1207,15 @@ will do nothing.</p>
 <p>X position of <code>shape_region</code> in <code>self</code> coordinates</p>
 <h2 id="offset_y-1" class="section-header"><a href="#offset_y-1"><code>offset_y</code></a></h2>
 <p>Y position of <code>shape_region</code> in <code>self</code> coordinates</p>
-</div><h4 id="method.show" class="method"><code>pub fn <a href="#method.show" class="fnname">show</a>(&amp;self)</code><a href="#method.show" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2754-2758" title="goto source code">[src]</a></h4><div class="docblock"><p>Like <a href="struct.Window.html#method.show_unraised"><code>show_unraised()</code></a>, but also raises the window to the
+</div><h4 id="method.show" class="method"><code>pub fn <a href="#method.show" class="fnname">show</a>(&amp;self)</code><a href="#method.show" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2754-2758" title="goto source code">[src]</a></h4><div class="docblock"><p>Like <a href="struct.Window.html#method.show_unraised" title="Self::show_unraised()"><code>Self::show_unraised()</code></a>, but also raises the window to the
 top of the window stack (moves the window to the front of the
 Z-order).</p>
 <p>This function maps a window so it’s visible onscreen. Its opposite
-is <a href="struct.Window.html#method.hide"><code>hide()</code></a>.</p>
+is <a href="struct.Window.html#method.hide" title="Self::hide()"><code>Self::hide()</code></a>.</p>
 <p>When implementing a <code>GtkWidget</code>, you should call this function on the widget’s
-<a href="struct.Window.html"><code>Window</code></a> as part of the “map” method.</p>
-</div><h4 id="method.show_unraised" class="method"><code>pub fn <a href="#method.show_unraised" class="fnname">show_unraised</a>(&amp;self)</code><a href="#method.show_unraised" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2768-2772" title="goto source code">[src]</a></h4><div class="docblock"><p>Shows a <a href="struct.Window.html"><code>Window</code></a> onscreen, but does not modify its stacking
-order. In contrast, <a href="struct.Window.html#method.show"><code>show()</code></a> will raise the window
+<a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> as part of the “map” method.</p>
+</div><h4 id="method.show_unraised" class="method"><code>pub fn <a href="#method.show_unraised" class="fnname">show_unraised</a>(&amp;self)</code><a href="#method.show_unraised" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2768-2772" title="goto source code">[src]</a></h4><div class="docblock"><p>Shows a <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> onscreen, but does not modify its stacking
+order. In contrast, <a href="struct.Window.html#method.show" title="Self::show()"><code>Self::show()</code></a> will raise the window
 to the top of the window stack.</p>
 <p>On the X11 platform, in Xlib terms, this function calls
 XMapWindow() (it also updates some internal GDK state, which means
@@ -1238,12 +1238,12 @@ GDK will do the best it can to convince the window manager to stick
 the window. For window managers that don’t support this operation,
 there’s nothing you can do to force it to happen.</p>
 </div><h4 id="method.thaw_toplevel_updates_libgtk_only" class="method"><code>pub fn <a href="#method.thaw_toplevel_updates_libgtk_only" class="fnname">thaw_toplevel_updates_libgtk_only</a>(&amp;self)</code><a href="#method.thaw_toplevel_updates_libgtk_only" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2822-2826" title="goto source code">[src]</a></h4><div class="docblock"><p>Thaws a window frozen with
-<a href="struct.Window.html#method.freeze_toplevel_updates_libgtk_only"><code>freeze_toplevel_updates_libgtk_only()</code></a>.</p>
+<a href="struct.Window.html#method.freeze_toplevel_updates_libgtk_only" title="Self::freeze_toplevel_updates_libgtk_only()"><code>Self::freeze_toplevel_updates_libgtk_only()</code></a>.</p>
 <p>This function is not part of the GDK public API and is only
 for use by GTK+.</p>
 <h1 id="deprecated-since-316-4" class="section-header"><a href="#deprecated-since-316-4">Deprecated since 3.16</a></h1>
 <p>This symbol was never meant to be used outside of GTK+</p>
-</div><h4 id="method.thaw_updates" class="method"><code>pub fn <a href="#method.thaw_updates" class="fnname">thaw_updates</a>(&amp;self)</code><a href="#method.thaw_updates" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2830-2834" title="goto source code">[src]</a></h4><div class="docblock"><p>Thaws a window frozen with <a href="struct.Window.html#method.freeze_updates"><code>freeze_updates()</code></a>.</p>
+</div><h4 id="method.thaw_updates" class="method"><code>pub fn <a href="#method.thaw_updates" class="fnname">thaw_updates</a>(&amp;self)</code><a href="#method.thaw_updates" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2830-2834" title="goto source code">[src]</a></h4><div class="docblock"><p>Thaws a window frozen with <a href="struct.Window.html#method.freeze_updates" title="Self::freeze_updates()"><code>Self::freeze_updates()</code></a>.</p>
 </div><h4 id="method.unfullscreen" class="method"><code>pub fn <a href="#method.unfullscreen" class="fnname">unfullscreen</a>(&amp;self)</code><a href="#method.unfullscreen" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2847-2851" title="goto source code">[src]</a></h4><div class="docblock"><p>Moves the window out of fullscreen mode. If the window was not
 fullscreen, does nothing.</p>
 <p>On X11, asks the window manager to move <code>self</code> out of the fullscreen
@@ -1262,15 +1262,15 @@ concept of “maximized”; so you can’t rely on the unmaximization
 actually happening. But it will happen with most standard window
 managers, and GDK makes a best effort to get it to happen.</p>
 <p>On Windows, reliably unmaximizes the window.</p>
-</div><h4 id="method.unstick" class="method"><code>pub fn <a href="#method.unstick" class="fnname">unstick</a>(&amp;self)</code><a href="#method.unstick" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2874-2878" title="goto source code">[src]</a></h4><div class="docblock"><p>Reverse operation for <a href="struct.Window.html#method.stick"><code>stick()</code></a>; see <a href="struct.Window.html#method.stick"><code>stick()</code></a>,
+</div><h4 id="method.unstick" class="method"><code>pub fn <a href="#method.unstick" class="fnname">unstick</a>(&amp;self)</code><a href="#method.unstick" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2874-2878" title="goto source code">[src]</a></h4><div class="docblock"><p>Reverse operation for <a href="struct.Window.html#method.stick" title="Self::stick()"><code>Self::stick()</code></a>; see <a href="struct.Window.html#method.stick" title="Self::stick()"><code>Self::stick()</code></a>,
 and <code>gtk_window_unstick()</code>.</p>
 </div><h4 id="method.withdraw" class="method"><code>pub fn <a href="#method.withdraw" class="fnname">withdraw</a>(&amp;self)</code><a href="#method.withdraw" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2884-2888" title="goto source code">[src]</a></h4><div class="docblock"><p>Withdraws a window (unmaps it and asks the window manager to forget about it).
-This function is not really useful as <a href="struct.Window.html#method.hide"><code>hide()</code></a> automatically
+This function is not really useful as <a href="struct.Window.html#method.hide" title="Self::hide()"><code>Self::hide()</code></a> automatically
 withdraws toplevel windows before hiding them.</p>
 </div><h4 id="method.constrain_size" class="method"><code>pub fn <a href="#method.constrain_size" class="fnname">constrain_size</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;geometry: &amp;mut <a class="struct" href="struct.Geometry.html" title="struct gdk::Geometry">Geometry</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;flags: <a class="struct" href="struct.WindowHints.html" title="struct gdk::WindowHints">WindowHints</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.constrain_size" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2905-2927" title="goto source code">[src]</a></h4><div class="docblock"><p>Constrains a desired width and height according to a
 set of geometry hints (such as minimum and maximum size).</p>
 <h2 id="geometry-1" class="section-header"><a href="#geometry-1"><code>geometry</code></a></h2>
-<p>a <a href="struct.Geometry.html"><code>Geometry</code></a> structure</p>
+<p>a <a href="struct.Geometry.html" title="crate::Geometry"><code>crate::Geometry</code></a> structure</p>
 <h2 id="flags" class="section-header"><a href="#flags"><code>flags</code></a></h2>
 <p>a mask indicating what portions of <code>geometry</code> are set</p>
 <h2 id="width-3" class="section-header"><a href="#width-3"><code>width</code></a></h2>
@@ -1281,13 +1281,13 @@ set of geometry hints (such as minimum and maximum size).</p>
 <p>location to store resulting width</p>
 <h2 id="new_height" class="section-header"><a href="#new_height"><code>new_height</code></a></h2>
 <p>location to store resulting height</p>
-</div><h4 id="method.process_all_updates" class="method"><code>pub fn <a href="#method.process_all_updates" class="fnname">process_all_updates</a>()</code><a href="#method.process_all_updates" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2936-2941" title="goto source code">[src]</a></h4><div class="docblock"><p>Calls <a href="struct.Window.html#method.process_updates"><code>process_updates()</code></a> for all windows (see <a href="struct.Window.html"><code>Window</code></a>)
+</div><h4 id="method.process_all_updates" class="method"><code>pub fn <a href="#method.process_all_updates" class="fnname">process_all_updates</a>()</code><a href="#method.process_all_updates" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2936-2941" title="goto source code">[src]</a></h4><div class="docblock"><p>Calls <a href="struct.Window.html#method.process_updates" title="Self::process_updates()"><code>Self::process_updates()</code></a> for all windows (see <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>)
 in the application.</p>
 <h1 id="deprecated-since-322-4" class="section-header"><a href="#deprecated-since-322-4">Deprecated since 3.22</a></h1></div><h4 id="method.set_debug_updates" class="method"><code>pub fn <a href="#method.set_debug_updates" class="fnname">set_debug_updates</a>(setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_debug_updates" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#2969-2974" title="goto source code">[src]</a></h4><div class="docblock"><p>With update debugging enabled, calls to
-<a href="struct.Window.html#method.invalidate_region"><code>invalidate_region()</code></a> clear the invalidated region of the
+<a href="struct.Window.html#method.invalidate_region" title="Self::invalidate_region()"><code>Self::invalidate_region()</code></a> clear the invalidated region of the
 screen to a noticeable color, and GDK pauses for a short time
 before sending exposes to windows during
-<a href="struct.Window.html#method.process_updates"><code>process_updates()</code></a>. The net effect is that you can see
+<a href="struct.Window.html#method.process_updates" title="Self::process_updates()"><code>Self::process_updates()</code></a>. The net effect is that you can see
 the invalid region for each window and watch redraws as they
 occur. This allows you to diagnose inefficiencies in your application.</p>
 <p>In essence, because the GDK rendering model prevents all flicker,
@@ -1297,7 +1297,7 @@ debugging causes GTK to flicker slowly and noticeably, so you can
 see exactly what’s being redrawn when, in what order.</p>
 <p>The –gtk-debug=updates command line option passed to GTK+ programs
 enables this debug option at application startup time. That’s
-usually more useful than calling <a href="struct.Window.html#method.set_debug_updates"><code>set_debug_updates()</code></a>
+usually more useful than calling <a href="struct.Window.html#method.set_debug_updates" title="Self::set_debug_updates()"><code>Self::set_debug_updates()</code></a>
 yourself, though you might want to use this function to enable
 updates sometime after application startup time.</p>
 <h1 id="deprecated-since-322-5" class="section-header"><a href="#deprecated-since-322-5">Deprecated since 3.22</a></h1><h2 id="setting-2" class="section-header"><a href="#setting-2"><code>setting</code></a></h2>
@@ -1316,7 +1316,7 @@ surface from within any callback of this signal. Calling
 <h2 id="height-4" class="section-header"><a href="#height-4"><code>height</code></a></h2>
 <p>the height of the offscreen surface to create</p>
 <h1 id="returns-48" class="section-header"><a href="#returns-48">Returns</a></h1>
-<p>the newly created <a href="../cairo/surface/struct.Surface.html"><code>cairo::Surface</code></a> for the offscreen window</p>
+<p>the newly created <a href="../cairo/surface/struct.Surface.html" title="crate::cairo::Surface"><code>crate::cairo::Surface</code></a> for the offscreen window</p>
 </div><h4 id="method.connect_pick_embedded_child" class="method"><code>pub fn <a href="#method.connect_pick_embedded_child" class="fnname">connect_pick_embedded_child</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt; + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a href="#method.connect_pick_embedded_child" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#3049-3077" title="goto source code">[src]</a></h4><div class="docblock"><p>The ::pick-embedded-child signal is emitted to find an embedded
 child at the given position.</p>
 <h2 id="x-11" class="section-header"><a href="#x-11"><code>x</code></a></h2>
@@ -1324,14 +1324,14 @@ child at the given position.</p>
 <h2 id="y-11" class="section-header"><a href="#y-11"><code>y</code></a></h2>
 <p>y coordinate in the window</p>
 <h1 id="returns-49" class="section-header"><a href="#returns-49">Returns</a></h1>
-<p>the <a href="struct.Window.html"><code>Window</code></a> of the
+<p>the <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> of the
 embedded child at <code>x</code>, <code>y</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
-</div><h4 id="method.connect_cursor_notify" class="method"><code>pub fn <a href="#method.connect_cursor_notify" class="fnname">connect_cursor_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a href="#method.connect_cursor_notify" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#3086-3106" title="goto source code">[src]</a></h4></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-1" class="impl"><code class="in-band">impl <a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a></code><a href="#impl-1" class="anchor"></a><a class="srclink" href="../src/gdk/window.rs.html#114-250" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>(parent: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;, attributes: &amp;<a class="struct" href="struct.WindowAttr.html" title="struct gdk::WindowAttr">WindowAttr</a>) -&gt; <a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gdk/window.rs.html#132-141" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new <a href="struct.Window.html"><code>Window</code></a> using the attributes from
-<code>attributes</code>. See <a href="struct.WindowAttr.html"><code>WindowAttr</code></a> and <a href="crate::WindowAttributesType"><code>WindowAttributesType</code></a> for
+</div><h4 id="method.connect_cursor_notify" class="method"><code>pub fn <a href="#method.connect_cursor_notify" class="fnname">connect_cursor_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a href="#method.connect_cursor_notify" class="anchor"></a><a class="srclink" href="../src/gdk/auto/window.rs.html#3086-3106" title="goto source code">[src]</a></h4></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-1" class="impl"><code class="in-band">impl <a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a></code><a href="#impl-1" class="anchor"></a><a class="srclink" href="../src/gdk/window.rs.html#114-250" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>(parent: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a>&gt;, attributes: &amp;<a class="struct" href="struct.WindowAttr.html" title="struct gdk::WindowAttr">WindowAttr</a>) -&gt; <a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gdk/window.rs.html#132-141" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> using the attributes from
+<code>attributes</code>. See <a href="struct.WindowAttr.html" title="crate::WindowAttr"><code>crate::WindowAttr</code></a> and [<code>crate::WindowAttributesType</code>] for
 more details. Note: to use this on displays other than the default
 display, <code>parent</code> must be specified.</p>
 <h2 id="parent-1" class="section-header"><a href="#parent-1"><code>parent</code></a></h2>
-<p>a <a href="struct.Window.html"><code>Window</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to create the window as a child of
+<p>a <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to create the window as a child of
 the default root window for the default display.</p>
 <h2 id="attributes" class="section-header"><a href="#attributes"><code>attributes</code></a></h2>
 <p>attributes of the new window</p>
@@ -1339,7 +1339,7 @@ the default root window for the default display.</p>
 <p>mask indicating which
 fields in <code>attributes</code> are valid</p>
 <h1 id="returns-50" class="section-header"><a href="#returns-50">Returns</a></h1>
-<p>the new <a href="struct.Window.html"><code>Window</code></a></p>
+<p>the new <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a></p>
 </div><h4 id="method.create_similar_surface" class="method"><code>pub fn <a href="#method.create_similar_surface" class="fnname">create_similar_surface</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;content: <a class="enum" href="../cairo/enums/enum.Content.html" title="enum cairo::enums::Content">Content</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../cairo/surface/struct.Surface.html" title="struct cairo::surface::Surface">Surface</a>&gt;</code><a href="#method.create_similar_surface" class="anchor"></a><a class="srclink" href="../src/gdk/window.rs.html#169-183" title="goto source code">[src]</a></h4><div class="docblock"><p>Create a new surface that is as compatible as possible with the
 given <code>self</code>. For example the new surface will have the same
 fallback resolution and font options as <code>self</code>. Generally, the new

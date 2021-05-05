@@ -94,9 +94,9 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_tooltip_column_notify" class="fnname">connect_tooltip_column_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>IconView</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.IconView.html"><code>IconView</code></a></p>
+<p><a href="../struct.IconView.html" title="crate::IconView"><code>crate::IconView</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.convert_widget_to_bin_window_coords" class="method"><code>fn <a href="#tymethod.convert_widget_to_bin_window_coords" class="fnname">convert_widget_to_bin_window_coords</a>(&amp;self, wx: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, wy: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#665" title="goto source code">[src]</a></h3><div class="docblock"><p>Converts widget coordinates to coordinates for the bin_window,
-as expected by e.g. <a href="Self::get_path_at_pos()"><code>get_path_at_pos()</code></a>.</p>
+as expected by e.g. [<code>Self::get_path_at_pos()</code>].</p>
 <h2 id="wx" class="section-header"><a href="#wx"><code>wx</code></a></h2>
 <p>X coordinate relative to the widget</p>
 <h2 id="wy" class="section-header"><a href="#wy"><code>wy</code></a></h2>
@@ -105,22 +105,22 @@ as expected by e.g. <a href="Self::get_path_at_pos()"><code>get_path_at_pos()</c
 <p>return location for bin_window X coordinate</p>
 <h2 id="by" class="section-header"><a href="#by"><code>by</code></a></h2>
 <p>return location for bin_window Y coordinate</p>
-</div><h3 id="tymethod.create_drag_icon" class="method"><code>fn <a href="#tymethod.create_drag_icon" class="fnname">create_drag_icon</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../cairo/surface/struct.Surface.html" title="struct cairo::surface::Surface">Surface</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#676" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a <a href="../../cairo/surface/struct.Surface.html"><code>cairo::Surface</code></a> representation of the item at <code>path</code>.
+</div><h3 id="tymethod.create_drag_icon" class="method"><code>fn <a href="#tymethod.create_drag_icon" class="fnname">create_drag_icon</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../cairo/surface/struct.Surface.html" title="struct cairo::surface::Surface">Surface</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#676" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a <a href="../../cairo/surface/struct.Surface.html" title="crate::cairo::Surface"><code>crate::cairo::Surface</code></a> representation of the item at <code>path</code>.
 This image is used for a drag icon.</p>
 <h2 id="path" class="section-header"><a href="#path"><code>path</code></a></h2>
-<p>a <a href="../struct.TreePath.html"><code>TreePath</code></a> in <code>self</code></p>
+<p>a <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> in <code>self</code></p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>a newly-allocated surface of the drag icon.</p>
-</div><h3 id="tymethod.activates_on_single_click" class="method"><code>fn <a href="#tymethod.activates_on_single_click" class="fnname">activates_on_single_click</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#685" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the setting set by <a href="trait.IconViewExt.html#tymethod.set_activate_on_single_click"><code>set_activate_on_single_click()</code></a>.</p>
+</div><h3 id="tymethod.activates_on_single_click" class="method"><code>fn <a href="#tymethod.activates_on_single_click" class="fnname">activates_on_single_click</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#685" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the setting set by <a href="trait.IconViewExt.html#tymethod.set_activate_on_single_click" title="Self::set_activate_on_single_click()"><code>Self::set_activate_on_single_click()</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if item-activated will be emitted on a single click</p>
 </div><h3 id="tymethod.cell_rect" class="method"><code>fn <a href="#tymethod.cell_rect" class="fnname">cell_rect</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;cell: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#703-707" title="goto source code">[src]</a></h3><div class="docblock"><p>Fills the bounding rectangle in widget coordinates for the cell specified by
 <code>path</code> and <code>cell</code>. If <code>cell</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> the main cell area is used.</p>
 <p>This function is only valid if <code>self</code> is realized.</p>
 <h2 id="path-1" class="section-header"><a href="#path-1"><code>path</code></a></h2>
-<p>a <a href="../struct.TreePath.html"><code>TreePath</code></a></p>
+<p>a <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a></p>
 <h2 id="cell" class="section-header"><a href="#cell"><code>cell</code></a></h2>
-<p>a <a href="../struct.CellRenderer.html"><code>CellRenderer</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>crate::CellRenderer</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="rect" class="section-header"><a href="#rect"><code>rect</code></a></h2>
 <p>rectangle to fill with cell rect</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
@@ -134,7 +134,7 @@ This image is used for a drag icon.</p>
 </div><h3 id="tymethod.cursor" class="method"><code>fn <a href="#tymethod.cursor" class="fnname">cursor</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#744" title="goto source code">[src]</a></h3><div class="docblock"><p>Fills in <code>path</code> and <code>cell</code> with the current cursor path and cell.
 If the cursor isn’t currently set, then *<code>path</code> will be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.
 If no cell currently has focus, then *<code>cell</code> will be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
-<p>The returned <a href="../struct.TreePath.html"><code>TreePath</code></a> must be freed with <a href="crate::TreePath::free()"><code>TreePath::free()</code></a>.</p>
+<p>The returned <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> must be freed with [<code>crate::TreePath::free()</code>].</p>
 <h2 id="path-2" class="section-header"><a href="#path-2"><code>path</code></a></h2>
 <p>Return location for the current
 cursor path, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
@@ -162,10 +162,10 @@ the highlighted item, or <a href="https://doc.rust-lang.org/nightly/core/option/
 <h2 id="pos-1" class="section-header"><a href="#pos-1"><code>pos</code></a></h2>
 <p>Return location for the drop position, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.item_at_pos" class="method"><code>fn <a href="#tymethod.item_at_pos" class="fnname">item_at_pos</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#799" title="goto source code">[src]</a></h3><div class="docblock"><p>Finds the path at the point (<code>x</code>, <code>y</code>), relative to bin_window coordinates.
-In contrast to <a href="Self::get_path_at_pos()"><code>get_path_at_pos()</code></a>, this function also
+In contrast to [<code>Self::get_path_at_pos()</code>], this function also
 obtains the cell at the specified position. The returned path should
-be freed with <a href="crate::TreePath::free()"><code>TreePath::free()</code></a>.
-See <a href="trait.IconViewExt.html#tymethod.convert_widget_to_bin_window_coords"><code>convert_widget_to_bin_window_coords()</code></a> for converting
+be freed with [<code>crate::TreePath::free()</code>].
+See <a href="trait.IconViewExt.html#tymethod.convert_widget_to_bin_window_coords" title="Self::convert_widget_to_bin_window_coords()"><code>Self::convert_widget_to_bin_window_coords()</code></a> for converting
 widget coordinates to bin_window coordinates.</p>
 <h2 id="x" class="section-header"><a href="#x"><code>x</code></a></h2>
 <p>The x position to be identified</p>
@@ -181,7 +181,7 @@ responsible for the cell at (<code>x</code>, <code>y</code>), or <a href="https:
 </div><h3 id="tymethod.item_column" class="method"><code>fn <a href="#tymethod.item_column" class="fnname">item_column</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#811" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the column in which the item <code>path</code> is currently
 displayed. Column numbers start at 0.</p>
 <h2 id="path-6" class="section-header"><a href="#path-6"><code>path</code></a></h2>
-<p>the <a href="../struct.TreePath.html"><code>TreePath</code></a> of the item</p>
+<p>the <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> of the item</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
 <p>The column in which the item is displayed</p>
 </div><h3 id="tymethod.item_orientation" class="method"><code>fn <a href="#tymethod.item_orientation" class="fnname">item_orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#821" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the value of the ::item-orientation property which determines
@@ -194,7 +194,7 @@ whether the labels are drawn beside the icons instead of below.</p>
 </div><h3 id="tymethod.item_row" class="method"><code>fn <a href="#tymethod.item_row" class="fnname">item_row</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#842" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the row in which the item <code>path</code> is currently
 displayed. Row numbers start at 0.</p>
 <h2 id="path-7" class="section-header"><a href="#path-7"><code>path</code></a></h2>
-<p>the <a href="../struct.TreePath.html"><code>TreePath</code></a> of the item</p>
+<p>the <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> of the item</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>
 <p>The row in which the item is displayed</p>
 </div><h3 id="tymethod.item_width" class="method"><code>fn <a href="#tymethod.item_width" class="fnname">item_width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#851" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the value of the ::item-width property.</p>
@@ -206,28 +206,28 @@ displayed. Row numbers start at 0.</p>
 </div><h3 id="tymethod.markup_column" class="method"><code>fn <a href="#tymethod.markup_column" class="fnname">markup_column</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#869" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the column with markup text for <code>self</code>.</p>
 <h1 id="returns-14" class="section-header"><a href="#returns-14">Returns</a></h1>
 <p>the markup column, or -1 if it’s unset.</p>
-</div><h3 id="tymethod.model" class="method"><code>fn <a href="#tymethod.model" class="fnname">model</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#880" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the model the <a href="../struct.IconView.html"><code>IconView</code></a> is based on. Returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the
+</div><h3 id="tymethod.model" class="method"><code>fn <a href="#tymethod.model" class="fnname">model</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#880" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the model the <a href="../struct.IconView.html" title="crate::IconView"><code>crate::IconView</code></a> is based on. Returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the
 model is unset.</p>
 <h1 id="returns-15" class="section-header"><a href="#returns-15">Returns</a></h1>
-<p>A <a href="../struct.TreeModel.html"><code>TreeModel</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if none is
+<p>A <a href="../struct.TreeModel.html" title="crate::TreeModel"><code>crate::TreeModel</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if none is
 currently being used.</p>
 </div><h3 id="tymethod.path_at_pos" class="method"><code>fn <a href="#tymethod.path_at_pos" class="fnname">path_at_pos</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#898" title="goto source code">[src]</a></h3><div class="docblock"><p>Finds the path at the point (<code>x</code>, <code>y</code>), relative to bin_window coordinates.
-See <a href="Self::get_item_at_pos()"><code>get_item_at_pos()</code></a>, if you are also interested in
+See [<code>Self::get_item_at_pos()</code>], if you are also interested in
 the cell at the specified position.
-See <a href="trait.IconViewExt.html#tymethod.convert_widget_to_bin_window_coords"><code>convert_widget_to_bin_window_coords()</code></a> for converting
+See <a href="trait.IconViewExt.html#tymethod.convert_widget_to_bin_window_coords" title="Self::convert_widget_to_bin_window_coords()"><code>Self::convert_widget_to_bin_window_coords()</code></a> for converting
 widget coordinates to bin_window coordinates.</p>
 <h2 id="x-1" class="section-header"><a href="#x-1"><code>x</code></a></h2>
 <p>The x position to be identified</p>
 <h2 id="y-1" class="section-header"><a href="#y-1"><code>y</code></a></h2>
 <p>The y position to be identified</p>
 <h1 id="returns-16" class="section-header"><a href="#returns-16">Returns</a></h1>
-<p>The <a href="../struct.TreePath.html"><code>TreePath</code></a> corresponding
+<p>The <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> corresponding
 to the icon or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if no icon exists at that position.</p>
 </div><h3 id="tymethod.pixbuf_column" class="method"><code>fn <a href="#tymethod.pixbuf_column" class="fnname">pixbuf_column</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#907" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the column with pixbufs for <code>self</code>.</p>
 <h1 id="returns-17" class="section-header"><a href="#returns-17">Returns</a></h1>
 <p>the pixbuf column, or -1 if it’s unset.</p>
 </div><h3 id="tymethod.is_reorderable" class="method"><code>fn <a href="#tymethod.is_reorderable" class="fnname">is_reorderable</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#917" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves whether the user can reorder the list via drag-and-drop.
-See <a href="trait.IconViewExt.html#tymethod.set_reorderable"><code>set_reorderable()</code></a>.</p>
+See <a href="trait.IconViewExt.html#tymethod.set_reorderable" title="Self::set_reorderable()"><code>Self::set_reorderable()</code></a>.</p>
 <h1 id="returns-18" class="section-header"><a href="#returns-18">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the list can be reordered.</p>
 </div><h3 id="tymethod.row_spacing" class="method"><code>fn <a href="#tymethod.row_spacing" class="fnname">row_spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#926" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the value of the ::row-spacing property.</p>
@@ -236,12 +236,12 @@ See <a href="trait.IconViewExt.html#tymethod.set_reorderable"><code>set_reordera
 </div><h3 id="tymethod.selected_items" class="method"><code>fn <a href="#tymethod.selected_items" class="fnname">selected_items</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#944" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a list of paths of all selected items. Additionally, if you are
 planning on modifying the model after calling this function, you may
 want to convert the returned list into a list of <code>GtkTreeRowReferences</code>.
-To do this, you can use <a href="../struct.TreeRowReference.html#method.new"><code>TreeRowReference::new()</code></a>.</p>
+To do this, you can use <a href="../struct.TreeRowReference.html#method.new" title="crate::TreeRowReference::new()"><code>crate::TreeRowReference::new()</code></a>.</p>
 <p>To free the return value, use:</p>
 <pre><code class="language-C">g_list_free_full (list, (GDestroyNotify) gtk_tree_path_free);
 </code></pre>
 <h1 id="returns-20" class="section-header"><a href="#returns-20">Returns</a></h1>
-<p>A <a href="crate::glib::List"><code>glib::List</code></a> containing a <a href="../struct.TreePath.html"><code>TreePath</code></a> for each selected row.</p>
+<p>A [<code>crate::glib::List</code>] containing a <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> for each selected row.</p>
 </div><h3 id="tymethod.selection_mode" class="method"><code>fn <a href="#tymethod.selection_mode" class="fnname">selection_mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#953" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the selection mode of the <code>self</code>.</p>
 <h1 id="returns-21" class="section-header"><a href="#returns-21">Returns</a></h1>
 <p>the current selection mode</p>
@@ -256,8 +256,8 @@ displaying tooltips on <code>self</code>’s rows.</p>
 <h1 id="returns-24" class="section-header"><a href="#returns-24">Returns</a></h1>
 <p>the index of the tooltip column that is currently being
 used, or -1 if this is disabled.</p>
-</div><h3 id="tymethod.tooltip_context" class="method"><code>fn <a href="#tymethod.tooltip_context" class="fnname">tooltip_context</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;mut <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;y: &amp;mut <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;keyboard_tip: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>, <a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1014-1019" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is supposed to be used in a <a href="crate::Widget::query-tooltip"><code>Widget::query-tooltip</code></a>
-signal handler for <a href="../struct.IconView.html"><code>IconView</code></a>. The <code>x</code>, <code>y</code> and <code>keyboard_tip</code> values
+</div><h3 id="tymethod.tooltip_context" class="method"><code>fn <a href="#tymethod.tooltip_context" class="fnname">tooltip_context</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;x: &amp;mut <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;y: &amp;mut <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;keyboard_tip: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>, <a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1014-1019" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is supposed to be used in a [<code>crate::Widget::query-tooltip</code>]
+signal handler for <a href="../struct.IconView.html" title="crate::IconView"><code>crate::IconView</code></a>. The <code>x</code>, <code>y</code> and <code>keyboard_tip</code> values
 which are received in the signal handler, should be passed to this
 function without modification.</p>
 <p>The return value indicates whether there is an icon view item at the given
@@ -274,16 +274,16 @@ to be relative to <code>self</code>’s bin_window if <code>keyboard_tooltip</co
 <p>whether this is a keyboard tooltip or not</p>
 <h2 id="model" class="section-header"><a href="#model"><code>model</code></a></h2>
 <p>a pointer to receive a
-<a href="../struct.TreeModel.html"><code>TreeModel</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<a href="../struct.TreeModel.html" title="crate::TreeModel"><code>crate::TreeModel</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="path-8" class="section-header"><a href="#path-8"><code>path</code></a></h2>
-<p>a pointer to receive a <a href="../struct.TreePath.html"><code>TreePath</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a pointer to receive a <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="iter" class="section-header"><a href="#iter"><code>iter</code></a></h2>
-<p>a pointer to receive a <a href="../struct.TreeIter.html"><code>TreeIter</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a pointer to receive a <a href="../struct.TreeIter.html" title="crate::TreeIter"><code>crate::TreeIter</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-25" class="section-header"><a href="#returns-25">Returns</a></h1>
 <p>whether or not the given tooltip context points to a item</p>
 </div><h3 id="tymethod.visible_range" class="method"><code>fn <a href="#tymethod.visible_range" class="fnname">visible_range</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1036" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>start_path</code> and <code>end_path</code> to be the first and last visible path.
 Note that there may be invisible paths in between.</p>
-<p>Both paths should be freed with <a href="crate::TreePath::free()"><code>TreePath::free()</code></a> after use.</p>
+<p>Both paths should be freed with [<code>crate::TreePath::free()</code>] after use.</p>
 <h2 id="start_path" class="section-header"><a href="#start_path"><code>start_path</code></a></h2>
 <p>Return location for start of region,
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
@@ -293,11 +293,11 @@ or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#varia
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, if valid paths were placed in <code>start_path</code> and <code>end_path</code></p>
 </div><h3 id="tymethod.item_activated" class="method"><code>fn <a href="#tymethod.item_activated" class="fnname">item_activated</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1042" title="goto source code">[src]</a></h3><div class="docblock"><p>Activates the item determined by <code>path</code>.</p>
 <h2 id="path-9" class="section-header"><a href="#path-9"><code>path</code></a></h2>
-<p>The <a href="../struct.TreePath.html"><code>TreePath</code></a> to be activated</p>
+<p>The <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> to be activated</p>
 </div><h3 id="tymethod.path_is_selected" class="method"><code>fn <a href="#tymethod.path_is_selected" class="fnname">path_is_selected</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1053" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the icon pointed to by <code>path</code> is currently
 selected. If <code>path</code> does not point to a valid location, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> is returned.</p>
 <h2 id="path-10" class="section-header"><a href="#path-10"><code>path</code></a></h2>
-<p>A <a href="../struct.TreePath.html"><code>TreePath</code></a> to check selection on.</p>
+<p>A <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> to check selection on.</p>
 <h1 id="returns-27" class="section-header"><a href="#returns-27">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>path</code> is selected.</p>
 </div><h3 id="tymethod.scroll_to_path" class="method"><code>fn <a href="#tymethod.scroll_to_path" class="fnname">scroll_to_path</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;use_align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;row_align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;col_align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a><br>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1078" title="goto source code">[src]</a></h3><div class="docblock"><p>Moves the alignments of <code>self</code> to the position specified by <code>path</code>.
@@ -321,17 +321,17 @@ centered path will be modified to reflect this change.</p>
 <h2 id="col_align" class="section-header"><a href="#col_align"><code>col_align</code></a></h2>
 <p>The horizontal alignment of the item specified by <code>path</code>.</p>
 </div><h3 id="tymethod.select_all" class="method"><code>fn <a href="#tymethod.select_all" class="fnname">select_all</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1083" title="goto source code">[src]</a></h3><div class="docblock"><p>Selects all the icons. <code>self</code> must has its selection mode set
-to <a href="../enum.SelectionMode.html#variant.Multiple"><code>SelectionMode::Multiple</code></a>.</p>
+to <a href="../enum.SelectionMode.html#variant.Multiple" title="crate::SelectionMode::Multiple"><code>crate::SelectionMode::Multiple</code></a>.</p>
 </div><h3 id="tymethod.select_path" class="method"><code>fn <a href="#tymethod.select_path" class="fnname">select_path</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1089" title="goto source code">[src]</a></h3><div class="docblock"><p>Selects the row at <code>path</code>.</p>
 <h2 id="path-12" class="section-header"><a href="#path-12"><code>path</code></a></h2>
-<p>The <a href="../struct.TreePath.html"><code>TreePath</code></a> to be selected.</p>
+<p>The <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> to be selected.</p>
 </div><h3 id="tymethod.selected_foreach" class="method"><code>fn <a href="#tymethod.selected_foreach" class="fnname">selected_foreach</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../struct.IconView.html" title="struct gtk::IconView">IconView</a>, &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)&gt;(&amp;self, func: P)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1098" title="goto source code">[src]</a></h3><div class="docblock"><p>Calls a function for each selected icon. Note that the model or
 selection cannot be modified from within this function.</p>
 <h2 id="func" class="section-header"><a href="#func"><code>func</code></a></h2>
 <p>The function to call for each selected icon.</p>
 <h2 id="data" class="section-header"><a href="#data"><code>data</code></a></h2>
 <p>User data to pass to the function.</p>
-</div><h3 id="tymethod.set_activate_on_single_click" class="method"><code>fn <a href="#tymethod.set_activate_on_single_click" class="fnname">set_activate_on_single_click</a>(&amp;self, single: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1105" title="goto source code">[src]</a></h3><div class="docblock"><p>Causes the <a href="crate::IconView::item-activated"><code>IconView::item-activated</code></a> signal to be emitted on
+</div><h3 id="tymethod.set_activate_on_single_click" class="method"><code>fn <a href="#tymethod.set_activate_on_single_click" class="fnname">set_activate_on_single_click</a>(&amp;self, single: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1105" title="goto source code">[src]</a></h3><div class="docblock"><p>Causes the [<code>crate::IconView::item-activated</code>] signal to be emitted on
 a single click instead of a double click.</p>
 <h2 id="single" class="section-header"><a href="#single"><code>single</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to emit item-activated on a single click</p>
@@ -353,7 +353,7 @@ started in the specified cell.</p>
 <p>This function is often followed by <code>gtk_widget_grab_focus (icon_view)</code> in order to give keyboard focus to the widget.
 Please note that editing can only happen when the widget is realized.</p>
 <h2 id="path-13" class="section-header"><a href="#path-13"><code>path</code></a></h2>
-<p>A <a href="../struct.TreePath.html"><code>TreePath</code></a></p>
+<p>A <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a></p>
 <h2 id="cell-3" class="section-header"><a href="#cell-3"><code>cell</code></a></h2>
 <p>One of the cell renderers of <code>self</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="start_editing" class="section-header"><a href="#start_editing"><code>start_editing</code></a></h2>
@@ -367,7 +367,7 @@ Please note that editing can only happen when the widget is realized.</p>
 are drawn beside the icons instead of below.</p>
 <h2 id="orientation" class="section-header"><a href="#orientation"><code>orientation</code></a></h2>
 <p>the relative position of texts and icons</p>
-</div><h3 id="tymethod.set_item_padding" class="method"><code>fn <a href="#tymethod.set_item_padding" class="fnname">set_item_padding</a>(&amp;self, item_padding: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1166" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the <a href="crate::IconView:item-padding"><code>IconView:item-padding</code></a> property which specifies the padding
+</div><h3 id="tymethod.set_item_padding" class="method"><code>fn <a href="#tymethod.set_item_padding" class="fnname">set_item_padding</a>(&amp;self, item_padding: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1166" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the [<code>crate::IconView:item-padding</code>] property which specifies the padding
 around each of the icon view’s items.</p>
 <h2 id="item_padding" class="section-header"><a href="#item_padding"><code>item_padding</code></a></h2>
 <p>the item padding</p>
@@ -384,10 +384,10 @@ of the icon view.</p>
 </div><h3 id="tymethod.set_markup_column" class="method"><code>fn <a href="#tymethod.set_markup_column" class="fnname">set_markup_column</a>(&amp;self, column: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1191" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the column with markup information for <code>self</code> to be
 <code>column</code>. The markup column must be of type <code>G_TYPE_STRING</code>.
 If the markup column is set to something, it overrides
-the text column set by <a href="trait.IconViewExt.html#tymethod.set_text_column"><code>set_text_column()</code></a>.</p>
+the text column set by <a href="trait.IconViewExt.html#tymethod.set_text_column" title="Self::set_text_column()"><code>Self::set_text_column()</code></a>.</p>
 <h2 id="column" class="section-header"><a href="#column"><code>column</code></a></h2>
 <p>A column in the currently used model, or -1 to display no text</p>
-</div><h3 id="tymethod.set_model" class="method"><code>fn <a href="#tymethod.set_model" class="fnname">set_model</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>&gt;&gt;(&amp;self, model: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1200" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the model for a <a href="../struct.IconView.html"><code>IconView</code></a>.
+</div><h3 id="tymethod.set_model" class="method"><code>fn <a href="#tymethod.set_model" class="fnname">set_model</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>&gt;&gt;(&amp;self, model: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1200" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the model for a <a href="../struct.IconView.html" title="crate::IconView"><code>crate::IconView</code></a>.
 If the <code>self</code> already has a model set, it will remove
 it before setting the new model. If <code>model</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, then
 it will unset the old model.</p>
@@ -398,8 +398,8 @@ column must be of type <code>GDK_TYPE_PIXBUF</code></p>
 <h2 id="column-1" class="section-header"><a href="#column-1"><code>column</code></a></h2>
 <p>A column in the currently used model, or -1 to disable</p>
 </div><h3 id="tymethod.set_reorderable" class="method"><code>fn <a href="#tymethod.set_reorderable" class="fnname">set_reorderable</a>(&amp;self, reorderable: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1224" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is a convenience function to allow you to reorder models that
-support the <a href="crate::TreeDragSourceIface"><code>TreeDragSourceIface</code></a> and the <a href="crate::TreeDragDestIface"><code>TreeDragDestIface</code></a>. Both
-<a href="../struct.TreeStore.html"><code>TreeStore</code></a> and <a href="../struct.ListStore.html"><code>ListStore</code></a> support these. If <code>reorderable</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, then
+support the [<code>crate::TreeDragSourceIface</code>] and the [<code>crate::TreeDragDestIface</code>]. Both
+<a href="../struct.TreeStore.html" title="crate::TreeStore"><code>crate::TreeStore</code></a> and <a href="../struct.ListStore.html" title="crate::ListStore"><code>crate::ListStore</code></a> support these. If <code>reorderable</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, then
 the user can reorder the model by dragging and dropping rows. The
 developer can listen to these changes by connecting to the model’s
 row_inserted and row_deleted signals. The reordering is implemented by setting up
@@ -427,39 +427,39 @@ column must be of type <code>G_TYPE_STRING</code>.</p>
 <h2 id="column-2" class="section-header"><a href="#column-2"><code>column</code></a></h2>
 <p>A column in the currently used model, or -1 to display no text</p>
 </div><h3 id="tymethod.set_tooltip_cell" class="method"><code>fn <a href="#tymethod.set_tooltip_cell" class="fnname">set_tooltip_cell</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;tooltip: &amp;<a class="struct" href="../struct.Tooltip.html" title="struct gtk::Tooltip">Tooltip</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;cell: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1265-1270" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the tip area of <code>tooltip</code> to the area which <code>cell</code> occupies in
-the item pointed to by <code>path</code>. See also <a href="../struct.Tooltip.html#method.set_tip_area"><code>Tooltip::set_tip_area()</code></a>.</p>
-<p>See also <a href="trait.IconViewExt.html#tymethod.set_tooltip_column"><code>set_tooltip_column()</code></a> for a simpler alternative.</p>
+the item pointed to by <code>path</code>. See also <a href="../struct.Tooltip.html#method.set_tip_area" title="crate::Tooltip::set_tip_area()"><code>crate::Tooltip::set_tip_area()</code></a>.</p>
+<p>See also <a href="trait.IconViewExt.html#tymethod.set_tooltip_column" title="Self::set_tooltip_column()"><code>Self::set_tooltip_column()</code></a> for a simpler alternative.</p>
 <h2 id="tooltip" class="section-header"><a href="#tooltip"><code>tooltip</code></a></h2>
-<p>a <a href="../struct.Tooltip.html"><code>Tooltip</code></a></p>
+<p>a <a href="../struct.Tooltip.html" title="crate::Tooltip"><code>crate::Tooltip</code></a></p>
 <h2 id="path-15" class="section-header"><a href="#path-15"><code>path</code></a></h2>
-<p>a <a href="../struct.TreePath.html"><code>TreePath</code></a></p>
+<p>a <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a></p>
 <h2 id="cell-4" class="section-header"><a href="#cell-4"><code>cell</code></a></h2>
-<p>a <a href="../struct.CellRenderer.html"><code>CellRenderer</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>crate::CellRenderer</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.set_tooltip_column" class="method"><code>fn <a href="#tymethod.set_tooltip_column" class="fnname">set_tooltip_column</a>(&amp;self, column: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1285" title="goto source code">[src]</a></h3><div class="docblock"><p>If you only plan to have simple (text-only) tooltips on full items, you
-can use this function to have <a href="../struct.IconView.html"><code>IconView</code></a> handle these automatically
+can use this function to have <a href="../struct.IconView.html" title="crate::IconView"><code>crate::IconView</code></a> handle these automatically
 for you. <code>column</code> should be set to the column in <code>self</code>’s model
 containing the tooltip texts, or -1 to disable this feature.</p>
-<p>When enabled, <a href="crate::Widget:has-tooltip"><code>Widget:has-tooltip</code></a> will be set to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> and
-<code>self</code> will connect a <a href="crate::Widget::query-tooltip"><code>Widget::query-tooltip</code></a> signal handler.</p>
-<p>Note that the signal handler sets the text with <a href="../struct.Tooltip.html#method.set_markup"><code>Tooltip::set_markup()</code></a>,
+<p>When enabled, [<code>crate::Widget:has-tooltip</code>] will be set to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> and
+<code>self</code> will connect a [<code>crate::Widget::query-tooltip</code>] signal handler.</p>
+<p>Note that the signal handler sets the text with <a href="../struct.Tooltip.html#method.set_markup" title="crate::Tooltip::set_markup()"><code>crate::Tooltip::set_markup()</code></a>,
 so &amp;, &lt;, etc have to be escaped in the text.</p>
 <h2 id="column-3" class="section-header"><a href="#column-3"><code>column</code></a></h2>
 <p>an integer, which is a valid column number for <code>self</code>’s model</p>
 </div><h3 id="tymethod.set_tooltip_item" class="method"><code>fn <a href="#tymethod.set_tooltip_item" class="fnname">set_tooltip_item</a>(&amp;self, tooltip: &amp;<a class="struct" href="../struct.Tooltip.html" title="struct gtk::Tooltip">Tooltip</a>, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1295" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the tip area of <code>tooltip</code> to be the area covered by the item at <code>path</code>.
-See also <a href="trait.IconViewExt.html#tymethod.set_tooltip_column"><code>set_tooltip_column()</code></a> for a simpler alternative.
-See also <a href="../struct.Tooltip.html#method.set_tip_area"><code>Tooltip::set_tip_area()</code></a>.</p>
+See also <a href="trait.IconViewExt.html#tymethod.set_tooltip_column" title="Self::set_tooltip_column()"><code>Self::set_tooltip_column()</code></a> for a simpler alternative.
+See also <a href="../struct.Tooltip.html#method.set_tip_area" title="crate::Tooltip::set_tip_area()"><code>crate::Tooltip::set_tip_area()</code></a>.</p>
 <h2 id="tooltip-1" class="section-header"><a href="#tooltip-1"><code>tooltip</code></a></h2>
-<p>a <a href="../struct.Tooltip.html"><code>Tooltip</code></a></p>
+<p>a <a href="../struct.Tooltip.html" title="crate::Tooltip"><code>crate::Tooltip</code></a></p>
 <h2 id="path-16" class="section-header"><a href="#path-16"><code>path</code></a></h2>
-<p>a <a href="../struct.TreePath.html"><code>TreePath</code></a></p>
+<p>a <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a></p>
 </div><h3 id="tymethod.unselect_all" class="method"><code>fn <a href="#tymethod.unselect_all" class="fnname">unselect_all</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1299" title="goto source code">[src]</a></h3><div class="docblock"><p>Unselects all the icons.</p>
 </div><h3 id="tymethod.unselect_path" class="method"><code>fn <a href="#tymethod.unselect_path" class="fnname">unselect_path</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1305" title="goto source code">[src]</a></h3><div class="docblock"><p>Unselects the row at <code>path</code>.</p>
 <h2 id="path-17" class="section-header"><a href="#path-17"><code>path</code></a></h2>
-<p>The <a href="../struct.TreePath.html"><code>TreePath</code></a> to be unselected.</p>
-</div><h3 id="tymethod.unset_model_drag_dest" class="method"><code>fn <a href="#tymethod.unset_model_drag_dest" class="fnname">unset_model_drag_dest</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1310" title="goto source code">[src]</a></h3><div class="docblock"><p>Undoes the effect of <a href="crate::IconView::enable_model_drag_dest()"><code>IconView::enable_model_drag_dest()</code></a>. Calling this
-method sets <a href="crate::IconView:reorderable"><code>IconView:reorderable</code></a> to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>.</p>
-</div><h3 id="tymethod.unset_model_drag_source" class="method"><code>fn <a href="#tymethod.unset_model_drag_source" class="fnname">unset_model_drag_source</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1315" title="goto source code">[src]</a></h3><div class="docblock"><p>Undoes the effect of <a href="crate::IconView::enable_model_drag_source()"><code>IconView::enable_model_drag_source()</code></a>. Calling this
-method sets <a href="crate::IconView:reorderable"><code>IconView:reorderable</code></a> to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>.</p>
+<p>The <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> to be unselected.</p>
+</div><h3 id="tymethod.unset_model_drag_dest" class="method"><code>fn <a href="#tymethod.unset_model_drag_dest" class="fnname">unset_model_drag_dest</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1310" title="goto source code">[src]</a></h3><div class="docblock"><p>Undoes the effect of [<code>crate::IconView::enable_model_drag_dest()</code>]. Calling this
+method sets [<code>crate::IconView:reorderable</code>] to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>.</p>
+</div><h3 id="tymethod.unset_model_drag_source" class="method"><code>fn <a href="#tymethod.unset_model_drag_source" class="fnname">unset_model_drag_source</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1315" title="goto source code">[src]</a></h3><div class="docblock"><p>Undoes the effect of [<code>crate::IconView::enable_model_drag_source()</code>]. Calling this
+method sets [<code>crate::IconView:reorderable</code>] to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>.</p>
 </div><h3 id="tymethod.cell_area" class="method"><code>fn <a href="#tymethod.cell_area" class="fnname">cell_area</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.CellArea.html" title="struct gtk::CellArea">CellArea</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1318" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_activate_cursor_item" class="method"><code>fn <a href="#tymethod.connect_activate_cursor_item" class="fnname">connect_activate_cursor_item</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1330-1331" title="goto source code">[src]</a></h3><div class="docblock"><p>A [keybinding signal][<code>BindingSignal</code>]
 which gets emitted when the user activates the currently
 focused item.</p>
@@ -468,14 +468,14 @@ focused item.</p>
 programmatically.</p>
 <p>The default bindings for this signal are Space, Return and Enter.</p>
 </div><h3 id="tymethod.emit_activate_cursor_item" class="method"><code>fn <a href="#tymethod.emit_activate_cursor_item" class="fnname">emit_activate_cursor_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1333" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_item_activated" class="method"><code>fn <a href="#tymethod.connect_item_activated" class="fnname">connect_item_activated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1345" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::item-activated signal is emitted when the method
-<a href="trait.IconViewExt.html#tymethod.item_activated"><code>item_activated()</code></a> is called, when the user double
+<a href="trait.IconViewExt.html#tymethod.item_activated" title="Self::item_activated()"><code>Self::item_activated()</code></a> is called, when the user double
 clicks an item with the “activate-on-single-click” property set
 to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>, or when the user single clicks an item when the
 “activate-on-single-click” property set to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>. It is also
 emitted when a non-editable item is selected and one of the keys:
 Space, Return or Enter is pressed.</p>
 <h2 id="path-18" class="section-header"><a href="#path-18"><code>path</code></a></h2>
-<p>the <a href="../struct.TreePath.html"><code>TreePath</code></a> for the activated item</p>
+<p>the <a href="../struct.TreePath.html" title="crate::TreePath"><code>crate::TreePath</code></a> for the activated item</p>
 </div><h3 id="tymethod.connect_move_cursor" class="method"><code>fn <a href="#tymethod.connect_move_cursor" class="fnname">connect_move_cursor</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="enum" href="../enum.MovementStep.html" title="enum gtk::MovementStep">MovementStep</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1366-1369" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::move-cursor signal is a
 [keybinding signal][<code>BindingSignal</code>]
 which gets emitted when the user initiates a cursor movement.</p>
@@ -491,7 +491,7 @@ All of these will extend the selection when combined with
 the Shift modifier.</li>
 </ul>
 <h2 id="step" class="section-header"><a href="#step"><code>step</code></a></h2>
-<p>the granularity of the move, as a <a href="../enum.MovementStep.html"><code>MovementStep</code></a></p>
+<p>the granularity of the move, as a <a href="../enum.MovementStep.html" title="crate::MovementStep"><code>crate::MovementStep</code></a></p>
 <h2 id="count" class="section-header"><a href="#count"><code>count</code></a></h2>
 <p>the number of <code>step</code> units to move</p>
 </div><h3 id="tymethod.emit_move_cursor" class="method"><code>fn <a href="#tymethod.emit_move_cursor" class="fnname">emit_move_cursor</a>(&amp;self, step: <a class="enum" href="../enum.MovementStep.html" title="enum gtk::MovementStep">MovementStep</a>, count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1371" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_select_all" class="method"><code>fn <a href="#tymethod.connect_select_all" class="fnname">connect_select_all</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/icon_view.rs.html#1382" title="goto source code">[src]</a></h3><div class="docblock"><p>A [keybinding signal][<code>BindingSignal</code>]

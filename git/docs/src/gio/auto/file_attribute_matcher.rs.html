@@ -184,7 +184,7 @@
     <span class="doccomment">/// Creates a new file attribute matcher, which matches attributes</span>
     <span class="doccomment">/// against a given string. `GFileAttributeMatchers` are reference</span>
     <span class="doccomment">/// counted structures, and are created with a reference count of 1. If</span>
-    <span class="doccomment">/// the number of references falls to 0, the [`FileAttributeMatcher`](crate::FileAttributeMatcher) is</span>
+    <span class="doccomment">/// the number of references falls to 0, the [`crate::FileAttributeMatcher`] is</span>
     <span class="doccomment">/// automatically destroyed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `attributes` string should be formatted with specific keys separated</span>
@@ -205,7 +205,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`FileAttributeMatcher`](crate::FileAttributeMatcher)</span>
+    <span class="doccomment">/// a [`crate::FileAttributeMatcher`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_attribute_matcher_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">attributes</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileAttributeMatcher</span> {
         <span class="kw">unsafe</span> {

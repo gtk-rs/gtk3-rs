@@ -3,26 +3,26 @@
 <link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc struct"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../glib/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Struct MainContext</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#implementations">Methods</a><div class="sidebar-links"><a href="#method.acquire">acquire</a><a href="#method.block_on">block_on</a><a href="#method.channel">channel</a><a href="#method.default">default</a><a href="#method.dispatch">dispatch</a><a href="#method.find_source_by_id">find_source_by_id</a><a href="#method.invoke">invoke</a><a href="#method.invoke_local">invoke_local</a><a href="#method.invoke_local_with_priority">invoke_local_with_priority</a><a href="#method.invoke_with_priority">invoke_with_priority</a><a href="#method.is_owner">is_owner</a><a href="#method.iteration">iteration</a><a href="#method.new">new</a><a href="#method.pending">pending</a><a href="#method.pop_thread_default">pop_thread_default</a><a href="#method.prepare">prepare</a><a href="#method.push_thread_default">push_thread_default</a><a href="#method.ref_thread_default">ref_thread_default</a><a href="#method.release">release</a><a href="#method.spawn">spawn</a><a href="#method.spawn_local">spawn_local</a><a href="#method.spawn_local_with_priority">spawn_local_with_priority</a><a href="#method.spawn_with_priority">spawn_with_priority</a><a href="#method.sync_channel">sync_channel</a><a href="#method.thread_default">thread_default</a><a href="#method.wakeup">wakeup</a><a href="#method.with_thread_default">with_thread_default</a></div><a class="sidebar-title" href="#trait-implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-Debug">Debug</a><a href="#impl-Default">Default</a><a href="#impl-Eq">Eq</a><a href="#impl-Hash">Hash</a><a href="#impl-LocalSpawn">LocalSpawn</a><a href="#impl-Ord">Ord</a><a href="#impl-PartialEq%3CMainContext%3E">PartialEq&lt;MainContext&gt;</a><a href="#impl-PartialOrd%3CMainContext%3E">PartialOrd&lt;MainContext&gt;</a><a href="#impl-Send">Send</a><a href="#impl-Spawn">Spawn</a><a href="#impl-StaticType">StaticType</a><a href="#impl-StructuralEq">StructuralEq</a><a href="#impl-StructuralPartialEq">StructuralPartialEq</a><a href="#impl-Sync">Sync</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-RefUnwindSafe">RefUnwindSafe</a><a href="#impl-Unpin">Unpin</a><a href="#impl-UnwindSafe">UnwindSafe</a></div><a class="sidebar-title" href="#blanket-implementations">Blanket Implementations</a><div class="sidebar-links"><a href="#impl-Any">Any</a><a href="#impl-Borrow%3CT%3E">Borrow&lt;T&gt;</a><a href="#impl-BorrowMut%3CT%3E">BorrowMut&lt;T&gt;</a><a href="#impl-From%3CT%3E">From&lt;T&gt;</a><a href="#impl-FromValueOptional%3C%27a%3E">FromValueOptional&lt;&#39;a&gt;</a><a href="#impl-Into%3CU%3E">Into&lt;U&gt;</a><a href="#impl-ToOwned">ToOwned</a><a href="#impl-ToSendValue">ToSendValue</a><a href="#impl-TryFrom%3CU%3E">TryFrom&lt;U&gt;</a><a href="#impl-TryInto%3CU%3E">TryInto&lt;U&gt;</a></div></div><p class="location"><a href="index.html">glib</a></p><div id="sidebar-vars" data-name="MainContext" data-ty="struct" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">glib</a>::<wbr><a class="struct" href="">MainContext</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/glib/auto/main_context.rs.html#7-18" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct MainContext(_);</pre></div><div class="docblock"><p>The <code>GMainContext</code> struct is an opaque data
 type representing a set of sources to be handled in a main loop.</p>
-</div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#20-296" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>() -&gt; <a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#27-29" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new <a href="struct.MainContext.html"><code>MainContext</code></a> structure.</p>
+</div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#20-296" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>() -&gt; <a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#27-29" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a> structure.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>the new <a href="struct.MainContext.html"><code>MainContext</code></a></p>
+<p>the new <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a></p>
 </div><h4 id="method.acquire" class="method"><code>pub fn <a href="#method.acquire" class="fnname">acquire</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.acquire" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#47-49" title="goto source code">[src]</a></h4><div class="docblock"><p>Tries to become the owner of the specified context.
 If some other thread is the owner of the context,
 returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> immediately. Ownership is properly
 recursive: the owner can require ownership again
-and will release ownership when <a href="struct.MainContext.html#method.release"><code>release()</code></a>
-is called as many times as <a href="struct.MainContext.html#method.acquire"><code>acquire()</code></a>.</p>
+and will release ownership when <a href="struct.MainContext.html#method.release" title="Self::release()"><code>Self::release()</code></a>
+is called as many times as <a href="struct.MainContext.html#method.acquire" title="Self::acquire()"><code>Self::acquire()</code></a>.</p>
 <p>You must be the owner of a context before you
-can call <a href="struct.MainContext.html#method.prepare"><code>prepare()</code></a>, <a href="Self::query()"><code>query()</code></a>,
-<a href="Self::check()"><code>check()</code></a>, <a href="struct.MainContext.html#method.dispatch"><code>dispatch()</code></a>.</p>
+can call <a href="struct.MainContext.html#method.prepare" title="Self::prepare()"><code>Self::prepare()</code></a>, [<code>Self::query()</code>],
+[<code>Self::check()</code>], <a href="struct.MainContext.html#method.dispatch" title="Self::dispatch()"><code>Self::dispatch()</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the operation succeeded, and
 this thread is now the owner of <code>self</code>.</p>
 </div><h4 id="method.dispatch" class="method"><code>pub fn <a href="#method.dispatch" class="fnname">dispatch</a>(&amp;self)</code><a href="#method.dispatch" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#66-70" title="goto source code">[src]</a></h4><div class="docblock"><p>Dispatches all pending sources.</p>
 <p>You must have successfully acquired the context with
-<a href="struct.MainContext.html#method.acquire"><code>acquire()</code></a> before you may call this function.</p>
+<a href="struct.MainContext.html#method.acquire" title="Self::acquire()"><code>Self::acquire()</code></a> before you may call this function.</p>
 </div><h4 id="method.is_owner" class="method"><code>pub fn <a href="#method.is_owner" class="fnname">is_owner</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.is_owner" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#97-99" title="goto source code">[src]</a></h4><div class="docblock"><p>Determines whether this thread holds the (recursive)
-ownership of this <a href="struct.MainContext.html"><code>MainContext</code></a>. This is useful to
+ownership of this <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a>. This is useful to
 know before waiting on another thread that may be
 blocking to get ownership of <code>self</code>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
@@ -36,7 +36,7 @@ sources are not waited to become ready, only those highest priority
 events sources will be dispatched (if any), that are ready at this
 given moment without further waiting.</p>
 <p>Note that even when <code>may_block</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, it is still possible for
-<a href="struct.MainContext.html#method.iteration"><code>iteration()</code></a> to return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>, since the wait may
+<a href="struct.MainContext.html#method.iteration" title="Self::iteration()"><code>Self::iteration()</code></a> to return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>, since the wait may
 be interrupted for other reasons than an event source becoming ready.</p>
 <h2 id="may_block" class="section-header"><a href="#may_block"><code>may_block</code></a></h2>
 <p>whether the call may block.</p>
@@ -53,45 +53,45 @@ current thread. This will cause certain asynchronous operations
 started in this thread to run under <code>self</code> and deliver their
 results to its main loop, rather than running under the global
 default context in the main thread. Note that calling this function
-changes the context returned by <a href="Self::get_thread_default()"><code>get_thread_default()</code></a>,
-not the one returned by <a href="struct.MainContext.html#method.default"><code>default()</code></a>, so it does not affect
+changes the context returned by [<code>Self::get_thread_default()</code>],
+not the one returned by <a href="struct.MainContext.html#method.default" title="Self::default()"><code>Self::default()</code></a>, so it does not affect
 the context used by functions like <code>g_idle_add()</code>.</p>
 <p>Normally you would call this function shortly after creating a new
-thread, passing it a <a href="struct.MainContext.html"><code>MainContext</code></a> which will be run by a
-<a href="struct.MainLoop.html"><code>MainLoop</code></a> in that thread, to set a new default context for all
+thread, passing it a <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a> which will be run by a
+<a href="struct.MainLoop.html" title="crate::MainLoop"><code>crate::MainLoop</code></a> in that thread, to set a new default context for all
 async operations in that thread. In this case you may not need to
-ever call <a href="struct.MainContext.html#method.pop_thread_default"><code>pop_thread_default()</code></a>, assuming you want the
-new <a href="struct.MainContext.html"><code>MainContext</code></a> to be the default for the whole lifecycle of the
+ever call <a href="struct.MainContext.html#method.pop_thread_default" title="Self::pop_thread_default()"><code>Self::pop_thread_default()</code></a>, assuming you want the
+new <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a> to be the default for the whole lifecycle of the
 thread.</p>
 <p>If you don’t have control over how the new thread was created (e.g.
 in the new thread isn’t newly created, or if the thread life
-cycle is managed by a <a href="struct.ThreadPool.html"><code>ThreadPool</code></a>), it is always suggested to wrap
-the logic that needs to use the new <a href="struct.MainContext.html"><code>MainContext</code></a> inside a
-<a href="struct.MainContext.html#method.push_thread_default"><code>push_thread_default()</code></a> / <a href="struct.MainContext.html#method.pop_thread_default"><code>pop_thread_default()</code></a>
+cycle is managed by a <a href="struct.ThreadPool.html" title="crate::ThreadPool"><code>crate::ThreadPool</code></a>), it is always suggested to wrap
+the logic that needs to use the new <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a> inside a
+<a href="struct.MainContext.html#method.push_thread_default" title="Self::push_thread_default()"><code>Self::push_thread_default()</code></a> / <a href="struct.MainContext.html#method.pop_thread_default" title="Self::pop_thread_default()"><code>Self::pop_thread_default()</code></a>
 pair, otherwise threads that are re-used will end up never explicitly
-releasing the <a href="struct.MainContext.html"><code>MainContext</code></a> reference they hold.</p>
+releasing the <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a> reference they hold.</p>
 <p>In some cases you may want to schedule a single operation in a
 non-default context, or temporarily use a non-default context in
 the main thread. In that case, you can wrap the call to the
 asynchronous operation inside a
-<a href="struct.MainContext.html#method.push_thread_default"><code>push_thread_default()</code></a> /
-<a href="struct.MainContext.html#method.pop_thread_default"><code>pop_thread_default()</code></a> pair, but it is up to you to
+<a href="struct.MainContext.html#method.push_thread_default" title="Self::push_thread_default()"><code>Self::push_thread_default()</code></a> /
+<a href="struct.MainContext.html#method.pop_thread_default" title="Self::pop_thread_default()"><code>Self::pop_thread_default()</code></a> pair, but it is up to you to
 ensure that no other asynchronous operations accidentally get
 started while the non-default context is active.</p>
 <p>Beware that libraries that predate this function may not correctly
 handle being used from a thread with a thread-default context. Eg,
 see <code>g_file_supports_thread_contexts()</code>.</p>
 </div><h4 id="method.release" class="method"><code>pub fn <a href="#method.release" class="fnname">release</a>(&amp;self)</code><a href="#method.release" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#203-207" title="goto source code">[src]</a></h4><div class="docblock"><p>Releases ownership of a context previously acquired by this thread
-with <a href="struct.MainContext.html#method.acquire"><code>acquire()</code></a>. If the context was acquired multiple
-times, the ownership will be released only when <a href="struct.MainContext.html#method.release"><code>release()</code></a>
+with <a href="struct.MainContext.html#method.acquire" title="Self::acquire()"><code>Self::acquire()</code></a>. If the context was acquired multiple
+times, the ownership will be released only when <a href="struct.MainContext.html#method.release" title="Self::release()"><code>Self::release()</code></a>
 is called as many times as it was acquired.</p>
-</div><h4 id="method.wakeup" class="method"><code>pub fn <a href="#method.wakeup" class="fnname">wakeup</a>(&amp;self)</code><a href="#method.wakeup" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#256-260" title="goto source code">[src]</a></h4><div class="docblock"><p>If <code>self</code> is currently blocking in <a href="struct.MainContext.html#method.iteration"><code>iteration()</code></a>
+</div><h4 id="method.wakeup" class="method"><code>pub fn <a href="#method.wakeup" class="fnname">wakeup</a>(&amp;self)</code><a href="#method.wakeup" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#256-260" title="goto source code">[src]</a></h4><div class="docblock"><p>If <code>self</code> is currently blocking in <a href="struct.MainContext.html#method.iteration" title="Self::iteration()"><code>Self::iteration()</code></a>
 waiting for a source to become ready, cause it to stop blocking
 and return. Otherwise, cause the next invocation of
-<a href="struct.MainContext.html#method.iteration"><code>iteration()</code></a> to return without blocking.</p>
-<p>This API is useful for low-level control over <a href="struct.MainContext.html"><code>MainContext</code></a>; for
+<a href="struct.MainContext.html#method.iteration" title="Self::iteration()"><code>Self::iteration()</code></a> to return without blocking.</p>
+<p>This API is useful for low-level control over <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a>; for
 example, integrating it with main loop implementations such as
-<a href="struct.MainLoop.html"><code>MainLoop</code></a>.</p>
+<a href="struct.MainLoop.html" title="crate::MainLoop"><code>crate::MainLoop</code></a>.</p>
 <p>Another related use for this function is when implementing a main
 loop with a termination condition, computed from multiple threads:</p>
 <pre><code class="language-C">  #define NUM_TASKS 10
@@ -110,29 +110,29 @@ loop with a termination condition, computed from multiple threads:</p>
 </div><h4 id="method.default" class="method"><code>pub fn <a href="#method.default" class="fnname">default</a>() -&gt; <a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a></code><a href="#method.default" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#271-273" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the global default main context. This is the main context
 used for main loop functions when a main loop is not explicitly
 specified, and corresponds to the “main” main loop. See also
-<a href="Self::get_thread_default()"><code>get_thread_default()</code></a>.</p>
+[<code>Self::get_thread_default()</code>].</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>the global default main context.</p>
-</div><h4 id="method.thread_default" class="method"><code>pub fn <a href="#method.thread_default" class="fnname">thread_default</a>() -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a>&gt;</code><a href="#method.thread_default" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#277-279" title="goto source code">[src]</a></h4><h4 id="method.ref_thread_default" class="method"><code>pub fn <a href="#method.ref_thread_default" class="fnname">ref_thread_default</a>() -&gt; <a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a></code><a href="#method.ref_thread_default" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#293-295" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the thread-default <a href="struct.MainContext.html"><code>MainContext</code></a> for this thread, as with
-<a href="Self::get_thread_default()"><code>get_thread_default()</code></a>, but also adds a reference to
-it with <a href="Self::ref()"><code>ref()</code></a>. In addition, unlike
-<a href="Self::get_thread_default()"><code>get_thread_default()</code></a>, if the thread-default context
-is the global default context, this will return that <a href="struct.MainContext.html"><code>MainContext</code></a>
+</div><h4 id="method.thread_default" class="method"><code>pub fn <a href="#method.thread_default" class="fnname">thread_default</a>() -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a>&gt;</code><a href="#method.thread_default" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#277-279" title="goto source code">[src]</a></h4><h4 id="method.ref_thread_default" class="method"><code>pub fn <a href="#method.ref_thread_default" class="fnname">ref_thread_default</a>() -&gt; <a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a></code><a href="#method.ref_thread_default" class="anchor"></a><a class="srclink" href="../src/glib/auto/main_context.rs.html#293-295" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the thread-default <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a> for this thread, as with
+[<code>Self::get_thread_default()</code>], but also adds a reference to
+it with [<code>Self::ref()</code>]. In addition, unlike
+[<code>Self::get_thread_default()</code>], if the thread-default context
+is the global default context, this will return that <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a>
 (with a ref added to it) rather than returning <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p>the thread-default <a href="struct.MainContext.html"><code>MainContext</code></a>. Unref
-with <a href="Self::unref()"><code>unref()</code></a> when you are done with it.</p>
+<p>the thread-default <a href="struct.MainContext.html" title="crate::MainContext"><code>crate::MainContext</code></a>. Unref
+with [<code>Self::unref()</code>] when you are done with it.</p>
 </div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-1" class="impl"><code class="in-band">impl <a class="struct" href="struct.MainContext.html" title="struct glib::MainContext">MainContext</a></code><a href="#impl-1" class="anchor"></a><a class="srclink" href="../src/glib/main_context.rs.html#11-184" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.prepare" class="method"><code>pub fn <a href="#method.prepare" class="fnname">prepare</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a href="#method.prepare" class="anchor"></a><a class="srclink" href="../src/glib/main_context.rs.html#26-37" title="goto source code">[src]</a></h4><div class="docblock"><p>Prepares to poll sources within a main loop. The resulting information
 for polling is determined by calling g_main_context_query ().</p>
 <p>You must have successfully acquired the context with
-<a href="struct.MainContext.html#method.acquire"><code>acquire()</code></a> before you may call this function.</p>
+<a href="struct.MainContext.html#method.acquire" title="Self::acquire()"><code>Self::acquire()</code></a> before you may call this function.</p>
 <h2 id="priority" class="section-header"><a href="#priority"><code>priority</code></a></h2>
 <p>location to store priority of highest priority
 source already ready.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if some source is ready to be dispatched
 prior to polling.</p>
-</div><h4 id="method.find_source_by_id" class="method"><code>pub fn <a href="#method.find_source_by_id" class="fnname">find_source_by_id</a>(&amp;self, source_id: &amp;<a class="struct" href="source/struct.SourceId.html" title="struct glib::source::SourceId">SourceId</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Source.html" title="struct glib::Source">Source</a>&gt;</code><a href="#method.find_source_by_id" class="anchor"></a><a class="srclink" href="../src/glib/main_context.rs.html#58-65" title="goto source code">[src]</a></h4><div class="docblock"><p>Finds a <a href="struct.Source.html"><code>Source</code></a> given a pair of context and ID.</p>
+</div><h4 id="method.find_source_by_id" class="method"><code>pub fn <a href="#method.find_source_by_id" class="fnname">find_source_by_id</a>(&amp;self, source_id: &amp;<a class="struct" href="source/struct.SourceId.html" title="struct glib::source::SourceId">SourceId</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Source.html" title="struct glib::Source">Source</a>&gt;</code><a href="#method.find_source_by_id" class="anchor"></a><a class="srclink" href="../src/glib/main_context.rs.html#58-65" title="goto source code">[src]</a></h4><div class="docblock"><p>Finds a <a href="struct.Source.html" title="crate::Source"><code>crate::Source</code></a> given a pair of context and ID.</p>
 <p>It is a programmer error to attempt to look up a non-existent source.</p>
 <p>More specifically: source IDs can be reissued after a source has been
 destroyed and therefore it is never valid to use this function with a
@@ -143,24 +143,24 @@ is called on its (now invalid) source ID. This source ID may have
 been reissued, leading to the operation being performed against the
 wrong source.</p>
 <h2 id="source_id" class="section-header"><a href="#source_id"><code>source_id</code></a></h2>
-<p>the source ID, as returned by <a href="crate::Source::get_id()"><code>Source::get_id()</code></a>.</p>
+<p>the source ID, as returned by [<code>crate::Source::get_id()</code>].</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
-<p>the <a href="struct.Source.html"><code>Source</code></a></p>
+<p>the <a href="struct.Source.html" title="crate::Source"><code>crate::Source</code></a></p>
 </div><h4 id="method.invoke" class="method"><code>pub fn <a href="#method.invoke" class="fnname">invoke</a>&lt;F&gt;(&amp;self, func: F) <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>() + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'static,&nbsp;</span></code><a href="#method.invoke" class="anchor"></a><a class="srclink" href="../src/glib/main_context.rs.html#94-99" title="goto source code">[src]</a></h4><div class="docblock"><p>Invokes <code>func</code> on the main context.
 Invokes a function in such a way that <code>self</code> is owned during the
 invocation of <code>function</code>.</p>
 <p>If <code>self</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then the global default main context — as
-returned by <a href="struct.MainContext.html#method.default"><code>default()</code></a> — is used.</p>
+returned by <a href="struct.MainContext.html#method.default" title="Self::default()"><code>Self::default()</code></a> — is used.</p>
 <p>If <code>self</code> is owned by the current thread, <code>function</code> is called
 directly. Otherwise, if <code>self</code> is the thread-default main context
-of the current thread and <a href="struct.MainContext.html#method.acquire"><code>acquire()</code></a> succeeds, then
-<code>function</code> is called and <a href="struct.MainContext.html#method.release"><code>release()</code></a> is called
+of the current thread and <a href="struct.MainContext.html#method.acquire" title="Self::acquire()"><code>Self::acquire()</code></a> succeeds, then
+<code>function</code> is called and <a href="struct.MainContext.html#method.release" title="Self::release()"><code>Self::release()</code></a> is called
 afterwards.</p>
 <p>In any other case, an idle source is created to call <code>function</code> and
 that source is attached to <code>self</code> (presumably to be run in another
 thread). The idle source is attached with <code>G_PRIORITY_DEFAULT</code>
 priority. If you want a different priority, use
-<a href="Self::invoke_full()"><code>invoke_full()</code></a>.</p>
+[<code>Self::invoke_full()</code>].</p>
 <p>Note that, as with normal idle functions, <code>function</code> should probably
 return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>. If it returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, it will be continuously run in a
 loop (and may prevent this call from returning).</p>

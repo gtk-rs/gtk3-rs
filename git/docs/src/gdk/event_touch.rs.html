@@ -80,14 +80,14 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Used for touch events.</span>
-<span class="doccomment">/// `type` field will be one of [`EventType::TouchBegin`], [`EventType::TouchUpdate`],</span>
-<span class="doccomment">/// [`EventType::TouchEnd`] or [`EventType::TouchCancel`].</span>
+<span class="doccomment">/// `type` field will be one of [`crate::EventType::TouchBegin`], [`crate::EventType::TouchUpdate`],</span>
+<span class="doccomment">/// [`crate::EventType::TouchEnd`] or [`crate::EventType::TouchCancel`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Touch events are grouped into sequences by means of the `sequence`</span>
 <span class="doccomment">/// field, which can also be obtained with `gdk_event_get_event_sequence()`.</span>
-<span class="doccomment">/// Each sequence begins with a [`EventType::TouchBegin`] event, followed by</span>
-<span class="doccomment">/// any number of [`EventType::TouchUpdate`] events, and ends with a [`EventType::TouchEnd`]</span>
-<span class="doccomment">/// (or [`EventType::TouchCancel`]) event. With multitouch devices, there may be</span>
+<span class="doccomment">/// Each sequence begins with a [`crate::EventType::TouchBegin`] event, followed by</span>
+<span class="doccomment">/// any number of [`crate::EventType::TouchUpdate`] events, and ends with a [`crate::EventType::TouchEnd`]</span>
+<span class="doccomment">/// (or [`crate::EventType::TouchCancel`]) event. With multitouch devices, there may be</span>
 <span class="doccomment">/// several active sequences at the same time.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventTouch</span>(<span class="kw">crate</span><span class="ident">::Event</span>);

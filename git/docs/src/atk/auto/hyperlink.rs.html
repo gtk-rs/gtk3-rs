@@ -324,7 +324,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`HyperlinkExt`](trait@crate::prelude::HyperlinkExt), [`trait@glib::object::ObjectExt`], [`AtkActionExt`](trait@crate::prelude::AtkActionExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::HyperlinkExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::AtkActionExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Hyperlink</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkHyperlink</span>, <span class="ident">ffi::AtkHyperlinkClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Action</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -338,7 +338,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Hyperlink`](struct@crate::Hyperlink)</span>
+<span class="doccomment">/// [`struct@crate::Hyperlink`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">HyperlinkExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the index with the hypertext document at which this link ends.</span>
     <span class="doccomment">///</span>
@@ -359,8 +359,8 @@
     <span class="kw">fn</span> <span class="ident">n_anchors</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
     <span class="doccomment">/// Returns the item associated with this hyperlinks nth anchor.</span>
-    <span class="doccomment">/// For instance, the returned [`Object`](crate::Object) will implement [`Text`](crate::Text)</span>
-    <span class="doccomment">/// if `self` is a text hyperlink, [`Image`](crate::Image) if `self` is an image</span>
+    <span class="doccomment">/// For instance, the returned [`crate::Object`] will implement [`crate::Text`]</span>
+    <span class="doccomment">/// if `self` is a text hyperlink, [`crate::Image`] if `self` is an image</span>
     <span class="doccomment">/// hyperlink etc.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Multiple anchors are primarily used by client-side image maps.</span>
@@ -369,7 +369,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`Object`](crate::Object) associated with this hyperlinks</span>
+    <span class="doccomment">/// an [`crate::Object`] associated with this hyperlinks</span>
     <span class="doccomment">/// i-th anchor</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_hyperlink_get_object&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_object&quot;</span>)]</span>

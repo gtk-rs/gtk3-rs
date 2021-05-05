@@ -501,39 +501,39 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`Action`](crate::Action) represents a single named action.</span>
+    <span class="doccomment">/// [`crate::Action`] represents a single named action.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The main interface to an action is that it can be activated with</span>
-    <span class="doccomment">/// [`activate()`](Self::activate()). This results in the &#39;activate&#39; signal being</span>
-    <span class="doccomment">/// emitted. An activation has a [`glib::Variant`](crate::glib::Variant) parameter (which may be</span>
+    <span class="doccomment">/// [`Self::activate()`]. This results in the &#39;activate&#39; signal being</span>
+    <span class="doccomment">/// emitted. An activation has a [`crate::glib::Variant`] parameter (which may be</span>
     <span class="doccomment">/// [`None`]). The correct type for the parameter is determined by a static</span>
     <span class="doccomment">/// parameter type (which is given at construction time).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An action may optionally have a state, in which case the state may be</span>
-    <span class="doccomment">/// set with [`change_state()`](Self::change_state()). This call takes a [`glib::Variant`](crate::glib::Variant). The</span>
+    <span class="doccomment">/// set with [`Self::change_state()`]. This call takes a [`crate::glib::Variant`]. The</span>
     <span class="doccomment">/// correct type for the state is determined by a static state type</span>
     <span class="doccomment">/// (which is given at construction time).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The state may have a hint associated with it, specifying its valid</span>
     <span class="doccomment">/// range.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Action`](crate::Action) is merely the interface to the concept of an action, as</span>
+    <span class="doccomment">/// [`crate::Action`] is merely the interface to the concept of an action, as</span>
     <span class="doccomment">/// described above. Various implementations of actions exist, including</span>
-    <span class="doccomment">/// [`SimpleAction`](crate::SimpleAction).</span>
+    <span class="doccomment">/// [`crate::SimpleAction`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In all cases, the implementing class is responsible for storing the</span>
     <span class="doccomment">/// name of the action, the parameter type, the enabled state, the</span>
     <span class="doccomment">/// optional state type and the state and emitting the appropriate</span>
     <span class="doccomment">/// signals when these change. The implementor is responsible for filtering</span>
-    <span class="doccomment">/// calls to [`activate()`](Self::activate()) and [`change_state()`](Self::change_state()) for type</span>
+    <span class="doccomment">/// calls to [`Self::activate()`] and [`Self::change_state()`] for type</span>
     <span class="doccomment">/// safety and for the state being enabled.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Probably the only useful thing to do with a [`Action`](crate::Action) is to put it</span>
-    <span class="doccomment">/// inside of a [`SimpleActionGroup`](crate::SimpleActionGroup).</span>
+    <span class="doccomment">/// Probably the only useful thing to do with a [`crate::Action`] is to put it</span>
+    <span class="doccomment">/// inside of a [`crate::SimpleActionGroup`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ActionExt`](trait@crate::prelude::ActionExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ActionExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Action</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GAction</span>, <span class="ident">ffi::GActionInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -620,7 +620,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is an error to call this function with an invalid action name.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is the opposite of [`parse_detailed_name()`](Self::parse_detailed_name()).</span>
+    <span class="doccomment">/// This function is the opposite of [`Self::parse_detailed_name()`].</span>
     <span class="doccomment">/// It will produce a string that can be parsed back to the `action_name`</span>
     <span class="doccomment">/// and `target_value` by that function.</span>
     <span class="doccomment">///</span>
@@ -629,7 +629,7 @@
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// a valid action name</span>
     <span class="doccomment">/// ## `target_value`</span>
-    <span class="doccomment">/// a [`glib::Variant`](crate::glib::Variant) target value, or [`None`]</span>
+    <span class="doccomment">/// a [`crate::glib::Variant`] target value, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -654,7 +654,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Action`](struct@crate::Action), [`PropertyAction`](struct@crate::PropertyAction), [`SimpleAction`](struct@crate::SimpleAction)</span>
+<span class="doccomment">/// [`struct@crate::Action`], [`struct@crate::PropertyAction`], [`struct@crate::SimpleAction`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ActionExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Activates the action.</span>
     <span class="doccomment">///</span>
@@ -671,11 +671,11 @@
     <span class="doccomment">/// Request for the state of `self` to be changed to `value`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The action must be stateful and `value` must be of the correct type.</span>
-    <span class="doccomment">/// See [`Action::get_state_type()`](crate::Action::get_state_type()).</span>
+    <span class="doccomment">/// See [`crate::Action::get_state_type()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call merely requests a change. The action may refuse to change</span>
     <span class="doccomment">/// its state or may change its state to something other than `value`.</span>
-    <span class="doccomment">/// See [`Action::get_state_hint()`](crate::Action::get_state_hint()).</span>
+    <span class="doccomment">/// See [`crate::Action::get_state_hint()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the `value` GVariant is floating, it is consumed.</span>
     <span class="doccomment">/// ## `value`</span>
@@ -707,11 +707,11 @@
     <span class="doccomment">/// Queries the type of the parameter that must be given when activating</span>
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When activating the action using [`Action::activate()`](crate::Action::activate()), the [`glib::Variant`](crate::glib::Variant)</span>
+    <span class="doccomment">/// When activating the action using [`crate::Action::activate()`], the [`crate::glib::Variant`]</span>
     <span class="doccomment">/// given to that function must be of the type returned by this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the case that this function returns [`None`], you must not give any</span>
-    <span class="doccomment">/// [`glib::Variant`](crate::glib::Variant), but [`None`] instead.</span>
+    <span class="doccomment">/// [`crate::glib::Variant`], but [`None`] instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -724,10 +724,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the action is not stateful then [`None`] will be returned. If the</span>
     <span class="doccomment">/// action is stateful then the type of the return value is the type</span>
-    <span class="doccomment">/// given by [`Action::get_state_type()`](crate::Action::get_state_type()).</span>
+    <span class="doccomment">/// given by [`crate::Action::get_state_type()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The return value (if non-[`None`]) should be freed with</span>
-    <span class="doccomment">/// [`glib::Variant::unref()`](crate::glib::Variant::unref()) when it is no longer required.</span>
+    <span class="doccomment">/// [`crate::glib::Variant::unref()`] when it is no longer required.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -743,8 +743,8 @@
     <span class="doccomment">/// or that there is no hint about the valid range of values for the</span>
     <span class="doccomment">/// state of the action.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If a [`glib::Variant`](crate::glib::Variant) array is returned then each item in the array is a</span>
-    <span class="doccomment">/// possible value for the state. If a [`glib::Variant`](crate::glib::Variant) pair (ie: two-tuple) is</span>
+    <span class="doccomment">/// If a [`crate::glib::Variant`] array is returned then each item in the array is a</span>
+    <span class="doccomment">/// possible value for the state. If a [`crate::glib::Variant`] pair (ie: two-tuple) is</span>
     <span class="doccomment">/// returned then the tuple specifies the inclusive lower and upper bound</span>
     <span class="doccomment">/// of valid values for the state.</span>
     <span class="doccomment">///</span>
@@ -753,7 +753,7 @@
     <span class="doccomment">/// within the range may fail.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The return value (if non-[`None`]) should be freed with</span>
-    <span class="doccomment">/// [`glib::Variant::unref()`](crate::glib::Variant::unref()) when it is no longer required.</span>
+    <span class="doccomment">/// [`crate::glib::Variant::unref()`] when it is no longer required.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -765,15 +765,15 @@
     <span class="doccomment">/// Queries the type of the state of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the action is stateful (e.g. created with</span>
-    <span class="doccomment">/// [`SimpleAction::new_stateful()`](crate::SimpleAction::new_stateful())) then this function returns the</span>
-    <span class="doccomment">/// [`glib::VariantType`](crate::glib::VariantType) of the state. This is the type of the initial value</span>
-    <span class="doccomment">/// given as the state. All calls to [`Action::change_state()`](crate::Action::change_state()) must give a</span>
-    <span class="doccomment">/// [`glib::Variant`](crate::glib::Variant) of this type and [`Action::get_state()`](crate::Action::get_state()) will return a</span>
-    <span class="doccomment">/// [`glib::Variant`](crate::glib::Variant) of the same type.</span>
+    <span class="doccomment">/// [`crate::SimpleAction::new_stateful()`]) then this function returns the</span>
+    <span class="doccomment">/// [`crate::glib::VariantType`] of the state. This is the type of the initial value</span>
+    <span class="doccomment">/// given as the state. All calls to [`crate::Action::change_state()`] must give a</span>
+    <span class="doccomment">/// [`crate::glib::Variant`] of this type and [`crate::Action::get_state()`] will return a</span>
+    <span class="doccomment">/// [`crate::glib::Variant`] of the same type.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the action is not stateful (e.g. created with [`SimpleAction::new()`](crate::SimpleAction::new()))</span>
-    <span class="doccomment">/// then this function will return [`None`]. In that case, [`Action::get_state()`](crate::Action::get_state())</span>
-    <span class="doccomment">/// will return [`None`] and you must not call [`Action::change_state()`](crate::Action::change_state()).</span>
+    <span class="doccomment">/// If the action is not stateful (e.g. created with [`crate::SimpleAction::new()`])</span>
+    <span class="doccomment">/// then this function will return [`None`]. In that case, [`crate::Action::get_state()`]</span>
+    <span class="doccomment">/// will return [`None`] and you must not call [`crate::Action::change_state()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

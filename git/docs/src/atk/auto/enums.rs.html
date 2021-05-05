@@ -2793,7 +2793,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="doccomment">/// Specifies how xy coordinates are to be interpreted. Used by functions such</span>
-<span class="doccomment">/// as [`Component::get_position()`](crate::Component::get_position()) and [`Text::get_character_extents()`](crate::Text::get_character_extents())</span>
+<span class="doccomment">/// as [`crate::Component::get_position()`] and [`crate::Text::get_character_extents()`]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;AtkCoordType&quot;</span>)]</span>
@@ -3057,7 +3057,7 @@
     <span class="doccomment">///  another&#39;s content.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_EMBEDS&quot;</span>)]</span>
     <span class="ident">Embeds</span>,
-    <span class="doccomment">/// Reciprocal of [`Embeds`](Self::Embeds), indicates that</span>
+    <span class="doccomment">/// Reciprocal of [`Self::Embeds`], indicates that</span>
     <span class="doccomment">///  this object&#39;s content is visualy embedded in another object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_EMBEDDED_BY&quot;</span>)]</span>
     <span class="ident">EmbeddedBy</span>,
@@ -3067,47 +3067,47 @@
     <span class="doccomment">/// Indicates that an object is a parent window of another object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_PARENT_WINDOW_OF&quot;</span>)]</span>
     <span class="ident">ParentWindowOf</span>,
-    <span class="doccomment">/// Reciprocal of [`DescriptionFor`](Self::DescriptionFor). Indicates that one</span>
+    <span class="doccomment">/// Reciprocal of [`Self::DescriptionFor`]. Indicates that one</span>
     <span class="doccomment">/// or more target objects provide descriptive information about this object. This relation</span>
     <span class="doccomment">/// type is most appropriate for information that is not essential as its presentation may</span>
     <span class="doccomment">/// be user-configurable and/or limited to an on-demand mechanism such as an assistive</span>
     <span class="doccomment">/// technology command. For brief, essential information such as can be found in a widget&#39;s</span>
-    <span class="doccomment">/// on-screen label, use [`LabelledBy`](Self::LabelledBy). For an on-screen error message, use</span>
-    <span class="doccomment">/// [`ErrorMessage`](Self::ErrorMessage). For lengthy extended descriptive information contained in</span>
-    <span class="doccomment">/// an on-screen object, consider using [`Details`](Self::Details) as assistive technologies may</span>
+    <span class="doccomment">/// on-screen label, use [`Self::LabelledBy`]. For an on-screen error message, use</span>
+    <span class="doccomment">/// [`Self::ErrorMessage`]. For lengthy extended descriptive information contained in</span>
+    <span class="doccomment">/// an on-screen object, consider using [`Self::Details`] as assistive technologies may</span>
     <span class="doccomment">/// provide a means for the user to navigate to objects containing detailed descriptions so</span>
     <span class="doccomment">/// that their content can be more closely reviewed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_DESCRIBED_BY&quot;</span>)]</span>
     <span class="ident">DescribedBy</span>,
-    <span class="doccomment">/// Reciprocal of [`DescribedBy`](Self::DescribedBy). Indicates that this</span>
+    <span class="doccomment">/// Reciprocal of [`Self::DescribedBy`]. Indicates that this</span>
     <span class="doccomment">/// object provides descriptive information about the target object(s). See also</span>
-    <span class="doccomment">/// [`DetailsFor`](Self::DetailsFor) and [`ErrorFor`](Self::ErrorFor).</span>
+    <span class="doccomment">/// [`Self::DetailsFor`] and [`Self::ErrorFor`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_DESCRIPTION_FOR&quot;</span>)]</span>
     <span class="ident">DescriptionFor</span>,
     <span class="doccomment">/// Indicates an object is a cell in a treetable and is expanded to display other cells in the same column.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_NODE_PARENT_OF&quot;</span>)]</span>
     <span class="ident">NodeParentOf</span>,
-    <span class="doccomment">/// Reciprocal of [`DetailsFor`](Self::DetailsFor). Indicates that this object</span>
+    <span class="doccomment">/// Reciprocal of [`Self::DetailsFor`]. Indicates that this object</span>
     <span class="doccomment">/// has a detailed or extended description, the contents of which can be found in the target</span>
     <span class="doccomment">/// object(s). This relation type is most appropriate for information that is sufficiently</span>
     <span class="doccomment">/// lengthy as to make navigation to the container of that information desirable. For less</span>
-    <span class="doccomment">/// verbose information suitable for announcement only, see [`DescribedBy`](Self::DescribedBy). If</span>
-    <span class="doccomment">/// the detailed information describes an error condition, [`ErrorFor`](Self::ErrorFor) should be</span>
+    <span class="doccomment">/// verbose information suitable for announcement only, see [`Self::DescribedBy`]. If</span>
+    <span class="doccomment">/// the detailed information describes an error condition, [`Self::ErrorFor`] should be</span>
     <span class="doccomment">/// used instead. `Since`: ATK-2.26.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_DETAILS&quot;</span>)]</span>
     <span class="ident">Details</span>,
-    <span class="doccomment">/// Reciprocal of [`Details`](Self::Details). Indicates that this object</span>
+    <span class="doccomment">/// Reciprocal of [`Self::Details`]. Indicates that this object</span>
     <span class="doccomment">/// provides a detailed or extended description about the target object(s). See also</span>
-    <span class="doccomment">/// [`DescriptionFor`](Self::DescriptionFor) and [`ErrorFor`](Self::ErrorFor). `Since`: ATK-2.26.</span>
+    <span class="doccomment">/// [`Self::DescriptionFor`] and [`Self::ErrorFor`]. `Since`: ATK-2.26.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_DETAILS_FOR&quot;</span>)]</span>
     <span class="ident">DetailsFor</span>,
-    <span class="doccomment">/// Reciprocal of [`ErrorFor`](Self::ErrorFor). Indicates that this object</span>
+    <span class="doccomment">/// Reciprocal of [`Self::ErrorFor`]. Indicates that this object</span>
     <span class="doccomment">/// has one or more errors, the nature of which is described in the contents of the target</span>
-    <span class="doccomment">/// object(s). Objects that have this relation type should also contain [`StateType::InvalidEntry`]</span>
-    <span class="doccomment">/// in their [`StateSet`](crate::StateSet). `Since`: ATK-2.26.</span>
+    <span class="doccomment">/// object(s). Objects that have this relation type should also contain [`crate::StateType::InvalidEntry`]</span>
+    <span class="doccomment">/// in their [`crate::StateSet`]. `Since`: ATK-2.26.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_ERROR_MESSAGE&quot;</span>)]</span>
     <span class="ident">ErrorMessage</span>,
-    <span class="doccomment">/// Reciprocal of [`ErrorMessage`](Self::ErrorMessage). Indicates that this object</span>
+    <span class="doccomment">/// Reciprocal of [`Self::ErrorMessage`]. Indicates that this object</span>
     <span class="doccomment">/// contains an error message describing an invalid condition in the target object(s). `Since`:</span>
     <span class="doccomment">/// ATK_2.26.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_RELATION_ERROR_FOR&quot;</span>)]</span>
@@ -3270,7 +3270,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// These are the built-in enumerated roles that UI components can have</span>
 <span class="doccomment">/// in ATK. Other roles may be added at runtime, so an AtkRole &gt;=</span>
-<span class="doccomment">/// [`LastDefined`](Self::LastDefined) is not necessarily an error.</span>
+<span class="doccomment">/// [`Self::LastDefined`] is not necessarily an error.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;AtkRole&quot;</span>)]</span>
@@ -3500,7 +3500,7 @@
     <span class="doccomment">/// An object which describes margins and tab stops, etc. for text objects which it controls (should have CONTROLLER_FOR relation to such). (Since: 1.1.1)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_ROLE_RULER&quot;</span>)]</span>
     <span class="ident">Ruler</span>,
-    <span class="doccomment">/// The object is an application object, which may contain [`Frame`](Self::Frame) objects or other types of accessibles. The root accessible of any application&#39;s ATK hierarchy should have ATK_ROLE_APPLICATION. (Since: 1.1.4)</span>
+    <span class="doccomment">/// The object is an application object, which may contain [`Self::Frame`] objects or other types of accessibles. The root accessible of any application&#39;s ATK hierarchy should have ATK_ROLE_APPLICATION. (Since: 1.1.4)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_ROLE_APPLICATION&quot;</span>)]</span>
     <span class="ident">Application</span>,
     <span class="doccomment">/// The object is a dialog or list containing items for insertion into an entry widget, for instance a list of words for completion of a text entry. (Since: 1.3)</span>
@@ -3527,7 +3527,7 @@
     <span class="doccomment">/// The object serves as a heading for content which follows it in a document. The &#39;heading level&#39; of the heading, if availabe, may be obtained by querying the object&#39;s attributes.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_ROLE_HEADING&quot;</span>)]</span>
     <span class="ident">Heading</span>,
-    <span class="doccomment">/// The object is a containing instance which encapsulates a page of information. [`Page`](Self::Page) is used in documents and content which support a paginated navigation model. (Since: 1.11)</span>
+    <span class="doccomment">/// The object is a containing instance which encapsulates a page of information. [`Self::Page`] is used in documents and content which support a paginated navigation model. (Since: 1.11)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_ROLE_PAGE&quot;</span>)]</span>
     <span class="ident">Page</span>,
     <span class="doccomment">/// The object is a containing instance of document content which constitutes a particular &#39;logical&#39; section of the document. The type of content within a section, and the nature of the section division itself, may be obtained by querying the object&#39;s attributes. Sections may be nested. (Since: 1.11)</span>
@@ -3673,16 +3673,16 @@
     <span class="doccomment">/// A generic non-container object whose purpose is to display a</span>
     <span class="doccomment">/// brief amount of information to the user and whose role is known by the</span>
     <span class="doccomment">/// implementor but lacks semantic value for the user. Examples in which</span>
-    <span class="doccomment">/// [`Static`](Self::Static) is appropriate include the message displayed in a message box</span>
-    <span class="doccomment">/// and an image used as an alternative means to display text. [`Static`](Self::Static)</span>
+    <span class="doccomment">/// [`Self::Static`] is appropriate include the message displayed in a message box</span>
+    <span class="doccomment">/// and an image used as an alternative means to display text. [`Self::Static`]</span>
     <span class="doccomment">/// should not be applied to widgets which are traditionally interactive, objects</span>
     <span class="doccomment">/// which display a significant amount of content, or any object which has an</span>
     <span class="doccomment">/// accessible relation pointing to another object. Implementors should expose the</span>
     <span class="doccomment">/// displayed information through the accessible name of the object. If doing so seems</span>
     <span class="doccomment">/// inappropriate, it may indicate that a different role should be used. For</span>
-    <span class="doccomment">/// labels which describe another widget, see [`Label`](Self::Label). For text views, see</span>
-    <span class="doccomment">/// [`Text`](Self::Text). For generic containers, see [`Panel`](Self::Panel). For objects whose</span>
-    <span class="doccomment">/// role is not known by the implementor, see [`Unknown`](Self::Unknown). (Since: 2.16)</span>
+    <span class="doccomment">/// labels which describe another widget, see [`Self::Label`]. For text views, see</span>
+    <span class="doccomment">/// [`Self::Text`]. For generic containers, see [`Self::Panel`]. For objects whose</span>
+    <span class="doccomment">/// role is not known by the implementor, see [`Self::Unknown`]. (Since: 2.16)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_ROLE_STATIC&quot;</span>)]</span>
     <span class="ident">Static</span>,
     <span class="doccomment">/// An object that represents a mathematical fraction.</span>
@@ -3717,16 +3717,16 @@
     <span class="doccomment">/// A run of content that is marked or highlighted, such as for</span>
     <span class="doccomment">/// reference purposes, or to call it out as having a special purpose. If the</span>
     <span class="doccomment">/// marked content has an associated section in the document elaborating on the</span>
-    <span class="doccomment">/// reason for the mark, then [`RelationType::Details`] should be used on the mark</span>
+    <span class="doccomment">/// reason for the mark, then [`crate::RelationType::Details`] should be used on the mark</span>
     <span class="doccomment">/// to point to that associated section. In addition, the reciprocal relation</span>
-    <span class="doccomment">/// [`RelationType::DetailsFor`] should be used on the associated content section</span>
+    <span class="doccomment">/// [`crate::RelationType::DetailsFor`] should be used on the associated content section</span>
     <span class="doccomment">/// to point back to the mark. (Since: 2.36)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_ROLE_MARK&quot;</span>)]</span>
     <span class="ident">Mark</span>,
     <span class="doccomment">/// A container for content that is called out as a proposed</span>
     <span class="doccomment">/// change from the current version of the document, such as by a reviewer of the</span>
-    <span class="doccomment">/// content. This role should include either [`ContentDeletion`](Self::ContentDeletion) and/or</span>
-    <span class="doccomment">/// [`ContentInsertion`](Self::ContentInsertion) children, in any order, to indicate what the</span>
+    <span class="doccomment">/// content. This role should include either [`Self::ContentDeletion`] and/or</span>
+    <span class="doccomment">/// [`Self::ContentInsertion`] children, in any order, to indicate what the</span>
     <span class="doccomment">/// actual change is. (Since: 2.36)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_ROLE_SUGGESTION&quot;</span>)]</span>
     <span class="ident">Suggestion</span>,
@@ -4377,7 +4377,7 @@
     <span class="doccomment">/// user can change the textual contents of this object by editing those contents</span>
     <span class="doccomment">/// directly. For an object which is expected to be editable due to its type, but</span>
     <span class="doccomment">/// which cannot be edited due to the application or platform preventing the user</span>
-    <span class="doccomment">/// from doing so, that object&#39;s [`StateSet`](crate::StateSet) should lack ATK_STATE_EDITABLE and</span>
+    <span class="doccomment">/// from doing so, that object&#39;s [`crate::StateSet`] should lack ATK_STATE_EDITABLE and</span>
     <span class="doccomment">/// should contain ATK_STATE_READ_ONLY.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_STATE_EDITABLE&quot;</span>)]</span>
     <span class="ident">Editable</span>,
@@ -4459,13 +4459,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_STATE_VERTICAL&quot;</span>)]</span>
     <span class="ident">Vertical</span>,
     <span class="doccomment">/// Indicates this object is visible, e.g. has been explicitly marked for exposure to the user.</span>
-    <span class="doccomment">/// **note**: [`Visible`](Self::Visible) is no guarantee that the object is actually unobscured on the screen, only</span>
+    <span class="doccomment">/// **note**: [`Self::Visible`] is no guarantee that the object is actually unobscured on the screen, only</span>
     <span class="doccomment">/// that it is &#39;potentially&#39; visible, barring obstruction, being scrolled or clipped out of the</span>
     <span class="doccomment">/// field of view, or having an ancestor container that has not yet made visible.</span>
-    <span class="doccomment">/// A widget is potentially onscreen if it has both [`Visible`](Self::Visible) and [`Showing`](Self::Showing).</span>
-    <span class="doccomment">/// The absence of [`Visible`](Self::Visible) and [`Showing`](Self::Showing) is semantically equivalent to saying</span>
-    <span class="doccomment">/// that an object is &#39;hidden&#39;. See also [`Truncated`](Self::Truncated), which applies if an object with</span>
-    <span class="doccomment">/// [`Visible`](Self::Visible) and [`Showing`](Self::Showing) set lies within a viewport which means that its</span>
+    <span class="doccomment">/// A widget is potentially onscreen if it has both [`Self::Visible`] and [`Self::Showing`].</span>
+    <span class="doccomment">/// The absence of [`Self::Visible`] and [`Self::Showing`] is semantically equivalent to saying</span>
+    <span class="doccomment">/// that an object is &#39;hidden&#39;. See also [`Self::Truncated`], which applies if an object with</span>
+    <span class="doccomment">/// [`Self::Visible`] and [`Self::Showing`] set lies within a viewport which means that its</span>
     <span class="doccomment">/// contents are clipped, e.g. a truncated spreadsheet cell or</span>
     <span class="doccomment">/// an image within a scrolling viewport. Mostly useful for screen-review and magnification</span>
     <span class="doccomment">/// algorithms.</span>
@@ -4510,7 +4510,7 @@
     <span class="doccomment">/// events from the AtkText interface. This state supplants [`crate::Role::Autocomplete`] (XXX: @-reference does not belong to StateType!).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_STATE_SUPPORTS_AUTOCOMPLETION&quot;</span>)]</span>
     <span class="ident">SupportsAutocompletion</span>,
-    <span class="doccomment">/// Indicates that the object in question supports text selection. It should only be exposed on objects which implement the Text interface, in order to distinguish this state from [`Selectable`](Self::Selectable), which infers that the object in question is a selectable child of an object which implements Selection. While similar, text selection and subelement selection are distinct operations.</span>
+    <span class="doccomment">/// Indicates that the object in question supports text selection. It should only be exposed on objects which implement the Text interface, in order to distinguish this state from [`Self::Selectable`], which infers that the object in question is a selectable child of an object which implements Selection. While similar, text selection and subelement selection are distinct operations.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;ATK_STATE_SELECTABLE_TEXT&quot;</span>)]</span>
     <span class="ident">SelectableText</span>,
     <span class="doccomment">/// Indicates that the object is the &quot;default&quot; active component, i.e. the object which is activated by an end-user press of the &quot;Enter&quot; or &quot;Return&quot; key. Typically a &quot;close&quot; or &quot;submit&quot; button.</span>
@@ -5050,7 +5050,7 @@
 
 <span class="doccomment">/// Text boundary types used for specifying boundaries for regions of text.</span>
 <span class="doccomment">/// This enumeration is deprecated since 2.9.4 and should not be used. Use</span>
-<span class="doccomment">/// AtkTextGranularity with [`Text::get_string_at_offset`](crate::Text::get_string_at_offset) instead.</span>
+<span class="doccomment">/// AtkTextGranularity with [`crate::Text::get_string_at_offset`] instead.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;AtkTextBoundary&quot;</span>)]</span>
@@ -5390,7 +5390,7 @@
 
 <span class="doccomment">/// Default types for a given value. Those are defined in order to</span>
 <span class="doccomment">/// easily get localized strings to describe a given value or a given</span>
-<span class="doccomment">/// subrange, using [`get_localized_name()`](Self::get_localized_name()).</span>
+<span class="doccomment">/// subrange, using [`Self::get_localized_name()`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;AtkValueType&quot;</span>)]</span>

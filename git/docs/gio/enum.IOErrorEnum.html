@@ -54,7 +54,7 @@ pub enum IOErrorEnum {
 </details>}</pre></div><div class="docblock"><p>Error codes returned by GIO functions.</p>
 <p>Note that this domain may be extended in future GLib releases. In
 general, new error codes either only apply to new APIs, or else
-replace <a href="enum.IOErrorEnum.html#variant.Failed"><code>Failed</code></a> in cases that were not explicitly
+replace <a href="enum.IOErrorEnum.html#variant.Failed" title="Self::Failed"><code>Self::Failed</code></a> in cases that were not explicitly
 distinguished before. You should therefore avoid writing code like</p>
 <pre><code class="language-C">if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_FAILED))
   {
@@ -63,13 +63,13 @@ distinguished before. You should therefore avoid writing code like</p>
   }
 </code></pre>
 <p>but should instead treat all unrecognized error codes the same as
-<a href="enum.IOErrorEnum.html#variant.Failed"><code>Failed</code></a>.</p>
-<p>See also <a href="crate::PollableReturn"><code>PollableReturn</code></a> for a cheaper way of returning
-<a href="enum.IOErrorEnum.html#variant.WouldBlock"><code>WouldBlock</code></a> to callers without allocating a <a href="../glib/error/struct.Error.html"><code>glib::Error</code></a>.</p>
+<a href="enum.IOErrorEnum.html#variant.Failed" title="Self::Failed"><code>Self::Failed</code></a>.</p>
+<p>See also [<code>crate::PollableReturn</code>] for a cheaper way of returning
+<a href="enum.IOErrorEnum.html#variant.WouldBlock" title="Self::WouldBlock"><code>Self::WouldBlock</code></a> to callers without allocating a <a href="../glib/error/struct.Error.html" title="crate::glib::Error"><code>crate::glib::Error</code></a>.</p>
 </div><h2 id="variants" class="variants small-section-header">
                    Variants (Non-exhaustive)<a href="#variants" class="anchor"></a></h2>
 <div class="docblock non-exhaustive non-exhaustive-enum">Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.</div><div id="variant.Failed" class="variant small-section-header"><a href="#variant.Failed" class="anchor field"></a><code>Failed</code></div><div class="docblock"><p>Generic error condition for when an operation fails
-and no more specific <a href="enum.IOErrorEnum.html"><code>IOErrorEnum</code></a> value is defined.</p>
+and no more specific <a href="enum.IOErrorEnum.html" title="crate::IOErrorEnum"><code>crate::IOErrorEnum</code></a> value is defined.</p>
 </div><div id="variant.NotFound" class="variant small-section-header"><a href="#variant.NotFound" class="anchor field"></a><code>NotFound</code></div><div class="docblock"><p>File not found.</p>
 </div><div id="variant.Exists" class="variant small-section-header"><a href="#variant.Exists" class="anchor field"></a><code>Exists</code></div><div class="docblock"><p>File already exists.</p>
 </div><div id="variant.IsDirectory" class="variant small-section-header"><a href="#variant.IsDirectory" class="anchor field"></a><code>IsDirectory</code></div><div class="docblock"><p>File is a directory.</p>
@@ -88,7 +88,7 @@ and no more specific <a href="enum.IOErrorEnum.html"><code>IOErrorEnum</code></a
 </div><div id="variant.NotMounted" class="variant small-section-header"><a href="#variant.NotMounted" class="anchor field"></a><code>NotMounted</code></div><div class="docblock"><p>File isn’t mounted.</p>
 </div><div id="variant.AlreadyMounted" class="variant small-section-header"><a href="#variant.AlreadyMounted" class="anchor field"></a><code>AlreadyMounted</code></div><div class="docblock"><p>File is already mounted.</p>
 </div><div id="variant.Closed" class="variant small-section-header"><a href="#variant.Closed" class="anchor field"></a><code>Closed</code></div><div class="docblock"><p>File was closed.</p>
-</div><div id="variant.Cancelled" class="variant small-section-header"><a href="#variant.Cancelled" class="anchor field"></a><code>Cancelled</code></div><div class="docblock"><p>Operation was cancelled. See <a href="struct.Cancellable.html"><code>Cancellable</code></a>.</p>
+</div><div id="variant.Cancelled" class="variant small-section-header"><a href="#variant.Cancelled" class="anchor field"></a><code>Cancelled</code></div><div class="docblock"><p>Operation was cancelled. See <a href="struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>.</p>
 </div><div id="variant.Pending" class="variant small-section-header"><a href="#variant.Pending" class="anchor field"></a><code>Pending</code></div><div class="docblock"><p>Operations are still pending.</p>
 </div><div id="variant.ReadOnly" class="variant small-section-header"><a href="#variant.ReadOnly" class="anchor field"></a><code>ReadOnly</code></div><div class="docblock"><p>File is read only.</p>
 </div><div id="variant.CantCreateBackup" class="variant small-section-header"><a href="#variant.CantCreateBackup" class="anchor field"></a><code>CantCreateBackup</code></div><div class="docblock"><p>Backup couldn’t be created.</p>
@@ -109,9 +109,9 @@ this limit. Since 2.20</p>
 </div><div id="variant.PartialInput" class="variant small-section-header"><a href="#variant.PartialInput" class="anchor field"></a><code>PartialInput</code></div><div class="docblock"><p>Need more input to finish operation. Since 2.24</p>
 </div><div id="variant.InvalidData" class="variant small-section-header"><a href="#variant.InvalidData" class="anchor field"></a><code>InvalidData</code></div><div class="docblock"><p>The input data was invalid. Since 2.24</p>
 </div><div id="variant.DbusError" class="variant small-section-header"><a href="#variant.DbusError" class="anchor field"></a><code>DbusError</code></div><div class="docblock"><p>A remote object generated an error that
-doesn’t correspond to a locally registered <a href="../glib/error/struct.Error.html"><code>glib::Error</code></a> error
-domain. Use <a href="crate::DBusError::get_remote_error()"><code>DBusError::get_remote_error()</code></a> to extract the D-Bus
-error name and <a href="crate::DBusError::strip_remote_error()"><code>DBusError::strip_remote_error()</code></a> to fix up the
+doesn’t correspond to a locally registered <a href="../glib/error/struct.Error.html" title="crate::glib::Error"><code>crate::glib::Error</code></a> error
+domain. Use [<code>crate::DBusError::get_remote_error()</code>] to extract the D-Bus
+error name and [<code>crate::DBusError::strip_remote_error()</code>] to fix up the
 message so it matches what was received on the wire. Since 2.26.</p>
 </div><div id="variant.HostUnreachable" class="variant small-section-header"><a href="#variant.HostUnreachable" class="anchor field"></a><code>HostUnreachable</code></div><div class="docblock"><p>Host unreachable. Since 2.26</p>
 </div><div id="variant.NetworkUnreachable" class="variant small-section-header"><a href="#variant.NetworkUnreachable" class="anchor field"></a><code>NetworkUnreachable</code></div><div class="docblock"><p>Network unreachable. Since 2.26</p>

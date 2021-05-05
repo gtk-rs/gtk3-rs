@@ -1564,10 +1564,10 @@
 <span class="comment">// TODO: Should use impl !Send for Value {} once stable</span>
 <span class="doccomment">/// An opaque structure used to hold different types of values.</span>
 <span class="doccomment">/// The data within the structure has protected scope: it is accessible only</span>
-<span class="doccomment">/// to functions within a [`TypeValueTable`](crate::TypeValueTable) structure, or implementations of</span>
+<span class="doccomment">/// to functions within a [`crate::TypeValueTable`] structure, or implementations of</span>
 <span class="doccomment">/// the g_value_*() API. That is, code portions which implement new fundamental</span>
 <span class="doccomment">/// types.</span>
-<span class="doccomment">/// [`Value`](crate::Value) users cannot make any assumptions about how data is stored</span>
+<span class="doccomment">/// [`crate::Value`] users cannot make any assumptions about how data is stored</span>
 <span class="doccomment">/// within the 2 element `data` union, and the `g_type` member should</span>
 <span class="doccomment">/// only be accessed through the G_VALUE_TYPE() macro.</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
@@ -1619,7 +1619,7 @@
 
     <span class="doccomment">/// Returns whether `Value`s of type `src` can be transformed to type `dst`.</span>
     <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Check whether [`transform()`](Self::transform()) is able to transform values</span>
+    <span class="doccomment">/// Check whether [`Self::transform()`] is able to transform values</span>
     <span class="doccomment">/// of type `src_type` into values of type `dest_type`. Note that for</span>
     <span class="doccomment">/// the types to be transformable, they must be compatible or a</span>
     <span class="doccomment">/// transformation function must be registered.</span>

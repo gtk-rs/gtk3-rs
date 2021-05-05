@@ -559,12 +559,12 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`RadioToolButton`](crate::RadioToolButton) is a [`ToolItem`](crate::ToolItem) that contains a radio button,</span>
+    <span class="doccomment">/// A [`crate::RadioToolButton`] is a [`crate::ToolItem`] that contains a radio button,</span>
     <span class="doccomment">/// that is, a button that is part of a group of toggle buttons where only</span>
     <span class="doccomment">/// one button can be active at a time.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`new()`](Self::new()) to create a new `RadioToolButton`. Use</span>
-    <span class="doccomment">/// [`new_from_widget()`](Self::new_from_widget()) to create a new `RadioToolButton`</span>
+    <span class="doccomment">/// Use [`Self::new()`] to create a new `RadioToolButton`. Use</span>
+    <span class="doccomment">/// [`Self::new_from_widget()`] to create a new `RadioToolButton`</span>
     <span class="doccomment">/// that is part of the same group as an existing `RadioToolButton`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
@@ -573,7 +573,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RadioToolButtonExt`](trait@crate::prelude::RadioToolButtonExt), [`ToggleToolButtonExt`](trait@crate::prelude::ToggleToolButtonExt), [`ToolButtonExt`](trait@crate::prelude::ToolButtonExt), [`ToolItemExt`](trait@crate::prelude::ToolItemExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::RadioToolButtonExt`], [`trait@crate::prelude::ToggleToolButtonExt`], [`trait@crate::prelude::ToolButtonExt`], [`trait@crate::prelude::ToolItemExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RadioToolButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkRadioToolButton</span>, <span class="ident">ffi::GtkRadioToolButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">ToggleToolButton</span>, <span class="ident">ToolButton</span>, <span class="ident">ToolItem</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -582,13 +582,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">RadioToolButton</span> {
-    <span class="doccomment">/// Creates a new [`RadioToolButton`](crate::RadioToolButton) adding it to the same group as `gruup`</span>
+    <span class="doccomment">/// Creates a new [`crate::RadioToolButton`] adding it to the same group as `gruup`</span>
     <span class="doccomment">/// ## `group`</span>
-    <span class="doccomment">/// An existing [`RadioToolButton`](crate::RadioToolButton), or [`None`]</span>
+    <span class="doccomment">/// An existing [`crate::RadioToolButton`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The new [`RadioToolButton`](crate::RadioToolButton)</span>
+    <span class="doccomment">/// The new [`crate::RadioToolButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_radio_tool_button_new_from_widget&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_widget&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">RadioToolButton</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">group</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RadioToolButton</span> {
@@ -1043,7 +1043,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`RadioToolButton`](struct@crate::RadioToolButton)</span>
+<span class="doccomment">/// [`struct@crate::RadioToolButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RadioToolButtonExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the radio button group `self` belongs to.</span>
     <span class="doccomment">///</span>

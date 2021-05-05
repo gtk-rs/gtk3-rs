@@ -27,28 +27,28 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.supports_uris" class="fnname">supports_uris</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>AppInfo</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.AppInfo.html"><code>AppInfo</code></a>, <a href="../struct.DesktopAppInfo.html"><code>DesktopAppInfo</code></a></p>
+<p><a href="../struct.AppInfo.html" title="crate::AppInfo"><code>crate::AppInfo</code></a>, <a href="../struct.DesktopAppInfo.html" title="crate::DesktopAppInfo"><code>crate::DesktopAppInfo</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add_supports_type" class="method"><code>fn <a href="#tymethod.add_supports_type" class="fnname">add_supports_type</a>(&amp;self, content_type: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#406" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds a content type to the application information to indicate the
 application is capable of opening files with the given content type.</p>
 <h2 id="content_type" class="section-header"><a href="#content_type"><code>content_type</code></a></h2>
 <p>a string.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on success, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> on error.</p>
-</div><h3 id="tymethod.can_delete" class="method"><code>fn <a href="#tymethod.can_delete" class="fnname">can_delete</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#415" title="goto source code">[src]</a></h3><div class="docblock"><p>Obtains the information whether the <a href="../struct.AppInfo.html"><code>AppInfo</code></a> can be deleted.
-See <a href="crate::AppInfo::delete()"><code>AppInfo::delete()</code></a>.</p>
+</div><h3 id="tymethod.can_delete" class="method"><code>fn <a href="#tymethod.can_delete" class="fnname">can_delete</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#415" title="goto source code">[src]</a></h3><div class="docblock"><p>Obtains the information whether the <a href="../struct.AppInfo.html" title="crate::AppInfo"><code>crate::AppInfo</code></a> can be deleted.
+See [<code>crate::AppInfo::delete()</code>].</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> can be deleted</p>
 </div><h3 id="tymethod.can_remove_supports_type" class="method"><code>fn <a href="#tymethod.can_remove_supports_type" class="fnname">can_remove_supports_type</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#424" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if a supported content type can be removed from an application.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if it is possible to remove supported
 content types from a given <code>self</code>, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if not.</p>
-</div><h3 id="tymethod.delete" class="method"><code>fn <a href="#tymethod.delete" class="fnname">delete</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#436" title="goto source code">[src]</a></h3><div class="docblock"><p>Tries to delete a <a href="../struct.AppInfo.html"><code>AppInfo</code></a>.</p>
+</div><h3 id="tymethod.delete" class="method"><code>fn <a href="#tymethod.delete" class="fnname">delete</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#436" title="goto source code">[src]</a></h3><div class="docblock"><p>Tries to delete a <a href="../struct.AppInfo.html" title="crate::AppInfo"><code>crate::AppInfo</code></a>.</p>
 <p>On some platforms, there may be a difference between user-defined
 <code>GAppInfos</code> which can be deleted, and system-wide ones which cannot.
-See <a href="crate::AppInfo::can_delete()"><code>AppInfo::can_delete()</code></a>.</p>
+See [<code>crate::AppInfo::can_delete()</code>].</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> has been deleted</p>
-</div><h3 id="tymethod.dup" class="method"><code>fn <a href="#tymethod.dup" class="fnname">dup</a>(&amp;self) -&gt; <a class="struct" href="../struct.AppInfo.html" title="struct gio::AppInfo">AppInfo</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#444" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a duplicate of a <a href="../struct.AppInfo.html"><code>AppInfo</code></a>.</p>
+</div><h3 id="tymethod.dup" class="method"><code>fn <a href="#tymethod.dup" class="fnname">dup</a>(&amp;self) -&gt; <a class="struct" href="../struct.AppInfo.html" title="struct gio::AppInfo">AppInfo</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#444" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a duplicate of a <a href="../struct.AppInfo.html" title="crate::AppInfo"><code>crate::AppInfo</code></a>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>a duplicate of <code>self</code>.</p>
 </div><h3 id="tymethod.equal" class="method"><code>fn <a href="#tymethod.equal" class="fnname">equal</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.AppInfo.html" title="struct gio::AppInfo">AppInfo</a>&gt;&gt;(&amp;self, appinfo2: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#458" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if two <code>GAppInfos</code> are equal.</p>
@@ -56,7 +56,7 @@ See <a href="crate::AppInfo::can_delete()"><code>AppInfo::can_delete()</code></a
 field, and only does an identity check. In case detecting changes in the
 contents is needed, program code must additionally compare relevant fields.</p>
 <h2 id="appinfo2" class="section-header"><a href="#appinfo2"><code>appinfo2</code></a></h2>
-<p>the second <a href="../struct.AppInfo.html"><code>AppInfo</code></a>.</p>
+<p>the second <a href="../struct.AppInfo.html" title="crate::AppInfo"><code>crate::AppInfo</code></a>.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is equal to <code>appinfo2</code>. <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.commandline" class="method"><code>fn <a href="#tymethod.commandline" class="fnname">commandline</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#469" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the commandline with which the application will be
@@ -79,7 +79,7 @@ no display name is available.</p>
 binaries name</p>
 </div><h3 id="tymethod.icon" class="method"><code>fn <a href="#tymethod.icon" class="fnname">icon</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Icon.html" title="struct gio::Icon">Icon</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#510" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the icon for the application.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
-<p>the default <a href="../struct.Icon.html"><code>Icon</code></a> for <code>self</code> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
+<p>the default <a href="../struct.Icon.html" title="crate::Icon"><code>crate::Icon</code></a> for <code>self</code> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
 if there is no default icon.</p>
 </div><h3 id="tymethod.id" class="method"><code>fn <a href="#tymethod.id" class="fnname">id</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#525" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the ID of an application. An id is a string that
 identifies the application. The exact format of the id is
@@ -96,7 +96,7 @@ the <code>self</code> has been constructed.</p>
 If this information is not provided by the environment, this function
 will return <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.
 This function does not take in consideration associations added with
-<a href="crate::AppInfo::add_supports_type()"><code>AppInfo::add_supports_type()</code></a>, but only those exported directly by
+[<code>crate::AppInfo::add_supports_type()</code>], but only those exported directly by
 the application.</p>
 <h1 id="returns-13" class="section-header"><a href="#returns-13">Returns</a></h1>
 <p>a list of content types.</p>
@@ -111,10 +111,10 @@ no way to detect this.</p>
 <p>Some URIs can be changed when passed through a GFile (for instance
 unsupported URIs with strange formats like mailto:), so if you have
 a textual URI you want to pass in as argument, consider using
-<a href="crate::AppInfo::launch_uris()"><code>AppInfo::launch_uris()</code></a> instead.</p>
+[<code>crate::AppInfo::launch_uris()</code>] instead.</p>
 <p>The launched application inherits the environment of the launching
-process, but it can be modified with <a href="crate::AppLaunchContextExt::setenv()"><code>AppLaunchContextExt::setenv()</code></a>
-and <a href="crate::AppLaunchContextExt::unsetenv()"><code>AppLaunchContextExt::unsetenv()</code></a>.</p>
+process, but it can be modified with <a href="trait.AppLaunchContextExt.html#tymethod.setenv" title="crate::prelude::AppLaunchContextExt::setenv()"><code>crate::prelude::AppLaunchContextExt::setenv()</code></a>
+and <a href="trait.AppLaunchContextExt.html#tymethod.unsetenv" title="crate::prelude::AppLaunchContextExt::unsetenv()"><code>crate::prelude::AppLaunchContextExt::unsetenv()</code></a>.</p>
 <p>On UNIX, this function sets the <code>GIO_LAUNCHED_DESKTOP_FILE</code>
 environment variable with the path of the launched desktop file and
 <code>GIO_LAUNCHED_DESKTOP_FILE_PID</code> to the process id of the launched
@@ -123,9 +123,9 @@ should it be inherited by further processes. The <code>DISPLAY</code> and
 <code>DESKTOP_STARTUP_ID</code> environment variables are also set, based
 on information provided in <code>context</code>.</p>
 <h2 id="files" class="section-header"><a href="#files"><code>files</code></a></h2>
-<p>a <a href="crate::glib::List"><code>glib::List</code></a> of <a href="../struct.File.html"><code>File</code></a> objects</p>
+<p>a [<code>crate::glib::List</code>] of <a href="../struct.File.html" title="crate::File"><code>crate::File</code></a> objects</p>
 <h2 id="context" class="section-header"><a href="#context"><code>context</code></a></h2>
-<p>a <a href="../struct.AppLaunchContext.html"><code>AppLaunchContext</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.AppLaunchContext.html" title="crate::AppLaunchContext"><code>crate::AppLaunchContext</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-14" class="section-header"><a href="#returns-14">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on successful launch, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.launch_uris" class="method"><code>fn <a href="#tymethod.launch_uris" class="fnname">launch_uris</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.AppLaunchContext.html" title="struct gio::AppLaunchContext">AppLaunchContext</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;uris: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a>&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;context: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#612-616" title="goto source code">[src]</a></h3><div class="docblock"><p>Launches the application. This passes the <code>uris</code> to the launched application
@@ -137,9 +137,9 @@ On error, <code>error</code> will be set accordingly.</p>
 can fail to start if it runs into problems during startup. There is
 no way to detect this.</p>
 <h2 id="uris" class="section-header"><a href="#uris"><code>uris</code></a></h2>
-<p>a <a href="crate::glib::List"><code>glib::List</code></a> containing URIs to launch.</p>
+<p>a [<code>crate::glib::List</code>] containing URIs to launch.</p>
 <h2 id="context-1" class="section-header"><a href="#context-1"><code>context</code></a></h2>
-<p>a <a href="../struct.AppLaunchContext.html"><code>AppLaunchContext</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.AppLaunchContext.html" title="crate::AppLaunchContext"><code>crate::AppLaunchContext</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-15" class="section-header"><a href="#returns-15">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on successful launch, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.remove_supports_type" class="method"><code>fn <a href="#tymethod.remove_supports_type" class="fnname">remove_supports_type</a>(&amp;self, content_type: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#626" title="goto source code">[src]</a></h3><div class="docblock"><p>Removes a supported type from an application, if possible.</p>
@@ -160,7 +160,7 @@ no way to detect this.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on success, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> on error.</p>
 </div><h3 id="tymethod.set_as_last_used_for_type" class="method"><code>fn <a href="#tymethod.set_as_last_used_for_type" class="fnname">set_as_last_used_for_type</a>(&amp;self, content_type: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#663" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the application as the last used application for a given type.
 This will make the application appear as first in the list returned
-by <a href="crate::AppInfo::get_recommended_for_type()"><code>AppInfo::get_recommended_for_type()</code></a>, regardless of the default
+by [<code>crate::AppInfo::get_recommended_for_type()</code>], regardless of the default
 application for that content type.</p>
 <h2 id="content_type-3" class="section-header"><a href="#content_type-3"><code>content_type</code></a></h2>
 <p>the content type.</p>

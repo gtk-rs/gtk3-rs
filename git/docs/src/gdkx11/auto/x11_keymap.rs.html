@@ -78,7 +78,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@gdk::KeymapExt`]</span>
+    <span class="doccomment">/// [`trait@gdk::prelude::KeymapExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">X11Keymap</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkX11Keymap</span>, <span class="ident">ffi::GdkX11KeymapClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">gdk::Keymap</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -88,7 +88,7 @@
 
 <span class="kw">impl</span> <span class="ident">X11Keymap</span> {
     <span class="doccomment">/// Extracts the group from the state field sent in an X Key event.</span>
-    <span class="doccomment">/// This is only needed for code processing raw X events, since [`gdk::EventKey`](crate::gdk::EventKey)</span>
+    <span class="doccomment">/// This is only needed for code processing raw X events, since [`crate::gdk::EventKey`]</span>
     <span class="doccomment">/// directly includes an is_modifier field.</span>
     <span class="doccomment">/// ## `state`</span>
     <span class="doccomment">/// raw state returned from X</span>
@@ -106,7 +106,7 @@
     <span class="doccomment">/// is a modifier. That is, it’s a key that normally just affects</span>
     <span class="doccomment">/// the keyboard state and the behavior of other keys rather than</span>
     <span class="doccomment">/// producing a direct effect itself. This is only needed for code</span>
-    <span class="doccomment">/// processing raw X events, since [`gdk::EventKey`](crate::gdk::EventKey) directly includes</span>
+    <span class="doccomment">/// processing raw X events, since [`crate::gdk::EventKey`] directly includes</span>
     <span class="doccomment">/// an is_modifier field.</span>
     <span class="doccomment">/// ## `keycode`</span>
     <span class="doccomment">/// the hardware keycode from a key event</span>

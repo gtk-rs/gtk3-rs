@@ -51,7 +51,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_wrap_license_notify" class="fnname">connect_wrap_license_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>AboutDialog</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.AboutDialog.html"><code>AboutDialog</code></a></p>
+<p><a href="../struct.AboutDialog.html" title="crate::AboutDialog"><code>crate::AboutDialog</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add_credit_section" class="method"><code>fn <a href="#tymethod.add_credit_section" class="fnname">add_credit_section</a>(&amp;self, section_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, people: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a>&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>)</code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#843" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a new section in the Credits page.</p>
 <h2 id="section_name" class="section-header"><a href="#section_name"><code>section_name</code></a></h2>
 <p>The name of the section</p>
@@ -87,14 +87,14 @@ array is owned by the about dialog and must not be modified.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>The license information. The string is owned by the about
 dialog and must not be modified.</p>
-</div><h3 id="tymethod.license_type" class="method"><code>fn <a href="#tymethod.license_type" class="fnname">license_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.License.html" title="enum gtk::License">License</a></code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#918" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the license set using <a href="trait.AboutDialogExt.html#tymethod.set_license_type"><code>set_license_type()</code></a></p>
+</div><h3 id="tymethod.license_type" class="method"><code>fn <a href="#tymethod.license_type" class="fnname">license_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.License.html" title="enum gtk::License">License</a></code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#918" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the license set using <a href="trait.AboutDialogExt.html#tymethod.set_license_type" title="Self::set_license_type()"><code>Self::set_license_type()</code></a></p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p>a <a href="../enum.License.html"><code>License</code></a> value</p>
+<p>a <a href="../enum.License.html" title="crate::License"><code>crate::License</code></a> value</p>
 </div><h3 id="tymethod.logo" class="method"><code>fn <a href="#tymethod.logo" class="fnname">logo</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#929" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the pixbuf displayed as logo in the about dialog.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
 <p>the pixbuf displayed as logo. The
 pixbuf is owned by the about dialog. If you want to keep a
-reference to it, you have to call <a href="crate::glib::object::ObjectExt::ref()"><code>glib::object::ObjectExt::ref()</code></a> on it.</p>
+reference to it, you have to call [<code>crate::glib::object::ObjectExt::ref()</code>] on it.</p>
 </div><h3 id="tymethod.logo_icon_name" class="method"><code>fn <a href="#tymethod.logo_icon_name" class="fnname">logo_icon_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#940" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the icon name displayed as logo in the about dialog.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
 <p>the icon name displayed as logo. The string is
@@ -153,17 +153,17 @@ hidden.</p>
 </div><h3 id="tymethod.set_license_type" class="method"><code>fn <a href="#tymethod.set_license_type" class="fnname">set_license_type</a>(&amp;self, license_type: <a class="enum" href="../enum.License.html" title="enum gtk::License">License</a>)</code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#1054" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the license of the application showing the <code>self</code> dialog from a
 list of known licenses.</p>
 <p>This function overrides the license set using
-<a href="trait.AboutDialogExt.html#tymethod.set_license"><code>set_license()</code></a>.</p>
+<a href="trait.AboutDialogExt.html#tymethod.set_license" title="Self::set_license()"><code>Self::set_license()</code></a>.</p>
 <h2 id="license_type" class="section-header"><a href="#license_type"><code>license_type</code></a></h2>
 <p>the type of license</p>
 </div><h3 id="tymethod.set_logo" class="method"><code>fn <a href="#tymethod.set_logo" class="fnname">set_logo</a>(&amp;self, logo: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#1062" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the pixbuf to be displayed as logo in the about dialog.
 If it is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, the default window icon set with
-<a href="../struct.Window.html#method.set_default_icon"><code>Window::set_default_icon()</code></a> will be used.</p>
+<a href="../struct.Window.html#method.set_default_icon" title="crate::Window::set_default_icon()"><code>crate::Window::set_default_icon()</code></a> will be used.</p>
 <h2 id="logo" class="section-header"><a href="#logo"><code>logo</code></a></h2>
-<p>a <a href="../../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html"><code>gdk_pixbuf::Pixbuf</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="crate::gdk_pixbuf::Pixbuf"><code>crate::gdk_pixbuf::Pixbuf</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.set_logo_icon_name" class="method"><code>fn <a href="#tymethod.set_logo_icon_name" class="fnname">set_logo_icon_name</a>(&amp;self, icon_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#1070" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the pixbuf to be displayed as logo in the about dialog.
 If it is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, the default window icon set with
-<a href="../struct.Window.html#method.set_default_icon"><code>Window::set_default_icon()</code></a> will be used.</p>
+<a href="../struct.Window.html#method.set_default_icon" title="crate::Window::set_default_icon()"><code>crate::Window::set_default_icon()</code></a> will be used.</p>
 <h2 id="icon_name" class="section-header"><a href="#icon_name"><code>icon_name</code></a></h2>
 <p>an icon name, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.set_program_name" class="method"><code>fn <a href="#tymethod.set_program_name" class="fnname">set_program_name</a>(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/about_dialog.rs.html#1077" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the name to display in the about dialog.
@@ -182,7 +182,7 @@ gtk_about_dialog_set_translator_credits (GTK_ABOUT_DIALOG (about),
 </code></pre>
 <p>It is a good idea to use the customary msgid “translator-credits” for this
 purpose, since translators will already know the purpose of that msgid, and
-since <a href="../struct.AboutDialog.html"><code>AboutDialog</code></a> will detect if “translator-credits” is untranslated
+since <a href="../struct.AboutDialog.html" title="crate::AboutDialog"><code>crate::AboutDialog</code></a> will detect if “translator-credits” is untranslated
 and hide the tab.</p>
 <h2 id="translator_credits" class="section-header"><a href="#translator_credits"><code>translator_credits</code></a></h2>
 <p>the translator credits</p>

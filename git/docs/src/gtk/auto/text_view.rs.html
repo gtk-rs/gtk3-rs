@@ -3853,7 +3853,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TextViewExt`](trait@crate::prelude::TextViewExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ScrollableExt`](trait@crate::prelude::ScrollableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::TextViewExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ScrollableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextView</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkTextView</span>, <span class="ident">ffi::GtkTextViewClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Scrollable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -3862,32 +3862,32 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TextView</span> {
-    <span class="doccomment">/// Creates a new [`TextView`](crate::TextView). If you don’t call [`TextViewExt::set_buffer()`](crate::TextViewExt::set_buffer())</span>
+    <span class="doccomment">/// Creates a new [`crate::TextView`]. If you don’t call [`crate::prelude::TextViewExt::set_buffer()`]</span>
     <span class="doccomment">/// before using the text view, an empty default buffer will be created</span>
-    <span class="doccomment">/// for you. Get the buffer with [`TextViewExt::get_buffer()`](crate::TextViewExt::get_buffer()). If you want</span>
-    <span class="doccomment">/// to specify your own buffer, consider [`new_with_buffer()`](Self::new_with_buffer()).</span>
+    <span class="doccomment">/// for you. Get the buffer with [`crate::prelude::TextViewExt::get_buffer()`]. If you want</span>
+    <span class="doccomment">/// to specify your own buffer, consider [`Self::new_with_buffer()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`TextView`](crate::TextView)</span>
+    <span class="doccomment">/// a new [`crate::TextView`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextView</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_text_view_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 
-    <span class="doccomment">/// Creates a new [`TextView`](crate::TextView) widget displaying the buffer</span>
+    <span class="doccomment">/// Creates a new [`crate::TextView`] widget displaying the buffer</span>
     <span class="doccomment">/// `buffer`. One buffer can be shared among many widgets.</span>
     <span class="doccomment">/// `buffer` may be [`None`] to create a default buffer, in which case</span>
-    <span class="doccomment">/// this function is equivalent to [`new()`](Self::new()). The</span>
+    <span class="doccomment">/// this function is equivalent to [`Self::new()`]. The</span>
     <span class="doccomment">/// text view adds its own reference count to the buffer; it does not</span>
     <span class="doccomment">/// take over an existing reference.</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// a [`TextBuffer`](crate::TextBuffer)</span>
+    <span class="doccomment">/// a [`crate::TextBuffer`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`TextView`](crate::TextView).</span>
+    <span class="doccomment">/// a new [`crate::TextView`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_new_with_buffer&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_buffer&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_buffer</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TextBuffer</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextView</span> {
@@ -4484,13 +4484,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`TextView`](struct@crate::TextView)</span>
+<span class="doccomment">/// [`struct@crate::TextView`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TextViewExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds a child widget in the text buffer, at the given `anchor`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">/// ## `anchor`</span>
-    <span class="doccomment">/// a [`TextChildAnchor`](crate::TextChildAnchor) in the [`TextBuffer`](crate::TextBuffer) for `self`</span>
+    <span class="doccomment">/// a [`crate::TextChildAnchor`] in the [`crate::TextBuffer`] for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_add_child_at_anchor&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_child_at_anchor</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TextChildAnchor</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">anchor</span>: <span class="kw-2">&amp;</span><span class="ident">Q</span>);
 
@@ -4498,14 +4498,14 @@
     <span class="doccomment">/// windows.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The window must have nonzero size (see</span>
-    <span class="doccomment">/// [`set_border_window_size()`](Self::set_border_window_size())). Note that the child</span>
+    <span class="doccomment">/// [`Self::set_border_window_size()`]). Note that the child</span>
     <span class="doccomment">/// coordinates are given relative to scrolling. When</span>
-    <span class="doccomment">/// placing a child in [`TextWindowType::Widget`](crate::TextWindowType::Widget), scrolling is</span>
+    <span class="doccomment">/// placing a child in [`crate::TextWindowType::Widget`], scrolling is</span>
     <span class="doccomment">/// irrelevant, the child floats above all scrollable areas. But when</span>
     <span class="doccomment">/// placing a child in one of the scrollable windows (border windows or</span>
     <span class="doccomment">/// text window) it will move with the scrolling as needed.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">/// ## `which_window`</span>
     <span class="doccomment">/// which window the child should appear in</span>
     <span class="doccomment">/// ## `xpos`</span>
@@ -4528,9 +4528,9 @@
     <span class="doccomment">/// wrapping is turned off, display lines and paragraphs will be the</span>
     <span class="doccomment">/// same. Display lines are divided differently for each view, since</span>
     <span class="doccomment">/// they depend on the view’s width; paragraphs are the same in all</span>
-    <span class="doccomment">/// views, since they depend on the contents of the [`TextBuffer`](crate::TextBuffer).</span>
+    <span class="doccomment">/// views, since they depend on the contents of the [`crate::TextBuffer`].</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4545,9 +4545,9 @@
     <span class="doccomment">/// wrapping is turned off, display lines and paragraphs will be the</span>
     <span class="doccomment">/// same. Display lines are divided differently for each view, since</span>
     <span class="doccomment">/// they depend on the view’s width; paragraphs are the same in all</span>
-    <span class="doccomment">/// views, since they depend on the contents of the [`TextBuffer`](crate::TextBuffer).</span>
+    <span class="doccomment">/// views, since they depend on the contents of the [`crate::TextBuffer`].</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4559,9 +4559,9 @@
     <span class="doccomment">/// `win`, and stores the result in (`window_x`, `window_y`).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that you can’t convert coordinates for a nonexisting window (see</span>
-    <span class="doccomment">/// [`set_border_window_size()`](Self::set_border_window_size())).</span>
+    <span class="doccomment">/// [`Self::set_border_window_size()`]).</span>
     <span class="doccomment">/// ## `win`</span>
-    <span class="doccomment">/// a [`TextWindowType`](crate::TextWindowType), except [`TextWindowType::Private`]</span>
+    <span class="doccomment">/// a [`crate::TextWindowType`], except [`crate::TextWindowType::Private`]</span>
     <span class="doccomment">/// ## `buffer_x`</span>
     <span class="doccomment">/// buffer x coordinate</span>
     <span class="doccomment">/// ## `buffer_y`</span>
@@ -4585,9 +4585,9 @@
     <span class="doccomment">/// wrapping is turned off, display lines and paragraphs will be the</span>
     <span class="doccomment">/// same. Display lines are divided differently for each view, since</span>
     <span class="doccomment">/// they depend on the view’s width; paragraphs are the same in all</span>
-    <span class="doccomment">/// views, since they depend on the contents of the [`TextBuffer`](crate::TextBuffer).</span>
+    <span class="doccomment">/// views, since they depend on the contents of the [`crate::TextBuffer`].</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4602,9 +4602,9 @@
     <span class="doccomment">/// wrapping is turned off, display lines and paragraphs will be the</span>
     <span class="doccomment">/// same. Display lines are divided differently for each view, since</span>
     <span class="doccomment">/// they depend on the view’s width; paragraphs are the same in all</span>
-    <span class="doccomment">/// views, since they depend on the contents of the [`TextBuffer`](crate::TextBuffer).</span>
+    <span class="doccomment">/// views, since they depend on the contents of the [`crate::TextBuffer`].</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4613,7 +4613,7 @@
     <span class="kw">fn</span> <span class="ident">forward_display_line_end</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TextIter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Returns whether pressing the Tab key inserts a tab characters.</span>
-    <span class="doccomment">/// [`set_accepts_tab()`](Self::set_accepts_tab()).</span>
+    <span class="doccomment">/// [`Self::set_accepts_tab()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4624,7 +4624,7 @@
     <span class="kw">fn</span> <span class="ident">accepts_tab</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the width of the specified border window. See</span>
-    <span class="doccomment">/// [`set_border_window_size()`](Self::set_border_window_size()).</span>
+    <span class="doccomment">/// [`Self::set_border_window_size()`].</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// window to return size from</span>
     <span class="doccomment">///</span>
@@ -4646,13 +4646,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_bottom_margin&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">bottom_margin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Returns the [`TextBuffer`](crate::TextBuffer) being displayed by this text view.</span>
+    <span class="doccomment">/// Returns the [`crate::TextBuffer`] being displayed by this text view.</span>
     <span class="doccomment">/// The reference count on the buffer is not incremented; the caller</span>
     <span class="doccomment">/// of this function won’t own a new reference.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`TextBuffer`](crate::TextBuffer)</span>
+    <span class="doccomment">/// a [`crate::TextBuffer`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_get_buffer&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_buffer&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">buffer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TextBuffer</span><span class="op">&gt;</span>;
@@ -4674,10 +4674,10 @@
     <span class="doccomment">/// cursor’s offset within the preedit sequence.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The rectangle position is in buffer coordinates; use</span>
-    <span class="doccomment">/// [`buffer_to_window_coords()`](Self::buffer_to_window_coords()) to convert these</span>
+    <span class="doccomment">/// [`Self::buffer_to_window_coords()`] to convert these</span>
     <span class="doccomment">/// coordinates to coordinates for one of the windows in the text view.</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">/// ## `strong`</span>
     <span class="doccomment">/// location to store the strong</span>
     <span class="doccomment">///  cursor position (may be [`None`])</span>
@@ -4700,20 +4700,20 @@
     <span class="doccomment">/// Obtains a copy of the default text attributes. These are the</span>
     <span class="doccomment">/// attributes used for text unless a tag overrides them.</span>
     <span class="doccomment">/// You’d typically pass the default attributes in to</span>
-    <span class="doccomment">/// [`TextIter::get_attributes()`](crate::TextIter::get_attributes()) in order to get the</span>
+    <span class="doccomment">/// [`crate::TextIter::get_attributes()`] in order to get the</span>
     <span class="doccomment">/// attributes in effect at a given text position.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The return value is a copy owned by the caller of this function,</span>
-    <span class="doccomment">/// and should be freed with [`TextAttributes::unref()`](crate::TextAttributes::unref()).</span>
+    <span class="doccomment">/// and should be freed with [`crate::TextAttributes::unref()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`TextAttributes`](crate::TextAttributes)</span>
+    <span class="doccomment">/// a new [`crate::TextAttributes`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_get_default_attributes&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default_attributes&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">default_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextAttributes</span>;
 
-    <span class="doccomment">/// Returns the default editability of the [`TextView`](crate::TextView). Tags in the</span>
+    <span class="doccomment">/// Returns the default editability of the [`crate::TextView`]. Tags in the</span>
     <span class="doccomment">/// buffer may override this setting for some ranges of text.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -4734,12 +4734,12 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_indent&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">indent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Gets the value of the [`TextView:input-hints`](crate::TextView:input-hints) property.</span>
+    <span class="doccomment">/// Gets the value of the [`crate::TextView:input-hints`] property.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_get_input_hints&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_input_hints&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">input_hints</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputHints</span>;
 
-    <span class="doccomment">/// Gets the value of the [`TextView:input-purpose`](crate::TextView:input-purpose) property.</span>
+    <span class="doccomment">/// Gets the value of the [`crate::TextView:input-purpose`] property.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_get_input_purpose&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_input_purpose&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">input_purpose</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputPurpose</span>;
@@ -4748,9 +4748,9 @@
     <span class="doccomment">/// coordinates are coordinates for the entire buffer, not just the</span>
     <span class="doccomment">/// currently-displayed portion. If you have coordinates from an</span>
     <span class="doccomment">/// event, you have to convert those to buffer coordinates with</span>
-    <span class="doccomment">/// [`window_to_buffer_coords()`](Self::window_to_buffer_coords()).</span>
+    <span class="doccomment">/// [`Self::window_to_buffer_coords()`].</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// x position, in buffer coordinates</span>
     <span class="doccomment">/// ## `y`</span>
@@ -4768,13 +4768,13 @@
     <span class="doccomment">/// the entire buffer, not just the currently-displayed portion.</span>
     <span class="doccomment">/// If you have coordinates from an event, you have to convert</span>
     <span class="doccomment">/// those to buffer coordinates with</span>
-    <span class="doccomment">/// [`window_to_buffer_coords()`](Self::window_to_buffer_coords()).</span>
+    <span class="doccomment">/// [`Self::window_to_buffer_coords()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that this is different from [`get_iter_at_location()`](Self::get_iter_at_location()),</span>
+    <span class="doccomment">/// Note that this is different from [`Self::get_iter_at_location()`],</span>
     <span class="doccomment">/// which returns cursor locations, i.e. positions between</span>
     <span class="doccomment">/// characters.</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">/// ## `trailing`</span>
     <span class="doccomment">/// if non-[`None`], location to store an integer indicating where</span>
     <span class="doccomment">///  in the grapheme the user clicked. It will either be</span>
@@ -4794,10 +4794,10 @@
 
     <span class="doccomment">/// Gets a rectangle which roughly contains the character at `iter`.</span>
     <span class="doccomment">/// The rectangle position is in buffer coordinates; use</span>
-    <span class="doccomment">/// [`buffer_to_window_coords()`](Self::buffer_to_window_coords()) to convert these</span>
+    <span class="doccomment">/// [`Self::buffer_to_window_coords()`] to convert these</span>
     <span class="doccomment">/// coordinates to coordinates for one of the windows in the text view.</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">/// ## `location`</span>
     <span class="doccomment">/// bounds of the character at `iter`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_get_iter_location&quot;</span>)]</span>
@@ -4824,13 +4824,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_left_margin&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">left_margin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Gets the [`TextIter`](crate::TextIter) at the start of the line containing</span>
+    <span class="doccomment">/// Gets the [`crate::TextIter`] at the start of the line containing</span>
     <span class="doccomment">/// the coordinate `y`. `y` is in buffer coordinates, convert from</span>
-    <span class="doccomment">/// window coordinates with [`window_to_buffer_coords()`](Self::window_to_buffer_coords()).</span>
+    <span class="doccomment">/// window coordinates with [`Self::window_to_buffer_coords()`].</span>
     <span class="doccomment">/// If non-[`None`], `line_top` will be filled with the coordinate of the top</span>
     <span class="doccomment">/// edge of the line.</span>
     <span class="doccomment">/// ## `target_iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">/// ## `y`</span>
     <span class="doccomment">/// a y coordinate</span>
     <span class="doccomment">/// ## `line_top`</span>
@@ -4841,9 +4841,9 @@
 
     <span class="doccomment">/// Gets the y coordinate of the top of the line containing `iter`,</span>
     <span class="doccomment">/// and the height of the line. The coordinate is a buffer coordinate;</span>
-    <span class="doccomment">/// convert to window coordinates with [`buffer_to_window_coords()`](Self::buffer_to_window_coords()).</span>
+    <span class="doccomment">/// convert to window coordinates with [`Self::buffer_to_window_coords()`].</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">/// ## `y`</span>
     <span class="doccomment">/// return location for a y coordinate</span>
     <span class="doccomment">/// ## `height`</span>
@@ -4852,7 +4852,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_line_yrange&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">line_yrange</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TextIter</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Gets the value of the [`TextView:monospace`](crate::TextView:monospace) property.</span>
+    <span class="doccomment">/// Gets the value of the [`crate::TextView:monospace`] property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4863,7 +4863,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_monospace&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_monospace</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns whether the [`TextView`](crate::TextView) is in overwrite mode or not.</span>
+    <span class="doccomment">/// Returns whether the [`crate::TextView`] is in overwrite mode or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4873,7 +4873,7 @@
     <span class="kw">fn</span> <span class="ident">overwrites</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the default number of pixels to put above paragraphs.</span>
-    <span class="doccomment">/// Adding this function with [`get_pixels_below_lines()`](Self::get_pixels_below_lines())</span>
+    <span class="doccomment">/// Adding this function with [`Self::get_pixels_below_lines()`]</span>
     <span class="doccomment">/// is equal to the line space between each paragraph.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -4883,10 +4883,10 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_pixels_above_lines&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">pixels_above_lines</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Gets the value set by [`set_pixels_below_lines()`](Self::set_pixels_below_lines()).</span>
+    <span class="doccomment">/// Gets the value set by [`Self::set_pixels_below_lines()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The line space is the sum of the value returned by this function and the</span>
-    <span class="doccomment">/// value returned by [`get_pixels_above_lines()`](Self::get_pixels_above_lines()).</span>
+    <span class="doccomment">/// value returned by [`Self::get_pixels_above_lines()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4895,7 +4895,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_pixels_below_lines&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">pixels_below_lines</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Gets the value set by [`set_pixels_inside_wrap()`](Self::set_pixels_inside_wrap()).</span>
+    <span class="doccomment">/// Gets the value set by [`Self::set_pixels_inside_wrap()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4917,12 +4917,12 @@
     <span class="doccomment">/// Gets the default tabs for `self`. Tags in the buffer may</span>
     <span class="doccomment">/// override the defaults. The returned array will be [`None`] if</span>
     <span class="doccomment">/// “standard” (8-space) tabs are used. Free the return value</span>
-    <span class="doccomment">/// with [`pango::TabArray::free()`](crate::pango::TabArray::free()).</span>
+    <span class="doccomment">/// with [`crate::pango::TabArray::free()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// copy of default tab array, or [`None`] if</span>
-    <span class="doccomment">///  “standard&quot; tabs are used; must be freed with [`pango::TabArray::free()`](crate::pango::TabArray::free()).</span>
+    <span class="doccomment">///  “standard&quot; tabs are used; must be freed with [`crate::pango::TabArray::free()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_get_tabs&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_tabs&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">tabs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango::TabArray</span><span class="op">&gt;</span>;
@@ -4940,14 +4940,14 @@
 
     <span class="doccomment">/// Fills `visible_rect` with the currently-visible</span>
     <span class="doccomment">/// region of the buffer, in buffer coordinates. Convert to window coordinates</span>
-    <span class="doccomment">/// with [`buffer_to_window_coords()`](Self::buffer_to_window_coords()).</span>
+    <span class="doccomment">/// with [`Self::buffer_to_window_coords()`].</span>
     <span class="doccomment">/// ## `visible_rect`</span>
     <span class="doccomment">/// rectangle to fill</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_get_visible_rect&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_visible_rect&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">visible_rect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gdk::Rectangle</span>;
 
-    <span class="doccomment">/// Retrieves the [`gdk::Window`](crate::gdk::Window) corresponding to an area of the text view;</span>
+    <span class="doccomment">/// Retrieves the [`crate::gdk::Window`] corresponding to an area of the text view;</span>
     <span class="doccomment">/// possible windows include the overall widget window, child windows</span>
     <span class="doccomment">/// on the left, right, top, bottom, and the window that displays the</span>
     <span class="doccomment">/// text buffer. Windows are [`None`] and nonexistent if their width or</span>
@@ -4958,7 +4958,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`gdk::Window`](crate::gdk::Window), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::gdk::Window`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_get_window&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_window&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">win</span>: <span class="ident">TextWindowType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk::Window</span><span class="op">&gt;</span>;
@@ -4986,15 +4986,15 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_wrap_mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">wrap_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WrapMode</span>;
 
-    <span class="doccomment">/// Allow the [`TextView`](crate::TextView) input method to internally handle key press</span>
+    <span class="doccomment">/// Allow the [`crate::TextView`] input method to internally handle key press</span>
     <span class="doccomment">/// and release events. If this function returns [`true`], then no further</span>
     <span class="doccomment">/// processing should be done for this key event. See</span>
-    <span class="doccomment">/// [`IMContextExt::filter_keypress()`](crate::IMContextExt::filter_keypress()).</span>
+    <span class="doccomment">/// [`crate::prelude::IMContextExt::filter_keypress()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that you are expected to call this function from your handler</span>
     <span class="doccomment">/// when overriding key event handling. This is needed in the case when</span>
     <span class="doccomment">/// you need to insert your own key handling between the input method</span>
-    <span class="doccomment">/// and the default key event handling of the [`TextView`](crate::TextView).</span>
+    <span class="doccomment">/// and the default key event handling of the [`crate::TextView`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -5026,7 +5026,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_im_context_filter_keypress&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">im_context_filter_keypress</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::EventKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Updates the position of a child, as for [`add_child_in_window()`](Self::add_child_in_window()).</span>
+    <span class="doccomment">/// Updates the position of a child, as for [`Self::add_child_in_window()`].</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// child widget already added to the text view</span>
     <span class="doccomment">/// ## `xpos`</span>
@@ -5039,7 +5039,7 @@
     <span class="doccomment">/// Moves a mark within the buffer so that it&#39;s</span>
     <span class="doccomment">/// located within the currently-visible text area.</span>
     <span class="doccomment">/// ## `mark`</span>
-    <span class="doccomment">/// a [`TextMark`](crate::TextMark)</span>
+    <span class="doccomment">/// a [`crate::TextMark`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -5059,7 +5059,7 @@
     <span class="doccomment">/// of the current run, and there may be jumps when the cursor</span>
     <span class="doccomment">/// is moved off of the end of a run.</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// number of characters to move (negative moves left,</span>
     <span class="doccomment">///  positive moves right)</span>
@@ -5085,7 +5085,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function should be called in response to user input</span>
     <span class="doccomment">/// (e.g. from derived classes that override the textview&#39;s</span>
-    <span class="doccomment">/// [`Widget::key-press-event`](crate::Widget::key-press-event) handler).</span>
+    <span class="doccomment">/// [`crate::Widget::key-press-event`] handler).</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_reset_cursor_blink&quot;</span>)]</span>
@@ -5117,10 +5117,10 @@
     <span class="doccomment">/// lines in the text buffer. Line heights are computed in an idle</span>
     <span class="doccomment">/// handler; so this function may not have the desired effect if it’s</span>
     <span class="doccomment">/// called before the height computations. To avoid oddness, consider</span>
-    <span class="doccomment">/// using [`scroll_to_mark()`](Self::scroll_to_mark()) which saves a point to be</span>
+    <span class="doccomment">/// using [`Self::scroll_to_mark()`] which saves a point to be</span>
     <span class="doccomment">/// scrolled to after line validation.</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">/// ## `within_margin`</span>
     <span class="doccomment">/// margin as a [0.0,0.5) fraction of screen size</span>
     <span class="doccomment">/// ## `use_align`</span>
@@ -5152,7 +5152,7 @@
     <span class="doccomment">/// screen for purposes of this function is reduced by a margin of size</span>
     <span class="doccomment">/// `within_margin`.</span>
     <span class="doccomment">/// ## `mark`</span>
-    <span class="doccomment">/// a [`TextMark`](crate::TextMark)</span>
+    <span class="doccomment">/// a [`crate::TextMark`]</span>
     <span class="doccomment">/// ## `within_margin`</span>
     <span class="doccomment">/// margin as a [0.0,0.5) fraction of screen size</span>
     <span class="doccomment">/// ## `use_align`</span>
@@ -5183,13 +5183,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_accepts_tab&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_accepts_tab</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">accepts_tab</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the width of [`TextWindowType::Left`] or [`TextWindowType::Right`],</span>
-    <span class="doccomment">/// or the height of [`TextWindowType::Top`] or [`TextWindowType::Bottom`].</span>
+    <span class="doccomment">/// Sets the width of [`crate::TextWindowType::Left`] or [`crate::TextWindowType::Right`],</span>
+    <span class="doccomment">/// or the height of [`crate::TextWindowType::Top`] or [`crate::TextWindowType::Bottom`].</span>
     <span class="doccomment">/// Automatically destroys the corresponding window if the size is set</span>
     <span class="doccomment">/// to 0, and creates the window if the size is set to non-zero. This</span>
     <span class="doccomment">/// function can only be used for the “border windows”, and it won’t</span>
-    <span class="doccomment">/// work with [`TextWindowType::Widget`], [`TextWindowType::Text`], or</span>
-    <span class="doccomment">/// [`TextWindowType::Private`].</span>
+    <span class="doccomment">/// work with [`crate::TextWindowType::Widget`], [`crate::TextWindowType::Text`], or</span>
+    <span class="doccomment">/// [`crate::TextWindowType::Private`].</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// window to affect</span>
     <span class="doccomment">/// ## `size`</span>
@@ -5211,10 +5211,10 @@
     <span class="doccomment">/// Sets `buffer` as the buffer being displayed by `self`. The previous</span>
     <span class="doccomment">/// buffer displayed by the text view is unreferenced, and a reference is</span>
     <span class="doccomment">/// added to `buffer`. If you owned a reference to `buffer` before passing it</span>
-    <span class="doccomment">/// to this function, you must remove that reference yourself; [`TextView`](crate::TextView)</span>
+    <span class="doccomment">/// to this function, you must remove that reference yourself; [`crate::TextView`]</span>
     <span class="doccomment">/// will not “adopt” it.</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// a [`TextBuffer`](crate::TextBuffer)</span>
+    <span class="doccomment">/// a [`crate::TextBuffer`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_buffer&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_buffer</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TextBuffer</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buffer</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
@@ -5223,13 +5223,13 @@
     <span class="doccomment">/// want to turn the cursor off.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this property may be overridden by the</span>
-    <span class="doccomment">/// [`Settings:gtk-keynave-use-caret`](crate::Settings:gtk-keynave-use-caret) settings.</span>
+    <span class="doccomment">/// [`crate::Settings:gtk-keynave-use-caret`] settings.</span>
     <span class="doccomment">/// ## `setting`</span>
     <span class="doccomment">/// whether to show the insertion cursor</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_cursor_visible&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_cursor_visible</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the default editability of the [`TextView`](crate::TextView). You can override</span>
+    <span class="doccomment">/// Sets the default editability of the [`crate::TextView`]. You can override</span>
     <span class="doccomment">/// this default setting with tags in the buffer, using the “editable”</span>
     <span class="doccomment">/// attribute of tags.</span>
     <span class="doccomment">/// ## `setting`</span>
@@ -5244,14 +5244,14 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_indent&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_indent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">indent</span>: <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Sets the [`TextView:input-hints`](crate::TextView:input-hints) property, which</span>
+    <span class="doccomment">/// Sets the [`crate::TextView:input-hints`] property, which</span>
     <span class="doccomment">/// allows input methods to fine-tune their behaviour.</span>
     <span class="doccomment">/// ## `hints`</span>
     <span class="doccomment">/// the hints</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_input_hints&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_input_hints</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hints</span>: <span class="ident">InputHints</span>);
 
-    <span class="doccomment">/// Sets the [`TextView:input-purpose`](crate::TextView:input-purpose) property which</span>
+    <span class="doccomment">/// Sets the [`crate::TextView:input-purpose`] property which</span>
     <span class="doccomment">/// can be used by on-screen keyboards and other input</span>
     <span class="doccomment">/// methods to adjust their behaviour.</span>
     <span class="doccomment">/// ## `purpose`</span>
@@ -5276,7 +5276,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_left_margin&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_left_margin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">left_margin</span>: <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Sets the [`TextView:monospace`](crate::TextView:monospace) property, which</span>
+    <span class="doccomment">/// Sets the [`crate::TextView:monospace`] property, which</span>
     <span class="doccomment">/// indicates that the text view should use monospace</span>
     <span class="doccomment">/// fonts.</span>
     <span class="doccomment">/// ## `monospace`</span>
@@ -5286,7 +5286,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_monospace&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_monospace</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">monospace</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Changes the [`TextView`](crate::TextView) overwrite mode.</span>
+    <span class="doccomment">/// Changes the [`crate::TextView`] overwrite mode.</span>
     <span class="doccomment">/// ## `overwrite`</span>
     <span class="doccomment">/// [`true`] to turn on overwrite mode, [`false`] to turn it off</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_overwrite&quot;</span>)]</span>
@@ -5328,7 +5328,7 @@
     <span class="doccomment">/// Sets the default tab stops for paragraphs in `self`.</span>
     <span class="doccomment">/// Tags in the buffer may override the default.</span>
     <span class="doccomment">/// ## `tabs`</span>
-    <span class="doccomment">/// tabs as a [`pango::TabArray`](crate::pango::TabArray)</span>
+    <span class="doccomment">/// tabs as a [`crate::pango::TabArray`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_tabs&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_tabs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tabs</span>: <span class="kw-2">&amp;</span><span class="ident">pango::TabArray</span>);
 
@@ -5345,15 +5345,15 @@
 
     <span class="doccomment">/// Sets the line wrapping for the view.</span>
     <span class="doccomment">/// ## `wrap_mode`</span>
-    <span class="doccomment">/// a [`WrapMode`](crate::WrapMode)</span>
+    <span class="doccomment">/// a [`crate::WrapMode`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_view_set_wrap_mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_wrap_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">wrap_mode</span>: <span class="ident">WrapMode</span>);
 
     <span class="doccomment">/// Determines whether `iter` is at the start of a display line.</span>
-    <span class="doccomment">/// See [`forward_display_line()`](Self::forward_display_line()) for an explanation of</span>
+    <span class="doccomment">/// See [`Self::forward_display_line()`] for an explanation of</span>
     <span class="doccomment">/// display lines vs. paragraphs.</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter)</span>
+    <span class="doccomment">/// a [`crate::TextIter`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -5365,9 +5365,9 @@
     <span class="doccomment">/// coordinates, storing the result in (`buffer_x`,`buffer_y`).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that you can’t convert coordinates for a nonexisting window (see</span>
-    <span class="doccomment">/// [`set_border_window_size()`](Self::set_border_window_size())).</span>
+    <span class="doccomment">/// [`Self::set_border_window_size()`]).</span>
     <span class="doccomment">/// ## `win`</span>
-    <span class="doccomment">/// a [`TextWindowType`](crate::TextWindowType) except [`TextWindowType::Private`]</span>
+    <span class="doccomment">/// a [`crate::TextWindowType`] except [`crate::TextWindowType::Private`]</span>
     <span class="doccomment">/// ## `window_x`</span>
     <span class="doccomment">/// window x coordinate</span>
     <span class="doccomment">/// ## `window_y`</span>
@@ -5437,7 +5437,7 @@
     <span class="doccomment">/// [keybinding signal][`BindingSignal`]</span>
     <span class="doccomment">/// which gets emitted when the user initiates a text deletion.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the `type_` is [`DeleteType::Chars`], GTK+ deletes the selection</span>
+    <span class="doccomment">/// If the `type_` is [`crate::DeleteType::Chars`], GTK+ deletes the selection</span>
     <span class="doccomment">/// if there is one, otherwise it deletes the requested number</span>
     <span class="doccomment">/// of characters.</span>
     <span class="doccomment">///</span>
@@ -5446,7 +5446,7 @@
     <span class="doccomment">/// deleting a word and Ctrl-Backspace for deleting a word</span>
     <span class="doccomment">/// backwords.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// the granularity of the deletion, as a [`DeleteType`](crate::DeleteType)</span>
+    <span class="doccomment">/// the granularity of the deletion, as a [`crate::DeleteType`]</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of `type_` units to delete</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;delete-from-cursor&quot;</span>)]</span>
@@ -5530,7 +5530,7 @@
     <span class="doccomment">/// - PageUp/PageDown keys move vertically by pages</span>
     <span class="doccomment">/// - Ctrl-PageUp/PageDown keys move horizontally by pages</span>
     <span class="doccomment">/// ## `step`</span>
-    <span class="doccomment">/// the granularity of the move, as a [`MovementStep`](crate::MovementStep)</span>
+    <span class="doccomment">/// the granularity of the move, as a [`crate::MovementStep`]</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of `step` units to move</span>
     <span class="doccomment">/// ## `extend_selection`</span>
@@ -5551,7 +5551,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// There are no default bindings for this signal.</span>
     <span class="doccomment">/// ## `step`</span>
-    <span class="doccomment">/// the granularity of the movement, as a [`ScrollStep`](crate::ScrollStep)</span>
+    <span class="doccomment">/// the granularity of the movement, as a [`crate::ScrollStep`]</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of `step` units to move</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;move-viewport&quot;</span>)]</span>
@@ -5579,15 +5579,15 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you need to add items to the context menu, connect</span>
     <span class="doccomment">/// to this signal and append your items to the `popup`, which</span>
-    <span class="doccomment">/// will be a [`Menu`](crate::Menu) in this case.</span>
+    <span class="doccomment">/// will be a [`crate::Menu`] in this case.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`TextView:populate-all`](crate::TextView:populate-all) is [`true`], this signal will</span>
+    <span class="doccomment">/// If [`crate::TextView:populate-all`] is [`true`], this signal will</span>
     <span class="doccomment">/// also be emitted to populate touch popups. In this case,</span>
-    <span class="doccomment">/// `popup` will be a different container, e.g. a [`Toolbar`](crate::Toolbar).</span>
+    <span class="doccomment">/// `popup` will be a different container, e.g. a [`crate::Toolbar`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The signal handler should not make assumptions about the</span>
-    <span class="doccomment">/// type of `widget`, but check whether `popup` is a [`Menu`](crate::Menu)</span>
-    <span class="doccomment">/// or [`Toolbar`](crate::Toolbar) or another kind of container.</span>
+    <span class="doccomment">/// type of `widget`, but check whether `popup` is a [`crate::Menu`]</span>
+    <span class="doccomment">/// or [`crate::Toolbar`] or another kind of container.</span>
     <span class="doccomment">/// ## `popup`</span>
     <span class="doccomment">/// the container that is being populated</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;populate-popup&quot;</span>)]</span>
@@ -5634,7 +5634,7 @@
 
     <span class="doccomment">/// The ::toggle-cursor-visible signal is a</span>
     <span class="doccomment">/// [keybinding signal][`BindingSignal`]</span>
-    <span class="doccomment">/// which gets emitted to toggle the [`TextView:cursor-visible`](crate::TextView:cursor-visible)</span>
+    <span class="doccomment">/// which gets emitted to toggle the [`crate::TextView:cursor-visible`]</span>
     <span class="doccomment">/// property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default binding for this signal is F7.</span>

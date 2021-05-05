@@ -1642,7 +1642,7 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`Application`](crate::Application) is the foundation of an application. It wraps some</span>
+    <span class="doccomment">/// A [`crate::Application`] is the foundation of an application. It wraps some</span>
     <span class="doccomment">/// low-level platform-specific services and is intended to act as the</span>
     <span class="doccomment">/// foundation for higher-level application classes such as</span>
     <span class="doccomment">/// ``GtkApplication`` or `MxApplication`. In general, you should not use</span>
@@ -1650,7 +1650,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// GApplication provides convenient life cycle management by maintaining</span>
     <span class="doccomment">/// a &quot;use count&quot; for the primary application instance. The use count can</span>
-    <span class="doccomment">/// be changed using [`ApplicationExt::hold()`](crate::ApplicationExt::hold()) and [`ApplicationExt::release()`](crate::ApplicationExt::release()). If</span>
+    <span class="doccomment">/// be changed using [`crate::prelude::ApplicationExt::hold()`] and [`crate::prelude::ApplicationExt::release()`]. If</span>
     <span class="doccomment">/// it drops to zero, the application exits. Higher-level classes such as</span>
     <span class="doccomment">/// ``GtkApplication`` employ the use count to ensure that the application</span>
     <span class="doccomment">/// stays alive as long as it has any opened windows.</span>
@@ -1667,17 +1667,17 @@
     <span class="doccomment">/// always the current instance. On Linux, the D-Bus session bus</span>
     <span class="doccomment">/// is used for communication.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The use of [`Application`](crate::Application) differs from some other commonly-used</span>
+    <span class="doccomment">/// The use of [`crate::Application`] differs from some other commonly-used</span>
     <span class="doccomment">/// uniqueness libraries (such as libunique) in important ways. The</span>
     <span class="doccomment">/// application is not expected to manually register itself and check</span>
     <span class="doccomment">/// if it is the primary instance. Instead, the `main()` function of a</span>
-    <span class="doccomment">/// [`Application`](crate::Application) should do very little more than instantiating the</span>
+    <span class="doccomment">/// [`crate::Application`] should do very little more than instantiating the</span>
     <span class="doccomment">/// application instance, possibly connecting signal handlers, then</span>
-    <span class="doccomment">/// calling [`run()`](Self::run()). All checks for uniqueness are done</span>
+    <span class="doccomment">/// calling [`Self::run()`]. All checks for uniqueness are done</span>
     <span class="doccomment">/// internally. If the application is the primary instance then the</span>
     <span class="doccomment">/// startup signal is emitted and the mainloop runs. If the application</span>
     <span class="doccomment">/// is not the primary instance then a signal is sent to the primary</span>
-    <span class="doccomment">/// instance and [`run()`](Self::run()) promptly returns. See the code</span>
+    <span class="doccomment">/// instance and [`Self::run()`] promptly returns. See the code</span>
     <span class="doccomment">/// examples below.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If used, the expected form of an application identifier is the same as</span>
@@ -1685,7 +1685,7 @@
     <span class="doccomment">/// [D-Bus well-known bus name](https://dbus.freedesktop.org/doc/dbus-specification.html`message`-protocol-names-bus).</span>
     <span class="doccomment">/// Examples include: `com.example.MyApp`, `org.example.internal_apps.Calculator`,</span>
     <span class="doccomment">/// `org._7_zip.Archiver`.</span>
-    <span class="doccomment">/// For details on valid application identifiers, see [`id_is_valid()`](Self::id_is_valid()).</span>
+    <span class="doccomment">/// For details on valid application identifiers, see [`Self::id_is_valid()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On Linux, the application identifier is claimed as a well-known bus name</span>
     <span class="doccomment">/// on the user&#39;s session bus. This means that the uniqueness of your</span>
@@ -1695,18 +1695,18 @@
     <span class="doccomment">/// should be done with the shared GDBus session bus. Note that due to the</span>
     <span class="doccomment">/// internal architecture of GDBus, method calls can be dispatched at any time</span>
     <span class="doccomment">/// (even if a main loop is not running). For this reason, you must ensure that</span>
-    <span class="doccomment">/// any object paths that you wish to register are registered before [`Application`](crate::Application)</span>
+    <span class="doccomment">/// any object paths that you wish to register are registered before [`crate::Application`]</span>
     <span class="doccomment">/// attempts to acquire the bus name of your application (which happens in</span>
-    <span class="doccomment">/// [`ApplicationExt::register()`](crate::ApplicationExt::register())). Unfortunately, this means that you cannot use</span>
-    <span class="doccomment">/// [`ApplicationExt::get_is_remote()`](crate::ApplicationExt::get_is_remote()) to decide if you want to register object paths.</span>
+    <span class="doccomment">/// [`crate::prelude::ApplicationExt::register()`]). Unfortunately, this means that you cannot use</span>
+    <span class="doccomment">/// [`crate::prelude::ApplicationExt::get_is_remote()`] to decide if you want to register object paths.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GApplication also implements the [`ActionGroup`](crate::ActionGroup) and [`ActionMap`](crate::ActionMap)</span>
+    <span class="doccomment">/// GApplication also implements the [`crate::ActionGroup`] and [`crate::ActionMap`]</span>
     <span class="doccomment">/// interfaces and lets you easily export actions by adding them with</span>
-    <span class="doccomment">/// [`ActionMap::add_action()`](crate::ActionMap::add_action()). When invoking an action by calling</span>
-    <span class="doccomment">/// [`ActionGroup::activate_action()`](crate::ActionGroup::activate_action()) on the application, it is always</span>
+    <span class="doccomment">/// [`crate::ActionMap::add_action()`]. When invoking an action by calling</span>
+    <span class="doccomment">/// [`crate::ActionGroup::activate_action()`] on the application, it is always</span>
     <span class="doccomment">/// invoked in the primary instance. The actions are also exported on</span>
-    <span class="doccomment">/// the session bus, and GIO provides the [`DBusActionGroup`](crate::DBusActionGroup) wrapper to</span>
-    <span class="doccomment">/// conveniently access them remotely. GIO provides a [`DBusMenuModel`](crate::DBusMenuModel) wrapper</span>
+    <span class="doccomment">/// the session bus, and GIO provides the [`crate::DBusActionGroup`] wrapper to</span>
+    <span class="doccomment">/// conveniently access them remotely. GIO provides a [`crate::DBusMenuModel`] wrapper</span>
     <span class="doccomment">/// for remote access to exported `GMenuModels`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There is a number of different entry points into a GApplication:</span>
@@ -1719,32 +1719,32 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// - via activating an action</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`Application::startup`](crate::Application::startup) signal lets you handle the application</span>
+    <span class="doccomment">/// The [`crate::Application::startup`] signal lets you handle the application</span>
     <span class="doccomment">/// initialization for all of these in a single place.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Regardless of which of these entry points is used to start the</span>
     <span class="doccomment">/// application, GApplication passes some ‘platform data’ from the</span>
     <span class="doccomment">/// launching instance to the primary instance, in the form of a</span>
-    <span class="doccomment">/// [`glib::Variant`](crate::glib::Variant) dictionary mapping strings to variants. To use platform</span>
+    <span class="doccomment">/// [`crate::glib::Variant`] dictionary mapping strings to variants. To use platform</span>
     <span class="doccomment">/// data, override the `before_emit` or `after_emit` virtual functions</span>
-    <span class="doccomment">/// in your [`Application`](crate::Application) subclass. When dealing with</span>
-    <span class="doccomment">/// [`ApplicationCommandLine`](crate::ApplicationCommandLine) objects, the platform data is</span>
-    <span class="doccomment">/// directly available via [`ApplicationCommandLineExt::get_cwd()`](crate::ApplicationCommandLineExt::get_cwd()),</span>
-    <span class="doccomment">/// [`ApplicationCommandLineExt::get_environ()`](crate::ApplicationCommandLineExt::get_environ()) and</span>
-    <span class="doccomment">/// [`ApplicationCommandLineExt::get_platform_data()`](crate::ApplicationCommandLineExt::get_platform_data()).</span>
+    <span class="doccomment">/// in your [`crate::Application`] subclass. When dealing with</span>
+    <span class="doccomment">/// [`crate::ApplicationCommandLine`] objects, the platform data is</span>
+    <span class="doccomment">/// directly available via [`crate::prelude::ApplicationCommandLineExt::get_cwd()`],</span>
+    <span class="doccomment">/// [`crate::prelude::ApplicationCommandLineExt::get_environ()`] and</span>
+    <span class="doccomment">/// [`crate::prelude::ApplicationCommandLineExt::get_platform_data()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As the name indicates, the platform data may vary depending on the</span>
     <span class="doccomment">/// operating system, but it always includes the current directory (key</span>
     <span class="doccomment">/// &quot;cwd&quot;), and optionally the environment (ie the set of environment</span>
     <span class="doccomment">/// variables and their values) of the calling process (key &quot;environ&quot;).</span>
     <span class="doccomment">/// The environment is only added to the platform data if the</span>
-    <span class="doccomment">/// [`ApplicationFlags::SendEnvironment`] flag is set. [`Application`](crate::Application) subclasses</span>
+    <span class="doccomment">/// [`crate::ApplicationFlags::SendEnvironment`] flag is set. [`crate::Application`] subclasses</span>
     <span class="doccomment">/// can add their own platform data by overriding the `add_platform_data`</span>
     <span class="doccomment">/// virtual function. For instance, ``GtkApplication`` adds startup notification</span>
     <span class="doccomment">/// data in this way.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To parse commandline arguments you may handle the</span>
-    <span class="doccomment">/// [`Application::command-line`](crate::Application::command-line) signal or override the `local_command_line()`</span>
+    <span class="doccomment">/// [`crate::Application::command-line`] signal or override the `local_command_line()`</span>
     <span class="doccomment">/// vfunc, to parse them in either the primary instance or the local instance,</span>
     <span class="doccomment">/// respectively.</span>
     <span class="doccomment">///</span>
@@ -1759,7 +1759,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ApplicationExt`](trait@crate::prelude::ApplicationExt), [`trait@glib::object::ObjectExt`], [`ActionGroupExt`](trait@crate::prelude::ActionGroupExt), [`ActionMapExt`](trait@crate::prelude::ActionMapExt), [`ApplicationExtManual`](trait@crate::prelude::ApplicationExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ApplicationExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::ActionGroupExt`], [`trait@crate::prelude::ActionMapExt`], [`trait@crate::prelude::ApplicationExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Application</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GApplication</span>, <span class="ident">ffi::GApplicationClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">ActionGroup</span>, <span class="ident">ActionMap</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1768,12 +1768,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Application</span> {
-    <span class="doccomment">/// Creates a new [`Application`](crate::Application) instance.</span>
+    <span class="doccomment">/// Creates a new [`crate::Application`] instance.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If non-[`None`], the application id must be valid. See</span>
-    <span class="doccomment">/// [`id_is_valid()`](Self::id_is_valid()).</span>
+    <span class="doccomment">/// [`Self::id_is_valid()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If no application ID is given then some features of [`Application`](crate::Application)</span>
+    <span class="doccomment">/// If no application ID is given then some features of [`crate::Application`]</span>
     <span class="doccomment">/// (most notably application uniqueness) will be disabled.</span>
     <span class="doccomment">/// ## `application_id`</span>
     <span class="doccomment">/// the application id</span>
@@ -1782,7 +1782,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Application`](crate::Application) instance</span>
+    <span class="doccomment">/// a new [`crate::Application`] instance</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">application_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">flags</span>: <span class="ident">ApplicationFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Application</span> {
         <span class="kw">unsafe</span> {
@@ -1793,11 +1793,11 @@
         }
     }
 
-    <span class="doccomment">/// Returns the default [`Application`](crate::Application) instance for this process.</span>
+    <span class="doccomment">/// Returns the default [`crate::Application`] instance for this process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Normally there is only one [`Application`](crate::Application) per process and it becomes</span>
+    <span class="doccomment">/// Normally there is only one [`crate::Application`] per process and it becomes</span>
     <span class="doccomment">/// the default when it is created. You can exercise more control over</span>
-    <span class="doccomment">/// this by using [`ApplicationExt::set_default()`](crate::ApplicationExt::set_default()).</span>
+    <span class="doccomment">/// this by using [`crate::prelude::ApplicationExt::set_default()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If there is no default application then [`None`] is returned.</span>
     <span class="doccomment">///</span>
@@ -1812,8 +1812,8 @@
 
     <span class="doccomment">/// Checks if `application_id` is a valid application identifier.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A valid ID is required for calls to [`new()`](Self::new()) and</span>
-    <span class="doccomment">/// [`ApplicationExt::set_application_id()`](crate::ApplicationExt::set_application_id()).</span>
+    <span class="doccomment">/// A valid ID is required for calls to [`Self::new()`] and</span>
+    <span class="doccomment">/// [`crate::prelude::ApplicationExt::set_application_id()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Application identifiers follow the same format as</span>
     <span class="doccomment">/// [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html`message`-protocol-names-bus).</span>
@@ -1938,11 +1938,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Application`](struct@crate::Application)</span>
+<span class="doccomment">/// [`struct@crate::Application`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ApplicationExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Activates the application.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// In essence, this results in the [`Application::activate`](crate::Application::activate) signal being</span>
+    <span class="doccomment">/// In essence, this results in the [`crate::Application::activate`] signal being</span>
     <span class="doccomment">/// emitted in the primary instance.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The application must be registered before calling this function.</span>
@@ -1952,24 +1952,24 @@
     <span class="doccomment">/// Add an option to be handled by `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Calling this function is the equivalent of calling</span>
-    <span class="doccomment">/// [`add_main_option_entries()`](Self::add_main_option_entries()) with a single [`glib::OptionEntry`](crate::glib::OptionEntry)</span>
+    <span class="doccomment">/// [`Self::add_main_option_entries()`] with a single [`crate::glib::OptionEntry`]</span>
     <span class="doccomment">/// that has its arg_data member set to [`None`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The parsed arguments will be packed into a [`glib::VariantDict`](crate::glib::VariantDict) which</span>
-    <span class="doccomment">/// is passed to [`Application::handle-local-options`](crate::Application::handle-local-options). If</span>
-    <span class="doccomment">/// [`ApplicationFlags::HandlesCommandLine`] is set, then it will also</span>
+    <span class="doccomment">/// The parsed arguments will be packed into a [`crate::glib::VariantDict`] which</span>
+    <span class="doccomment">/// is passed to [`crate::Application::handle-local-options`]. If</span>
+    <span class="doccomment">/// [`crate::ApplicationFlags::HandlesCommandLine`] is set, then it will also</span>
     <span class="doccomment">/// be sent to the primary instance. See</span>
-    <span class="doccomment">/// [`add_main_option_entries()`](Self::add_main_option_entries()) for more details.</span>
+    <span class="doccomment">/// [`Self::add_main_option_entries()`] for more details.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`glib::OptionEntry`](crate::glib::OptionEntry) for more documentation of the arguments.</span>
+    <span class="doccomment">/// See [`crate::glib::OptionEntry`] for more documentation of the arguments.</span>
     <span class="doccomment">/// ## `long_name`</span>
     <span class="doccomment">/// the long name of an option used to specify it in a commandline</span>
     <span class="doccomment">/// ## `short_name`</span>
     <span class="doccomment">/// the short name of an option</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags from [`glib::OptionFlags`](crate::glib::OptionFlags)</span>
+    <span class="doccomment">/// flags from [`crate::glib::OptionFlags`]</span>
     <span class="doccomment">/// ## `arg`</span>
-    <span class="doccomment">/// the type of the option, as a [`glib::OptionArg`](crate::glib::OptionArg)</span>
+    <span class="doccomment">/// the type of the option, as a [`crate::glib::OptionArg`]</span>
     <span class="doccomment">/// ## `description`</span>
     <span class="doccomment">/// the description for the option in `--help` output</span>
     <span class="doccomment">/// ## `arg_description`</span>
@@ -1992,14 +1992,14 @@
     <span class="comment">//#[doc(alias = &quot;g_application_add_option_group&quot;)]</span>
     <span class="comment">//fn add_option_group(&amp;self, group: /*Ignored*/&amp;glib::OptionGroup);</span>
 
-    <span class="doccomment">/// Marks `self` as busy (see [`mark_busy()`](Self::mark_busy())) while</span>
+    <span class="doccomment">/// Marks `self` as busy (see [`Self::mark_busy()`]) while</span>
     <span class="doccomment">/// `property` on `object` is [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The binding holds a reference to `self` while it is active, but</span>
     <span class="doccomment">/// not to `object`. Instead, the binding is destroyed when `object` is</span>
     <span class="doccomment">/// finalized.</span>
     <span class="doccomment">/// ## `object`</span>
-    <span class="doccomment">/// a [`glib::object::Object`](crate::glib::object::Object)</span>
+    <span class="doccomment">/// a [`crate::glib::object::Object`]</span>
     <span class="doccomment">/// ## `property`</span>
     <span class="doccomment">/// the name of a boolean property of `object`</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -2016,41 +2016,41 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_application_id&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">application_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the [`DBusConnection`](crate::DBusConnection) being used by the application, or [`None`].</span>
+    <span class="doccomment">/// Gets the [`crate::DBusConnection`] being used by the application, or [`None`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`Application`](crate::Application) is using its D-Bus backend then this function will</span>
-    <span class="doccomment">/// return the [`DBusConnection`](crate::DBusConnection) being used for uniqueness and</span>
+    <span class="doccomment">/// If [`crate::Application`] is using its D-Bus backend then this function will</span>
+    <span class="doccomment">/// return the [`crate::DBusConnection`] being used for uniqueness and</span>
     <span class="doccomment">/// communication with the desktop environment and other instances of the</span>
     <span class="doccomment">/// application.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`Application`](crate::Application) is not using D-Bus then this function will return</span>
+    <span class="doccomment">/// If [`crate::Application`] is not using D-Bus then this function will return</span>
     <span class="doccomment">/// [`None`]. This includes the situation where the D-Bus backend would</span>
     <span class="doccomment">/// normally be in use but we were unable to connect to the bus.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function must not be called before the application has been</span>
-    <span class="doccomment">/// registered. See [`get_is_registered()`](Self::get_is_registered()).</span>
+    <span class="doccomment">/// registered. See [`Self::get_is_registered()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`DBusConnection`](crate::DBusConnection), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::DBusConnection`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_get_dbus_connection&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_dbus_connection&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">dbus_connection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DBusConnection</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the D-Bus object path being used by the application, or [`None`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`Application`](crate::Application) is using its D-Bus backend then this function will</span>
-    <span class="doccomment">/// return the D-Bus object path that [`Application`](crate::Application) is using. If the</span>
+    <span class="doccomment">/// If [`crate::Application`] is using its D-Bus backend then this function will</span>
+    <span class="doccomment">/// return the D-Bus object path that [`crate::Application`] is using. If the</span>
     <span class="doccomment">/// application is the primary instance then there is an object published</span>
     <span class="doccomment">/// at this path. If the application is not the primary instance then</span>
     <span class="doccomment">/// the result of this function is undefined.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`Application`](crate::Application) is not using D-Bus then this function will return</span>
+    <span class="doccomment">/// If [`crate::Application`] is not using D-Bus then this function will return</span>
     <span class="doccomment">/// [`None`]. This includes the situation where the D-Bus backend would</span>
     <span class="doccomment">/// normally be in use but we were unable to connect to the bus.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function must not be called before the application has been</span>
-    <span class="doccomment">/// registered. See [`get_is_registered()`](Self::get_is_registered()).</span>
+    <span class="doccomment">/// registered. See [`Self::get_is_registered()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2061,7 +2061,7 @@
 
     <span class="doccomment">/// Gets the flags for `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`ApplicationFlags`](crate::ApplicationFlags).</span>
+    <span class="doccomment">/// See [`crate::ApplicationFlags`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2073,7 +2073,7 @@
     <span class="doccomment">/// Gets the current inactivity timeout for the application.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is the amount of time (in milliseconds) after the last call to</span>
-    <span class="doccomment">/// [`release()`](Self::release()) before the application stops running.</span>
+    <span class="doccomment">/// [`Self::release()`] before the application stops running.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2083,7 +2083,7 @@
     <span class="kw">fn</span> <span class="ident">inactivity_timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Gets the application&#39;s current busy state, as set through</span>
-    <span class="doccomment">/// [`mark_busy()`](Self::mark_busy()) or [`bind_busy_property()`](Self::bind_busy_property()).</span>
+    <span class="doccomment">/// [`Self::mark_busy()`] or [`Self::bind_busy_property()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2096,7 +2096,7 @@
 
     <span class="doccomment">/// Checks if `self` is registered.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// An application is registered if [`register()`](Self::register()) has been</span>
+    <span class="doccomment">/// An application is registered if [`Self::register()`] has been</span>
     <span class="doccomment">/// successfully called.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -2114,8 +2114,8 @@
     <span class="doccomment">/// performed by the primary instance.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The value of this property cannot be accessed before</span>
-    <span class="doccomment">/// [`register()`](Self::register()) has been called. See</span>
-    <span class="doccomment">/// [`get_is_registered()`](Self::get_is_registered()).</span>
+    <span class="doccomment">/// [`Self::register()`] has been called. See</span>
+    <span class="doccomment">/// [`Self::get_is_registered()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2126,7 +2126,7 @@
 
     <span class="doccomment">/// Gets the resource base path of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`set_resource_base_path()`](Self::set_resource_base_path()) for more information.</span>
+    <span class="doccomment">/// See [`Self::set_resource_base_path()`] for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2138,10 +2138,10 @@
     <span class="doccomment">/// Increases the use count of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Use this function to indicate that the application has a reason to</span>
-    <span class="doccomment">/// continue to run. For example, [`hold()`](Self::hold()) is called by GTK+</span>
+    <span class="doccomment">/// continue to run. For example, [`Self::hold()`] is called by GTK+</span>
     <span class="doccomment">/// when a toplevel window is on the screen.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To cancel the hold, call [`release()`](Self::release()).</span>
+    <span class="doccomment">/// To cancel the hold, call [`Self::release()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_hold&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">hold</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
@@ -2154,13 +2154,13 @@
     <span class="doccomment">/// use that information to indicate the state to the user (e.g. with a</span>
     <span class="doccomment">/// spinner).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To cancel the busy indication, use [`unmark_busy()`](Self::unmark_busy()).</span>
+    <span class="doccomment">/// To cancel the busy indication, use [`Self::unmark_busy()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_mark_busy&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">mark_busy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Opens the given files.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// In essence, this results in the [`Application::open`](crate::Application::open) signal being emitted</span>
+    <span class="doccomment">/// In essence, this results in the [`crate::Application::open`] signal being emitted</span>
     <span class="doccomment">/// in the primary instance.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `n_files` must be greater than zero.</span>
@@ -2171,7 +2171,7 @@
     <span class="doccomment">/// for this functionality, you should use &quot;&quot;.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The application must be registered before calling this function</span>
-    <span class="doccomment">/// and it must have the [`ApplicationFlags::HandlesOpen`] flag set.</span>
+    <span class="doccomment">/// and it must have the [`crate::ApplicationFlags::HandlesOpen`] flag set.</span>
     <span class="doccomment">/// ## `files`</span>
     <span class="doccomment">/// an array of `GFiles` to open</span>
     <span class="doccomment">/// ## `n_files`</span>
@@ -2183,16 +2183,16 @@
 
     <span class="doccomment">/// Immediately quits the application.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Upon return to the mainloop, [`Application::run()`](crate::Application::run()) will return,</span>
+    <span class="doccomment">/// Upon return to the mainloop, [`crate::Application::run()`] will return,</span>
     <span class="doccomment">/// calling only the &#39;shutdown&#39; function before doing so.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The hold count is ignored.</span>
-    <span class="doccomment">/// Take care if your code has called [`hold()`](Self::hold()) on the application and</span>
+    <span class="doccomment">/// Take care if your code has called [`Self::hold()`] on the application and</span>
     <span class="doccomment">/// is therefore still expecting it to exist.</span>
-    <span class="doccomment">/// (Note that you may have called [`hold()`](Self::hold()) indirectly, for example</span>
+    <span class="doccomment">/// (Note that you may have called [`Self::hold()`] indirectly, for example</span>
     <span class="doccomment">/// through `gtk_application_add_window()`.)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The result of calling [`Application::run()`](crate::Application::run()) again after it returns is</span>
+    <span class="doccomment">/// The result of calling [`crate::Application::run()`] again after it returns is</span>
     <span class="doccomment">/// unspecified.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_quit&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">quit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -2205,7 +2205,7 @@
     <span class="doccomment">/// application identifier as a unique bus name on the session bus using</span>
     <span class="doccomment">/// GDBus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If there is no application ID or if [`ApplicationFlags::NonUnique`] was</span>
+    <span class="doccomment">/// If there is no application ID or if [`crate::ApplicationFlags::NonUnique`] was</span>
     <span class="doccomment">/// given, then this process will always become the primary instance.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Due to the internal architecture of GDBus, method calls can be</span>
@@ -2216,7 +2216,7 @@
     <span class="doccomment">/// If the application has already been registered then [`true`] is</span>
     <span class="doccomment">/// returned with no work performed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`Application::startup`](crate::Application::startup) signal is emitted if registration succeeds</span>
+    <span class="doccomment">/// The [`crate::Application::startup`] signal is emitted if registration succeeds</span>
     <span class="doccomment">/// and `self` is the primary instance (including the non-unique</span>
     <span class="doccomment">/// case).</span>
     <span class="doccomment">///</span>
@@ -2226,9 +2226,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: the return value of this function is not an indicator that this</span>
     <span class="doccomment">/// instance is or is not the primary instance of the application. See</span>
-    <span class="doccomment">/// [`get_is_remote()`](Self::get_is_remote()) for that.</span>
+    <span class="doccomment">/// [`Self::get_is_remote()`] for that.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2241,7 +2241,7 @@
     <span class="doccomment">/// When the use count reaches zero, the application will stop running.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Never call this function except to cancel the effect of a previous</span>
-    <span class="doccomment">/// call to [`hold()`](Self::hold()).</span>
+    <span class="doccomment">/// call to [`Self::hold()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_release&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
@@ -2270,11 +2270,11 @@
     <span class="doccomment">/// notifications without an id.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `notification` is no longer relevant, it can be withdrawn with</span>
-    <span class="doccomment">/// [`withdraw_notification()`](Self::withdraw_notification()).</span>
+    <span class="doccomment">/// [`Self::withdraw_notification()`].</span>
     <span class="doccomment">/// ## `id`</span>
     <span class="doccomment">/// id of the notification, or [`None`]</span>
     <span class="doccomment">/// ## `notification`</span>
-    <span class="doccomment">/// the [`Notification`](crate::Notification) to send</span>
+    <span class="doccomment">/// the [`crate::Notification`] to send</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_send_notification&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">send_notification</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">notification</span>: <span class="kw-2">&amp;</span><span class="ident">Notification</span>);
 
@@ -2284,14 +2284,14 @@
     <span class="doccomment">/// been registered.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If non-[`None`], the application id must be valid. See</span>
-    <span class="doccomment">/// [`Application::id_is_valid()`](crate::Application::id_is_valid()).</span>
+    <span class="doccomment">/// [`crate::Application::id_is_valid()`].</span>
     <span class="doccomment">/// ## `application_id`</span>
     <span class="doccomment">/// the identifier for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_set_application_id&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_application_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Sets or unsets the default application for the process, as returned</span>
-    <span class="doccomment">/// by [`Application::get_default()`](crate::Application::get_default()).</span>
+    <span class="doccomment">/// by [`crate::Application::get_default()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function does not take its own reference on `self`. If</span>
     <span class="doccomment">/// `self` is destroyed then the default application will revert</span>
@@ -2304,7 +2304,7 @@
     <span class="doccomment">/// The flags can only be modified if `self` has not yet been</span>
     <span class="doccomment">/// registered.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`ApplicationFlags`](crate::ApplicationFlags).</span>
+    <span class="doccomment">/// See [`crate::ApplicationFlags`].</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// the flags for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_set_flags&quot;</span>)]</span>
@@ -2313,10 +2313,10 @@
     <span class="doccomment">/// Sets the current inactivity timeout for the application.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is the amount of time (in milliseconds) after the last call to</span>
-    <span class="doccomment">/// [`release()`](Self::release()) before the application stops running.</span>
+    <span class="doccomment">/// [`Self::release()`] before the application stops running.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call has no side effects of its own. The value set here is only</span>
-    <span class="doccomment">/// used for next time [`release()`](Self::release()) drops the use count to</span>
+    <span class="doccomment">/// used for next time [`Self::release()`] drops the use count to</span>
     <span class="doccomment">/// zero. Any timeouts currently in progress are not impacted.</span>
     <span class="doccomment">/// ## `inactivity_timeout`</span>
     <span class="doccomment">/// the timeout, in milliseconds</span>
@@ -2325,7 +2325,7 @@
 
     <span class="doccomment">/// Adds a description to the `self` option context.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`glib::OptionContext::set_description()`](crate::glib::OptionContext::set_description()) for more information.</span>
+    <span class="doccomment">/// See [`crate::glib::OptionContext::set_description()`] for more information.</span>
     <span class="doccomment">/// ## `description`</span>
     <span class="doccomment">/// a string to be shown in `--help` output</span>
     <span class="doccomment">///  after the list of options, or [`None`]</span>
@@ -2336,10 +2336,10 @@
 
     <span class="doccomment">/// Sets the parameter string to be used by the commandline handling of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function registers the argument to be passed to [`glib::OptionContext::new()`](crate::glib::OptionContext::new())</span>
-    <span class="doccomment">/// when the internal [`glib::OptionContext`](crate::glib::OptionContext) of `self` is created.</span>
+    <span class="doccomment">/// This function registers the argument to be passed to [`crate::glib::OptionContext::new()`]</span>
+    <span class="doccomment">/// when the internal [`crate::glib::OptionContext`] of `self` is created.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`glib::OptionContext::new()`](crate::glib::OptionContext::new()) for more information about `parameter_string`.</span>
+    <span class="doccomment">/// See [`crate::glib::OptionContext::new()`] for more information about `parameter_string`.</span>
     <span class="doccomment">/// ## `parameter_string`</span>
     <span class="doccomment">/// a string which is displayed</span>
     <span class="doccomment">///  in the first line of `--help` output, after the usage summary `programname [OPTION...]`.</span>
@@ -2350,7 +2350,7 @@
 
     <span class="doccomment">/// Adds a summary to the `self` option context.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`glib::OptionContext::set_summary()`](crate::glib::OptionContext::set_summary()) for more information.</span>
+    <span class="doccomment">/// See [`crate::glib::OptionContext::set_summary()`] for more information.</span>
     <span class="doccomment">/// ## `summary`</span>
     <span class="doccomment">/// a string to be shown in `--help` output</span>
     <span class="doccomment">///  before the list of options, or [`None`]</span>
@@ -2368,7 +2368,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, the resource base path is determined from the application</span>
     <span class="doccomment">/// ID by prefixing &#39;/&#39; and replacing each &#39;.&#39; with &#39;/&#39;. This is done at</span>
-    <span class="doccomment">/// the time that the [`Application`](crate::Application) object is constructed. Changes to</span>
+    <span class="doccomment">/// the time that the [`crate::Application`] object is constructed. Changes to</span>
     <span class="doccomment">/// the application ID after that point will not have an impact on the</span>
     <span class="doccomment">/// resource base path.</span>
     <span class="doccomment">///</span>
@@ -2378,7 +2378,7 @@
     <span class="doccomment">/// then Gtk will then search for the menus of the application at</span>
     <span class="doccomment">/// &quot;/org/example/app/gtk/menus.ui&quot;.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`Resource`](crate::Resource) for more information about adding resources to your</span>
+    <span class="doccomment">/// See [`crate::Resource`] for more information about adding resources to your</span>
     <span class="doccomment">/// application.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can disable automatic resource loading functionality by setting</span>
@@ -2387,10 +2387,10 @@
     <span class="doccomment">/// Changing the resource base path once the application is running is</span>
     <span class="doccomment">/// not recommended. The point at which the resource path is consulted</span>
     <span class="doccomment">/// for forming paths for various purposes is unspecified. When writing</span>
-    <span class="doccomment">/// a sub-class of [`Application`](crate::Application) you should either set the</span>
-    <span class="doccomment">/// [`Application:resource-base-path`](crate::Application:resource-base-path) property at construction time, or call</span>
+    <span class="doccomment">/// a sub-class of [`crate::Application`] you should either set the</span>
+    <span class="doccomment">/// [`crate::Application:resource-base-path`] property at construction time, or call</span>
     <span class="doccomment">/// this function during the instance initialization. Alternatively, you</span>
-    <span class="doccomment">/// can call this function in the [`ApplicationClass.startup`](crate::ApplicationClass.startup) virtual function,</span>
+    <span class="doccomment">/// can call this function in the [`crate::ApplicationClass.startup`] virtual function,</span>
     <span class="doccomment">/// before chaining up to the parent implementation.</span>
     <span class="doccomment">/// ## `resource_path`</span>
     <span class="doccomment">/// the resource path to use</span>
@@ -2399,9 +2399,9 @@
 
     <span class="doccomment">/// Destroys a binding between `property` and the busy state of</span>
     <span class="doccomment">/// `self` that was previously created with</span>
-    <span class="doccomment">/// [`bind_busy_property()`](Self::bind_busy_property()).</span>
+    <span class="doccomment">/// [`Self::bind_busy_property()`].</span>
     <span class="doccomment">/// ## `object`</span>
-    <span class="doccomment">/// a [`glib::object::Object`](crate::glib::object::Object)</span>
+    <span class="doccomment">/// a [`crate::glib::object::Object`]</span>
     <span class="doccomment">/// ## `property`</span>
     <span class="doccomment">/// the name of a boolean property of `object`</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -2415,12 +2415,12 @@
     <span class="doccomment">/// to other processes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function must only be called to cancel the effect of a previous</span>
-    <span class="doccomment">/// call to [`mark_busy()`](Self::mark_busy()).</span>
+    <span class="doccomment">/// call to [`Self::mark_busy()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_unmark_busy&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unmark_busy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Withdraws a notification that was sent with</span>
-    <span class="doccomment">/// [`send_notification()`](Self::send_notification()).</span>
+    <span class="doccomment">/// [`Self::send_notification()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call does nothing if a notification with `id` doesn&#39;t exist or</span>
     <span class="doccomment">/// the notification was never sent.</span>
@@ -2441,21 +2441,21 @@
     <span class="kw">fn</span> <span class="ident">set_action_group</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ActionGroup</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">action_group</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// The ::activate signal is emitted on the primary instance when an</span>
-    <span class="doccomment">/// activation occurs. See [`activate()`](Self::activate()).</span>
+    <span class="doccomment">/// activation occurs. See [`Self::activate()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;activate&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_activate</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// The ::command-line signal is emitted on the primary instance when</span>
-    <span class="doccomment">/// a commandline is not handled locally. See [`Application::run()`](crate::Application::run()) and</span>
-    <span class="doccomment">/// the [`ApplicationCommandLine`](crate::ApplicationCommandLine) documentation for more information.</span>
+    <span class="doccomment">/// a commandline is not handled locally. See [`crate::Application::run()`] and</span>
+    <span class="doccomment">/// the [`crate::ApplicationCommandLine`] documentation for more information.</span>
     <span class="doccomment">/// ## `command_line`</span>
-    <span class="doccomment">/// a [`ApplicationCommandLine`](crate::ApplicationCommandLine) representing the</span>
+    <span class="doccomment">/// a [`crate::ApplicationCommandLine`] representing the</span>
     <span class="doccomment">///  passed commandline</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An integer that is set as the exit status for the calling</span>
-    <span class="doccomment">///  process. See [`ApplicationCommandLineExt::set_exit_status()`](crate::ApplicationCommandLineExt::set_exit_status()).</span>
+    <span class="doccomment">///  process. See [`crate::prelude::ApplicationCommandLineExt::set_exit_status()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;command-line&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_command_line</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">ApplicationCommandLine</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -2466,8 +2466,8 @@
     <span class="doccomment">/// after the parsing of the commandline options has occurred.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can add options to be recognised during commandline option</span>
-    <span class="doccomment">/// parsing using [`add_main_option_entries()`](Self::add_main_option_entries()) and</span>
-    <span class="doccomment">/// [`add_option_group()`](Self::add_option_group()).</span>
+    <span class="doccomment">/// parsing using [`Self::add_main_option_entries()`] and</span>
+    <span class="doccomment">/// [`Self::add_option_group()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Signal handlers can inspect `options` (along with values pointed to</span>
     <span class="doccomment">/// from the `arg_data` of an installed `GOptionEntrys`) in order to</span>
@@ -2475,23 +2475,23 @@
     <span class="doccomment">/// (which may be useful for options like --version).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the event that the application is marked</span>
-    <span class="doccomment">/// [`ApplicationFlags::HandlesCommandLine`] the &quot;normal processing&quot; will</span>
+    <span class="doccomment">/// [`crate::ApplicationFlags::HandlesCommandLine`] the &quot;normal processing&quot; will</span>
     <span class="doccomment">/// send the `options` dictionary to the primary instance where it can be</span>
-    <span class="doccomment">/// read with [`ApplicationCommandLineExt::get_options_dict()`](crate::ApplicationCommandLineExt::get_options_dict()). The signal</span>
+    <span class="doccomment">/// read with [`crate::prelude::ApplicationCommandLineExt::get_options_dict()`]. The signal</span>
     <span class="doccomment">/// handler can modify the dictionary before returning, and the</span>
     <span class="doccomment">/// modified dictionary will be sent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// In the event that [`ApplicationFlags::HandlesCommandLine`] is not set,</span>
+    <span class="doccomment">/// In the event that [`crate::ApplicationFlags::HandlesCommandLine`] is not set,</span>
     <span class="doccomment">/// &quot;normal processing&quot; will treat the remaining uncollected command</span>
     <span class="doccomment">/// line arguments as filenames or URIs. If there are no arguments,</span>
-    <span class="doccomment">/// the application is activated by [`activate()`](Self::activate()). One or</span>
-    <span class="doccomment">/// more arguments results in a call to [`open()`](Self::open()).</span>
+    <span class="doccomment">/// the application is activated by [`Self::activate()`]. One or</span>
+    <span class="doccomment">/// more arguments results in a call to [`Self::open()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you want to handle the local commandline arguments for yourself</span>
-    <span class="doccomment">/// by converting them to calls to [`open()`](Self::open()) or</span>
-    <span class="doccomment">/// [`ActionGroup::activate_action()`](crate::ActionGroup::activate_action()) then you must be sure to register</span>
+    <span class="doccomment">/// by converting them to calls to [`Self::open()`] or</span>
+    <span class="doccomment">/// [`crate::ActionGroup::activate_action()`] then you must be sure to register</span>
     <span class="doccomment">/// the application first. You should probably not call</span>
-    <span class="doccomment">/// [`activate()`](Self::activate()) for yourself, however: just return -1 and</span>
+    <span class="doccomment">/// [`Self::activate()`] for yourself, however: just return -1 and</span>
     <span class="doccomment">/// allow the default handler to do it for you. This will ensure that</span>
     <span class="doccomment">/// the `--gapplication-service` switch works properly (i.e. no activation</span>
     <span class="doccomment">/// in that case).</span>
@@ -2520,9 +2520,9 @@
 
     <span class="doccomment">/// The ::name-lost signal is emitted only on the registered primary instance</span>
     <span class="doccomment">/// when a new instance has taken over. This can only happen if the application</span>
-    <span class="doccomment">/// is using the [`ApplicationFlags::AllowReplacement`] flag.</span>
+    <span class="doccomment">/// is using the [`crate::ApplicationFlags::AllowReplacement`] flag.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The default handler for this signal calls [`quit()`](Self::quit()).</span>
+    <span class="doccomment">/// The default handler for this signal calls [`Self::quit()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2538,7 +2538,7 @@
     <span class="kw">fn</span> <span class="ident">connect_shutdown</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// The ::startup signal is emitted on the primary instance immediately</span>
-    <span class="doccomment">/// after registration. See [`register()`](Self::register()).</span>
+    <span class="doccomment">/// after registration. See [`Self::register()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;startup&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_startup</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 

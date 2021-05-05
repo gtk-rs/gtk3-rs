@@ -349,7 +349,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`VfsExt`](trait@crate::prelude::VfsExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::VfsExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Vfs</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GVfs</span>, <span class="ident">ffi::GVfsClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -358,23 +358,23 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Vfs</span> {
-    <span class="doccomment">/// Gets the default [`Vfs`](crate::Vfs) for the system.</span>
+    <span class="doccomment">/// Gets the default [`crate::Vfs`] for the system.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Vfs`](crate::Vfs), which will be the local</span>
-    <span class="doccomment">///  file system [`Vfs`](crate::Vfs) if no other implementation is available.</span>
+    <span class="doccomment">/// a [`crate::Vfs`], which will be the local</span>
+    <span class="doccomment">///  file system [`crate::Vfs`] if no other implementation is available.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_vfs_get_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vfs</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_vfs_get_default</span>()) }
     }
 
-    <span class="doccomment">/// Gets the local [`Vfs`](crate::Vfs) for the system.</span>
+    <span class="doccomment">/// Gets the local [`crate::Vfs`] for the system.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Vfs`](crate::Vfs).</span>
+    <span class="doccomment">/// a [`crate::Vfs`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_vfs_get_local&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_local&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">local</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vfs</span> {
@@ -391,21 +391,21 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Vfs`](struct@crate::Vfs)</span>
+<span class="doccomment">/// [`struct@crate::Vfs`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VfsExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets a [`File`](crate::File) for `path`.</span>
+    <span class="doccomment">/// Gets a [`crate::File`] for `path`.</span>
     <span class="doccomment">/// ## `path`</span>
     <span class="doccomment">/// a string containing a VFS path.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`File`](crate::File).</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// a [`crate::File`].</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_vfs_get_file_for_path&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_file_for_path&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">file_for_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
 
-    <span class="doccomment">/// Gets a [`File`](crate::File) for `uri`.</span>
+    <span class="doccomment">/// Gets a [`crate::File`] for `uri`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This operation never fails, but the returned object</span>
     <span class="doccomment">/// might not support any I/O operation if the URI</span>
@@ -415,8 +415,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`File`](crate::File).</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// a [`crate::File`].</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_vfs_get_file_for_uri&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_file_for_uri&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">file_for_uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
@@ -443,37 +443,37 @@
 
     <span class="doccomment">/// This operation never fails, but the returned object might</span>
     <span class="doccomment">/// not support any I/O operations if the `parse_name` cannot</span>
-    <span class="doccomment">/// be parsed by the [`Vfs`](crate::Vfs) module.</span>
+    <span class="doccomment">/// be parsed by the [`crate::Vfs`] module.</span>
     <span class="doccomment">/// ## `parse_name`</span>
     <span class="doccomment">/// a string to be parsed by the VFS module.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`File`](crate::File) for the given `parse_name`.</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// a [`crate::File`] for the given `parse_name`.</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_vfs_parse_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">parse_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">parse_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
 
-    <span class="doccomment">/// Registers `uri_func` and `parse_name_func` as the [`File`](crate::File) URI and parse name</span>
+    <span class="doccomment">/// Registers `uri_func` and `parse_name_func` as the [`crate::File`] URI and parse name</span>
     <span class="doccomment">/// lookup functions for URIs with a scheme matching `scheme`.</span>
     <span class="doccomment">/// Note that `scheme` is registered only within the running application, as</span>
     <span class="doccomment">/// opposed to desktop-wide as it happens with GVfs backends.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When a [`File`](crate::File) is requested with an URI containing `scheme` (e.g. through</span>
-    <span class="doccomment">/// [`File::new_for_uri()`](crate::File::new_for_uri())), `uri_func` will be called to allow a custom</span>
+    <span class="doccomment">/// When a [`crate::File`] is requested with an URI containing `scheme` (e.g. through</span>
+    <span class="doccomment">/// [`crate::File::new_for_uri()`]), `uri_func` will be called to allow a custom</span>
     <span class="doccomment">/// constructor. The implementation of `uri_func` should not be blocking, and</span>
-    <span class="doccomment">/// must not call [`register_uri_scheme()`](Self::register_uri_scheme()) or [`unregister_uri_scheme()`](Self::unregister_uri_scheme()).</span>
+    <span class="doccomment">/// must not call [`Self::register_uri_scheme()`] or [`Self::unregister_uri_scheme()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When [`File::parse_name()`](crate::File::parse_name()) is called with a parse name obtained from such file,</span>
-    <span class="doccomment">/// `parse_name_func` will be called to allow the [`File`](crate::File) to be created again. In</span>
+    <span class="doccomment">/// When [`crate::File::parse_name()`] is called with a parse name obtained from such file,</span>
+    <span class="doccomment">/// `parse_name_func` will be called to allow the [`crate::File`] to be created again. In</span>
     <span class="doccomment">/// that case, it&#39;s responsibility of `parse_name_func` to make sure the parse</span>
-    <span class="doccomment">/// name matches what the custom [`File`](crate::File) implementation returned when</span>
-    <span class="doccomment">/// [`File::get_parse_name()`](crate::File::get_parse_name()) was previously called. The implementation of</span>
+    <span class="doccomment">/// name matches what the custom [`crate::File`] implementation returned when</span>
+    <span class="doccomment">/// [`crate::File::get_parse_name()`] was previously called. The implementation of</span>
     <span class="doccomment">/// `parse_name_func` should not be blocking, and must not call</span>
-    <span class="doccomment">/// [`register_uri_scheme()`](Self::register_uri_scheme()) or [`unregister_uri_scheme()`](Self::unregister_uri_scheme()).</span>
+    <span class="doccomment">/// [`Self::register_uri_scheme()`] or [`Self::unregister_uri_scheme()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It&#39;s an error to call this function twice with the same scheme. To unregister</span>
-    <span class="doccomment">/// a custom URI scheme, use [`unregister_uri_scheme()`](Self::unregister_uri_scheme()).</span>
+    <span class="doccomment">/// a custom URI scheme, use [`Self::unregister_uri_scheme()`].</span>
     <span class="doccomment">/// ## `scheme`</span>
     <span class="doccomment">/// an URI scheme, e.g. &quot;http&quot;</span>
     <span class="doccomment">/// ## `uri_func`</span>
@@ -509,7 +509,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Unregisters the URI handler for `scheme` previously registered with</span>
-    <span class="doccomment">/// [`register_uri_scheme()`](Self::register_uri_scheme()).</span>
+    <span class="doccomment">/// [`Self::register_uri_scheme()`].</span>
     <span class="doccomment">/// ## `scheme`</span>
     <span class="doccomment">/// an URI scheme, e.g. &quot;http&quot;</span>
     <span class="doccomment">///</span>

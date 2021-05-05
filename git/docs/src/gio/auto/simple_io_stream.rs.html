@@ -78,18 +78,18 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// GSimpleIOStream creates a [`IOStream`](crate::IOStream) from an arbitrary [`InputStream`](crate::InputStream) and</span>
-    <span class="doccomment">/// [`OutputStream`](crate::OutputStream). This allows any pair of input and output streams to be used</span>
-    <span class="doccomment">/// with [`IOStream`](crate::IOStream) methods.</span>
+    <span class="doccomment">/// GSimpleIOStream creates a [`crate::IOStream`] from an arbitrary [`crate::InputStream`] and</span>
+    <span class="doccomment">/// [`crate::OutputStream`]. This allows any pair of input and output streams to be used</span>
+    <span class="doccomment">/// with [`crate::IOStream`] methods.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is useful when you obtained a [`InputStream`](crate::InputStream) and a [`OutputStream`](crate::OutputStream)</span>
+    <span class="doccomment">/// This is useful when you obtained a [`crate::InputStream`] and a [`crate::OutputStream`]</span>
     <span class="doccomment">/// by other means, for instance creating them with platform specific methods as</span>
-    <span class="doccomment">/// [`UnixInputStream::new()`](crate::UnixInputStream::new()) or `g_win32_input_stream_new()`, and you want</span>
-    <span class="doccomment">/// to take advantage of the methods provided by [`IOStream`](crate::IOStream).</span>
+    <span class="doccomment">/// [`crate::UnixInputStream::new()`] or `g_win32_input_stream_new()`, and you want</span>
+    <span class="doccomment">/// to take advantage of the methods provided by [`crate::IOStream`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`IOStreamExt`](trait@crate::prelude::IOStreamExt), [`trait@glib::object::ObjectExt`], [`IOStreamExtManual`](trait@crate::prelude::IOStreamExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::IOStreamExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::IOStreamExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleIOStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSimpleIOStream</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">IOStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -98,16 +98,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SimpleIOStream</span> {
-    <span class="doccomment">/// Creates a new [`SimpleIOStream`](crate::SimpleIOStream) wrapping `input_stream` and `output_stream`.</span>
-    <span class="doccomment">/// See also [`IOStream`](crate::IOStream).</span>
+    <span class="doccomment">/// Creates a new [`crate::SimpleIOStream`] wrapping `input_stream` and `output_stream`.</span>
+    <span class="doccomment">/// See also [`crate::IOStream`].</span>
     <span class="doccomment">/// ## `input_stream`</span>
-    <span class="doccomment">/// a [`InputStream`](crate::InputStream).</span>
+    <span class="doccomment">/// a [`crate::InputStream`].</span>
     <span class="doccomment">/// ## `output_stream`</span>
-    <span class="doccomment">/// a [`OutputStream`](crate::OutputStream).</span>
+    <span class="doccomment">/// a [`crate::OutputStream`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`SimpleIOStream`](crate::SimpleIOStream) instance.</span>
+    <span class="doccomment">/// a new [`crate::SimpleIOStream`] instance.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_simple_io_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">OutputStream</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">input_stream</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,

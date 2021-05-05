@@ -138,15 +138,15 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`MemoryOutputStream`](crate::MemoryOutputStream) is a class for using arbitrary</span>
+    <span class="doccomment">/// [`crate::MemoryOutputStream`] is a class for using arbitrary</span>
     <span class="doccomment">/// memory chunks as output for GIO streaming output operations.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As of GLib 2.34, [`MemoryOutputStream`](crate::MemoryOutputStream) trivially implements</span>
-    <span class="doccomment">/// [`PollableOutputStream`](crate::PollableOutputStream): it always polls as ready.</span>
+    <span class="doccomment">/// As of GLib 2.34, [`crate::MemoryOutputStream`] trivially implements</span>
+    <span class="doccomment">/// [`crate::PollableOutputStream`]: it always polls as ready.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MemoryOutputStreamExt`](trait@crate::prelude::MemoryOutputStreamExt), [`OutputStreamExt`](trait@crate::prelude::OutputStreamExt), [`trait@glib::object::ObjectExt`], [`PollableOutputStreamExt`](trait@crate::prelude::PollableOutputStreamExt), [`SeekableExt`](trait@crate::prelude::SeekableExt), [`OutputStreamExtManual`](trait@crate::prelude::OutputStreamExtManual), [`PollableOutputStreamExtManual`](trait@crate::prelude::PollableOutputStreamExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::MemoryOutputStreamExt`], [`trait@crate::prelude::OutputStreamExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::PollableOutputStreamExt`], [`trait@crate::prelude::SeekableExt`], [`trait@crate::prelude::OutputStreamExtManual`], [`trait@crate::prelude::PollableOutputStreamExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemoryOutputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GMemoryOutputStream</span>, <span class="ident">ffi::GMemoryOutputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">OutputStream</span>, @<span class="ident">implements</span> <span class="ident">PollableOutputStream</span>, <span class="ident">Seekable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -155,7 +155,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">MemoryOutputStream</span> {
-    <span class="doccomment">/// Creates a new [`MemoryOutputStream`](crate::MemoryOutputStream), using `g_realloc()` and `g_free()`</span>
+    <span class="doccomment">/// Creates a new [`crate::MemoryOutputStream`], using `g_realloc()` and `g_free()`</span>
     <span class="doccomment">/// for memory allocation.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_memory_output_stream_new_resizable&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_resizable</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MemoryOutputStream</span> {
@@ -171,7 +171,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`MemoryOutputStream`](struct@crate::MemoryOutputStream)</span>
+<span class="doccomment">/// [`struct@crate::MemoryOutputStream`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MemoryOutputStreamExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the number of bytes from the start up to including the last</span>
     <span class="doccomment">/// byte written in the stream that has not been truncated away.</span>
@@ -183,7 +183,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_data_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">data_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>;
 
-    <span class="doccomment">/// Returns data from the `self` as a [`glib::Bytes`](crate::glib::Bytes). `self` must be</span>
+    <span class="doccomment">/// Returns data from the `self` as a [`crate::glib::Bytes`]. `self` must be</span>
     <span class="doccomment">/// closed before calling this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>

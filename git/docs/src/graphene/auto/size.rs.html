@@ -149,9 +149,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Size</span> {
-    <span class="doccomment">/// Checks whether the two give [`Size`](crate::Size) are equal.</span>
+    <span class="doccomment">/// Checks whether the two give [`crate::Size`] are equal.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Size`](crate::Size)</span>
+    <span class="doccomment">/// a [`crate::Size`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -166,7 +166,7 @@
         }
     }
 
-    <span class="doccomment">/// Initializes a [`Size`](crate::Size) using the given `width` and `height`.</span>
+    <span class="doccomment">/// Initializes a [`crate::Size`] using the given `width` and `height`.</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// the width</span>
     <span class="doccomment">/// ## `height`</span>
@@ -174,7 +174,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized [`Size`](crate::Size)</span>
+    <span class="doccomment">/// the initialized [`crate::Size`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_size_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">width</span>: <span class="ident">f32</span>, <span class="ident">height</span>: <span class="ident">f32</span>) {
         <span class="kw">unsafe</span> {
@@ -182,14 +182,14 @@
         }
     }
 
-    <span class="doccomment">/// Initializes a [`Size`](crate::Size) using the width and height of</span>
+    <span class="doccomment">/// Initializes a [`crate::Size`] using the width and height of</span>
     <span class="doccomment">/// the given `src`.</span>
     <span class="doccomment">/// ## `src`</span>
-    <span class="doccomment">/// a [`Size`](crate::Size)</span>
+    <span class="doccomment">/// a [`crate::Size`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized [`Size`](crate::Size)</span>
+    <span class="doccomment">/// the initialized [`crate::Size`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_size_init_from_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_size</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Size</span>) {
         <span class="kw">unsafe</span> {
@@ -197,10 +197,10 @@
         }
     }
 
-    <span class="doccomment">/// Linearly interpolates the two given [`Size`](crate::Size) using the given</span>
+    <span class="doccomment">/// Linearly interpolates the two given [`crate::Size`] using the given</span>
     <span class="doccomment">/// interpolation `factor`.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Size`](crate::Size)</span>
+    <span class="doccomment">/// a [`crate::Size`]</span>
     <span class="doccomment">/// ## `factor`</span>
     <span class="doccomment">/// the linear interpolation factor</span>
     <span class="doccomment">/// ## `res`</span>
@@ -219,7 +219,7 @@
         }
     }
 
-    <span class="doccomment">/// Scales the components of a [`Size`](crate::Size) using the given `factor`.</span>
+    <span class="doccomment">/// Scales the components of a [`crate::Size`] using the given `factor`.</span>
     <span class="doccomment">/// ## `factor`</span>
     <span class="doccomment">/// the scaling factor</span>
     <span class="doccomment">/// ## `res`</span>
@@ -233,7 +233,7 @@
         }
     }
 
-    <span class="doccomment">/// A constant pointer to a zero [`Size`](crate::Size), useful for</span>
+    <span class="doccomment">/// A constant pointer to a zero [`crate::Size`], useful for</span>
     <span class="doccomment">/// equality checks and interpolations.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>

@@ -729,30 +729,30 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `LinkButton` is a [`Button`](crate::Button) with a hyperlink, similar to the one</span>
+    <span class="doccomment">/// A `LinkButton` is a [`crate::Button`] with a hyperlink, similar to the one</span>
     <span class="doccomment">/// used by web browsers, which triggers an action when clicked. It is useful</span>
     <span class="doccomment">/// to show quick links to resources.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A link button is created by calling either [`new()`](Self::new()) or</span>
-    <span class="doccomment">/// [`new_with_label()`](Self::new_with_label()). If using the former, the URI you pass</span>
+    <span class="doccomment">/// A link button is created by calling either [`Self::new()`] or</span>
+    <span class="doccomment">/// [`Self::new_with_label()`]. If using the former, the URI you pass</span>
     <span class="doccomment">/// to the constructor is used as a label for the widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The URI bound to a `LinkButton` can be set specifically using</span>
-    <span class="doccomment">/// [`LinkButtonExt::set_uri()`](crate::LinkButtonExt::set_uri()), and retrieved using [`LinkButtonExt::get_uri()`](crate::LinkButtonExt::get_uri()).</span>
+    <span class="doccomment">/// [`crate::prelude::LinkButtonExt::set_uri()`], and retrieved using [`crate::prelude::LinkButtonExt::get_uri()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, `LinkButton` calls `gtk_show_uri_on_window()` when the button is</span>
     <span class="doccomment">/// clicked. This behaviour can be overridden by connecting to the</span>
-    <span class="doccomment">/// [`LinkButton::activate-link`](crate::LinkButton::activate-link) signal and returning [`true`] from the</span>
+    <span class="doccomment">/// [`crate::LinkButton::activate-link`] signal and returning [`true`] from the</span>
     <span class="doccomment">/// signal handler.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `LinkButton` has a single CSS node with name button. To differentiate</span>
-    <span class="doccomment">/// it from a plain [`Button`](crate::Button), it gets the .link style class.</span>
+    <span class="doccomment">/// it from a plain [`crate::Button`], it gets the .link style class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LinkButtonExt`](trait@crate::prelude::LinkButtonExt), [`ButtonExt`](trait@crate::prelude::ButtonExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::LinkButtonExt`], [`trait@crate::prelude::ButtonExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LinkButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkLinkButton</span>, <span class="ident">ffi::GtkLinkButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Button</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -761,7 +761,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">LinkButton</span> {
-    <span class="doccomment">/// Creates a new [`LinkButton`](crate::LinkButton) with the URI as its text.</span>
+    <span class="doccomment">/// Creates a new [`crate::LinkButton`] with the URI as its text.</span>
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// a valid URI</span>
     <span class="doccomment">///</span>
@@ -776,7 +776,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`LinkButton`](crate::LinkButton) containing a label.</span>
+    <span class="doccomment">/// Creates a new [`crate::LinkButton`] containing a label.</span>
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// a valid URI</span>
     <span class="doccomment">/// ## `label`</span>
@@ -1231,9 +1231,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`LinkButton`](struct@crate::LinkButton)</span>
+<span class="doccomment">/// [`struct@crate::LinkButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LinkButtonExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Retrieves the URI set using [`set_uri()`](Self::set_uri()).</span>
+    <span class="doccomment">/// Retrieves the URI set using [`Self::set_uri()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1243,11 +1243,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_uri&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Retrieves the “visited” state of the URI where the [`LinkButton`](crate::LinkButton)</span>
+    <span class="doccomment">/// Retrieves the “visited” state of the URI where the [`crate::LinkButton`]</span>
     <span class="doccomment">/// points. The button becomes visited when it is clicked. If the URI</span>
     <span class="doccomment">/// is changed on the button, the “visited” state is unset again.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The state may also be changed using [`set_visited()`](Self::set_visited()).</span>
+    <span class="doccomment">/// The state may also be changed using [`Self::set_visited()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1256,25 +1256,25 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_visited&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_visited</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Sets `uri` as the URI where the [`LinkButton`](crate::LinkButton) points. As a side-effect</span>
+    <span class="doccomment">/// Sets `uri` as the URI where the [`crate::LinkButton`] points. As a side-effect</span>
     <span class="doccomment">/// this unsets the “visited” state of the button.</span>
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// a valid URI</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_link_button_set_uri&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// Sets the “visited” state of the URI where the [`LinkButton`](crate::LinkButton)</span>
-    <span class="doccomment">/// points. See [`get_visited()`](Self::get_visited()) for more details.</span>
+    <span class="doccomment">/// Sets the “visited” state of the URI where the [`crate::LinkButton`]</span>
+    <span class="doccomment">/// points. See [`Self::get_visited()`] for more details.</span>
     <span class="doccomment">/// ## `visited`</span>
     <span class="doccomment">/// the new “visited” state</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_link_button_set_visited&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_visited</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">visited</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// The ::activate-link signal is emitted each time the [`LinkButton`](crate::LinkButton)</span>
+    <span class="doccomment">/// The ::activate-link signal is emitted each time the [`crate::LinkButton`]</span>
     <span class="doccomment">/// has been clicked.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default handler will call `gtk_show_uri_on_window()` with the URI stored inside</span>
-    <span class="doccomment">/// the [`LinkButton:uri`](crate::LinkButton:uri) property.</span>
+    <span class="doccomment">/// the [`crate::LinkButton:uri`] property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To override the default behavior, you can connect to the ::activate-link</span>
     <span class="doccomment">/// signal and stop the propagation of the signal by returning [`true`] from</span>

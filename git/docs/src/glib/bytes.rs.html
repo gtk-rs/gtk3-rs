@@ -328,27 +328,27 @@
     <span class="doccomment">/// A simple refcounted data type representing an immutable sequence of zero or</span>
     <span class="doccomment">/// more bytes from an unspecified origin.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The purpose of a [`Bytes`](crate::Bytes) is to keep the memory region that it holds</span>
+    <span class="doccomment">/// The purpose of a [`crate::Bytes`] is to keep the memory region that it holds</span>
     <span class="doccomment">/// alive for as long as anyone holds a reference to the bytes. When</span>
     <span class="doccomment">/// the last reference count is dropped, the memory is released. Multiple</span>
-    <span class="doccomment">/// unrelated callers can use byte data in the [`Bytes`](crate::Bytes) without coordinating</span>
+    <span class="doccomment">/// unrelated callers can use byte data in the [`crate::Bytes`] without coordinating</span>
     <span class="doccomment">/// their activities, resting assured that the byte data will not change or</span>
     <span class="doccomment">/// move while they hold a reference.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`Bytes`](crate::Bytes) can come from many different origins that may have</span>
+    <span class="doccomment">/// A [`crate::Bytes`] can come from many different origins that may have</span>
     <span class="doccomment">/// different procedures for freeing the memory region. Examples are</span>
-    <span class="doccomment">/// memory from `g_malloc()`, from memory slices, from a [`MappedFile`](crate::MappedFile) or</span>
+    <span class="doccomment">/// memory from `g_malloc()`, from memory slices, from a [`crate::MappedFile`] or</span>
     <span class="doccomment">/// memory from other allocators.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Bytes`](crate::Bytes) work well as keys in [`HashTable`](crate::HashTable). Use [`equal()`](Self::equal()) and</span>
-    <span class="doccomment">/// [`hash()`](Self::hash()) as parameters to [`HashTable::new()`](crate::HashTable::new()) or [`HashTable::new_full()`](crate::HashTable::new_full()).</span>
-    <span class="doccomment">/// [`Bytes`](crate::Bytes) can also be used as keys in a [`Tree`](crate::Tree) by passing the [`compare()`](Self::compare())</span>
-    <span class="doccomment">/// function to [`Tree::new()`](crate::Tree::new()).</span>
+    <span class="doccomment">/// [`crate::Bytes`] work well as keys in [`crate::HashTable`]. Use [`Self::equal()`] and</span>
+    <span class="doccomment">/// [`Self::hash()`] as parameters to [`crate::HashTable::new()`] or [`crate::HashTable::new_full()`].</span>
+    <span class="doccomment">/// [`crate::Bytes`] can also be used as keys in a [`crate::Tree`] by passing the [`Self::compare()`]</span>
+    <span class="doccomment">/// function to [`crate::Tree::new()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The data pointed to by this bytes must not be modified. For a mutable</span>
-    <span class="doccomment">/// array of bytes see [`ByteArray`](crate::ByteArray). Use [`unref_to_array()`](Self::unref_to_array()) to create a</span>
-    <span class="doccomment">/// mutable array for a [`Bytes`](crate::Bytes) sequence. To create an immutable [`Bytes`](crate::Bytes) from</span>
-    <span class="doccomment">/// a mutable [`ByteArray`](crate::ByteArray), use the [`ByteArray::free_to_bytes()`](crate::ByteArray::free_to_bytes()) function.</span>
+    <span class="doccomment">/// array of bytes see [`crate::ByteArray`]. Use [`Self::unref_to_array()`] to create a</span>
+    <span class="doccomment">/// mutable array for a [`crate::Bytes`] sequence. To create an immutable [`crate::Bytes`] from</span>
+    <span class="doccomment">/// a mutable [`crate::ByteArray`], use the [`crate::ByteArray::free_to_bytes()`] function.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Bytes</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi::GBytes</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -361,7 +361,7 @@
 <span class="kw">impl</span> <span class="ident">Bytes</span> {
     <span class="doccomment">/// Copies `data` into a new shared slice.</span>
     <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Creates a new [`Bytes`](crate::Bytes) from `data`.</span>
+    <span class="doccomment">/// Creates a new [`crate::Bytes`] from `data`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `data` is copied. If `size` is 0, `data` may be [`None`].</span>
     <span class="doccomment">/// ## `data`</span>
@@ -372,7 +372,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Bytes`](crate::Bytes)</span>
+    <span class="doccomment">/// a new [`crate::Bytes`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_bytes_new&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">data</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Bytes</span> {
         <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>();

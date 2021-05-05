@@ -994,21 +994,21 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`ScaleButton`](crate::ScaleButton) provides a button which pops up a scale widget.</span>
+    <span class="doccomment">/// [`crate::ScaleButton`] provides a button which pops up a scale widget.</span>
     <span class="doccomment">/// This kind of widget is commonly used for volume controls in multimedia</span>
-    <span class="doccomment">/// applications, and GTK+ provides a [`VolumeButton`](crate::VolumeButton) subclass that</span>
+    <span class="doccomment">/// applications, and GTK+ provides a [`crate::VolumeButton`] subclass that</span>
     <span class="doccomment">/// is tailored for this use case.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `ScaleButton` has a single CSS node with name button. To differentiate</span>
-    <span class="doccomment">/// it from a plain [`Button`](crate::Button), it gets the .scale style class.</span>
+    <span class="doccomment">/// it from a plain [`crate::Button`], it gets the .scale style class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The popup widget that contains the scale has a .scale-popup style class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ScaleButtonExt`](trait@crate::prelude::ScaleButtonExt), [`ButtonExt`](trait@crate::prelude::ButtonExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ScaleButtonExt`], [`trait@crate::prelude::ButtonExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::OrientableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScaleButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkScaleButton</span>, <span class="ident">ffi::GtkScaleButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Button</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>, <span class="ident">Orientable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1017,10 +1017,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ScaleButton</span> {
-    <span class="doccomment">/// Creates a [`ScaleButton`](crate::ScaleButton), with a range between `min` and `max`, with</span>
+    <span class="doccomment">/// Creates a [`crate::ScaleButton`], with a range between `min` and `max`, with</span>
     <span class="doccomment">/// a stepping of `step`.</span>
     <span class="doccomment">/// ## `size`</span>
-    <span class="doccomment">/// a stock icon size ([`IconSize`](crate::IconSize))</span>
+    <span class="doccomment">/// a stock icon size ([`crate::IconSize`])</span>
     <span class="doccomment">/// ## `min`</span>
     <span class="doccomment">/// the minimum value of the scale (usually 0)</span>
     <span class="doccomment">/// ## `max`</span>
@@ -1031,11 +1031,11 @@
     <span class="doccomment">/// ## `icons`</span>
     <span class="doccomment">/// a [`None`]-terminated</span>
     <span class="doccomment">///  array of icon names, or [`None`] if you want to set the list</span>
-    <span class="doccomment">///  later with [`ScaleButtonExt::set_icons()`](crate::ScaleButtonExt::set_icons())</span>
+    <span class="doccomment">///  later with [`crate::prelude::ScaleButtonExt::set_icons()`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ScaleButton`](crate::ScaleButton)</span>
+    <span class="doccomment">/// a new [`crate::ScaleButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scale_button_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">size</span>: <span class="ident">IconSize</span>, <span class="ident">min</span>: <span class="ident">f64</span>, <span class="ident">max</span>: <span class="ident">f64</span>, <span class="ident">step</span>: <span class="ident">f64</span>, <span class="ident">icons</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ScaleButton</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1511,10 +1511,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ScaleButton`](struct@crate::ScaleButton), [`VolumeButton`](struct@crate::VolumeButton)</span>
+<span class="doccomment">/// [`struct@crate::ScaleButton`], [`struct@crate::VolumeButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ScaleButtonExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the [`Adjustment`](crate::Adjustment) associated with the [`ScaleButton`](crate::ScaleButton)’s scale.</span>
-    <span class="doccomment">/// See [`RangeExt::get_adjustment()`](crate::RangeExt::get_adjustment()) for details.</span>
+    <span class="doccomment">/// Gets the [`crate::Adjustment`] associated with the [`crate::ScaleButton`]’s scale.</span>
+    <span class="doccomment">/// See [`crate::prelude::RangeExt::get_adjustment()`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1523,29 +1523,29 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_adjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">adjustment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Adjustment</span>;
 
-    <span class="doccomment">/// Retrieves the minus button of the [`ScaleButton`](crate::ScaleButton).</span>
+    <span class="doccomment">/// Retrieves the minus button of the [`crate::ScaleButton`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the minus button of the [`ScaleButton`](crate::ScaleButton) as a [`Button`](crate::Button)</span>
+    <span class="doccomment">/// the minus button of the [`crate::ScaleButton`] as a [`crate::Button`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scale_button_get_minus_button&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_minus_button&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">minus_button</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Button</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Retrieves the plus button of the [`ScaleButton`](crate::ScaleButton).</span>
+    <span class="doccomment">/// Retrieves the plus button of the [`crate::ScaleButton`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the plus button of the [`ScaleButton`](crate::ScaleButton) as a [`Button`](crate::Button)</span>
+    <span class="doccomment">/// the plus button of the [`crate::ScaleButton`] as a [`crate::Button`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scale_button_get_plus_button&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_plus_button&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">plus_button</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Button</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Retrieves the popup of the [`ScaleButton`](crate::ScaleButton).</span>
+    <span class="doccomment">/// Retrieves the popup of the [`crate::ScaleButton`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the popup of the [`ScaleButton`](crate::ScaleButton)</span>
+    <span class="doccomment">/// the popup of the [`crate::ScaleButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scale_button_get_popup&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_popup&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">popup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
@@ -1559,16 +1559,16 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
 
-    <span class="doccomment">/// Sets the [`Adjustment`](crate::Adjustment) to be used as a model</span>
-    <span class="doccomment">/// for the [`ScaleButton`](crate::ScaleButton)’s scale.</span>
-    <span class="doccomment">/// See [`RangeExt::set_adjustment()`](crate::RangeExt::set_adjustment()) for details.</span>
+    <span class="doccomment">/// Sets the [`crate::Adjustment`] to be used as a model</span>
+    <span class="doccomment">/// for the [`crate::ScaleButton`]’s scale.</span>
+    <span class="doccomment">/// See [`crate::prelude::RangeExt::set_adjustment()`] for details.</span>
     <span class="doccomment">/// ## `adjustment`</span>
-    <span class="doccomment">/// a [`Adjustment`](crate::Adjustment)</span>
+    <span class="doccomment">/// a [`crate::Adjustment`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scale_button_set_adjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_adjustment</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adjustment</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Sets the icons to be used by the scale button.</span>
-    <span class="doccomment">/// For details, see the [`ScaleButton:icons`](crate::ScaleButton:icons) property.</span>
+    <span class="doccomment">/// For details, see the [`crate::ScaleButton:icons`] property.</span>
     <span class="doccomment">/// ## `icons`</span>
     <span class="doccomment">/// a [`None`]-terminated array of icon names</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scale_button_set_icons&quot;</span>)]</span>
@@ -1576,7 +1576,7 @@
 
     <span class="doccomment">/// Sets the current value of the scale; if the value is outside</span>
     <span class="doccomment">/// the minimum or maximum range values, it will be clamped to fit</span>
-    <span class="doccomment">/// inside them. The scale button emits the [`ScaleButton::value-changed`](crate::ScaleButton::value-changed)</span>
+    <span class="doccomment">/// inside them. The scale button emits the [`crate::ScaleButton::value-changed`]</span>
     <span class="doccomment">/// signal if the value changes.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// new value of the scale button</span>

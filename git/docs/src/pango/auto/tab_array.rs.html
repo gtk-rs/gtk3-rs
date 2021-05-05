@@ -133,7 +133,7 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`TabArray`](crate::TabArray) struct contains an array</span>
+    <span class="doccomment">/// A [`crate::TabArray`] struct contains an array</span>
     <span class="doccomment">/// of tab stops. Each tab stop has an alignment and a position.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TabArray</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoTabArray</span><span class="op">&gt;</span>);
@@ -156,8 +156,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly allocated [`TabArray`](crate::TabArray), which should</span>
-    <span class="doccomment">///  be freed with [`free()`](Self::free()).</span>
+    <span class="doccomment">/// the newly allocated [`crate::TabArray`], which should</span>
+    <span class="doccomment">///  be freed with [`Self::free()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_tab_array_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">initial_size</span>: <span class="ident">i32</span>, <span class="ident">positions_in_pixels</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TabArray</span> {
         <span class="kw">unsafe</span> {
@@ -226,7 +226,7 @@
     }
 
     <span class="doccomment">/// Sets the alignment and location of a tab stop.</span>
-    <span class="doccomment">/// `alignment` must always be [`TabAlign::Left`](crate::TabAlign::Left) in the current</span>
+    <span class="doccomment">/// `alignment` must always be [`crate::TabAlign::Left`] in the current</span>
     <span class="doccomment">/// implementation.</span>
     <span class="doccomment">/// ## `tab_index`</span>
     <span class="doccomment">/// the index of a tab stop</span>

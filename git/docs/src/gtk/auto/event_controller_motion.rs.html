@@ -166,14 +166,14 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`EventControllerMotion`](crate::EventControllerMotion) is an event controller meant for situations</span>
+    <span class="doccomment">/// [`crate::EventControllerMotion`] is an event controller meant for situations</span>
     <span class="doccomment">/// where you need to track the position of the pointer.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This object was added in 3.24.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EventControllerExt`](trait@crate::prelude::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::EventControllerExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventControllerMotion</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkEventControllerMotion</span>, <span class="ident">ffi::GtkEventControllerMotionClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">EventController</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -185,11 +185,11 @@
     <span class="doccomment">/// Creates a new event controller that will handle motion events</span>
     <span class="doccomment">/// for the given `widget`.</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`EventControllerMotion`](crate::EventControllerMotion)</span>
+    <span class="doccomment">/// a new [`crate::EventControllerMotion`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_event_controller_motion_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventControllerMotion</span> {
         <span class="macro">skip_assert_initialized!</span>();

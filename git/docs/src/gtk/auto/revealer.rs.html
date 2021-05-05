@@ -707,9 +707,9 @@
     <span class="doccomment">/// the transition of its child from invisible to visible.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The style of transition can be controlled with</span>
-    <span class="doccomment">/// [`RevealerExt::set_transition_type()`](crate::RevealerExt::set_transition_type()).</span>
+    <span class="doccomment">/// [`crate::prelude::RevealerExt::set_transition_type()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// These animations respect the [`Settings:gtk-enable-animations`](crate::Settings:gtk-enable-animations)</span>
+    <span class="doccomment">/// These animations respect the [`crate::Settings:gtk-enable-animations`]</span>
     <span class="doccomment">/// setting.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
@@ -720,7 +720,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RevealerExt`](trait@crate::prelude::RevealerExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::RevealerExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Revealer</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkRevealer</span>, <span class="ident">ffi::GtkRevealerClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -729,11 +729,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Revealer</span> {
-    <span class="doccomment">/// Creates a new [`Revealer`](crate::Revealer).</span>
+    <span class="doccomment">/// Creates a new [`crate::Revealer`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created [`Revealer`](crate::Revealer)</span>
+    <span class="doccomment">/// a newly created [`crate::Revealer`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_revealer_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Revealer</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1116,7 +1116,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Revealer`](struct@crate::Revealer)</span>
+<span class="doccomment">/// [`struct@crate::Revealer`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RevealerExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns whether the child is fully revealed, in other words whether</span>
     <span class="doccomment">/// the transition to the revealed state is completed.</span>
@@ -1129,12 +1129,12 @@
     <span class="kw">fn</span> <span class="ident">is_child_revealed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Returns whether the child is currently</span>
-    <span class="doccomment">/// revealed. See [`set_reveal_child()`](Self::set_reveal_child()).</span>
+    <span class="doccomment">/// revealed. See [`Self::set_reveal_child()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function returns [`true`] as soon as the transition</span>
     <span class="doccomment">/// is to the revealed state is started. To learn whether</span>
     <span class="doccomment">/// the child is fully revealed (ie the transition is completed),</span>
-    <span class="doccomment">/// use [`get_child_revealed()`](Self::get_child_revealed()).</span>
+    <span class="doccomment">/// use [`Self::get_child_revealed()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1163,7 +1163,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_transition_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">transition_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RevealerTransitionType</span>;
 
-    <span class="doccomment">/// Tells the [`Revealer`](crate::Revealer) to reveal or conceal its child.</span>
+    <span class="doccomment">/// Tells the [`crate::Revealer`] to reveal or conceal its child.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The transition will be animated with the current</span>
     <span class="doccomment">/// transition type of `self`.</span>

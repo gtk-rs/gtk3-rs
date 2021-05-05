@@ -206,24 +206,24 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`Seekable`](crate::Seekable) is implemented by streams (implementations of</span>
-    <span class="doccomment">/// [`InputStream`](crate::InputStream) or [`OutputStream`](crate::OutputStream)) that support seeking.</span>
+    <span class="doccomment">/// [`crate::Seekable`] is implemented by streams (implementations of</span>
+    <span class="doccomment">/// [`crate::InputStream`] or [`crate::OutputStream`]) that support seeking.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Seekable streams largely fall into two categories: resizable and</span>
     <span class="doccomment">/// fixed-size.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Seekable`](crate::Seekable) on fixed-sized streams is approximately the same as POSIX</span>
+    <span class="doccomment">/// [`crate::Seekable`] on fixed-sized streams is approximately the same as POSIX</span>
     <span class="doccomment">/// `lseek()` on a block device (for example: attempting to seek past the</span>
     <span class="doccomment">/// end of the device is an error). Fixed streams typically cannot be</span>
     <span class="doccomment">/// truncated.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Seekable`](crate::Seekable) on resizable streams is approximately the same as POSIX</span>
+    <span class="doccomment">/// [`crate::Seekable`] on resizable streams is approximately the same as POSIX</span>
     <span class="doccomment">/// `lseek()` on a normal file. Seeking past the end and writing data will</span>
     <span class="doccomment">/// usually cause the stream to resize by introducing zero bytes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SeekableExt`](trait@crate::prelude::SeekableExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SeekableExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Seekable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GSeekable</span>, <span class="ident">ffi::GSeekableIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -237,9 +237,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`BufferedInputStream`](struct@crate::BufferedInputStream), [`BufferedOutputStream`](struct@crate::BufferedOutputStream), [`DataInputStream`](struct@crate::DataInputStream), [`DataOutputStream`](struct@crate::DataOutputStream), [`FileIOStream`](struct@crate::FileIOStream), [`FileInputStream`](struct@crate::FileInputStream), [`FileOutputStream`](struct@crate::FileOutputStream), [`MemoryInputStream`](struct@crate::MemoryInputStream), [`MemoryOutputStream`](struct@crate::MemoryOutputStream), [`Seekable`](struct@crate::Seekable)</span>
+<span class="doccomment">/// [`struct@crate::BufferedInputStream`], [`struct@crate::BufferedOutputStream`], [`struct@crate::DataInputStream`], [`struct@crate::DataOutputStream`], [`struct@crate::FileIOStream`], [`struct@crate::FileInputStream`], [`struct@crate::FileOutputStream`], [`struct@crate::MemoryInputStream`], [`struct@crate::MemoryOutputStream`], [`struct@crate::Seekable`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SeekableExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Tests if the stream supports the [`SeekableIface`](crate::SeekableIface).</span>
+    <span class="doccomment">/// Tests if the stream supports the [`crate::SeekableIface`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -248,7 +248,7 @@
     <span class="kw">fn</span> <span class="ident">can_seek</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Tests if the length of the stream can be adjusted with</span>
-    <span class="doccomment">/// [`Seekable::truncate()`](crate::Seekable::truncate()).</span>
+    <span class="doccomment">/// [`crate::Seekable::truncate()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -269,13 +269,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// ## `offset`</span>
     <span class="doccomment">/// a `goffset`.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// a [`glib::SeekType`](crate::glib::SeekType).</span>
+    <span class="doccomment">/// a [`crate::glib::SeekType`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -304,13 +304,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned. If an</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned. If an</span>
     <span class="doccomment">/// operation was partially finished when the operation was cancelled the</span>
     <span class="doccomment">/// partial result will be returned, without an error.</span>
     <span class="doccomment">/// ## `offset`</span>
     <span class="doccomment">/// new length for `self`, in bytes.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

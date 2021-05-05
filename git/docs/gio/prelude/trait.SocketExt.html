@@ -58,33 +58,33 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_ttl_notify" class="fnname">connect_ttl_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>Socket</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.Socket.html"><code>Socket</code></a></p>
+<p><a href="../struct.Socket.html" title="crate::Socket"><code>crate::Socket</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.accept" class="method"><code>fn <a href="#tymethod.accept" class="fnname">accept</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../struct.Socket.html" title="struct gio::Socket">Socket</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#169" title="goto source code">[src]</a></h3><div class="docblock"><p>Accept incoming connections on a connection-based socket. This removes
 the first outstanding connection request from the listening socket and
-creates a <a href="../struct.Socket.html"><code>Socket</code></a> object for it.</p>
-<p>The <code>self</code> must be bound to a local address with <a href="trait.SocketExt.html#tymethod.bind"><code>bind()</code></a> and
-must be listening for incoming connections (<a href="trait.SocketExt.html#tymethod.listen"><code>listen()</code></a>).</p>
+creates a <a href="../struct.Socket.html" title="crate::Socket"><code>crate::Socket</code></a> object for it.</p>
+<p>The <code>self</code> must be bound to a local address with <a href="trait.SocketExt.html#tymethod.bind" title="Self::bind()"><code>Self::bind()</code></a> and
+must be listening for incoming connections (<a href="trait.SocketExt.html#tymethod.listen" title="Self::listen()"><code>Self::listen()</code></a>).</p>
 <p>If there are no outstanding connections then the operation will block
-or return [<code>IOErrorEnum::WouldBlock</code>] if non-blocking I/O is enabled.
-To be notified of an incoming connection, wait for the [<code>glib::IOCondition::In</code>] condition.</p>
+or return <a href="../enum.IOErrorEnum.html#variant.WouldBlock" title="crate::IOErrorEnum::WouldBlock"><code>crate::IOErrorEnum::WouldBlock</code></a> if non-blocking I/O is enabled.
+To be notified of an incoming connection, wait for the [<code>crate::glib::IOCondition::In</code>] condition.</p>
 <h2 id="cancellable" class="section-header"><a href="#cancellable"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html" title="Cancellable"><code>Cancellable</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a new <a href="../struct.Socket.html"><code>Socket</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> on error.
-Free the returned object with <a href="crate::glib::object::ObjectExt::unref()"><code>glib::object::ObjectExt::unref()</code></a>.</p>
+<p>a new <a href="../struct.Socket.html" title="crate::Socket"><code>crate::Socket</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> on error.
+Free the returned object with [<code>crate::glib::object::ObjectExt::unref()</code>].</p>
 </div><h3 id="tymethod.bind" class="method"><code>fn <a href="#tymethod.bind" class="fnname">bind</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.SocketAddress.html" title="struct gio::SocketAddress">SocketAddress</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;address: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;allow_reuse: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#203-207" title="goto source code">[src]</a></h3><div class="docblock"><p>When a socket is created it is attached to an address family, but it
-doesn’t have an address in this family. <a href="trait.SocketExt.html#tymethod.bind"><code>bind()</code></a> assigns the
+doesn’t have an address in this family. <a href="trait.SocketExt.html#tymethod.bind" title="Self::bind()"><code>Self::bind()</code></a> assigns the
 address (sometimes called name) of the socket.</p>
 <p>It is generally required to bind to a local address before you can
-receive connections. (See <a href="trait.SocketExt.html#tymethod.listen"><code>listen()</code></a> and <a href="trait.SocketExt.html#tymethod.accept"><code>accept()</code></a> ).
+receive connections. (See <a href="trait.SocketExt.html#tymethod.listen" title="Self::listen()"><code>Self::listen()</code></a> and <a href="trait.SocketExt.html#tymethod.accept" title="Self::accept()"><code>Self::accept()</code></a> ).
 In certain situations, you may also want to bind a socket that will be
 used to initiate connections, though this is not normally required.</p>
 <p>If <code>self</code> is a TCP socket, then <code>allow_reuse</code> controls the setting
 of the <code>SO_REUSEADDR</code> socket option; normally it should be <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> for
 server sockets (sockets that you will eventually call
-<a href="trait.SocketExt.html#tymethod.accept"><code>accept()</code></a> on), and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> for client sockets. (Failing to
-set this flag on a server socket may cause <a href="trait.SocketExt.html#tymethod.bind"><code>bind()</code></a> to return
-[<code>IOErrorEnum::AddressInUse</code>] if the server program is stopped and then
+<a href="trait.SocketExt.html#tymethod.accept" title="Self::accept()"><code>Self::accept()</code></a> on), and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> for client sockets. (Failing to
+set this flag on a server socket may cause <a href="trait.SocketExt.html#tymethod.bind" title="Self::bind()"><code>Self::bind()</code></a> to return
+<a href="../enum.IOErrorEnum.html#variant.AddressInUse" title="crate::IOErrorEnum::AddressInUse"><code>crate::IOErrorEnum::AddressInUse</code></a> if the server program is stopped and then
 immediately restarted.)</p>
 <p>If <code>self</code> is a UDP socket, then <code>allow_reuse</code> determines whether or
 not other UDP sockets can be bound to the same address at the same
@@ -93,13 +93,13 @@ same address, and they will all receive all of the multicast and
 broadcast packets sent to that address. (The behavior of unicast
 UDP packets to an address with multiple listeners is not defined.)</p>
 <h2 id="address" class="section-header"><a href="#address"><code>address</code></a></h2>
-<p>a <a href="../struct.SocketAddress.html"><code>SocketAddress</code></a> specifying the local address.</p>
+<p>a <a href="../struct.SocketAddress.html" title="crate::SocketAddress"><code>crate::SocketAddress</code></a> specifying the local address.</p>
 <h2 id="allow_reuse" class="section-header"><a href="#allow_reuse"><code>allow_reuse</code></a></h2>
 <p>whether to allow reusing this address</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on success, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> on error.</p>
 </div><h3 id="tymethod.check_connect_result" class="method"><code>fn <a href="#tymethod.check_connect_result" class="fnname">check_connect_result</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#217" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks and resets the pending connect error for the socket.
-This is used to check for errors when <a href="trait.SocketExt.html#tymethod.connect"><code>connect()</code></a> is
+This is used to check for errors when <a href="trait.SocketExt.html#tymethod.connect" title="Self::connect()"><code>Self::connect()</code></a> is
 used in non-blocking mode.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if no error, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise, setting <code>error</code> to the error</p>
@@ -108,24 +108,24 @@ used in non-blocking mode.</p>
 to finish, so the caller should not rely on them to be guaranteed
 to complete even if the close returns with no error.</p>
 <p>Once the socket is closed, all other operations will return
-[<code>IOErrorEnum::Closed</code>]. Closing a socket multiple times will not
+<a href="../enum.IOErrorEnum.html#variant.Closed" title="crate::IOErrorEnum::Closed"><code>crate::IOErrorEnum::Closed</code></a>. Closing a socket multiple times will not
 return an error.</p>
 <p>Sockets will be automatically closed when the last reference
 is dropped, but you might want to call this function to make sure
 resources are released as early as possible.</p>
 <p>Beware that due to the way that TCP works, it is possible for
 recently-sent data to be lost if either you close a socket while the
-[<code>glib::IOCondition::In</code>] condition is set, or else if the remote connection tries to
+[<code>crate::glib::IOCondition::In</code>] condition is set, or else if the remote connection tries to
 send something to you after you close the socket but before it has
 finished reading all of the data you sent. There is no easy generic
 way to avoid this problem; the easiest fix is to design the network
 protocol such that the client will never send data “out of turn”.
 Another solution is for the server to half-close the connection by
-calling <a href="trait.SocketExt.html#tymethod.shutdown"><code>shutdown()</code></a> with only the <code>shutdown_write</code> flag set,
+calling <a href="trait.SocketExt.html#tymethod.shutdown" title="Self::shutdown()"><code>Self::shutdown()</code></a> with only the <code>shutdown_write</code> flag set,
 and then wait for the client to notice this and close its side of the
-connection, after which the server can safely call <a href="trait.SocketExt.html#tymethod.close"><code>close()</code></a>.
-(This is what <a href="../struct.TcpConnection.html"><code>TcpConnection</code></a> does if you call
-<a href="crate::TcpConnectionExt::set_graceful_disconnect()"><code>TcpConnectionExt::set_graceful_disconnect()</code></a>. But of course, this
+connection, after which the server can safely call <a href="trait.SocketExt.html#tymethod.close" title="Self::close()"><code>Self::close()</code></a>.
+(This is what <a href="../struct.TcpConnection.html" title="crate::TcpConnection"><code>crate::TcpConnection</code></a> does if you call
+<a href="trait.TcpConnectionExt.html#tymethod.set_graceful_disconnect" title="crate::prelude::TcpConnectionExt::set_graceful_disconnect()"><code>crate::prelude::TcpConnectionExt::set_graceful_disconnect()</code></a>. But of course, this
 only works if the client will close its connection after the server
 does.)</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
@@ -135,38 +135,38 @@ The operations specified in <code>condition</code> are checked for and masked
 against the currently-satisfied conditions on <code>self</code>. The result
 is returned.</p>
 <p>Note that on Windows, it is possible for an operation to return
-[<code>IOErrorEnum::WouldBlock</code>] even immediately after
-<a href="trait.SocketExt.html#tymethod.condition_check"><code>condition_check()</code></a> has claimed that the socket is ready for
-writing. Rather than calling <a href="trait.SocketExt.html#tymethod.condition_check"><code>condition_check()</code></a> and then
+<a href="../enum.IOErrorEnum.html#variant.WouldBlock" title="crate::IOErrorEnum::WouldBlock"><code>crate::IOErrorEnum::WouldBlock</code></a> even immediately after
+<a href="trait.SocketExt.html#tymethod.condition_check" title="Self::condition_check()"><code>Self::condition_check()</code></a> has claimed that the socket is ready for
+writing. Rather than calling <a href="trait.SocketExt.html#tymethod.condition_check" title="Self::condition_check()"><code>Self::condition_check()</code></a> and then
 writing to the socket if it succeeds, it is generally better to
 simply try writing to the socket right away, and try again later if
-the initial attempt returns [<code>IOErrorEnum::WouldBlock</code>].</p>
-<p>It is meaningless to specify [<code>glib::IOCondition::Err</code>] or [<code>glib::IOCondition::Hup</code>] in condition;
+the initial attempt returns <a href="../enum.IOErrorEnum.html#variant.WouldBlock" title="crate::IOErrorEnum::WouldBlock"><code>crate::IOErrorEnum::WouldBlock</code></a>.</p>
+<p>It is meaningless to specify [<code>crate::glib::IOCondition::Err</code>] or [<code>crate::glib::IOCondition::Hup</code>] in condition;
 these conditions will always be set in the output if they are true.</p>
 <p>This call never blocks.</p>
 <h2 id="condition" class="section-header"><a href="#condition"><code>condition</code></a></h2>
-<p>a <a href="../../glib/auto/flags/struct.IOCondition.html"><code>glib::IOCondition</code></a> mask to check</p>
+<p>a <a href="../../glib/auto/flags/struct.IOCondition.html" title="crate::glib::IOCondition"><code>crate::glib::IOCondition</code></a> mask to check</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>the <a href="../../glib/auto/flags/struct.IOCondition.html" title="crate::glib::IOCondition"><code>crate::glib::IOCondition</code></a> (XXX: @-reference does not belong to SocketExt!) mask of the current state</p>
 </div><h3 id="tymethod.condition_timed_wait" class="method"><code>fn <a href="#tymethod.condition_timed_wait" class="fnname">condition_timed_wait</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;condition: <a class="struct" href="../../glib/auto/flags/struct.IOCondition.html" title="struct glib::auto::flags::IOCondition">IOCondition</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;timeout_us: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#308-313" title="goto source code">[src]</a></h3><div class="docblock"><p>Waits for up to <code>timeout_us</code> microseconds for <code>condition</code> to become true
 on <code>self</code>. If the condition is met, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> is returned.</p>
 <p>If <code>cancellable</code> is cancelled before the condition is met, or if
-<code>timeout_us</code> (or the socket’s <a href="crate::Socket:timeout"><code>Socket:timeout</code></a>) is reached before the
+<code>timeout_us</code> (or the socket’s [<code>crate::Socket:timeout</code>]) is reached before the
 condition is met, then <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> is returned and <code>error</code>, if non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>,
-is set to the appropriate value ([<code>IOErrorEnum::Cancelled</code>] or
-[<code>IOErrorEnum::TimedOut</code>]).</p>
-<p>If you don’t want a timeout, use <a href="trait.SocketExt.html#tymethod.condition_wait"><code>condition_wait()</code></a>.
+is set to the appropriate value (<a href="../enum.IOErrorEnum.html#variant.Cancelled" title="crate::IOErrorEnum::Cancelled"><code>crate::IOErrorEnum::Cancelled</code></a> or
+<a href="../enum.IOErrorEnum.html#variant.TimedOut" title="crate::IOErrorEnum::TimedOut"><code>crate::IOErrorEnum::TimedOut</code></a>).</p>
+<p>If you don’t want a timeout, use <a href="trait.SocketExt.html#tymethod.condition_wait" title="Self::condition_wait()"><code>Self::condition_wait()</code></a>.
 (Alternatively, you can pass -1 for <code>timeout_us</code>.)</p>
 <p>Note that although <code>timeout_us</code> is in microseconds for consistency with
 other GLib APIs, this function actually only has millisecond
 resolution, and the behavior is undefined if <code>timeout_us</code> is not an
 exact number of milliseconds.</p>
 <h2 id="condition-1" class="section-header"><a href="#condition-1"><code>condition</code></a></h2>
-<p>a <a href="../../glib/auto/flags/struct.IOCondition.html"><code>glib::IOCondition</code></a> mask to wait for</p>
+<p>a <a href="../../glib/auto/flags/struct.IOCondition.html" title="crate::glib::IOCondition"><code>crate::glib::IOCondition</code></a> mask to wait for</p>
 <h2 id="timeout_us" class="section-header"><a href="#timeout_us"><code>timeout_us</code></a></h2>
 <p>the maximum time (in microseconds) to wait, or -1</p>
 <h2 id="cancellable-1" class="section-header"><a href="#cancellable-1"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html"><code>Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the condition was met, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
 </div><h3 id="tymethod.condition_wait" class="method"><code>fn <a href="#tymethod.condition_wait" class="fnname">condition_wait</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;condition: <a class="struct" href="../../glib/auto/flags/struct.IOCondition.html" title="struct glib::auto::flags::IOCondition">IOCondition</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#334-338" title="goto source code">[src]</a></h3><div class="docblock"><p>Waits for <code>condition</code> to become true on <code>self</code>. When the condition
@@ -174,38 +174,38 @@ is met, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" titl
 <p>If <code>cancellable</code> is cancelled before the condition is met, or if the
 socket has a timeout set and it is reached before the condition is
 met, then <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> is returned and <code>error</code>, if non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, is set to
-the appropriate value ([<code>IOErrorEnum::Cancelled</code>] or
-[<code>IOErrorEnum::TimedOut</code>]).</p>
-<p>See also <a href="trait.SocketExt.html#tymethod.condition_timed_wait"><code>condition_timed_wait()</code></a>.</p>
+the appropriate value (<a href="../enum.IOErrorEnum.html#variant.Cancelled" title="crate::IOErrorEnum::Cancelled"><code>crate::IOErrorEnum::Cancelled</code></a> or
+<a href="../enum.IOErrorEnum.html#variant.TimedOut" title="crate::IOErrorEnum::TimedOut"><code>crate::IOErrorEnum::TimedOut</code></a>).</p>
+<p>See also <a href="trait.SocketExt.html#tymethod.condition_timed_wait" title="Self::condition_timed_wait()"><code>Self::condition_timed_wait()</code></a>.</p>
 <h2 id="condition-2" class="section-header"><a href="#condition-2"><code>condition</code></a></h2>
-<p>a <a href="../../glib/auto/flags/struct.IOCondition.html"><code>glib::IOCondition</code></a> mask to wait for</p>
+<p>a <a href="../../glib/auto/flags/struct.IOCondition.html" title="crate::glib::IOCondition"><code>crate::glib::IOCondition</code></a> mask to wait for</p>
 <h2 id="cancellable-2" class="section-header"><a href="#cancellable-2"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html"><code>Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the condition was met, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
 </div><h3 id="tymethod.connect" class="method"><code>fn <a href="#tymethod.connect" class="fnname">connect</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.SocketAddress.html" title="struct gio::SocketAddress">SocketAddress</a>&gt;, Q:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;address: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Q&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#365-369" title="goto source code">[src]</a></h3><div class="docblock"><p>Connect the socket to the specified remote address.</p>
 <p>For connection oriented socket this generally means we attempt to make
 a connection to the <code>address</code>. For a connection-less socket it sets
-the default address for <a href="crate::Socket::send()"><code>Socket::send()</code></a> and discards all incoming datagrams
+the default address for [<code>crate::Socket::send()</code>] and discards all incoming datagrams
 from other sources.</p>
 <p>Generally connection oriented sockets can only connect once, but
 connection-less sockets can connect multiple times to change the
 default address.</p>
 <p>If the connect call needs to do network I/O it will block, unless
-non-blocking I/O is enabled. Then [<code>IOErrorEnum::Pending</code>] is returned
+non-blocking I/O is enabled. Then <a href="../enum.IOErrorEnum.html#variant.Pending" title="crate::IOErrorEnum::Pending"><code>crate::IOErrorEnum::Pending</code></a> is returned
 and the user can be notified of the connection finishing by waiting
 for the G_IO_OUT condition. The result of the connection must then be
-checked with <a href="trait.SocketExt.html#tymethod.check_connect_result"><code>check_connect_result()</code></a>.</p>
+checked with <a href="trait.SocketExt.html#tymethod.check_connect_result" title="Self::check_connect_result()"><code>Self::check_connect_result()</code></a>.</p>
 <h2 id="address-1" class="section-header"><a href="#address-1"><code>address</code></a></h2>
-<p>a <a href="../struct.SocketAddress.html"><code>SocketAddress</code></a> specifying the remote address.</p>
+<p>a <a href="../struct.SocketAddress.html" title="crate::SocketAddress"><code>crate::SocketAddress</code></a> specifying the remote address.</p>
 <h2 id="cancellable-3" class="section-header"><a href="#cancellable-3"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html" title="Cancellable"><code>Cancellable</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if connected, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> on error.</p>
-</div><h3 id="tymethod.connection_factory_create_connection" class="method"><code>fn <a href="#tymethod.connection_factory_create_connection" class="fnname">connection_factory_create_connection</a>(&amp;self) -&gt; <a class="struct" href="../struct.SocketConnection.html" title="struct gio::SocketConnection">SocketConnection</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#378" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a <a href="../struct.SocketConnection.html"><code>SocketConnection</code></a> subclass of the right type for
+</div><h3 id="tymethod.connection_factory_create_connection" class="method"><code>fn <a href="#tymethod.connection_factory_create_connection" class="fnname">connection_factory_create_connection</a>(&amp;self) -&gt; <a class="struct" href="../struct.SocketConnection.html" title="struct gio::SocketConnection">SocketConnection</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#378" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a <a href="../struct.SocketConnection.html" title="crate::SocketConnection"><code>crate::SocketConnection</code></a> subclass of the right type for
 <code>self</code>.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
-<p>a <a href="../struct.SocketConnection.html"><code>SocketConnection</code></a></p>
+<p>a <a href="../struct.SocketConnection.html" title="crate::SocketConnection"><code>crate::SocketConnection</code></a></p>
 </div><h3 id="tymethod.available_bytes" class="method"><code>fn <a href="#tymethod.available_bytes" class="fnname">available_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#399" title="goto source code">[src]</a></h3><div class="docblock"><p>Get the amount of data pending in the OS input buffer, without blocking.</p>
 <p>If <code>self</code> is a UDP or SCTP socket, this will return the size of
 just the next packet, even if additional packets are buffered after
@@ -213,14 +213,14 @@ that one.</p>
 <p>Note that on Windows, this function is rather inefficient in the
 UDP case, and so if you know any plausible upper bound on the size
 of the incoming packet, it is better to just do a
-<a href="crate::Socket::receive()"><code>Socket::receive()</code></a> with a buffer of that size, rather than calling
-<a href="Self::get_available_bytes()"><code>get_available_bytes()</code></a> first and then doing a receive of
+[<code>crate::Socket::receive()</code>] with a buffer of that size, rather than calling
+[<code>Self::get_available_bytes()</code>] first and then doing a receive of
 exactly the right size.</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
 <p>the number of bytes that can be read from the socket
 without blocking or truncating, or -1 on error.</p>
 </div><h3 id="tymethod.is_blocking" class="method"><code>fn <a href="#tymethod.is_blocking" class="fnname">is_blocking</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#409" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the blocking mode of the socket. For details on blocking I/O,
-see <a href="trait.SocketExt.html#tymethod.set_blocking"><code>set_blocking()</code></a>.</p>
+see <a href="trait.SocketExt.html#tymethod.set_blocking" title="Self::set_blocking()"><code>Self::set_blocking()</code></a>.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if blocking I/O is used, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.is_broadcast" class="method"><code>fn <a href="#tymethod.is_broadcast" class="fnname">is_broadcast</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#420" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the broadcast setting on <code>self</code>; if <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>,
@@ -229,10 +229,10 @@ addresses.</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>
 <p>the broadcast setting on <code>self</code></p>
 </div><h3 id="tymethod.credentials" class="method"><code>fn <a href="#tymethod.credentials" class="fnname">credentials</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../struct.Credentials.html" title="struct gio::Credentials">Credentials</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#449" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the credentials of the foreign process connected to this
-socket, if any (e.g. it is only supported for <a href="../enum.SocketFamily.html#variant.Unix" title="SocketFamily::Unix"><code>SocketFamily::Unix</code></a>
+socket, if any (e.g. it is only supported for <a href="../enum.SocketFamily.html#variant.Unix" title="crate::SocketFamily::Unix"><code>crate::SocketFamily::Unix</code></a>
 sockets).</p>
 <p>If this operation isn’t supported on the OS, the method fails with
-the [<code>IOErrorEnum::NotSupported</code>] error. On Linux this is implemented
+the <a href="../enum.IOErrorEnum.html#variant.NotSupported" title="crate::IOErrorEnum::NotSupported"><code>crate::IOErrorEnum::NotSupported</code></a> error. On Linux this is implemented
 by reading the <code>SO_PEERCRED</code> option on the underlying socket.</p>
 <p>This method can be expected to be available on the following platforms:</p>
 <ul>
@@ -243,36 +243,36 @@ by reading the <code>SO_PEERCRED</code> option on the underlying socket.</p>
 <li>macOS, tvOS, iOS since GLib 2.66</li>
 </ul>
 <p>Other ways to obtain credentials from a foreign peer includes the
-<a href="crate::UnixCredentialsMessage"><code>UnixCredentialsMessage</code></a> type and
-<a href="crate::UnixConnection::send_credentials()"><code>UnixConnection::send_credentials()</code></a> /
-<a href="crate::UnixConnection::receive_credentials()"><code>UnixConnection::receive_credentials()</code></a> functions.</p>
+[<code>crate::UnixCredentialsMessage</code>] type and
+[<code>crate::UnixConnection::send_credentials()</code>] /
+[<code>crate::UnixConnection::receive_credentials()</code>] functions.</p>
 <h1 id="returns-12" class="section-header"><a href="#returns-12">Returns</a></h1>
-<p><a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if <code>error</code> is set, otherwise a <a href="../struct.Credentials.html"><code>Credentials</code></a> object
-that must be freed with <a href="crate::glib::object::ObjectExt::unref()"><code>glib::object::ObjectExt::unref()</code></a>.</p>
+<p><a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if <code>error</code> is set, otherwise a <a href="../struct.Credentials.html" title="crate::Credentials"><code>crate::Credentials</code></a> object
+that must be freed with [<code>crate::glib::object::ObjectExt::unref()</code>].</p>
 </div><h3 id="tymethod.family" class="method"><code>fn <a href="#tymethod.family" class="fnname">family</a>(&amp;self) -&gt; <a class="enum" href="../enum.SocketFamily.html" title="enum gio::SocketFamily">SocketFamily</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#458" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the socket family of the socket.</p>
 <h1 id="returns-13" class="section-header"><a href="#returns-13">Returns</a></h1>
-<p>a <a href="../enum.SocketFamily.html"><code>SocketFamily</code></a></p>
+<p>a <a href="../enum.SocketFamily.html" title="crate::SocketFamily"><code>crate::SocketFamily</code></a></p>
 </div><h3 id="tymethod.is_keepalive" class="method"><code>fn <a href="#tymethod.is_keepalive" class="fnname">is_keepalive</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#468" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the keepalive mode of the socket. For details on this,
-see <a href="trait.SocketExt.html#tymethod.set_keepalive"><code>set_keepalive()</code></a>.</p>
+see <a href="trait.SocketExt.html#tymethod.set_keepalive" title="Self::set_keepalive()"><code>Self::set_keepalive()</code></a>.</p>
 <h1 id="returns-14" class="section-header"><a href="#returns-14">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if keepalive is active, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.listen_backlog" class="method"><code>fn <a href="#tymethod.listen_backlog" class="fnname">listen_backlog</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#478" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the listen backlog setting of the socket. For details on this,
-see <a href="trait.SocketExt.html#tymethod.set_listen_backlog"><code>set_listen_backlog()</code></a>.</p>
+see <a href="trait.SocketExt.html#tymethod.set_listen_backlog" title="Self::set_listen_backlog()"><code>Self::set_listen_backlog()</code></a>.</p>
 <h1 id="returns-15" class="section-header"><a href="#returns-15">Returns</a></h1>
 <p>the maximum number of pending connections.</p>
 </div><h3 id="tymethod.local_address" class="method"><code>fn <a href="#tymethod.local_address" class="fnname">local_address</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../struct.SocketAddress.html" title="struct gio::SocketAddress">SocketAddress</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#490" title="goto source code">[src]</a></h3><div class="docblock"><p>Try to get the local address of a bound socket. This is only
 useful if the socket has been bound to a local address,
 either explicitly or implicitly when connecting.</p>
 <h1 id="returns-16" class="section-header"><a href="#returns-16">Returns</a></h1>
-<p>a <a href="../struct.SocketAddress.html"><code>SocketAddress</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> on error.
-Free the returned object with <a href="crate::glib::object::ObjectExt::unref()"><code>glib::object::ObjectExt::unref()</code></a>.</p>
+<p>a <a href="../struct.SocketAddress.html" title="crate::SocketAddress"><code>crate::SocketAddress</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> on error.
+Free the returned object with [<code>crate::glib::object::ObjectExt::unref()</code>].</p>
 </div><h3 id="tymethod.is_multicast_loopback" class="method"><code>fn <a href="#tymethod.is_multicast_loopback" class="fnname">is_multicast_loopback</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#501" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the multicast loopback setting on <code>self</code>; if <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> (the
 default), outgoing multicast packets will be looped back to
 multicast listeners on the same host.</p>
 <h1 id="returns-17" class="section-header"><a href="#returns-17">Returns</a></h1>
 <p>the multicast loopback setting on <code>self</code></p>
 </div><h3 id="tymethod.multicast_ttl" class="method"><code>fn <a href="#tymethod.multicast_ttl" class="fnname">multicast_ttl</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#511" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the multicast time-to-live setting on <code>self</code>; see
-<a href="trait.SocketExt.html#tymethod.set_multicast_ttl"><code>set_multicast_ttl()</code></a> for more details.</p>
+<a href="trait.SocketExt.html#tymethod.set_multicast_ttl" title="Self::set_multicast_ttl()"><code>Self::set_multicast_ttl()</code></a> for more details.</p>
 <h1 id="returns-18" class="section-header"><a href="#returns-18">Returns</a></h1>
 <p>the multicast time-to-live setting on <code>self</code></p>
 </div><h3 id="tymethod.option" class="method"><code>fn <a href="#tymethod.option" class="fnname">option</a>(&amp;self, level: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, optname: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#540" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value of an integer-valued option on <code>self</code>, as with
@@ -285,7 +285,7 @@ platform-dependent options, you may need to include additional
 headers.</p>
 <p>Note that even for socket options that are a single byte in size,
 <code>value</code> is still a pointer to a <code>gint</code> variable, not a <code>guchar</code>;
-<a href="Self::get_option()"><code>get_option()</code></a> will handle the conversion internally.</p>
+[<code>Self::get_option()</code>] will handle the conversion internally.</p>
 <h2 id="level" class="section-header"><a href="#level"><code>level</code></a></h2>
 <p>the “API level” of the option (eg, <code>SOL_SOCKET</code>)</p>
 <h2 id="optname" class="section-header"><a href="#optname"><code>optname</code></a></h2>
@@ -303,17 +303,17 @@ In case the protocol is unknown, -1 is returned.</p>
 </div><h3 id="tymethod.remote_address" class="method"><code>fn <a href="#tymethod.remote_address" class="fnname">remote_address</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../struct.SocketAddress.html" title="struct gio::SocketAddress">SocketAddress</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#561" title="goto source code">[src]</a></h3><div class="docblock"><p>Try to get the remote address of a connected socket. This is only
 useful for connection oriented sockets that have been connected.</p>
 <h1 id="returns-21" class="section-header"><a href="#returns-21">Returns</a></h1>
-<p>a <a href="../struct.SocketAddress.html"><code>SocketAddress</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> on error.
-Free the returned object with <a href="crate::glib::object::ObjectExt::unref()"><code>glib::object::ObjectExt::unref()</code></a>.</p>
+<p>a <a href="../struct.SocketAddress.html" title="crate::SocketAddress"><code>crate::SocketAddress</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> on error.
+Free the returned object with [<code>crate::glib::object::ObjectExt::unref()</code>].</p>
 </div><h3 id="tymethod.socket_type" class="method"><code>fn <a href="#tymethod.socket_type" class="fnname">socket_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.SocketType.html" title="enum gio::SocketType">SocketType</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#570" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the socket type of the socket.</p>
 <h1 id="returns-22" class="section-header"><a href="#returns-22">Returns</a></h1>
-<p>a <a href="../enum.SocketType.html"><code>SocketType</code></a></p>
+<p>a <a href="../enum.SocketType.html" title="crate::SocketType"><code>crate::SocketType</code></a></p>
 </div><h3 id="tymethod.timeout" class="method"><code>fn <a href="#tymethod.timeout" class="fnname">timeout</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#580" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the timeout setting of the socket. For details on this, see
-<a href="trait.SocketExt.html#tymethod.set_timeout"><code>set_timeout()</code></a>.</p>
+<a href="trait.SocketExt.html#tymethod.set_timeout" title="Self::set_timeout()"><code>Self::set_timeout()</code></a>.</p>
 <h1 id="returns-23" class="section-header"><a href="#returns-23">Returns</a></h1>
 <p>the timeout in seconds</p>
 </div><h3 id="tymethod.ttl" class="method"><code>fn <a href="#tymethod.ttl" class="fnname">ttl</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#590" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the unicast time-to-live setting on <code>self</code>; see
-<a href="trait.SocketExt.html#tymethod.set_ttl"><code>set_ttl()</code></a> for more details.</p>
+<a href="trait.SocketExt.html#tymethod.set_ttl" title="Self::set_ttl()"><code>Self::set_ttl()</code></a> for more details.</p>
 <h1 id="returns-24" class="section-header"><a href="#returns-24">Returns</a></h1>
 <p>the time-to-live setting on <code>self</code></p>
 </div><h3 id="tymethod.is_closed" class="method"><code>fn <a href="#tymethod.is_closed" class="fnname">is_closed</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#598" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks whether a socket is closed.</p>
@@ -321,25 +321,25 @@ Free the returned object with <a href="crate::glib::object::ObjectExt::unref()">
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if socket is closed, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
 </div><h3 id="tymethod.is_connected" class="method"><code>fn <a href="#tymethod.is_connected" class="fnname">is_connected</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/socket.rs.html#612" title="goto source code">[src]</a></h3><div class="docblock"><p>Check whether the socket is connected. This is only useful for
 connection-oriented sockets.</p>
-<p>If using <a href="trait.SocketExt.html#tymethod.shutdown"><code>shutdown()</code></a>, this function will return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> until the
+<p>If using <a href="trait.SocketExt.html#tymethod.shutdown" title="Self::shutdown()"><code>Self::shutdown()</code></a>, this function will return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> until the
 socket has been shut down for reading and writing. If you do a non-blocking
 connect, this function will not return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> until after you call
-<a href="trait.SocketExt.html#tymethod.check_connect_result"><code>check_connect_result()</code></a>.</p>
+<a href="trait.SocketExt.html#tymethod.check_connect_result" title="Self::check_connect_result()"><code>Self::check_connect_result()</code></a>.</p>
 <h1 id="returns-26" class="section-header"><a href="#returns-26">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if socket is connected, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.join_multicast_group" class="method"><code>fn <a href="#tymethod.join_multicast_group" class="fnname">join_multicast_group</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.InetAddress.html" title="struct gio::InetAddress">InetAddress</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;group: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;source_specific: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;iface: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#639-644" title="goto source code">[src]</a></h3><div class="docblock"><p>Registers <code>self</code> to receive multicast messages sent to <code>group</code>.
-<code>self</code> must be a <a href="../enum.SocketType.html#variant.Datagram" title="SocketType::Datagram"><code>SocketType::Datagram</code></a> socket, and must have
+<code>self</code> must be a <a href="../enum.SocketType.html#variant.Datagram" title="crate::SocketType::Datagram"><code>crate::SocketType::Datagram</code></a> socket, and must have
 been bound to an appropriate interface and port with
-<a href="trait.SocketExt.html#tymethod.bind"><code>bind()</code></a>.</p>
+<a href="trait.SocketExt.html#tymethod.bind" title="Self::bind()"><code>Self::bind()</code></a>.</p>
 <p>If <code>iface</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, the system will automatically pick an interface
 to bind to based on <code>group</code>.</p>
 <p>If <code>source_specific</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, source-specific multicast as defined
 in RFC 4604 is used. Note that on older platforms this may fail
-with a [<code>IOErrorEnum::NotSupported</code>] error.</p>
+with a <a href="../enum.IOErrorEnum.html#variant.NotSupported" title="crate::IOErrorEnum::NotSupported"><code>crate::IOErrorEnum::NotSupported</code></a> error.</p>
 <p>To bind to a given source-specific multicast address, use
-<a href="trait.SocketExt.html#tymethod.join_multicast_group_ssm"><code>join_multicast_group_ssm()</code></a> instead.</p>
+<a href="trait.SocketExt.html#tymethod.join_multicast_group_ssm" title="Self::join_multicast_group_ssm()"><code>Self::join_multicast_group_ssm()</code></a> instead.</p>
 <h2 id="group" class="section-header"><a href="#group"><code>group</code></a></h2>
-<p>a <a href="../struct.InetAddress.html"><code>InetAddress</code></a> specifying the group address to join.</p>
+<p>a <a href="../struct.InetAddress.html" title="crate::InetAddress"><code>crate::InetAddress</code></a> specifying the group address to join.</p>
 <h2 id="source_specific" class="section-header"><a href="#source_specific"><code>source_specific</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if source-specific multicast should be used</p>
 <h2 id="iface" class="section-header"><a href="#iface"><code>iface</code></a></h2>
@@ -347,21 +347,21 @@ with a [<code>IOErrorEnum::NotSupported</code>] error.</p>
 <h1 id="returns-27" class="section-header"><a href="#returns-27">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on success, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> on error.</p>
 </div><h3 id="tymethod.join_multicast_group_ssm" class="method"><code>fn <a href="#tymethod.join_multicast_group_ssm" class="fnname">join_multicast_group_ssm</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.InetAddress.html" title="struct gio::InetAddress">InetAddress</a>&gt;, Q:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.InetAddress.html" title="struct gio::InetAddress">InetAddress</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;group: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;source_specific: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Q&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;iface: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#675-680" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v2_56</code></strong> only.</div></div><div class="docblock"><p>Registers <code>self</code> to receive multicast messages sent to <code>group</code>.
-<code>self</code> must be a <a href="../enum.SocketType.html#variant.Datagram" title="SocketType::Datagram"><code>SocketType::Datagram</code></a> socket, and must have
+<code>self</code> must be a <a href="../enum.SocketType.html#variant.Datagram" title="crate::SocketType::Datagram"><code>crate::SocketType::Datagram</code></a> socket, and must have
 been bound to an appropriate interface and port with
-<a href="trait.SocketExt.html#tymethod.bind"><code>bind()</code></a>.</p>
+<a href="trait.SocketExt.html#tymethod.bind" title="Self::bind()"><code>Self::bind()</code></a>.</p>
 <p>If <code>iface</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, the system will automatically pick an interface
 to bind to based on <code>group</code>.</p>
 <p>If <code>source_specific</code> is not <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, use source-specific multicast as
 defined in RFC 4604. Note that on older platforms this may fail
-with a [<code>IOErrorEnum::NotSupported</code>] error.</p>
+with a <a href="../enum.IOErrorEnum.html#variant.NotSupported" title="crate::IOErrorEnum::NotSupported"><code>crate::IOErrorEnum::NotSupported</code></a> error.</p>
 <p>Note that this function can be called multiple times for the same
 <code>group</code> with different <code>source_specific</code> in order to receive multicast
 packets from more than one source.</p>
 <h2 id="group-1" class="section-header"><a href="#group-1"><code>group</code></a></h2>
-<p>a <a href="../struct.InetAddress.html"><code>InetAddress</code></a> specifying the group address to join.</p>
+<p>a <a href="../struct.InetAddress.html" title="crate::InetAddress"><code>crate::InetAddress</code></a> specifying the group address to join.</p>
 <h2 id="source_specific-1" class="section-header"><a href="#source_specific-1"><code>source_specific</code></a></h2>
-<p>a <a href="../struct.InetAddress.html"><code>InetAddress</code></a> specifying the
+<p>a <a href="../struct.InetAddress.html" title="crate::InetAddress"><code>crate::InetAddress</code></a> specifying the
 source-specific multicast address or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to ignore.</p>
 <h2 id="iface-1" class="section-header"><a href="#iface-1"><code>iface</code></a></h2>
 <p>Name of the interface to use, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
@@ -373,9 +373,9 @@ when you joined the group).</p>
 <p><code>self</code> remains bound to its address and port, and can still receive
 unicast messages after calling this.</p>
 <p>To unbind to a given source-specific multicast address, use
-<a href="trait.SocketExt.html#tymethod.leave_multicast_group_ssm"><code>leave_multicast_group_ssm()</code></a> instead.</p>
+<a href="trait.SocketExt.html#tymethod.leave_multicast_group_ssm" title="Self::leave_multicast_group_ssm()"><code>Self::leave_multicast_group_ssm()</code></a> instead.</p>
 <h2 id="group-2" class="section-header"><a href="#group-2"><code>group</code></a></h2>
-<p>a <a href="../struct.InetAddress.html"><code>InetAddress</code></a> specifying the group address to leave.</p>
+<p>a <a href="../struct.InetAddress.html" title="crate::InetAddress"><code>crate::InetAddress</code></a> specifying the group address to leave.</p>
 <h2 id="source_specific-2" class="section-header"><a href="#source_specific-2"><code>source_specific</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if source-specific multicast was used</p>
 <h2 id="iface-2" class="section-header"><a href="#iface-2"><code>iface</code></a></h2>
@@ -388,27 +388,27 @@ when you joined the group).</p>
 <p><code>self</code> remains bound to its address and port, and can still receive
 unicast messages after calling this.</p>
 <h2 id="group-3" class="section-header"><a href="#group-3"><code>group</code></a></h2>
-<p>a <a href="../struct.InetAddress.html"><code>InetAddress</code></a> specifying the group address to leave.</p>
+<p>a <a href="../struct.InetAddress.html" title="crate::InetAddress"><code>crate::InetAddress</code></a> specifying the group address to leave.</p>
 <h2 id="source_specific-3" class="section-header"><a href="#source_specific-3"><code>source_specific</code></a></h2>
-<p>a <a href="../struct.InetAddress.html"><code>InetAddress</code></a> specifying the
+<p>a <a href="../struct.InetAddress.html" title="crate::InetAddress"><code>crate::InetAddress</code></a> specifying the
 source-specific multicast address or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to ignore.</p>
 <h2 id="iface-3" class="section-header"><a href="#iface-3"><code>iface</code></a></h2>
 <p>Name of the interface to use, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-30" class="section-header"><a href="#returns-30">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on success, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> on error.</p>
 </div><h3 id="tymethod.listen" class="method"><code>fn <a href="#tymethod.listen" class="fnname">listen</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#749" title="goto source code">[src]</a></h3><div class="docblock"><p>Marks the socket as a server socket, i.e. a socket that is used
-to accept incoming requests using <a href="trait.SocketExt.html#tymethod.accept"><code>accept()</code></a>.</p>
+to accept incoming requests using <a href="trait.SocketExt.html#tymethod.accept" title="Self::accept()"><code>Self::accept()</code></a>.</p>
 <p>Before calling this the socket must be bound to a local address using
-<a href="trait.SocketExt.html#tymethod.bind"><code>bind()</code></a>.</p>
+<a href="trait.SocketExt.html#tymethod.bind" title="Self::bind()"><code>Self::bind()</code></a>.</p>
 <p>To set the maximum amount of outstanding clients, use
-<a href="trait.SocketExt.html#tymethod.set_listen_backlog"><code>set_listen_backlog()</code></a>.</p>
+<a href="trait.SocketExt.html#tymethod.set_listen_backlog" title="Self::set_listen_backlog()"><code>Self::set_listen_backlog()</code></a>.</p>
 <h1 id="returns-31" class="section-header"><a href="#returns-31">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on success, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> on error.</p>
 </div><h3 id="tymethod.set_blocking" class="method"><code>fn <a href="#tymethod.set_blocking" class="fnname">set_blocking</a>(&amp;self, blocking: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#763" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the blocking mode of the socket. In blocking mode
 all operations (which don’t take an explicit blocking parameter) block until
 they succeed or there is an error. In
 non-blocking mode all functions return results immediately or
-with a [<code>IOErrorEnum::WouldBlock</code>] error.</p>
+with a <a href="../enum.IOErrorEnum.html#variant.WouldBlock" title="crate::IOErrorEnum::WouldBlock"><code>crate::IOErrorEnum::WouldBlock</code></a> error.</p>
 <p>All sockets are created in blocking mode. However, note that the
 platform level socket is always non-blocking, and blocking mode
 is a GSocket level feature.</p>
@@ -426,7 +426,7 @@ time passes with no data being exchanged. If the system is unable to
 verify the presence of the remote endpoint, it will automatically close
 the connection.</p>
 <p>This option is only functional on certain kinds of sockets. (Notably,
-<a href="../enum.SocketProtocol.html#variant.Tcp" title="SocketProtocol::Tcp"><code>SocketProtocol::Tcp</code></a> sockets.)</p>
+<a href="../enum.SocketProtocol.html#variant.Tcp" title="crate::SocketProtocol::Tcp"><code>crate::SocketProtocol::Tcp</code></a> sockets.)</p>
 <p>The exact time between pings is system- and protocol-dependent, but will
 normally be at least two hours. Most commonly, you would set this flag
 on a server socket if you want to allow clients to remain idle for long
@@ -438,7 +438,7 @@ garbage-collected if clients crash or become unreachable.</p>
 when listening on this socket. If more clients than this are
 connecting to the socket and the application is not handling them
 on time then the new connections will be refused.</p>
-<p>Note that this must be called before <a href="trait.SocketExt.html#tymethod.listen"><code>listen()</code></a> and has no
+<p>Note that this must be called before <a href="trait.SocketExt.html#tymethod.listen" title="Self::listen()"><code>Self::listen()</code></a> and has no
 effect if called after that.</p>
 <h2 id="backlog" class="section-header"><a href="#backlog"><code>backlog</code></a></h2>
 <p>the maximum number of pending connections.</p>
@@ -473,16 +473,16 @@ the system error value (<code>errno</code> or WSAGetLastError()) will still
 be set to the result of the <code>setsockopt()</code> call.</p>
 </div><h3 id="tymethod.set_timeout" class="method"><code>fn <a href="#tymethod.set_timeout" class="fnname">set_timeout</a>(&amp;self, timeout: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gio/auto/socket.rs.html#869" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the time in seconds after which I/O operations on <code>self</code> will
 time out if they have not yet completed.</p>
-<p>On a blocking socket, this means that any blocking <a href="../struct.Socket.html"><code>Socket</code></a>
+<p>On a blocking socket, this means that any blocking <a href="../struct.Socket.html" title="crate::Socket"><code>crate::Socket</code></a>
 operation will time out after <code>timeout</code> seconds of inactivity,
-returning [<code>IOErrorEnum::TimedOut</code>].</p>
-<p>On a non-blocking socket, calls to <a href="trait.SocketExt.html#tymethod.condition_wait"><code>condition_wait()</code></a> will
-also fail with [<code>IOErrorEnum::TimedOut</code>] after the given time. Sources
-created with <a href="crate::Socket::create_source()"><code>Socket::create_source()</code></a> will trigger after
+returning <a href="../enum.IOErrorEnum.html#variant.TimedOut" title="crate::IOErrorEnum::TimedOut"><code>crate::IOErrorEnum::TimedOut</code></a>.</p>
+<p>On a non-blocking socket, calls to <a href="trait.SocketExt.html#tymethod.condition_wait" title="Self::condition_wait()"><code>Self::condition_wait()</code></a> will
+also fail with <a href="../enum.IOErrorEnum.html#variant.TimedOut" title="crate::IOErrorEnum::TimedOut"><code>crate::IOErrorEnum::TimedOut</code></a> after the given time. Sources
+created with [<code>crate::Socket::create_source()</code>] will trigger after
 <code>timeout</code> seconds of inactivity, with the requested condition
-set, at which point calling <a href="crate::Socket::receive()"><code>Socket::receive()</code></a>, <a href="crate::Socket::send()"><code>Socket::send()</code></a>,
-<a href="trait.SocketExt.html#tymethod.check_connect_result"><code>check_connect_result()</code></a>, etc, will fail with
-[<code>IOErrorEnum::TimedOut</code>].</p>
+set, at which point calling [<code>crate::Socket::receive()</code>], [<code>crate::Socket::send()</code>],
+<a href="trait.SocketExt.html#tymethod.check_connect_result" title="Self::check_connect_result()"><code>Self::check_connect_result()</code></a>, etc, will fail with
+<a href="../enum.IOErrorEnum.html#variant.TimedOut" title="crate::IOErrorEnum::TimedOut"><code>crate::IOErrorEnum::TimedOut</code></a>.</p>
 <p>If <code>timeout</code> is 0 (the default), operations will never time out
 on their own.</p>
 <p>Note that if an I/O operation is interrupted by a signal, this may

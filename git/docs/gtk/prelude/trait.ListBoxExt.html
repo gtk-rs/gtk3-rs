@@ -46,7 +46,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_selection_mode_notify" class="fnname">connect_selection_mode_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>ListBox</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.ListBox.html"><code>ListBox</code></a></p>
+<p><a href="../struct.ListBox.html" title="crate::ListBox"><code>crate::ListBox</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.bind_model" class="method"><code>fn <a href="#tymethod.bind_model" class="fnname">bind_model</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../gio/auto/list_model/struct.ListModel.html" title="struct gio::auto::list_model::ListModel">ListModel</a>&gt;, Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../../glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>) -&gt; <a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;model: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;create_widget_func: Q<br>)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#485-489" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Binds <code>model</code> to <code>self</code>.</p>
 <p>If <code>self</code> was already bound to a model, that previous binding is
 destroyed.</p>
@@ -54,13 +54,13 @@ destroyed.</p>
 represent items from <code>model</code>. <code>self</code> is updated whenever <code>model</code> changes.
 If <code>model</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, <code>self</code> is left empty.</p>
 <p>It is undefined to add or remove widgets directly (for example, with
-<a href="trait.ListBoxExt.html#tymethod.insert"><code>insert()</code></a> or <a href="crate::ContainerExt::add()"><code>ContainerExt::add()</code></a>) while <code>self</code> is bound to a
+<a href="trait.ListBoxExt.html#tymethod.insert" title="Self::insert()"><code>Self::insert()</code></a> or <a href="trait.ContainerExt.html#tymethod.add" title="crate::prelude::ContainerExt::add()"><code>crate::prelude::ContainerExt::add()</code></a>) while <code>self</code> is bound to a
 model.</p>
 <p>Note that using a model is incompatible with the filtering and sorting
 functionality in <code>ListBox</code>. When using a model, filtering and sorting
 should be implemented by the model.</p>
 <h2 id="model" class="section-header"><a href="#model"><code>model</code></a></h2>
-<p>the <a href="../../gio/auto/list_model/struct.ListModel.html"><code>gio::ListModel</code></a> to be bound to <code>self</code></p>
+<p>the <a href="../../gio/auto/list_model/struct.ListModel.html" title="crate::gio::ListModel"><code>crate::gio::ListModel</code></a> to be bound to <code>self</code></p>
 <h2 id="create_widget_func" class="section-header"><a href="#create_widget_func"><code>create_widget_func</code></a></h2>
 <p>a function that creates widgets for items
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> in case you also passed <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> as <code>model</code></p>
@@ -68,14 +68,14 @@ or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#varia
 <p>user data passed to <code>create_widget_func</code></p>
 <h2 id="user_data_free_func" class="section-header"><a href="#user_data_free_func"><code>user_data_free_func</code></a></h2>
 <p>function for freeing <code>user_data</code></p>
-</div><h3 id="tymethod.drag_highlight_row" class="method"><code>fn <a href="#tymethod.drag_highlight_row" class="fnname">drag_highlight_row</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>&gt;&gt;(&amp;self, row: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#500" title="goto source code">[src]</a></h3><div class="docblock"><p>This is a helper function for implementing DnD onto a <a href="../struct.ListBox.html"><code>ListBox</code></a>.
-The passed in <code>row</code> will be highlighted via <a href="crate::WidgetExt::drag_highlight()"><code>WidgetExt::drag_highlight()</code></a>,
+</div><h3 id="tymethod.drag_highlight_row" class="method"><code>fn <a href="#tymethod.drag_highlight_row" class="fnname">drag_highlight_row</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>&gt;&gt;(&amp;self, row: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#500" title="goto source code">[src]</a></h3><div class="docblock"><p>This is a helper function for implementing DnD onto a <a href="../struct.ListBox.html" title="crate::ListBox"><code>crate::ListBox</code></a>.
+The passed in <code>row</code> will be highlighted via <a href="trait.WidgetExt.html#tymethod.drag_highlight" title="crate::prelude::WidgetExt::drag_highlight()"><code>crate::prelude::WidgetExt::drag_highlight()</code></a>,
 and any previously highlighted row will be unhighlighted.</p>
 <p>The row will also be unhighlighted when the widget gets
 a drag leave event.</p>
 <h2 id="row" class="section-header"><a href="#row"><code>row</code></a></h2>
-<p>a <a href="../struct.ListBoxRow.html"><code>ListBoxRow</code></a></p>
-</div><h3 id="tymethod.drag_unhighlight_row" class="method"><code>fn <a href="#tymethod.drag_unhighlight_row" class="fnname">drag_unhighlight_row</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#505" title="goto source code">[src]</a></h3><div class="docblock"><p>If a row has previously been highlighted via <a href="trait.ListBoxExt.html#tymethod.drag_highlight_row"><code>drag_highlight_row()</code></a>
+<p>a <a href="../struct.ListBoxRow.html" title="crate::ListBoxRow"><code>crate::ListBoxRow</code></a></p>
+</div><h3 id="tymethod.drag_unhighlight_row" class="method"><code>fn <a href="#tymethod.drag_unhighlight_row" class="fnname">drag_unhighlight_row</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#505" title="goto source code">[src]</a></h3><div class="docblock"><p>If a row has previously been highlighted via <a href="trait.ListBoxExt.html#tymethod.drag_highlight_row" title="Self::drag_highlight_row()"><code>Self::drag_highlight_row()</code></a>
 it will have the highlight removed.</p>
 </div><h3 id="tymethod.activates_on_single_click" class="method"><code>fn <a href="#tymethod.activates_on_single_click" class="fnname">activates_on_single_click</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#514" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether rows activate on single clicks.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
@@ -90,7 +90,7 @@ list, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#va
 <h2 id="index_" class="section-header"><a href="#index_"><code>index_</code></a></h2>
 <p>the index of the row</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>the child <a href="../struct.Widget.html"><code>Widget</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>the child <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.row_at_y" class="method"><code>fn <a href="#tymethod.row_at_y" class="fnname">row_at_y</a>(&amp;self, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#549" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the row at the <code>y</code> position.</p>
 <h2 id="y" class="section-header"><a href="#y"><code>y</code></a></h2>
 <p>position</p>
@@ -99,24 +99,24 @@ list, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#va
 in case no row exists for the given y coordinate.</p>
 </div><h3 id="tymethod.selected_row" class="method"><code>fn <a href="#tymethod.selected_row" class="fnname">selected_row</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#562" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the selected row.</p>
 <p>Note that the box may allow multiple selection, in which
-case you should use <a href="trait.ListBoxExt.html#tymethod.selected_foreach"><code>selected_foreach()</code></a> to
+case you should use <a href="trait.ListBoxExt.html#tymethod.selected_foreach" title="Self::selected_foreach()"><code>Self::selected_foreach()</code></a> to
 find all selected rows.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>the selected row</p>
 </div><h3 id="tymethod.selected_rows" class="method"><code>fn <a href="#tymethod.selected_rows" class="fnname">selected_rows</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#573" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a list of all selected children.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
-<p>A <a href="crate::glib::List"><code>glib::List</code></a> containing the <a href="../struct.Widget.html"><code>Widget</code></a> for each selected child.
-Free with <a href="crate::glib::List::free()"><code>glib::List::free()</code></a> when done.</p>
+<p>A [<code>crate::glib::List</code>] containing the <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> for each selected child.
+Free with [<code>crate::glib::List::free()</code>] when done.</p>
 </div><h3 id="tymethod.selection_mode" class="method"><code>fn <a href="#tymethod.selection_mode" class="fnname">selection_mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a></code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#582" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the selection mode of the listbox.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p>a <a href="../enum.SelectionMode.html"><code>SelectionMode</code></a></p>
+<p>a <a href="../enum.SelectionMode.html" title="crate::SelectionMode"><code>crate::SelectionMode</code></a></p>
 </div><h3 id="tymethod.insert" class="method"><code>fn <a href="#tymethod.insert" class="fnname">insert</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#595" title="goto source code">[src]</a></h3><div class="docblock"><p>Insert the <code>child</code> into the <code>self</code> at <code>position</code>. If a sort function is
 set, the widget will actually be inserted at the calculated position and
-this function has the same effect of <a href="crate::ContainerExt::add()"><code>ContainerExt::add()</code></a>.</p>
+this function has the same effect of <a href="trait.ContainerExt.html#tymethod.add" title="crate::prelude::ContainerExt::add()"><code>crate::prelude::ContainerExt::add()</code></a>.</p>
 <p>If <code>position</code> is -1, or larger than the total number of items in the
 <code>self</code>, then the <code>child</code> will be appended to the end.</p>
 <h2 id="child" class="section-header"><a href="#child"><code>child</code></a></h2>
-<p>the <a href="../struct.Widget.html"><code>Widget</code></a> to add</p>
+<p>the <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> to add</p>
 <h2 id="position" class="section-header"><a href="#position"><code>position</code></a></h2>
 <p>the position to insert <code>child</code> in</p>
 </div><h3 id="tymethod.invalidate_filter" class="method"><code>fn <a href="#tymethod.invalidate_filter" class="fnname">invalidate_filter</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#603" title="goto source code">[src]</a></h3><div class="docblock"><p>Update the filtering for all rows. Call this when result
@@ -132,9 +132,9 @@ of the sort function on the <code>self</code> is changed due
 to an external factor.</p>
 </div><h3 id="tymethod.prepend" class="method"><code>fn <a href="#tymethod.prepend" class="fnname">prepend</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#623" title="goto source code">[src]</a></h3><div class="docblock"><p>Prepend a widget to the list. If a sort function is set, the widget will
 actually be inserted at the calculated position and this function has the
-same effect of <a href="crate::ContainerExt::add()"><code>ContainerExt::add()</code></a>.</p>
+same effect of <a href="trait.ContainerExt.html#tymethod.add" title="crate::prelude::ContainerExt::add()"><code>crate::prelude::ContainerExt::add()</code></a>.</p>
 <h2 id="child-1" class="section-header"><a href="#child-1"><code>child</code></a></h2>
-<p>the <a href="../struct.Widget.html"><code>Widget</code></a> to add</p>
+<p>the <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> to add</p>
 </div><h3 id="tymethod.select_all" class="method"><code>fn <a href="#tymethod.select_all" class="fnname">select_all</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#627" title="goto source code">[src]</a></h3><div class="docblock"><p>Select all children of <code>self</code>, if the selection mode allows it.</p>
 </div><h3 id="tymethod.select_row" class="method"><code>fn <a href="#tymethod.select_row" class="fnname">select_row</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>&gt;&gt;(&amp;self, row: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#633" title="goto source code">[src]</a></h3><div class="docblock"><p>Make <code>row</code> the currently selected row.</p>
 <h2 id="row-1" class="section-header"><a href="#row-1"><code>row</code></a></h2>
@@ -153,7 +153,7 @@ otherwise you need to double-click.</p>
 for vertical scrolling. For instance, this is used
 to get the page size for PageUp/Down key handling.</p>
 <p>In the normal case when the <code>self</code> is packed inside
-a <a href="../struct.ScrolledWindow.html"><code>ScrolledWindow</code></a> the adjustment from that will
+a <a href="../struct.ScrolledWindow.html" title="crate::ScrolledWindow"><code>crate::ScrolledWindow</code></a> the adjustment from that will
 be picked up automatically, so there is no need
 to manually do that.</p>
 <h2 id="adjustment" class="section-header"><a href="#adjustment"><code>adjustment</code></a></h2>
@@ -162,10 +162,10 @@ to manually do that.</p>
 of the rows to show. For instance, to implement a search function on a list that
 filters the original list to only show the matching rows.</p>
 <p>The <code>filter_func</code> will be called for each row after the call, and it will
-continue to be called each time a row changes (via <a href="crate::ListBoxRowExt::changed()"><code>ListBoxRowExt::changed()</code></a>) or
-when <a href="trait.ListBoxExt.html#tymethod.invalidate_filter"><code>invalidate_filter()</code></a> is called.</p>
+continue to be called each time a row changes (via <a href="trait.ListBoxRowExt.html#tymethod.changed" title="crate::prelude::ListBoxRowExt::changed()"><code>crate::prelude::ListBoxRowExt::changed()</code></a>) or
+when <a href="trait.ListBoxExt.html#tymethod.invalidate_filter" title="Self::invalidate_filter()"><code>Self::invalidate_filter()</code></a> is called.</p>
 <p>Note that using a filter function is incompatible with using a model
-(see <a href="trait.ListBoxExt.html#tymethod.bind_model"><code>bind_model()</code></a>).</p>
+(see <a href="trait.ListBoxExt.html#tymethod.bind_model" title="Self::bind_model()"><code>Self::bind_model()</code></a>).</p>
 <h2 id="filter_func" class="section-header"><a href="#filter_func"><code>filter_func</code></a></h2>
 <p>callback that lets you filter which rows to show</p>
 <h2 id="user_data-1" class="section-header"><a href="#user_data-1"><code>user_data</code></a></h2>
@@ -176,17 +176,17 @@ when <a href="trait.ListBoxExt.html#tymethod.invalidate_filter"><code>invalidate
 in front of rows, depending on the contents of the row and its position in the list.
 For instance, one could use it to add headers in front of the first item of a
 new kind, in a list sorted by the kind.</p>
-<p>The <code>update_header</code> can look at the current header widget using <a href="crate::ListBoxRowExt::get_header()"><code>ListBoxRowExt::get_header()</code></a>
+<p>The <code>update_header</code> can look at the current header widget using [<code>crate::prelude::ListBoxRowExt::get_header()</code>]
 and either update the state of the widget as needed, or set a new one using
-<a href="crate::ListBoxRowExt::set_header()"><code>ListBoxRowExt::set_header()</code></a>. If no header is needed, set the header to <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
+<a href="trait.ListBoxRowExt.html#tymethod.set_header" title="crate::prelude::ListBoxRowExt::set_header()"><code>crate::prelude::ListBoxRowExt::set_header()</code></a>. If no header is needed, set the header to <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <p>Note that you may get many calls <code>update_header</code> to this for a particular row when e.g.
 changing things that don’t affect the header. In this case it is important for performance
 to not blindly replace an existing header with an identical one.</p>
 <p>The <code>update_header</code> function will be called for each row after the call, and it will
-continue to be called each time a row changes (via <a href="crate::ListBoxRowExt::changed()"><code>ListBoxRowExt::changed()</code></a>) and when
-the row before changes (either by <a href="crate::ListBoxRowExt::changed()"><code>ListBoxRowExt::changed()</code></a> on the previous row, or when
+continue to be called each time a row changes (via <a href="trait.ListBoxRowExt.html#tymethod.changed" title="crate::prelude::ListBoxRowExt::changed()"><code>crate::prelude::ListBoxRowExt::changed()</code></a>) and when
+the row before changes (either by <a href="trait.ListBoxRowExt.html#tymethod.changed" title="crate::prelude::ListBoxRowExt::changed()"><code>crate::prelude::ListBoxRowExt::changed()</code></a> on the previous row, or when
 the previous row becomes a different row). It is also called for all rows when
-<a href="trait.ListBoxExt.html#tymethod.invalidate_headers"><code>invalidate_headers()</code></a> is called.</p>
+<a href="trait.ListBoxExt.html#tymethod.invalidate_headers" title="Self::invalidate_headers()"><code>Self::invalidate_headers()</code></a> is called.</p>
 <h2 id="update_header" class="section-header"><a href="#update_header"><code>update_header</code></a></h2>
 <p>callback that lets you add row headers</p>
 <h2 id="user_data-2" class="section-header"><a href="#user_data-2"><code>user_data</code></a></h2>
@@ -196,18 +196,18 @@ the previous row becomes a different row). It is also called for all rows when
 </div><h3 id="tymethod.set_placeholder" class="method"><code>fn <a href="#tymethod.set_placeholder" class="fnname">set_placeholder</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, placeholder: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#719" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the placeholder widget that is shown in the list when
 it doesn’t display any visible children.</p>
 <h2 id="placeholder" class="section-header"><a href="#placeholder"><code>placeholder</code></a></h2>
-<p>a <a href="../struct.Widget.html"><code>Widget</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.set_selection_mode" class="method"><code>fn <a href="#tymethod.set_selection_mode" class="fnname">set_selection_mode</a>(&amp;self, mode: <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a>)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#726" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets how selection works in the listbox.
-See <a href="../enum.SelectionMode.html"><code>SelectionMode</code></a> for details.</p>
+See <a href="../enum.SelectionMode.html" title="crate::SelectionMode"><code>crate::SelectionMode</code></a> for details.</p>
 <h2 id="mode" class="section-header"><a href="#mode"><code>mode</code></a></h2>
-<p>The <a href="../enum.SelectionMode.html"><code>SelectionMode</code></a></p>
+<p>The <a href="../enum.SelectionMode.html" title="crate::SelectionMode"><code>crate::SelectionMode</code></a></p>
 </div><h3 id="tymethod.set_sort_func" class="method"><code>fn <a href="#tymethod.set_sort_func" class="fnname">set_sort_func</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;sort_func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>, &amp;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + 'static&gt;&gt;<br>)</code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#744-747" title="goto source code">[src]</a></h3><div class="docblock"><p>By setting a sort function on the <code>self</code> one can dynamically reorder the rows
 of the list, based on the contents of the rows.</p>
 <p>The <code>sort_func</code> will be called for each row after the call, and will continue to
-be called each time a row changes (via <a href="crate::ListBoxRowExt::changed()"><code>ListBoxRowExt::changed()</code></a>) and when
-<a href="trait.ListBoxExt.html#tymethod.invalidate_sort"><code>invalidate_sort()</code></a> is called.</p>
+be called each time a row changes (via <a href="trait.ListBoxRowExt.html#tymethod.changed" title="crate::prelude::ListBoxRowExt::changed()"><code>crate::prelude::ListBoxRowExt::changed()</code></a>) and when
+<a href="trait.ListBoxExt.html#tymethod.invalidate_sort" title="Self::invalidate_sort()"><code>Self::invalidate_sort()</code></a> is called.</p>
 <p>Note that using a sort function is incompatible with using a model
-(see <a href="trait.ListBoxExt.html#tymethod.bind_model"><code>bind_model()</code></a>).</p>
+(see <a href="trait.ListBoxExt.html#tymethod.bind_model" title="Self::bind_model()"><code>Self::bind_model()</code></a>).</p>
 <h2 id="sort_func" class="section-header"><a href="#sort_func"><code>sort_func</code></a></h2>
 <p>the sort function</p>
 <h2 id="user_data-3" class="section-header"><a href="#user_data-3"><code>user_data</code></a></h2>
@@ -223,9 +223,9 @@ be called each time a row changes (via <a href="crate::ListBoxRowExt::changed()"
 <p>the activated row</p>
 </div><h3 id="tymethod.connect_row_selected" class="method"><code>fn <a href="#tymethod.connect_row_selected" class="fnname">connect_row_selected</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.ListBoxRow.html" title="struct gtk::ListBoxRow">ListBoxRow</a>&gt;) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#787-790" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::row-selected signal is emitted when a new row is selected, or
 (with a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> <code>row</code>) when the selection is cleared.</p>
-<p>When the <code>box_</code> is using <a href="../enum.SelectionMode.html#variant.Multiple"><code>SelectionMode::Multiple</code></a>, this signal will not
+<p>When the <code>box_</code> is using <a href="../enum.SelectionMode.html#variant.Multiple" title="crate::SelectionMode::Multiple"><code>crate::SelectionMode::Multiple</code></a>, this signal will not
 give you the full picture of selection changes, and you should use
-the <a href="crate::ListBox::selected-rows-changed"><code>ListBox::selected-rows-changed</code></a> signal instead.</p>
+the [<code>crate::ListBox::selected-rows-changed</code>] signal instead.</p>
 <h2 id="row-4" class="section-header"><a href="#row-4"><code>row</code></a></h2>
 <p>the selected row</p>
 </div><h3 id="tymethod.connect_select_all" class="method"><code>fn <a href="#tymethod.connect_select_all" class="fnname">connect_select_all</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/list_box.rs.html#798" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::select-all signal is a [keybinding signal][<code>BindingSignal</code>]

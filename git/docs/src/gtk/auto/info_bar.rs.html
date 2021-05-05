@@ -1001,25 +1001,25 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`InfoBar`](crate::InfoBar) is a widget that can be used to show messages to</span>
+    <span class="doccomment">/// [`crate::InfoBar`] is a widget that can be used to show messages to</span>
     <span class="doccomment">/// the user without showing a dialog. It is often temporarily shown</span>
-    <span class="doccomment">/// at the top or bottom of a document. In contrast to [`Dialog`](crate::Dialog), which</span>
-    <span class="doccomment">/// has a action area at the bottom, [`InfoBar`](crate::InfoBar) has an action area</span>
+    <span class="doccomment">/// at the top or bottom of a document. In contrast to [`crate::Dialog`], which</span>
+    <span class="doccomment">/// has a action area at the bottom, [`crate::InfoBar`] has an action area</span>
     <span class="doccomment">/// at the side.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The API of [`InfoBar`](crate::InfoBar) is very similar to [`Dialog`](crate::Dialog), allowing you</span>
-    <span class="doccomment">/// to add buttons to the action area with [`InfoBarExt::add_button()`](crate::InfoBarExt::add_button()) or</span>
-    <span class="doccomment">/// [`new_with_buttons()`](Self::new_with_buttons()). The sensitivity of action widgets</span>
-    <span class="doccomment">/// can be controlled with [`InfoBarExt::set_response_sensitive()`](crate::InfoBarExt::set_response_sensitive()).</span>
-    <span class="doccomment">/// To add widgets to the main content area of a [`InfoBar`](crate::InfoBar), use</span>
-    <span class="doccomment">/// [`InfoBarExt::get_content_area()`](crate::InfoBarExt::get_content_area()) and add your widgets to the container.</span>
+    <span class="doccomment">/// The API of [`crate::InfoBar`] is very similar to [`crate::Dialog`], allowing you</span>
+    <span class="doccomment">/// to add buttons to the action area with [`crate::prelude::InfoBarExt::add_button()`] or</span>
+    <span class="doccomment">/// [`Self::new_with_buttons()`]. The sensitivity of action widgets</span>
+    <span class="doccomment">/// can be controlled with [`crate::prelude::InfoBarExt::set_response_sensitive()`].</span>
+    <span class="doccomment">/// To add widgets to the main content area of a [`crate::InfoBar`], use</span>
+    <span class="doccomment">/// [`crate::prelude::InfoBarExt::get_content_area()`] and add your widgets to the container.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Similar to [`MessageDialog`](crate::MessageDialog), the contents of a [`InfoBar`](crate::InfoBar) can by</span>
+    <span class="doccomment">/// Similar to [`crate::MessageDialog`], the contents of a [`crate::InfoBar`] can by</span>
     <span class="doccomment">/// classified as error message, warning, informational message, etc,</span>
-    <span class="doccomment">/// by using [`InfoBarExt::set_message_type()`](crate::InfoBarExt::set_message_type()). GTK+ may use the message type</span>
+    <span class="doccomment">/// by using [`crate::prelude::InfoBarExt::set_message_type()`]. GTK+ may use the message type</span>
     <span class="doccomment">/// to determine how the message is displayed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A simple example for using a [`InfoBar`](crate::InfoBar):</span>
+    <span class="doccomment">/// A simple example for using a [`crate::InfoBar`]:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
     <span class="doccomment">/// GtkWidget *widget, *message_label, *content_area;</span>
@@ -1075,7 +1075,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`InfoBarExt`](trait@crate::prelude::InfoBarExt), [`BoxExt`](trait@crate::prelude::BoxExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::InfoBarExt`], [`trait@crate::prelude::BoxExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::OrientableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InfoBar</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkInfoBar</span>, <span class="ident">ffi::GtkInfoBarClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Box</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1084,11 +1084,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">InfoBar</span> {
-    <span class="doccomment">/// Creates a new [`InfoBar`](crate::InfoBar) object.</span>
+    <span class="doccomment">/// Creates a new [`crate::InfoBar`] object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`InfoBar`](crate::InfoBar) object</span>
+    <span class="doccomment">/// a new [`crate::InfoBar`] object</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_info_bar_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InfoBar</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1517,10 +1517,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`InfoBar`](struct@crate::InfoBar)</span>
+<span class="doccomment">/// [`struct@crate::InfoBar`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfoBarExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Add an activatable widget to the action area of a [`InfoBar`](crate::InfoBar),</span>
-    <span class="doccomment">/// connecting a signal handler that will emit the [`InfoBar::response`](crate::InfoBar::response)</span>
+    <span class="doccomment">/// Add an activatable widget to the action area of a [`crate::InfoBar`],</span>
+    <span class="doccomment">/// connecting a signal handler that will emit the [`crate::InfoBar::response`]</span>
     <span class="doccomment">/// signal on the message area when the widget is activated. The widget</span>
     <span class="doccomment">/// is appended to the end of the message areas action area.</span>
     <span class="doccomment">/// ## `child`</span>
@@ -1542,7 +1542,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Button`](crate::Button) widget</span>
+    <span class="doccomment">/// the [`crate::Button`] widget</span>
     <span class="doccomment">/// that was added</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_info_bar_add_button&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_button</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">button_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">response_id</span>: <span class="ident">ResponseType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Button</span><span class="op">&gt;</span>;
@@ -1617,7 +1617,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// GTK+ uses this type to determine how the message is displayed.</span>
     <span class="doccomment">/// ## `message_type`</span>
-    <span class="doccomment">/// a [`MessageType`](crate::MessageType)</span>
+    <span class="doccomment">/// a [`crate::MessageType`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_info_bar_set_message_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_message_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message_type</span>: <span class="ident">MessageType</span>);
 
@@ -1644,7 +1644,7 @@
     <span class="kw">fn</span> <span class="ident">set_revealed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">revealed</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// If true, a standard close button is shown. When clicked it emits</span>
-    <span class="doccomment">/// the response [`ResponseType::Close`].</span>
+    <span class="doccomment">/// the response [`crate::ResponseType::Close`].</span>
     <span class="doccomment">/// ## `setting`</span>
     <span class="doccomment">/// [`true`] to include a close button</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_info_bar_set_show_close_button&quot;</span>)]</span>
@@ -1662,7 +1662,7 @@
     <span class="kw">fn</span> <span class="ident">emit_close</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Emitted when an action widget is clicked or the application programmer</span>
-    <span class="doccomment">/// calls [`DialogExt::response()`](crate::DialogExt::response()). The `response_id` depends on which action</span>
+    <span class="doccomment">/// calls [`crate::prelude::DialogExt::response()`]. The `response_id` depends on which action</span>
     <span class="doccomment">/// widget was clicked.</span>
     <span class="doccomment">/// ## `response_id`</span>
     <span class="doccomment">/// the response ID</span>

@@ -205,11 +205,11 @@
     <span class="doccomment">/// any time.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// None of the search results are subjected to the normal validation</span>
-    <span class="doccomment">/// checks performed by [`new()`](Self::new()) (for example, checking that</span>
+    <span class="doccomment">/// checks performed by [`Self::new()`] (for example, checking that</span>
     <span class="doccomment">/// the executable referenced by a result exists), and so it is possible for</span>
-    <span class="doccomment">/// [`new()`](Self::new()) to return [`None`] when passed an app ID returned by</span>
+    <span class="doccomment">/// [`Self::new()`] to return [`None`] when passed an app ID returned by</span>
     <span class="doccomment">/// this function. It is expected that calling code will do this when</span>
-    <span class="doccomment">/// subsequently creating a [`DesktopAppInfo`](crate::DesktopAppInfo) for each result.</span>
+    <span class="doccomment">/// subsequently creating a [`crate::DesktopAppInfo`] for each result.</span>
     <span class="doccomment">/// ## `search_string`</span>
     <span class="doccomment">/// the search string to use</span>
     <span class="doccomment">///</span>

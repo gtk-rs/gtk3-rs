@@ -1121,16 +1121,16 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="kw">crate</span><span class="macro">::wrapper!</span> {
-    <span class="doccomment">/// The [`Uri`](crate::Uri) type and related functions can be used to parse URIs into</span>
+    <span class="doccomment">/// The [`crate::Uri`] type and related functions can be used to parse URIs into</span>
     <span class="doccomment">/// their components, and build valid URIs from individual components.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that [`Uri`](crate::Uri) scope is to help manipulate URIs in various applications,</span>
+    <span class="doccomment">/// Note that [`crate::Uri`] scope is to help manipulate URIs in various applications,</span>
     <span class="doccomment">/// following [RFC 3986](https://tools.ietf.org/html/rfc3986). In particular,</span>
     <span class="doccomment">/// it doesn&#39;t intend to cover web browser needs, and doesn&#39;t implement the</span>
     <span class="doccomment">/// [WHATWG URL](https://url.spec.whatwg.org/) standard. No APIs are provided to</span>
     <span class="doccomment">/// help prevent</span>
     <span class="doccomment">/// [homograph attacks](https://en.wikipedia.org/wiki/IDN_homograph_attack), so</span>
-    <span class="doccomment">/// [`Uri`](crate::Uri) is not suitable for formatting URIs for display to the user for making</span>
+    <span class="doccomment">/// [`crate::Uri`] is not suitable for formatting URIs for display to the user for making</span>
     <span class="doccomment">/// security-sensitive decisions.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Relative and absolute URIs # {`relative`-absolute-uris}</span>
@@ -1153,68 +1153,68 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Absolute URIs have a scheme specified. Any other components of the URI which</span>
     <span class="doccomment">/// are missing are specified as explicitly unset in the URI, rather than being</span>
-    <span class="doccomment">/// resolved relative to a base URI using [`parse_relative()`](Self::parse_relative()).</span>
+    <span class="doccomment">/// resolved relative to a base URI using [`Self::parse_relative()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For example, a valid absolute URI is `file:///home/bob` or</span>
     <span class="doccomment">/// `https://search.com?query=string`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`Uri`](crate::Uri) instance is always an absolute URI. A string may be an absolute URI</span>
+    <span class="doccomment">/// A [`crate::Uri`] instance is always an absolute URI. A string may be an absolute URI</span>
     <span class="doccomment">/// or a relative reference; see the documentation for individual functions as to</span>
     <span class="doccomment">/// what forms they accept.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Parsing URIs</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The most minimalist APIs for parsing URIs are [`split()`](Self::split()) and</span>
-    <span class="doccomment">/// [`split_with_user()`](Self::split_with_user()). These split a URI into its component</span>
+    <span class="doccomment">/// The most minimalist APIs for parsing URIs are [`Self::split()`] and</span>
+    <span class="doccomment">/// [`Self::split_with_user()`]. These split a URI into its component</span>
     <span class="doccomment">/// parts, and return the parts; the difference between the two is that</span>
-    <span class="doccomment">/// [`split()`](Self::split()) treats the ‘userinfo’ component of the URI as a</span>
-    <span class="doccomment">/// single element, while [`split_with_user()`](Self::split_with_user()) can (depending on the</span>
-    <span class="doccomment">/// [`UriFlags`](crate::UriFlags) you pass) treat it as containing a username, password,</span>
-    <span class="doccomment">/// and authentication parameters. Alternatively, [`split_network()`](Self::split_network())</span>
+    <span class="doccomment">/// [`Self::split()`] treats the ‘userinfo’ component of the URI as a</span>
+    <span class="doccomment">/// single element, while [`Self::split_with_user()`] can (depending on the</span>
+    <span class="doccomment">/// [`crate::UriFlags`] you pass) treat it as containing a username, password,</span>
+    <span class="doccomment">/// and authentication parameters. Alternatively, [`Self::split_network()`]</span>
     <span class="doccomment">/// can be used when you are only interested in the components that are</span>
     <span class="doccomment">/// needed to initiate a network connection to the service (scheme,</span>
     <span class="doccomment">/// host, and port).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`parse()`](Self::parse()) is similar to [`split()`](Self::split()), but instead of returning</span>
-    <span class="doccomment">/// individual strings, it returns a [`Uri`](crate::Uri) structure (and it requires</span>
+    <span class="doccomment">/// [`Self::parse()`] is similar to [`Self::split()`], but instead of returning</span>
+    <span class="doccomment">/// individual strings, it returns a [`crate::Uri`] structure (and it requires</span>
     <span class="doccomment">/// that the URI be an absolute URI).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`resolve_relative()`](Self::resolve_relative()) and [`parse_relative()`](Self::parse_relative()) allow you to</span>
+    <span class="doccomment">/// [`Self::resolve_relative()`] and [`Self::parse_relative()`] allow you to</span>
     <span class="doccomment">/// resolve a relative URI relative to a base URI.</span>
-    <span class="doccomment">/// [`resolve_relative()`](Self::resolve_relative()) takes two strings and returns a string,</span>
-    <span class="doccomment">/// and [`parse_relative()`](Self::parse_relative()) takes a [`Uri`](crate::Uri) and a string and returns a</span>
-    <span class="doccomment">/// [`Uri`](crate::Uri).</span>
+    <span class="doccomment">/// [`Self::resolve_relative()`] takes two strings and returns a string,</span>
+    <span class="doccomment">/// and [`Self::parse_relative()`] takes a [`crate::Uri`] and a string and returns a</span>
+    <span class="doccomment">/// [`crate::Uri`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// All of the parsing functions take a [`UriFlags`](crate::UriFlags) argument describing</span>
+    <span class="doccomment">/// All of the parsing functions take a [`crate::UriFlags`] argument describing</span>
     <span class="doccomment">/// exactly how to parse the URI; see the documentation for that type</span>
     <span class="doccomment">/// for more details on the specific flags that you can pass. If you</span>
     <span class="doccomment">/// need to choose different flags based on the type of URI, you can</span>
-    <span class="doccomment">/// use [`peek_scheme()`](Self::peek_scheme()) on the URI string to check the scheme</span>
+    <span class="doccomment">/// use [`Self::peek_scheme()`] on the URI string to check the scheme</span>
     <span class="doccomment">/// first, and use that to decide what flags to parse it with.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For example, you might want to use [`UriParamsFlags::WwwForm`] when parsing the</span>
-    <span class="doccomment">/// params for a web URI, so compare the result of [`peek_scheme()`](Self::peek_scheme()) against</span>
+    <span class="doccomment">/// For example, you might want to use [`crate::UriParamsFlags::WwwForm`] when parsing the</span>
+    <span class="doccomment">/// params for a web URI, so compare the result of [`Self::peek_scheme()`] against</span>
     <span class="doccomment">/// `http` and `https`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Building URIs</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`join()`](Self::join()) and [`join_with_user()`](Self::join_with_user()) can be used to construct</span>
+    <span class="doccomment">/// [`Self::join()`] and [`Self::join_with_user()`] can be used to construct</span>
     <span class="doccomment">/// valid URI strings from a set of component strings. They are the</span>
-    <span class="doccomment">/// inverse of [`split()`](Self::split()) and [`split_with_user()`](Self::split_with_user()).</span>
+    <span class="doccomment">/// inverse of [`Self::split()`] and [`Self::split_with_user()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Similarly, [`build()`](Self::build()) and [`build_with_user()`](Self::build_with_user()) can be used to</span>
-    <span class="doccomment">/// construct a [`Uri`](crate::Uri) from a set of component strings.</span>
+    <span class="doccomment">/// Similarly, [`Self::build()`] and [`Self::build_with_user()`] can be used to</span>
+    <span class="doccomment">/// construct a [`crate::Uri`] from a set of component strings.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As with the parsing functions, the building functions take a</span>
-    <span class="doccomment">/// [`UriFlags`](crate::UriFlags) argument. In particular, it is important to keep in mind</span>
+    <span class="doccomment">/// [`crate::UriFlags`] argument. In particular, it is important to keep in mind</span>
     <span class="doccomment">/// whether the URI components you are using are already `%`-encoded. If so,</span>
-    <span class="doccomment">/// you must pass the [`UriFlags::Encoded`] flag.</span>
+    <span class="doccomment">/// you must pass the [`crate::UriFlags::Encoded`] flag.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `file://` URIs</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that Windows and Unix both define special rules for parsing</span>
     <span class="doccomment">/// `file://` URIs (involving non-UTF-8 character sets on Unix, and the</span>
-    <span class="doccomment">/// interpretation of path separators on Windows). [`Uri`](crate::Uri) does not</span>
+    <span class="doccomment">/// interpretation of path separators on Windows). [`crate::Uri`] does not</span>
     <span class="doccomment">/// implement these rules. Use `g_filename_from_uri()` and</span>
     <span class="doccomment">/// `g_filename_to_uri()` if you want to properly convert between</span>
     <span class="doccomment">/// `file://` URIs and local filenames.</span>
@@ -1222,9 +1222,9 @@
     <span class="doccomment">/// ## URI Equality</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that there is no `g_uri_equal ()` function, because comparing</span>
-    <span class="doccomment">/// URIs usefully requires scheme-specific knowledge that [`Uri`](crate::Uri) does</span>
-    <span class="doccomment">/// not have. [`Uri`](crate::Uri) can help with normalization if you use the various</span>
-    <span class="doccomment">/// encoded [`UriFlags`](crate::UriFlags) as well as `G_URI_FLAGS_SCHEME_NORMALIZE` however</span>
+    <span class="doccomment">/// URIs usefully requires scheme-specific knowledge that [`crate::Uri`] does</span>
+    <span class="doccomment">/// not have. [`crate::Uri`] can help with normalization if you use the various</span>
+    <span class="doccomment">/// encoded [`crate::UriFlags`] as well as `G_URI_FLAGS_SCHEME_NORMALIZE` however</span>
     <span class="doccomment">/// it is not comprehensive.</span>
     <span class="doccomment">/// For example, `data:,foo` and `data:;base64,Zm9v` resolve to the same</span>
     <span class="doccomment">/// thing according to the `data:` URI specification which GLib does not</span>
@@ -1317,7 +1317,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Uri`](crate::Uri), or NULL on error.</span>
+    <span class="doccomment">/// a new [`crate::Uri`], or NULL on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_parse_relative&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_relative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uri_ref</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">UriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1343,7 +1343,7 @@
     }
 
     <span class="doccomment">/// Returns a string representing `self`, subject to the options in</span>
-    <span class="doccomment">/// `flags`. See [`to_string()`](Self::to_string()) and [`UriHideFlags`](crate::UriHideFlags) for more details.</span>
+    <span class="doccomment">/// `flags`. See [`Self::to_string()`] and [`crate::UriHideFlags`] for more details.</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags describing what parts of `self` to hide</span>
     <span class="doccomment">///</span>
@@ -1361,12 +1361,12 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`Uri`](crate::Uri) from the given components according to `flags`.</span>
+    <span class="doccomment">/// Creates a new [`crate::Uri`] from the given components according to `flags`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`build_with_user()`](Self::build_with_user()), which allows specifying the</span>
+    <span class="doccomment">/// See also [`Self::build_with_user()`], which allows specifying the</span>
     <span class="doccomment">/// components of the &quot;userinfo&quot; separately.</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags describing how to build the [`Uri`](crate::Uri)</span>
+    <span class="doccomment">/// flags describing how to build the [`crate::Uri`]</span>
     <span class="doccomment">/// ## `scheme`</span>
     <span class="doccomment">/// the URI scheme</span>
     <span class="doccomment">/// ## `userinfo`</span>
@@ -1384,7 +1384,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Uri`](crate::Uri)</span>
+    <span class="doccomment">/// a new [`crate::Uri`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_build&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(
         <span class="ident">flags</span>: <span class="ident">UriFlags</span>,
@@ -1410,16 +1410,16 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`Uri`](crate::Uri) from the given components according to `flags`</span>
-    <span class="doccomment">/// ([`UriFlags::HasPassword`] is added unconditionally). The `flags` must be</span>
+    <span class="doccomment">/// Creates a new [`crate::Uri`] from the given components according to `flags`</span>
+    <span class="doccomment">/// ([`crate::UriFlags::HasPassword`] is added unconditionally). The `flags` must be</span>
     <span class="doccomment">/// coherent with the passed values, in particular use `%`-encoded values with</span>
-    <span class="doccomment">/// [`UriFlags::Encoded`].</span>
+    <span class="doccomment">/// [`crate::UriFlags::Encoded`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// In contrast to [`build()`](Self::build()), this allows specifying the components</span>
+    <span class="doccomment">/// In contrast to [`Self::build()`], this allows specifying the components</span>
     <span class="doccomment">/// of the ‘userinfo’ field separately. Note that `user` must be non-[`None`]</span>
     <span class="doccomment">/// if either `password` or `auth_params` is non-[`None`].</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags describing how to build the [`Uri`](crate::Uri)</span>
+    <span class="doccomment">/// flags describing how to build the [`crate::Uri`]</span>
     <span class="doccomment">/// ## `scheme`</span>
     <span class="doccomment">/// the URI scheme</span>
     <span class="doccomment">/// ## `user`</span>
@@ -1441,7 +1441,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Uri`](crate::Uri)</span>
+    <span class="doccomment">/// a new [`crate::Uri`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_build_with_user&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_with_user</span>(
         <span class="ident">flags</span>: <span class="ident">UriFlags</span>,
@@ -1543,11 +1543,11 @@
 
     <span class="doccomment">/// Parses `uri_string` according to `flags`, to determine whether it is a valid</span>
     <span class="doccomment">/// [absolute URI][relative-absolute-uris], i.e. it does not need to be resolved</span>
-    <span class="doccomment">/// relative to another URI using [`parse_relative()`](Self::parse_relative()).</span>
+    <span class="doccomment">/// relative to another URI using [`Self::parse_relative()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If it’s not a valid URI, an error is returned explaining how it’s invalid.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`split()`](Self::split()), and the definition of [`UriFlags`](crate::UriFlags), for more</span>
+    <span class="doccomment">/// See [`Self::split()`], and the definition of [`crate::UriFlags`], for more</span>
     <span class="doccomment">/// information on the effect of `flags`.</span>
     <span class="doccomment">/// ## `uri_string`</span>
     <span class="doccomment">/// a string containing an absolute URI</span>
@@ -1579,10 +1579,10 @@
     <span class="doccomment">///  characters (`//`). See</span>
     <span class="doccomment">/// [RFC 3986, section 3](https://tools.ietf.org/html/rfc3986`section`-3).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`join_with_user()`](Self::join_with_user()), which allows specifying the</span>
+    <span class="doccomment">/// See also [`Self::join_with_user()`], which allows specifying the</span>
     <span class="doccomment">/// components of the ‘userinfo’ separately.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UriFlags::HasPassword`] and [`UriFlags::HasAuthParams`] are ignored if set</span>
+    <span class="doccomment">/// [`crate::UriFlags::HasPassword`] and [`crate::UriFlags::HasAuthParams`] are ignored if set</span>
     <span class="doccomment">/// in `flags`.</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags describing how to build the URI string</span>
@@ -1633,10 +1633,10 @@
     <span class="doccomment">/// an absolute URI string. `path` may not be [`None`] (though it may be the empty</span>
     <span class="doccomment">/// string).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// In contrast to [`join()`](Self::join()), this allows specifying the components</span>
+    <span class="doccomment">/// In contrast to [`Self::join()`], this allows specifying the components</span>
     <span class="doccomment">/// of the ‘userinfo’ separately. It otherwise behaves the same.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UriFlags::HasPassword`] and [`UriFlags::HasAuthParams`] are ignored if set</span>
+    <span class="doccomment">/// [`crate::UriFlags::HasPassword`] and [`crate::UriFlags::HasAuthParams`] are ignored if set</span>
     <span class="doccomment">/// in `flags`.</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags describing how to build the URI string</span>
@@ -1723,7 +1723,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Uri`](crate::Uri), or NULL on error.</span>
+    <span class="doccomment">/// a new [`crate::Uri`], or NULL on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_parse&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">uri_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">UriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Uri</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1771,7 +1771,7 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// Common schemes include `file`, `https`, `svn+ssh`, etc.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Unlike [`parse_scheme()`](Self::parse_scheme()), the returned scheme is normalized to</span>
+    <span class="doccomment">/// Unlike [`Self::parse_scheme()`], the returned scheme is normalized to</span>
     <span class="doccomment">/// all-lowercase and does not need to be freed.</span>
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// a valid URI.</span>
@@ -1832,16 +1832,16 @@
     <span class="doccomment">/// returned as [`None`] (but note that all URIs always have a path component,</span>
     <span class="doccomment">/// though it may be the empty string).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `flags` contains [`UriFlags::Encoded`], then `%`-encoded characters in</span>
+    <span class="doccomment">/// If `flags` contains [`crate::UriFlags::Encoded`], then `%`-encoded characters in</span>
     <span class="doccomment">/// `uri_ref` will remain encoded in the output strings. (If not,</span>
     <span class="doccomment">/// then all such characters will be decoded.) Note that decoding will</span>
     <span class="doccomment">/// only work if the URI components are ASCII or UTF-8, so you will</span>
-    <span class="doccomment">/// need to use [`UriFlags::Encoded`] if they are not.</span>
+    <span class="doccomment">/// need to use [`crate::UriFlags::Encoded`] if they are not.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that the [`UriFlags::HasPassword`] and</span>
-    <span class="doccomment">/// [`UriFlags::HasAuthParams`] `flags` are ignored by [`split()`](Self::split()),</span>
+    <span class="doccomment">/// Note that the [`crate::UriFlags::HasPassword`] and</span>
+    <span class="doccomment">/// [`crate::UriFlags::HasAuthParams`] `flags` are ignored by [`Self::split()`],</span>
     <span class="doccomment">/// since it always returns only the full userinfo; use</span>
-    <span class="doccomment">/// [`split_with_user()`](Self::split_with_user()) if you want it split up.</span>
+    <span class="doccomment">/// [`Self::split_with_user()`] if you want it split up.</span>
     <span class="doccomment">/// ## `uri_ref`</span>
     <span class="doccomment">/// a string containing a relative or absolute URI</span>
     <span class="doccomment">/// ## `flags`</span>
@@ -1928,7 +1928,7 @@
 
     <span class="doccomment">/// Parses `uri_string` (which must be an [absolute URI][relative-absolute-uris])</span>
     <span class="doccomment">/// according to `flags`, and returns the pieces relevant to connecting to a host.</span>
-    <span class="doccomment">/// See the documentation for [`split()`](Self::split()) for more details; this is</span>
+    <span class="doccomment">/// See the documentation for [`Self::split()`] for more details; this is</span>
     <span class="doccomment">/// mostly a wrapper around that function with simpler arguments.</span>
     <span class="doccomment">/// However, it will return an error if `uri_string` is a relative URI,</span>
     <span class="doccomment">/// or does not contain a hostname component.</span>
@@ -1983,11 +1983,11 @@
     <span class="doccomment">/// returned as [`None`] (but note that all URIs always have a path component,</span>
     <span class="doccomment">/// though it may be the empty string).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`split()`](Self::split()), and the definition of [`UriFlags`](crate::UriFlags), for more</span>
+    <span class="doccomment">/// See [`Self::split()`], and the definition of [`crate::UriFlags`], for more</span>
     <span class="doccomment">/// information on the effect of `flags`. Note that `password` will only</span>
-    <span class="doccomment">/// be parsed out if `flags` contains [`UriFlags::HasPassword`], and</span>
+    <span class="doccomment">/// be parsed out if `flags` contains [`crate::UriFlags::HasPassword`], and</span>
     <span class="doccomment">/// `auth_params` will only be parsed out if `flags` contains</span>
-    <span class="doccomment">/// [`UriFlags::HasAuthParams`].</span>
+    <span class="doccomment">/// [`crate::UriFlags::HasAuthParams`].</span>
     <span class="doccomment">/// ## `uri_ref`</span>
     <span class="doccomment">/// a string containing a relative or absolute URI</span>
     <span class="doccomment">/// ## `flags`</span>
@@ -2088,7 +2088,7 @@
 
     <span class="doccomment">/// Unescapes a segment of an escaped string as binary data.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that in contrast to [`unescape_string()`](Self::unescape_string()), this does allow</span>
+    <span class="doccomment">/// Note that in contrast to [`Self::unescape_string()`], this does allow</span>
     <span class="doccomment">/// nul bytes to appear in the output.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If any of the characters in `illegal_characters` appears as an escaped</span>
@@ -2108,8 +2108,8 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// an unescaped version of `escaped_string`</span>
-    <span class="doccomment">///  or [`None`] on error (if decoding failed, using [`UriError::Failed`] error</span>
-    <span class="doccomment">///  code). The returned [`Bytes`](crate::Bytes) should be unreffed when no longer needed.</span>
+    <span class="doccomment">///  or [`None`] on error (if decoding failed, using [`crate::UriError::Failed`] error</span>
+    <span class="doccomment">///  code). The returned [`crate::Bytes`] should be unreffed when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_uri_unescape_bytes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unescape_bytes</span>(
         <span class="ident">escaped_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -2141,7 +2141,7 @@
     <span class="doccomment">/// escaped path element, which might confuse pathname handling.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: `NUL` byte is not accepted in the output, in contrast to</span>
-    <span class="doccomment">/// [`unescape_bytes()`](Self::unescape_bytes()).</span>
+    <span class="doccomment">/// [`Self::unescape_bytes()`].</span>
     <span class="doccomment">/// ## `escaped_string`</span>
     <span class="doccomment">/// A string, may be [`None`]</span>
     <span class="doccomment">/// ## `escaped_string_end`</span>

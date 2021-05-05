@@ -127,18 +127,18 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Orientable`](crate::Orientable) interface is implemented by all widgets that can be</span>
+    <span class="doccomment">/// The [`crate::Orientable`] interface is implemented by all widgets that can be</span>
     <span class="doccomment">/// oriented horizontally or vertically. Historically, such widgets have been</span>
-    <span class="doccomment">/// realized as subclasses of a common base class (e.g [`Box`](crate::Box)/[`HBox`](crate::HBox)/[`VBox`](crate::VBox)</span>
-    <span class="doccomment">/// or [`Scale`](crate::Scale)/[`HScale`](crate::HScale)/[`VScale`](crate::VScale)). [`Orientable`](crate::Orientable) is more flexible in that</span>
+    <span class="doccomment">/// realized as subclasses of a common base class (e.g [`crate::Box`]/[`crate::HBox`]/[`crate::VBox`]</span>
+    <span class="doccomment">/// or [`crate::Scale`]/[`crate::HScale`]/[`crate::VScale`]). [`crate::Orientable`] is more flexible in that</span>
     <span class="doccomment">/// it allows the orientation to be changed at runtime, allowing the widgets</span>
     <span class="doccomment">/// to “flip”.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Orientable`](crate::Orientable) was introduced in GTK+ 2.16.</span>
+    <span class="doccomment">/// [`crate::Orientable`] was introduced in GTK+ 2.16.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`OrientableExt`](trait@crate::prelude::OrientableExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::OrientableExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Orientable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkOrientable</span>, <span class="ident">ffi::GtkOrientableIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -152,7 +152,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`AppChooserWidget`](struct@crate::AppChooserWidget), [`Box`](struct@crate::Box), [`ButtonBox`](struct@crate::ButtonBox), [`CellAreaBox`](struct@crate::CellAreaBox), [`CellRendererProgress`](struct@crate::CellRendererProgress), [`CellView`](struct@crate::CellView), [`ColorChooserWidget`](struct@crate::ColorChooserWidget), [`FileChooserButton`](struct@crate::FileChooserButton), [`FileChooserWidget`](struct@crate::FileChooserWidget), [`FlowBox`](struct@crate::FlowBox), [`FontChooserWidget`](struct@crate::FontChooserWidget), [`Grid`](struct@crate::Grid), [`InfoBar`](struct@crate::InfoBar), [`LevelBar`](struct@crate::LevelBar), [`Orientable`](struct@crate::Orientable), [`Paned`](struct@crate::Paned), [`ProgressBar`](struct@crate::ProgressBar), [`Range`](struct@crate::Range), [`RecentChooserWidget`](struct@crate::RecentChooserWidget), [`ScaleButton`](struct@crate::ScaleButton), [`Scale`](struct@crate::Scale), [`Scrollbar`](struct@crate::Scrollbar), [`Separator`](struct@crate::Separator), [`ShortcutLabel`](struct@crate::ShortcutLabel), [`ShortcutsGroup`](struct@crate::ShortcutsGroup), [`ShortcutsSection`](struct@crate::ShortcutsSection), [`ShortcutsShortcut`](struct@crate::ShortcutsShortcut), [`SpinButton`](struct@crate::SpinButton), [`StackSwitcher`](struct@crate::StackSwitcher), [`Statusbar`](struct@crate::Statusbar), [`ToolPalette`](struct@crate::ToolPalette), [`Toolbar`](struct@crate::Toolbar), [`VolumeButton`](struct@crate::VolumeButton)</span>
+<span class="doccomment">/// [`struct@crate::AppChooserWidget`], [`struct@crate::Box`], [`struct@crate::ButtonBox`], [`struct@crate::CellAreaBox`], [`struct@crate::CellRendererProgress`], [`struct@crate::CellView`], [`struct@crate::ColorChooserWidget`], [`struct@crate::FileChooserButton`], [`struct@crate::FileChooserWidget`], [`struct@crate::FlowBox`], [`struct@crate::FontChooserWidget`], [`struct@crate::Grid`], [`struct@crate::InfoBar`], [`struct@crate::LevelBar`], [`struct@crate::Orientable`], [`struct@crate::Paned`], [`struct@crate::ProgressBar`], [`struct@crate::Range`], [`struct@crate::RecentChooserWidget`], [`struct@crate::ScaleButton`], [`struct@crate::Scale`], [`struct@crate::Scrollbar`], [`struct@crate::Separator`], [`struct@crate::ShortcutLabel`], [`struct@crate::ShortcutsGroup`], [`struct@crate::ShortcutsSection`], [`struct@crate::ShortcutsShortcut`], [`struct@crate::SpinButton`], [`struct@crate::StackSwitcher`], [`struct@crate::Statusbar`], [`struct@crate::ToolPalette`], [`struct@crate::Toolbar`], [`struct@crate::VolumeButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OrientableExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Retrieves the orientation of the `self`.</span>
     <span class="doccomment">///</span>

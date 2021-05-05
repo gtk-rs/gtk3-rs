@@ -88,15 +88,15 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_yalign_notify" class="fnname">connect_yalign_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>Label</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.AccelLabel.html"><code>AccelLabel</code></a>, <a href="../struct.Label.html"><code>Label</code></a></p>
+<p><a href="../struct.AccelLabel.html" title="crate::AccelLabel"><code>crate::AccelLabel</code></a>, <a href="../struct.Label.html" title="crate::Label"><code>crate::Label</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.angle" class="method"><code>fn <a href="#tymethod.angle" class="fnname">angle</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#742" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the angle of rotation for the label. See
-<a href="trait.LabelExt.html#tymethod.set_angle"><code>set_angle()</code></a>.</p>
+<a href="trait.LabelExt.html#tymethod.set_angle" title="Self::set_angle()"><code>Self::set_angle()</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the angle of rotation for the label</p>
 </div><h3 id="tymethod.attributes" class="method"><code>fn <a href="#tymethod.attributes" class="fnname">attributes</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../pango/auto/attr_list/struct.AttrList.html" title="struct pango::auto::attr_list::AttrList">AttrList</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#757" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the attribute list that was set on the label using
-<a href="trait.LabelExt.html#tymethod.set_attributes"><code>set_attributes()</code></a>, if any. This function does
+<a href="trait.LabelExt.html#tymethod.set_attributes" title="Self::set_attributes()"><code>Self::set_attributes()</code></a>, if any. This function does
 not reflect attributes that come from the labels markup
-(see <a href="trait.LabelExt.html#tymethod.set_markup"><code>set_markup()</code></a>). If you want to get the
+(see <a href="trait.LabelExt.html#tymethod.set_markup" title="Self::set_markup()"><code>Self::set_markup()</code></a>). If you want to get the
 effective attributes for the label, use
 pango_layout_get_attribute (gtk_label_get_layout (label)).</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
@@ -106,57 +106,57 @@ if none was set.</p>
 The active link is the one under the mouse pointer or, in a
 selectable label, the link in which the text cursor is currently
 positioned.</p>
-<p>This function is intended for use in a <a href="crate::Label::activate-link"><code>Label::activate-link</code></a> handler
-or for use in a <a href="crate::Widget::query-tooltip"><code>Widget::query-tooltip</code></a> handler.</p>
+<p>This function is intended for use in a [<code>crate::Label::activate-link</code>] handler
+or for use in a [<code>crate::Widget::query-tooltip</code>] handler.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the currently active URI. The string is owned by GTK+ and must
 not be freed or modified.</p>
-</div><h3 id="tymethod.ellipsize" class="method"><code>fn <a href="#tymethod.ellipsize" class="fnname">ellipsize</a>(&amp;self) -&gt; <a class="enum" href="../../pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#782" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the ellipsizing position of the label. See <a href="trait.LabelExt.html#tymethod.set_ellipsize"><code>set_ellipsize()</code></a>.</p>
+</div><h3 id="tymethod.ellipsize" class="method"><code>fn <a href="#tymethod.ellipsize" class="fnname">ellipsize</a>(&amp;self) -&gt; <a class="enum" href="../../pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#782" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the ellipsizing position of the label. See <a href="trait.LabelExt.html#tymethod.set_ellipsize" title="Self::set_ellipsize()"><code>Self::set_ellipsize()</code></a>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p><a href="../../pango/auto/enums/enum.EllipsizeMode.html"><code>pango::EllipsizeMode</code></a></p>
-</div><h3 id="tymethod.justify" class="method"><code>fn <a href="#tymethod.justify" class="fnname">justify</a>(&amp;self) -&gt; <a class="enum" href="../enum.Justification.html" title="enum gtk::Justification">Justification</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#791" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the justification of the label. See <a href="trait.LabelExt.html#tymethod.set_justify"><code>set_justify()</code></a>.</p>
+<p><a href="../../pango/auto/enums/enum.EllipsizeMode.html" title="crate::pango::EllipsizeMode"><code>crate::pango::EllipsizeMode</code></a></p>
+</div><h3 id="tymethod.justify" class="method"><code>fn <a href="#tymethod.justify" class="fnname">justify</a>(&amp;self) -&gt; <a class="enum" href="../enum.Justification.html" title="enum gtk::Justification">Justification</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#791" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the justification of the label. See <a href="trait.LabelExt.html#tymethod.set_justify" title="Self::set_justify()"><code>Self::set_justify()</code></a>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
-<p><a href="../enum.Justification.html"><code>Justification</code></a></p>
+<p><a href="../enum.Justification.html" title="crate::Justification"><code>crate::Justification</code></a></p>
 </div><h3 id="tymethod.label" class="method"><code>fn <a href="#tymethod.label" class="fnname">label</a>(&amp;self) -&gt; <a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#803" title="goto source code">[src]</a></h3><div class="docblock"><p>Fetches the text from a label widget including any embedded
 underlines indicating mnemonics and Pango markup. (See
-<a href="Self::get_text()"><code>get_text()</code></a>).</p>
+[<code>Self::get_text()</code>]).</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>the text of the label widget. This string is
 owned by the widget and must not be modified or freed.</p>
-</div><h3 id="tymethod.layout" class="method"><code>fn <a href="#tymethod.layout" class="fnname">layout</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../pango/auto/layout/struct.Layout.html" title="struct pango::auto::layout::Layout">Layout</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#817" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <a href="../../pango/auto/layout/struct.Layout.html"><code>pango::Layout</code></a> used to display the label.
+</div><h3 id="tymethod.layout" class="method"><code>fn <a href="#tymethod.layout" class="fnname">layout</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../pango/auto/layout/struct.Layout.html" title="struct pango::auto::layout::Layout">Layout</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#817" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <a href="../../pango/auto/layout/struct.Layout.html" title="crate::pango::Layout"><code>crate::pango::Layout</code></a> used to display the label.
 The layout is useful to e.g. convert text positions to
-pixel positions, in combination with <a href="Self::get_layout_offsets()"><code>get_layout_offsets()</code></a>.
+pixel positions, in combination with [<code>Self::get_layout_offsets()</code>].
 The returned layout is owned by the <code>self</code> so need not be
 freed by the caller. The <code>self</code> is free to recreate its layout at
 any time, so it should be considered read-only.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p>the <a href="../../pango/auto/layout/struct.Layout.html"><code>pango::Layout</code></a> for this label</p>
-</div><h3 id="tymethod.layout_offsets" class="method"><code>fn <a href="#tymethod.layout_offsets" class="fnname">layout_offsets</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#834" title="goto source code">[src]</a></h3><div class="docblock"><p>Obtains the coordinates where the label will draw the <a href="../../pango/auto/layout/struct.Layout.html"><code>pango::Layout</code></a>
+<p>the <a href="../../pango/auto/layout/struct.Layout.html" title="crate::pango::Layout"><code>crate::pango::Layout</code></a> for this label</p>
+</div><h3 id="tymethod.layout_offsets" class="method"><code>fn <a href="#tymethod.layout_offsets" class="fnname">layout_offsets</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#834" title="goto source code">[src]</a></h3><div class="docblock"><p>Obtains the coordinates where the label will draw the <a href="../../pango/auto/layout/struct.Layout.html" title="crate::pango::Layout"><code>crate::pango::Layout</code></a>
 representing the text in the label; useful to convert mouse events
-into coordinates inside the <a href="../../pango/auto/layout/struct.Layout.html"><code>pango::Layout</code></a>, e.g. to take some action
+into coordinates inside the <a href="../../pango/auto/layout/struct.Layout.html" title="crate::pango::Layout"><code>crate::pango::Layout</code></a>, e.g. to take some action
 if some part of the label is clicked. Of course you will need to
-create a <a href="../struct.EventBox.html"><code>EventBox</code></a> to receive the events, and pack the label
+create a <a href="../struct.EventBox.html" title="crate::EventBox"><code>crate::EventBox</code></a> to receive the events, and pack the label
 inside it, since labels are windowless (they return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> from
-<a href="crate::WidgetExt::get_has_window()"><code>WidgetExt::get_has_window()</code></a>). Remember
-when using the <a href="../../pango/auto/layout/struct.Layout.html"><code>pango::Layout</code></a> functions you need to convert to
+[<code>crate::prelude::WidgetExt::get_has_window()</code>]). Remember
+when using the <a href="../../pango/auto/layout/struct.Layout.html" title="crate::pango::Layout"><code>crate::pango::Layout</code></a> functions you need to convert to
 and from pixels using PANGO_PIXELS() or <code>PANGO_SCALE</code>.</p>
 <h2 id="x" class="section-header"><a href="#x"><code>x</code></a></h2>
 <p>location to store X offset of layout, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="y" class="section-header"><a href="#y"><code>y</code></a></h2>
 <p>location to store Y offset of layout, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.is_line_wrap" class="method"><code>fn <a href="#tymethod.is_line_wrap" class="fnname">is_line_wrap</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#844" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether lines in the label are automatically wrapped.
-See <a href="trait.LabelExt.html#tymethod.set_line_wrap"><code>set_line_wrap()</code></a>.</p>
+See <a href="trait.LabelExt.html#tymethod.set_line_wrap" title="Self::set_line_wrap()"><code>Self::set_line_wrap()</code></a>.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the lines of the label are automatically wrapped.</p>
-</div><h3 id="tymethod.line_wrap_mode" class="method"><code>fn <a href="#tymethod.line_wrap_mode" class="fnname">line_wrap_mode</a>(&amp;self) -&gt; <a class="enum" href="../../pango/auto/enums/enum.WrapMode.html" title="enum pango::auto::enums::WrapMode">WrapMode</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#853" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns line wrap mode used by the label. See <a href="trait.LabelExt.html#tymethod.set_line_wrap_mode"><code>set_line_wrap_mode()</code></a>.</p>
+</div><h3 id="tymethod.line_wrap_mode" class="method"><code>fn <a href="#tymethod.line_wrap_mode" class="fnname">line_wrap_mode</a>(&amp;self) -&gt; <a class="enum" href="../../pango/auto/enums/enum.WrapMode.html" title="enum pango::auto::enums::WrapMode">WrapMode</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#853" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns line wrap mode used by the label. See <a href="trait.LabelExt.html#tymethod.set_line_wrap_mode" title="Self::set_line_wrap_mode()"><code>Self::set_line_wrap_mode()</code></a>.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the lines of the label are automatically wrapped.</p>
 </div><h3 id="tymethod.lines" class="method"><code>fn <a href="#tymethod.lines" class="fnname">lines</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#863" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the number of lines to which an ellipsized, wrapping
-label should be limited. See <a href="trait.LabelExt.html#tymethod.set_lines"><code>set_lines()</code></a>.</p>
+label should be limited. See <a href="trait.LabelExt.html#tymethod.set_lines" title="Self::set_lines()"><code>Self::set_lines()</code></a>.</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
 <p>The number of lines</p>
 </div><h3 id="tymethod.max_width_chars" class="method"><code>fn <a href="#tymethod.max_width_chars" class="fnname">max_width_chars</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#873" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the desired maximum width of <code>self</code>, in characters. See
-<a href="trait.LabelExt.html#tymethod.set_width_chars"><code>set_width_chars()</code></a>.</p>
+<a href="trait.LabelExt.html#tymethod.set_width_chars" title="Self::set_width_chars()"><code>Self::set_width_chars()</code></a>.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
 <p>the maximum width of the label in characters.</p>
 </div><h3 id="tymethod.mnemonic_keyval" class="method"><code>fn <a href="#tymethod.mnemonic_keyval" class="fnname">mnemonic_keyval</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#884" title="goto source code">[src]</a></h3><div class="docblock"><p>If the label has been set so that it has an mnemonic key this function
@@ -165,11 +165,11 @@ mnemonic set up it returns <code>GDK_KEY_VoidSymbol</code>.</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>
 <p>GDK keyval usable for accelerators, or <code>GDK_KEY_VoidSymbol</code></p>
 </div><h3 id="tymethod.mnemonic_widget" class="method"><code>fn <a href="#tymethod.mnemonic_widget" class="fnname">mnemonic_widget</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#895" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the target of the mnemonic (keyboard shortcut) of this
-label. See <a href="trait.LabelExt.html#tymethod.set_mnemonic_widget"><code>set_mnemonic_widget()</code></a>.</p>
+label. See <a href="trait.LabelExt.html#tymethod.set_mnemonic_widget" title="Self::set_mnemonic_widget()"><code>Self::set_mnemonic_widget()</code></a>.</p>
 <h1 id="returns-12" class="section-header"><a href="#returns-12">Returns</a></h1>
 <p>the target of the label’s mnemonic,
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if none has been set and the default algorithm will be used.</p>
-</div><h3 id="tymethod.is_selectable" class="method"><code>fn <a href="#tymethod.is_selectable" class="fnname">is_selectable</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#904" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <a href="trait.LabelExt.html#tymethod.set_selectable"><code>set_selectable()</code></a>.</p>
+</div><h3 id="tymethod.is_selectable" class="method"><code>fn <a href="#tymethod.is_selectable" class="fnname">is_selectable</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#904" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <a href="trait.LabelExt.html#tymethod.set_selectable" title="Self::set_selectable()"><code>Self::set_selectable()</code></a>.</p>
 <h1 id="returns-13" class="section-header"><a href="#returns-13">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the user can copy text from the label</p>
 </div><h3 id="tymethod.selection_bounds" class="method"><code>fn <a href="#tymethod.selection_bounds" class="fnname">selection_bounds</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#918" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the selected range of characters in the label, returning <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>
@@ -185,7 +185,7 @@ if there’s a selection.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> when the label is in single line mode.</p>
 </div><h3 id="tymethod.text" class="method"><code>fn <a href="#tymethod.text" class="fnname">text</a>(&amp;self) -&gt; <a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#939" title="goto source code">[src]</a></h3><div class="docblock"><p>Fetches the text from a label widget, as displayed on the
 screen. This does not include any embedded underlines
-indicating mnemonics or Pango markup. (See <a href="Self::get_label()"><code>get_label()</code></a>)</p>
+indicating mnemonics or Pango markup. (See [<code>Self::get_label()</code>])</p>
 <h1 id="returns-16" class="section-header"><a href="#returns-16">Returns</a></h1>
 <p>the text in the label widget. This is the internal
 string used by the label, and must not be modified.</p>
@@ -199,22 +199,22 @@ See gtk_label_set_use_markup ().</p>
 <h1 id="returns-18" class="section-header"><a href="#returns-18">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the label’s text will be parsed for markup.</p>
 </div><h3 id="tymethod.uses_underline" class="method"><code>fn <a href="#tymethod.uses_underline" class="fnname">uses_underline</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#971" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether an embedded underline in the label indicates a
-mnemonic. See <a href="trait.LabelExt.html#tymethod.set_use_underline"><code>set_use_underline()</code></a>.</p>
+mnemonic. See <a href="trait.LabelExt.html#tymethod.set_use_underline" title="Self::set_use_underline()"><code>Self::set_use_underline()</code></a>.</p>
 <h1 id="returns-19" class="section-header"><a href="#returns-19">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> whether an embedded underline in the label indicates
 the mnemonic accelerator keys.</p>
 </div><h3 id="tymethod.width_chars" class="method"><code>fn <a href="#tymethod.width_chars" class="fnname">width_chars</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#981" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the desired width of <code>self</code>, in characters. See
-<a href="trait.LabelExt.html#tymethod.set_width_chars"><code>set_width_chars()</code></a>.</p>
+<a href="trait.LabelExt.html#tymethod.set_width_chars" title="Self::set_width_chars()"><code>Self::set_width_chars()</code></a>.</p>
 <h1 id="returns-20" class="section-header"><a href="#returns-20">Returns</a></h1>
 <p>the width of the label in characters.</p>
-</div><h3 id="tymethod.xalign" class="method"><code>fn <a href="#tymethod.xalign" class="fnname">xalign</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#992" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Gets the <a href="crate::Label:xalign"><code>Label:xalign</code></a> property for <code>self</code>.</p>
+</div><h3 id="tymethod.xalign" class="method"><code>fn <a href="#tymethod.xalign" class="fnname">xalign</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#992" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Gets the [<code>crate::Label:xalign</code>] property for <code>self</code>.</p>
 <h1 id="returns-21" class="section-header"><a href="#returns-21">Returns</a></h1>
 <p>the xalign property</p>
-</div><h3 id="tymethod.yalign" class="method"><code>fn <a href="#tymethod.yalign" class="fnname">yalign</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1003" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Gets the <a href="crate::Label:yalign"><code>Label:yalign</code></a> property for <code>self</code>.</p>
+</div><h3 id="tymethod.yalign" class="method"><code>fn <a href="#tymethod.yalign" class="fnname">yalign</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1003" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Gets the [<code>crate::Label:yalign</code>] property for <code>self</code>.</p>
 <h1 id="returns-22" class="section-header"><a href="#returns-22">Returns</a></h1>
 <p>the yalign property</p>
 </div><h3 id="tymethod.select_region" class="method"><code>fn <a href="#tymethod.select_region" class="fnname">select_region</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1014" title="goto source code">[src]</a></h3><div class="docblock"><p>Selects a range of characters in the label, if the label is selectable.
-See <a href="trait.LabelExt.html#tymethod.set_selectable"><code>set_selectable()</code></a>. If the label is not selectable,
+See <a href="trait.LabelExt.html#tymethod.set_selectable" title="Self::set_selectable()"><code>Self::set_selectable()</code></a>. If the label is not selectable,
 this function has no effect. If <code>start_offset</code> or
 <code>end_offset</code> are -1, then the end of the label will be substituted.</p>
 <h2 id="start_offset" class="section-header"><a href="#start_offset"><code>start_offset</code></a></h2>
@@ -228,46 +228,46 @@ wrapped, or ellipsized.</p>
 <h2 id="angle" class="section-header"><a href="#angle"><code>angle</code></a></h2>
 <p>the angle that the baseline of the label makes with
 the horizontal, in degrees, measured counterclockwise</p>
-</div><h3 id="tymethod.set_attributes" class="method"><code>fn <a href="#tymethod.set_attributes" class="fnname">set_attributes</a>(&amp;self, attrs: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../../pango/auto/attr_list/struct.AttrList.html" title="struct pango::auto::attr_list::AttrList">AttrList</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1038" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets a <a href="../../pango/auto/attr_list/struct.AttrList.html"><code>pango::AttrList</code></a>; the attributes in the list are applied to the
+</div><h3 id="tymethod.set_attributes" class="method"><code>fn <a href="#tymethod.set_attributes" class="fnname">set_attributes</a>(&amp;self, attrs: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../../pango/auto/attr_list/struct.AttrList.html" title="struct pango::auto::attr_list::AttrList">AttrList</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1038" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets a <a href="../../pango/auto/attr_list/struct.AttrList.html" title="crate::pango::AttrList"><code>crate::pango::AttrList</code></a>; the attributes in the list are applied to the
 label text.</p>
 <p>The attributes set with this function will be applied
 and merged with any other attributes previously effected by way
-of the <a href="crate::Label:use-underline"><code>Label:use-underline</code></a> or <a href="crate::Label:use-markup"><code>Label:use-markup</code></a> properties.
+of the [<code>crate::Label:use-underline</code>] or [<code>crate::Label:use-markup</code>] properties.
 While it is not recommended to mix markup strings with manually set
 attributes, if you must; know that the attributes will be applied
 to the label after the markup string is parsed.</p>
 <h2 id="attrs" class="section-header"><a href="#attrs"><code>attrs</code></a></h2>
-<p>a <a href="../../pango/auto/attr_list/struct.AttrList.html"><code>pango::AttrList</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../../pango/auto/attr_list/struct.AttrList.html" title="crate::pango::AttrList"><code>crate::pango::AttrList</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.set_ellipsize" class="method"><code>fn <a href="#tymethod.set_ellipsize" class="fnname">set_ellipsize</a>(&amp;self, mode: <a class="enum" href="../../pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1045" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the mode used to ellipsize (add an ellipsis: “…”) to the text
 if there is not enough space to render the entire string.</p>
 <h2 id="mode" class="section-header"><a href="#mode"><code>mode</code></a></h2>
-<p>a <a href="../../pango/auto/enums/enum.EllipsizeMode.html"><code>pango::EllipsizeMode</code></a></p>
+<p>a <a href="../../pango/auto/enums/enum.EllipsizeMode.html" title="crate::pango::EllipsizeMode"><code>crate::pango::EllipsizeMode</code></a></p>
 </div><h3 id="tymethod.set_justify" class="method"><code>fn <a href="#tymethod.set_justify" class="fnname">set_justify</a>(&amp;self, jtype: <a class="enum" href="../enum.Justification.html" title="enum gtk::Justification">Justification</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1056" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the alignment of the lines in the text of the label relative to
-each other. <a href="../enum.Justification.html#variant.Left" title="Justification::Left"><code>Justification::Left</code></a> is the default value when the widget is
-first created with <a href="../struct.Label.html#method.new"><code>Label::new()</code></a>. If you instead want to set the
-alignment of the label as a whole, use <a href="crate::WidgetExt::set_halign()"><code>WidgetExt::set_halign()</code></a> instead.
-<a href="trait.LabelExt.html#tymethod.set_justify"><code>set_justify()</code></a> has no effect on labels containing only a
+each other. <a href="../enum.Justification.html#variant.Left" title="crate::Justification::Left"><code>crate::Justification::Left</code></a> is the default value when the widget is
+first created with <a href="../struct.Label.html#method.new" title="crate::Label::new()"><code>crate::Label::new()</code></a>. If you instead want to set the
+alignment of the label as a whole, use <a href="trait.WidgetExt.html#tymethod.set_halign" title="crate::prelude::WidgetExt::set_halign()"><code>crate::prelude::WidgetExt::set_halign()</code></a> instead.
+<a href="trait.LabelExt.html#tymethod.set_justify" title="Self::set_justify()"><code>Self::set_justify()</code></a> has no effect on labels containing only a
 single line.</p>
 <h2 id="jtype" class="section-header"><a href="#jtype"><code>jtype</code></a></h2>
-<p>a <a href="../enum.Justification.html"><code>Justification</code></a></p>
+<p>a <a href="../enum.Justification.html" title="crate::Justification"><code>crate::Justification</code></a></p>
 </div><h3 id="tymethod.set_label" class="method"><code>fn <a href="#tymethod.set_label" class="fnname">set_label</a>(&amp;self, str: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1065" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the text of the label. The label is interpreted as
 including embedded underlines and/or Pango markup depending
-on the values of the <a href="crate::Label:use-underline"><code>Label:use-underline</code></a> and
-<a href="crate::Label:use-markup"><code>Label:use-markup</code></a> properties.</p>
+on the values of the [<code>crate::Label:use-underline</code>] and
+[<code>crate::Label:use-markup</code>] properties.</p>
 <h2 id="str" class="section-header"><a href="#str"><code>str</code></a></h2>
 <p>the new text to set for the label</p>
-</div><h3 id="tymethod.set_line_wrap" class="method"><code>fn <a href="#tymethod.set_line_wrap" class="fnname">set_line_wrap</a>(&amp;self, wrap: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1079" title="goto source code">[src]</a></h3><div class="docblock"><p>Toggles line wrapping within the <a href="../struct.Label.html"><code>Label</code></a> widget. <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> makes it break
+</div><h3 id="tymethod.set_line_wrap" class="method"><code>fn <a href="#tymethod.set_line_wrap" class="fnname">set_line_wrap</a>(&amp;self, wrap: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1079" title="goto source code">[src]</a></h3><div class="docblock"><p>Toggles line wrapping within the <a href="../struct.Label.html" title="crate::Label"><code>crate::Label</code></a> widget. <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> makes it break
 lines if text exceeds the widget’s size. <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> lets the text get cut off
 by the edge of the widget if it exceeds the widget size.</p>
 <p>Note that setting line wrapping to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> does not make the label
 wrap at its parent container’s width, because GTK+ widgets
 conceptually can’t make their requisition depend on the parent
 container’s size. For a label that wraps at a specific position,
-set the label’s width using <a href="crate::WidgetExt::set_size_request()"><code>WidgetExt::set_size_request()</code></a>.</p>
+set the label’s width using <a href="trait.WidgetExt.html#tymethod.set_size_request" title="crate::prelude::WidgetExt::set_size_request()"><code>crate::prelude::WidgetExt::set_size_request()</code></a>.</p>
 <h2 id="wrap" class="section-header"><a href="#wrap"><code>wrap</code></a></h2>
 <p>the setting</p>
-</div><h3 id="tymethod.set_line_wrap_mode" class="method"><code>fn <a href="#tymethod.set_line_wrap_mode" class="fnname">set_line_wrap_mode</a>(&amp;self, wrap_mode: <a class="enum" href="../../pango/auto/enums/enum.WrapMode.html" title="enum pango::auto::enums::WrapMode">WrapMode</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1087" title="goto source code">[src]</a></h3><div class="docblock"><p>If line wrapping is on (see <a href="trait.LabelExt.html#tymethod.set_line_wrap"><code>set_line_wrap()</code></a>) this controls how
-the line wrapping is done. The default is <a href="../../pango/auto/enums/enum.WrapMode.html#variant.Word" title="pango::WrapMode::Word"><code>pango::WrapMode::Word</code></a> which means
+</div><h3 id="tymethod.set_line_wrap_mode" class="method"><code>fn <a href="#tymethod.set_line_wrap_mode" class="fnname">set_line_wrap_mode</a>(&amp;self, wrap_mode: <a class="enum" href="../../pango/auto/enums/enum.WrapMode.html" title="enum pango::auto::enums::WrapMode">WrapMode</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1087" title="goto source code">[src]</a></h3><div class="docblock"><p>If line wrapping is on (see <a href="trait.LabelExt.html#tymethod.set_line_wrap" title="Self::set_line_wrap()"><code>Self::set_line_wrap()</code></a>) this controls how
+the line wrapping is done. The default is <a href="../../pango/auto/enums/enum.WrapMode.html#variant.Word" title="crate::pango::WrapMode::Word"><code>crate::pango::WrapMode::Word</code></a> which means
 wrap on word boundaries.</p>
 <h2 id="wrap_mode" class="section-header"><a href="#wrap_mode"><code>wrap_mode</code></a></h2>
 <p>the line wrapping mode</p>
@@ -291,12 +291,12 @@ markup = g_markup_printf_escaped (format, str);
 gtk_label_set_markup (GTK_LABEL (label), markup);
 g_free (markup);
 </code></pre>
-<p>This function will set the <a href="crate::Label:use-markup"><code>Label:use-markup</code></a> property to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> as
+<p>This function will set the [<code>crate::Label:use-markup</code>] property to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> as
 a side effect.</p>
-<p>If you set the label contents using the <a href="crate::Label:label"><code>Label:label</code></a> property you
-should also ensure that you set the <a href="crate::Label:use-markup"><code>Label:use-markup</code></a> property
+<p>If you set the label contents using the [<code>crate::Label:label</code>] property you
+should also ensure that you set the [<code>crate::Label:use-markup</code>] property
 accordingly.</p>
-<p>See also: <a href="trait.LabelExt.html#tymethod.set_text"><code>set_text()</code></a></p>
+<p>See also: <a href="trait.LabelExt.html#tymethod.set_text" title="Self::set_text()"><code>Self::set_text()</code></a></p>
 <h2 id="str-1" class="section-header"><a href="#str-1"><code>str</code></a></h2>
 <p>a markup string (see [Pango markup format][PangoMarkupFormat])</p>
 </div><h3 id="tymethod.set_markup_with_mnemonic" class="method"><code>fn <a href="#tymethod.set_markup_with_mnemonic" class="fnname">set_markup_with_mnemonic</a>(&amp;self, str: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1142" title="goto source code">[src]</a></h3><div class="docblock"><p>Parses <code>str</code> which is marked up with the
@@ -305,7 +305,7 @@ setting the label’s text and attribute list based on the parse results.
 If characters in <code>str</code> are preceded by an underscore, they are underlined
 indicating that they represent a keyboard accelerator called a mnemonic.</p>
 <p>The mnemonic key can be used to activate another widget, chosen
-automatically, or explicitly using <a href="trait.LabelExt.html#tymethod.set_mnemonic_widget"><code>set_mnemonic_widget()</code></a>.</p>
+automatically, or explicitly using <a href="trait.LabelExt.html#tymethod.set_mnemonic_widget" title="Self::set_mnemonic_widget()"><code>Self::set_mnemonic_widget()</code></a>.</p>
 <h2 id="str-2" class="section-header"><a href="#str-2"><code>str</code></a></h2>
 <p>a markup string (see
 [Pango markup format][PangoMarkupFormat])</p>
@@ -313,22 +313,22 @@ automatically, or explicitly using <a href="trait.LabelExt.html#tymethod.set_mne
 <h2 id="n_chars" class="section-header"><a href="#n_chars"><code>n_chars</code></a></h2>
 <p>the new desired maximum width, in characters.</p>
 </div><h3 id="tymethod.set_mnemonic_widget" class="method"><code>fn <a href="#tymethod.set_mnemonic_widget" class="fnname">set_mnemonic_widget</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, widget: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1167" title="goto source code">[src]</a></h3><div class="docblock"><p>If the label has been set so that it has an mnemonic key (using
-i.e. <a href="trait.LabelExt.html#tymethod.set_markup_with_mnemonic"><code>set_markup_with_mnemonic()</code></a>,
-<a href="trait.LabelExt.html#tymethod.set_text_with_mnemonic"><code>set_text_with_mnemonic()</code></a>, <a href="crate::Label::new_with_mnemonic()"><code>Label::new_with_mnemonic()</code></a>
+i.e. <a href="trait.LabelExt.html#tymethod.set_markup_with_mnemonic" title="Self::set_markup_with_mnemonic()"><code>Self::set_markup_with_mnemonic()</code></a>,
+<a href="trait.LabelExt.html#tymethod.set_text_with_mnemonic" title="Self::set_text_with_mnemonic()"><code>Self::set_text_with_mnemonic()</code></a>, [<code>crate::Label::new_with_mnemonic()</code>]
 or the “use_underline” property) the label can be associated with a
 widget that is the target of the mnemonic. When the label is inside
-a widget (like a <a href="../struct.Button.html"><code>Button</code></a> or a <a href="../struct.Notebook.html"><code>Notebook</code></a> tab) it is
+a widget (like a <a href="../struct.Button.html" title="crate::Button"><code>crate::Button</code></a> or a <a href="../struct.Notebook.html" title="crate::Notebook"><code>crate::Notebook</code></a> tab) it is
 automatically associated with the correct widget, but sometimes
-(i.e. when the target is a <a href="../struct.Entry.html"><code>Entry</code></a> next to the label) you need to
+(i.e. when the target is a <a href="../struct.Entry.html" title="crate::Entry"><code>crate::Entry</code></a> next to the label) you need to
 set it explicitly using this function.</p>
 <p>The target widget will be accelerated by emitting the
 <code>Widget</code>::mnemonic-activate signal on it. The default handler for
 this signal will activate the widget if there are no mnemonic collisions
 and toggle focus between the colliding widgets otherwise.</p>
 <h2 id="widget" class="section-header"><a href="#widget"><code>widget</code></a></h2>
-<p>the target <a href="../struct.Widget.html"><code>Widget</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to unset</p>
+<p>the target <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to unset</p>
 </div><h3 id="tymethod.set_pattern" class="method"><code>fn <a href="#tymethod.set_pattern" class="fnname">set_pattern</a>(&amp;self, pattern: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1176" title="goto source code">[src]</a></h3><div class="docblock"><p>The pattern of underlines you want under the existing text within the
-<a href="../struct.Label.html"><code>Label</code></a> widget. For example if the current text of the label says
+<a href="../struct.Label.html" title="crate::Label"><code>crate::Label</code></a> widget. For example if the current text of the label says
 “FooBarBaz” passing a pattern of “___ ___” will underline
 “Foo” and “Baz” but not “Bar”.</p>
 <h2 id="pattern" class="section-header"><a href="#pattern"><code>pattern</code></a></h2>
@@ -340,20 +340,20 @@ copy-and-paste.</p>
 </div><h3 id="tymethod.set_single_line_mode" class="method"><code>fn <a href="#tymethod.set_single_line_mode" class="fnname">set_single_line_mode</a>(&amp;self, single_line_mode: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1189" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether the label is in single line mode.</p>
 <h2 id="single_line_mode" class="section-header"><a href="#single_line_mode"><code>single_line_mode</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the label should be in single line mode</p>
-</div><h3 id="tymethod.set_text" class="method"><code>fn <a href="#tymethod.set_text" class="fnname">set_text</a>(&amp;self, str: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1204" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the text within the <a href="../struct.Label.html"><code>Label</code></a> widget. It overwrites any text that
+</div><h3 id="tymethod.set_text" class="method"><code>fn <a href="#tymethod.set_text" class="fnname">set_text</a>(&amp;self, str: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1204" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the text within the <a href="../struct.Label.html" title="crate::Label"><code>crate::Label</code></a> widget. It overwrites any text that
 was there before.</p>
 <p>This function will clear any previously set mnemonic accelerators, and
-set the <a href="crate::Label:use-underline"><code>Label:use-underline</code></a> property to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> as a side effect.</p>
-<p>This function will set the <a href="crate::Label:use-markup"><code>Label:use-markup</code></a> property to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>
+set the [<code>crate::Label:use-underline</code>] property to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> as a side effect.</p>
+<p>This function will set the [<code>crate::Label:use-markup</code>] property to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>
 as a side effect.</p>
-<p>See also: <a href="trait.LabelExt.html#tymethod.set_markup"><code>set_markup()</code></a></p>
+<p>See also: <a href="trait.LabelExt.html#tymethod.set_markup" title="Self::set_markup()"><code>Self::set_markup()</code></a></p>
 <h2 id="str-3" class="section-header"><a href="#str-3"><code>str</code></a></h2>
 <p>The text you want to set</p>
 </div><h3 id="tymethod.set_text_with_mnemonic" class="method"><code>fn <a href="#tymethod.set_text_with_mnemonic" class="fnname">set_text_with_mnemonic</a>(&amp;self, str: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1214" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the label’s text from the string <code>str</code>.
 If characters in <code>str</code> are preceded by an underscore, they are underlined
 indicating that they represent a keyboard accelerator called a mnemonic.
 The mnemonic key can be used to activate another widget, chosen
-automatically, or explicitly using <a href="trait.LabelExt.html#tymethod.set_mnemonic_widget"><code>set_mnemonic_widget()</code></a>.</p>
+automatically, or explicitly using <a href="trait.LabelExt.html#tymethod.set_mnemonic_widget" title="Self::set_mnemonic_widget()"><code>Self::set_mnemonic_widget()</code></a>.</p>
 <h2 id="str-4" class="section-header"><a href="#str-4"><code>str</code></a></h2>
 <p>a string</p>
 </div><h3 id="tymethod.set_track_visited_links" class="method"><code>fn <a href="#tymethod.set_track_visited_links" class="fnname">set_track_visited_links</a>(&amp;self, track_links: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1221" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether the label should keep track of clicked
@@ -362,7 +362,7 @@ links (and use a different color for them).</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to track visited links</p>
 </div><h3 id="tymethod.set_use_markup" class="method"><code>fn <a href="#tymethod.set_use_markup" class="fnname">set_use_markup</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1229" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether the text of the label contains markup in
 [Pango’s text markup language][PangoMarkupFormat].
-See <a href="trait.LabelExt.html#tymethod.set_markup"><code>set_markup()</code></a>.</p>
+See <a href="trait.LabelExt.html#tymethod.set_markup" title="Self::set_markup()"><code>Self::set_markup()</code></a>.</p>
 <h2 id="setting-1" class="section-header"><a href="#setting-1"><code>setting</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the label’s text should be parsed for markup.</p>
 </div><h3 id="tymethod.set_use_underline" class="method"><code>fn <a href="#tymethod.set_use_underline" class="fnname">set_use_underline</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1236" title="goto source code">[src]</a></h3><div class="docblock"><p>If true, an underline in the text indicates the next character should be
@@ -372,10 +372,10 @@ used for the mnemonic accelerator key.</p>
 </div><h3 id="tymethod.set_width_chars" class="method"><code>fn <a href="#tymethod.set_width_chars" class="fnname">set_width_chars</a>(&amp;self, n_chars: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1242" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the desired width in characters of <code>self</code> to <code>n_chars</code>.</p>
 <h2 id="n_chars-1" class="section-header"><a href="#n_chars-1"><code>n_chars</code></a></h2>
 <p>the new desired width, in characters.</p>
-</div><h3 id="tymethod.set_xalign" class="method"><code>fn <a href="#tymethod.set_xalign" class="fnname">set_xalign</a>(&amp;self, xalign: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1250" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Sets the <a href="crate::Label:xalign"><code>Label:xalign</code></a> property for <code>self</code>.</p>
+</div><h3 id="tymethod.set_xalign" class="method"><code>fn <a href="#tymethod.set_xalign" class="fnname">set_xalign</a>(&amp;self, xalign: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1250" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Sets the [<code>crate::Label:xalign</code>] property for <code>self</code>.</p>
 <h2 id="xalign" class="section-header"><a href="#xalign"><code>xalign</code></a></h2>
 <p>the new xalign value, between 0 and 1</p>
-</div><h3 id="tymethod.set_yalign" class="method"><code>fn <a href="#tymethod.set_yalign" class="fnname">set_yalign</a>(&amp;self, yalign: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1258" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Sets the <a href="crate::Label:yalign"><code>Label:yalign</code></a> property for <code>self</code>.</p>
+</div><h3 id="tymethod.set_yalign" class="method"><code>fn <a href="#tymethod.set_yalign" class="fnname">set_yalign</a>(&amp;self, yalign: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1258" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Sets the [<code>crate::Label:yalign</code>] property for <code>self</code>.</p>
 <h2 id="yalign" class="section-header"><a href="#yalign"><code>yalign</code></a></h2>
 <p>the new yalign value, between 0 and 1</p>
 </div><h3 id="tymethod.cursor_position" class="method"><code>fn <a href="#tymethod.cursor_position" class="fnname">cursor_position</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1261" title="goto source code">[src]</a></h3><h3 id="tymethod.selection_bound" class="method"><code>fn <a href="#tymethod.selection_bound" class="fnname">selection_bound</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1264" title="goto source code">[src]</a></h3><h3 id="tymethod.wraps" class="method"><code>fn <a href="#tymethod.wraps" class="fnname">wraps</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1266" title="goto source code">[src]</a></h3><h3 id="tymethod.set_wrap" class="method"><code>fn <a href="#tymethod.set_wrap" class="fnname">set_wrap</a>(&amp;self, wrap: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1268" title="goto source code">[src]</a></h3><h3 id="tymethod.wrap_mode" class="method"><code>fn <a href="#tymethod.wrap_mode" class="fnname">wrap_mode</a>(&amp;self) -&gt; <a class="enum" href="../../pango/auto/enums/enum.WrapMode.html" title="enum pango::auto::enums::WrapMode">WrapMode</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1271" title="goto source code">[src]</a></h3><h3 id="tymethod.set_wrap_mode" class="method"><code>fn <a href="#tymethod.set_wrap_mode" class="fnname">set_wrap_mode</a>(&amp;self, wrap_mode: <a class="enum" href="../../pango/auto/enums/enum.WrapMode.html" title="enum pango::auto::enums::WrapMode">WrapMode</a>)</code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1274" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_activate_current_link" class="method"><code>fn <a href="#tymethod.connect_activate_current_link" class="fnname">connect_activate_current_link</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/label.rs.html#1284" title="goto source code">[src]</a></h3><div class="docblock"><p>A [keybinding signal][<code>BindingSignal</code>]
@@ -412,7 +412,7 @@ There are too many key combinations to list them all here.</p>
 <li>Home/End keys move to the ends of the buffer</li>
 </ul>
 <h2 id="step" class="section-header"><a href="#step"><code>step</code></a></h2>
-<p>the granularity of the move, as a <a href="../enum.MovementStep.html"><code>MovementStep</code></a></p>
+<p>the granularity of the move, as a <a href="../enum.MovementStep.html" title="crate::MovementStep"><code>crate::MovementStep</code></a></p>
 <h2 id="count" class="section-header"><a href="#count"><code>count</code></a></h2>
 <p>the number of <code>step</code> units to move</p>
 <h2 id="extend_selection" class="section-header"><a href="#extend_selection"><code>extend_selection</code></a></h2>

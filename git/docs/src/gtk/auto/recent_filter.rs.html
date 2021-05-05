@@ -232,22 +232,22 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`RecentFilter`](crate::RecentFilter) can be used to restrict the files being shown</span>
-    <span class="doccomment">/// in a [`RecentChooser`](crate::RecentChooser). Files can be filtered based on their name</span>
-    <span class="doccomment">/// (with [`add_pattern()`](Self::add_pattern())), on their mime type (with</span>
-    <span class="doccomment">/// [`FileFilter::add_mime_type()`](crate::FileFilter::add_mime_type())), on the application that has</span>
-    <span class="doccomment">/// registered them (with [`add_application()`](Self::add_application())), or by</span>
-    <span class="doccomment">/// a custom filter function (with [`add_custom()`](Self::add_custom())).</span>
+    <span class="doccomment">/// A [`crate::RecentFilter`] can be used to restrict the files being shown</span>
+    <span class="doccomment">/// in a [`crate::RecentChooser`]. Files can be filtered based on their name</span>
+    <span class="doccomment">/// (with [`Self::add_pattern()`]), on their mime type (with</span>
+    <span class="doccomment">/// [`crate::FileFilter::add_mime_type()`]), on the application that has</span>
+    <span class="doccomment">/// registered them (with [`Self::add_application()`]), or by</span>
+    <span class="doccomment">/// a custom filter function (with [`Self::add_custom()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Filtering by mime type handles aliasing and subclassing of mime</span>
     <span class="doccomment">/// types; e.g. a filter for text/plain also matches a file with mime</span>
     <span class="doccomment">/// type application/rtf, since application/rtf is a subclass of text/plain.</span>
-    <span class="doccomment">/// Note that [`RecentFilter`](crate::RecentFilter) allows wildcards for the subtype of a</span>
+    <span class="doccomment">/// Note that [`crate::RecentFilter`] allows wildcards for the subtype of a</span>
     <span class="doccomment">/// mime type, so you can e.g. filter for image/\*.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Normally, filters are used by adding them to a [`RecentChooser`](crate::RecentChooser),</span>
-    <span class="doccomment">/// see [`RecentChooser::add_filter()`](crate::RecentChooser::add_filter()), but it is also possible to</span>
-    <span class="doccomment">/// manually use a filter on a file with [`filter()`](Self::filter()).</span>
+    <span class="doccomment">/// Normally, filters are used by adding them to a [`crate::RecentChooser`],</span>
+    <span class="doccomment">/// see [`crate::RecentChooser::add_filter()`], but it is also possible to</span>
+    <span class="doccomment">/// manually use a filter on a file with [`Self::filter()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Recently used files are supported since GTK+ 2.10.</span>
     <span class="doccomment">///</span>
@@ -257,8 +257,8 @@
     <span class="doccomment">/// supports adding rules using the `&lt;mime-types&gt;`, `&lt;patterns&gt;` and</span>
     <span class="doccomment">/// `&lt;applications&gt;` elements and listing the rules within. Specifying</span>
     <span class="doccomment">/// a `&lt;mime-type&gt;`, `&lt;pattern&gt;` or `&lt;application&gt;` has the same effect as</span>
-    <span class="doccomment">/// calling [`add_mime_type()`](Self::add_mime_type()),</span>
-    <span class="doccomment">/// [`add_pattern()`](Self::add_pattern()) or [`add_application()`](Self::add_application()).</span>
+    <span class="doccomment">/// calling [`Self::add_mime_type()`],</span>
+    <span class="doccomment">/// [`Self::add_pattern()`] or [`Self::add_application()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An example of a UI definition fragment specifying `RecentFilter` rules:</span>
     <span class="doccomment">///</span>
@@ -282,7 +282,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecentFilter</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkRecentFilter</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -291,11 +291,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">RecentFilter</span> {
-    <span class="doccomment">/// Creates a new [`RecentFilter`](crate::RecentFilter) with no rules added to it.</span>
+    <span class="doccomment">/// Creates a new [`crate::RecentFilter`] with no rules added to it.</span>
     <span class="doccomment">/// Such filter does not accept any recently used resources, so is not</span>
     <span class="doccomment">/// particularly useful until you add rules with</span>
-    <span class="doccomment">/// [`add_pattern()`](Self::add_pattern()), [`add_mime_type()`](Self::add_mime_type()),</span>
-    <span class="doccomment">/// [`add_application()`](Self::add_application()), [`add_age()`](Self::add_age()).</span>
+    <span class="doccomment">/// [`Self::add_pattern()`], [`Self::add_mime_type()`],</span>
+    <span class="doccomment">/// [`Self::add_application()`], [`Self::add_age()`].</span>
     <span class="doccomment">/// To create a filter that accepts any recently used resource, use:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -305,7 +305,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`RecentFilter`](crate::RecentFilter)</span>
+    <span class="doccomment">/// a new [`crate::RecentFilter`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RecentFilter</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -389,7 +389,7 @@
     <span class="comment">//}</span>
 
     <span class="doccomment">/// Gets the human-readable name for the filter.</span>
-    <span class="doccomment">/// See [`set_name()`](Self::set_name()).</span>
+    <span class="doccomment">/// See [`Self::set_name()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -401,17 +401,17 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_recent_filter_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the fields that need to be filled in for the [`RecentFilterInfo`](crate::RecentFilterInfo)</span>
-    <span class="doccomment">/// passed to [`filter()`](Self::filter())</span>
+    <span class="doccomment">/// Gets the fields that need to be filled in for the [`crate::RecentFilterInfo`]</span>
+    <span class="doccomment">/// passed to [`Self::filter()`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function will not typically be used by applications; it</span>
     <span class="doccomment">/// is intended principally for use in the implementation of</span>
-    <span class="doccomment">/// [`RecentChooser`](crate::RecentChooser).</span>
+    <span class="doccomment">/// [`crate::RecentChooser`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// bitfield of flags indicating needed fields when</span>
-    <span class="doccomment">///  calling [`filter()`](Self::filter())</span>
+    <span class="doccomment">///  calling [`Self::filter()`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_recent_filter_get_needed&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_needed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">needed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RecentFilterFlags</span> {

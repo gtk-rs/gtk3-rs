@@ -1505,23 +1505,23 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`SocketClient`](crate::SocketClient) is a lightweight high-level utility class for connecting to</span>
+    <span class="doccomment">/// [`crate::SocketClient`] is a lightweight high-level utility class for connecting to</span>
     <span class="doccomment">/// a network host using a connection oriented socket type.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You create a [`SocketClient`](crate::SocketClient) object, set any options you want, and then</span>
-    <span class="doccomment">/// call a sync or async connect operation, which returns a [`SocketConnection`](crate::SocketConnection)</span>
+    <span class="doccomment">/// You create a [`crate::SocketClient`] object, set any options you want, and then</span>
+    <span class="doccomment">/// call a sync or async connect operation, which returns a [`crate::SocketConnection`]</span>
     <span class="doccomment">/// subclass on success.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The type of the [`SocketConnection`](crate::SocketConnection) object returned depends on the type of</span>
+    <span class="doccomment">/// The type of the [`crate::SocketConnection`] object returned depends on the type of</span>
     <span class="doccomment">/// the underlying socket that is in use. For instance, for a TCP/IP connection</span>
-    <span class="doccomment">/// it will be a [`TcpConnection`](crate::TcpConnection).</span>
+    <span class="doccomment">/// it will be a [`crate::TcpConnection`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As [`SocketClient`](crate::SocketClient) is a lightweight object, you don&#39;t need to cache it. You</span>
+    <span class="doccomment">/// As [`crate::SocketClient`] is a lightweight object, you don&#39;t need to cache it. You</span>
     <span class="doccomment">/// can just create a new one any time you need one.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SocketClientExt`](trait@crate::prelude::SocketClientExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SocketClientExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SocketClient</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSocketClient</span>, <span class="ident">ffi::GSocketClientClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1530,12 +1530,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SocketClient</span> {
-    <span class="doccomment">/// Creates a new [`SocketClient`](crate::SocketClient) with the default options.</span>
+    <span class="doccomment">/// Creates a new [`crate::SocketClient`] with the default options.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketClient`](crate::SocketClient).</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// a [`crate::SocketClient`].</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SocketClient</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_socket_client_new</span>()) }
@@ -1554,15 +1554,15 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`SocketClient`](struct@crate::SocketClient)</span>
+<span class="doccomment">/// [`struct@crate::SocketClient`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SocketClientExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Enable proxy protocols to be handled by the application. When the</span>
-    <span class="doccomment">/// indicated proxy protocol is returned by the [`ProxyResolver`](crate::ProxyResolver),</span>
-    <span class="doccomment">/// [`SocketClient`](crate::SocketClient) will consider this protocol as supported but will</span>
-    <span class="doccomment">/// not try to find a [`Proxy`](crate::Proxy) instance to handle handshaking. The</span>
+    <span class="doccomment">/// indicated proxy protocol is returned by the [`crate::ProxyResolver`],</span>
+    <span class="doccomment">/// [`crate::SocketClient`] will consider this protocol as supported but will</span>
+    <span class="doccomment">/// not try to find a [`crate::Proxy`] instance to handle handshaking. The</span>
     <span class="doccomment">/// application must check for this case by calling</span>
-    <span class="doccomment">/// [`SocketConnectionExt::get_remote_address()`](crate::SocketConnectionExt::get_remote_address()) on the returned</span>
-    <span class="doccomment">/// [`SocketConnection`](crate::SocketConnection), and seeing if it&#39;s a [`ProxyAddress`](crate::ProxyAddress) of the</span>
+    <span class="doccomment">/// [`crate::prelude::SocketConnectionExt::get_remote_address()`] on the returned</span>
+    <span class="doccomment">/// [`crate::SocketConnection`], and seeing if it&#39;s a [`crate::ProxyAddress`] of the</span>
     <span class="doccomment">/// appropriate type, to determine whether or not it needs to handle</span>
     <span class="doccomment">/// the proxy handshaking itself.</span>
     <span class="doccomment">///</span>
@@ -1582,30 +1582,30 @@
 
     <span class="doccomment">/// Tries to resolve the `connectable` and make a network connection to it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Upon a successful connection, a new [`SocketConnection`](crate::SocketConnection) is constructed</span>
+    <span class="doccomment">/// Upon a successful connection, a new [`crate::SocketConnection`] is constructed</span>
     <span class="doccomment">/// and returned. The caller owns this new object and must drop their</span>
     <span class="doccomment">/// reference to it when finished with it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The type of the [`SocketConnection`](crate::SocketConnection) object returned depends on the type of</span>
+    <span class="doccomment">/// The type of the [`crate::SocketConnection`] object returned depends on the type of</span>
     <span class="doccomment">/// the underlying socket that is used. For instance, for a TCP/IP connection</span>
-    <span class="doccomment">/// it will be a [`TcpConnection`](crate::TcpConnection).</span>
+    <span class="doccomment">/// it will be a [`crate::TcpConnection`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The socket created will be the same family as the address that the</span>
-    <span class="doccomment">/// `connectable` resolves to, unless family is set with [`set_family()`](Self::set_family())</span>
-    <span class="doccomment">/// or indirectly via [`set_local_address()`](Self::set_local_address()). The socket type</span>
-    <span class="doccomment">/// defaults to [`SocketType::Stream`] but can be set with</span>
-    <span class="doccomment">/// [`set_socket_type()`](Self::set_socket_type()).</span>
+    <span class="doccomment">/// `connectable` resolves to, unless family is set with [`Self::set_family()`]</span>
+    <span class="doccomment">/// or indirectly via [`Self::set_local_address()`]. The socket type</span>
+    <span class="doccomment">/// defaults to [`crate::SocketType::Stream`] but can be set with</span>
+    <span class="doccomment">/// [`Self::set_socket_type()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If a local address is specified with [`set_local_address()`](Self::set_local_address()) the</span>
+    <span class="doccomment">/// If a local address is specified with [`Self::set_local_address()`] the</span>
     <span class="doccomment">/// socket will be bound to this address before connecting.</span>
     <span class="doccomment">/// ## `connectable`</span>
-    <span class="doccomment">/// a [`SocketConnectable`](crate::SocketConnectable) specifying the remote address.</span>
+    <span class="doccomment">/// a [`crate::SocketConnectable`] specifying the remote address.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketConnection`](crate::SocketConnection) on success, [`None`] on error.</span>
+    <span class="doccomment">/// a [`crate::SocketConnection`] on success, [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_connect&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">SocketConnectable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1613,7 +1613,7 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Q</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketConnection</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This is the asynchronous version of [`connect()`](Self::connect()).</span>
+    <span class="doccomment">/// This is the asynchronous version of [`Self::connect()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You may wish to prefer the asynchronous version even in synchronous</span>
     <span class="doccomment">/// command line programs because, since 2.60, it implements</span>
@@ -1625,12 +1625,12 @@
     <span class="doccomment">/// the future.)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call [`connect_finish()`](Self::connect_finish()) to get</span>
+    <span class="doccomment">/// called. You can then call [`Self::connect_finish()`] to get</span>
     <span class="doccomment">/// the result of the operation.</span>
     <span class="doccomment">/// ## `connectable`</span>
-    <span class="doccomment">/// a [`SocketConnectable`](crate::SocketConnectable) specifying the remote address.</span>
+    <span class="doccomment">/// a [`crate::SocketConnectable`] specifying the remote address.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1652,7 +1652,7 @@
         <span class="ident">connectable</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketConnection</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This is a helper function for [`connect()`](Self::connect()).</span>
+    <span class="doccomment">/// This is a helper function for [`Self::connect()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Attempts to create a TCP connection to the named host.</span>
     <span class="doccomment">///</span>
@@ -1675,7 +1675,7 @@
     <span class="doccomment">/// connection attempts may be made, in turn and according to the</span>
     <span class="doccomment">/// number of address records in DNS, until a connection succeeds.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Upon a successful connection, a new [`SocketConnection`](crate::SocketConnection) is constructed</span>
+    <span class="doccomment">/// Upon a successful connection, a new [`crate::SocketConnection`] is constructed</span>
     <span class="doccomment">/// and returned. The caller owns this new object and must drop their</span>
     <span class="doccomment">/// reference to it when finished with it.</span>
     <span class="doccomment">///</span>
@@ -1687,11 +1687,11 @@
     <span class="doccomment">/// ## `default_port`</span>
     <span class="doccomment">/// the default port to connect to</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketConnection`](crate::SocketConnection) on success, [`None`] on error.</span>
+    <span class="doccomment">/// a [`crate::SocketConnection`] on success, [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_connect_to_host&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_to_host</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1700,17 +1700,17 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketConnection</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This is the asynchronous version of [`connect_to_host()`](Self::connect_to_host()).</span>
+    <span class="doccomment">/// This is the asynchronous version of [`Self::connect_to_host()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call [`connect_to_host_finish()`](Self::connect_to_host_finish()) to get</span>
+    <span class="doccomment">/// called. You can then call [`Self::connect_to_host_finish()`] to get</span>
     <span class="doccomment">/// the result of the operation.</span>
     <span class="doccomment">/// ## `host_and_port`</span>
     <span class="doccomment">/// the name and optionally the port of the host to connect to</span>
     <span class="doccomment">/// ## `default_port`</span>
     <span class="doccomment">/// the default port to connect to</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1740,7 +1740,7 @@
     <span class="doccomment">/// the hosts providing the service until either a connection succeeds</span>
     <span class="doccomment">/// or there are no hosts remaining.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Upon a successful connection, a new [`SocketConnection`](crate::SocketConnection) is constructed</span>
+    <span class="doccomment">/// Upon a successful connection, a new [`crate::SocketConnection`] is constructed</span>
     <span class="doccomment">/// and returned. The caller owns this new object and must drop their</span>
     <span class="doccomment">/// reference to it when finished with it.</span>
     <span class="doccomment">///</span>
@@ -1752,11 +1752,11 @@
     <span class="doccomment">/// ## `service`</span>
     <span class="doccomment">/// the name of the service to connect to</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketConnection`](crate::SocketConnection) if successful, or [`None`] on error</span>
+    <span class="doccomment">/// a [`crate::SocketConnection`] if successful, or [`None`] on error</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_connect_to_service&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_to_service</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1766,13 +1766,13 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketConnection</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// This is the asynchronous version of</span>
-    <span class="doccomment">/// [`connect_to_service()`](Self::connect_to_service()).</span>
+    <span class="doccomment">/// [`Self::connect_to_service()`].</span>
     <span class="doccomment">/// ## `domain`</span>
     <span class="doccomment">/// a domain name</span>
     <span class="doccomment">/// ## `service`</span>
     <span class="doccomment">/// the name of the service to connect to</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1795,21 +1795,21 @@
         <span class="ident">service</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketConnection</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This is a helper function for [`connect()`](Self::connect()).</span>
+    <span class="doccomment">/// This is a helper function for [`Self::connect()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Attempts to create a TCP connection with a network URI.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `uri` may be any valid URI containing an &quot;authority&quot; (hostname/port)</span>
     <span class="doccomment">/// component. If a port is not specified in the URI, `default_port`</span>
-    <span class="doccomment">/// will be used. TLS will be negotiated if [`SocketClient:tls`](crate::SocketClient:tls) is [`true`].</span>
-    <span class="doccomment">/// ([`SocketClient`](crate::SocketClient) does not know to automatically assume TLS for</span>
+    <span class="doccomment">/// will be used. TLS will be negotiated if [`crate::SocketClient:tls`] is [`true`].</span>
+    <span class="doccomment">/// ([`crate::SocketClient`] does not know to automatically assume TLS for</span>
     <span class="doccomment">/// certain URI schemes.)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Using this rather than [`connect()`](Self::connect()) or</span>
-    <span class="doccomment">/// [`connect_to_host()`](Self::connect_to_host()) allows [`SocketClient`](crate::SocketClient) to</span>
+    <span class="doccomment">/// Using this rather than [`Self::connect()`] or</span>
+    <span class="doccomment">/// [`Self::connect_to_host()`] allows [`crate::SocketClient`] to</span>
     <span class="doccomment">/// determine when to use application-specific proxy protocols.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Upon a successful connection, a new [`SocketConnection`](crate::SocketConnection) is constructed</span>
+    <span class="doccomment">/// Upon a successful connection, a new [`crate::SocketConnection`] is constructed</span>
     <span class="doccomment">/// and returned. The caller owns this new object and must drop their</span>
     <span class="doccomment">/// reference to it when finished with it.</span>
     <span class="doccomment">///</span>
@@ -1821,11 +1821,11 @@
     <span class="doccomment">/// ## `default_port`</span>
     <span class="doccomment">/// the default port to connect to</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketConnection`](crate::SocketConnection) on success, [`None`] on error.</span>
+    <span class="doccomment">/// a [`crate::SocketConnection`] on success, [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_connect_to_uri&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_to_uri</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1834,17 +1834,17 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketConnection</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This is the asynchronous version of [`connect_to_uri()`](Self::connect_to_uri()).</span>
+    <span class="doccomment">/// This is the asynchronous version of [`Self::connect_to_uri()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call [`connect_to_uri_finish()`](Self::connect_to_uri_finish()) to get</span>
+    <span class="doccomment">/// called. You can then call [`Self::connect_to_uri_finish()`] to get</span>
     <span class="doccomment">/// the result of the operation.</span>
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// a network uri</span>
     <span class="doccomment">/// ## `default_port`</span>
     <span class="doccomment">/// the default port to connect to</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1867,7 +1867,7 @@
         <span class="ident">default_port</span>: <span class="ident">u16</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketConnection</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the proxy enable state; see [`set_enable_proxy()`](Self::set_enable_proxy())</span>
+    <span class="doccomment">/// Gets the proxy enable state; see [`Self::set_enable_proxy()`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1878,44 +1878,44 @@
 
     <span class="doccomment">/// Gets the socket family of the socket client.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`set_family()`](Self::set_family()) for details.</span>
+    <span class="doccomment">/// See [`Self::set_family()`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketFamily`](crate::SocketFamily)</span>
+    <span class="doccomment">/// a [`crate::SocketFamily`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_get_family&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_family&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">family</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SocketFamily</span>;
 
     <span class="doccomment">/// Gets the local address of the socket client.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`set_local_address()`](Self::set_local_address()) for details.</span>
+    <span class="doccomment">/// See [`Self::set_local_address()`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress) or [`None`]. Do not free.</span>
+    <span class="doccomment">/// a [`crate::SocketAddress`] or [`None`]. Do not free.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_get_local_address&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_local_address&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">local_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SocketAddress</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the protocol name type of the socket client.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`set_protocol()`](Self::set_protocol()) for details.</span>
+    <span class="doccomment">/// See [`Self::set_protocol()`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketProtocol`](crate::SocketProtocol)</span>
+    <span class="doccomment">/// a [`crate::SocketProtocol`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_get_protocol&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_protocol&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">protocol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SocketProtocol</span>;
 
-    <span class="doccomment">/// Gets the [`ProxyResolver`](crate::ProxyResolver) being used by `self`. Normally, this will</span>
-    <span class="doccomment">/// be the resolver returned by [`ProxyResolver::get_default()`](crate::ProxyResolver::get_default()), but you</span>
-    <span class="doccomment">/// can override it with [`set_proxy_resolver()`](Self::set_proxy_resolver()).</span>
+    <span class="doccomment">/// Gets the [`crate::ProxyResolver`] being used by `self`. Normally, this will</span>
+    <span class="doccomment">/// be the resolver returned by [`crate::ProxyResolver::get_default()`], but you</span>
+    <span class="doccomment">/// can override it with [`Self::set_proxy_resolver()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`ProxyResolver`](crate::ProxyResolver) being used by</span>
+    <span class="doccomment">/// The [`crate::ProxyResolver`] being used by</span>
     <span class="doccomment">///  `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_get_proxy_resolver&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_proxy_resolver&quot;</span>)]</span>
@@ -1923,18 +1923,18 @@
 
     <span class="doccomment">/// Gets the socket type of the socket client.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`set_socket_type()`](Self::set_socket_type()) for details.</span>
+    <span class="doccomment">/// See [`Self::set_socket_type()`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketFamily`](crate::SocketFamily)</span>
+    <span class="doccomment">/// a [`crate::SocketFamily`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_get_socket_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_socket_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">socket_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SocketType</span>;
 
     <span class="doccomment">/// Gets the I/O timeout time for sockets created by `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`set_timeout()`](Self::set_timeout()) for details.</span>
+    <span class="doccomment">/// See [`Self::set_timeout()`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1944,7 +1944,7 @@
     <span class="kw">fn</span> <span class="ident">timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Gets whether `self` creates TLS connections. See</span>
-    <span class="doccomment">/// [`set_tls()`](Self::set_tls()) for details.</span>
+    <span class="doccomment">/// [`Self::set_tls()`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1964,18 +1964,18 @@
     <span class="kw">fn</span> <span class="ident">tls_validation_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TlsCertificateFlags</span>;
 
     <span class="doccomment">/// Sets whether or not `self` attempts to make connections via a</span>
-    <span class="doccomment">/// proxy server. When enabled (the default), [`SocketClient`](crate::SocketClient) will use a</span>
-    <span class="doccomment">/// [`ProxyResolver`](crate::ProxyResolver) to determine if a proxy protocol such as SOCKS is</span>
+    <span class="doccomment">/// proxy server. When enabled (the default), [`crate::SocketClient`] will use a</span>
+    <span class="doccomment">/// [`crate::ProxyResolver`] to determine if a proxy protocol such as SOCKS is</span>
     <span class="doccomment">/// needed, and automatically do the necessary proxy negotiation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`set_proxy_resolver()`](Self::set_proxy_resolver()).</span>
+    <span class="doccomment">/// See also [`Self::set_proxy_resolver()`].</span>
     <span class="doccomment">/// ## `enable`</span>
     <span class="doccomment">/// whether to enable proxies</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_set_enable_proxy&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_enable_proxy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">enable</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets the socket family of the socket client.</span>
-    <span class="doccomment">/// If this is set to something other than [`SocketFamily::Invalid`]</span>
+    <span class="doccomment">/// If this is set to something other than [`crate::SocketFamily::Invalid`]</span>
     <span class="doccomment">/// then the sockets created by this object will be of the specified</span>
     <span class="doccomment">/// family.</span>
     <span class="doccomment">///</span>
@@ -1983,7 +1983,7 @@
     <span class="doccomment">/// connection to be an ipv4 socket, even though the address might</span>
     <span class="doccomment">/// be an ipv6 mapped to ipv4 address.</span>
     <span class="doccomment">/// ## `family`</span>
-    <span class="doccomment">/// a [`SocketFamily`](crate::SocketFamily)</span>
+    <span class="doccomment">/// a [`crate::SocketFamily`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_set_family&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_family</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">family</span>: <span class="ident">SocketFamily</span>);
 
@@ -1995,7 +1995,7 @@
     <span class="doccomment">/// side of the connection is on a specific port, or on</span>
     <span class="doccomment">/// a specific interface.</span>
     <span class="doccomment">/// ## `address`</span>
-    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::SocketAddress`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_set_local_address&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_local_address</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">SocketAddress</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
@@ -2003,22 +2003,22 @@
     <span class="doccomment">/// The sockets created by this object will use of the specified</span>
     <span class="doccomment">/// protocol.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `protocol` is [`SocketProtocol::Default`] that means to use the default</span>
+    <span class="doccomment">/// If `protocol` is [`crate::SocketProtocol::Default`] that means to use the default</span>
     <span class="doccomment">/// protocol for the socket family and type.</span>
     <span class="doccomment">/// ## `protocol`</span>
-    <span class="doccomment">/// a [`SocketProtocol`](crate::SocketProtocol)</span>
+    <span class="doccomment">/// a [`crate::SocketProtocol`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_set_protocol&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_protocol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">protocol</span>: <span class="ident">SocketProtocol</span>);
 
-    <span class="doccomment">/// Overrides the [`ProxyResolver`](crate::ProxyResolver) used by `self`. You can call this if</span>
+    <span class="doccomment">/// Overrides the [`crate::ProxyResolver`] used by `self`. You can call this if</span>
     <span class="doccomment">/// you want to use specific proxies, rather than using the system</span>
     <span class="doccomment">/// default proxy settings.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that whether or not the proxy resolver is actually used</span>
-    <span class="doccomment">/// depends on the setting of [`SocketClient:enable-proxy`](crate::SocketClient:enable-proxy), which is not</span>
+    <span class="doccomment">/// depends on the setting of [`crate::SocketClient:enable-proxy`], which is not</span>
     <span class="doccomment">/// changed by this function (but which is [`true`] by default)</span>
     <span class="doccomment">/// ## `proxy_resolver`</span>
-    <span class="doccomment">/// a [`ProxyResolver`](crate::ProxyResolver), or [`None`] for the</span>
+    <span class="doccomment">/// a [`crate::ProxyResolver`], or [`None`] for the</span>
     <span class="doccomment">///  default.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_set_proxy_resolver&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_proxy_resolver</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ProxyResolver</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">proxy_resolver</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
@@ -2027,10 +2027,10 @@
     <span class="doccomment">/// The sockets created by this object will be of the specified</span>
     <span class="doccomment">/// type.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It doesn&#39;t make sense to specify a type of [`SocketType::Datagram`],</span>
+    <span class="doccomment">/// It doesn&#39;t make sense to specify a type of [`crate::SocketType::Datagram`],</span>
     <span class="doccomment">/// as GSocketClient is used for connection oriented services.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// a [`SocketType`](crate::SocketType)</span>
+    <span class="doccomment">/// a [`crate::SocketType`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_set_socket_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_socket_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">SocketType</span>);
 
@@ -2038,30 +2038,30 @@
     <span class="doccomment">/// time in seconds, or 0 for no timeout (the default).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The timeout value affects the initial connection attempt as well,</span>
-    <span class="doccomment">/// so setting this may cause calls to [`connect()`](Self::connect()), etc,</span>
-    <span class="doccomment">/// to fail with [`IOErrorEnum::TimedOut`].</span>
+    <span class="doccomment">/// so setting this may cause calls to [`Self::connect()`], etc,</span>
+    <span class="doccomment">/// to fail with [`crate::IOErrorEnum::TimedOut`].</span>
     <span class="doccomment">/// ## `timeout`</span>
     <span class="doccomment">/// the timeout</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_set_timeout&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timeout</span>: <span class="ident">u32</span>);
 
     <span class="doccomment">/// Sets whether `self` creates TLS (aka SSL) connections. If `tls` is</span>
-    <span class="doccomment">/// [`true`], `self` will wrap its connections in a [`TlsClientConnection`](crate::TlsClientConnection)</span>
+    <span class="doccomment">/// [`true`], `self` will wrap its connections in a [`crate::TlsClientConnection`]</span>
     <span class="doccomment">/// and perform a TLS handshake when connecting.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that since [`SocketClient`](crate::SocketClient) must return a [`SocketConnection`](crate::SocketConnection),</span>
-    <span class="doccomment">/// but [`TlsClientConnection`](crate::TlsClientConnection) is not a [`SocketConnection`](crate::SocketConnection), this</span>
-    <span class="doccomment">/// actually wraps the resulting [`TlsClientConnection`](crate::TlsClientConnection) in a</span>
-    <span class="doccomment">/// [`TcpWrapperConnection`](crate::TcpWrapperConnection) when returning it. You can use</span>
-    <span class="doccomment">/// [`TcpWrapperConnection::get_base_io_stream()`](crate::TcpWrapperConnection::get_base_io_stream()) on the return value</span>
-    <span class="doccomment">/// to extract the [`TlsClientConnection`](crate::TlsClientConnection).</span>
+    <span class="doccomment">/// Note that since [`crate::SocketClient`] must return a [`crate::SocketConnection`],</span>
+    <span class="doccomment">/// but [`crate::TlsClientConnection`] is not a [`crate::SocketConnection`], this</span>
+    <span class="doccomment">/// actually wraps the resulting [`crate::TlsClientConnection`] in a</span>
+    <span class="doccomment">/// [`crate::TcpWrapperConnection`] when returning it. You can use</span>
+    <span class="doccomment">/// [`crate::TcpWrapperConnection::get_base_io_stream()`] on the return value</span>
+    <span class="doccomment">/// to extract the [`crate::TlsClientConnection`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you need to modify the behavior of the TLS handshake (eg, by</span>
     <span class="doccomment">/// setting a client-side certificate to use, or connecting to the</span>
-    <span class="doccomment">/// [`TlsConnection::accept-certificate`](crate::TlsConnection::accept-certificate) signal), you can connect to</span>
-    <span class="doccomment">/// `self`&#39;s [`SocketClient::event`](crate::SocketClient::event) signal and wait for it to be</span>
-    <span class="doccomment">/// emitted with [`SocketClientEvent::TlsHandshaking`], which will give you</span>
-    <span class="doccomment">/// a chance to see the [`TlsClientConnection`](crate::TlsClientConnection) before the handshake</span>
+    <span class="doccomment">/// [`crate::TlsConnection::accept-certificate`] signal), you can connect to</span>
+    <span class="doccomment">/// `self`&#39;s [`crate::SocketClient::event`] signal and wait for it to be</span>
+    <span class="doccomment">/// emitted with [`crate::SocketClientEvent::TlsHandshaking`], which will give you</span>
+    <span class="doccomment">/// a chance to see the [`crate::TlsClientConnection`] before the handshake</span>
     <span class="doccomment">/// starts.</span>
     <span class="doccomment">/// ## `tls`</span>
     <span class="doccomment">/// whether to use TLS</span>
@@ -2069,7 +2069,7 @@
     <span class="kw">fn</span> <span class="ident">set_tls</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tls</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets the TLS validation flags used when creating TLS connections</span>
-    <span class="doccomment">/// via `self`. The default value is [`TlsCertificateFlags::ValidateAll`].</span>
+    <span class="doccomment">/// via `self`. The default value is [`crate::TlsCertificateFlags::ValidateAll`].</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// the validation flags</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_client_set_tls_validation_flags&quot;</span>)]</span>
@@ -2086,54 +2086,54 @@
     <span class="doccomment">/// information about a network connection in the UI. The meanings of</span>
     <span class="doccomment">/// the different `event` values are as follows:</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::Resolving`]: `client` is about to look up `connectable`</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::Resolving`]: `client` is about to look up `connectable`</span>
     <span class="doccomment">///  in DNS. `connection` will be [`None`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::Resolved`]: `client` has successfully resolved</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::Resolved`]: `client` has successfully resolved</span>
     <span class="doccomment">///  `connectable` in DNS. `connection` will be [`None`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::Connecting`]: `client` is about to make a connection</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::Connecting`]: `client` is about to make a connection</span>
     <span class="doccomment">///  to a remote host; either a proxy server or the destination server</span>
-    <span class="doccomment">///  itself. `connection` is the [`SocketConnection`](crate::SocketConnection), which is not yet</span>
+    <span class="doccomment">///  itself. `connection` is the [`crate::SocketConnection`], which is not yet</span>
     <span class="doccomment">///  connected. Since GLib 2.40, you can access the remote</span>
-    <span class="doccomment">///  address via [`SocketConnectionExt::get_remote_address()`](crate::SocketConnectionExt::get_remote_address()).</span>
+    <span class="doccomment">///  address via [`crate::prelude::SocketConnectionExt::get_remote_address()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::Connected`]: `client` has successfully connected</span>
-    <span class="doccomment">///  to a remote host. `connection` is the connected [`SocketConnection`](crate::SocketConnection).</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::Connected`]: `client` has successfully connected</span>
+    <span class="doccomment">///  to a remote host. `connection` is the connected [`crate::SocketConnection`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::ProxyNegotiating`]: `client` is about to negotiate</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::ProxyNegotiating`]: `client` is about to negotiate</span>
     <span class="doccomment">///  with a proxy to get it to connect to `connectable`. `connection` is</span>
-    <span class="doccomment">///  the [`SocketConnection`](crate::SocketConnection) to the proxy server.</span>
+    <span class="doccomment">///  the [`crate::SocketConnection`] to the proxy server.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::ProxyNegotiated`]: `client` has negotiated a</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::ProxyNegotiated`]: `client` has negotiated a</span>
     <span class="doccomment">///  connection to `connectable` through a proxy server. `connection` is</span>
-    <span class="doccomment">///  the stream returned from [`Proxy::connect()`](crate::Proxy::connect()), which may or may not</span>
-    <span class="doccomment">///  be a [`SocketConnection`](crate::SocketConnection).</span>
+    <span class="doccomment">///  the stream returned from [`crate::Proxy::connect()`], which may or may not</span>
+    <span class="doccomment">///  be a [`crate::SocketConnection`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::TlsHandshaking`]: `client` is about to begin a TLS</span>
-    <span class="doccomment">///  handshake. `connection` is a [`TlsClientConnection`](crate::TlsClientConnection).</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::TlsHandshaking`]: `client` is about to begin a TLS</span>
+    <span class="doccomment">///  handshake. `connection` is a [`crate::TlsClientConnection`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::TlsHandshaked`]: `client` has successfully completed</span>
-    <span class="doccomment">///  the TLS handshake. `connection` is a [`TlsClientConnection`](crate::TlsClientConnection).</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::TlsHandshaked`]: `client` has successfully completed</span>
+    <span class="doccomment">///  the TLS handshake. `connection` is a [`crate::TlsClientConnection`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - [`SocketClientEvent::Complete`]: `client` has either successfully connected</span>
-    <span class="doccomment">///  to `connectable` (in which case `connection` is the [`SocketConnection`](crate::SocketConnection)</span>
+    <span class="doccomment">/// - [`crate::SocketClientEvent::Complete`]: `client` has either successfully connected</span>
+    <span class="doccomment">///  to `connectable` (in which case `connection` is the [`crate::SocketConnection`]</span>
     <span class="doccomment">///  that it will be returning to the caller) or has failed (in which</span>
     <span class="doccomment">///  case `connection` is [`None`] and the client is about to return an error).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Each event except [`SocketClientEvent::Complete`] may be emitted</span>
+    <span class="doccomment">/// Each event except [`crate::SocketClientEvent::Complete`] may be emitted</span>
     <span class="doccomment">/// multiple times (or not at all) for a given connectable (in</span>
     <span class="doccomment">/// particular, if `client` ends up attempting to connect to more than</span>
-    <span class="doccomment">/// one address). However, if `client` emits the [`SocketClient::event`](crate::SocketClient::event)</span>
+    <span class="doccomment">/// one address). However, if `client` emits the [`crate::SocketClient::event`]</span>
     <span class="doccomment">/// signal at all for a given connectable, then it will always emit</span>
-    <span class="doccomment">/// it with [`SocketClientEvent::Complete`] when it is done.</span>
+    <span class="doccomment">/// it with [`crate::SocketClientEvent::Complete`] when it is done.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that there may be additional [`SocketClientEvent`](crate::SocketClientEvent) values in</span>
+    <span class="doccomment">/// Note that there may be additional [`crate::SocketClientEvent`] values in</span>
     <span class="doccomment">/// the future; unrecognized `event` values should be ignored.</span>
     <span class="doccomment">/// ## `event`</span>
     <span class="doccomment">/// the event that is occurring</span>
     <span class="doccomment">/// ## `connectable`</span>
-    <span class="doccomment">/// the [`SocketConnectable`](crate::SocketConnectable) that `event` is occurring on</span>
+    <span class="doccomment">/// the [`crate::SocketConnectable`] that `event` is occurring on</span>
     <span class="doccomment">/// ## `connection`</span>
     <span class="doccomment">/// the current representation of the connection</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;event&quot;</span>)]</span>

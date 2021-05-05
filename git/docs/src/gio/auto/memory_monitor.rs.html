@@ -167,7 +167,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`MemoryMonitor`](crate::MemoryMonitor) will monitor system memory and suggest to the application</span>
+    <span class="doccomment">/// [`crate::MemoryMonitor`] will monitor system memory and suggest to the application</span>
     <span class="doccomment">/// when to free memory so as to leave more room for other applications.</span>
     <span class="doccomment">/// It is implemented on Linux using the [Low Memory Monitor](https://gitlab.freedesktop.org/hadess/low-memory-monitor/)</span>
     <span class="doccomment">/// ([API documentation](https://hadess.pages.freedesktop.org/low-memory-monitor/)).</span>
@@ -188,7 +188,7 @@
     <span class="doccomment">/// make future heap allocations slower (due to releasing cached heap pages back</span>
     <span class="doccomment">/// to the kernel).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`MemoryMonitorWarningLevel`](crate::MemoryMonitorWarningLevel) for details on the various warning levels.</span>
+    <span class="doccomment">/// See [`crate::MemoryMonitorWarningLevel`] for details on the various warning levels.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -211,12 +211,12 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Don&#39;t forget to disconnect the [`MemoryMonitor::low-memory-warning`](crate::MemoryMonitor::low-memory-warning)</span>
-    <span class="doccomment">/// signal, and unref the [`MemoryMonitor`](crate::MemoryMonitor) itself when exiting.</span>
+    <span class="doccomment">/// Don&#39;t forget to disconnect the [`crate::MemoryMonitor::low-memory-warning`]</span>
+    <span class="doccomment">/// signal, and unref the [`crate::MemoryMonitor`] itself when exiting.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MemoryMonitorExt`](trait@crate::prelude::MemoryMonitorExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::MemoryMonitorExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MemoryMonitor</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GMemoryMonitor</span>, <span class="ident">ffi::GMemoryMonitorInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -225,11 +225,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">MemoryMonitor</span> {
-    <span class="doccomment">/// Gets a reference to the default [`MemoryMonitor`](crate::MemoryMonitor) for the system.</span>
+    <span class="doccomment">/// Gets a reference to the default [`crate::MemoryMonitor`] for the system.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new reference to the default [`MemoryMonitor`](crate::MemoryMonitor)</span>
+    <span class="doccomment">/// a new reference to the default [`crate::MemoryMonitor`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_memory_monitor_dup_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dup_default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MemoryMonitor</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_memory_monitor_dup_default</span>()) }
@@ -242,14 +242,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`MemoryMonitor`](struct@crate::MemoryMonitor)</span>
+<span class="doccomment">/// [`struct@crate::MemoryMonitor`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MemoryMonitorExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Emitted when the system is running low on free memory. The signal</span>
     <span class="doccomment">/// handler should then take the appropriate action depending on the</span>
-    <span class="doccomment">/// warning level. See the [`MemoryMonitorWarningLevel`](crate::MemoryMonitorWarningLevel) documentation for</span>
+    <span class="doccomment">/// warning level. See the [`crate::MemoryMonitorWarningLevel`] documentation for</span>
     <span class="doccomment">/// details.</span>
     <span class="doccomment">/// ## `level`</span>
-    <span class="doccomment">/// the [`MemoryMonitorWarningLevel`](crate::MemoryMonitorWarningLevel) warning level</span>
+    <span class="doccomment">/// the [`crate::MemoryMonitorWarningLevel`] warning level</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_64&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_64&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;low-memory-warning&quot;</span>)]</span>

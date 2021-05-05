@@ -3170,7 +3170,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`WindowExtManual`](trait@crate::prelude::WindowExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::WindowExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Window</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkWindow</span>, <span class="ident">ffi::GdkWindowClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -3186,7 +3186,7 @@
 
     <span class="doccomment">/// Emits a short beep associated to `self` in the appropriate</span>
     <span class="doccomment">/// display, if supported. Otherwise, emits a short beep on</span>
-    <span class="doccomment">/// the display just as [`Display::beep()`](crate::Display::beep()).</span>
+    <span class="doccomment">/// the display just as [`crate::Display::beep()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_beep&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">beep</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -3195,9 +3195,9 @@
     }
 
     <span class="doccomment">/// Indicates that you are beginning the process of redrawing `region`</span>
-    <span class="doccomment">/// on `self`, and provides you with a [`DrawingContext`](crate::DrawingContext).</span>
+    <span class="doccomment">/// on `self`, and provides you with a [`crate::DrawingContext`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `self` is a top level [`Window`](crate::Window), backed by a native window</span>
+    <span class="doccomment">/// If `self` is a top level [`crate::Window`], backed by a native window</span>
     <span class="doccomment">/// implementation, a backing store (offscreen buffer) large enough to</span>
     <span class="doccomment">/// contain `region` will be created. The backing store will be initialized</span>
     <span class="doccomment">/// with the background color or background surface for `self`. Then, all</span>
@@ -3209,24 +3209,24 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The net result of all this is to remove flicker, because the user</span>
     <span class="doccomment">/// sees the finished product appear all at once when you call</span>
-    <span class="doccomment">/// [`end_draw_frame()`](Self::end_draw_frame()). If you draw to `self` directly without</span>
-    <span class="doccomment">/// calling [`begin_draw_frame()`](Self::begin_draw_frame()), the user may see flicker</span>
+    <span class="doccomment">/// [`Self::end_draw_frame()`]. If you draw to `self` directly without</span>
+    <span class="doccomment">/// calling [`Self::begin_draw_frame()`], the user may see flicker</span>
     <span class="doccomment">/// as individual drawing operations are performed in sequence.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When using GTK+, the widget system automatically places calls to</span>
-    <span class="doccomment">/// [`begin_draw_frame()`](Self::begin_draw_frame()) and [`end_draw_frame()`](Self::end_draw_frame()) around</span>
+    <span class="doccomment">/// [`Self::begin_draw_frame()`] and [`Self::end_draw_frame()`] around</span>
     <span class="doccomment">/// emissions of the `GtkWidget::draw` signal. That is, if you’re</span>
     <span class="doccomment">/// drawing the contents of the widget yourself, you can assume that the</span>
     <span class="doccomment">/// widget has a cleared background, is already set as the clip region,</span>
     <span class="doccomment">/// and already has a backing store. Therefore in most cases, application</span>
-    <span class="doccomment">/// code in GTK does not need to call [`begin_draw_frame()`](Self::begin_draw_frame())</span>
+    <span class="doccomment">/// code in GTK does not need to call [`Self::begin_draw_frame()`]</span>
     <span class="doccomment">/// explicitly.</span>
     <span class="doccomment">/// ## `region`</span>
     <span class="doccomment">/// a Cairo region</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`DrawingContext`](crate::DrawingContext) context that should be</span>
+    <span class="doccomment">/// a [`crate::DrawingContext`] context that should be</span>
     <span class="doccomment">///  used to draw the contents of the window; the returned context is owned</span>
     <span class="doccomment">///  by GDK.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -3244,7 +3244,7 @@
     <span class="doccomment">/// Begins a window move operation (for a toplevel window).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function assumes that the drag is controlled by the</span>
-    <span class="doccomment">/// client pointer device, use [`begin_move_drag_for_device()`](Self::begin_move_drag_for_device())</span>
+    <span class="doccomment">/// client pointer device, use [`Self::begin_move_drag_for_device()`]</span>
     <span class="doccomment">/// to begin a drag with a different device.</span>
     <span class="doccomment">/// ## `button`</span>
     <span class="doccomment">/// the button being used to drag, or 0 for a keyboard-initiated drag</span>
@@ -3303,13 +3303,13 @@
         }
     }
 
-    <span class="doccomment">/// A convenience wrapper around [`begin_paint_region()`](Self::begin_paint_region()) which</span>
+    <span class="doccomment">/// A convenience wrapper around [`Self::begin_paint_region()`] which</span>
     <span class="doccomment">/// creates a rectangular region for you. See</span>
-    <span class="doccomment">/// [`begin_paint_region()`](Self::begin_paint_region()) for details.</span>
+    <span class="doccomment">/// [`Self::begin_paint_region()`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`begin_draw_frame()`](Self::begin_draw_frame()) instead</span>
+    <span class="doccomment">/// Use [`Self::begin_draw_frame()`] instead</span>
     <span class="doccomment">/// ## `rectangle`</span>
     <span class="doccomment">/// rectangle you intend to draw to</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
@@ -3325,43 +3325,43 @@
     <span class="doccomment">/// will be created. The backing store will be initialized with the</span>
     <span class="doccomment">/// background color or background surface for `self`. Then, all</span>
     <span class="doccomment">/// drawing operations performed on `self` will be diverted to the</span>
-    <span class="doccomment">/// backing store. When you call [`end_paint()`](Self::end_paint()), the backing</span>
+    <span class="doccomment">/// backing store. When you call [`Self::end_paint()`], the backing</span>
     <span class="doccomment">/// store will be copied to `self`, making it visible onscreen. Only</span>
     <span class="doccomment">/// the part of `self` contained in `region` will be modified; that is,</span>
     <span class="doccomment">/// drawing operations are clipped to `region`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The net result of all this is to remove flicker, because the user</span>
     <span class="doccomment">/// sees the finished product appear all at once when you call</span>
-    <span class="doccomment">/// [`end_paint()`](Self::end_paint()). If you draw to `self` directly without</span>
-    <span class="doccomment">/// calling [`begin_paint_region()`](Self::begin_paint_region()), the user may see flicker</span>
+    <span class="doccomment">/// [`Self::end_paint()`]. If you draw to `self` directly without</span>
+    <span class="doccomment">/// calling [`Self::begin_paint_region()`], the user may see flicker</span>
     <span class="doccomment">/// as individual drawing operations are performed in sequence. The</span>
     <span class="doccomment">/// clipping and background-initializing features of</span>
-    <span class="doccomment">/// [`begin_paint_region()`](Self::begin_paint_region()) are conveniences for the</span>
+    <span class="doccomment">/// [`Self::begin_paint_region()`] are conveniences for the</span>
     <span class="doccomment">/// programmer, so you can avoid doing that work yourself.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When using GTK+, the widget system automatically places calls to</span>
-    <span class="doccomment">/// [`begin_paint_region()`](Self::begin_paint_region()) and [`end_paint()`](Self::end_paint()) around</span>
+    <span class="doccomment">/// [`Self::begin_paint_region()`] and [`Self::end_paint()`] around</span>
     <span class="doccomment">/// emissions of the expose_event signal. That is, if you’re writing an</span>
     <span class="doccomment">/// expose event handler, you can assume that the exposed area in</span>
-    <span class="doccomment">/// [`EventExpose`](crate::EventExpose) has already been cleared to the window background,</span>
+    <span class="doccomment">/// [`crate::EventExpose`] has already been cleared to the window background,</span>
     <span class="doccomment">/// is already set as the clip region, and already has a backing store.</span>
     <span class="doccomment">/// Therefore in most cases, application code need not call</span>
-    <span class="doccomment">/// [`begin_paint_region()`](Self::begin_paint_region()). (You can disable the automatic</span>
+    <span class="doccomment">/// [`Self::begin_paint_region()`]. (You can disable the automatic</span>
     <span class="doccomment">/// calls around expose events on a widget-by-widget basis by calling</span>
     <span class="doccomment">/// `gtk_widget_set_double_buffered()`.)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you call this function multiple times before calling the</span>
-    <span class="doccomment">/// matching [`end_paint()`](Self::end_paint()), the backing stores are pushed onto</span>
-    <span class="doccomment">/// a stack. [`end_paint()`](Self::end_paint()) copies the topmost backing store</span>
+    <span class="doccomment">/// matching [`Self::end_paint()`], the backing stores are pushed onto</span>
+    <span class="doccomment">/// a stack. [`Self::end_paint()`] copies the topmost backing store</span>
     <span class="doccomment">/// onscreen, subtracts the topmost region from all other regions in</span>
     <span class="doccomment">/// the stack, and pops the stack. All drawing operations affect only</span>
     <span class="doccomment">/// the topmost backing store in the stack. One matching call to</span>
-    <span class="doccomment">/// [`end_paint()`](Self::end_paint()) is required for each call to</span>
-    <span class="doccomment">/// [`begin_paint_region()`](Self::begin_paint_region()).</span>
+    <span class="doccomment">/// [`Self::end_paint()`] is required for each call to</span>
+    <span class="doccomment">/// [`Self::begin_paint_region()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`begin_draw_frame()`](Self::begin_draw_frame()) instead</span>
+    <span class="doccomment">/// Use [`Self::begin_draw_frame()`] instead</span>
     <span class="doccomment">/// ## `region`</span>
     <span class="doccomment">/// region you intend to draw to</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
@@ -3375,7 +3375,7 @@
     <span class="doccomment">/// Begins a window resize operation (for a toplevel window).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function assumes that the drag is controlled by the</span>
-    <span class="doccomment">/// client pointer device, use [`begin_resize_drag_for_device()`](Self::begin_resize_drag_for_device())</span>
+    <span class="doccomment">/// client pointer device, use [`Self::begin_resize_drag_for_device()`]</span>
     <span class="doccomment">/// to begin a drag with a different device.</span>
     <span class="doccomment">/// ## `edge`</span>
     <span class="doccomment">/// the edge or corner from which the drag is started</span>
@@ -3451,12 +3451,12 @@
 
     <span class="doccomment">/// Transforms window coordinates from a parent window to a child</span>
     <span class="doccomment">/// window, where the parent window is the normal parent as returned by</span>
-    <span class="doccomment">/// [`get_parent()`](Self::get_parent()) for normal windows, and the window&#39;s</span>
+    <span class="doccomment">/// [`Self::get_parent()`] for normal windows, and the window&#39;s</span>
     <span class="doccomment">/// embedder as returned by `gdk_offscreen_window_get_embedder()` for</span>
     <span class="doccomment">/// offscreen windows.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For normal windows, calling this function is equivalent to subtracting</span>
-    <span class="doccomment">/// the return values of [`get_position()`](Self::get_position()) from the parent coordinates.</span>
+    <span class="doccomment">/// the return values of [`Self::get_position()`] from the parent coordinates.</span>
     <span class="doccomment">/// For offscreen windows however (which can be arbitrarily transformed),</span>
     <span class="doccomment">/// this function calls the `Window`::from-embedder: signal to translate</span>
     <span class="doccomment">/// the coordinates.</span>
@@ -3464,7 +3464,7 @@
     <span class="doccomment">/// You should always use this function when writing generic code that</span>
     <span class="doccomment">/// walks down a window hierarchy.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`coords_to_parent()`](Self::coords_to_parent())</span>
+    <span class="doccomment">/// See also: [`Self::coords_to_parent()`]</span>
     <span class="doccomment">/// ## `parent_x`</span>
     <span class="doccomment">/// X coordinate in parent’s coordinate system</span>
     <span class="doccomment">/// ## `parent_y`</span>
@@ -3493,12 +3493,12 @@
 
     <span class="doccomment">/// Transforms window coordinates from a child window to its parent</span>
     <span class="doccomment">/// window, where the parent window is the normal parent as returned by</span>
-    <span class="doccomment">/// [`get_parent()`](Self::get_parent()) for normal windows, and the window&#39;s</span>
+    <span class="doccomment">/// [`Self::get_parent()`] for normal windows, and the window&#39;s</span>
     <span class="doccomment">/// embedder as returned by `gdk_offscreen_window_get_embedder()` for</span>
     <span class="doccomment">/// offscreen windows.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For normal windows, calling this function is equivalent to adding</span>
-    <span class="doccomment">/// the return values of [`get_position()`](Self::get_position()) to the child coordinates.</span>
+    <span class="doccomment">/// the return values of [`Self::get_position()`] to the child coordinates.</span>
     <span class="doccomment">/// For offscreen windows however (which can be arbitrarily transformed),</span>
     <span class="doccomment">/// this function calls the `Window`::to-embedder: signal to translate</span>
     <span class="doccomment">/// the coordinates.</span>
@@ -3506,7 +3506,7 @@
     <span class="doccomment">/// You should always use this function when writing generic code that</span>
     <span class="doccomment">/// walks up a window hierarchy.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`coords_from_parent()`](Self::coords_from_parent())</span>
+    <span class="doccomment">/// See also: [`Self::coords_from_parent()`]</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// X coordinate in child’s coordinate system</span>
     <span class="doccomment">/// ## `y`</span>
@@ -3535,18 +3535,18 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`GLContext`](crate::GLContext) matching the</span>
-    <span class="doccomment">/// framebuffer format to the visual of the [`Window`](crate::Window). The context</span>
+    <span class="doccomment">/// Creates a new [`crate::GLContext`] matching the</span>
+    <span class="doccomment">/// framebuffer format to the visual of the [`crate::Window`]. The context</span>
     <span class="doccomment">/// is disconnected from any particular window or surface.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the creation of the [`GLContext`](crate::GLContext) failed, `error` will be set.</span>
+    <span class="doccomment">/// If the creation of the [`crate::GLContext`] failed, `error` will be set.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before using the returned [`GLContext`](crate::GLContext), you will need to</span>
-    <span class="doccomment">/// call [`GLContext::make_current()`](crate::GLContext::make_current()) or [`GLContext::realize()`](crate::GLContext::realize()).</span>
+    <span class="doccomment">/// Before using the returned [`crate::GLContext`], you will need to</span>
+    <span class="doccomment">/// call [`crate::GLContext::make_current()`] or [`crate::GLContext::realize()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`GLContext`](crate::GLContext), or</span>
+    <span class="doccomment">/// the newly created [`crate::GLContext`], or</span>
     <span class="doccomment">/// [`None`] on error</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
@@ -3565,7 +3565,7 @@
 
     <span class="doccomment">/// Attempt to deiconify (unminimize) `self`. On X11 the window manager may</span>
     <span class="doccomment">/// choose to ignore the request to deiconify. When using GTK+,</span>
-    <span class="doccomment">/// use `gtk_window_deiconify()` instead of the [`Window`](crate::Window) variant. Or better yet,</span>
+    <span class="doccomment">/// use `gtk_window_deiconify()` instead of the [`crate::Window`] variant. Or better yet,</span>
     <span class="doccomment">/// you probably want to use `gtk_window_present_with_time()`, which raises the window, focuses it,</span>
     <span class="doccomment">/// unminimizes it, and puts it on the current desktop.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_deiconify&quot;</span>)]</span>
@@ -3598,12 +3598,12 @@
     <span class="doccomment">/// Indicates that the drawing of the contents of `self` started with</span>
     <span class="doccomment">/// `gdk_window_begin_frame()` has been completed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function will take care of destroying the [`DrawingContext`](crate::DrawingContext).</span>
+    <span class="doccomment">/// This function will take care of destroying the [`crate::DrawingContext`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is an error to call this function without a matching</span>
     <span class="doccomment">/// `gdk_window_begin_frame()` first.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the [`DrawingContext`](crate::DrawingContext) created by [`begin_draw_frame()`](Self::begin_draw_frame())</span>
+    <span class="doccomment">/// the [`crate::DrawingContext`] created by [`Self::begin_draw_frame()`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_end_draw_frame&quot;</span>)]</span>
@@ -3614,13 +3614,13 @@
     }
 
     <span class="doccomment">/// Indicates that the backing store created by the most recent call</span>
-    <span class="doccomment">/// to [`begin_paint_region()`](Self::begin_paint_region()) should be copied onscreen and</span>
+    <span class="doccomment">/// to [`Self::begin_paint_region()`] should be copied onscreen and</span>
     <span class="doccomment">/// deleted, leaving the next-most-recent backing store or no backing</span>
     <span class="doccomment">/// store at all as the active paint region. See</span>
-    <span class="doccomment">/// [`begin_paint_region()`](Self::begin_paint_region()) for full details.</span>
+    <span class="doccomment">/// [`Self::begin_paint_region()`] for full details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is an error to call this function without a matching</span>
-    <span class="doccomment">/// [`begin_paint_region()`](Self::begin_paint_region()) first.</span>
+    <span class="doccomment">/// [`Self::begin_paint_region()`] first.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_end_paint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">end_paint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -3656,10 +3656,10 @@
 
     <span class="doccomment">/// Temporarily freezes a window and all its descendants such that it won&#39;t</span>
     <span class="doccomment">/// receive expose events. The window will begin receiving expose events</span>
-    <span class="doccomment">/// again when [`thaw_toplevel_updates_libgtk_only()`](Self::thaw_toplevel_updates_libgtk_only()) is called. If</span>
-    <span class="doccomment">/// [`freeze_toplevel_updates_libgtk_only()`](Self::freeze_toplevel_updates_libgtk_only())</span>
+    <span class="doccomment">/// again when [`Self::thaw_toplevel_updates_libgtk_only()`] is called. If</span>
+    <span class="doccomment">/// [`Self::freeze_toplevel_updates_libgtk_only()`]</span>
     <span class="doccomment">/// has been called more than once,</span>
-    <span class="doccomment">/// [`thaw_toplevel_updates_libgtk_only()`](Self::thaw_toplevel_updates_libgtk_only()) must be called</span>
+    <span class="doccomment">/// [`Self::thaw_toplevel_updates_libgtk_only()`] must be called</span>
     <span class="doccomment">/// an equal number of times to begin processing exposes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is not part of the GDK public API and is only</span>
@@ -3678,8 +3678,8 @@
 
     <span class="doccomment">/// Temporarily freezes a window such that it won’t receive expose</span>
     <span class="doccomment">/// events. The window will begin receiving expose events again when</span>
-    <span class="doccomment">/// [`thaw_updates()`](Self::thaw_updates()) is called. If [`freeze_updates()`](Self::freeze_updates())</span>
-    <span class="doccomment">/// has been called more than once, [`thaw_updates()`](Self::thaw_updates()) must be called</span>
+    <span class="doccomment">/// [`Self::thaw_updates()`] is called. If [`Self::freeze_updates()`]</span>
+    <span class="doccomment">/// has been called more than once, [`Self::thaw_updates()`] must be called</span>
     <span class="doccomment">/// an equal number of times to begin processing exposes.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_freeze_updates&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">freeze_updates</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -3781,7 +3781,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`cairo::Region`](crate::cairo::Region). This must be freed with `cairo_region_destroy()`</span>
+    <span class="doccomment">/// a [`crate::cairo::Region`]. This must be freed with `cairo_region_destroy()`</span>
     <span class="doccomment">///  when you are done.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_clip_region&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_clip_region&quot;</span>)]</span>
@@ -3791,7 +3791,7 @@
 
     <span class="doccomment">/// Determines whether `self` is composited.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`set_composited()`](Self::set_composited()).</span>
+    <span class="doccomment">/// See [`Self::set_composited()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
@@ -3808,16 +3808,16 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_get_composited</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Retrieves a [`Cursor`](crate::Cursor) pointer for the cursor currently set on the</span>
-    <span class="doccomment">/// specified [`Window`](crate::Window), or [`None`]. If the return value is [`None`] then</span>
+    <span class="doccomment">/// Retrieves a [`crate::Cursor`] pointer for the cursor currently set on the</span>
+    <span class="doccomment">/// specified [`crate::Window`], or [`None`]. If the return value is [`None`] then</span>
     <span class="doccomment">/// there is no custom cursor set on the specified window, and it is</span>
     <span class="doccomment">/// using the cursor for its parent window.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Cursor`](crate::Cursor), or [`None`]. The</span>
-    <span class="doccomment">///  returned object is owned by the [`Window`](crate::Window) and should not be</span>
-    <span class="doccomment">///  unreferenced directly. Use [`set_cursor()`](Self::set_cursor()) to unset the</span>
+    <span class="doccomment">/// a [`crate::Cursor`], or [`None`]. The</span>
+    <span class="doccomment">///  returned object is owned by the [`crate::Window`] and should not be</span>
+    <span class="doccomment">///  unreferenced directly. Use [`Self::set_cursor()`] to unset the</span>
     <span class="doccomment">///  cursor of the window</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_cursor&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_cursor&quot;</span>)]</span>
@@ -3826,7 +3826,7 @@
     }
 
     <span class="doccomment">/// Returns the decorations set on the `Window` with</span>
-    <span class="doccomment">/// [`set_decorations()`](Self::set_decorations()).</span>
+    <span class="doccomment">/// [`Self::set_decorations()`].</span>
     <span class="doccomment">/// ## `decorations`</span>
     <span class="doccomment">/// The window decorations will be written here</span>
     <span class="doccomment">///</span>
@@ -3851,18 +3851,18 @@
         }
     }
 
-    <span class="doccomment">/// Retrieves a [`Cursor`](crate::Cursor) pointer for the `device` currently set on the</span>
-    <span class="doccomment">/// specified [`Window`](crate::Window), or [`None`]. If the return value is [`None`] then</span>
+    <span class="doccomment">/// Retrieves a [`crate::Cursor`] pointer for the `device` currently set on the</span>
+    <span class="doccomment">/// specified [`crate::Window`], or [`None`]. If the return value is [`None`] then</span>
     <span class="doccomment">/// there is no custom cursor set on the specified window, and it is</span>
     <span class="doccomment">/// using the cursor for its parent window.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// a master, pointer [`Device`](crate::Device).</span>
+    <span class="doccomment">/// a master, pointer [`crate::Device`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Cursor`](crate::Cursor), or [`None`]. The</span>
-    <span class="doccomment">///  returned object is owned by the [`Window`](crate::Window) and should not be</span>
-    <span class="doccomment">///  unreferenced directly. Use [`set_cursor()`](Self::set_cursor()) to unset the</span>
+    <span class="doccomment">/// a [`crate::Cursor`], or [`None`]. The</span>
+    <span class="doccomment">///  returned object is owned by the [`crate::Window`] and should not be</span>
+    <span class="doccomment">///  unreferenced directly. Use [`Self::set_cursor()`] to unset the</span>
     <span class="doccomment">///  cursor of the window</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_device_cursor&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_device_cursor&quot;</span>)]</span>
@@ -3877,7 +3877,7 @@
 
     <span class="doccomment">/// Returns the event mask for `self` corresponding to an specific device.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// a [`Device`](crate::Device).</span>
+    <span class="doccomment">/// a [`crate::Device`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3897,9 +3897,9 @@
     <span class="doccomment">/// The position is given in coordinates relative to the upper left</span>
     <span class="doccomment">/// corner of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`get_device_position_double()`](Self::get_device_position_double()) if you need subpixel precision.</span>
+    <span class="doccomment">/// Use [`Self::get_device_position_double()`] if you need subpixel precision.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// pointer [`Device`](crate::Device) to query to.</span>
+    <span class="doccomment">/// pointer [`crate::Device`] to query to.</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// return location for the X coordinate of `device`, or [`None`].</span>
     <span class="doccomment">/// ## `y`</span>
@@ -3910,7 +3910,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The window underneath `device`</span>
-    <span class="doccomment">/// (as with [`Device::get_window_at_position()`](crate::Device::get_window_at_position())), or [`None`] if the</span>
+    <span class="doccomment">/// (as with [`crate::Device::get_window_at_position()`]), or [`None`] if the</span>
     <span class="doccomment">/// window is not known to GDK.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_device_position&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_device_position&quot;</span>)]</span>
@@ -3937,7 +3937,7 @@
     <span class="doccomment">/// The position is given in coordinates relative to the upper left</span>
     <span class="doccomment">/// corner of `self`.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// pointer [`Device`](crate::Device) to query to.</span>
+    <span class="doccomment">/// pointer [`crate::Device`] to query to.</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// return location for the X coordinate of `device`, or [`None`].</span>
     <span class="doccomment">/// ## `y`</span>
@@ -3948,7 +3948,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The window underneath `device`</span>
-    <span class="doccomment">/// (as with [`Device::get_window_at_position()`](crate::Device::get_window_at_position())), or [`None`] if the</span>
+    <span class="doccomment">/// (as with [`crate::Device::get_window_at_position()`]), or [`None`] if the</span>
     <span class="doccomment">/// window is not known to GDK.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_device_position_double&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_device_position_double&quot;</span>)]</span>
@@ -3974,11 +3974,11 @@
         }
     }
 
-    <span class="doccomment">/// Gets the [`Display`](crate::Display) associated with a [`Window`](crate::Window).</span>
+    <span class="doccomment">/// Gets the [`crate::Display`] associated with a [`crate::Window`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Display`](crate::Display) associated with `self`</span>
+    <span class="doccomment">/// the [`crate::Display`] associated with `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_display&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">display</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Display</span> {
@@ -4008,7 +4008,7 @@
     }
 
     <span class="doccomment">/// Obtains the parent of `self`, as known to GDK. Works like</span>
-    <span class="doccomment">/// [`get_parent()`](Self::get_parent()) for normal windows, but returns the</span>
+    <span class="doccomment">/// [`Self::get_parent()`] for normal windows, but returns the</span>
     <span class="doccomment">/// window’s embedder for offscreen windows.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See also: `gdk_offscreen_window_get_embedder()`</span>
@@ -4024,8 +4024,8 @@
 
     <span class="doccomment">/// Gets the toplevel window that’s an ancestor of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Works like [`get_toplevel()`](Self::get_toplevel()), but treats an offscreen window&#39;s</span>
-    <span class="doccomment">/// embedder as its parent, using [`get_effective_parent()`](Self::get_effective_parent()).</span>
+    <span class="doccomment">/// Works like [`Self::get_toplevel()`], but treats an offscreen window&#39;s</span>
+    <span class="doccomment">/// embedder as its parent, using [`Self::get_effective_parent()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See also: `gdk_offscreen_window_get_embedder()`</span>
     <span class="doccomment">///</span>
@@ -4054,7 +4054,7 @@
     }
 
     <span class="doccomment">/// Gets the event mask for `self` for all master input devices. See</span>
-    <span class="doccomment">/// [`set_events()`](Self::set_events()).</span>
+    <span class="doccomment">/// [`Self::set_events()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4094,7 +4094,7 @@
     <span class="doccomment">/// Obtains the bounding box of the window, including window manager</span>
     <span class="doccomment">/// titlebar/borders if any. The frame position is given in root window</span>
     <span class="doccomment">/// coordinates. To get the position of the window itself (rather than</span>
-    <span class="doccomment">/// the frame) in root window coordinates, use [`get_origin()`](Self::get_origin()).</span>
+    <span class="doccomment">/// the frame) in root window coordinates, use [`Self::get_origin()`].</span>
     <span class="doccomment">/// ## `rect`</span>
     <span class="doccomment">/// rectangle to fill with bounding box of the window frame</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_frame_extents&quot;</span>)]</span>
@@ -4107,11 +4107,11 @@
         }
     }
 
-    <span class="doccomment">/// Obtains the [`FullscreenMode`](crate::FullscreenMode) of the `self`.</span>
+    <span class="doccomment">/// Obtains the [`crate::FullscreenMode`] of the `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`FullscreenMode`](crate::FullscreenMode) applied to the window when fullscreen.</span>
+    <span class="doccomment">/// The [`crate::FullscreenMode`] applied to the window when fullscreen.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_fullscreen_mode&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_fullscreen_mode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fullscreen_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FullscreenMode</span> {
@@ -4129,14 +4129,14 @@
     <span class="doccomment">/// On the X11 platform, the geometry is obtained from the X server,</span>
     <span class="doccomment">/// so reflects the latest position of `self`; this may be out-of-sync</span>
     <span class="doccomment">/// with the position of `self` delivered in the most-recently-processed</span>
-    <span class="doccomment">/// [`EventConfigure`](crate::EventConfigure). [`get_position()`](Self::get_position()) in contrast gets the</span>
+    <span class="doccomment">/// [`crate::EventConfigure`]. [`Self::get_position()`] in contrast gets the</span>
     <span class="doccomment">/// position from the most recent configure event.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: If `self` is not a toplevel, it is much better</span>
-    <span class="doccomment">/// to call [`get_position()`](Self::get_position()), [`get_width()`](Self::get_width()) and</span>
-    <span class="doccomment">/// [`get_height()`](Self::get_height()) instead, because it avoids the roundtrip to</span>
+    <span class="doccomment">/// to call [`Self::get_position()`], [`Self::get_width()`] and</span>
+    <span class="doccomment">/// [`Self::get_height()`] instead, because it avoids the roundtrip to</span>
     <span class="doccomment">/// the X server and because these functions support the full 32-bit</span>
-    <span class="doccomment">/// coordinate space, whereas [`get_geometry()`](Self::get_geometry()) is restricted to</span>
+    <span class="doccomment">/// coordinate space, whereas [`Self::get_geometry()`] is restricted to</span>
     <span class="doccomment">/// the 16-bit coordinates of X11.</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// return location for X coordinate of window (relative to its parent)</span>
@@ -4169,7 +4169,7 @@
         }
     }
 
-    <span class="doccomment">/// Returns the group leader window for `self`. See [`set_group()`](Self::set_group()).</span>
+    <span class="doccomment">/// Returns the group leader window for `self`. See [`Self::set_group()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4208,8 +4208,8 @@
     }
 
     <span class="doccomment">/// Obtains the position of a window in root window coordinates.</span>
-    <span class="doccomment">/// (Compare with [`get_position()`](Self::get_position()) and</span>
-    <span class="doccomment">/// [`get_geometry()`](Self::get_geometry()) which return the position of a window</span>
+    <span class="doccomment">/// (Compare with [`Self::get_position()`] and</span>
+    <span class="doccomment">/// [`Self::get_geometry()`] which return the position of a window</span>
     <span class="doccomment">/// relative to its parent window.)</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// return location for X coordinate</span>
@@ -4234,15 +4234,15 @@
     }
 
     <span class="doccomment">/// Obtains the parent of `self`, as known to GDK. Does not query the</span>
-    <span class="doccomment">/// X server; thus this returns the parent as passed to [`new()`](Self::new()),</span>
+    <span class="doccomment">/// X server; thus this returns the parent as passed to [`Self::new()`],</span>
     <span class="doccomment">/// not the actual parent. This should never matter unless you’re using</span>
     <span class="doccomment">/// Xlib calls mixed with GDK calls on the X11 platform. It may also</span>
     <span class="doccomment">/// matter for toplevel windows, because the window manager may choose</span>
     <span class="doccomment">/// to reparent them.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that you should use [`get_effective_parent()`](Self::get_effective_parent()) when</span>
+    <span class="doccomment">/// Note that you should use [`Self::get_effective_parent()`] when</span>
     <span class="doccomment">/// writing generic code that walks up a window hierarchy, because</span>
-    <span class="doccomment">/// [`get_parent()`](Self::get_parent()) will most likely not do what you expect if</span>
+    <span class="doccomment">/// [`Self::get_parent()`] will most likely not do what you expect if</span>
     <span class="doccomment">/// there are offscreen windows in the hierarchy.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -4257,7 +4257,7 @@
     <span class="doccomment">/// Returns whether input to the window is passed through to the window</span>
     <span class="doccomment">/// below.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`set_pass_through()`](Self::set_pass_through()) for details</span>
+    <span class="doccomment">/// See [`Self::set_pass_through()`] for details</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_pass_through&quot;</span>)]</span>
@@ -4267,8 +4267,8 @@
     }
 
     <span class="doccomment">/// Obtains the position of the window as reported in the</span>
-    <span class="doccomment">/// most-recently-processed [`EventConfigure`](crate::EventConfigure). Contrast with</span>
-    <span class="doccomment">/// [`get_geometry()`](Self::get_geometry()) which queries the X server for the</span>
+    <span class="doccomment">/// most-recently-processed [`crate::EventConfigure`]. Contrast with</span>
+    <span class="doccomment">/// [`Self::get_geometry()`] which queries the X server for the</span>
     <span class="doccomment">/// current window position, regardless of which events have been</span>
     <span class="doccomment">/// received or processed.</span>
     <span class="doccomment">///</span>
@@ -4292,7 +4292,7 @@
 
     <span class="doccomment">/// Obtains the position of a window position in root</span>
     <span class="doccomment">/// window coordinates. This is similar to</span>
-    <span class="doccomment">/// [`get_origin()`](Self::get_origin()) but allows you to pass</span>
+    <span class="doccomment">/// [`Self::get_origin()`] but allows you to pass</span>
     <span class="doccomment">/// in any position in the window, not just the origin.</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// X coordinate in window</span>
@@ -4362,11 +4362,11 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_window_get_scale_factor</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the [`Screen`](crate::Screen) associated with a [`Window`](crate::Window).</span>
+    <span class="doccomment">/// Gets the [`crate::Screen`] associated with a [`crate::Window`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Screen`](crate::Screen) associated with `self`</span>
+    <span class="doccomment">/// the [`crate::Screen`] associated with `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_screen&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_screen&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">screen</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Screen</span> {
@@ -4376,7 +4376,7 @@
     <span class="doccomment">/// Returns the event mask for `self` corresponding to the device class specified</span>
     <span class="doccomment">/// by `source`.</span>
     <span class="doccomment">/// ## `source`</span>
-    <span class="doccomment">/// a [`InputSource`](crate::InputSource) to define the source class.</span>
+    <span class="doccomment">/// a [`crate::InputSource`] to define the source class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4393,7 +4393,7 @@
     }
 
     <span class="doccomment">/// Gets the bitwise OR of the currently active window state flags,</span>
-    <span class="doccomment">/// from the [`WindowState`](crate::WindowState) enumeration.</span>
+    <span class="doccomment">/// from the [`crate::WindowState`] enumeration.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4422,13 +4422,13 @@
 
     <span class="doccomment">/// Gets the toplevel window that’s an ancestor of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Any window type but [`WindowType::Child`] is considered a</span>
-    <span class="doccomment">/// toplevel window, as is a [`WindowType::Child`] window that</span>
+    <span class="doccomment">/// Any window type but [`crate::WindowType::Child`] is considered a</span>
+    <span class="doccomment">/// toplevel window, as is a [`crate::WindowType::Child`] window that</span>
     <span class="doccomment">/// has a root window as parent.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that you should use [`get_effective_toplevel()`](Self::get_effective_toplevel()) when</span>
+    <span class="doccomment">/// Note that you should use [`Self::get_effective_toplevel()`] when</span>
     <span class="doccomment">/// you want to get to a window’s toplevel as seen on screen, because</span>
-    <span class="doccomment">/// [`get_toplevel()`](Self::get_toplevel()) will most likely not do what you expect</span>
+    <span class="doccomment">/// [`Self::get_toplevel()`] will most likely not do what you expect</span>
     <span class="doccomment">/// if there are offscreen windows in the hierarchy.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -4455,7 +4455,7 @@
     <span class="doccomment">/// of the function. That is, after calling this function, `self` will</span>
     <span class="doccomment">/// no longer have an invalid/dirty region; the update area is removed</span>
     <span class="doccomment">/// from `self` and handed to you. If a window has no update area,</span>
-    <span class="doccomment">/// [`get_update_area()`](Self::get_update_area()) returns [`None`]. You are responsible for</span>
+    <span class="doccomment">/// [`Self::get_update_area()`] returns [`None`]. You are responsible for</span>
     <span class="doccomment">/// calling `cairo_region_destroy()` on the returned region if it’s non-[`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -4474,7 +4474,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`cairo::Region`](crate::cairo::Region). This must be freed with `cairo_region_destroy()`</span>
+    <span class="doccomment">/// a [`crate::cairo::Region`]. This must be freed with `cairo_region_destroy()`</span>
     <span class="doccomment">///  when you are done.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_visible_region&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_visible_region&quot;</span>)]</span>
@@ -4482,11 +4482,11 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_window_get_visible_region</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the [`Visual`](crate::Visual) describing the pixel format of `self`.</span>
+    <span class="doccomment">/// Gets the [`crate::Visual`] describing the pixel format of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Visual`](crate::Visual)</span>
+    <span class="doccomment">/// a [`crate::Visual`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_get_visual&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_visual&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">visual</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Visual</span> {
@@ -4508,7 +4508,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_window_get_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the type of the window. See [`WindowType`](crate::WindowType).</span>
+    <span class="doccomment">/// Gets the type of the window. See [`crate::WindowType`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4520,7 +4520,7 @@
     }
 
     <span class="doccomment">/// Checks whether the window has a native window or not. Note that</span>
-    <span class="doccomment">/// you can use [`ensure_native()`](Self::ensure_native()) if a native window is needed.</span>
+    <span class="doccomment">/// you can use [`Self::ensure_native()`] if a native window is needed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4553,7 +4553,7 @@
         }
     }
 
-    <span class="doccomment">/// Like [`shape_combine_region()`](Self::shape_combine_region()), but the shape applies</span>
+    <span class="doccomment">/// Like [`Self::shape_combine_region()`], but the shape applies</span>
     <span class="doccomment">/// only to event handling. Mouse events which happen while</span>
     <span class="doccomment">/// the pointer position corresponds to an unset bit in the</span>
     <span class="doccomment">/// mask will be passed on the window below `self`.</span>
@@ -4594,22 +4594,22 @@
 
     <span class="doccomment">/// Adds `region` to the update area for `self`. The update area is the</span>
     <span class="doccomment">/// region that needs to be redrawn, or “dirty region.” The call</span>
-    <span class="doccomment">/// [`process_updates()`](Self::process_updates()) sends one or more expose events to the</span>
+    <span class="doccomment">/// [`Self::process_updates()`] sends one or more expose events to the</span>
     <span class="doccomment">/// window, which together cover the entire update area. An</span>
     <span class="doccomment">/// application would normally redraw the contents of `self` in</span>
     <span class="doccomment">/// response to those expose events.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GDK will call [`process_all_updates()`](Self::process_all_updates()) on your behalf</span>
+    <span class="doccomment">/// GDK will call [`Self::process_all_updates()`] on your behalf</span>
     <span class="doccomment">/// whenever your program returns to the main loop and becomes idle, so</span>
     <span class="doccomment">/// normally there’s no need to do that manually, you just need to</span>
     <span class="doccomment">/// invalidate regions that you know should be redrawn.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `child_func` parameter controls whether the region of</span>
     <span class="doccomment">/// each child window that intersects `region` will also be invalidated.</span>
-    <span class="doccomment">/// Only children for which `child_func` returns [`true`](crate::true) will have the area</span>
+    <span class="doccomment">/// Only children for which `child_func` returns [`crate::true`] will have the area</span>
     <span class="doccomment">/// invalidated.</span>
     <span class="doccomment">/// ## `region`</span>
-    <span class="doccomment">/// a [`cairo::Region`](crate::cairo::Region)</span>
+    <span class="doccomment">/// a [`crate::cairo::Region`]</span>
     <span class="doccomment">/// ## `child_func`</span>
     <span class="doccomment">/// function to use to decide if to</span>
     <span class="doccomment">///  recurse to a child, [`None`] means never recurse.</span>
@@ -4652,9 +4652,9 @@
         }
     }
 
-    <span class="doccomment">/// A convenience wrapper around [`invalidate_region()`](Self::invalidate_region()) which</span>
+    <span class="doccomment">/// A convenience wrapper around [`Self::invalidate_region()`] which</span>
     <span class="doccomment">/// invalidates a rectangular region. See</span>
-    <span class="doccomment">/// [`invalidate_region()`](Self::invalidate_region()) for details.</span>
+    <span class="doccomment">/// [`Self::invalidate_region()`] for details.</span>
     <span class="doccomment">/// ## `rect`</span>
     <span class="doccomment">/// rectangle to invalidate or [`None`] to invalidate the whole</span>
     <span class="doccomment">///  window</span>
@@ -4673,12 +4673,12 @@
 
     <span class="doccomment">/// Adds `region` to the update area for `self`. The update area is the</span>
     <span class="doccomment">/// region that needs to be redrawn, or “dirty region.” The call</span>
-    <span class="doccomment">/// [`process_updates()`](Self::process_updates()) sends one or more expose events to the</span>
+    <span class="doccomment">/// [`Self::process_updates()`] sends one or more expose events to the</span>
     <span class="doccomment">/// window, which together cover the entire update area. An</span>
     <span class="doccomment">/// application would normally redraw the contents of `self` in</span>
     <span class="doccomment">/// response to those expose events.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GDK will call [`process_all_updates()`](Self::process_all_updates()) on your behalf</span>
+    <span class="doccomment">/// GDK will call [`Self::process_all_updates()`] on your behalf</span>
     <span class="doccomment">/// whenever your program returns to the main loop and becomes idle, so</span>
     <span class="doccomment">/// normally there’s no need to do that manually, you just need to</span>
     <span class="doccomment">/// invalidate regions that you know should be redrawn.</span>
@@ -4689,7 +4689,7 @@
     <span class="doccomment">/// unaffected. See gdk_window_invalidate_maybe_recurse if you need</span>
     <span class="doccomment">/// fine grained control over which children are invalidated.</span>
     <span class="doccomment">/// ## `region`</span>
-    <span class="doccomment">/// a [`cairo::Region`](crate::cairo::Region)</span>
+    <span class="doccomment">/// a [`crate::cairo::Region`]</span>
     <span class="doccomment">/// ## `invalidate_children`</span>
     <span class="doccomment">/// [`true`] to also invalidate child windows</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_invalidate_region&quot;</span>)]</span>
@@ -4746,8 +4746,8 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_window_is_viewable</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Checks whether the window has been mapped (with [`show()`](Self::show()) or</span>
-    <span class="doccomment">/// [`show_unraised()`](Self::show_unraised())).</span>
+    <span class="doccomment">/// Checks whether the window has been mapped (with [`Self::show()`] or</span>
+    <span class="doccomment">/// [`Self::show_unraised()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -4762,11 +4762,11 @@
     <span class="doccomment">/// This is true whether or not the other windows are visible.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` is a toplevel, the window manager may choose to deny the</span>
-    <span class="doccomment">/// request to move the window in the Z-order, [`lower()`](Self::lower()) only</span>
+    <span class="doccomment">/// request to move the window in the Z-order, [`Self::lower()`] only</span>
     <span class="doccomment">/// requests the restack, does not guarantee it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that [`show()`](Self::show()) raises the window again, so don’t call this</span>
-    <span class="doccomment">/// function before [`show()`](Self::show()). (Try [`show_unraised()`](Self::show_unraised()).)</span>
+    <span class="doccomment">/// Note that [`Self::show()`] raises the window again, so don’t call this</span>
+    <span class="doccomment">/// function before [`Self::show()`]. (Try [`Self::show_unraised()`].)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_lower&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lower</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -4774,8 +4774,8 @@
         }
     }
 
-    <span class="doccomment">/// If you call this during a paint (e.g. between [`begin_paint_region()`](Self::begin_paint_region())</span>
-    <span class="doccomment">/// and [`end_paint()`](Self::end_paint()) then GDK will mark the current clip region of the</span>
+    <span class="doccomment">/// If you call this during a paint (e.g. between [`Self::begin_paint_region()`]</span>
+    <span class="doccomment">/// and [`Self::end_paint()`] then GDK will mark the current clip region of the</span>
     <span class="doccomment">/// window as being drawn. This is required when mixing GL rendering via</span>
     <span class="doccomment">/// `gdk_cairo_draw_from_gl()` and cairo rendering, as otherwise GDK has no way</span>
     <span class="doccomment">/// of knowing when something paints over the GL-drawn regions.</span>
@@ -4783,7 +4783,7 @@
     <span class="doccomment">/// This is typically called automatically by GTK+ and you don&#39;t need</span>
     <span class="doccomment">/// to care about this.</span>
     <span class="doccomment">/// ## `cr`</span>
-    <span class="doccomment">/// a [`cairo::Context`](crate::cairo::Context)</span>
+    <span class="doccomment">/// a [`crate::cairo::Context`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_mark_paint_from_clip&quot;</span>)]</span>
@@ -4817,9 +4817,9 @@
     <span class="doccomment">/// Merges the input shape masks for any child windows into the</span>
     <span class="doccomment">/// input shape mask for `self`. i.e. the union of all input masks</span>
     <span class="doccomment">/// for `self` and its children will become the new input mask</span>
-    <span class="doccomment">/// for `self`. See [`input_shape_combine_region()`](Self::input_shape_combine_region()).</span>
+    <span class="doccomment">/// for `self`. See [`Self::input_shape_combine_region()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is distinct from [`set_child_input_shapes()`](Self::set_child_input_shapes())</span>
+    <span class="doccomment">/// This function is distinct from [`Self::set_child_input_shapes()`]</span>
     <span class="doccomment">/// because it includes `self`’s input shape mask in the set of</span>
     <span class="doccomment">/// shapes to be merged.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_merge_child_input_shapes&quot;</span>)]</span>
@@ -4832,9 +4832,9 @@
     <span class="doccomment">/// Merges the shape masks for any child windows into the</span>
     <span class="doccomment">/// shape mask for `self`. i.e. the union of all masks</span>
     <span class="doccomment">/// for `self` and its children will become the new mask</span>
-    <span class="doccomment">/// for `self`. See [`shape_combine_region()`](Self::shape_combine_region()).</span>
+    <span class="doccomment">/// for `self`. See [`Self::shape_combine_region()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is distinct from [`set_child_shapes()`](Self::set_child_shapes())</span>
+    <span class="doccomment">/// This function is distinct from [`Self::set_child_shapes()`]</span>
     <span class="doccomment">/// because it includes `self`’s shape mask in the set of shapes to</span>
     <span class="doccomment">/// be merged.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_merge_child_shapes&quot;</span>)]</span>
@@ -4858,7 +4858,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Child windows are not moved.</span>
     <span class="doccomment">/// ## `region`</span>
-    <span class="doccomment">/// The [`cairo::Region`](crate::cairo::Region) to move</span>
+    <span class="doccomment">/// The [`crate::cairo::Region`] to move</span>
     <span class="doccomment">/// ## `dx`</span>
     <span class="doccomment">/// Amount to move in the X direction</span>
     <span class="doccomment">/// ## `dy`</span>
@@ -4870,10 +4870,10 @@
         }
     }
 
-    <span class="doccomment">/// Equivalent to calling [`move()`](Self::move()) and [`resize()`](Self::resize()),</span>
+    <span class="doccomment">/// Equivalent to calling [`Self::move()`] and [`Self::resize()`],</span>
     <span class="doccomment">/// except that both operations are performed at once, avoiding strange</span>
     <span class="doccomment">/// visual effects. (i.e. the user may be able to see the window first</span>
-    <span class="doccomment">/// move, then resize, if you don’t use [`move_resize()`](Self::move_resize()).)</span>
+    <span class="doccomment">/// move, then resize, if you don’t use [`Self::move_resize()`].)</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// new X position relative to window’s parent</span>
     <span class="doccomment">/// ## `y`</span>
@@ -4898,14 +4898,14 @@
     <span class="doccomment">/// offsetting the position of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `anchor_hints` determines how `self` will be moved if the anchor points cause</span>
-    <span class="doccomment">/// it to move off-screen. For example, [`AnchorHints::FlipX`] will replace</span>
-    <span class="doccomment">/// [`Gravity::NorthWest`] with [`Gravity::NorthEast`] and vice versa if</span>
+    <span class="doccomment">/// it to move off-screen. For example, [`crate::AnchorHints::FlipX`] will replace</span>
+    <span class="doccomment">/// [`crate::Gravity::NorthWest`] with [`crate::Gravity::NorthEast`] and vice versa if</span>
     <span class="doccomment">/// `self` extends beyond the left or right edges of the monitor.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Connect to the [`Window::moved-to-rect`](crate::Window::moved-to-rect) signal to find out how it was</span>
+    <span class="doccomment">/// Connect to the [`crate::Window::moved-to-rect`] signal to find out how it was</span>
     <span class="doccomment">/// actually positioned.</span>
     <span class="doccomment">/// ## `rect`</span>
-    <span class="doccomment">/// the destination [`Rectangle`](crate::Rectangle) to align `self` with</span>
+    <span class="doccomment">/// the destination [`crate::Rectangle`] to align `self` with</span>
     <span class="doccomment">/// ## `rect_anchor`</span>
     <span class="doccomment">/// the point on `rect` to align with `self`&#39;s anchor point</span>
     <span class="doccomment">/// ## `window_anchor`</span>
@@ -4942,7 +4942,7 @@
         }
     }
 
-    <span class="doccomment">/// Like [`get_children()`](Self::get_children()), but does not copy the list of</span>
+    <span class="doccomment">/// Like [`Self::get_children()`], but does not copy the list of</span>
     <span class="doccomment">/// children, so the list does not need to be freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -4960,8 +4960,8 @@
 
     <span class="doccomment">/// Sends one or more expose events to `self`. The areas in each</span>
     <span class="doccomment">/// expose event will cover the entire update area for the window (see</span>
-    <span class="doccomment">/// [`invalidate_region()`](Self::invalidate_region()) for details). Normally GDK calls</span>
-    <span class="doccomment">/// [`process_all_updates()`](Self::process_all_updates()) on your behalf, so there’s no</span>
+    <span class="doccomment">/// [`Self::invalidate_region()`] for details). Normally GDK calls</span>
+    <span class="doccomment">/// [`Self::process_all_updates()`] on your behalf, so there’s no</span>
     <span class="doccomment">/// need to call this function unless you want to force expose events</span>
     <span class="doccomment">/// to be delivered immediately and synchronously (vs. the usual</span>
     <span class="doccomment">/// case, where GDK delivers them in an idle handler). Occasionally</span>
@@ -4984,7 +4984,7 @@
     <span class="doccomment">/// This is true whether or not the windows are visible.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` is a toplevel, the window manager may choose to deny the</span>
-    <span class="doccomment">/// request to move the window in the Z-order, [`raise()`](Self::raise()) only</span>
+    <span class="doccomment">/// request to move the window in the Z-order, [`Self::raise()`] only</span>
     <span class="doccomment">/// requests the restack, does not guarantee it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_raise&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raise</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -5027,7 +5027,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Windows may not be resized below 1x1.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you’re also planning to move the window, use [`move_resize()`](Self::move_resize())</span>
+    <span class="doccomment">/// If you’re also planning to move the window, use [`Self::move_resize()`]</span>
     <span class="doccomment">/// to both move and resize simultaneously, for a nicer visual effect.</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// new width of the window</span>
@@ -5048,10 +5048,10 @@
     <span class="doccomment">/// lowers the window.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` is a toplevel, the window manager may choose to deny the</span>
-    <span class="doccomment">/// request to move the window in the Z-order, [`restack()`](Self::restack()) only</span>
+    <span class="doccomment">/// request to move the window in the Z-order, [`Self::restack()`] only</span>
     <span class="doccomment">/// requests the restack, does not guarantee it.</span>
     <span class="doccomment">/// ## `sibling`</span>
-    <span class="doccomment">/// a [`Window`](crate::Window) that is a sibling of `self`, or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Window`] that is a sibling of `self`, or [`None`]</span>
     <span class="doccomment">/// ## `above`</span>
     <span class="doccomment">/// a boolean</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_restack&quot;</span>)]</span>
@@ -5103,13 +5103,13 @@
 
     <span class="doccomment">/// Sets the background color of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`set_background_pattern()`](Self::set_background_pattern()).</span>
+    <span class="doccomment">/// See also [`Self::set_background_pattern()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Don&#39;t use this function</span>
     <span class="doccomment">/// ## `rgba`</span>
-    <span class="doccomment">/// a [`RGBA`](crate::RGBA) color</span>
+    <span class="doccomment">/// a [`crate::RGBA`] color</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_background_rgba&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_background_rgba</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rgba</span>: <span class="kw-2">&amp;</span><span class="ident">RGBA</span>) {
@@ -5120,7 +5120,7 @@
 
     <span class="doccomment">/// Sets the input shape mask of `self` to the union of input shape masks</span>
     <span class="doccomment">/// for all children of `self`, ignoring the input shape mask of `self`</span>
-    <span class="doccomment">/// itself. Contrast with [`merge_child_input_shapes()`](Self::merge_child_input_shapes()) which includes</span>
+    <span class="doccomment">/// itself. Contrast with [`Self::merge_child_input_shapes()`] which includes</span>
     <span class="doccomment">/// the input shape mask of `self` in the masks to be merged.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_child_input_shapes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_child_input_shapes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -5131,7 +5131,7 @@
 
     <span class="doccomment">/// Sets the shape mask of `self` to the union of shape masks</span>
     <span class="doccomment">/// for all children of `self`, ignoring the shape mask of `self`</span>
-    <span class="doccomment">/// itself. Contrast with [`merge_child_shapes()`](Self::merge_child_shapes()) which includes</span>
+    <span class="doccomment">/// itself. Contrast with [`Self::merge_child_shapes()`] which includes</span>
     <span class="doccomment">/// the shape mask of `self` in the masks to be merged.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_child_shapes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_child_shapes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -5140,7 +5140,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets a [`Window`](crate::Window) as composited, or unsets it. Composited</span>
+    <span class="doccomment">/// Sets a [`crate::Window`] as composited, or unsets it. Composited</span>
     <span class="doccomment">/// windows do not automatically have their contents drawn to</span>
     <span class="doccomment">/// the screen. Drawing is redirected to an offscreen buffer</span>
     <span class="doccomment">/// and an expose event is emitted on the parent of the composited</span>
@@ -5149,7 +5149,7 @@
     <span class="doccomment">/// whatever way it sees fit.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It only makes sense for child windows to be composited; see</span>
-    <span class="doccomment">/// [`set_opacity()`](Self::set_opacity()) if you need translucent toplevel</span>
+    <span class="doccomment">/// [`Self::set_opacity()`] if you need translucent toplevel</span>
     <span class="doccomment">/// windows.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An additional effect of this call is that the area of this</span>
@@ -5159,7 +5159,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call is only supported on some systems (currently,</span>
     <span class="doccomment">/// only X11 with new enough Xcomposite and Xdamage extensions).</span>
-    <span class="doccomment">/// You must call [`Display::supports_composite()`](crate::Display::supports_composite()) to check if</span>
+    <span class="doccomment">/// You must call [`crate::Display::supports_composite()`] to check if</span>
     <span class="doccomment">/// setting a window as composited is supported before</span>
     <span class="doccomment">/// attempting to do so.</span>
     <span class="doccomment">///</span>
@@ -5177,13 +5177,13 @@
         }
     }
 
-    <span class="doccomment">/// Sets the default mouse pointer for a [`Window`](crate::Window).</span>
+    <span class="doccomment">/// Sets the default mouse pointer for a [`crate::Window`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `cursor` must be for the same display as `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`Cursor::new_for_display()`](crate::Cursor::new_for_display()) or [`Cursor::new_from_pixbuf()`](crate::Cursor::new_from_pixbuf()) to</span>
-    <span class="doccomment">/// create the cursor. To make the cursor invisible, use [`CursorType::BlankCursor`].</span>
-    <span class="doccomment">/// Passing [`None`] for the `cursor` argument to [`set_cursor()`](Self::set_cursor()) means</span>
+    <span class="doccomment">/// Use [`crate::Cursor::new_for_display()`] or [`crate::Cursor::new_from_pixbuf()`] to</span>
+    <span class="doccomment">/// create the cursor. To make the cursor invisible, use [`crate::CursorType::BlankCursor`].</span>
+    <span class="doccomment">/// Passing [`None`] for the `cursor` argument to [`Self::set_cursor()`] means</span>
     <span class="doccomment">/// that `self` will use the cursor of its parent window. Most windows</span>
     <span class="doccomment">/// should use this default.</span>
     <span class="doccomment">/// ## `cursor`</span>
@@ -5195,16 +5195,16 @@
         }
     }
 
-    <span class="doccomment">/// “Decorations” are the features the window manager adds to a toplevel [`Window`](crate::Window).</span>
+    <span class="doccomment">/// “Decorations” are the features the window manager adds to a toplevel [`crate::Window`].</span>
     <span class="doccomment">/// This function sets the traditional Motif window manager hints that tell the</span>
     <span class="doccomment">/// window manager which decorations you would like your window to have.</span>
     <span class="doccomment">/// Usually you should use `gtk_window_set_decorated()` on a ``GtkWindow`` instead of</span>
     <span class="doccomment">/// using the GDK function directly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `decorations` argument is the logical OR of the fields in</span>
-    <span class="doccomment">/// the [`WMDecoration`](crate::WMDecoration) enumeration. If [`WMDecoration::All`](crate::WMDecoration::All) is included in the</span>
+    <span class="doccomment">/// the [`crate::WMDecoration`] enumeration. If [`crate::WMDecoration::All`] is included in the</span>
     <span class="doccomment">/// mask, the other bits indicate which decorations should be turned off.</span>
-    <span class="doccomment">/// If [`WMDecoration::All`](crate::WMDecoration::All) is not included, then the other bits indicate</span>
+    <span class="doccomment">/// If [`crate::WMDecoration::All`] is not included, then the other bits indicate</span>
     <span class="doccomment">/// which decorations should be turned on.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Most window managers honor a decorations hint of 0 to disable all decorations,</span>
@@ -5218,16 +5218,16 @@
         }
     }
 
-    <span class="doccomment">/// Sets a specific [`Cursor`](crate::Cursor) for a given device when it gets inside `self`.</span>
-    <span class="doccomment">/// Use [`Cursor::new_for_display()`](crate::Cursor::new_for_display()) or [`Cursor::new_from_pixbuf()`](crate::Cursor::new_from_pixbuf()) to create</span>
-    <span class="doccomment">/// the cursor. To make the cursor invisible, use [`CursorType::BlankCursor`]. Passing</span>
-    <span class="doccomment">/// [`None`] for the `cursor` argument to [`set_cursor()`](Self::set_cursor()) means that</span>
+    <span class="doccomment">/// Sets a specific [`crate::Cursor`] for a given device when it gets inside `self`.</span>
+    <span class="doccomment">/// Use [`crate::Cursor::new_for_display()`] or [`crate::Cursor::new_from_pixbuf()`] to create</span>
+    <span class="doccomment">/// the cursor. To make the cursor invisible, use [`crate::CursorType::BlankCursor`]. Passing</span>
+    <span class="doccomment">/// [`None`] for the `cursor` argument to [`Self::set_cursor()`] means that</span>
     <span class="doccomment">/// `self` will use the cursor of its parent window. Most windows should</span>
     <span class="doccomment">/// use this default.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// a master, pointer [`Device`](crate::Device)</span>
+    <span class="doccomment">/// a master, pointer [`crate::Device`]</span>
     <span class="doccomment">/// ## `cursor`</span>
-    <span class="doccomment">/// a [`Cursor`](crate::Cursor)</span>
+    <span class="doccomment">/// a [`crate::Cursor`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_device_cursor&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_device_cursor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>, <span class="ident">cursor</span>: <span class="kw-2">&amp;</span><span class="ident">Cursor</span>) {
         <span class="kw">unsafe</span> {
@@ -5241,13 +5241,13 @@
 
     <span class="doccomment">/// Sets the event mask for a given device (Normally a floating device, not</span>
     <span class="doccomment">/// attached to any visible pointer) to `self`. For example, an event mask</span>
-    <span class="doccomment">/// including [`EventMask::ButtonPressMask`](crate::EventMask::ButtonPressMask) means the window should report button</span>
+    <span class="doccomment">/// including [`crate::EventMask::ButtonPressMask`] means the window should report button</span>
     <span class="doccomment">/// press events. The event mask is the bitwise OR of values from the</span>
-    <span class="doccomment">/// [`EventMask`](crate::EventMask) enumeration.</span>
+    <span class="doccomment">/// [`crate::EventMask`] enumeration.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See the [input handling overview][event-masks] for details.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// [`Device`](crate::Device) to enable events for.</span>
+    <span class="doccomment">/// [`crate::Device`] to enable events for.</span>
     <span class="doccomment">/// ## `event_mask`</span>
     <span class="doccomment">/// event mask for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_device_events&quot;</span>)]</span>
@@ -5283,9 +5283,9 @@
 
     <span class="doccomment">/// The event mask for a window determines which events will be reported</span>
     <span class="doccomment">/// for that window from all master input devices. For example, an event mask</span>
-    <span class="doccomment">/// including [`EventMask::ButtonPressMask`](crate::EventMask::ButtonPressMask) means the window should report button</span>
+    <span class="doccomment">/// including [`crate::EventMask::ButtonPressMask`] means the window should report button</span>
     <span class="doccomment">/// press events. The event mask is the bitwise OR of values from the</span>
-    <span class="doccomment">/// [`EventMask`](crate::EventMask) enumeration.</span>
+    <span class="doccomment">/// [`crate::EventMask`] enumeration.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See the [input handling overview][event-masks] for details.</span>
     <span class="doccomment">/// ## `event_mask`</span>
@@ -5317,19 +5317,19 @@
     <span class="doccomment">/// Specifies whether the `self` should span over all monitors (in a multi-head</span>
     <span class="doccomment">/// setup) or only the current monitor when in fullscreen mode.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `mode` argument is from the [`FullscreenMode`](crate::FullscreenMode) enumeration.</span>
-    <span class="doccomment">/// If [`FullscreenMode::AllMonitors`](crate::FullscreenMode::AllMonitors) is specified, the fullscreen `self` will</span>
-    <span class="doccomment">/// span over all monitors from the [`Screen`](crate::Screen).</span>
+    <span class="doccomment">/// The `mode` argument is from the [`crate::FullscreenMode`] enumeration.</span>
+    <span class="doccomment">/// If [`crate::FullscreenMode::AllMonitors`] is specified, the fullscreen `self` will</span>
+    <span class="doccomment">/// span over all monitors from the [`crate::Screen`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// On X11, searches through the list of monitors from the [`Screen`](crate::Screen) the ones</span>
-    <span class="doccomment">/// which delimit the 4 edges of the entire [`Screen`](crate::Screen) and will ask the window</span>
+    <span class="doccomment">/// On X11, searches through the list of monitors from the [`crate::Screen`] the ones</span>
+    <span class="doccomment">/// which delimit the 4 edges of the entire [`crate::Screen`] and will ask the window</span>
     <span class="doccomment">/// manager to span the `self` over these monitors.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the XINERAMA extension is not available or not usable, this function</span>
     <span class="doccomment">/// has no effect.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Not all window managers support this, so you can’t rely on the fullscreen</span>
-    <span class="doccomment">/// window to span over the multiple monitors when [`FullscreenMode::AllMonitors`](crate::FullscreenMode::AllMonitors)</span>
+    <span class="doccomment">/// window to span over the multiple monitors when [`crate::FullscreenMode::AllMonitors`]</span>
     <span class="doccomment">/// is specified.</span>
     <span class="doccomment">/// ## `mode`</span>
     <span class="doccomment">/// fullscreen mode</span>
@@ -5349,9 +5349,9 @@
     <span class="doccomment">/// entirely.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `functions` argument is the logical OR of values from the</span>
-    <span class="doccomment">/// [`WMFunction`](crate::WMFunction) enumeration. If the bitmask includes [`WMFunction::All`](crate::WMFunction::All),</span>
+    <span class="doccomment">/// [`crate::WMFunction`] enumeration. If the bitmask includes [`crate::WMFunction::All`],</span>
     <span class="doccomment">/// then the other bits indicate which functions to disable; if</span>
-    <span class="doccomment">/// it doesn’t include [`WMFunction::All`](crate::WMFunction::All), it indicates which functions to</span>
+    <span class="doccomment">/// it doesn’t include [`crate::WMFunction::All`], it indicates which functions to</span>
     <span class="doccomment">/// enable.</span>
     <span class="doccomment">/// ## `functions`</span>
     <span class="doccomment">/// bitmask of operations to allow on `self`</span>
@@ -5371,17 +5371,17 @@
     <span class="doccomment">/// this is to constrain user resizing, but the windowing system</span>
     <span class="doccomment">/// will typically (but is not required to) also constrain the</span>
     <span class="doccomment">/// current size of the window to the provided values and</span>
-    <span class="doccomment">/// constrain programatic resizing via [`resize()`](Self::resize()) or</span>
-    <span class="doccomment">/// [`move_resize()`](Self::move_resize()).</span>
+    <span class="doccomment">/// constrain programatic resizing via [`Self::resize()`] or</span>
+    <span class="doccomment">/// [`Self::move_resize()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that on X11, this effect has no effect on windows</span>
-    <span class="doccomment">/// of type [`WindowType::Temp`] or windows where override redirect</span>
-    <span class="doccomment">/// has been turned on via [`set_override_redirect()`](Self::set_override_redirect())</span>
+    <span class="doccomment">/// of type [`crate::WindowType::Temp`] or windows where override redirect</span>
+    <span class="doccomment">/// has been turned on via [`Self::set_override_redirect()`]</span>
     <span class="doccomment">/// since these windows are not resizable by the user.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since you can’t count on the windowing system doing the</span>
     <span class="doccomment">/// constraints for programmatic resizes, you should generally</span>
-    <span class="doccomment">/// call [`constrain_size()`](Self::constrain_size()) yourself to determine</span>
+    <span class="doccomment">/// call [`Self::constrain_size()`] yourself to determine</span>
     <span class="doccomment">/// appropriate sizes.</span>
     <span class="doccomment">/// ## `geometry`</span>
     <span class="doccomment">/// geometry hints</span>
@@ -5441,11 +5441,11 @@
     <span class="doccomment">/// idea from a user interface standpoint. But you can set such a name</span>
     <span class="doccomment">/// with this function, if you like.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// After calling this with a non-[`None`] `name`, calls to [`set_title()`](Self::set_title())</span>
+    <span class="doccomment">/// After calling this with a non-[`None`] `name`, calls to [`Self::set_title()`]</span>
     <span class="doccomment">/// will not update the icon title.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Using [`None`] for `name` unsets the icon title; further calls to</span>
-    <span class="doccomment">/// [`set_title()`](Self::set_title()) will again update the icon title as well.</span>
+    <span class="doccomment">/// [`Self::set_title()`] will again update the icon title as well.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that some platforms don&#39;t support window icons.</span>
     <span class="doccomment">/// ## `name`</span>
@@ -5504,7 +5504,7 @@
     <span class="doccomment">/// way.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You should only use this on windows for which you have</span>
-    <span class="doccomment">/// previously called [`set_transient_for()`](Self::set_transient_for())</span>
+    <span class="doccomment">/// previously called [`Self::set_transient_for()`]</span>
     <span class="doccomment">/// ## `modal`</span>
     <span class="doccomment">/// [`true`] if the window is modal, [`false`] otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_modal_hint&quot;</span>)]</span>
@@ -5529,8 +5529,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// For child windows this function only works for non-native windows.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For setting up per-pixel alpha topelevels, see [`Screen::get_rgba_visual()`](crate::Screen::get_rgba_visual()),</span>
-    <span class="doccomment">/// and for non-toplevels, see [`set_composited()`](Self::set_composited()).</span>
+    <span class="doccomment">/// For setting up per-pixel alpha topelevels, see [`crate::Screen::get_rgba_visual()`],</span>
+    <span class="doccomment">/// and for non-toplevels, see [`Self::set_composited()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Support for non-toplevel windows was added in 3.8.</span>
     <span class="doccomment">/// ## `opacity`</span>
@@ -5664,7 +5664,7 @@
     <span class="doccomment">/// Toggles whether a window should appear in a pager (workspace</span>
     <span class="doccomment">/// switcher, or other desktop utility program that displays a small</span>
     <span class="doccomment">/// thumbnail representation of the windows on the desktop). If a</span>
-    <span class="doccomment">/// window’s semantic type as specified with [`set_type_hint()`](Self::set_type_hint())</span>
+    <span class="doccomment">/// window’s semantic type as specified with [`Self::set_type_hint()`]</span>
     <span class="doccomment">/// already fully describes the window, this function should</span>
     <span class="doccomment">/// not be called in addition, instead you should</span>
     <span class="doccomment">/// allow the window to be treated according to standard policy for</span>
@@ -5680,7 +5680,7 @@
 
     <span class="doccomment">/// Toggles whether a window should appear in a task list or window</span>
     <span class="doccomment">/// list. If a window’s semantic type as specified with</span>
-    <span class="doccomment">/// [`set_type_hint()`](Self::set_type_hint()) already fully describes the window, this</span>
+    <span class="doccomment">/// [`Self::set_type_hint()`] already fully describes the window, this</span>
     <span class="doccomment">/// function should not be called in addition,</span>
     <span class="doccomment">/// instead you should allow the window to be treated according to</span>
     <span class="doccomment">/// standard policy for its semantic type.</span>
@@ -5698,7 +5698,7 @@
     <span class="doccomment">/// mask will be applied both to currently existing, newly added devices</span>
     <span class="doccomment">/// after this call, and devices being attached/detached.</span>
     <span class="doccomment">/// ## `source`</span>
-    <span class="doccomment">/// a [`InputSource`](crate::InputSource) to define the source class.</span>
+    <span class="doccomment">/// a [`crate::InputSource`] to define the source class.</span>
     <span class="doccomment">/// ## `event_mask`</span>
     <span class="doccomment">/// event mask for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_source_events&quot;</span>)]</span>
@@ -5767,7 +5767,7 @@
 
     <span class="doccomment">/// Sets the title of a toplevel window, to be displayed in the titlebar.</span>
     <span class="doccomment">/// If you haven’t explicitly set the icon name for the window</span>
-    <span class="doccomment">/// (using [`set_icon_name()`](Self::set_icon_name())), the icon name will be set to</span>
+    <span class="doccomment">/// (using [`Self::set_icon_name()`]), the icon name will be set to</span>
     <span class="doccomment">/// `title` as well. `title` must be in UTF-8 encoding (as with all</span>
     <span class="doccomment">/// user-readable strings in GDK/GTK+). `title` may not be [`None`].</span>
     <span class="doccomment">/// ## `title`</span>
@@ -5787,7 +5787,7 @@
     <span class="doccomment">/// See `gtk_window_set_transient_for()` if you’re using ``GtkWindow`` or</span>
     <span class="doccomment">/// ``GtkDialog``.</span>
     <span class="doccomment">/// ## `parent`</span>
-    <span class="doccomment">/// another toplevel [`Window`](crate::Window)</span>
+    <span class="doccomment">/// another toplevel [`crate::Window`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_set_transient_for&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_transient_for</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">parent</span>: <span class="kw-2">&amp;</span><span class="ident">Window</span>) {
         <span class="kw">unsafe</span> {
@@ -5858,15 +5858,15 @@
         }
     }
 
-    <span class="doccomment">/// Like [`show_unraised()`](Self::show_unraised()), but also raises the window to the</span>
+    <span class="doccomment">/// Like [`Self::show_unraised()`], but also raises the window to the</span>
     <span class="doccomment">/// top of the window stack (moves the window to the front of the</span>
     <span class="doccomment">/// Z-order).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function maps a window so it’s visible onscreen. Its opposite</span>
-    <span class="doccomment">/// is [`hide()`](Self::hide()).</span>
+    <span class="doccomment">/// is [`Self::hide()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When implementing a ``GtkWidget``, you should call this function on the widget&#39;s</span>
-    <span class="doccomment">/// [`Window`](crate::Window) as part of the “map” method.</span>
+    <span class="doccomment">/// [`crate::Window`] as part of the “map” method.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_show&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">show</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -5874,8 +5874,8 @@
         }
     }
 
-    <span class="doccomment">/// Shows a [`Window`](crate::Window) onscreen, but does not modify its stacking</span>
-    <span class="doccomment">/// order. In contrast, [`show()`](Self::show()) will raise the window</span>
+    <span class="doccomment">/// Shows a [`crate::Window`] onscreen, but does not modify its stacking</span>
+    <span class="doccomment">/// order. In contrast, [`Self::show()`] will raise the window</span>
     <span class="doccomment">/// to the top of the window stack.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On the X11 platform, in Xlib terms, this function calls</span>
@@ -5926,7 +5926,7 @@
     }
 
     <span class="doccomment">/// Thaws a window frozen with</span>
-    <span class="doccomment">/// [`freeze_toplevel_updates_libgtk_only()`](Self::freeze_toplevel_updates_libgtk_only()).</span>
+    <span class="doccomment">/// [`Self::freeze_toplevel_updates_libgtk_only()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is not part of the GDK public API and is only</span>
     <span class="doccomment">/// for use by GTK+.</span>
@@ -5942,7 +5942,7 @@
         }
     }
 
-    <span class="doccomment">/// Thaws a window frozen with [`freeze_updates()`](Self::freeze_updates()).</span>
+    <span class="doccomment">/// Thaws a window frozen with [`Self::freeze_updates()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_thaw_updates&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">thaw_updates</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -5985,7 +5985,7 @@
         }
     }
 
-    <span class="doccomment">/// Reverse operation for [`stick()`](Self::stick()); see [`stick()`](Self::stick()),</span>
+    <span class="doccomment">/// Reverse operation for [`Self::stick()`]; see [`Self::stick()`],</span>
     <span class="doccomment">/// and `gtk_window_unstick()`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_unstick&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unstick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -5995,7 +5995,7 @@
     }
 
     <span class="doccomment">/// Withdraws a window (unmaps it and asks the window manager to forget about it).</span>
-    <span class="doccomment">/// This function is not really useful as [`hide()`](Self::hide()) automatically</span>
+    <span class="doccomment">/// This function is not really useful as [`Self::hide()`] automatically</span>
     <span class="doccomment">/// withdraws toplevel windows before hiding them.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_window_withdraw&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">withdraw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -6007,7 +6007,7 @@
     <span class="doccomment">/// Constrains a desired width and height according to a</span>
     <span class="doccomment">/// set of geometry hints (such as minimum and maximum size).</span>
     <span class="doccomment">/// ## `geometry`</span>
-    <span class="doccomment">/// a [`Geometry`](crate::Geometry) structure</span>
+    <span class="doccomment">/// a [`crate::Geometry`] structure</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// a mask indicating what portions of `geometry` are set</span>
     <span class="doccomment">/// ## `width`</span>
@@ -6043,7 +6043,7 @@
         }
     }
 
-    <span class="doccomment">/// Calls [`process_updates()`](Self::process_updates()) for all windows (see [`Window`](crate::Window))</span>
+    <span class="doccomment">/// Calls [`Self::process_updates()`] for all windows (see [`crate::Window`])</span>
     <span class="doccomment">/// in the application.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
@@ -6058,10 +6058,10 @@
     }
 
     <span class="doccomment">/// With update debugging enabled, calls to</span>
-    <span class="doccomment">/// [`invalidate_region()`](Self::invalidate_region()) clear the invalidated region of the</span>
+    <span class="doccomment">/// [`Self::invalidate_region()`] clear the invalidated region of the</span>
     <span class="doccomment">/// screen to a noticeable color, and GDK pauses for a short time</span>
     <span class="doccomment">/// before sending exposes to windows during</span>
-    <span class="doccomment">/// [`process_updates()`](Self::process_updates()). The net effect is that you can see</span>
+    <span class="doccomment">/// [`Self::process_updates()`]. The net effect is that you can see</span>
     <span class="doccomment">/// the invalid region for each window and watch redraws as they</span>
     <span class="doccomment">/// occur. This allows you to diagnose inefficiencies in your application.</span>
     <span class="doccomment">///</span>
@@ -6073,7 +6073,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The --gtk-debug=updates command line option passed to GTK+ programs</span>
     <span class="doccomment">/// enables this debug option at application startup time. That&#39;s</span>
-    <span class="doccomment">/// usually more useful than calling [`set_debug_updates()`](Self::set_debug_updates())</span>
+    <span class="doccomment">/// usually more useful than calling [`Self::set_debug_updates()`]</span>
     <span class="doccomment">/// yourself, though you might want to use this function to enable</span>
     <span class="doccomment">/// updates sometime after application startup time.</span>
     <span class="doccomment">///</span>
@@ -6107,7 +6107,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`cairo::Surface`](crate::cairo::Surface) for the offscreen window</span>
+    <span class="doccomment">/// the newly created [`crate::cairo::Surface`] for the offscreen window</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;create-surface&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_create_surface</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">Window</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo::Surface</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -6160,7 +6160,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Window`](crate::Window) of the</span>
+    <span class="doccomment">/// the [`crate::Window`] of the</span>
     <span class="doccomment">///  embedded child at `x`, `y`, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pick-embedded-child&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_pick_embedded_child</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">Window</span>, <span class="ident">f64</span>, <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(

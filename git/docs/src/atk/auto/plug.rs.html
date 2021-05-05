@@ -93,11 +93,11 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// See [`Socket`](crate::Socket)</span>
+    <span class="doccomment">/// See [`crate::Socket`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AtkPlugExt`](trait@crate::prelude::AtkPlugExt), [`AtkObjectExt`](trait@crate::prelude::AtkObjectExt), [`trait@glib::object::ObjectExt`], [`ComponentExt`](trait@crate::prelude::ComponentExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::AtkPlugExt`], [`trait@crate::prelude::AtkObjectExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::ComponentExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Plug</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkPlug</span>, <span class="ident">ffi::AtkPlugClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Object</span>, @<span class="ident">implements</span> <span class="ident">Component</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -106,11 +106,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Plug</span> {
-    <span class="doccomment">/// Creates a new [`Plug`](crate::Plug) instance.</span>
+    <span class="doccomment">/// Creates a new [`crate::Plug`] instance.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`Plug`](crate::Plug)</span>
+    <span class="doccomment">/// the newly created [`crate::Plug`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_plug_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Plug</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -130,16 +130,16 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Plug`](struct@crate::Plug)</span>
+<span class="doccomment">/// [`struct@crate::Plug`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AtkPlugExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the unique ID of an [`Plug`](crate::Plug) object, which can be used to</span>
-    <span class="doccomment">/// embed inside of an [`Socket`](crate::Socket) using [`AtkSocketExt::embed()`](crate::AtkSocketExt::embed()).</span>
+    <span class="doccomment">/// Gets the unique ID of an [`crate::Plug`] object, which can be used to</span>
+    <span class="doccomment">/// embed inside of an [`crate::Socket`] using [`crate::prelude::AtkSocketExt::embed()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Internally, this calls a class function that should be registered</span>
     <span class="doccomment">/// by the IPC layer (usually at-spi2-atk). The implementor of an</span>
-    <span class="doccomment">/// [`Plug`](crate::Plug) object should call this function (after atk-bridge is</span>
+    <span class="doccomment">/// [`crate::Plug`] object should call this function (after atk-bridge is</span>
     <span class="doccomment">/// loaded) and pass the value to the process implementing the</span>
-    <span class="doccomment">/// [`Socket`](crate::Socket), so it could embed the plug.</span>
+    <span class="doccomment">/// [`crate::Socket`], so it could embed the plug.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

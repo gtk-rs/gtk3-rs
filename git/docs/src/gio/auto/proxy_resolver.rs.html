@@ -234,17 +234,17 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`ProxyResolver`](crate::ProxyResolver) provides synchronous and asynchronous network proxy</span>
-    <span class="doccomment">/// resolution. [`ProxyResolver`](crate::ProxyResolver) is used within [`SocketClient`](crate::SocketClient) through</span>
-    <span class="doccomment">/// the method [`SocketConnectable::proxy_enumerate()`](crate::SocketConnectable::proxy_enumerate()).</span>
+    <span class="doccomment">/// [`crate::ProxyResolver`] provides synchronous and asynchronous network proxy</span>
+    <span class="doccomment">/// resolution. [`crate::ProxyResolver`] is used within [`crate::SocketClient`] through</span>
+    <span class="doccomment">/// the method [`crate::SocketConnectable::proxy_enumerate()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Implementations of [`ProxyResolver`](crate::ProxyResolver) based on libproxy and GNOME settings can</span>
+    <span class="doccomment">/// Implementations of [`crate::ProxyResolver`] based on libproxy and GNOME settings can</span>
     <span class="doccomment">/// be found in glib-networking. GIO comes with an implementation for use inside</span>
     <span class="doccomment">/// Flatpak portals.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ProxyResolverExt`](trait@crate::prelude::ProxyResolverExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ProxyResolverExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ProxyResolver</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GProxyResolver</span>, <span class="ident">ffi::GProxyResolverInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -253,11 +253,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ProxyResolver</span> {
-    <span class="doccomment">/// Gets the default [`ProxyResolver`](crate::ProxyResolver) for the system.</span>
+    <span class="doccomment">/// Gets the default [`crate::ProxyResolver`] for the system.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the default [`ProxyResolver`](crate::ProxyResolver), which</span>
+    <span class="doccomment">/// the default [`crate::ProxyResolver`], which</span>
     <span class="doccomment">///  will be a dummy object if no proxy resolver is available</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_proxy_resolver_get_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default&quot;</span>)]</span>
@@ -272,10 +272,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ProxyResolver`](struct@crate::ProxyResolver)</span>
+<span class="doccomment">/// [`struct@crate::ProxyResolver`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ProxyResolverExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Checks if `self` can be used on this system. (This is used</span>
-    <span class="doccomment">/// internally; [`ProxyResolver::get_default()`](crate::ProxyResolver::get_default()) will only return a proxy</span>
+    <span class="doccomment">/// internally; [`crate::ProxyResolver::get_default()`] will only return a proxy</span>
     <span class="doccomment">/// resolver that returns [`true`] for this method.)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -302,7 +302,7 @@
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// a URI representing the destination to connect to</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -316,12 +316,12 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Asynchronous lookup of proxy. See [`ProxyResolver::lookup()`](crate::ProxyResolver::lookup()) for more</span>
+    <span class="doccomment">/// Asynchronous lookup of proxy. See [`crate::ProxyResolver::lookup()`] for more</span>
     <span class="doccomment">/// details.</span>
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// a URI representing the destination to connect to</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// callback to call after resolution completes</span>
     <span class="doccomment">/// ## `user_data`</span>

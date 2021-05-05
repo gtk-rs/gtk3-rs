@@ -140,27 +140,27 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`DevicePad`](crate::DevicePad) is an interface implemented by devices of type</span>
-    <span class="doccomment">/// [`InputSource::TabletPad`], it allows querying the features provided</span>
+    <span class="doccomment">/// [`crate::DevicePad`] is an interface implemented by devices of type</span>
+    <span class="doccomment">/// [`crate::InputSource::TabletPad`], it allows querying the features provided</span>
     <span class="doccomment">/// by the pad device.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Tablet pads may contain one or more groups, each containing a subset</span>
-    <span class="doccomment">/// of the buttons/rings/strips available. [`get_n_groups()`](Self::get_n_groups())</span>
-    <span class="doccomment">/// can be used to obtain the number of groups, [`get_n_features()`](Self::get_n_features())</span>
-    <span class="doccomment">/// and [`get_feature_group()`](Self::get_feature_group()) can be combined to find out the</span>
+    <span class="doccomment">/// of the buttons/rings/strips available. [`Self::get_n_groups()`]</span>
+    <span class="doccomment">/// can be used to obtain the number of groups, [`Self::get_n_features()`]</span>
+    <span class="doccomment">/// and [`Self::get_feature_group()`] can be combined to find out the</span>
     <span class="doccomment">/// number of buttons/rings/strips the device has, and how are they grouped.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Each of those groups have different modes, which may be used to map</span>
     <span class="doccomment">/// each individual pad feature to multiple actions. Only one mode is</span>
     <span class="doccomment">/// effective (current) for each given group, different groups may have</span>
     <span class="doccomment">/// different current modes. The number of available modes in a group can</span>
-    <span class="doccomment">/// be found out through [`get_group_n_modes()`](Self::get_group_n_modes()), and the current</span>
-    <span class="doccomment">/// mode for a given group will be notified through the [`EventPadGroupMode`](crate::EventPadGroupMode)</span>
+    <span class="doccomment">/// be found out through [`Self::get_group_n_modes()`], and the current</span>
+    <span class="doccomment">/// mode for a given group will be notified through the [`crate::EventPadGroupMode`]</span>
     <span class="doccomment">/// event.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DevicePadExt`](trait@crate::prelude::DevicePadExt), [`DeviceExt`](trait@crate::prelude::DeviceExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::DevicePadExt`], [`trait@crate::prelude::DeviceExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DevicePad</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GdkDevicePad</span>, <span class="ident">ffi::GdkDevicePadInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Device</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -174,7 +174,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`DevicePad`](struct@crate::DevicePad)</span>
+<span class="doccomment">/// [`struct@crate::DevicePad`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">DevicePadExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the group the given `feature` and `idx` belong to,</span>
     <span class="doccomment">/// or -1 if feature/index do not exist in `self`.</span>

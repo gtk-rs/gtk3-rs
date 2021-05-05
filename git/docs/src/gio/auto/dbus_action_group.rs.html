@@ -84,13 +84,13 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`DBusActionGroup`](crate::DBusActionGroup) is an implementation of the [`ActionGroup`](crate::ActionGroup)</span>
+    <span class="doccomment">/// [`crate::DBusActionGroup`] is an implementation of the [`crate::ActionGroup`]</span>
     <span class="doccomment">/// interface that can be used as a proxy for an action group</span>
-    <span class="doccomment">/// that is exported over D-Bus with [`DBusConnection::export_action_group()`](crate::DBusConnection::export_action_group()).</span>
+    <span class="doccomment">/// that is exported over D-Bus with [`crate::DBusConnection::export_action_group()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`ActionGroupExt`](trait@crate::prelude::ActionGroupExt), [`RemoteActionGroupExt`](trait@crate::prelude::RemoteActionGroupExt)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::ActionGroupExt`], [`trait@crate::prelude::RemoteActionGroupExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusActionGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GDBusActionGroup</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">ActionGroup</span>, <span class="ident">RemoteActionGroup</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -99,7 +99,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DBusActionGroup</span> {
-    <span class="doccomment">/// Obtains a [`DBusActionGroup`](crate::DBusActionGroup) for the action group which is exported at</span>
+    <span class="doccomment">/// Obtains a [`crate::DBusActionGroup`] for the action group which is exported at</span>
     <span class="doccomment">/// the given `bus_name` and `object_path`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The thread default main context is taken at the time of this call.</span>
@@ -111,9 +111,9 @@
     <span class="doccomment">/// This call is non-blocking. The returned action group may or may not</span>
     <span class="doccomment">/// already be filled in. The correct thing to do is connect the signals</span>
     <span class="doccomment">/// for the action group to monitor for changes and then to call</span>
-    <span class="doccomment">/// [`ActionGroup::list_actions()`](crate::ActionGroup::list_actions()) to get the initial list.</span>
+    <span class="doccomment">/// [`crate::ActionGroup::list_actions()`] to get the initial list.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// A [`DBusConnection`](crate::DBusConnection)</span>
+    <span class="doccomment">/// A [`crate::DBusConnection`]</span>
     <span class="doccomment">/// ## `bus_name`</span>
     <span class="doccomment">/// the bus name which exports the action</span>
     <span class="doccomment">///  group or [`None`] if `connection` is not a message bus connection</span>
@@ -122,7 +122,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`DBusActionGroup`](crate::DBusActionGroup)</span>
+    <span class="doccomment">/// a [`crate::DBusActionGroup`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_action_group_get&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(
         <span class="ident">connection</span>: <span class="kw-2">&amp;</span><span class="ident">DBusConnection</span>,

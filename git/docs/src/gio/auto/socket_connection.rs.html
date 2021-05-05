@@ -360,26 +360,26 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`SocketConnection`](crate::SocketConnection) is a [`IOStream`](crate::IOStream) for a connected socket. They</span>
-    <span class="doccomment">/// can be created either by [`SocketClient`](crate::SocketClient) when connecting to a host,</span>
-    <span class="doccomment">/// or by [`SocketListener`](crate::SocketListener) when accepting a new client.</span>
+    <span class="doccomment">/// [`crate::SocketConnection`] is a [`crate::IOStream`] for a connected socket. They</span>
+    <span class="doccomment">/// can be created either by [`crate::SocketClient`] when connecting to a host,</span>
+    <span class="doccomment">/// or by [`crate::SocketListener`] when accepting a new client.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The type of the [`SocketConnection`](crate::SocketConnection) object returned from these calls</span>
+    <span class="doccomment">/// The type of the [`crate::SocketConnection`] object returned from these calls</span>
     <span class="doccomment">/// depends on the type of the underlying socket that is in use. For</span>
-    <span class="doccomment">/// instance, for a TCP/IP connection it will be a [`TcpConnection`](crate::TcpConnection).</span>
+    <span class="doccomment">/// instance, for a TCP/IP connection it will be a [`crate::TcpConnection`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Choosing what type of object to construct is done with the socket</span>
     <span class="doccomment">/// connection factory, and it is possible for 3rd parties to register</span>
     <span class="doccomment">/// custom socket connection types for specific combination of socket</span>
-    <span class="doccomment">/// family/type/protocol using [`factory_register_type()`](Self::factory_register_type()).</span>
+    <span class="doccomment">/// family/type/protocol using [`Self::factory_register_type()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To close a [`SocketConnection`](crate::SocketConnection), use [`IOStreamExt::close()`](crate::IOStreamExt::close()). Closing both</span>
-    <span class="doccomment">/// substreams of the [`IOStream`](crate::IOStream) separately will not close the underlying</span>
-    <span class="doccomment">/// [`Socket`](crate::Socket).</span>
+    <span class="doccomment">/// To close a [`crate::SocketConnection`], use [`crate::prelude::IOStreamExt::close()`]. Closing both</span>
+    <span class="doccomment">/// substreams of the [`crate::IOStream`] separately will not close the underlying</span>
+    <span class="doccomment">/// [`crate::Socket`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SocketConnectionExt`](trait@crate::prelude::SocketConnectionExt), [`IOStreamExt`](trait@crate::prelude::IOStreamExt), [`trait@glib::object::ObjectExt`], [`IOStreamExtManual`](trait@crate::prelude::IOStreamExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SocketConnectionExt`], [`trait@crate::prelude::IOStreamExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::IOStreamExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SocketConnection</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSocketConnection</span>, <span class="ident">ffi::GSocketConnectionClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">IOStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -388,20 +388,20 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SocketConnection</span> {
-    <span class="doccomment">/// Looks up the [`glib::Type`](crate::glib::Type) to be used when creating socket connections on</span>
+    <span class="doccomment">/// Looks up the [`crate::glib::Type`] to be used when creating socket connections on</span>
     <span class="doccomment">/// sockets with the specified `family`, `type_` and `protocol_id`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If no type is registered, the [`SocketConnection`](crate::SocketConnection) base type is returned.</span>
+    <span class="doccomment">/// If no type is registered, the [`crate::SocketConnection`] base type is returned.</span>
     <span class="doccomment">/// ## `family`</span>
-    <span class="doccomment">/// a [`SocketFamily`](crate::SocketFamily)</span>
+    <span class="doccomment">/// a [`crate::SocketFamily`]</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// a [`SocketType`](crate::SocketType)</span>
+    <span class="doccomment">/// a [`crate::SocketType`]</span>
     <span class="doccomment">/// ## `protocol_id`</span>
     <span class="doccomment">/// a protocol id</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`glib::Type`](crate::glib::Type)</span>
+    <span class="doccomment">/// a [`crate::glib::Type`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_connection_factory_lookup_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">factory_lookup_type</span>(
         <span class="ident">family</span>: <span class="ident">SocketFamily</span>,
@@ -417,16 +417,16 @@
         }
     }
 
-    <span class="doccomment">/// Looks up the [`glib::Type`](crate::glib::Type) to be used when creating socket connections on</span>
+    <span class="doccomment">/// Looks up the [`crate::glib::Type`] to be used when creating socket connections on</span>
     <span class="doccomment">/// sockets with the specified `family`, `type_` and `protocol`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If no type is registered, the [`SocketConnection`](crate::SocketConnection) base type is returned.</span>
+    <span class="doccomment">/// If no type is registered, the [`crate::SocketConnection`] base type is returned.</span>
     <span class="doccomment">/// ## `g_type`</span>
-    <span class="doccomment">/// a [`glib::Type`](crate::glib::Type), inheriting from `G_TYPE_SOCKET_CONNECTION`</span>
+    <span class="doccomment">/// a [`crate::glib::Type`], inheriting from `G_TYPE_SOCKET_CONNECTION`</span>
     <span class="doccomment">/// ## `family`</span>
-    <span class="doccomment">/// a [`SocketFamily`](crate::SocketFamily)</span>
+    <span class="doccomment">/// a [`crate::SocketFamily`]</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// a [`SocketType`](crate::SocketType)</span>
+    <span class="doccomment">/// a [`crate::SocketType`]</span>
     <span class="doccomment">/// ## `protocol`</span>
     <span class="doccomment">/// a protocol id</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_connection_factory_register_type&quot;</span>)]</span>
@@ -453,13 +453,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`SocketConnection`](struct@crate::SocketConnection), [`TcpConnection`](struct@crate::TcpConnection)</span>
+<span class="doccomment">/// [`struct@crate::SocketConnection`], [`struct@crate::TcpConnection`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SocketConnectionExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Connect `self` to the specified remote address.</span>
     <span class="doccomment">/// ## `address`</span>
-    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress) specifying the remote address.</span>
+    <span class="doccomment">/// a [`crate::SocketAddress`] specifying the remote address.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -473,14 +473,14 @@
 
     <span class="doccomment">/// Asynchronously connect `self` to the specified remote address.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This clears the [`Socket:blocking`](crate::Socket:blocking) flag on `self`&#39;s underlying</span>
+    <span class="doccomment">/// This clears the [`crate::Socket:blocking`] flag on `self`&#39;s underlying</span>
     <span class="doccomment">/// socket if it is currently set.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`connect_finish()`](Self::connect_finish()) to retrieve the result.</span>
+    <span class="doccomment">/// Use [`Self::connect_finish()`] to retrieve the result.</span>
     <span class="doccomment">/// ## `address`</span>
-    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress) specifying the remote address.</span>
+    <span class="doccomment">/// a [`crate::SocketAddress`] specifying the remote address.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`] or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`] or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -506,42 +506,42 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress) or [`None`] on error.</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// a [`crate::SocketAddress`] or [`None`] on error.</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_connection_get_local_address&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_local_address&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">local_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketAddress</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Try to get the remote address of a socket connection.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since GLib 2.40, when used with [`SocketClientExt::connect()`](crate::SocketClientExt::connect()) or</span>
-    <span class="doccomment">/// [`SocketClientExt::connect_async()`](crate::SocketClientExt::connect_async()), during emission of</span>
-    <span class="doccomment">/// [`SocketClientEvent::Connecting`], this function will return the remote</span>
+    <span class="doccomment">/// Since GLib 2.40, when used with [`crate::prelude::SocketClientExt::connect()`] or</span>
+    <span class="doccomment">/// [`crate::prelude::SocketClientExt::connect_async()`], during emission of</span>
+    <span class="doccomment">/// [`crate::SocketClientEvent::Connecting`], this function will return the remote</span>
     <span class="doccomment">/// address that will be used for the connection. This allows</span>
     <span class="doccomment">/// applications to print e.g. &quot;Connecting to example.com</span>
     <span class="doccomment">/// (10.42.77.3)...&quot;.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress) or [`None`] on error.</span>
-    <span class="doccomment">///  Free the returned object with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// a [`crate::SocketAddress`] or [`None`] on error.</span>
+    <span class="doccomment">///  Free the returned object with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_connection_get_remote_address&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_remote_address&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">remote_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SocketAddress</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the underlying [`Socket`](crate::Socket) object of the connection.</span>
+    <span class="doccomment">/// Gets the underlying [`crate::Socket`] object of the connection.</span>
     <span class="doccomment">/// This can be useful if you want to do something unusual on it</span>
-    <span class="doccomment">/// not supported by the [`SocketConnection`](crate::SocketConnection) APIs.</span>
+    <span class="doccomment">/// not supported by the [`crate::SocketConnection`] APIs.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Socket`](crate::Socket) or [`None`] on error.</span>
+    <span class="doccomment">/// a [`crate::Socket`] or [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_connection_get_socket&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_socket&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">socket</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Socket</span>;
 
     <span class="doccomment">/// Checks if `self` is connected. This is equivalent to calling</span>
-    <span class="doccomment">/// [`SocketExt::is_connected()`](crate::SocketExt::is_connected()) on `self`&#39;s underlying [`Socket`](crate::Socket).</span>
+    <span class="doccomment">/// [`crate::prelude::SocketExt::is_connected()`] on `self`&#39;s underlying [`crate::Socket`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

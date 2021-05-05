@@ -295,14 +295,14 @@
     <span class="doccomment">/// A `PrintContext` encapsulates context information that is required when</span>
     <span class="doccomment">/// drawing pages for printing, such as the cairo context and important</span>
     <span class="doccomment">/// parameters like page size and resolution. It also lets you easily</span>
-    <span class="doccomment">/// create [`pango::Layout`](crate::pango::Layout) and [`pango::Context`](crate::pango::Context) objects that match the font metrics</span>
+    <span class="doccomment">/// create [`crate::pango::Layout`] and [`crate::pango::Context`] objects that match the font metrics</span>
     <span class="doccomment">/// of the cairo surface.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `PrintContext` objects gets passed to the [`PrintOperation::begin-print`](crate::PrintOperation::begin-print),</span>
-    <span class="doccomment">/// [`PrintOperation::end-print`](crate::PrintOperation::end-print), [`PrintOperation::request-page-setup`](crate::PrintOperation::request-page-setup) and</span>
-    <span class="doccomment">/// [`PrintOperation::draw-page`](crate::PrintOperation::draw-page) signals on the [`PrintOperation`](crate::PrintOperation).</span>
+    <span class="doccomment">/// `PrintContext` objects gets passed to the [`crate::PrintOperation::begin-print`],</span>
+    <span class="doccomment">/// [`crate::PrintOperation::end-print`], [`crate::PrintOperation::request-page-setup`] and</span>
+    <span class="doccomment">/// [`crate::PrintOperation::draw-page`] signals on the [`crate::PrintOperation`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Using `PrintContext` in a [`PrintOperation::draw-page`](crate::PrintOperation::draw-page) callback</span>
+    <span class="doccomment">/// ## Using `PrintContext` in a [`crate::PrintOperation::draw-page`] callback</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -372,8 +372,8 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PrintContext</span> {
-    <span class="doccomment">/// Creates a new [`pango::Context`](crate::pango::Context) that can be used with the</span>
-    <span class="doccomment">/// [`PrintContext`](crate::PrintContext).</span>
+    <span class="doccomment">/// Creates a new [`crate::pango::Context`] that can be used with the</span>
+    <span class="doccomment">/// [`crate::PrintContext`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -387,8 +387,8 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`pango::Layout`](crate::pango::Layout) that is suitable for use</span>
-    <span class="doccomment">/// with the [`PrintContext`](crate::PrintContext).</span>
+    <span class="doccomment">/// Creates a new [`crate::pango::Layout`] that is suitable for use</span>
+    <span class="doccomment">/// with the [`crate::PrintContext`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -403,7 +403,7 @@
     }
 
     <span class="doccomment">/// Obtains the cairo context that is associated with the</span>
-    <span class="doccomment">/// [`PrintContext`](crate::PrintContext).</span>
+    <span class="doccomment">/// [`crate::PrintContext`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -418,7 +418,7 @@
         }
     }
 
-    <span class="doccomment">/// Obtains the horizontal resolution of the [`PrintContext`](crate::PrintContext),</span>
+    <span class="doccomment">/// Obtains the horizontal resolution of the [`crate::PrintContext`],</span>
     <span class="doccomment">/// in dots per inch.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -430,7 +430,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_context_get_dpi_x</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Obtains the vertical resolution of the [`PrintContext`](crate::PrintContext),</span>
+    <span class="doccomment">/// Obtains the vertical resolution of the [`crate::PrintContext`],</span>
     <span class="doccomment">/// in dots per inch.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -442,7 +442,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_context_get_dpi_y</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Obtains the hardware printer margins of the [`PrintContext`](crate::PrintContext), in units.</span>
+    <span class="doccomment">/// Obtains the hardware printer margins of the [`crate::PrintContext`], in units.</span>
     <span class="doccomment">/// ## `top`</span>
     <span class="doccomment">/// top hardware printer margin</span>
     <span class="doccomment">/// ## `bottom`</span>
@@ -482,7 +482,7 @@
         }
     }
 
-    <span class="doccomment">/// Obtains the height of the [`PrintContext`](crate::PrintContext), in pixels.</span>
+    <span class="doccomment">/// Obtains the height of the [`crate::PrintContext`], in pixels.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -493,8 +493,8 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_context_get_height</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Obtains the [`PageSetup`](crate::PageSetup) that determines the page</span>
-    <span class="doccomment">/// dimensions of the [`PrintContext`](crate::PrintContext).</span>
+    <span class="doccomment">/// Obtains the [`crate::PageSetup`] that determines the page</span>
+    <span class="doccomment">/// dimensions of the [`crate::PrintContext`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -505,8 +505,8 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_print_context_get_page_setup</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Returns a [`pango::FontMap`](crate::pango::FontMap) that is suitable for use</span>
-    <span class="doccomment">/// with the [`PrintContext`](crate::PrintContext).</span>
+    <span class="doccomment">/// Returns a [`crate::pango::FontMap`] that is suitable for use</span>
+    <span class="doccomment">/// with the [`crate::PrintContext`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -521,7 +521,7 @@
         }
     }
 
-    <span class="doccomment">/// Obtains the width of the [`PrintContext`](crate::PrintContext), in pixels.</span>
+    <span class="doccomment">/// Obtains the width of the [`crate::PrintContext`], in pixels.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

@@ -376,9 +376,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Ray</span> {
-    <span class="doccomment">/// Checks whether the two given [`Ray`](crate::Ray) are equal.</span>
+    <span class="doccomment">/// Checks whether the two given [`crate::Ray`] are equal.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Ray`](crate::Ray)</span>
+    <span class="doccomment">/// a [`crate::Ray`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -457,7 +457,7 @@
         }
     }
 
-    <span class="doccomment">/// Initializes the given [`Ray`](crate::Ray) using the given `origin`</span>
+    <span class="doccomment">/// Initializes the given [`crate::Ray`] using the given `origin`</span>
     <span class="doccomment">/// and `direction` values.</span>
     <span class="doccomment">/// ## `origin`</span>
     <span class="doccomment">/// the origin of the ray</span>
@@ -478,10 +478,10 @@
         }
     }
 
-    <span class="doccomment">/// Initializes the given [`Ray`](crate::Ray) using the origin and direction</span>
-    <span class="doccomment">/// values of another [`Ray`](crate::Ray).</span>
+    <span class="doccomment">/// Initializes the given [`crate::Ray`] using the origin and direction</span>
+    <span class="doccomment">/// values of another [`crate::Ray`].</span>
     <span class="doccomment">/// ## `src`</span>
-    <span class="doccomment">/// a [`Ray`](crate::Ray)</span>
+    <span class="doccomment">/// a [`crate::Ray`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -493,11 +493,11 @@
         }
     }
 
-    <span class="doccomment">/// Initializes the given [`Ray`](crate::Ray) using the given vectors.</span>
+    <span class="doccomment">/// Initializes the given [`crate::Ray`] using the given vectors.</span>
     <span class="doccomment">/// ## `origin`</span>
-    <span class="doccomment">/// a [`Vec3`](crate::Vec3)</span>
+    <span class="doccomment">/// a [`crate::Vec3`]</span>
     <span class="doccomment">/// ## `direction`</span>
-    <span class="doccomment">/// a [`Vec3`](crate::Vec3)</span>
+    <span class="doccomment">/// a [`crate::Vec3`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -513,10 +513,10 @@
         }
     }
 
-    <span class="doccomment">/// Intersects the given [`Ray`](crate::Ray) `self` with the given</span>
-    <span class="doccomment">/// [`Box`](crate::Box) `b`.</span>
+    <span class="doccomment">/// Intersects the given [`crate::Ray`] `self` with the given</span>
+    <span class="doccomment">/// [`crate::Box`] `b`.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Box`](crate::Box)</span>
+    <span class="doccomment">/// a [`crate::Box`]</span>
     <span class="doccomment">/// ## `t_out`</span>
     <span class="doccomment">/// the distance of the point on the ray that intersects the box</span>
     <span class="doccomment">///</span>
@@ -539,10 +539,10 @@
         }
     }
 
-    <span class="doccomment">/// Intersects the given [`Ray`](crate::Ray) `self` with the given</span>
-    <span class="doccomment">/// [`Sphere`](crate::Sphere) `s`.</span>
+    <span class="doccomment">/// Intersects the given [`crate::Ray`] `self` with the given</span>
+    <span class="doccomment">/// [`crate::Sphere`] `s`.</span>
     <span class="doccomment">/// ## `s`</span>
-    <span class="doccomment">/// a [`Sphere`](crate::Sphere)</span>
+    <span class="doccomment">/// a [`crate::Sphere`]</span>
     <span class="doccomment">/// ## `t_out`</span>
     <span class="doccomment">/// the distance of the point on the ray that intersects the sphere</span>
     <span class="doccomment">///</span>
@@ -565,10 +565,10 @@
         }
     }
 
-    <span class="doccomment">/// Intersects the given [`Ray`](crate::Ray) `self` with the given</span>
-    <span class="doccomment">/// [`Triangle`](crate::Triangle) `t`.</span>
+    <span class="doccomment">/// Intersects the given [`crate::Ray`] `self` with the given</span>
+    <span class="doccomment">/// [`crate::Triangle`] `t`.</span>
     <span class="doccomment">/// ## `t`</span>
-    <span class="doccomment">/// a [`Triangle`](crate::Triangle)</span>
+    <span class="doccomment">/// a [`crate::Triangle`]</span>
     <span class="doccomment">/// ## `t_out`</span>
     <span class="doccomment">/// the distance of the point on the ray that intersects the triangle</span>
     <span class="doccomment">///</span>
@@ -591,12 +591,12 @@
         }
     }
 
-    <span class="doccomment">/// Checks whether the given [`Ray`](crate::Ray) `self` intersects the</span>
-    <span class="doccomment">/// given [`Box`](crate::Box) `b`.</span>
+    <span class="doccomment">/// Checks whether the given [`crate::Ray`] `self` intersects the</span>
+    <span class="doccomment">/// given [`crate::Box`] `b`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`intersect_box()`](Self::intersect_box())</span>
+    <span class="doccomment">/// See also: [`Self::intersect_box()`]</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Box`](crate::Box)</span>
+    <span class="doccomment">/// a [`crate::Box`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -613,12 +613,12 @@
         }
     }
 
-    <span class="doccomment">/// Checks if the given [`Ray`](crate::Ray) `self` intersects the</span>
-    <span class="doccomment">/// given [`Sphere`](crate::Sphere) `s`.</span>
+    <span class="doccomment">/// Checks if the given [`crate::Ray`] `self` intersects the</span>
+    <span class="doccomment">/// given [`crate::Sphere`] `s`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`intersect_sphere()`](Self::intersect_sphere())</span>
+    <span class="doccomment">/// See also: [`Self::intersect_sphere()`]</span>
     <span class="doccomment">/// ## `s`</span>
-    <span class="doccomment">/// a [`Sphere`](crate::Sphere)</span>
+    <span class="doccomment">/// a [`crate::Sphere`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -635,12 +635,12 @@
         }
     }
 
-    <span class="doccomment">/// Checks whether the given [`Ray`](crate::Ray) `self` intersects the</span>
-    <span class="doccomment">/// given [`Triangle`](crate::Triangle) `b`.</span>
+    <span class="doccomment">/// Checks whether the given [`crate::Ray`] `self` intersects the</span>
+    <span class="doccomment">/// given [`crate::Triangle`] `b`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`intersect_triangle()`](Self::intersect_triangle())</span>
+    <span class="doccomment">/// See also: [`Self::intersect_triangle()`]</span>
     <span class="doccomment">/// ## `t`</span>
-    <span class="doccomment">/// a [`Triangle`](crate::Triangle)</span>
+    <span class="doccomment">/// a [`crate::Triangle`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

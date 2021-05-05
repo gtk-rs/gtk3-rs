@@ -114,11 +114,11 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`GlyphItem`](crate::GlyphItem) is a pair of a [`Item`](crate::Item) and the glyphs</span>
+    <span class="doccomment">/// A [`crate::GlyphItem`] is a pair of a [`crate::Item`] and the glyphs</span>
     <span class="doccomment">/// resulting from shaping the text corresponding to an item.</span>
-    <span class="doccomment">/// As an example of the usage of [`GlyphItem`](crate::GlyphItem), the results</span>
-    <span class="doccomment">/// of shaping text with [`Layout`](crate::Layout) is a list of [`LayoutLine`](crate::LayoutLine),</span>
-    <span class="doccomment">/// each of which contains a list of [`GlyphItem`](crate::GlyphItem).</span>
+    <span class="doccomment">/// As an example of the usage of [`crate::GlyphItem`], the results</span>
+    <span class="doccomment">/// of shaping text with [`crate::Layout`] is a list of [`crate::LayoutLine`],</span>
+    <span class="doccomment">/// each of which contains a list of [`crate::GlyphItem`].</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GlyphItem</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoGlyphItem</span><span class="op">&gt;</span>);
 
@@ -133,7 +133,7 @@
     <span class="doccomment">/// Splits a shaped item (PangoGlyphItem) into multiple items based</span>
     <span class="doccomment">/// on an attribute list. The idea is that if you have attributes</span>
     <span class="doccomment">/// that don&#39;t affect shaping, such as color or underline, to avoid</span>
-    <span class="doccomment">/// affecting shaping, you filter them out ([`AttrList::filter()`](crate::AttrList::filter())),</span>
+    <span class="doccomment">/// affecting shaping, you filter them out ([`crate::AttrList::filter()`]),</span>
     <span class="doccomment">/// apply the shaping process and then reapply them to the result using</span>
     <span class="doccomment">/// this function.</span>
     <span class="doccomment">///</span>
@@ -149,14 +149,14 @@
     <span class="doccomment">/// ## `text`</span>
     <span class="doccomment">/// text that `list` applies to</span>
     <span class="doccomment">/// ## `list`</span>
-    <span class="doccomment">/// a [`AttrList`](crate::AttrList)</span>
+    <span class="doccomment">/// a [`crate::AttrList`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a</span>
     <span class="doccomment">///  list of glyph items resulting from splitting `self`. Free</span>
-    <span class="doccomment">///  the elements using [`free()`](Self::free()), the list using</span>
-    <span class="doccomment">///  [`glib::SList::free()`](crate::glib::SList::free()).</span>
+    <span class="doccomment">///  the elements using [`Self::free()`], the list using</span>
+    <span class="doccomment">///  [`crate::glib::SList::free()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_item_apply_attrs&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">apply_attrs</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">list</span>: <span class="kw-2">&amp;</span><span class="ident">AttrList</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GlyphItem</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -187,7 +187,7 @@
     <span class="doccomment">/// be at least one byte assigned to each item, you can&#39;t create a</span>
     <span class="doccomment">/// zero-length item).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is similar in function to [`Item::split()`](crate::Item::split()) (and uses</span>
+    <span class="doccomment">/// This function is similar in function to [`crate::Item::split()`] (and uses</span>
     <span class="doccomment">/// it internally.)</span>
     <span class="doccomment">/// ## `text`</span>
     <span class="doccomment">/// text to which positions in `self` apply</span>
@@ -198,7 +198,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the newly allocated item representing text before</span>
     <span class="doccomment">///  `split_index`, which should be freed</span>
-    <span class="doccomment">///  with [`free()`](Self::free()).</span>
+    <span class="doccomment">///  with [`Self::free()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_item_split&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">split</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">split_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GlyphItem</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

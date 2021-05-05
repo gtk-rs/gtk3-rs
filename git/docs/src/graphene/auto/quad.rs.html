@@ -118,9 +118,9 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A 4 vertex quadrilateral, as represented by four [`Point`](crate::Point).</span>
+    <span class="doccomment">/// A 4 vertex quadrilateral, as represented by four [`crate::Point`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The contents of a [`Quad`](crate::Quad) are private and should never be</span>
+    <span class="doccomment">/// The contents of a [`crate::Quad`] are private and should never be</span>
     <span class="doccomment">/// accessed directly.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Quad</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::graphene_quad_t</span><span class="op">&gt;</span>);
@@ -137,7 +137,7 @@
 <span class="kw">impl</span> <span class="ident">Quad</span> {
     <span class="doccomment">/// Computes the bounding rectangle of `self` and places it into `r`.</span>
     <span class="doccomment">/// ## `r`</span>
-    <span class="doccomment">/// return location for a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// return location for a [`crate::Rect`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_bounds&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bounds</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rect</span> {
         <span class="kw">unsafe</span> {
@@ -147,13 +147,13 @@
         }
     }
 
-    <span class="doccomment">/// Checks if the given [`Quad`](crate::Quad) contains the given [`Point`](crate::Point).</span>
+    <span class="doccomment">/// Checks if the given [`crate::Quad`] contains the given [`crate::Point`].</span>
     <span class="doccomment">/// ## `p`</span>
-    <span class="doccomment">/// a [`Point`](crate::Point)</span>
+    <span class="doccomment">/// a [`crate::Point`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `true` if the point is inside the [`Quad`](crate::Quad)</span>
+    <span class="doccomment">/// `true` if the point is inside the [`crate::Quad`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_contains&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
@@ -170,7 +170,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_quad_get_point</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index_</span>)) }
     }
 
-    <span class="doccomment">/// Initializes a [`Quad`](crate::Quad) with the given points.</span>
+    <span class="doccomment">/// Initializes a [`crate::Quad`] with the given points.</span>
     <span class="doccomment">/// ## `p1`</span>
     <span class="doccomment">/// the first point of the quadrilateral</span>
     <span class="doccomment">/// ## `p2`</span>
@@ -182,7 +182,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized [`Quad`](crate::Quad)</span>
+    <span class="doccomment">/// the initialized [`crate::Quad`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">p1</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>, <span class="ident">p2</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>, <span class="ident">p3</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>, <span class="ident">p4</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>) {
         <span class="kw">unsafe</span> {
@@ -201,14 +201,14 @@
     <span class="comment">//    unsafe { TODO: call ffi:graphene_quad_init_from_points() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Initializes a [`Quad`](crate::Quad) using the four corners of the</span>
-    <span class="doccomment">/// given [`Rect`](crate::Rect).</span>
+    <span class="doccomment">/// Initializes a [`crate::Quad`] using the four corners of the</span>
+    <span class="doccomment">/// given [`crate::Rect`].</span>
     <span class="doccomment">/// ## `r`</span>
-    <span class="doccomment">/// a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// a [`crate::Rect`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the initialized [`Quad`](crate::Quad)</span>
+    <span class="doccomment">/// the initialized [`crate::Quad`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_init_from_rect&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_rect</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) {
         <span class="kw">unsafe</span> {

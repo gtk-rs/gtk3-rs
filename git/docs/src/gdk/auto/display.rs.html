@@ -906,7 +906,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`Display`](crate::Display) objects purpose are two fold:</span>
+    <span class="doccomment">/// [`crate::Display`] objects purpose are two fold:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// - To manage and provide information about input devices (pointers and keyboards)</span>
     <span class="doccomment">///</span>
@@ -921,9 +921,9 @@
     <span class="doccomment">/// access the keyboard(s) and mouse pointer(s) of the display.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Most of the input device handling has been factored out into</span>
-    <span class="doccomment">/// the separate [`DeviceManager`](crate::DeviceManager) object. Every display has a</span>
+    <span class="doccomment">/// the separate [`crate::DeviceManager`] object. Every display has a</span>
     <span class="doccomment">/// device manager, which you can obtain using</span>
-    <span class="doccomment">/// [`get_device_manager()`](Self::get_device_manager()).</span>
+    <span class="doccomment">/// [`Self::get_device_manager()`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Display</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkDisplay</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -951,7 +951,7 @@
 
     <span class="doccomment">/// Returns [`true`] if there is an ongoing grab on `device` for `self`.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// a [`Device`](crate::Device)</span>
+    <span class="doccomment">/// a [`crate::Device`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -982,13 +982,13 @@
         }
     }
 
-    <span class="doccomment">/// Returns a [`AppLaunchContext`](crate::AppLaunchContext) suitable for launching</span>
+    <span class="doccomment">/// Returns a [`crate::AppLaunchContext`] suitable for launching</span>
     <span class="doccomment">/// applications on the given display.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`AppLaunchContext`](crate::AppLaunchContext) for `self`.</span>
-    <span class="doccomment">///  Free with [`glib::object::Object::unref()`](crate::glib::object::Object::unref()) when done</span>
+    <span class="doccomment">/// a new [`crate::AppLaunchContext`] for `self`.</span>
+    <span class="doccomment">///  Free with [`crate::glib::object::Object::unref()`] when done</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_get_app_launch_context&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_app_launch_context&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">app_launch_context</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AppLaunchContext</span><span class="op">&gt;</span> {
@@ -1012,7 +1012,7 @@
 
     <span class="doccomment">/// Returns the default group leader window for all toplevel windows</span>
     <span class="doccomment">/// on `self`. This window is implicitly created by GDK.</span>
-    <span class="doccomment">/// See [`Window::set_group()`](crate::Window::set_group()).</span>
+    <span class="doccomment">/// See [`crate::Window::set_group()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1024,18 +1024,18 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_display_get_default_group</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Get the default [`Screen`](crate::Screen) for `self`.</span>
+    <span class="doccomment">/// Get the default [`crate::Screen`] for `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the default [`Screen`](crate::Screen) object for `self`</span>
+    <span class="doccomment">/// the default [`crate::Screen`] object for `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_get_default_screen&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default_screen&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_screen</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Screen</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_display_get_default_screen</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Returns the default [`Seat`](crate::Seat) for this display.</span>
+    <span class="doccomment">/// Returns the default [`crate::Seat`] for this display.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1048,15 +1048,15 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_display_get_default_seat</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Returns the [`DeviceManager`](crate::DeviceManager) associated to `self`.</span>
+    <span class="doccomment">/// Returns the [`crate::DeviceManager`] associated to `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.20</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`get_default_seat()`](Self::get_default_seat()) and [`Seat`](crate::Seat) operations.</span>
+    <span class="doccomment">/// Use [`Self::get_default_seat()`] and [`crate::Seat`] operations.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DeviceManager`](crate::DeviceManager), or</span>
+    <span class="doccomment">/// A [`crate::DeviceManager`], or</span>
     <span class="doccomment">///  [`None`]. This memory is owned by GDK and must not be freed</span>
     <span class="doccomment">///  or unreferenced.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
@@ -1108,7 +1108,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Monitor`](crate::Monitor), or [`None`] if</span>
+    <span class="doccomment">/// the [`crate::Monitor`], or [`None`] if</span>
     <span class="doccomment">///  `monitor_num` is not a valid monitor number</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
@@ -1151,7 +1151,7 @@
     <span class="doccomment">/// resides, or a monitor close to `window` if it is outside</span>
     <span class="doccomment">/// of all monitors.</span>
     <span class="doccomment">/// ## `window`</span>
-    <span class="doccomment">/// a [`Window`](crate::Window)</span>
+    <span class="doccomment">/// a [`crate::Window`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1172,7 +1172,7 @@
     <span class="doccomment">/// Gets the number of monitors that belong to `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned number is valid until the next emission of the</span>
-    <span class="doccomment">/// [`Display::monitor-added`](crate::Display::monitor-added) or [`Display::monitor-removed`](crate::Display::monitor-removed) signal.</span>
+    <span class="doccomment">/// [`crate::Display::monitor-added`] or [`crate::Display::monitor-removed`] signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1220,13 +1220,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.20</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// There is only one screen; use [`get_default_screen()`](Self::get_default_screen()) to get it.</span>
+    <span class="doccomment">/// There is only one screen; use [`Self::get_default_screen()`] to get it.</span>
     <span class="doccomment">/// ## `screen_num`</span>
     <span class="doccomment">/// the screen number</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Screen`](crate::Screen) object</span>
+    <span class="doccomment">/// the [`crate::Screen`] object</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_get_screen&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_screen&quot;</span>)]</span>
@@ -1265,7 +1265,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the</span>
-    <span class="doccomment">///  list of seats known to the [`Display`](crate::Display)</span>
+    <span class="doccomment">///  list of seats known to the [`crate::Display`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_list_seats&quot;</span>)]</span>
@@ -1323,15 +1323,15 @@
         }
     }
 
-    <span class="doccomment">/// Request [`EventOwnerChange`](crate::EventOwnerChange) events for ownership changes</span>
+    <span class="doccomment">/// Request [`crate::EventOwnerChange`] events for ownership changes</span>
     <span class="doccomment">/// of the selection named by the given atom.</span>
     <span class="doccomment">/// ## `selection`</span>
-    <span class="doccomment">/// the [`Atom`](crate::Atom) naming the selection for which</span>
+    <span class="doccomment">/// the [`crate::Atom`] naming the selection for which</span>
     <span class="doccomment">///  ownership change notification is requested</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// whether [`EventOwnerChange`](crate::EventOwnerChange) events will</span>
+    <span class="doccomment">/// whether [`crate::EventOwnerChange`] events will</span>
     <span class="doccomment">///  be sent.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_request_selection_notification&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">request_selection_notification</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">selection</span>: <span class="kw-2">&amp;</span><span class="ident">Atom</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
@@ -1344,8 +1344,8 @@
     }
 
     <span class="doccomment">/// Sets the double click distance (two clicks within this distance</span>
-    <span class="doccomment">/// count as a double click and result in a [`EventType::2buttonPress`](crate::EventType::2buttonPress) event).</span>
-    <span class="doccomment">/// See also [`set_double_click_time()`](Self::set_double_click_time()).</span>
+    <span class="doccomment">/// count as a double click and result in a [`crate::EventType::2buttonPress`] event).</span>
+    <span class="doccomment">/// See also [`Self::set_double_click_time()`].</span>
     <span class="doccomment">/// Applications should not set this, it is a global</span>
     <span class="doccomment">/// user-configured setting.</span>
     <span class="doccomment">/// ## `distance`</span>
@@ -1358,7 +1358,7 @@
     }
 
     <span class="doccomment">/// Sets the double click time (two clicks within this time interval</span>
-    <span class="doccomment">/// count as a double click and result in a [`EventType::2buttonPress`](crate::EventType::2buttonPress) event).</span>
+    <span class="doccomment">/// count as a double click and result in a [`crate::EventType::2buttonPress`] event).</span>
     <span class="doccomment">/// Applications should not set this, it is a global</span>
     <span class="doccomment">/// user-configured setting.</span>
     <span class="doccomment">/// ## `msec`</span>
@@ -1375,7 +1375,7 @@
     <span class="doccomment">/// according to the</span>
     <span class="doccomment">/// [FreeDesktop Clipboard Specification](http://www.freedesktop.org/Standards/clipboard-manager-spec).</span>
     <span class="doccomment">/// ## `clipboard_window`</span>
-    <span class="doccomment">/// a [`Window`](crate::Window) belonging to the clipboard owner</span>
+    <span class="doccomment">/// a [`crate::Window`] belonging to the clipboard owner</span>
     <span class="doccomment">/// ## `time_`</span>
     <span class="doccomment">/// a timestamp</span>
     <span class="doccomment">/// ## `targets`</span>
@@ -1415,7 +1415,7 @@
         }
     }
 
-    <span class="doccomment">/// Returns [`true`] if [`Window::set_composited()`](crate::Window::set_composited()) can be used</span>
+    <span class="doccomment">/// Returns [`true`] if [`crate::Window::set_composited()`] can be used</span>
     <span class="doccomment">/// to redirect drawing on the window using compositing.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Currently this only works on X11 with XComposite and</span>
@@ -1482,12 +1482,12 @@
         }
     }
 
-    <span class="doccomment">/// Returns whether [`EventOwnerChange`](crate::EventOwnerChange) events will be</span>
+    <span class="doccomment">/// Returns whether [`crate::EventOwnerChange`] events will be</span>
     <span class="doccomment">/// sent when the owner of a selection changes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// whether [`EventOwnerChange`](crate::EventOwnerChange) events will</span>
+    <span class="doccomment">/// whether [`crate::EventOwnerChange`] events will</span>
     <span class="doccomment">///  be sent.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_supports_selection_notification&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">supports_selection_notification</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
@@ -1512,7 +1512,7 @@
     <span class="doccomment">/// Flushes any requests queued for the windowing system and waits until all</span>
     <span class="doccomment">/// requests have been handled. This is often used for making sure that the</span>
     <span class="doccomment">/// display is synchronized with the current state of the program. Calling</span>
-    <span class="doccomment">/// [`sync()`](Self::sync()) before `gdk_error_trap_pop()` makes sure that any errors</span>
+    <span class="doccomment">/// [`Self::sync()`] before `gdk_error_trap_pop()` makes sure that any errors</span>
     <span class="doccomment">/// generated from earlier requests are handled before the error trap is</span>
     <span class="doccomment">/// removed.</span>
     <span class="doccomment">///</span>
@@ -1525,13 +1525,13 @@
         }
     }
 
-    <span class="doccomment">/// Gets the default [`Display`](crate::Display). This is a convenience</span>
+    <span class="doccomment">/// Gets the default [`crate::Display`]. This is a convenience</span>
     <span class="doccomment">/// function for:</span>
     <span class="doccomment">/// `gdk_display_manager_get_default_display (gdk_display_manager_get ())`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Display`](crate::Display), or [`None`] if</span>
+    <span class="doccomment">/// a [`crate::Display`], or [`None`] if</span>
     <span class="doccomment">///  there is no default display.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_get_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default&quot;</span>)]</span>
@@ -1546,7 +1546,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Display`](crate::Display), or [`None`] if the</span>
+    <span class="doccomment">/// a [`crate::Display`], or [`None`] if the</span>
     <span class="doccomment">///  display could not be opened</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_display_open&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">open</span>(<span class="ident">display_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Display</span><span class="op">&gt;</span> {

@@ -792,12 +792,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`ColorChooserDialog`](crate::ColorChooserDialog) widget is a dialog for choosing</span>
-    <span class="doccomment">/// a color. It implements the [`ColorChooser`](crate::ColorChooser) interface.</span>
+    <span class="doccomment">/// The [`crate::ColorChooserDialog`] widget is a dialog for choosing</span>
+    <span class="doccomment">/// a color. It implements the [`crate::ColorChooser`] interface.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ColorChooserDialogExt`](trait@crate::prelude::ColorChooserDialogExt), [`DialogExt`](trait@crate::prelude::DialogExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ColorChooserExt`](trait@crate::prelude::ColorChooserExt), [`DialogExtManual`](trait@crate::prelude::DialogExtManual), [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual), [`ColorChooserExtManual`](trait@crate::prelude::ColorChooserExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ColorChooserDialogExt`], [`trait@crate::prelude::DialogExt`], [`trait@crate::prelude::GtkWindowExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ColorChooserExt`], [`trait@crate::prelude::DialogExtManual`], [`trait@crate::prelude::GtkWindowExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`], [`trait@crate::prelude::ColorChooserExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ColorChooserDialog</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkColorChooserDialog</span>, <span class="ident">ffi::GtkColorChooserDialogClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Dialog</span>, <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">ColorChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -806,7 +806,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ColorChooserDialog</span> {
-    <span class="doccomment">/// Creates a new [`ColorChooserDialog`](crate::ColorChooserDialog).</span>
+    <span class="doccomment">/// Creates a new [`crate::ColorChooserDialog`].</span>
     <span class="doccomment">/// ## `title`</span>
     <span class="doccomment">/// Title of the dialog, or [`None`]</span>
     <span class="doccomment">/// ## `parent`</span>
@@ -814,7 +814,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ColorChooserDialog`](crate::ColorChooserDialog)</span>
+    <span class="doccomment">/// a new [`crate::ColorChooserDialog`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_color_chooser_dialog_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">title</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">parent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ColorChooserDialog</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1458,7 +1458,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ColorChooserDialog`](struct@crate::ColorChooserDialog)</span>
+<span class="doccomment">/// [`struct@crate::ColorChooserDialog`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ColorChooserDialogExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;show-editor&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_editor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;

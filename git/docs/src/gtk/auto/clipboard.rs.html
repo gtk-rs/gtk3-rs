@@ -719,11 +719,11 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Clipboard`](crate::Clipboard) object represents a clipboard of data shared</span>
+    <span class="doccomment">/// The [`crate::Clipboard`] object represents a clipboard of data shared</span>
     <span class="doccomment">/// between different processes or between different widgets in</span>
     <span class="doccomment">/// the same process. Each clipboard is identified by a name encoded as a</span>
-    <span class="doccomment">/// [`gdk::Atom`](crate::gdk::Atom). (Conversion to and from strings can be done with</span>
-    <span class="doccomment">/// [`gdk::Atom::intern()`](crate::gdk::Atom::intern()) and [`gdk::Atom::name()`](crate::gdk::Atom::name()).) The default clipboard</span>
+    <span class="doccomment">/// [`crate::gdk::Atom`]. (Conversion to and from strings can be done with</span>
+    <span class="doccomment">/// [`crate::gdk::Atom::intern()`] and [`crate::gdk::Atom::name()`].) The default clipboard</span>
     <span class="doccomment">/// corresponds to the “CLIPBOARD” atom; another commonly used clipboard</span>
     <span class="doccomment">/// is the “PRIMARY” clipboard, which, in X, traditionally contains</span>
     <span class="doccomment">/// the currently selected text.</span>
@@ -732,24 +732,24 @@
     <span class="doccomment">/// at the same time, the clipboard mechanism allows providing</span>
     <span class="doccomment">/// callbacks instead of the actual data. When you set the contents</span>
     <span class="doccomment">/// of the clipboard, you can either supply the data directly (via</span>
-    <span class="doccomment">/// functions like [`set_text()`](Self::set_text())), or you can supply a</span>
+    <span class="doccomment">/// functions like [`Self::set_text()`]), or you can supply a</span>
     <span class="doccomment">/// callback to be called at a later time when the data is needed (via</span>
-    <span class="doccomment">/// [`set_with_data()`](Self::set_with_data()) or [`set_with_owner()`](Self::set_with_owner()).)</span>
+    <span class="doccomment">/// [`Self::set_with_data()`] or [`Self::set_with_owner()`].)</span>
     <span class="doccomment">/// Providing a callback also avoids having to make copies of the data</span>
     <span class="doccomment">/// when it is not needed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`set_with_data()`](Self::set_with_data()) and [`set_with_owner()`](Self::set_with_owner())</span>
+    <span class="doccomment">/// [`Self::set_with_data()`] and [`Self::set_with_owner()`]</span>
     <span class="doccomment">/// are quite similar; the choice between the two depends mostly on</span>
     <span class="doccomment">/// which is more convenient in a particular situation.</span>
     <span class="doccomment">/// The former is most useful when you want to have a blob of data</span>
     <span class="doccomment">/// with callbacks to convert it into the various data types that you</span>
     <span class="doccomment">/// advertise. When the `clear_func` you provided is called, you</span>
     <span class="doccomment">/// simply free the data blob. The latter is more useful when the</span>
-    <span class="doccomment">/// contents of clipboard reflect the internal state of a [`glib::object::Object`](crate::glib::object::Object)</span>
+    <span class="doccomment">/// contents of clipboard reflect the internal state of a [`crate::glib::object::Object`]</span>
     <span class="doccomment">/// (As an example, for the PRIMARY clipboard, when an entry widget</span>
     <span class="doccomment">/// provides the clipboard’s contents the contents are simply the</span>
     <span class="doccomment">/// text within the selected region.) If the contents change, the</span>
-    <span class="doccomment">/// entry widget can call [`set_with_owner()`](Self::set_with_owner()) to update</span>
+    <span class="doccomment">/// entry widget can call [`Self::set_with_owner()`] to update</span>
     <span class="doccomment">/// the timestamp for clipboard ownership, without having to worry</span>
     <span class="doccomment">/// about `clear_func` being called.</span>
     <span class="doccomment">///</span>
@@ -759,10 +759,10 @@
     <span class="doccomment">/// retrieve the data, but if they are provided by another process,</span>
     <span class="doccomment">/// then the data needs to be retrieved from the other process, which</span>
     <span class="doccomment">/// may take some time. To avoid blocking the user interface, the call</span>
-    <span class="doccomment">/// to request the selection, [`request_contents()`](Self::request_contents()) takes a</span>
+    <span class="doccomment">/// to request the selection, [`Self::request_contents()`] takes a</span>
     <span class="doccomment">/// callback that will be called when the contents are received (or</span>
     <span class="doccomment">/// when the request fails.) If you don’t want to deal with providing</span>
-    <span class="doccomment">/// a separate callback, you can also use [`wait_for_contents()`](Self::wait_for_contents()).</span>
+    <span class="doccomment">/// a separate callback, you can also use [`Self::wait_for_contents()`].</span>
     <span class="doccomment">/// What this does is run the GLib main loop recursively waiting for</span>
     <span class="doccomment">/// the contents. This can simplify the code flow, but you still have</span>
     <span class="doccomment">/// to be aware that other callbacks in your program can be called</span>
@@ -770,8 +770,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Along with the functions to get the clipboard contents as an</span>
     <span class="doccomment">/// arbitrary data chunk, there are also functions to retrieve</span>
-    <span class="doccomment">/// it as text, [`request_text()`](Self::request_text()) and</span>
-    <span class="doccomment">/// [`wait_for_text()`](Self::wait_for_text()). These functions take care of</span>
+    <span class="doccomment">/// it as text, [`Self::request_text()`] and</span>
+    <span class="doccomment">/// [`Self::wait_for_text()`]. These functions take care of</span>
     <span class="doccomment">/// determining which formats are advertised by the clipboard</span>
     <span class="doccomment">/// provider, asking for the clipboard in the best available format</span>
     <span class="doccomment">/// and converting the results into the UTF-8 encoding. (The standard</span>
@@ -789,8 +789,8 @@
 
 <span class="kw">impl</span> <span class="ident">Clipboard</span> {
     <span class="doccomment">/// Clears the contents of the clipboard. Generally this should only</span>
-    <span class="doccomment">/// be called between the time you call [`set_with_owner()`](Self::set_with_owner())</span>
-    <span class="doccomment">/// or [`set_with_data()`](Self::set_with_data()),</span>
+    <span class="doccomment">/// be called between the time you call [`Self::set_with_owner()`]</span>
+    <span class="doccomment">/// or [`Self::set_with_data()`],</span>
     <span class="doccomment">/// and when the `clear_func` you supplied is called. Otherwise, the</span>
     <span class="doccomment">/// clipboard may be owned by someone else.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_clipboard_clear&quot;</span>)]</span>
@@ -800,11 +800,11 @@
         }
     }
 
-    <span class="doccomment">/// Gets the [`gdk::Display`](crate::gdk::Display) associated with `self`</span>
+    <span class="doccomment">/// Gets the [`crate::gdk::Display`] associated with `self`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`gdk::Display`](crate::gdk::Display) associated with `self`</span>
+    <span class="doccomment">/// the [`crate::gdk::Display`] associated with `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_clipboard_get_display&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">display</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk::Display</span><span class="op">&gt;</span> {
@@ -812,9 +812,9 @@
     }
 
     <span class="doccomment">/// If the clipboard contents callbacks were set with</span>
-    <span class="doccomment">/// [`set_with_owner()`](Self::set_with_owner()), and the [`set_with_data()`](Self::set_with_data()) or</span>
-    <span class="doccomment">/// [`clear()`](Self::clear()) has not subsequently called, returns the owner set</span>
-    <span class="doccomment">/// by [`set_with_owner()`](Self::set_with_owner()).</span>
+    <span class="doccomment">/// [`Self::set_with_owner()`], and the [`Self::set_with_data()`] or</span>
+    <span class="doccomment">/// [`Self::clear()`] has not subsequently called, returns the owner set</span>
+    <span class="doccomment">/// by [`Self::set_with_owner()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -881,11 +881,11 @@
     }
 
     <span class="doccomment">/// Requests the contents of the clipboard as image. When the image is</span>
-    <span class="doccomment">/// later received, it will be converted to a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf), and</span>
+    <span class="doccomment">/// later received, it will be converted to a [`crate::gdk_pixbuf::Pixbuf`], and</span>
     <span class="doccomment">/// `callback` will be called.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `pixbuf` parameter to `callback` will contain the resulting</span>
-    <span class="doccomment">/// [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) if the request succeeded, or [`None`] if it failed. This</span>
+    <span class="doccomment">/// [`crate::gdk_pixbuf::Pixbuf`] if the request succeeded, or [`None`] if it failed. This</span>
     <span class="doccomment">/// could happen for various reasons, in particular if the clipboard</span>
     <span class="doccomment">/// was empty or if the contents of the clipboard could not be</span>
     <span class="doccomment">/// converted into an image.</span>
@@ -927,7 +927,7 @@
     <span class="doccomment">/// various reasons, in particular if the clipboard was empty or if the</span>
     <span class="doccomment">/// contents of the clipboard could not be converted into rich text form.</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// a [`TextBuffer`](crate::TextBuffer)</span>
+    <span class="doccomment">/// a [`crate::TextBuffer`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a function to call when the text is received,</span>
     <span class="doccomment">///  or the retrieval fails. (It will always be called one way or the other.)</span>
@@ -1008,12 +1008,12 @@
         }
     }
 
-    <span class="doccomment">/// Sets the contents of the clipboard to the given [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf).</span>
+    <span class="doccomment">/// Sets the contents of the clipboard to the given [`crate::gdk_pixbuf::Pixbuf`].</span>
     <span class="doccomment">/// GTK+ will take responsibility for responding for requests</span>
     <span class="doccomment">/// for the image, and for converting the image into the</span>
     <span class="doccomment">/// requested format.</span>
     <span class="doccomment">/// ## `pixbuf`</span>
-    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf)</span>
+    <span class="doccomment">/// a [`crate::gdk_pixbuf::Pixbuf`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_clipboard_set_image&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_image</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pixbuf</span>: <span class="kw-2">&amp;</span><span class="ident">gdk_pixbuf::Pixbuf</span>) {
         <span class="kw">unsafe</span> {
@@ -1056,9 +1056,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly-allocated [`SelectionData`](crate::SelectionData) object or [`None`]</span>
+    <span class="doccomment">/// a newly-allocated [`crate::SelectionData`] object or [`None`]</span>
     <span class="doccomment">///  if retrieving the given target failed. If non-[`None`],</span>
-    <span class="doccomment">///  this value must be freed with [`SelectionData::free()`](crate::SelectionData::free())</span>
+    <span class="doccomment">///  this value must be freed with [`crate::SelectionData::free()`]</span>
     <span class="doccomment">///  when you are finished with it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_clipboard_wait_for_contents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wait_for_contents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::Atom</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SelectionData</span><span class="op">&gt;</span> {
@@ -1071,14 +1071,14 @@
     }
 
     <span class="doccomment">/// Requests the contents of the clipboard as image and converts</span>
-    <span class="doccomment">/// the result to a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf). This function waits for</span>
+    <span class="doccomment">/// the result to a [`crate::gdk_pixbuf::Pixbuf`]. This function waits for</span>
     <span class="doccomment">/// the data to be received using the main loop, so events,</span>
     <span class="doccomment">/// timeouts, etc, may be dispatched during the wait.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly-allocated [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf)</span>
-    <span class="doccomment">///  object which must be disposed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()), or</span>
+    <span class="doccomment">/// a newly-allocated [`crate::gdk_pixbuf::Pixbuf`]</span>
+    <span class="doccomment">///  object which must be disposed with [`crate::glib::object::ObjectExt::unref()`], or</span>
     <span class="doccomment">///  [`None`] if retrieving the selection data failed. (This could</span>
     <span class="doccomment">///  happen for various reasons, in particular if the clipboard</span>
     <span class="doccomment">///  was empty or if the contents of the clipboard could not be</span>
@@ -1092,7 +1092,7 @@
     <span class="doccomment">/// waits for the data to be received using the main loop, so events,</span>
     <span class="doccomment">/// timeouts, etc, may be dispatched during the wait.</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// a [`TextBuffer`](crate::TextBuffer)</span>
+    <span class="doccomment">/// a [`crate::TextBuffer`]</span>
     <span class="doccomment">/// ## `format`</span>
     <span class="doccomment">/// return location for the format of the returned data</span>
     <span class="doccomment">/// ## `length`</span>
@@ -1208,7 +1208,7 @@
     <span class="doccomment">/// timeouts, etc, may be dispatched during the wait.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is a little faster than calling</span>
-    <span class="doccomment">/// [`wait_for_image()`](Self::wait_for_image()) since it doesn’t need to retrieve</span>
+    <span class="doccomment">/// [`Self::wait_for_image()`] since it doesn’t need to retrieve</span>
     <span class="doccomment">/// the actual image data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1230,10 +1230,10 @@
     <span class="doccomment">/// timeouts, etc, may be dispatched during the wait.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is a little faster than calling</span>
-    <span class="doccomment">/// [`wait_for_rich_text()`](Self::wait_for_rich_text()) since it doesn’t need to retrieve</span>
+    <span class="doccomment">/// [`Self::wait_for_rich_text()`] since it doesn’t need to retrieve</span>
     <span class="doccomment">/// the actual text.</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// a [`TextBuffer`](crate::TextBuffer)</span>
+    <span class="doccomment">/// a [`crate::TextBuffer`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1255,7 +1255,7 @@
     <span class="doccomment">/// If you want to see if there’s text available on the clipboard, use</span>
     <span class="doccomment">/// gtk_clipboard_wait_is_text_available () instead.</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// A [`gdk::Atom`](crate::gdk::Atom) indicating which target to look for.</span>
+    <span class="doccomment">/// A [`crate::gdk::Atom`] indicating which target to look for.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1277,7 +1277,7 @@
     <span class="doccomment">/// timeouts, etc, may be dispatched during the wait.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is a little faster than calling</span>
-    <span class="doccomment">/// [`wait_for_text()`](Self::wait_for_text()) since it doesn’t need to retrieve</span>
+    <span class="doccomment">/// [`Self::wait_for_text()`] since it doesn’t need to retrieve</span>
     <span class="doccomment">/// the actual text.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1299,7 +1299,7 @@
     <span class="doccomment">/// timeouts, etc, may be dispatched during the wait.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is a little faster than calling</span>
-    <span class="doccomment">/// [`wait_for_uris()`](Self::wait_for_uris()) since it doesn’t need to retrieve</span>
+    <span class="doccomment">/// [`Self::wait_for_uris()`] since it doesn’t need to retrieve</span>
     <span class="doccomment">/// the actual URI data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1315,9 +1315,9 @@
     }
 
     <span class="doccomment">/// Returns the clipboard object for the given selection.</span>
-    <span class="doccomment">/// See [`get_for_display()`](Self::get_for_display()) for complete details.</span>
+    <span class="doccomment">/// See [`Self::get_for_display()`] for complete details.</span>
     <span class="doccomment">/// ## `selection`</span>
-    <span class="doccomment">/// a [`gdk::Atom`](crate::gdk::Atom) which identifies the clipboard to use</span>
+    <span class="doccomment">/// a [`crate::gdk::Atom`] which identifies the clipboard to use</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1334,7 +1334,7 @@
     <span class="doccomment">/// Returns the default clipboard object for use with cut/copy/paste menu items</span>
     <span class="doccomment">/// and keyboard shortcuts.</span>
     <span class="doccomment">/// ## `display`</span>
-    <span class="doccomment">/// the [`gdk::Display`](crate::gdk::Display) for which the clipboard is to be retrieved.</span>
+    <span class="doccomment">/// the [`crate::gdk::Display`] for which the clipboard is to be retrieved.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1375,9 +1375,9 @@
     <span class="doccomment">/// if your application called “Foo” has a special-purpose</span>
     <span class="doccomment">/// clipboard, you might call it “_FOO_SPECIAL_CLIPBOARD”.</span>
     <span class="doccomment">/// ## `display`</span>
-    <span class="doccomment">/// the [`gdk::Display`](crate::gdk::Display) for which the clipboard is to be retrieved or created.</span>
+    <span class="doccomment">/// the [`crate::gdk::Display`] for which the clipboard is to be retrieved or created.</span>
     <span class="doccomment">/// ## `selection`</span>
-    <span class="doccomment">/// a [`gdk::Atom`](crate::gdk::Atom) which identifies the clipboard to use.</span>
+    <span class="doccomment">/// a [`crate::gdk::Atom`] which identifies the clipboard to use.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

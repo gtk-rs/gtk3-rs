@@ -21,24 +21,24 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_visible_notify" class="fnname">connect_visible_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>NativeDialog</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.FileChooserNative.html"><code>FileChooserNative</code></a>, <a href="../struct.NativeDialog.html"><code>NativeDialog</code></a></p>
+<p><a href="../struct.FileChooserNative.html" title="crate::FileChooserNative"><code>crate::FileChooserNative</code></a>, <a href="../struct.NativeDialog.html" title="crate::NativeDialog"><code>crate::NativeDialog</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.destroy" class="method"><code>fn <a href="#tymethod.destroy" class="fnname">destroy</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#64" title="goto source code">[src]</a></h3><div class="docblock"><p>Destroys a dialog.</p>
 <p>When a dialog is destroyed, it will break any references it holds
 to other objects. If it is visible it will be hidden and any underlying
 window system resources will be destroyed.</p>
 <p>Note that this does not release any reference to the object (as opposed to
 destroying a <code>Window</code>) because there is no reference from the windowing
-system to the <a href="../struct.NativeDialog.html"><code>NativeDialog</code></a>.</p>
-</div><h3 id="tymethod.is_modal" class="method"><code>fn <a href="#tymethod.is_modal" class="fnname">is_modal</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#73" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the dialog is modal. See <a href="trait.NativeDialogExt.html#tymethod.set_modal"><code>set_modal()</code></a>.</p>
+system to the <a href="../struct.NativeDialog.html" title="crate::NativeDialog"><code>crate::NativeDialog</code></a>.</p>
+</div><h3 id="tymethod.is_modal" class="method"><code>fn <a href="#tymethod.is_modal" class="fnname">is_modal</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#73" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the dialog is modal. See <a href="trait.NativeDialogExt.html#tymethod.set_modal" title="Self::set_modal()"><code>Self::set_modal()</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the dialog is set to be modal</p>
-</div><h3 id="tymethod.title" class="method"><code>fn <a href="#tymethod.title" class="fnname">title</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#84" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the title of the <a href="../struct.NativeDialog.html"><code>NativeDialog</code></a>.</p>
+</div><h3 id="tymethod.title" class="method"><code>fn <a href="#tymethod.title" class="fnname">title</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#84" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the title of the <a href="../struct.NativeDialog.html" title="crate::NativeDialog"><code>crate::NativeDialog</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the title of the dialog, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if none has
 been set explicitly. The returned string is owned by the widget
 and must not be modified or freed.</p>
 </div><h3 id="tymethod.transient_for" class="method"><code>fn <a href="#tymethod.transient_for" class="fnname">transient_for</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Window.html" title="struct gtk::Window">Window</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#95" title="goto source code">[src]</a></h3><div class="docblock"><p>Fetches the transient parent for this window. See
-<a href="trait.NativeDialogExt.html#tymethod.set_transient_for"><code>set_transient_for()</code></a>.</p>
+<a href="trait.NativeDialogExt.html#tymethod.set_transient_for" title="Self::set_transient_for()"><code>Self::set_transient_for()</code></a>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the transient parent for this window,
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if no transient parent has been set.</p>
@@ -46,15 +46,15 @@ or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#varia
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the dialog is visible</p>
 </div><h3 id="tymethod.hide" class="method"><code>fn <a href="#tymethod.hide" class="fnname">hide</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#112" title="goto source code">[src]</a></h3><div class="docblock"><p>Hides the dialog if it is visilbe, aborting any interaction. Once this
-is called the <a href="crate::NativeDialog::response"><code>NativeDialog::response</code></a> signal will not be emitted
-until after the next call to <a href="trait.NativeDialogExt.html#tymethod.show"><code>show()</code></a>.</p>
+is called the [<code>crate::NativeDialog::response</code>] signal will not be emitted
+until after the next call to <a href="trait.NativeDialogExt.html#tymethod.show" title="Self::show()"><code>Self::show()</code></a>.</p>
 <p>If the dialog is not visible this does nothing.</p>
 </div><h3 id="tymethod.run" class="method"><code>fn <a href="#tymethod.run" class="fnname">run</a>(&amp;self) -&gt; <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a></code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#149" title="goto source code">[src]</a></h3><div class="docblock"><p>Blocks in a recursive main loop until <code>self</code> emits the
-<a href="crate::NativeDialog::response"><code>NativeDialog::response</code></a> signal. It then returns the response ID
+[<code>crate::NativeDialog::response</code>] signal. It then returns the response ID
 from the ::response signal emission.</p>
-<p>Before entering the recursive main loop, <a href="trait.NativeDialogExt.html#tymethod.run"><code>run()</code></a>
-calls <a href="trait.NativeDialogExt.html#tymethod.show"><code>show()</code></a> on the dialog for you.</p>
-<p>After <a href="trait.NativeDialogExt.html#tymethod.run"><code>run()</code></a> returns, then dialog will be hidden.</p>
+<p>Before entering the recursive main loop, <a href="trait.NativeDialogExt.html#tymethod.run" title="Self::run()"><code>Self::run()</code></a>
+calls <a href="trait.NativeDialogExt.html#tymethod.show" title="Self::show()"><code>Self::show()</code></a> on the dialog for you.</p>
+<p>After <a href="trait.NativeDialogExt.html#tymethod.run" title="Self::run()"><code>Self::run()</code></a> returns, then dialog will be hidden.</p>
 <p>Typical usage of this function might be:</p>
 <pre><code class="language-C">  gint result = gtk_native_dialog_run (GTK_NATIVE_DIALOG (dialog));
   switch (result)
@@ -78,12 +78,12 @@ be triggered during a <code>gtk_nautilus_dialog_run()</code> call.</p>
 </div><h3 id="tymethod.set_modal" class="method"><code>fn <a href="#tymethod.set_modal" class="fnname">set_modal</a>(&amp;self, modal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#160" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets a dialog modal or non-modal. Modal dialogs prevent interaction
 with other windows in the same application. To keep modal dialogs
 on top of main application windows, use
-<a href="trait.NativeDialogExt.html#tymethod.set_transient_for"><code>set_transient_for()</code></a> to make the dialog transient for the
+<a href="trait.NativeDialogExt.html#tymethod.set_transient_for" title="Self::set_transient_for()"><code>Self::set_transient_for()</code></a> to make the dialog transient for the
 parent; most [window managers][gtk-X11-arch]
 will then disallow lowering the dialog below the parent.</p>
 <h2 id="modal" class="section-header"><a href="#modal"><code>modal</code></a></h2>
 <p>whether the window is modal</p>
-</div><h3 id="tymethod.set_title" class="method"><code>fn <a href="#tymethod.set_title" class="fnname">set_title</a>(&amp;self, title: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#166" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the title of the <a href="../struct.NativeDialog.html"><code>NativeDialog</code></a>.</p>
+</div><h3 id="tymethod.set_title" class="method"><code>fn <a href="#tymethod.set_title" class="fnname">set_title</a>(&amp;self, title: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#166" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the title of the <a href="../struct.NativeDialog.html" title="crate::NativeDialog"><code>crate::NativeDialog</code></a>.</p>
 <h2 id="title" class="section-header"><a href="#title"><code>title</code></a></h2>
 <p>title of the dialog</p>
 </div><h3 id="tymethod.set_transient_for" class="method"><code>fn <a href="#tymethod.set_transient_for" class="fnname">set_transient_for</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Window.html" title="struct gtk::Window">Window</a>&gt;&gt;(&amp;self, parent: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#178" title="goto source code">[src]</a></h3><div class="docblock"><p>Dialog windows should be set transient for the main application
@@ -96,12 +96,12 @@ main window.</p>
 <p>parent window, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.show" class="method"><code>fn <a href="#tymethod.show" class="fnname">show</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#187" title="goto source code">[src]</a></h3><div class="docblock"><p>Shows the dialog on the display, allowing the user to interact with
 it. When the user accepts the state of the dialog the dialog will
-be automatically hidden and the <a href="crate::NativeDialog::response"><code>NativeDialog::response</code></a> signal
+be automatically hidden and the [<code>crate::NativeDialog::response</code>] signal
 will be emitted.</p>
 <p>Multiple calls while the dialog is visible will be ignored.</p>
 </div><h3 id="tymethod.set_visible" class="method"><code>fn <a href="#tymethod.set_visible" class="fnname">set_visible</a>(&amp;self, visible: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#191" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_20</code></strong> only.</div></div><h3 id="tymethod.connect_response" class="method"><code>fn <a href="#tymethod.connect_response" class="fnname">connect_response</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/native_dialog.rs.html#204" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Emitted when the user responds to the dialog.</p>
 <p>When this is called the dialog has been hidden.</p>
-<p>If you call <a href="trait.NativeDialogExt.html#tymethod.hide"><code>hide()</code></a> before the user responds to
+<p>If you call <a href="trait.NativeDialogExt.html#tymethod.hide" title="Self::hide()"><code>Self::hide()</code></a> before the user responds to
 the dialog this signal will not be emitted.</p>
 <h2 id="response_id" class="section-header"><a href="#response_id"><code>response_id</code></a></h2>
 <p>the response ID</p>

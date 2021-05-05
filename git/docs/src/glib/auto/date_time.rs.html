@@ -946,7 +946,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DateTime</span> {
-    <span class="doccomment">/// Creates a new [`DateTime`](crate::DateTime) corresponding to the given date and time in</span>
+    <span class="doccomment">/// Creates a new [`crate::DateTime`] corresponding to the given date and time in</span>
     <span class="doccomment">/// the time zone `tz`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `year` must be between 1 and 9999, `month` between 1 and 12 and `day`</span>
@@ -972,10 +972,10 @@
     <span class="doccomment">/// to be out of range, but in the case that they are, the function will</span>
     <span class="doccomment">/// return [`None`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You should release the return value by calling [`unref()`](Self::unref())</span>
+    <span class="doccomment">/// You should release the return value by calling [`Self::unref()`]</span>
     <span class="doccomment">/// when you are done with it.</span>
     <span class="doccomment">/// ## `tz`</span>
-    <span class="doccomment">/// a [`TimeZone`](crate::TimeZone)</span>
+    <span class="doccomment">/// a [`crate::TimeZone`]</span>
     <span class="doccomment">/// ## `year`</span>
     <span class="doccomment">/// the year component of the date</span>
     <span class="doccomment">/// ## `month`</span>
@@ -991,7 +991,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`DateTime`](crate::DateTime), or [`None`]</span>
+    <span class="doccomment">/// a new [`crate::DateTime`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">tz</span>: <span class="kw-2">&amp;</span><span class="ident">TimeZone</span>,
@@ -1062,11 +1062,11 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`DateTime`](crate::DateTime) corresponding to the given date and time in</span>
+    <span class="doccomment">/// Creates a new [`crate::DateTime`] corresponding to the given date and time in</span>
     <span class="doccomment">/// the local time zone.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This call is equivalent to calling [`new()`](Self::new()) with the time</span>
-    <span class="doccomment">/// zone returned by [`TimeZone::new_local()`](crate::TimeZone::new_local()).</span>
+    <span class="doccomment">/// This call is equivalent to calling [`Self::new()`] with the time</span>
+    <span class="doccomment">/// zone returned by [`crate::TimeZone::new_local()`].</span>
     <span class="doccomment">/// ## `year`</span>
     <span class="doccomment">/// the year component of the date</span>
     <span class="doccomment">/// ## `month`</span>
@@ -1082,7 +1082,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`DateTime`](crate::DateTime), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::DateTime`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_new_local&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_local</span>(
         <span class="ident">year</span>: <span class="ident">i32</span>,
@@ -1100,21 +1100,21 @@
         }
     }
 
-    <span class="doccomment">/// Creates a [`DateTime`](crate::DateTime) corresponding to this exact instant in the given</span>
+    <span class="doccomment">/// Creates a [`crate::DateTime`] corresponding to this exact instant in the given</span>
     <span class="doccomment">/// time zone `tz`. The time is as accurate as the system allows, to a</span>
     <span class="doccomment">/// maximum accuracy of 1 microsecond.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function will always succeed unless GLib is still being used after the</span>
     <span class="doccomment">/// year 9999.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You should release the return value by calling [`unref()`](Self::unref())</span>
+    <span class="doccomment">/// You should release the return value by calling [`Self::unref()`]</span>
     <span class="doccomment">/// when you are done with it.</span>
     <span class="doccomment">/// ## `tz`</span>
-    <span class="doccomment">/// a [`TimeZone`](crate::TimeZone)</span>
+    <span class="doccomment">/// a [`crate::TimeZone`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`DateTime`](crate::DateTime), or [`None`]</span>
+    <span class="doccomment">/// a new [`crate::DateTime`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_new_now&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_now</span>(<span class="ident">tz</span>: <span class="kw-2">&amp;</span><span class="ident">TimeZone</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1123,15 +1123,15 @@
         }
     }
 
-    <span class="doccomment">/// Creates a [`DateTime`](crate::DateTime) corresponding to this exact instant in the local</span>
+    <span class="doccomment">/// Creates a [`crate::DateTime`] corresponding to this exact instant in the local</span>
     <span class="doccomment">/// time zone.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is equivalent to calling [`new_now()`](Self::new_now()) with the time</span>
-    <span class="doccomment">/// zone returned by [`TimeZone::new_local()`](crate::TimeZone::new_local()).</span>
+    <span class="doccomment">/// This is equivalent to calling [`Self::new_now()`] with the time</span>
+    <span class="doccomment">/// zone returned by [`crate::TimeZone::new_local()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`DateTime`](crate::DateTime), or [`None`]</span>
+    <span class="doccomment">/// a new [`crate::DateTime`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_new_now_local&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_now_local</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1140,14 +1140,14 @@
         }
     }
 
-    <span class="doccomment">/// Creates a [`DateTime`](crate::DateTime) corresponding to this exact instant in UTC.</span>
+    <span class="doccomment">/// Creates a [`crate::DateTime`] corresponding to this exact instant in UTC.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is equivalent to calling [`new_now()`](Self::new_now()) with the time</span>
-    <span class="doccomment">/// zone returned by [`TimeZone::new_utc()`](crate::TimeZone::new_utc()).</span>
+    <span class="doccomment">/// This is equivalent to calling [`Self::new_now()`] with the time</span>
+    <span class="doccomment">/// zone returned by [`crate::TimeZone::new_utc()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`DateTime`](crate::DateTime), or [`None`]</span>
+    <span class="doccomment">/// a new [`crate::DateTime`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_new_now_utc&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_now_utc</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1156,11 +1156,11 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`DateTime`](crate::DateTime) corresponding to the given date and time in</span>
+    <span class="doccomment">/// Creates a new [`crate::DateTime`] corresponding to the given date and time in</span>
     <span class="doccomment">/// UTC.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This call is equivalent to calling [`new()`](Self::new()) with the time</span>
-    <span class="doccomment">/// zone returned by [`TimeZone::new_utc()`](crate::TimeZone::new_utc()).</span>
+    <span class="doccomment">/// This call is equivalent to calling [`Self::new()`] with the time</span>
+    <span class="doccomment">/// zone returned by [`crate::TimeZone::new_utc()`].</span>
     <span class="doccomment">/// ## `year`</span>
     <span class="doccomment">/// the year component of the date</span>
     <span class="doccomment">/// ## `month`</span>
@@ -1176,7 +1176,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`DateTime`](crate::DateTime), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::DateTime`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_new_utc&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_utc</span>(
         <span class="ident">year</span>: <span class="ident">i32</span>,
@@ -1196,12 +1196,12 @@
 
     <span class="doccomment">/// Creates a copy of `self` and adds the specified timespan to the copy.</span>
     <span class="doccomment">/// ## `timespan`</span>
-    <span class="doccomment">/// a [`TimeSpan`](crate::TimeSpan)</span>
+    <span class="doccomment">/// a [`crate::TimeSpan`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timespan</span>: <span class="ident">TimeSpan</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1217,8 +1217,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add_days&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_days</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">days</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1227,7 +1227,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`DateTime`](crate::DateTime) adding the specified values to the current date and</span>
+    <span class="doccomment">/// Creates a new [`crate::DateTime`] adding the specified values to the current date and</span>
     <span class="doccomment">/// time in `self`. Add negative values to subtract.</span>
     <span class="doccomment">/// ## `years`</span>
     <span class="doccomment">/// the number of years to add</span>
@@ -1244,8 +1244,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add_full&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_full</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1277,8 +1277,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add_hours&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_hours</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hours</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1294,8 +1294,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add_minutes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_minutes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">minutes</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1310,7 +1310,7 @@
     <span class="doccomment">/// Creates a copy of `self` and adds the specified number of months to the</span>
     <span class="doccomment">/// copy. Add negative values to subtract months.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The day of the month of the resulting [`DateTime`](crate::DateTime) is clamped to the number</span>
+    <span class="doccomment">/// The day of the month of the resulting [`crate::DateTime`] is clamped to the number</span>
     <span class="doccomment">/// of days in the updated calendar month. For example, if adding 1 month to</span>
     <span class="doccomment">/// 31st January 2018, the result would be 28th February 2018. In 2020 (a leap</span>
     <span class="doccomment">/// year), the result would be 29th February.</span>
@@ -1319,8 +1319,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add_months&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_months</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">months</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1336,8 +1336,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add_seconds&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_seconds</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">seconds</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1356,8 +1356,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add_weeks&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_weeks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">weeks</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1369,15 +1369,15 @@
     <span class="doccomment">/// Creates a copy of `self` and adds the specified number of years to the</span>
     <span class="doccomment">/// copy. Add negative values to subtract years.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As with [`add_months()`](Self::add_months()), if the resulting date would be 29th</span>
+    <span class="doccomment">/// As with [`Self::add_months()`], if the resulting date would be 29th</span>
     <span class="doccomment">/// February on a non-leap year, the day will be clamped to 28th February.</span>
     <span class="doccomment">/// ## `years`</span>
     <span class="doccomment">/// the number of years</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_add_years&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_years</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">years</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1389,7 +1389,7 @@
     <span class="doccomment">/// A comparison function for `GDateTimes` that is suitable</span>
     <span class="doccomment">/// as a `GCompareFunc`. Both `GDateTimes` must be non-[`None`].</span>
     <span class="doccomment">/// ## `dt2`</span>
-    <span class="doccomment">/// second [`DateTime`](crate::DateTime) to compare</span>
+    <span class="doccomment">/// second [`crate::DateTime`] to compare</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1406,14 +1406,14 @@
     }
 
     <span class="doccomment">/// Calculates the difference in time between `self` and `begin`. The</span>
-    <span class="doccomment">/// [`TimeSpan`](crate::TimeSpan) that is returned is effectively `self` - `begin` (ie:</span>
+    <span class="doccomment">/// [`crate::TimeSpan`] that is returned is effectively `self` - `begin` (ie:</span>
     <span class="doccomment">/// positive if the first parameter is larger).</span>
     <span class="doccomment">/// ## `begin`</span>
-    <span class="doccomment">/// a [`DateTime`](crate::DateTime)</span>
+    <span class="doccomment">/// a [`crate::DateTime`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the difference between the two [`DateTime`](crate::DateTime), as a time</span>
+    <span class="doccomment">/// the difference between the two [`crate::DateTime`], as a time</span>
     <span class="doccomment">///  span expressed in microseconds.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_difference&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">difference</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">begin</span>: <span class="kw-2">&amp;</span><span class="ident">DateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TimeSpan</span> {
@@ -1425,7 +1425,7 @@
     <span class="doccomment">/// Equal here means that they represent the same moment after converting</span>
     <span class="doccomment">/// them to the same time zone.</span>
     <span class="doccomment">/// ## `dt2`</span>
-    <span class="doccomment">/// a [`DateTime`](crate::DateTime)</span>
+    <span class="doccomment">/// a [`crate::DateTime`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1499,7 +1499,7 @@
     <span class="doccomment">///  Monday being 1. This works well with \%G and \%V.</span>
     <span class="doccomment">/// - \%V: the ISO 8601 standard week number of the current year as a decimal</span>
     <span class="doccomment">///  number, range 01 to 53, where week 1 is the first week that has at</span>
-    <span class="doccomment">///  least 4 days in the new year. See [`get_week_of_year()`](Self::get_week_of_year()).</span>
+    <span class="doccomment">///  least 4 days in the new year. See [`Self::get_week_of_year()`].</span>
     <span class="doccomment">///  This works well with \%G and \%u.</span>
     <span class="doccomment">/// - \%w: the day of the week as a decimal, range 0 to 6, Sunday being 0.</span>
     <span class="doccomment">///  This is not the ISO 8601 standard format -- use \%u instead.</span>
@@ -1541,7 +1541,7 @@
     <span class="doccomment">/// \%Ob and \%Oh are GNU `strftime()` extensions. Since: 2.56</span>
     <span class="doccomment">/// ## `format`</span>
     <span class="doccomment">/// a valid UTF-8 string, containing the format for the</span>
-    <span class="doccomment">///  [`DateTime`](crate::DateTime)</span>
+    <span class="doccomment">///  [`crate::DateTime`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1697,7 +1697,7 @@
         }
     }
 
-    <span class="doccomment">/// Hashes `self` into a `guint`, suitable for use within [`HashTable`](crate::HashTable).</span>
+    <span class="doccomment">/// Hashes `self` into a `guint`, suitable for use within [`crate::HashTable`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1722,16 +1722,16 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_date_time_is_daylight_savings</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Creates a new [`DateTime`](crate::DateTime) corresponding to the same instant in time as</span>
+    <span class="doccomment">/// Creates a new [`crate::DateTime`] corresponding to the same instant in time as</span>
     <span class="doccomment">/// `self`, but in the local time zone.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This call is equivalent to calling [`to_timezone()`](Self::to_timezone()) with the</span>
-    <span class="doccomment">/// time zone returned by [`TimeZone::new_local()`](crate::TimeZone::new_local()).</span>
+    <span class="doccomment">/// This call is equivalent to calling [`Self::to_timezone()`] with the</span>
+    <span class="doccomment">/// time zone returned by [`crate::TimeZone::new_local()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_to_local&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_local</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1746,19 +1746,19 @@
     <span class="comment">//    unsafe { TODO: call ffi:g_date_time_to_timeval() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Create a new [`DateTime`](crate::DateTime) corresponding to the same instant in time as</span>
+    <span class="doccomment">/// Create a new [`crate::DateTime`] corresponding to the same instant in time as</span>
     <span class="doccomment">/// `self`, but in the time zone `tz`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call can fail in the case that the time goes out of bounds. For</span>
     <span class="doccomment">/// example, converting 0001-01-01 00:00:00 UTC to a time zone west of</span>
     <span class="doccomment">/// Greenwich will fail (due to the year 0 being out of range).</span>
     <span class="doccomment">/// ## `tz`</span>
-    <span class="doccomment">/// the new [`TimeZone`](crate::TimeZone)</span>
+    <span class="doccomment">/// the new [`crate::TimeZone`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_to_timezone&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_timezone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tz</span>: <span class="kw-2">&amp;</span><span class="ident">TimeZone</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1784,16 +1784,16 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_date_time_to_unix</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Creates a new [`DateTime`](crate::DateTime) corresponding to the same instant in time as</span>
+    <span class="doccomment">/// Creates a new [`crate::DateTime`] corresponding to the same instant in time as</span>
     <span class="doccomment">/// `self`, but in UTC.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This call is equivalent to calling [`to_timezone()`](Self::to_timezone()) with the</span>
-    <span class="doccomment">/// time zone returned by [`TimeZone::new_utc()`](crate::TimeZone::new_utc()).</span>
+    <span class="doccomment">/// This call is equivalent to calling [`Self::to_timezone()`] with the</span>
+    <span class="doccomment">/// time zone returned by [`crate::TimeZone::new_utc()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`DateTime`](crate::DateTime) which</span>
-    <span class="doccomment">///  should be freed with [`unref()`](Self::unref()), or [`None`]</span>
+    <span class="doccomment">/// the newly created [`crate::DateTime`] which</span>
+    <span class="doccomment">///  should be freed with [`Self::unref()`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_to_utc&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_utc</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DateTime</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

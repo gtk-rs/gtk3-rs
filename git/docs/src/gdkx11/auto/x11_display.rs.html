@@ -344,7 +344,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@gdk::DisplayExt`]</span>
+    <span class="doccomment">/// [`trait@gdk::prelude::DisplayExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">X11Display</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkX11Display</span>, <span class="ident">ffi::GdkX11DisplayClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">gdk::Display</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -358,13 +358,13 @@
     <span class="comment">//    unsafe { TODO: call ffi:gdk_x11_display_broadcast_startup_message() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Pops the error trap pushed by [`error_trap_push()`](Self::error_trap_push()).</span>
+    <span class="doccomment">/// Pops the error trap pushed by [`Self::error_trap_push()`].</span>
     <span class="doccomment">/// Will XSync() if necessary and will always block until</span>
     <span class="doccomment">/// the error is known to have occurred or not occurred,</span>
     <span class="doccomment">/// so the error code can be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you don’t need to use the return value,</span>
-    <span class="doccomment">/// [`error_trap_pop_ignored()`](Self::error_trap_pop_ignored()) would be more efficient.</span>
+    <span class="doccomment">/// [`Self::error_trap_pop_ignored()`] would be more efficient.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See `gdk_error_trap_pop()` for the all-displays-at-once</span>
     <span class="doccomment">/// equivalent.</span>
@@ -377,7 +377,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_x11_display_error_trap_pop</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Pops the error trap pushed by [`error_trap_push()`](Self::error_trap_push()).</span>
+    <span class="doccomment">/// Pops the error trap pushed by [`Self::error_trap_push()`].</span>
     <span class="doccomment">/// Does not block to see if an error occurred; merely records the</span>
     <span class="doccomment">/// range of requests to ignore errors for, and ignores those errors</span>
     <span class="doccomment">/// if they arrive asynchronously.</span>
@@ -393,8 +393,8 @@
 
     <span class="doccomment">/// Begins a range of X requests on `self` for which X error events</span>
     <span class="doccomment">/// will be ignored. Unignored errors (when no trap is pushed) will abort</span>
-    <span class="doccomment">/// the application. Use [`error_trap_pop()`](Self::error_trap_pop()) or</span>
-    <span class="doccomment">/// [`error_trap_pop_ignored()`](Self::error_trap_pop_ignored())to lift a trap pushed</span>
+    <span class="doccomment">/// the application. Use [`Self::error_trap_pop()`] or</span>
+    <span class="doccomment">/// [`Self::error_trap_pop_ignored()`]to lift a trap pushed</span>
     <span class="doccomment">/// with this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See also `gdk_error_trap_push()` to push a trap on all displays.</span>
@@ -423,7 +423,7 @@
     <span class="doccomment">/// Returns the timestamp of the last user interaction on</span>
     <span class="doccomment">/// `self`. The timestamp is taken from events caused</span>
     <span class="doccomment">/// by user interaction such as key presses or pointer</span>
-    <span class="doccomment">/// movements. See [`X11Window::set_user_time()`](crate::X11Window::set_user_time()).</span>
+    <span class="doccomment">/// movements. See [`crate::X11Window::set_user_time()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -435,9 +435,9 @@
     }
 
     <span class="doccomment">/// Call XGrabServer() on `self`.</span>
-    <span class="doccomment">/// To ungrab the display again, use [`ungrab()`](Self::ungrab()).</span>
+    <span class="doccomment">/// To ungrab the display again, use [`Self::ungrab()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`grab()`](Self::grab())/[`ungrab()`](Self::ungrab()) calls can be nested.</span>
+    <span class="doccomment">/// [`Self::grab()`]/[`Self::ungrab()`] calls can be nested.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_x11_display_grab&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">grab</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -449,10 +449,10 @@
     <span class="doccomment">/// should be taken.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the windowing system supports it, existing cursors created</span>
-    <span class="doccomment">/// with [`gdk::Cursor::new()`](crate::gdk::Cursor::new()), [`gdk::Cursor::new_for_display()`](crate::gdk::Cursor::new_for_display()) and</span>
-    <span class="doccomment">/// [`gdk::Cursor::new_from_name()`](crate::gdk::Cursor::new_from_name()) are updated to reflect the theme</span>
+    <span class="doccomment">/// with [`crate::gdk::Cursor::new()`], [`crate::gdk::Cursor::new_for_display()`] and</span>
+    <span class="doccomment">/// [`crate::gdk::Cursor::new_from_name()`] are updated to reflect the theme</span>
     <span class="doccomment">/// change. Custom cursors constructed with</span>
-    <span class="doccomment">/// [`gdk::Cursor::new_from_pixbuf()`](crate::gdk::Cursor::new_from_pixbuf()) will have to be handled</span>
+    <span class="doccomment">/// [`crate::gdk::Cursor::new_from_pixbuf()`] will have to be handled</span>
     <span class="doccomment">/// by the application (GTK+ applications can learn about</span>
     <span class="doccomment">/// cursor theme changes by listening for change notification</span>
     <span class="doccomment">/// for the corresponding ``GtkSetting``).</span>
@@ -558,7 +558,7 @@
     }
 
     <span class="doccomment">/// Ungrab `self` after it has been grabbed with</span>
-    <span class="doccomment">/// [`grab()`](Self::grab()).</span>
+    <span class="doccomment">/// [`Self::grab()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_x11_display_ungrab&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ungrab</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -613,7 +613,7 @@
 
     <span class="doccomment">/// Retrieves the version of the GLX implementation.</span>
     <span class="doccomment">/// ## `display`</span>
-    <span class="doccomment">/// a [`gdk::Display`](crate::gdk::Display)</span>
+    <span class="doccomment">/// a [`crate::gdk::Display`]</span>
     <span class="doccomment">/// ## `major`</span>
     <span class="doccomment">/// return location for the GLX major version</span>
     <span class="doccomment">/// ## `minor`</span>

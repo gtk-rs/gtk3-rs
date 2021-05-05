@@ -170,8 +170,8 @@
     <span class="doccomment">/// probably want [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Non-relocatable schemas are those for which you can call</span>
-    <span class="doccomment">/// [`Settings::new()`](crate::Settings::new()). Relocatable schemas are those for which you must</span>
-    <span class="doccomment">/// use [`Settings::new_with_path()`](crate::Settings::new_with_path()).</span>
+    <span class="doccomment">/// [`crate::Settings::new()`]. Relocatable schemas are those for which you must</span>
+    <span class="doccomment">/// use [`crate::Settings::new_with_path()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Do not call this function from normal programs. This is designed for</span>
     <span class="doccomment">/// use by database editors, commandline tools, etc.</span>
@@ -203,7 +203,7 @@
 
     <span class="doccomment">/// Looks up a schema with the identifier `schema_id` in `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is not required for normal uses of [`Settings`](crate::Settings) but it</span>
+    <span class="doccomment">/// This function is not required for normal uses of [`crate::Settings`] but it</span>
     <span class="doccomment">/// may be useful to authors of plugin management systems or to those who</span>
     <span class="doccomment">/// want to introspect the content of schemas.</span>
     <span class="doccomment">///</span>
@@ -218,7 +218,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`SettingsSchema`](crate::SettingsSchema)</span>
+    <span class="doccomment">/// a new [`crate::SettingsSchema`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_settings_schema_source_lookup&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lookup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">schema_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">recursive</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SettingsSchema</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

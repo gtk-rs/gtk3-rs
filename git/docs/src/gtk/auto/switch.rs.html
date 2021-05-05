@@ -667,12 +667,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`Switch`](crate::Switch) is a widget that has two states: on or off. The user can control</span>
+    <span class="doccomment">/// [`crate::Switch`] is a widget that has two states: on or off. The user can control</span>
     <span class="doccomment">/// which state should be active by clicking the empty area, or by dragging the</span>
     <span class="doccomment">/// handle.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `Switch` can also handle situations where the underlying state changes with</span>
-    <span class="doccomment">/// a delay. See [`Switch::state-set`](crate::Switch::state-set) for details.</span>
+    <span class="doccomment">/// a delay. See [`crate::Switch::state-set`] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
@@ -687,7 +687,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SwitchExt`](trait@crate::prelude::SwitchExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`SwitchExtManual`](trait@crate::prelude::SwitchExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SwitchExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::SwitchExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Switch</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkSwitch</span>, <span class="ident">ffi::GtkSwitchClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -696,11 +696,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Switch</span> {
-    <span class="doccomment">/// Creates a new [`Switch`](crate::Switch) widget.</span>
+    <span class="doccomment">/// Creates a new [`crate::Switch`] widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`Switch`](crate::Switch) instance</span>
+    <span class="doccomment">/// the newly created [`crate::Switch`] instance</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_switch_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Switch</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1064,18 +1064,18 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Switch`](struct@crate::Switch)</span>
+<span class="doccomment">/// [`struct@crate::Switch`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SwitchExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets whether the [`Switch`](crate::Switch) is in its “on” or “off” state.</span>
+    <span class="doccomment">/// Gets whether the [`crate::Switch`] is in its “on” or “off” state.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`true`] if the [`Switch`](crate::Switch) is active, and [`false`] otherwise</span>
+    <span class="doccomment">/// [`true`] if the [`crate::Switch`] is active, and [`false`] otherwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_switch_get_active&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_active&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_active</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Gets the underlying state of the [`Switch`](crate::Switch).</span>
+    <span class="doccomment">/// Gets the underlying state of the [`crate::Switch`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1090,13 +1090,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_switch_set_active&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_active</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">is_active</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the underlying state of the [`Switch`](crate::Switch).</span>
+    <span class="doccomment">/// Sets the underlying state of the [`crate::Switch`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Normally, this is the same as [`Switch:active`](crate::Switch:active), unless the switch</span>
+    <span class="doccomment">/// Normally, this is the same as [`crate::Switch:active`], unless the switch</span>
     <span class="doccomment">/// is set up for delayed state changes. This function is typically</span>
-    <span class="doccomment">/// called from a [`Switch::state-set`](crate::Switch::state-set) signal handler.</span>
+    <span class="doccomment">/// called from a [`crate::Switch::state-set`] signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`Switch::state-set`](crate::Switch::state-set) for details.</span>
+    <span class="doccomment">/// See [`crate::Switch::state-set`] for details.</span>
     <span class="doccomment">/// ## `state`</span>
     <span class="doccomment">/// the new state</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_switch_set_state&quot;</span>)]</span>
@@ -1113,16 +1113,16 @@
 
     <span class="doccomment">/// The ::state-set signal on `Switch` is emitted to change the underlying</span>
     <span class="doccomment">/// state. It is emitted when the user changes the switch position. The</span>
-    <span class="doccomment">/// default handler keeps the state in sync with the [`Switch:active`](crate::Switch:active)</span>
+    <span class="doccomment">/// default handler keeps the state in sync with the [`crate::Switch:active`]</span>
     <span class="doccomment">/// property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To implement delayed state change, applications can connect to this signal,</span>
-    <span class="doccomment">/// initiate the change of the underlying state, and call [`set_state()`](Self::set_state())</span>
+    <span class="doccomment">/// initiate the change of the underlying state, and call [`Self::set_state()`]</span>
     <span class="doccomment">/// when the underlying state change is complete. The signal handler should</span>
     <span class="doccomment">/// return [`true`] to prevent the default handler from running.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Visually, the underlying state is represented by the trough color of</span>
-    <span class="doccomment">/// the switch, while the [`Switch:active`](crate::Switch:active) property is represented by the</span>
+    <span class="doccomment">/// the switch, while the [`crate::Switch:active`] property is represented by the</span>
     <span class="doccomment">/// position of the switch.</span>
     <span class="doccomment">/// ## `state`</span>
     <span class="doccomment">/// the new state of the switch</span>

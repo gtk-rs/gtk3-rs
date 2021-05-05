@@ -436,19 +436,19 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`FileEnumerator`](crate::FileEnumerator) allows you to operate on a set of `GFiles`,</span>
-    <span class="doccomment">/// returning a [`FileInfo`](crate::FileInfo) structure for each file enumerated (e.g.</span>
-    <span class="doccomment">/// [`File::enumerate_children()`](crate::File::enumerate_children()) will return a [`FileEnumerator`](crate::FileEnumerator) for each</span>
+    <span class="doccomment">/// [`crate::FileEnumerator`] allows you to operate on a set of `GFiles`,</span>
+    <span class="doccomment">/// returning a [`crate::FileInfo`] structure for each file enumerated (e.g.</span>
+    <span class="doccomment">/// [`crate::File::enumerate_children()`] will return a [`crate::FileEnumerator`] for each</span>
     <span class="doccomment">/// of the children within a directory).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To get the next file&#39;s information from a [`FileEnumerator`](crate::FileEnumerator), use</span>
-    <span class="doccomment">/// [`FileEnumeratorExt::next_file()`](crate::FileEnumeratorExt::next_file()) or its asynchronous version,</span>
-    <span class="doccomment">/// [`FileEnumeratorExt::next_files_async()`](crate::FileEnumeratorExt::next_files_async()). Note that the asynchronous</span>
+    <span class="doccomment">/// To get the next file&#39;s information from a [`crate::FileEnumerator`], use</span>
+    <span class="doccomment">/// [`crate::prelude::FileEnumeratorExt::next_file()`] or its asynchronous version,</span>
+    <span class="doccomment">/// [`crate::prelude::FileEnumeratorExt::next_files_async()`]. Note that the asynchronous</span>
     <span class="doccomment">/// version will return a list of `GFileInfos`, whereas the</span>
     <span class="doccomment">/// synchronous will only return the next file in the enumerator.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The ordering of returned files is unspecified for non-Unix</span>
-    <span class="doccomment">/// platforms; for more information, see [`glib::Dir::read_name()`](crate::glib::Dir::read_name()). On Unix,</span>
+    <span class="doccomment">/// platforms; for more information, see [`crate::glib::Dir::read_name()`]. On Unix,</span>
     <span class="doccomment">/// when operating on local files, returned files will be sorted by</span>
     <span class="doccomment">/// inode number. Effectively you can assume that the ordering of</span>
     <span class="doccomment">/// returned files will be stable between successive calls (and</span>
@@ -458,14 +458,14 @@
     <span class="doccomment">/// modification time, you will have to implement that in your</span>
     <span class="doccomment">/// application code.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To close a [`FileEnumerator`](crate::FileEnumerator), use [`FileEnumeratorExt::close()`](crate::FileEnumeratorExt::close()), or</span>
-    <span class="doccomment">/// its asynchronous version, [`FileEnumeratorExt::close_async()`](crate::FileEnumeratorExt::close_async()). Once</span>
-    <span class="doccomment">/// a [`FileEnumerator`](crate::FileEnumerator) is closed, no further actions may be performed</span>
-    <span class="doccomment">/// on it, and it should be freed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// To close a [`crate::FileEnumerator`], use [`crate::prelude::FileEnumeratorExt::close()`], or</span>
+    <span class="doccomment">/// its asynchronous version, [`crate::prelude::FileEnumeratorExt::close_async()`]. Once</span>
+    <span class="doccomment">/// a [`crate::FileEnumerator`] is closed, no further actions may be performed</span>
+    <span class="doccomment">/// on it, and it should be freed with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FileEnumeratorExt`](trait@crate::prelude::FileEnumeratorExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::FileEnumeratorExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileEnumerator</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GFileEnumerator</span>, <span class="ident">ffi::GFileEnumeratorClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -479,20 +479,20 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`FileEnumerator`](struct@crate::FileEnumerator)</span>
+<span class="doccomment">/// [`struct@crate::FileEnumerator`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FileEnumeratorExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Releases all resources used by this enumerator, making the</span>
-    <span class="doccomment">/// enumerator return [`IOErrorEnum::Closed`] on all calls.</span>
+    <span class="doccomment">/// enumerator return [`crate::IOErrorEnum::Closed`] on all calls.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will be automatically called when the last reference</span>
     <span class="doccomment">/// is dropped, but you might want to call this function to make</span>
     <span class="doccomment">/// sure resources are released as early as possible.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`true`](crate::true) on success or [`false`](crate::false) on error.</span>
+    <span class="doccomment">/// [`crate::true`] on success or [`crate::false`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_enumerator_close&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">close</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
@@ -500,12 +500,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned in</span>
-    <span class="doccomment">/// [`close_finish()`](Self::close_finish()).</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned in</span>
+    <span class="doccomment">/// [`Self::close_finish()`].</span>
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the [I/O priority][io-priority] of the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -523,9 +523,9 @@
         <span class="ident">io_priority</span>: <span class="ident">glib::Priority</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Return a new [`File`](crate::File) which refers to the file named by `info` in the source</span>
+    <span class="doccomment">/// Return a new [`crate::File`] which refers to the file named by `info` in the source</span>
     <span class="doccomment">/// directory of `self`. This function is primarily intended to be used</span>
-    <span class="doccomment">/// inside loops with [`next_file()`](Self::next_file()).</span>
+    <span class="doccomment">/// inside loops with [`Self::next_file()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience method that&#39;s equivalent to:</span>
     <span class="doccomment">///</span>
@@ -535,21 +535,21 @@
     <span class="doccomment">///                                    name);</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// ## `info`</span>
-    <span class="doccomment">/// a [`FileInfo`](crate::FileInfo) gotten from [`next_file()`](Self::next_file())</span>
+    <span class="doccomment">/// a [`crate::FileInfo`] gotten from [`Self::next_file()`]</span>
     <span class="doccomment">///  or the async equivalents.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`File`](crate::File) for the [`FileInfo`](crate::FileInfo) passed it.</span>
+    <span class="doccomment">/// a [`crate::File`] for the [`crate::FileInfo`] passed it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_enumerator_get_child&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_child&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">child</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">info</span>: <span class="kw-2">&amp;</span><span class="ident">FileInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
 
-    <span class="doccomment">/// Get the [`File`](crate::File) container which is being enumerated.</span>
+    <span class="doccomment">/// Get the [`crate::File`] container which is being enumerated.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`File`](crate::File) which is being enumerated.</span>
+    <span class="doccomment">/// the [`crate::File`] which is being enumerated.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_enumerator_get_container&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_container&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">container</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
@@ -571,24 +571,24 @@
     <span class="kw">fn</span> <span class="ident">is_closed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Returns information for the next file in the enumerated object.</span>
-    <span class="doccomment">/// Will block until the information is available. The [`FileInfo`](crate::FileInfo)</span>
+    <span class="doccomment">/// Will block until the information is available. The [`crate::FileInfo`]</span>
     <span class="doccomment">/// returned from this function will contain attributes that match the</span>
-    <span class="doccomment">/// attribute string that was passed when the [`FileEnumerator`](crate::FileEnumerator) was created.</span>
+    <span class="doccomment">/// attribute string that was passed when the [`crate::FileEnumerator`] was created.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See the documentation of [`FileEnumerator`](crate::FileEnumerator) for information about the</span>
+    <span class="doccomment">/// See the documentation of [`crate::FileEnumerator`] for information about the</span>
     <span class="doccomment">/// order of returned files.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On error, returns [`None`] and sets `error` to the error. If the</span>
     <span class="doccomment">/// enumerator is at the end, [`None`] will be returned and `error` will</span>
     <span class="doccomment">/// be unset.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`FileInfo`](crate::FileInfo) or [`None`] on error</span>
+    <span class="doccomment">/// A [`crate::FileInfo`] or [`None`] on error</span>
     <span class="doccomment">///  or end of enumerator. Free the returned object with</span>
-    <span class="doccomment">///  [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when no longer needed.</span>
+    <span class="doccomment">///  [`crate::glib::object::ObjectExt::unref()`] when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_enumerator_next_file&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">next_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -599,17 +599,17 @@
     <span class="doccomment">/// When all i/o for the operation is finished the `callback` will be called with</span>
     <span class="doccomment">/// the requested information.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See the documentation of [`FileEnumerator`](crate::FileEnumerator) for information about the</span>
+    <span class="doccomment">/// See the documentation of [`crate::FileEnumerator`] for information about the</span>
     <span class="doccomment">/// order of returned files.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The callback can be called with less than `num_files` files in case of error</span>
     <span class="doccomment">/// or at the end of the enumerator. In case of a partial error the callback will</span>
     <span class="doccomment">/// be called with any succeeding items and no error, and on the next request the</span>
     <span class="doccomment">/// error will be reported. If a request is cancelled the callback will be called</span>
-    <span class="doccomment">/// with [`IOErrorEnum::Cancelled`].</span>
+    <span class="doccomment">/// with [`crate::IOErrorEnum::Cancelled`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// During an async request no other sync and async calls are allowed, and will</span>
-    <span class="doccomment">/// result in [`IOErrorEnum::Pending`] errors.</span>
+    <span class="doccomment">/// result in [`crate::IOErrorEnum::Pending`] errors.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Any outstanding i/o request with higher priority (lower numerical value) will</span>
     <span class="doccomment">/// be executed before an outstanding request with lower priority. Default</span>
@@ -619,7 +619,7 @@
     <span class="doccomment">/// ## `io_priority`</span>
     <span class="doccomment">/// the [I/O priority][io-priority] of the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the request is satisfied</span>
     <span class="doccomment">/// ## `user_data`</span>

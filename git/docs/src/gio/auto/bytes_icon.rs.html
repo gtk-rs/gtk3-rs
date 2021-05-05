@@ -69,12 +69,12 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`BytesIcon`](crate::BytesIcon) specifies an image held in memory in a common format (usually</span>
+    <span class="doccomment">/// [`crate::BytesIcon`] specifies an image held in memory in a common format (usually</span>
     <span class="doccomment">/// png) to be used as icon.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`IconExt`](trait@crate::prelude::IconExt), [`LoadableIconExt`](trait@crate::prelude::LoadableIconExt)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::IconExt`], [`trait@crate::prelude::LoadableIconExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BytesIcon</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GBytesIcon</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Icon</span>, <span class="ident">LoadableIcon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -86,24 +86,24 @@
     <span class="doccomment">/// Creates a new icon for a bytes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This cannot fail, but loading and interpreting the bytes may fail later on</span>
-    <span class="doccomment">/// (for example, if [`LoadableIcon::load()`](crate::LoadableIcon::load()) is called) if the image is invalid.</span>
+    <span class="doccomment">/// (for example, if [`crate::LoadableIcon::load()`] is called) if the image is invalid.</span>
     <span class="doccomment">/// ## `bytes`</span>
-    <span class="doccomment">/// a [`glib::Bytes`](crate::glib::Bytes).</span>
+    <span class="doccomment">/// a [`crate::glib::Bytes`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon) for the given</span>
+    <span class="doccomment">/// a [`crate::Icon`] for the given</span>
     <span class="doccomment">///  `bytes`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_bytes_icon_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Bytes</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BytesIcon</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_bytes_icon_new</span>(<span class="ident">bytes</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the [`glib::Bytes`](crate::glib::Bytes) associated with the given `self`.</span>
+    <span class="doccomment">/// Gets the [`crate::glib::Bytes`] associated with the given `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`glib::Bytes`](crate::glib::Bytes).</span>
+    <span class="doccomment">/// a [`crate::glib::Bytes`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_bytes_icon_get_bytes&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_bytes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Bytes</span> {

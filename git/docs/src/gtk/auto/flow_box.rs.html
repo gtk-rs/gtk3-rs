@@ -1778,16 +1778,16 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The size request of a `FlowBox` alone may not be what you expect; if you</span>
     <span class="doccomment">/// need to be able to shrink it along both axes and dynamically reflow its</span>
-    <span class="doccomment">/// children, you may have to wrap it in a [`ScrolledWindow`](crate::ScrolledWindow) to enable that.</span>
+    <span class="doccomment">/// children, you may have to wrap it in a [`crate::ScrolledWindow`] to enable that.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The children of a `FlowBox` can be dynamically sorted and filtered.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Although a `FlowBox` must have only [`FlowBoxChild`](crate::FlowBoxChild) children,</span>
-    <span class="doccomment">/// you can add any kind of widget to it via [`ContainerExt::add()`](crate::ContainerExt::add()), and</span>
+    <span class="doccomment">/// Although a `FlowBox` must have only [`crate::FlowBoxChild`] children,</span>
+    <span class="doccomment">/// you can add any kind of widget to it via [`crate::prelude::ContainerExt::add()`], and</span>
     <span class="doccomment">/// a `FlowBoxChild` widget will automatically be inserted between</span>
     <span class="doccomment">/// the box and the widget.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`ListBox`](crate::ListBox).</span>
+    <span class="doccomment">/// Also see [`crate::ListBox`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `FlowBox` was added in GTK+ 3.12.</span>
     <span class="doccomment">///</span>
@@ -1810,7 +1810,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FlowBoxExt`](trait@crate::prelude::FlowBoxExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`FlowBoxExtManual`](trait@crate::prelude::FlowBoxExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::FlowBoxExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::OrientableExt`], [`trait@crate::prelude::FlowBoxExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FlowBox</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkFlowBox</span>, <span class="ident">ffi::GtkFlowBoxClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1823,7 +1823,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`FlowBox`](crate::FlowBox) container</span>
+    <span class="doccomment">/// a new [`crate::FlowBox`] container</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FlowBox</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2250,7 +2250,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`FlowBox`](struct@crate::FlowBox)</span>
+<span class="doccomment">/// [`struct@crate::FlowBox`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FlowBoxExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Binds `model` to `self`.</span>
     <span class="doccomment">///</span>
@@ -2262,14 +2262,14 @@
     <span class="doccomment">/// If `model` is [`None`], `self` is left empty.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is undefined to add or remove widgets directly (for example, with</span>
-    <span class="doccomment">/// [`insert()`](Self::insert()) or [`ContainerExt::add()`](crate::ContainerExt::add())) while `self` is bound to a</span>
+    <span class="doccomment">/// [`Self::insert()`] or [`crate::prelude::ContainerExt::add()`]) while `self` is bound to a</span>
     <span class="doccomment">/// model.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that using a model is incompatible with the filtering and sorting</span>
     <span class="doccomment">/// functionality in `FlowBox`. When using a model, filtering and sorting</span>
     <span class="doccomment">/// should be implemented by the model.</span>
     <span class="doccomment">/// ## `model`</span>
-    <span class="doccomment">/// the [`gio::ListModel`](crate::gio::ListModel) to be bound to `self`</span>
+    <span class="doccomment">/// the [`crate::gio::ListModel`] to be bound to `self`</span>
     <span class="doccomment">/// ## `create_widget_func`</span>
     <span class="doccomment">/// a function that creates widgets for items</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -2302,7 +2302,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the child widget, which will</span>
-    <span class="doccomment">///  always be a [`FlowBoxChild`](crate::FlowBoxChild) or [`None`] in case no child widget</span>
+    <span class="doccomment">///  always be a [`crate::FlowBoxChild`] or [`None`] in case no child widget</span>
     <span class="doccomment">///  with the given index exists.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_get_child_at_index&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_child_at_index&quot;</span>)]</span>
@@ -2317,7 +2317,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the child widget, which will</span>
-    <span class="doccomment">///  always be a [`FlowBoxChild`](crate::FlowBoxChild) or [`None`] in case no child widget</span>
+    <span class="doccomment">///  always be a [`crate::FlowBoxChild`] or [`None`] in case no child widget</span>
     <span class="doccomment">///  exists for the given x and y coordinates.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22_6&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22_6&quot;</span>)))]</span>
@@ -2335,7 +2335,7 @@
     <span class="kw">fn</span> <span class="ident">column_spacing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Returns whether the box is homogeneous (all children are the</span>
-    <span class="doccomment">/// same size). See [`BoxExt::set_homogeneous()`](crate::BoxExt::set_homogeneous()).</span>
+    <span class="doccomment">/// same size). See [`crate::prelude::BoxExt::set_homogeneous()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2376,8 +2376,8 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">///  A [`glib::List`](crate::glib::List) containing the [`Widget`](crate::Widget) for each selected child.</span>
-    <span class="doccomment">///  Free with [`glib::List::free()`](crate::glib::List::free()) when done.</span>
+    <span class="doccomment">///  A [`crate::glib::List`] containing the [`crate::Widget`] for each selected child.</span>
+    <span class="doccomment">///  Free with [`crate::glib::List::free()`] when done.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_get_selected_children&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_selected_children&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">selected_children</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">FlowBoxChild</span><span class="op">&gt;</span>;
@@ -2386,7 +2386,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`SelectionMode`](crate::SelectionMode)</span>
+    <span class="doccomment">/// the [`crate::SelectionMode`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_get_selection_mode&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_selection_mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">selection_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SelectionMode</span>;
@@ -2395,12 +2395,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If a sort function is set, the widget will actually be inserted</span>
     <span class="doccomment">/// at the calculated position and this function has the same effect</span>
-    <span class="doccomment">/// as [`ContainerExt::add()`](crate::ContainerExt::add()).</span>
+    <span class="doccomment">/// as [`crate::prelude::ContainerExt::add()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `position` is -1, or larger than the total number of children</span>
     <span class="doccomment">/// in the `self`, then the `widget` will be appended to the end.</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// the [`Widget`](crate::Widget) to add</span>
+    <span class="doccomment">/// the [`crate::Widget`] to add</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position to insert `child` in</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_insert&quot;</span>)]</span>
@@ -2454,7 +2454,7 @@
     <span class="kw">fn</span> <span class="ident">set_activate_on_single_click</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">single</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets the horizontal space to add between children.</span>
-    <span class="doccomment">/// See the [`FlowBox:column-spacing`](crate::FlowBox:column-spacing) property.</span>
+    <span class="doccomment">/// See the [`crate::FlowBox:column-spacing`] property.</span>
     <span class="doccomment">/// ## `spacing`</span>
     <span class="doccomment">/// the spacing to use</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_set_column_spacing&quot;</span>)]</span>
@@ -2466,11 +2466,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `filter_func` will be called for each child after the call, and</span>
     <span class="doccomment">/// it will continue to be called each time a child changes (via</span>
-    <span class="doccomment">/// [`FlowBoxChildExt::changed()`](crate::FlowBoxChildExt::changed())) or when [`invalidate_filter()`](Self::invalidate_filter())</span>
+    <span class="doccomment">/// [`crate::prelude::FlowBoxChildExt::changed()`]) or when [`Self::invalidate_filter()`]</span>
     <span class="doccomment">/// is called.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that using a filter function is incompatible with using a model</span>
-    <span class="doccomment">/// (see [`bind_model()`](Self::bind_model())).</span>
+    <span class="doccomment">/// (see [`Self::bind_model()`]).</span>
     <span class="doccomment">/// ## `filter_func`</span>
     <span class="doccomment">/// callback that</span>
     <span class="doccomment">///  lets you filter which children to show</span>
@@ -2483,9 +2483,9 @@
 
     <span class="doccomment">/// Hooks up an adjustment to focus handling in `self`.</span>
     <span class="doccomment">/// The adjustment is also used for autoscrolling during</span>
-    <span class="doccomment">/// rubberband selection. See [`ScrolledWindowExt::get_hadjustment()`](crate::ScrolledWindowExt::get_hadjustment())</span>
+    <span class="doccomment">/// rubberband selection. See [`crate::prelude::ScrolledWindowExt::get_hadjustment()`]</span>
     <span class="doccomment">/// for a typical way of obtaining the adjustment, and</span>
-    <span class="doccomment">/// [`set_vadjustment()`](Self::set_vadjustment())for setting the vertical</span>
+    <span class="doccomment">/// [`Self::set_vadjustment()`]for setting the vertical</span>
     <span class="doccomment">/// adjustment.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The adjustments have to be in pixel units and in the same</span>
@@ -2497,7 +2497,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_set_hadjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_hadjustment</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adjustment</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// Sets the [`FlowBox:homogeneous`](crate::FlowBox:homogeneous) property of `self`, controlling</span>
+    <span class="doccomment">/// Sets the [`crate::FlowBox:homogeneous`] property of `self`, controlling</span>
     <span class="doccomment">/// whether or not all children of `self` are given equal space</span>
     <span class="doccomment">/// in the box.</span>
     <span class="doccomment">/// ## `homogeneous`</span>
@@ -2525,14 +2525,14 @@
     <span class="kw">fn</span> <span class="ident">set_min_children_per_line</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">n_children</span>: <span class="ident">u32</span>);
 
     <span class="doccomment">/// Sets the vertical space to add between children.</span>
-    <span class="doccomment">/// See the [`FlowBox:row-spacing`](crate::FlowBox:row-spacing) property.</span>
+    <span class="doccomment">/// See the [`crate::FlowBox:row-spacing`] property.</span>
     <span class="doccomment">/// ## `spacing`</span>
     <span class="doccomment">/// the spacing to use</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_set_row_spacing&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_row_spacing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">spacing</span>: <span class="ident">u32</span>);
 
     <span class="doccomment">/// Sets how selection works in `self`.</span>
-    <span class="doccomment">/// See [`SelectionMode`](crate::SelectionMode) for details.</span>
+    <span class="doccomment">/// See [`crate::SelectionMode`] for details.</span>
     <span class="doccomment">/// ## `mode`</span>
     <span class="doccomment">/// the new selection mode</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_flow_box_set_selection_mode&quot;</span>)]</span>
@@ -2544,11 +2544,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `sort_func` will be called for each child after the call,</span>
     <span class="doccomment">/// and will continue to be called each time a child changes (via</span>
-    <span class="doccomment">/// [`FlowBoxChildExt::changed()`](crate::FlowBoxChildExt::changed())) and when [`invalidate_sort()`](Self::invalidate_sort())</span>
+    <span class="doccomment">/// [`crate::prelude::FlowBoxChildExt::changed()`]) and when [`Self::invalidate_sort()`]</span>
     <span class="doccomment">/// is called.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that using a sort function is incompatible with using a model</span>
-    <span class="doccomment">/// (see [`bind_model()`](Self::bind_model())).</span>
+    <span class="doccomment">/// (see [`Self::bind_model()`]).</span>
     <span class="doccomment">/// ## `sort_func`</span>
     <span class="doccomment">/// the sort function</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -2563,9 +2563,9 @@
 
     <span class="doccomment">/// Hooks up an adjustment to focus handling in `self`.</span>
     <span class="doccomment">/// The adjustment is also used for autoscrolling during</span>
-    <span class="doccomment">/// rubberband selection. See [`ScrolledWindowExt::get_vadjustment()`](crate::ScrolledWindowExt::get_vadjustment())</span>
+    <span class="doccomment">/// rubberband selection. See [`crate::prelude::ScrolledWindowExt::get_vadjustment()`]</span>
     <span class="doccomment">/// for a typical way of obtaining the adjustment, and</span>
-    <span class="doccomment">/// [`set_hadjustment()`](Self::set_hadjustment())for setting the horizontal</span>
+    <span class="doccomment">/// [`Self::set_hadjustment()`]for setting the horizontal</span>
     <span class="doccomment">/// adjustment.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The adjustments have to be in pixel units and in the same</span>
@@ -2623,7 +2623,7 @@
     <span class="doccomment">/// - Home/End keys move to the ends of the box</span>
     <span class="doccomment">/// - PageUp/PageDown keys move vertically by pages</span>
     <span class="doccomment">/// ## `step`</span>
-    <span class="doccomment">/// the granularity fo the move, as a [`MovementStep`](crate::MovementStep)</span>
+    <span class="doccomment">/// the granularity fo the move, as a [`crate::MovementStep`]</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of `step` units to move</span>
     <span class="doccomment">///</span>
@@ -2653,8 +2653,8 @@
     <span class="doccomment">/// The ::selected-children-changed signal is emitted when the</span>
     <span class="doccomment">/// set of selected children changes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`selected_foreach()`](Self::selected_foreach()) or</span>
-    <span class="doccomment">/// [`get_selected_children()`](Self::get_selected_children()) to obtain the</span>
+    <span class="doccomment">/// Use [`Self::selected_foreach()`] or</span>
+    <span class="doccomment">/// [`Self::get_selected_children()`] to obtain the</span>
     <span class="doccomment">/// selected children.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;selected-children-changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_selected_children_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;

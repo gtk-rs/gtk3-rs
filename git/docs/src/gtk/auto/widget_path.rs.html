@@ -588,12 +588,12 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `WidgetPath` is a boxed type that represents a widget hierarchy from</span>
     <span class="doccomment">/// the topmost widget, typically a toplevel, to any child. This widget</span>
-    <span class="doccomment">/// path abstraction is used in [`StyleContext`](crate::StyleContext) on behalf of the real</span>
+    <span class="doccomment">/// path abstraction is used in [`crate::StyleContext`] on behalf of the real</span>
     <span class="doccomment">/// widget in order to query style information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you are using GTK+ widgets, you probably will not need to use</span>
-    <span class="doccomment">/// this API directly, as there is [`WidgetExt::get_path()`](crate::WidgetExt::get_path()), and the style</span>
-    <span class="doccomment">/// context returned by [`WidgetExt::get_style_context()`](crate::WidgetExt::get_style_context()) will be automatically</span>
+    <span class="doccomment">/// this API directly, as there is [`crate::prelude::WidgetExt::get_path()`], and the style</span>
+    <span class="doccomment">/// context returned by [`crate::prelude::WidgetExt::get_style_context()`] will be automatically</span>
     <span class="doccomment">/// updated on widget hierarchy changes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The widget path generation is generally simple:</span>
@@ -650,7 +650,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly created, empty, [`WidgetPath`](crate::WidgetPath)</span>
+    <span class="doccomment">/// A newly created, empty, [`crate::WidgetPath`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_widget_path_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WidgetPath</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -691,10 +691,10 @@
 
     <span class="doccomment">/// Appends a widget type with all its siblings to the widget hierarchy</span>
     <span class="doccomment">/// represented by `self`. Using this function instead of</span>
-    <span class="doccomment">/// [`append_type()`](Self::append_type()) will allow the CSS theming to use</span>
+    <span class="doccomment">/// [`Self::append_type()`] will allow the CSS theming to use</span>
     <span class="doccomment">/// sibling matches in selectors and apply :nth-`child()` pseudo classes.</span>
     <span class="doccomment">/// In turn, it requires a lot more care in widget implementations as</span>
-    <span class="doccomment">/// widgets need to make sure to call [`WidgetExt::reset_style()`](crate::WidgetExt::reset_style()) on all</span>
+    <span class="doccomment">/// widgets need to make sure to call [`crate::prelude::WidgetExt::reset_style()`] on all</span>
     <span class="doccomment">/// involved widgets when the `siblings` path changes.</span>
     <span class="doccomment">/// ## `siblings`</span>
     <span class="doccomment">/// a widget path describing a list of siblings. This path</span>
@@ -772,7 +772,7 @@
 
     <span class="doccomment">/// Adds the class `name` to the widget at position `pos` in</span>
     <span class="doccomment">/// the hierarchy defined in `self`. See</span>
-    <span class="doccomment">/// [`StyleContextExt::add_class()`](crate::StyleContextExt::add_class()).</span>
+    <span class="doccomment">/// [`crate::prelude::StyleContextExt::add_class()`].</span>
     <span class="doccomment">/// ## `pos`</span>
     <span class="doccomment">/// position to modify, -1 for the path head</span>
     <span class="doccomment">/// ## `name`</span>
@@ -834,7 +834,7 @@
         }
     }
 
-    <span class="doccomment">/// Returns the object [`glib::Type`](crate::glib::Type) that is at position `pos` in the widget</span>
+    <span class="doccomment">/// Returns the object [`crate::glib::Type`] that is at position `pos` in the widget</span>
     <span class="doccomment">/// hierarchy defined in `self`.</span>
     <span class="doccomment">/// ## `pos`</span>
     <span class="doccomment">/// position to get the object type for, -1 for the path head</span>
@@ -853,7 +853,7 @@
     }
 
     <span class="doccomment">/// Returns the index into the list of siblings for the element at `pos` as</span>
-    <span class="doccomment">/// returned by [`iter_get_siblings()`](Self::iter_get_siblings()). If that function would</span>
+    <span class="doccomment">/// returned by [`Self::iter_get_siblings()`]. If that function would</span>
     <span class="doccomment">/// return [`None`] because the element at `pos` has no siblings, this function</span>
     <span class="doccomment">/// will return 0.</span>
     <span class="doccomment">/// ## `pos`</span>
@@ -946,12 +946,12 @@
         }
     }
 
-    <span class="doccomment">/// See [`iter_has_class()`](Self::iter_has_class()). This is a version that operates</span>
+    <span class="doccomment">/// See [`Self::iter_has_class()`]. This is a version that operates</span>
     <span class="doccomment">/// with GQuarks.</span>
     <span class="doccomment">/// ## `pos`</span>
     <span class="doccomment">/// position to query, -1 for the path head</span>
     <span class="doccomment">/// ## `qname`</span>
-    <span class="doccomment">/// class name as a [`glib::Quark`](crate::glib::Quark)</span>
+    <span class="doccomment">/// class name as a [`crate::glib::Quark`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -967,12 +967,12 @@
         }
     }
 
-    <span class="doccomment">/// See [`iter_has_name()`](Self::iter_has_name()). This is a version</span>
+    <span class="doccomment">/// See [`Self::iter_has_name()`]. This is a version</span>
     <span class="doccomment">/// that operates on `GQuarks`.</span>
     <span class="doccomment">/// ## `pos`</span>
     <span class="doccomment">/// position to query, -1 for the path head</span>
     <span class="doccomment">/// ## `qname`</span>
-    <span class="doccomment">/// widget name as a [`glib::Quark`](crate::glib::Quark)</span>
+    <span class="doccomment">/// widget name as a [`crate::glib::Quark`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -996,8 +996,8 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The list of</span>
-    <span class="doccomment">///  classes, This is a list of strings, the [`glib::SList`](crate::glib::SList) contents</span>
-    <span class="doccomment">///  are owned by GTK+, but you should use [`glib::SList::free()`](crate::glib::SList::free()) to</span>
+    <span class="doccomment">///  classes, This is a list of strings, the [`crate::glib::SList`] contents</span>
+    <span class="doccomment">///  are owned by GTK+, but you should use [`crate::glib::SList::free()`] to</span>
     <span class="doccomment">///  free the list itself.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_widget_path_iter_list_classes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter_list_classes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pos</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span> {
@@ -1108,7 +1108,7 @@
         }
     }
 
-    <span class="doccomment">/// Returns the number of [`Widget`](crate::Widget) `GTypes` between the represented</span>
+    <span class="doccomment">/// Returns the number of [`crate::Widget`] `GTypes` between the represented</span>
     <span class="doccomment">/// widget and its topmost container.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>

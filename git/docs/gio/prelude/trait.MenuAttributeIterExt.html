@@ -5,19 +5,19 @@
     fn <a href="#tymethod.next" class="fnname">next</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;;
 }</pre></div><div class="docblock"><p>Trait containing all <code>MenuAttributeIter</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.MenuAttributeIter.html"><code>MenuAttributeIter</code></a></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.next" class="method"><code>fn <a href="#tymethod.next" class="fnname">next</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><a class="srclink" href="../../src/gio/auto/menu_attribute_iter.rs.html#60" title="goto source code">[src]</a></h3><div class="docblock"><p>This function combines <a href="crate::MenuAttributeIter::next()"><code>MenuAttributeIter::next()</code></a> with
-<a href="crate::MenuAttributeIter::get_name()"><code>MenuAttributeIter::get_name()</code></a> and <a href="crate::MenuAttributeIter::get_value()"><code>MenuAttributeIter::get_value()</code></a>.</p>
+<p><a href="../struct.MenuAttributeIter.html" title="crate::MenuAttributeIter"><code>crate::MenuAttributeIter</code></a></p>
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.next" class="method"><code>fn <a href="#tymethod.next" class="fnname">next</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code><a class="srclink" href="../../src/gio/auto/menu_attribute_iter.rs.html#60" title="goto source code">[src]</a></h3><div class="docblock"><p>This function combines [<code>crate::MenuAttributeIter::next()</code>] with
+[<code>crate::MenuAttributeIter::get_name()</code>] and [<code>crate::MenuAttributeIter::get_value()</code>].</p>
 <p>First the iterator is advanced to the next (possibly first) attribute.
 If that fails, then <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> is returned and there are no other
 effects.</p>
 <p>If successful, <code>name</code> and <code>value</code> are set to the name and value of the
 attribute that has just been advanced to. At this point,
-<a href="crate::MenuAttributeIter::get_name()"><code>MenuAttributeIter::get_name()</code></a> and <a href="crate::MenuAttributeIter::get_value()"><code>MenuAttributeIter::get_value()</code></a> will
+[<code>crate::MenuAttributeIter::get_name()</code>] and [<code>crate::MenuAttributeIter::get_value()</code>] will
 return the same values again.</p>
 <p>The value returned in <code>name</code> remains valid for as long as the iterator
 remains at the current position. The value returned in <code>value</code> must
-be unreffed using <a href="crate::glib::Variant::unref()"><code>glib::Variant::unref()</code></a> when it is no longer in use.</p>
+be unreffed using [<code>crate::glib::Variant::unref()</code>] when it is no longer in use.</p>
 <h2 id="out_name" class="section-header"><a href="#out_name"><code>out_name</code></a></h2>
 <p>the type of the attribute</p>
 <h2 id="value" class="section-header"><a href="#value"><code>value</code></a></h2>

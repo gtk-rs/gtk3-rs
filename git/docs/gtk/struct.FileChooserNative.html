@@ -1,21 +1,21 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`FileChooserNative` is an abstraction of a dialog box suitable for use with “File/Open” or “File/Save as” commands. By default, this just uses a `FileChooserDialog` to implement the actual dialog. However, on certain platforms, such as Windows and macOS, the native platform file chooser is used instead. When the application is running in a sandboxed environment without direct filesystem access (such as Flatpak), `FileChooserNative` may call the proper APIs (portals) to let the user choose a file and make it available to the application."><meta name="keywords" content="rust, rustlang, rust-lang, FileChooserNative"><title>FileChooserNative in gtk - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="[`crate::FileChooserNative`] is an abstraction of a dialog box suitable for use with “File/Open” or “File/Save as” commands. By default, this just uses a [`crate::FileChooserDialog`] to implement the actual dialog. However, on certain platforms, such as Windows and macOS, the native platform file chooser is used instead. When the application is running in a sandboxed environment without direct filesystem access (such as Flatpak), [`crate::FileChooserNative`] may call the proper APIs (portals) to let the user choose a file and make it available to the application."><meta name="keywords" content="rust, rustlang, rust-lang, FileChooserNative"><title>FileChooserNative in gtk - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc struct"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../gtk/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Struct FileChooserNative</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#implementations">Methods</a><div class="sidebar-links"><a href="#method.accept_label">accept_label</a><a href="#method.cancel_label">cancel_label</a><a href="#method.connect_accept_label_notify">connect_accept_label_notify</a><a href="#method.connect_cancel_label_notify">connect_cancel_label_notify</a><a href="#method.get_property_accept_label">get_property_accept_label</a><a href="#method.get_property_cancel_label">get_property_cancel_label</a><a href="#method.new">new</a><a href="#method.set_accept_label">set_accept_label</a><a href="#method.set_cancel_label">set_cancel_label</a><a href="#method.set_property_accept_label">set_property_accept_label</a><a href="#method.set_property_cancel_label">set_property_cancel_label</a></div><a class="sidebar-title" href="#trait-implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-Debug">Debug</a><a href="#impl-Display">Display</a><a href="#impl-Eq">Eq</a><a href="#impl-Hash">Hash</a><a href="#impl-IsA%3CFileChooser%3E">IsA&lt;FileChooser&gt;</a><a href="#impl-IsA%3CNativeDialog%3E">IsA&lt;NativeDialog&gt;</a><a href="#impl-Ord">Ord</a><a href="#impl-ParentClassIs">ParentClassIs</a><a href="#impl-PartialEq%3CT%3E">PartialEq&lt;T&gt;</a><a href="#impl-PartialOrd%3CT%3E">PartialOrd&lt;T&gt;</a><a href="#impl-StaticType">StaticType</a><a href="#impl-StructuralEq">StructuralEq</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-RefUnwindSafe">RefUnwindSafe</a><a href="#impl-Send">!Send</a><a href="#impl-Sync">!Sync</a><a href="#impl-Unpin">Unpin</a><a href="#impl-UnwindSafe">UnwindSafe</a></div><a class="sidebar-title" href="#blanket-implementations">Blanket Implementations</a><div class="sidebar-links"><a href="#impl-Any">Any</a><a href="#impl-Borrow%3CT%3E">Borrow&lt;T&gt;</a><a href="#impl-BorrowMut%3CT%3E">BorrowMut&lt;T&gt;</a><a href="#impl-CanDowncast%3CSub%3E">CanDowncast&lt;Sub&gt;</a><a href="#impl-Cast">Cast</a><a href="#impl-From%3CT%3E">From&lt;T&gt;</a><a href="#impl-FromValueOptional%3C%27a%3E">FromValueOptional&lt;&#39;a&gt;</a><a href="#impl-Into%3CU%3E">Into&lt;U&gt;</a><a href="#impl-ObjectExt">ObjectExt</a><a href="#impl-ToOwned">ToOwned</a><a href="#impl-ToSendValue">ToSendValue</a><a href="#impl-ToString">ToString</a><a href="#impl-TryFrom%3CU%3E">TryFrom&lt;U&gt;</a><a href="#impl-TryInto%3CU%3E">TryInto&lt;U&gt;</a></div></div><p class="location"><a href="index.html">gtk</a></p><div id="sidebar-vars" data-name="FileChooserNative" data-ty="struct" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gtk</a>::<wbr><a class="struct" href="">FileChooserNative</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gtk/auto/file_chooser_native.rs.html#23-191" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct FileChooserNative(_);</pre></div><div class="docblock"><p><a href="struct.FileChooserNative.html"><code>FileChooserNative</code></a> is an abstraction of a dialog box suitable
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gtk</a>::<wbr><a class="struct" href="">FileChooserNative</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gtk/auto/file_chooser_native.rs.html#23-191" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct FileChooserNative(_);</pre></div><div class="docblock"><p><a href="struct.FileChooserNative.html" title="crate::FileChooserNative"><code>crate::FileChooserNative</code></a> is an abstraction of a dialog box suitable
 for use with “File/Open” or “File/Save as” commands. By default, this
-just uses a <a href="struct.FileChooserDialog.html"><code>FileChooserDialog</code></a> to implement the actual dialog.
+just uses a <a href="struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>crate::FileChooserDialog</code></a> to implement the actual dialog.
 However, on certain platforms, such as Windows and macOS, the native platform
 file chooser is used instead. When the application is running in a
 sandboxed environment without direct filesystem access (such as Flatpak),
-<a href="struct.FileChooserNative.html"><code>FileChooserNative</code></a> may call the proper APIs (portals) to let the user
+<a href="struct.FileChooserNative.html" title="crate::FileChooserNative"><code>crate::FileChooserNative</code></a> may call the proper APIs (portals) to let the user
 choose a file and make it available to the application.</p>
-<p>While the API of <a href="struct.FileChooserNative.html"><code>FileChooserNative</code></a> closely mirrors <a href="struct.FileChooserDialog.html"><code>FileChooserDialog</code></a>, the main
-difference is that there is no access to any <a href="struct.Window.html"><code>Window</code></a> or <a href="struct.Widget.html"><code>Widget</code></a> for the dialog.
+<p>While the API of <a href="struct.FileChooserNative.html" title="crate::FileChooserNative"><code>crate::FileChooserNative</code></a> closely mirrors <a href="struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>crate::FileChooserDialog</code></a>, the main
+difference is that there is no access to any <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a> or <a href="struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> for the dialog.
 This is required, as there may not be one in the case of a platform native dialog.
-Showing, hiding and running the dialog is handled by the <a href="struct.NativeDialog.html"><code>NativeDialog</code></a> functions.</p>
+Showing, hiding and running the dialog is handled by the <a href="struct.NativeDialog.html" title="crate::NativeDialog"><code>crate::NativeDialog</code></a> functions.</p>
 <h2 id="typical-usage--gtkfilechoosernative-typical-usage" class="section-header"><a href="#typical-usage--gtkfilechoosernative-typical-usage">Typical usage ## {<code>gtkfilechoosernative</code>-typical-usage}</a></h2>
 <p>In the simplest of cases, you can the following code to use
-<a href="struct.FileChooserDialog.html"><code>FileChooserDialog</code></a> to select a file for opening:</p>
+<a href="struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>crate::FileChooserDialog</code></a> to select a file for opening:</p>
 <pre><code class="language-text">GtkFileChooserNative *native;
 GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
 gint res;
@@ -72,49 +72,49 @@ if (res == GTK_RESPONSE_ACCEPT)
 
 g_object_unref (native);
 </code></pre>
-<p>For more information on how to best set up a file dialog, see <a href="struct.FileChooserDialog.html"><code>FileChooserDialog</code></a>.</p>
+<p>For more information on how to best set up a file dialog, see <a href="struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>crate::FileChooserDialog</code></a>.</p>
 <h2 id="response-codes--gtkfilechooserdialognative-responses" class="section-header"><a href="#response-codes--gtkfilechooserdialognative-responses">Response Codes ## {<code>gtkfilechooserdialognative</code>-responses}</a></h2>
-<p><a href="struct.FileChooserNative.html"><code>FileChooserNative</code></a> inherits from <a href="struct.NativeDialog.html"><code>NativeDialog</code></a>, which means it
-will return <a href="enum.ResponseType.html#variant.Accept"><code>ResponseType::Accept</code></a> if the user accepted, and
-<a href="enum.ResponseType.html#variant.Cancel"><code>ResponseType::Cancel</code></a> if he pressed cancel. It can also return
-<a href="enum.ResponseType.html#variant.DeleteEvent"><code>ResponseType::DeleteEvent</code></a> if the window was unexpectedly closed.</p>
-<h2 id="differences-from-filechooserdialog--gtkfilechooserdialognative-differences" class="section-header"><a href="#differences-from-filechooserdialog--gtkfilechooserdialognative-differences">Differences from <code>FileChooserDialog</code> ## {<code>gtkfilechooserdialognative</code>-differences}</a></h2>
+<p><a href="struct.FileChooserNative.html" title="crate::FileChooserNative"><code>crate::FileChooserNative</code></a> inherits from <a href="struct.NativeDialog.html" title="crate::NativeDialog"><code>crate::NativeDialog</code></a>, which means it
+will return <a href="enum.ResponseType.html#variant.Accept" title="crate::ResponseType::Accept"><code>crate::ResponseType::Accept</code></a> if the user accepted, and
+<a href="enum.ResponseType.html#variant.Cancel" title="crate::ResponseType::Cancel"><code>crate::ResponseType::Cancel</code></a> if he pressed cancel. It can also return
+<a href="enum.ResponseType.html#variant.DeleteEvent" title="crate::ResponseType::DeleteEvent"><code>crate::ResponseType::DeleteEvent</code></a> if the window was unexpectedly closed.</p>
+<h2 id="differences-from-cratefilechooserdialog--gtkfilechooserdialognative-differences" class="section-header"><a href="#differences-from-cratefilechooserdialog--gtkfilechooserdialognative-differences">Differences from <code>crate::FileChooserDialog</code> ## {<code>gtkfilechooserdialognative</code>-differences}</a></h2>
 <p>There are a few things in the <code>FileChooser</code> API that are not
-possible to use with <a href="struct.FileChooserNative.html"><code>FileChooserNative</code></a>, as such use would
+possible to use with <a href="struct.FileChooserNative.html" title="crate::FileChooserNative"><code>crate::FileChooserNative</code></a>, as such use would
 prohibit the use of a native dialog.</p>
 <p>There is no support for the signals that are emitted when the user
 navigates in the dialog, including:</p>
 <ul>
-<li><a href="crate::FileChooser::current-folder-changed"><code>FileChooser::current-folder-changed</code></a></li>
-<li><a href="crate::FileChooser::selection-changed"><code>FileChooser::selection-changed</code></a></li>
-<li><a href="crate::FileChooser::file-activated"><code>FileChooser::file-activated</code></a></li>
-<li><a href="crate::FileChooser::confirm-overwrite"><code>FileChooser::confirm-overwrite</code></a></li>
+<li>[<code>crate::FileChooser::current-folder-changed</code>]</li>
+<li>[<code>crate::FileChooser::selection-changed</code>]</li>
+<li>[<code>crate::FileChooser::file-activated</code>]</li>
+<li>[<code>crate::FileChooser::confirm-overwrite</code>]</li>
 </ul>
 <p>You can also not use the methods that directly control user navigation:</p>
 <ul>
-<li><a href="crate::FileChooser::unselect_filename()"><code>FileChooser::unselect_filename()</code></a></li>
-<li><a href="crate::FileChooser::select_all()"><code>FileChooser::select_all()</code></a></li>
-<li><a href="crate::FileChooser::unselect_all()"><code>FileChooser::unselect_all()</code></a></li>
+<li>[<code>crate::FileChooser::unselect_filename()</code>]</li>
+<li>[<code>crate::FileChooser::select_all()</code>]</li>
+<li>[<code>crate::FileChooser::unselect_all()</code>]</li>
 </ul>
-<p>If you need any of the above you will have to use <a href="struct.FileChooserDialog.html"><code>FileChooserDialog</code></a> directly.</p>
+<p>If you need any of the above you will have to use <a href="struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>crate::FileChooserDialog</code></a> directly.</p>
 <p>No operations that change the the dialog work while the dialog is
 visible. Set all the properties that are required before showing the dialog.</p>
 <h2 id="win32-details--gtkfilechooserdialognative-win32" class="section-header"><a href="#win32-details--gtkfilechooserdialognative-win32">Win32 details ## {<code>gtkfilechooserdialognative</code>-win32}</a></h2>
 <p>On windows the IFileDialog implementation (added in Windows Vista) is
-used. It supports many of the features that <a href="struct.FileChooserDialog.html"><code>FileChooserDialog</code></a>
+used. It supports many of the features that <a href="struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>crate::FileChooserDialog</code></a>
 does, but there are some things it does not handle:</p>
 <ul>
 <li>
-<p>Extra widgets added with <a href="crate::FileChooser::set_extra_widget()"><code>FileChooser::set_extra_widget()</code></a>.</p>
+<p>Extra widgets added with [<code>crate::FileChooser::set_extra_widget()</code>].</p>
 </li>
 <li>
-<p>Use of custom previews by connecting to <a href="crate::FileChooser::update-preview"><code>FileChooser::update-preview</code></a>.</p>
+<p>Use of custom previews by connecting to [<code>crate::FileChooser::update-preview</code>].</p>
 </li>
 <li>
-<p>Any <a href="struct.FileFilter.html"><code>FileFilter</code></a> added using a mimetype or custom filter.</p>
+<p>Any <a href="struct.FileFilter.html" title="crate::FileFilter"><code>crate::FileFilter</code></a> added using a mimetype or custom filter.</p>
 </li>
 </ul>
-<p>If any of these features are used the regular <a href="struct.FileChooserDialog.html"><code>FileChooserDialog</code></a>
+<p>If any of these features are used the regular <a href="struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>crate::FileChooserDialog</code></a>
 will be used in place of the native one.</p>
 <h2 id="portal-details--gtkfilechooserdialognative-portal" class="section-header"><a href="#portal-details--gtkfilechooserdialognative-portal">Portal details ## {<code>gtkfilechooserdialognative</code>-portal}</a></h2>
 <p>When the org.freedesktop.portal.FileChooser portal is available on the
@@ -124,38 +124,38 @@ be a GTK+ file chooser. In this situation, the following things are not
 supported and will be silently ignored:</p>
 <ul>
 <li>
-<p>Extra widgets added with <a href="crate::FileChooser::set_extra_widget()"><code>FileChooser::set_extra_widget()</code></a>.</p>
+<p>Extra widgets added with [<code>crate::FileChooser::set_extra_widget()</code>].</p>
 </li>
 <li>
-<p>Use of custom previews by connecting to <a href="crate::FileChooser::update-preview"><code>FileChooser::update-preview</code></a>.</p>
+<p>Use of custom previews by connecting to [<code>crate::FileChooser::update-preview</code>].</p>
 </li>
 <li>
-<p>Any <a href="struct.FileFilter.html"><code>FileFilter</code></a> added with a custom filter.</p>
+<p>Any <a href="struct.FileFilter.html" title="crate::FileFilter"><code>crate::FileFilter</code></a> added with a custom filter.</p>
 </li>
 </ul>
 <h2 id="macos-details--gtkfilechooserdialognative-macos" class="section-header"><a href="#macos-details--gtkfilechooserdialognative-macos">macOS details ## {<code>gtkfilechooserdialognative</code>-macos}</a></h2>
 <p>On macOS the NSSavePanel and NSOpenPanel classes are used to provide native
-file chooser dialogs. Some features provided by <a href="struct.FileChooserDialog.html"><code>FileChooserDialog</code></a> are
+file chooser dialogs. Some features provided by <a href="struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>crate::FileChooserDialog</code></a> are
 not supported:</p>
 <ul>
 <li>
-<p>Extra widgets added with <a href="crate::FileChooser::set_extra_widget()"><code>FileChooser::set_extra_widget()</code></a>, unless the
+<p>Extra widgets added with [<code>crate::FileChooser::set_extra_widget()</code>], unless the
 widget is an instance of <code>Label</code>, in which case the label text will be used
 to set the NSSavePanel message instance property.</p>
 </li>
 <li>
-<p>Use of custom previews by connecting to <a href="crate::FileChooser::update-preview"><code>FileChooser::update-preview</code></a>.</p>
+<p>Use of custom previews by connecting to [<code>crate::FileChooser::update-preview</code>].</p>
 </li>
 <li>
-<p>Any <a href="struct.FileFilter.html"><code>FileFilter</code></a> added with a custom filter.</p>
+<p>Any <a href="struct.FileFilter.html" title="crate::FileFilter"><code>crate::FileFilter</code></a> added with a custom filter.</p>
 </li>
 <li>
 <p>Shortcut folders.</p>
 </li>
 </ul>
 <h1 id="implements" class="section-header"><a href="#implements">Implements</a></h1>
-<p><a href="prelude/trait.NativeDialogExt.html"><code>NativeDialogExt</code></a>, <a href="../glib/object/trait.ObjectExt.html" title="glib::object::ObjectExt"><code>glib::object::ObjectExt</code></a>, <a href="prelude/trait.FileChooserExt.html"><code>FileChooserExt</code></a>, <a href="prelude/trait.NativeDialogExtManual.html"><code>NativeDialogExtManual</code></a></p>
-</div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.FileChooserNative.html" title="struct gtk::FileChooserNative">FileChooserNative</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gtk/auto/file_chooser_native.rs.html#193-410" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>&lt;P:&nbsp;<a class="trait" href="../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="struct.Window.html" title="struct gtk::Window">Window</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;title: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;parent: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;action: <a class="enum" href="enum.FileChooserAction.html" title="enum gtk::FileChooserAction">FileChooserAction</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;accept_label: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancel_label: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;<br>) -&gt; <a class="struct" href="struct.FileChooserNative.html" title="struct gtk::FileChooserNative">FileChooserNative</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gtk/auto/file_chooser_native.rs.html#210-227" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Creates a new <a href="struct.FileChooserNative.html"><code>FileChooserNative</code></a>.</p>
+<p><a href="prelude/trait.NativeDialogExt.html" title="crate::prelude::NativeDialogExt"><code>crate::prelude::NativeDialogExt</code></a>, <a href="../glib/object/trait.ObjectExt.html" title="glib::object::ObjectExt"><code>glib::object::ObjectExt</code></a>, <a href="prelude/trait.FileChooserExt.html" title="crate::prelude::FileChooserExt"><code>crate::prelude::FileChooserExt</code></a>, <a href="prelude/trait.NativeDialogExtManual.html" title="crate::prelude::NativeDialogExtManual"><code>crate::prelude::NativeDialogExtManual</code></a></p>
+</div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.FileChooserNative.html" title="struct gtk::FileChooserNative">FileChooserNative</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gtk/auto/file_chooser_native.rs.html#193-410" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>&lt;P:&nbsp;<a class="trait" href="../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="struct.Window.html" title="struct gtk::Window">Window</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;title: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;parent: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;action: <a class="enum" href="enum.FileChooserAction.html" title="enum gtk::FileChooserAction">FileChooserAction</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;accept_label: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancel_label: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;<br>) -&gt; <a class="struct" href="struct.FileChooserNative.html" title="struct gtk::FileChooserNative">FileChooserNative</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gtk/auto/file_chooser_native.rs.html#210-227" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Creates a new <a href="struct.FileChooserNative.html" title="crate::FileChooserNative"><code>crate::FileChooserNative</code></a>.</p>
 <h2 id="title" class="section-header"><a href="#title"><code>title</code></a></h2>
 <p>Title of the native, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="parent" class="section-header"><a href="#parent"><code>parent</code></a></h2>
@@ -167,7 +167,7 @@ to set the NSSavePanel message instance property.</p>
 <h2 id="cancel_label" class="section-header"><a href="#cancel_label"><code>cancel_label</code></a></h2>
 <p>text to go in the cancel button, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for the default</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a new <a href="struct.FileChooserNative.html"><code>FileChooserNative</code></a></p>
+<p>a new <a href="struct.FileChooserNative.html" title="crate::FileChooserNative"><code>crate::FileChooserNative</code></a></p>
 </div><h4 id="method.accept_label" class="method"><code>pub fn <a href="#method.accept_label" class="fnname">accept_label</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a href="#method.accept_label" class="anchor"></a><a class="srclink" href="../src/gtk/auto/file_chooser_native.rs.html#237-243" title="goto source code">[src]</a></h4><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Retrieves the custom label text for the accept button.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>The custom label, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for the default. This string

@@ -9,40 +9,40 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_items_changed" class="fnname">connect_items_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 }</pre></div><div class="docblock"><p>Trait containing all <code>ListModel</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.ListModel.html"><code>ListModel</code></a>, <a href="../struct.ListStore.html"><code>ListStore</code></a></p>
+<p><a href="../struct.ListModel.html" title="crate::ListModel"><code>crate::ListModel</code></a>, <a href="../struct.ListStore.html" title="crate::ListStore"><code>crate::ListStore</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.item_type" class="method"><code>fn <a href="#tymethod.item_type" class="fnname">item_type</a>(&amp;self) -&gt; <a class="struct" href="../../glib/types/struct.Type.html" title="struct glib::types::Type">Type</a></code><a class="srclink" href="../../src/gio/auto/list_model.rs.html#93" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the type of the items in <code>self</code>. All items returned from
 <code>g_list_model_get_type()</code> are of that type or a subtype, or are an
 implementation of that interface.</p>
-<p>The item type of a <a href="../struct.ListModel.html"><code>ListModel</code></a> can not change during the life of the
+<p>The item type of a <a href="../struct.ListModel.html" title="crate::ListModel"><code>crate::ListModel</code></a> can not change during the life of the
 model.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>the <a href="../../glib/types/struct.Type.html"><code>glib::Type</code></a> of the items contained in <code>self</code>.</p>
+<p>the <a href="../../glib/types/struct.Type.html" title="crate::glib::Type"><code>crate::glib::Type</code></a> of the items contained in <code>self</code>.</p>
 </div><h3 id="tymethod.n_items" class="method"><code>fn <a href="#tymethod.n_items" class="fnname">n_items</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gio/auto/list_model.rs.html#106" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the number of items in <code>self</code>.</p>
 <p>Depending on the model implementation, calling this function may be
 less efficient than iterating the list with increasing values for
-<code>position</code> until <a href="crate::ListModel::get_item()"><code>ListModel::get_item()</code></a> returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
+<code>position</code> until [<code>crate::ListModel::get_item()</code>] returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the number of items in <code>self</code>.</p>
 </div><h3 id="tymethod.item" class="method"><code>fn <a href="#tymethod.item" class="fnname">item</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;</code><a class="srclink" href="../../src/gio/auto/list_model.rs.html#121" title="goto source code">[src]</a></h3><div class="docblock"><p>Get the item at <code>position</code>. If <code>position</code> is greater than the number of
 items in <code>self</code>, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> is returned.</p>
 <p><a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> is never returned for an index that is smaller than the length
-of the list. See <a href="crate::ListModel::get_n_items()"><code>ListModel::get_n_items()</code></a>.</p>
+of the list. See [<code>crate::ListModel::get_n_items()</code>].</p>
 <h2 id="position" class="section-header"><a href="#position"><code>position</code></a></h2>
 <p>the position of the item to fetch</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the object at <code>position</code>.</p>
-</div><h3 id="tymethod.items_changed" class="method"><code>fn <a href="#tymethod.items_changed" class="fnname">items_changed</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, removed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, added: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gio/auto/list_model.rs.html#150" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the <a href="crate::ListModel::items-changed"><code>ListModel::items-changed</code></a> signal on <code>self</code>.</p>
+</div><h3 id="tymethod.items_changed" class="method"><code>fn <a href="#tymethod.items_changed" class="fnname">items_changed</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, removed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, added: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gio/auto/list_model.rs.html#150" title="goto source code">[src]</a></h3><div class="docblock"><p>Emits the [<code>crate::ListModel::items-changed</code>] signal on <code>self</code>.</p>
 <p>This function should only be called by classes implementing
-<a href="../struct.ListModel.html"><code>ListModel</code></a>. It has to be called after the internal representation
+<a href="../struct.ListModel.html" title="crate::ListModel"><code>crate::ListModel</code></a>. It has to be called after the internal representation
 of <code>self</code> has been updated, because handlers connected to this signal
 might query the new state of the list.</p>
 <p>Implementations must only make changes to the model (as visible to
 its consumer) in places that will not cause problems for that
 consumer. For models that are driven directly by a write API (such
-as <a href="../struct.ListStore.html"><code>ListStore</code></a>), changes can be reported in response to uses of that
+as <a href="../struct.ListStore.html" title="crate::ListStore"><code>crate::ListStore</code></a>), changes can be reported in response to uses of that
 API. For models that represent remote data, changes should only be
 made from a fresh mainloop dispatch. It is particularly not
-permitted to make changes in response to a call to the <a href="../struct.ListModel.html"><code>ListModel</code></a>
+permitted to make changes in response to a call to the <a href="../struct.ListModel.html" title="crate::ListModel"><code>crate::ListModel</code></a>
 consumer API.</p>
 <p>Stated another way: in general, it is assumed that code making a
 series of accesses to the model via the API, without returning to the

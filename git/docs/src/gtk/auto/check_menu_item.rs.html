@@ -813,12 +813,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`CheckMenuItem`](crate::CheckMenuItem) is a menu item that maintains the state of a boolean</span>
-    <span class="doccomment">/// value in addition to a [`MenuItem`](crate::MenuItem) usual role in activating application</span>
+    <span class="doccomment">/// A [`crate::CheckMenuItem`] is a menu item that maintains the state of a boolean</span>
+    <span class="doccomment">/// value in addition to a [`crate::MenuItem`] usual role in activating application</span>
     <span class="doccomment">/// code.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A check box indicating the state of the boolean value is displayed</span>
-    <span class="doccomment">/// at the left side of the [`MenuItem`](crate::MenuItem). Activating the [`MenuItem`](crate::MenuItem)</span>
+    <span class="doccomment">/// at the left side of the [`crate::MenuItem`]. Activating the [`crate::MenuItem`]</span>
     <span class="doccomment">/// toggles the value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
@@ -835,7 +835,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CheckMenuItemExt`](trait@crate::prelude::CheckMenuItemExt), [`GtkMenuItemExt`](trait@crate::prelude::GtkMenuItemExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::CheckMenuItemExt`], [`trait@crate::prelude::GtkMenuItemExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CheckMenuItem</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkCheckMenuItem</span>, <span class="ident">ffi::GtkCheckMenuItemClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">MenuItem</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -844,24 +844,24 @@
 }
 
 <span class="kw">impl</span> <span class="ident">CheckMenuItem</span> {
-    <span class="doccomment">/// Creates a new [`CheckMenuItem`](crate::CheckMenuItem).</span>
+    <span class="doccomment">/// Creates a new [`crate::CheckMenuItem`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`CheckMenuItem`](crate::CheckMenuItem).</span>
+    <span class="doccomment">/// a new [`crate::CheckMenuItem`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_check_menu_item_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CheckMenuItem</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_check_menu_item_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 
-    <span class="doccomment">/// Creates a new [`CheckMenuItem`](crate::CheckMenuItem) with a label.</span>
+    <span class="doccomment">/// Creates a new [`crate::CheckMenuItem`] with a label.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// the string to use for the label.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`CheckMenuItem`](crate::CheckMenuItem).</span>
+    <span class="doccomment">/// a new [`crate::CheckMenuItem`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_check_menu_item_new_with_label&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_label&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_label</span>(<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CheckMenuItem</span> {
@@ -874,8 +874,8 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`CheckMenuItem`](crate::CheckMenuItem) containing a label. The label</span>
-    <span class="doccomment">/// will be created using [`Label::new_with_mnemonic()`](crate::Label::new_with_mnemonic()), so underscores</span>
+    <span class="doccomment">/// Creates a new [`crate::CheckMenuItem`] containing a label. The label</span>
+    <span class="doccomment">/// will be created using [`crate::Label::new_with_mnemonic()`], so underscores</span>
     <span class="doccomment">/// in `label` indicate the mnemonic for the menu item.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// The text of the button, with an underscore in front of the</span>
@@ -883,7 +883,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`CheckMenuItem`](crate::CheckMenuItem)</span>
+    <span class="doccomment">/// a new [`crate::CheckMenuItem`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_check_menu_item_new_with_mnemonic&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_mnemonic&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_mnemonic</span>(<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CheckMenuItem</span> {
@@ -1335,7 +1335,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`CheckMenuItem`](struct@crate::CheckMenuItem), [`RadioMenuItem`](struct@crate::RadioMenuItem)</span>
+<span class="doccomment">/// [`struct@crate::CheckMenuItem`], [`struct@crate::RadioMenuItem`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CheckMenuItemExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns whether the check menu item is active. See</span>
     <span class="doccomment">/// gtk_check_menu_item_set_active ().</span>
@@ -1347,16 +1347,16 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_active&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_active</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns whether `self` looks like a [`RadioMenuItem`](crate::RadioMenuItem)</span>
+    <span class="doccomment">/// Returns whether `self` looks like a [`crate::RadioMenuItem`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Whether `self` looks like a [`RadioMenuItem`](crate::RadioMenuItem)</span>
+    <span class="doccomment">/// Whether `self` looks like a [`crate::RadioMenuItem`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_check_menu_item_get_draw_as_radio&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_draw_as_radio&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">draws_as_radio</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Retrieves the value set by [`set_inconsistent()`](Self::set_inconsistent()).</span>
+    <span class="doccomment">/// Retrieves the value set by [`Self::set_inconsistent()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1371,9 +1371,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_check_menu_item_set_active&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_active</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">is_active</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets whether `self` is drawn like a [`RadioMenuItem`](crate::RadioMenuItem)</span>
+    <span class="doccomment">/// Sets whether `self` is drawn like a [`crate::RadioMenuItem`]</span>
     <span class="doccomment">/// ## `draw_as_radio`</span>
-    <span class="doccomment">/// whether `self` is drawn like a [`RadioMenuItem`](crate::RadioMenuItem)</span>
+    <span class="doccomment">/// whether `self` is drawn like a [`crate::RadioMenuItem`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_check_menu_item_set_draw_as_radio&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_draw_as_radio</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">draw_as_radio</span>: <span class="ident">bool</span>);
 
@@ -1383,20 +1383,20 @@
     <span class="doccomment">/// display the check in an “in between” state. This function turns on</span>
     <span class="doccomment">/// “in between” display. Normally you would turn off the inconsistent</span>
     <span class="doccomment">/// state again if the user explicitly selects a setting. This has to be</span>
-    <span class="doccomment">/// done manually, [`set_inconsistent()`](Self::set_inconsistent()) only affects</span>
+    <span class="doccomment">/// done manually, [`Self::set_inconsistent()`] only affects</span>
     <span class="doccomment">/// visual appearance, it doesn’t affect the semantics of the widget.</span>
     <span class="doccomment">/// ## `setting`</span>
     <span class="doccomment">/// [`true`] to display an “inconsistent” third state check</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_check_menu_item_set_inconsistent&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_inconsistent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">setting</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Emits the [`CheckMenuItem::toggled`](crate::CheckMenuItem::toggled) signal.</span>
+    <span class="doccomment">/// Emits the [`crate::CheckMenuItem::toggled`] signal.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_check_menu_item_toggled&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">toggled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// This signal is emitted when the state of the check box is changed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A signal handler can use [`get_active()`](Self::get_active())</span>
+    <span class="doccomment">/// A signal handler can use [`Self::get_active()`]</span>
     <span class="doccomment">/// to discover the new state.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;toggled&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_toggled</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;

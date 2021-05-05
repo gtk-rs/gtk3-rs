@@ -53,7 +53,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_selection_mode_notify" class="fnname">connect_selection_mode_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>FlowBox</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.FlowBox.html"><code>FlowBox</code></a></p>
+<p><a href="../struct.FlowBox.html" title="crate::FlowBox"><code>crate::FlowBox</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.bind_model" class="method"><code>fn <a href="#tymethod.bind_model" class="fnname">bind_model</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../gio/auto/list_model/struct.ListModel.html" title="struct gio::auto::list_model::ListModel">ListModel</a>&gt;, Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../../glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>) -&gt; <a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;model: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;create_widget_func: Q<br>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#545-549" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_18</code></strong> only.</div></div><div class="docblock"><p>Binds <code>model</code> to <code>self</code>.</p>
 <p>If <code>self</code> was already bound to a model, that previous binding is
 destroyed.</p>
@@ -61,13 +61,13 @@ destroyed.</p>
 represent items from <code>model</code>. <code>self</code> is updated whenever <code>model</code> changes.
 If <code>model</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, <code>self</code> is left empty.</p>
 <p>It is undefined to add or remove widgets directly (for example, with
-<a href="trait.FlowBoxExt.html#tymethod.insert"><code>insert()</code></a> or <a href="crate::ContainerExt::add()"><code>ContainerExt::add()</code></a>) while <code>self</code> is bound to a
+<a href="trait.FlowBoxExt.html#tymethod.insert" title="Self::insert()"><code>Self::insert()</code></a> or <a href="trait.ContainerExt.html#tymethod.add" title="crate::prelude::ContainerExt::add()"><code>crate::prelude::ContainerExt::add()</code></a>) while <code>self</code> is bound to a
 model.</p>
 <p>Note that using a model is incompatible with the filtering and sorting
 functionality in <code>FlowBox</code>. When using a model, filtering and sorting
 should be implemented by the model.</p>
 <h2 id="model" class="section-header"><a href="#model"><code>model</code></a></h2>
-<p>the <a href="../../gio/auto/list_model/struct.ListModel.html"><code>gio::ListModel</code></a> to be bound to <code>self</code></p>
+<p>the <a href="../../gio/auto/list_model/struct.ListModel.html" title="crate::gio::ListModel"><code>crate::gio::ListModel</code></a> to be bound to <code>self</code></p>
 <h2 id="create_widget_func" class="section-header"><a href="#create_widget_func"><code>create_widget_func</code></a></h2>
 <p>a function that creates widgets for items</p>
 <h2 id="user_data" class="section-header"><a href="#user_data"><code>user_data</code></a></h2>
@@ -83,7 +83,7 @@ should be implemented by the model.</p>
 <p>the position of the child</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the child widget, which will
-always be a <a href="../struct.FlowBoxChild.html"><code>FlowBoxChild</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> in case no child widget
+always be a <a href="../struct.FlowBoxChild.html" title="crate::FlowBoxChild"><code>crate::FlowBoxChild</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> in case no child widget
 with the given index exists.</p>
 </div><h3 id="tymethod.child_at_pos" class="method"><code>fn <a href="#tymethod.child_at_pos" class="fnname">child_at_pos</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#589" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_22_6</code></strong> only.</div></div><div class="docblock"><p>Gets the child in the (<code>x</code>, <code>y</code>) position.</p>
 <h2 id="x" class="section-header"><a href="#x"><code>x</code></a></h2>
@@ -92,13 +92,13 @@ with the given index exists.</p>
 <p>the y coordinate of the child</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the child widget, which will
-always be a <a href="../struct.FlowBoxChild.html"><code>FlowBoxChild</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> in case no child widget
+always be a <a href="../struct.FlowBoxChild.html" title="crate::FlowBoxChild"><code>crate::FlowBoxChild</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> in case no child widget
 exists for the given x and y coordinates.</p>
 </div><h3 id="tymethod.column_spacing" class="method"><code>fn <a href="#tymethod.column_spacing" class="fnname">column_spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#598" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the horizontal spacing.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>the horizontal spacing</p>
 </div><h3 id="tymethod.is_homogeneous" class="method"><code>fn <a href="#tymethod.is_homogeneous" class="fnname">is_homogeneous</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#608" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the box is homogeneous (all children are the
-same size). See <a href="crate::BoxExt::set_homogeneous()"><code>BoxExt::set_homogeneous()</code></a>.</p>
+same size). See <a href="trait.BoxExt.html#tymethod.set_homogeneous" title="crate::prelude::BoxExt::set_homogeneous()"><code>crate::prelude::BoxExt::set_homogeneous()</code></a>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the box is homogeneous.</p>
 </div><h3 id="tymethod.max_children_per_line" class="method"><code>fn <a href="#tymethod.max_children_per_line" class="fnname">max_children_per_line</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#617" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the maximum number of children per line.</p>
@@ -112,19 +112,19 @@ same size). See <a href="crate::BoxExt::set_homogeneous()"><code>BoxExt::set_hom
 <p>the vertical spacing</p>
 </div><h3 id="tymethod.selected_children" class="method"><code>fn <a href="#tymethod.selected_children" class="fnname">selected_children</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#646" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a list of all selected children.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
-<p>A <a href="crate::glib::List"><code>glib::List</code></a> containing the <a href="../struct.Widget.html"><code>Widget</code></a> for each selected child.
-Free with <a href="crate::glib::List::free()"><code>glib::List::free()</code></a> when done.</p>
+<p>A [<code>crate::glib::List</code>] containing the <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> for each selected child.
+Free with [<code>crate::glib::List::free()</code>] when done.</p>
 </div><h3 id="tymethod.selection_mode" class="method"><code>fn <a href="#tymethod.selection_mode" class="fnname">selection_mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a></code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#655" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the selection mode of <code>self</code>.</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
-<p>the <a href="../enum.SelectionMode.html"><code>SelectionMode</code></a></p>
+<p>the <a href="../enum.SelectionMode.html" title="crate::SelectionMode"><code>crate::SelectionMode</code></a></p>
 </div><h3 id="tymethod.insert" class="method"><code>fn <a href="#tymethod.insert" class="fnname">insert</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, widget: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#670" title="goto source code">[src]</a></h3><div class="docblock"><p>Inserts the <code>widget</code> into <code>self</code> at <code>position</code>.</p>
 <p>If a sort function is set, the widget will actually be inserted
 at the calculated position and this function has the same effect
-as <a href="crate::ContainerExt::add()"><code>ContainerExt::add()</code></a>.</p>
+as <a href="trait.ContainerExt.html#tymethod.add" title="crate::prelude::ContainerExt::add()"><code>crate::prelude::ContainerExt::add()</code></a>.</p>
 <p>If <code>position</code> is -1, or larger than the total number of children
 in the <code>self</code>, then the <code>widget</code> will be appended to the end.</p>
 <h2 id="widget" class="section-header"><a href="#widget"><code>widget</code></a></h2>
-<p>the <a href="../struct.Widget.html"><code>Widget</code></a> to add</p>
+<p>the <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> to add</p>
 <h2 id="position" class="section-header"><a href="#position"><code>position</code></a></h2>
 <p>the position to insert <code>child</code> in</p>
 </div><h3 id="tymethod.invalidate_filter" class="method"><code>fn <a href="#tymethod.invalidate_filter" class="fnname">invalidate_filter</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#680" title="goto source code">[src]</a></h3><div class="docblock"><p>Updates the filtering for all children.</p>
@@ -154,7 +154,7 @@ on them, otherwise you need to double-click.</p>
 <h2 id="single" class="section-header"><a href="#single"><code>single</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to emit child-activated on a single click</p>
 </div><h3 id="tymethod.set_column_spacing" class="method"><code>fn <a href="#tymethod.set_column_spacing" class="fnname">set_column_spacing</a>(&amp;self, spacing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#724" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the horizontal space to add between children.
-See the <a href="crate::FlowBox:column-spacing"><code>FlowBox:column-spacing</code></a> property.</p>
+See the [<code>crate::FlowBox:column-spacing</code>] property.</p>
 <h2 id="spacing" class="section-header"><a href="#spacing"><code>spacing</code></a></h2>
 <p>the spacing to use</p>
 </div><h3 id="tymethod.set_filter_func" class="method"><code>fn <a href="#tymethod.set_filter_func" class="fnname">set_filter_func</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;filter_func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;&gt;<br>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#745" title="goto source code">[src]</a></h3><div class="docblock"><p>By setting a filter function on the <code>self</code> one can decide dynamically
@@ -162,10 +162,10 @@ which of the children to show. For instance, to implement a search
 function that only shows the children matching the search terms.</p>
 <p>The <code>filter_func</code> will be called for each child after the call, and
 it will continue to be called each time a child changes (via
-<a href="crate::FlowBoxChildExt::changed()"><code>FlowBoxChildExt::changed()</code></a>) or when <a href="trait.FlowBoxExt.html#tymethod.invalidate_filter"><code>invalidate_filter()</code></a>
+<a href="trait.FlowBoxChildExt.html#tymethod.changed" title="crate::prelude::FlowBoxChildExt::changed()"><code>crate::prelude::FlowBoxChildExt::changed()</code></a>) or when <a href="trait.FlowBoxExt.html#tymethod.invalidate_filter" title="Self::invalidate_filter()"><code>Self::invalidate_filter()</code></a>
 is called.</p>
 <p>Note that using a filter function is incompatible with using a model
-(see <a href="trait.FlowBoxExt.html#tymethod.bind_model"><code>bind_model()</code></a>).</p>
+(see <a href="trait.FlowBoxExt.html#tymethod.bind_model" title="Self::bind_model()"><code>Self::bind_model()</code></a>).</p>
 <h2 id="filter_func" class="section-header"><a href="#filter_func"><code>filter_func</code></a></h2>
 <p>callback that
 lets you filter which children to show</p>
@@ -175,9 +175,9 @@ lets you filter which children to show</p>
 <p>destroy notifier for <code>user_data</code></p>
 </div><h3 id="tymethod.set_hadjustment" class="method"><code>fn <a href="#tymethod.set_hadjustment" class="fnname">set_hadjustment</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;(&amp;self, adjustment: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#761" title="goto source code">[src]</a></h3><div class="docblock"><p>Hooks up an adjustment to focus handling in <code>self</code>.
 The adjustment is also used for autoscrolling during
-rubberband selection. See <a href="crate::ScrolledWindowExt::get_hadjustment()"><code>ScrolledWindowExt::get_hadjustment()</code></a>
+rubberband selection. See [<code>crate::prelude::ScrolledWindowExt::get_hadjustment()</code>]
 for a typical way of obtaining the adjustment, and
-<a href="trait.FlowBoxExt.html#tymethod.set_vadjustment"><code>set_vadjustment()</code></a>for setting the vertical
+<a href="trait.FlowBoxExt.html#tymethod.set_vadjustment" title="Self::set_vadjustment()"><code>Self::set_vadjustment()</code></a>for setting the vertical
 adjustment.</p>
 <p>The adjustments have to be in pixel units and in the same
 coordinate system as the allocation for immediate children
@@ -185,7 +185,7 @@ of the box.</p>
 <h2 id="adjustment" class="section-header"><a href="#adjustment"><code>adjustment</code></a></h2>
 <p>an adjustment which should be adjusted
 when the focus is moved among the descendents of <code>container</code></p>
-</div><h3 id="tymethod.set_homogeneous" class="method"><code>fn <a href="#tymethod.set_homogeneous" class="fnname">set_homogeneous</a>(&amp;self, homogeneous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#770" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the <a href="crate::FlowBox:homogeneous"><code>FlowBox:homogeneous</code></a> property of <code>self</code>, controlling
+</div><h3 id="tymethod.set_homogeneous" class="method"><code>fn <a href="#tymethod.set_homogeneous" class="fnname">set_homogeneous</a>(&amp;self, homogeneous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#770" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the [<code>crate::FlowBox:homogeneous</code>] property of <code>self</code>, controlling
 whether or not all children of <code>self</code> are given equal space
 in the box.</p>
 <h2 id="homogeneous" class="section-header"><a href="#homogeneous"><code>homogeneous</code></a></h2>
@@ -203,11 +203,11 @@ in <code>self</code>’s orientation before flowing.</p>
 <h2 id="n_children-1" class="section-header"><a href="#n_children-1"><code>n_children</code></a></h2>
 <p>the minimum number of children per line</p>
 </div><h3 id="tymethod.set_row_spacing" class="method"><code>fn <a href="#tymethod.set_row_spacing" class="fnname">set_row_spacing</a>(&amp;self, spacing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#795" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the vertical space to add between children.
-See the <a href="crate::FlowBox:row-spacing"><code>FlowBox:row-spacing</code></a> property.</p>
+See the [<code>crate::FlowBox:row-spacing</code>] property.</p>
 <h2 id="spacing-1" class="section-header"><a href="#spacing-1"><code>spacing</code></a></h2>
 <p>the spacing to use</p>
 </div><h3 id="tymethod.set_selection_mode" class="method"><code>fn <a href="#tymethod.set_selection_mode" class="fnname">set_selection_mode</a>(&amp;self, mode: <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#802" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets how selection works in <code>self</code>.
-See <a href="../enum.SelectionMode.html"><code>SelectionMode</code></a> for details.</p>
+See <a href="../enum.SelectionMode.html" title="crate::SelectionMode"><code>crate::SelectionMode</code></a> for details.</p>
 <h2 id="mode" class="section-header"><a href="#mode"><code>mode</code></a></h2>
 <p>the new selection mode</p>
 </div><h3 id="tymethod.set_sort_func" class="method"><code>fn <a href="#tymethod.set_sort_func" class="fnname">set_sort_func</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;sort_func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>, &amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + 'static&gt;&gt;<br>)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#822-825" title="goto source code">[src]</a></h3><div class="docblock"><p>By setting a sort function on the <code>self</code>, one can dynamically
@@ -215,10 +215,10 @@ reorder the children of the box, based on the contents of
 the children.</p>
 <p>The <code>sort_func</code> will be called for each child after the call,
 and will continue to be called each time a child changes (via
-<a href="crate::FlowBoxChildExt::changed()"><code>FlowBoxChildExt::changed()</code></a>) and when <a href="trait.FlowBoxExt.html#tymethod.invalidate_sort"><code>invalidate_sort()</code></a>
+<a href="trait.FlowBoxChildExt.html#tymethod.changed" title="crate::prelude::FlowBoxChildExt::changed()"><code>crate::prelude::FlowBoxChildExt::changed()</code></a>) and when <a href="trait.FlowBoxExt.html#tymethod.invalidate_sort" title="Self::invalidate_sort()"><code>Self::invalidate_sort()</code></a>
 is called.</p>
 <p>Note that using a sort function is incompatible with using a model
-(see <a href="trait.FlowBoxExt.html#tymethod.bind_model"><code>bind_model()</code></a>).</p>
+(see <a href="trait.FlowBoxExt.html#tymethod.bind_model" title="Self::bind_model()"><code>Self::bind_model()</code></a>).</p>
 <h2 id="sort_func" class="section-header"><a href="#sort_func"><code>sort_func</code></a></h2>
 <p>the sort function</p>
 <h2 id="user_data-2" class="section-header"><a href="#user_data-2"><code>user_data</code></a></h2>
@@ -227,9 +227,9 @@ is called.</p>
 <p>destroy notifier for <code>user_data</code></p>
 </div><h3 id="tymethod.set_vadjustment" class="method"><code>fn <a href="#tymethod.set_vadjustment" class="fnname">set_vadjustment</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;(&amp;self, adjustment: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#841" title="goto source code">[src]</a></h3><div class="docblock"><p>Hooks up an adjustment to focus handling in <code>self</code>.
 The adjustment is also used for autoscrolling during
-rubberband selection. See <a href="crate::ScrolledWindowExt::get_vadjustment()"><code>ScrolledWindowExt::get_vadjustment()</code></a>
+rubberband selection. See [<code>crate::prelude::ScrolledWindowExt::get_vadjustment()</code>]
 for a typical way of obtaining the adjustment, and
-<a href="trait.FlowBoxExt.html#tymethod.set_hadjustment"><code>set_hadjustment()</code></a>for setting the horizontal
+<a href="trait.FlowBoxExt.html#tymethod.set_hadjustment" title="Self::set_hadjustment()"><code>Self::set_hadjustment()</code></a>for setting the horizontal
 adjustment.</p>
 <p>The adjustments have to be in pixel units and in the same
 coordinate system as the allocation for immediate children
@@ -266,7 +266,7 @@ There are too many key combinations to list them all here.</p>
 <li>PageUp/PageDown keys move vertically by pages</li>
 </ul>
 <h2 id="step" class="section-header"><a href="#step"><code>step</code></a></h2>
-<p>the granularity fo the move, as a <a href="../enum.MovementStep.html"><code>MovementStep</code></a></p>
+<p>the granularity fo the move, as a <a href="../enum.MovementStep.html" title="crate::MovementStep"><code>crate::MovementStep</code></a></p>
 <h2 id="count" class="section-header"><a href="#count"><code>count</code></a></h2>
 <p>the number of <code>step</code> units to move</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
@@ -279,8 +279,8 @@ the selection mode permits it.</p>
 <p>The default bindings for this signal is Ctrl-a.</p>
 </div><h3 id="tymethod.emit_select_all" class="method"><code>fn <a href="#tymethod.emit_select_all" class="fnname">emit_select_all</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#914" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_selected_children_changed" class="method"><code>fn <a href="#tymethod.connect_selected_children_changed" class="fnname">connect_selected_children_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#923" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::selected-children-changed signal is emitted when the
 set of selected children changes.</p>
-<p>Use <a href="trait.FlowBoxExt.html#tymethod.selected_foreach"><code>selected_foreach()</code></a> or
-<a href="Self::get_selected_children()"><code>get_selected_children()</code></a> to obtain the
+<p>Use <a href="trait.FlowBoxExt.html#tymethod.selected_foreach" title="Self::selected_foreach()"><code>Self::selected_foreach()</code></a> or
+[<code>Self::get_selected_children()</code>] to obtain the
 selected children.</p>
 </div><h3 id="tymethod.connect_toggle_cursor_child" class="method"><code>fn <a href="#tymethod.connect_toggle_cursor_child" class="fnname">connect_toggle_cursor_child</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/flow_box.rs.html#931" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::toggle-cursor-child signal is a
 [keybinding signal][<code>BindingSignal</code>]

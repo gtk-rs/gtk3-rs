@@ -134,19 +134,19 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`EditableText`](crate::EditableText) should be implemented by UI components which</span>
-    <span class="doccomment">/// contain text which the user can edit, via the [`Object`](crate::Object)</span>
-    <span class="doccomment">/// corresponding to that component (see [`Object`](crate::Object)).</span>
+    <span class="doccomment">/// [`crate::EditableText`] should be implemented by UI components which</span>
+    <span class="doccomment">/// contain text which the user can edit, via the [`crate::Object`]</span>
+    <span class="doccomment">/// corresponding to that component (see [`crate::Object`]).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EditableText`](crate::EditableText) is a subclass of [`Text`](crate::Text), and as such, an object</span>
-    <span class="doccomment">/// which implements [`EditableText`](crate::EditableText) is by definition an [`Text`](crate::Text)</span>
+    <span class="doccomment">/// [`crate::EditableText`] is a subclass of [`crate::Text`], and as such, an object</span>
+    <span class="doccomment">/// which implements [`crate::EditableText`] is by definition an [`crate::Text`]</span>
     <span class="doccomment">/// implementor as well.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`Text`](crate::Text)</span>
+    <span class="doccomment">/// See also: [`crate::Text`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EditableTextExt`](trait@crate::prelude::EditableTextExt), [`EditableTextExtManual`](trait@crate::prelude::EditableTextExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::EditableTextExt`], [`trait@crate::prelude::EditableTextExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EditableText</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkEditableText</span>, <span class="ident">ffi::AtkEditableTextIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -160,7 +160,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`EditableText`](struct@crate::EditableText), [`NoOpObject`](struct@crate::NoOpObject)</span>
+<span class="doccomment">/// [`struct@crate::EditableText`], [`struct@crate::NoOpObject`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">EditableTextExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Copy text from `start_pos` up to, but not including `end_pos`</span>
     <span class="doccomment">/// to the clipboard.</span>

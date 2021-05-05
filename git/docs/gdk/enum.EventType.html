@@ -56,11 +56,11 @@ pub enum EventType {
 <p>Do not confuse these events with the signals that GTK+ widgets emit.
 Although many of these events result in corresponding signals being emitted,
 the events are often transformed or filtered along the way.</p>
-<p>In some language bindings, the values <a href="Self::2buttonPress"><code>2buttonPress</code></a> and
-<a href="Self::3buttonPress"><code>3buttonPress</code></a> would translate into something syntactically
+<p>In some language bindings, the values [<code>Self::2buttonPress</code>] and
+[<code>Self::3buttonPress</code>] would translate into something syntactically
 invalid (eg <code>Gdk.EventType.2ButtonPress</code>, where a
 symbol is not allowed to start with a number). In that case, the
-aliases <a href="enum.EventType.html#variant.DoubleButtonPress"><code>DoubleButtonPress</code></a> and <a href="enum.EventType.html#variant.TripleButtonPress"><code>TripleButtonPress</code></a> can
+aliases <a href="enum.EventType.html#variant.DoubleButtonPress" title="Self::DoubleButtonPress"><code>Self::DoubleButtonPress</code></a> and <a href="enum.EventType.html#variant.TripleButtonPress" title="Self::TripleButtonPress"><code>Self::TripleButtonPress</code></a> can
 be used instead.</p>
 </div><h2 id="variants" class="variants small-section-header">
                    Variants (Non-exhaustive)<a href="#variants" class="anchor"></a></h2>
@@ -73,8 +73,8 @@ title bar.</p>
 redrawn.</p>
 </div><div id="variant.MotionNotify" class="variant small-section-header"><a href="#variant.MotionNotify" class="anchor field"></a><code>MotionNotify</code></div><div class="docblock"><p>the pointer (usually a mouse) has moved.</p>
 </div><div id="variant.ButtonPress" class="variant small-section-header"><a href="#variant.ButtonPress" class="anchor field"></a><code>ButtonPress</code></div><div class="docblock"><p>a mouse button has been pressed.</p>
-</div><div id="variant.DoubleButtonPress" class="variant small-section-header"><a href="#variant.DoubleButtonPress" class="anchor field"></a><code>DoubleButtonPress</code></div><div class="docblock"><p>alias for <a href="Self::2buttonPress"><code>2buttonPress</code></a>, added in 3.6.</p>
-</div><div id="variant.TripleButtonPress" class="variant small-section-header"><a href="#variant.TripleButtonPress" class="anchor field"></a><code>TripleButtonPress</code></div><div class="docblock"><p>alias for <a href="Self::3buttonPress"><code>3buttonPress</code></a>, added in 3.6.</p>
+</div><div id="variant.DoubleButtonPress" class="variant small-section-header"><a href="#variant.DoubleButtonPress" class="anchor field"></a><code>DoubleButtonPress</code></div><div class="docblock"><p>alias for [<code>Self::2buttonPress</code>], added in 3.6.</p>
+</div><div id="variant.TripleButtonPress" class="variant small-section-header"><a href="#variant.TripleButtonPress" class="anchor field"></a><code>TripleButtonPress</code></div><div class="docblock"><p>alias for [<code>Self::3buttonPress</code>], added in 3.6.</p>
 </div><div id="variant.ButtonRelease" class="variant small-section-header"><a href="#variant.ButtonRelease" class="anchor field"></a><code>ButtonRelease</code></div><div class="docblock"><p>a mouse button has been released.</p>
 </div><div id="variant.KeyPress" class="variant small-section-header"><a href="#variant.KeyPress" class="anchor field"></a><code>KeyPress</code></div><div class="docblock"><p>a key has been pressed.</p>
 </div><div id="variant.KeyRelease" class="variant small-section-header"><a href="#variant.KeyRelease" class="anchor field"></a><code>KeyRelease</code></div><div class="docblock"><p>a key has been released.</p>
@@ -82,7 +82,7 @@ redrawn.</p>
 </div><div id="variant.LeaveNotify" class="variant small-section-header"><a href="#variant.LeaveNotify" class="anchor field"></a><code>LeaveNotify</code></div><div class="docblock"><p>the pointer has left the window.</p>
 </div><div id="variant.FocusChange" class="variant small-section-header"><a href="#variant.FocusChange" class="anchor field"></a><code>FocusChange</code></div><div class="docblock"><p>the keyboard focus has entered or left the window.</p>
 </div><div id="variant.Configure" class="variant small-section-header"><a href="#variant.Configure" class="anchor field"></a><code>Configure</code></div><div class="docblock"><p>the size, position or stacking order of the window has changed.
-Note that GTK+ discards these events for <a href="enum.WindowType.html#variant.Child" title="WindowType::Child"><code>WindowType::Child</code></a> windows.</p>
+Note that GTK+ discards these events for <a href="enum.WindowType.html#variant.Child" title="crate::WindowType::Child"><code>crate::WindowType::Child</code></a> windows.</p>
 </div><div id="variant.Map" class="variant small-section-header"><a href="#variant.Map" class="anchor field"></a><code>Map</code></div><div class="docblock"><p>the window has been mapped.</p>
 </div><div id="variant.Unmap" class="variant small-section-header"><a href="#variant.Unmap" class="anchor field"></a><code>Unmap</code></div><div class="docblock"><p>the window has been unmapped.</p>
 </div><div id="variant.PropertyNotify" class="variant small-section-header"><a href="#variant.PropertyNotify" class="anchor field"></a><code>PropertyNotify</code></div><div class="docblock"><p>a property on the window has been changed or deleted.</p>
@@ -104,7 +104,7 @@ has changed.</p>
 </div><div id="variant.ClientEvent" class="variant small-section-header"><a href="#variant.ClientEvent" class="anchor field"></a><code>ClientEvent</code></div><div class="docblock"><p>a message has been received from another application.</p>
 </div><div id="variant.VisibilityNotify" class="variant small-section-header"><a href="#variant.VisibilityNotify" class="anchor field"></a><code>VisibilityNotify</code></div><div class="docblock"><p>the window visibility status has changed.</p>
 </div><div id="variant.Scroll" class="variant small-section-header"><a href="#variant.Scroll" class="anchor field"></a><code>Scroll</code></div><div class="docblock"><p>the scroll wheel was turned</p>
-</div><div id="variant.WindowState" class="variant small-section-header"><a href="#variant.WindowState" class="anchor field"></a><code>WindowState</code></div><div class="docblock"><p>the state of a window has changed. See <a href="struct.WindowState.html"><code>WindowState</code></a>
+</div><div id="variant.WindowState" class="variant small-section-header"><a href="#variant.WindowState" class="anchor field"></a><code>WindowState</code></div><div class="docblock"><p>the state of a window has changed. See <a href="struct.WindowState.html" title="crate::WindowState"><code>crate::WindowState</code></a>
 for the possible window states</p>
 </div><div id="variant.Setting" class="variant small-section-header"><a href="#variant.Setting" class="anchor field"></a><code>Setting</code></div><div class="docblock"><p>a setting has been modified.</p>
 </div><div id="variant.OwnerChange" class="variant small-section-header"><a href="#variant.OwnerChange" class="anchor field"></a><code>OwnerChange</code></div><div class="docblock"><p>the owner of a selection has changed. This event type

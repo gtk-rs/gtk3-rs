@@ -65,14 +65,14 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">bitflags::bitflags!</span> {
-    <span class="doccomment">/// Through the [`ParamFlags`](crate::ParamFlags) flag values, certain aspects of parameters</span>
+    <span class="doccomment">/// Through the [`crate::ParamFlags`] flag values, certain aspects of parameters</span>
     <span class="doccomment">/// can be configured. See also `G_PARAM_STATIC_STRINGS`.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ParamFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// the parameter is readable</span>
         <span class="kw">const</span> <span class="ident">READABLE</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="doccomment">/// the parameter is writable</span>
         <span class="kw">const</span> <span class="ident">WRITABLE</span> <span class="op">=</span> <span class="number">2</span>;
-        <span class="doccomment">/// alias for [`Readable`](Self::Readable) | [`Writable`](Self::Writable)</span>
+        <span class="doccomment">/// alias for [`Self::Readable`] | [`Self::Writable`]</span>
         <span class="kw">const</span> <span class="ident">READWRITE</span> <span class="op">=</span> <span class="number">3</span>;
         <span class="doccomment">/// the parameter will be set upon object construction</span>
         <span class="kw">const</span> <span class="ident">CONSTRUCT</span> <span class="op">=</span> <span class="number">4</span>;
@@ -90,9 +90,9 @@
         <span class="kw">const</span> <span class="ident">USER_6</span> <span class="op">=</span> <span class="number">16384</span>;
         <span class="kw">const</span> <span class="ident">USER_7</span> <span class="op">=</span> <span class="number">32768</span>;
         <span class="kw">const</span> <span class="ident">USER_8</span> <span class="op">=</span> <span class="number">65536</span>;
-        <span class="doccomment">/// calls to [`ObjectExt::set_property()`](crate::ObjectExt::set_property()) for this</span>
+        <span class="doccomment">/// calls to [`crate::prelude::ObjectExt::set_property()`] for this</span>
         <span class="doccomment">///  property will not automatically result in a &quot;notify&quot; signal being</span>
-        <span class="doccomment">///  emitted: the implementation must call [`ObjectExt::notify()`](crate::ObjectExt::notify()) themselves</span>
+        <span class="doccomment">///  emitted: the implementation must call [`crate::prelude::ObjectExt::notify()`] themselves</span>
         <span class="doccomment">///  in case the property actually changes. Since: 2.42.</span>
         <span class="kw">const</span> <span class="ident">EXPLICIT_NOTIFY</span> <span class="op">=</span> <span class="number">1073741824</span>;
         <span class="doccomment">/// the parameter is deprecated and will be removed</span>

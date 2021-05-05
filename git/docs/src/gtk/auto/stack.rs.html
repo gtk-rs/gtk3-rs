@@ -1397,12 +1397,12 @@
     <span class="doccomment">/// The `Stack` widget is a container which only shows</span>
     <span class="doccomment">/// one of its children at a time. In contrast to `Notebook`,</span>
     <span class="doccomment">/// `Stack` does not provide a means for users to change the</span>
-    <span class="doccomment">/// visible child. Instead, the [`StackSwitcher`](crate::StackSwitcher) widget can be</span>
+    <span class="doccomment">/// visible child. Instead, the [`crate::StackSwitcher`] widget can be</span>
     <span class="doccomment">/// used with `Stack` to provide this functionality.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Transitions between pages can be animated as slides or</span>
-    <span class="doccomment">/// fades. This can be controlled with [`StackExt::set_transition_type()`](crate::StackExt::set_transition_type()).</span>
-    <span class="doccomment">/// These animations respect the [`Settings:gtk-enable-animations`](crate::Settings:gtk-enable-animations)</span>
+    <span class="doccomment">/// fades. This can be controlled with [`crate::prelude::StackExt::set_transition_type()`].</span>
+    <span class="doccomment">/// These animations respect the [`crate::Settings:gtk-enable-animations`]</span>
     <span class="doccomment">/// setting.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `Stack` widget was added in GTK+ 3.10.</span>
@@ -1413,7 +1413,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`StackExt`](trait@crate::prelude::StackExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::StackExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Stack</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkStack</span>, <span class="ident">ffi::GtkStackClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1422,11 +1422,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Stack</span> {
-    <span class="doccomment">/// Creates a new [`Stack`](crate::Stack) container.</span>
+    <span class="doccomment">/// Creates a new [`crate::Stack`] container.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Stack`](crate::Stack)</span>
+    <span class="doccomment">/// a new [`crate::Stack`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_stack_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stack</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1863,7 +1863,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Stack`](struct@crate::Stack)</span>
+<span class="doccomment">/// [`struct@crate::Stack`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StackExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds a child to `self`.</span>
     <span class="doccomment">/// The child is identified by the `name`.</span>
@@ -1876,7 +1876,7 @@
 
     <span class="doccomment">/// Adds a child to `self`.</span>
     <span class="doccomment">/// The child is identified by the `name`. The `title`</span>
-    <span class="doccomment">/// will be used by [`StackSwitcher`](crate::StackSwitcher) to represent</span>
+    <span class="doccomment">/// will be used by [`crate::StackSwitcher`] to represent</span>
     <span class="doccomment">/// `child` in a tab bar, so it should be short.</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// the widget to add</span>
@@ -1887,7 +1887,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_stack_add_titled&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_titled</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">title</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// Finds the child of the [`Stack`](crate::Stack) with the name given as</span>
+    <span class="doccomment">/// Finds the child of the [`crate::Stack`] with the name given as</span>
     <span class="doccomment">/// the argument. Returns [`None`] if there is no child with this</span>
     <span class="doccomment">/// name.</span>
     <span class="doccomment">/// ## `name`</span>
@@ -1895,13 +1895,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the requested child of the [`Stack`](crate::Stack)</span>
+    <span class="doccomment">/// the requested child of the [`crate::Stack`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_stack_get_child_by_name&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_child_by_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">child_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets whether `self` is horizontally homogeneous.</span>
-    <span class="doccomment">/// See [`set_hhomogeneous()`](Self::set_hhomogeneous()).</span>
+    <span class="doccomment">/// See [`Self::set_hhomogeneous()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1913,7 +1913,7 @@
     <span class="kw">fn</span> <span class="ident">is_hhomogeneous</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets whether `self` is homogeneous.</span>
-    <span class="doccomment">/// See [`set_homogeneous()`](Self::set_homogeneous()).</span>
+    <span class="doccomment">/// See [`Self::set_homogeneous()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1922,7 +1922,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_homogeneous&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_homogeneous</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns wether the [`Stack`](crate::Stack) is set up to interpolate between</span>
+    <span class="doccomment">/// Returns wether the [`crate::Stack`] is set up to interpolate between</span>
     <span class="doccomment">/// the sizes of children on page switch.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1965,7 +1965,7 @@
     <span class="kw">fn</span> <span class="ident">transition_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StackTransitionType</span>;
 
     <span class="doccomment">/// Gets whether `self` is vertically homogeneous.</span>
-    <span class="doccomment">/// See [`set_vhomogeneous()`](Self::set_vhomogeneous()).</span>
+    <span class="doccomment">/// See [`Self::set_vhomogeneous()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1981,7 +1981,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the visible child of the [`Stack`](crate::Stack)</span>
+    <span class="doccomment">/// the visible child of the [`crate::Stack`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_stack_get_visible_child&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_visible_child&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">visible_child</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
@@ -1991,13 +1991,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the name of the visible child of the [`Stack`](crate::Stack)</span>
+    <span class="doccomment">/// the name of the visible child of the [`crate::Stack`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_stack_get_visible_child_name&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_visible_child_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">visible_child_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Sets the [`Stack`](crate::Stack) to be horizontally homogeneous or not.</span>
-    <span class="doccomment">/// If it is homogeneous, the [`Stack`](crate::Stack) will request the same</span>
+    <span class="doccomment">/// Sets the [`crate::Stack`] to be horizontally homogeneous or not.</span>
+    <span class="doccomment">/// If it is homogeneous, the [`crate::Stack`] will request the same</span>
     <span class="doccomment">/// width for all its children. If it isn&#39;t, the stack</span>
     <span class="doccomment">/// may change width when a different child becomes visible.</span>
     <span class="doccomment">/// ## `hhomogeneous`</span>
@@ -2007,21 +2007,21 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_stack_set_hhomogeneous&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_hhomogeneous</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hhomogeneous</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the [`Stack`](crate::Stack) to be homogeneous or not. If it</span>
-    <span class="doccomment">/// is homogeneous, the [`Stack`](crate::Stack) will request the same</span>
+    <span class="doccomment">/// Sets the [`crate::Stack`] to be homogeneous or not. If it</span>
+    <span class="doccomment">/// is homogeneous, the [`crate::Stack`] will request the same</span>
     <span class="doccomment">/// size for all its children. If it isn&#39;t, the stack</span>
     <span class="doccomment">/// may change size when a different child becomes visible.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since 3.16, homogeneity can be controlled separately</span>
     <span class="doccomment">/// for horizontal and vertical size, with the</span>
-    <span class="doccomment">/// [`Stack:hhomogeneous`](crate::Stack:hhomogeneous) and [`Stack:vhomogeneous`](crate::Stack:vhomogeneous).</span>
+    <span class="doccomment">/// [`crate::Stack:hhomogeneous`] and [`crate::Stack:vhomogeneous`].</span>
     <span class="doccomment">/// ## `homogeneous`</span>
     <span class="doccomment">/// [`true`] to make `self` homogeneous</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_stack_set_homogeneous&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_homogeneous</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">homogeneous</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets whether or not `self` will interpolate its size when</span>
-    <span class="doccomment">/// changing the visible child. If the [`Stack:interpolate-size`](crate::Stack:interpolate-size)</span>
+    <span class="doccomment">/// changing the visible child. If the [`crate::Stack:interpolate-size`]</span>
     <span class="doccomment">/// property is set to [`true`], `self` will interpolate its size between</span>
     <span class="doccomment">/// the current one and the one it&#39;ll take after changing the</span>
     <span class="doccomment">/// visible child, according to the set transition duration.</span>
@@ -2051,8 +2051,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_stack_set_transition_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_transition_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">transition</span>: <span class="ident">StackTransitionType</span>);
 
-    <span class="doccomment">/// Sets the [`Stack`](crate::Stack) to be vertically homogeneous or not.</span>
-    <span class="doccomment">/// If it is homogeneous, the [`Stack`](crate::Stack) will request the same</span>
+    <span class="doccomment">/// Sets the [`crate::Stack`] to be vertically homogeneous or not.</span>
+    <span class="doccomment">/// If it is homogeneous, the [`crate::Stack`] will request the same</span>
     <span class="doccomment">/// height for all its children. If it isn&#39;t, the stack</span>
     <span class="doccomment">/// may change height when a different child becomes visible.</span>
     <span class="doccomment">/// ## `vhomogeneous`</span>
@@ -2070,7 +2070,7 @@
     <span class="doccomment">/// transition type of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the `child` widget has to be visible itself</span>
-    <span class="doccomment">/// (see [`WidgetExt::show()`](crate::WidgetExt::show())) in order to become the visible</span>
+    <span class="doccomment">/// (see [`crate::prelude::WidgetExt::show()`]) in order to become the visible</span>
     <span class="doccomment">/// child of `self`.</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// a child of `self`</span>
@@ -2080,7 +2080,7 @@
     <span class="doccomment">/// Makes the child with the given name visible.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the child widget has to be visible itself</span>
-    <span class="doccomment">/// (see [`WidgetExt::show()`](crate::WidgetExt::show())) in order to become the visible</span>
+    <span class="doccomment">/// (see [`crate::prelude::WidgetExt::show()`]) in order to become the visible</span>
     <span class="doccomment">/// child of `self`.</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// the name of the child to make visible</span>
@@ -2097,7 +2097,7 @@
     <span class="doccomment">/// transition type of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the child widget has to be visible itself</span>
-    <span class="doccomment">/// (see [`WidgetExt::show()`](crate::WidgetExt::show())) in order to become the visible</span>
+    <span class="doccomment">/// (see [`crate::prelude::WidgetExt::show()`]) in order to become the visible</span>
     <span class="doccomment">/// child of `self`.</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// the name of the child to make visible</span>

@@ -641,8 +641,8 @@
         <span class="kw">const</span> <span class="ident">CONSISTENT</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="doccomment">/// Guarantee file durability: after a crash, the</span>
         <span class="doccomment">///  new version of the file will be available. On Unix systems this equates to</span>
-        <span class="doccomment">///  an `fsync()` on the file (if [`Consistent`](Self::Consistent) is unset), or</span>
-        <span class="doccomment">///  the effects of [`Consistent`](Self::Consistent) plus an `fsync()` on the</span>
+        <span class="doccomment">///  an `fsync()` on the file (if [`Self::Consistent`] is unset), or</span>
+        <span class="doccomment">///  the effects of [`Self::Consistent`] plus an `fsync()` on the</span>
         <span class="doccomment">///  directory containing the file after calling `rename()`.</span>
         <span class="kw">const</span> <span class="ident">DURABLE</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// Only apply consistency and durability</span>
@@ -942,18 +942,18 @@
         <span class="doccomment">/// The option appears in the main section of the</span>
         <span class="doccomment">///  `--help` output, even if it is defined in a group.</span>
         <span class="kw">const</span> <span class="ident">IN_MAIN</span> <span class="op">=</span> <span class="number">2</span>;
-        <span class="doccomment">/// For options of the [`OptionArg::None`] kind, this</span>
+        <span class="doccomment">/// For options of the [`crate::OptionArg::None`] kind, this</span>
         <span class="doccomment">///  flag indicates that the sense of the option is reversed.</span>
         <span class="kw">const</span> <span class="ident">REVERSE</span> <span class="op">=</span> <span class="number">4</span>;
-        <span class="doccomment">/// For options of the [`OptionArg::Callback`] kind,</span>
+        <span class="doccomment">/// For options of the [`crate::OptionArg::Callback`] kind,</span>
         <span class="doccomment">///  this flag indicates that the callback does not take any argument</span>
-        <span class="doccomment">///  (like a [`OptionArg::None`] option). Since 2.8</span>
+        <span class="doccomment">///  (like a [`crate::OptionArg::None`] option). Since 2.8</span>
         <span class="kw">const</span> <span class="ident">NO_ARG</span> <span class="op">=</span> <span class="number">8</span>;
-        <span class="doccomment">/// For options of the [`OptionArg::Callback`]</span>
+        <span class="doccomment">/// For options of the [`crate::OptionArg::Callback`]</span>
         <span class="doccomment">///  kind, this flag indicates that the argument should be passed to the</span>
         <span class="doccomment">///  callback in the GLib filename encoding rather than UTF-8. Since 2.8</span>
         <span class="kw">const</span> <span class="ident">FILENAME</span> <span class="op">=</span> <span class="number">16</span>;
-        <span class="doccomment">/// For options of the [`OptionArg::Callback`]</span>
+        <span class="doccomment">/// For options of the [`crate::OptionArg::Callback`]</span>
         <span class="doccomment">///  kind, this flag indicates that the argument supply is optional.</span>
         <span class="doccomment">///  If no argument is given then data of `GOptionParseFunc` will be</span>
         <span class="doccomment">///  set to NULL. Since 2.8</span>
@@ -1057,7 +1057,7 @@
     <span class="doccomment">/// Flags that describe a URI.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When parsing a URI, if you need to choose different flags based on</span>
-    <span class="doccomment">/// the type of URI, you can use [`Uri::peek_scheme()`](crate::Uri::peek_scheme()) on the URI string</span>
+    <span class="doccomment">/// the type of URI, you can use [`crate::Uri::peek_scheme()`] on the URI string</span>
     <span class="doccomment">/// to check the scheme first, and use that to decide what flags to</span>
     <span class="doccomment">/// parse it with.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UriFlags</span>: <span class="ident">u32</span> {
@@ -1079,20 +1079,20 @@
         <span class="doccomment">/// When parsing a URI, this indicates that `%`-encoded</span>
         <span class="doccomment">///  characters in the userinfo, path, query, and fragment fields</span>
         <span class="doccomment">///  should not be decoded. (And likewise the host field if</span>
-        <span class="doccomment">///  [`NonDns`](Self::NonDns) is also set.) When building a URI, it indicates</span>
-        <span class="doccomment">///  that you have already `%`-encoded the components, and so [`Uri`](crate::Uri)</span>
+        <span class="doccomment">///  [`Self::NonDns`] is also set.) When building a URI, it indicates</span>
+        <span class="doccomment">///  that you have already `%`-encoded the components, and so [`crate::Uri`]</span>
         <span class="doccomment">///  should not do any encoding itself.</span>
         <span class="kw">const</span> <span class="ident">ENCODED</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// The host component should not be assumed to be a</span>
         <span class="doccomment">///  DNS hostname or IP address (for example, for `smb` URIs with NetBIOS</span>
         <span class="doccomment">///  hostnames).</span>
         <span class="kw">const</span> <span class="ident">NON_DNS</span> <span class="op">=</span> <span class="number">16</span>;
-        <span class="doccomment">/// Same as [`Encoded`](Self::Encoded), for the query</span>
+        <span class="doccomment">/// Same as [`Self::Encoded`], for the query</span>
         <span class="doccomment">///  field only.</span>
         <span class="kw">const</span> <span class="ident">ENCODED_QUERY</span> <span class="op">=</span> <span class="number">32</span>;
-        <span class="doccomment">/// Same as [`Encoded`](Self::Encoded), for the path only.</span>
+        <span class="doccomment">/// Same as [`Self::Encoded`], for the path only.</span>
         <span class="kw">const</span> <span class="ident">ENCODED_PATH</span> <span class="op">=</span> <span class="number">64</span>;
-        <span class="doccomment">/// Same as [`Encoded`](Self::Encoded), for the</span>
+        <span class="doccomment">/// Same as [`Self::Encoded`], for the</span>
         <span class="doccomment">///  fragment only.</span>
         <span class="kw">const</span> <span class="ident">ENCODED_FRAGMENT</span> <span class="op">=</span> <span class="number">128</span>;
     }
@@ -1130,8 +1130,8 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags describing what parts of the URI to hide in</span>
-    <span class="doccomment">/// [`Uri::to_string_partial()`](crate::Uri::to_string_partial()). Note that [`Password`](Self::Password) and</span>
-    <span class="doccomment">/// [`AuthParams`](Self::AuthParams) will only work if the [`Uri`](crate::Uri) was parsed with</span>
+    <span class="doccomment">/// [`crate::Uri::to_string_partial()`]. Note that [`Self::Password`] and</span>
+    <span class="doccomment">/// [`Self::AuthParams`] will only work if the [`crate::Uri`] was parsed with</span>
     <span class="doccomment">/// the corresponding flags.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UriHideFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
@@ -1180,8 +1180,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags modifying the way parameters are handled by [`Uri::parse_params()`](crate::Uri::parse_params()) and</span>
-    <span class="doccomment">/// [`UriParamsIter`](crate::UriParamsIter).</span>
+    <span class="doccomment">/// Flags modifying the way parameters are handled by [`crate::Uri::parse_params()`] and</span>
+    <span class="doccomment">/// [`crate::UriParamsIter`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UriParamsFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -1190,7 +1190,7 @@
         <span class="doccomment">/// Replace `+` with space character. Only useful for</span>
         <span class="doccomment">///  URLs on the web, using the `https` or `http` schemas.</span>
         <span class="kw">const</span> <span class="ident">WWW_FORM</span> <span class="op">=</span> <span class="number">2</span>;
-        <span class="doccomment">/// See [`UriFlags::ParseRelaxed`].</span>
+        <span class="doccomment">/// See [`crate::UriFlags::ParseRelaxed`].</span>
         <span class="kw">const</span> <span class="ident">PARSE_RELAXED</span> <span class="op">=</span> <span class="number">4</span>;
     }
 }

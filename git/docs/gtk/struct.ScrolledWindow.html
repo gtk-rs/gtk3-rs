@@ -5,14 +5,14 @@
 that child scrollable using either internally added scrollbars or externally
 associated adjustments, and optionally draws a frame around the child.</p>
 <p>Widgets with native scrolling support, i.e. those whose classes implement the
-<a href="struct.Scrollable.html"><code>Scrollable</code></a> interface, are added directly. For other types of widget, the
-class <a href="struct.Viewport.html"><code>Viewport</code></a> acts as an adaptor, giving scrollability to other widgets.
-<code>ScrolledWindow</code>’s implementation of <a href="crate::ContainerExt::add()"><code>ContainerExt::add()</code></a> intelligently
-accounts for whether or not the added child is a <a href="struct.Scrollable.html"><code>Scrollable</code></a>. If it isn’t,
-<a href="struct.ScrolledWindow.html"><code>ScrolledWindow</code></a> wraps the child in a <a href="struct.Viewport.html"><code>Viewport</code></a> and adds that for you.
+<a href="struct.Scrollable.html" title="crate::Scrollable"><code>crate::Scrollable</code></a> interface, are added directly. For other types of widget, the
+class <a href="struct.Viewport.html" title="crate::Viewport"><code>crate::Viewport</code></a> acts as an adaptor, giving scrollability to other widgets.
+<code>ScrolledWindow</code>’s implementation of <a href="prelude/trait.ContainerExt.html#tymethod.add" title="crate::prelude::ContainerExt::add()"><code>crate::prelude::ContainerExt::add()</code></a> intelligently
+accounts for whether or not the added child is a <a href="struct.Scrollable.html" title="crate::Scrollable"><code>crate::Scrollable</code></a>. If it isn’t,
+<a href="struct.ScrolledWindow.html" title="crate::ScrolledWindow"><code>crate::ScrolledWindow</code></a> wraps the child in a <a href="struct.Viewport.html" title="crate::Viewport"><code>crate::Viewport</code></a> and adds that for you.
 Therefore, you can just add any child widget and not worry about the details.</p>
-<p>If <a href="crate::ContainerExt::add()"><code>ContainerExt::add()</code></a> has added a <a href="struct.Viewport.html"><code>Viewport</code></a> for you, you can remove
-both your added child widget from the <a href="struct.Viewport.html"><code>Viewport</code></a>, and the <a href="struct.Viewport.html"><code>Viewport</code></a>
+<p>If <a href="prelude/trait.ContainerExt.html#tymethod.add" title="crate::prelude::ContainerExt::add()"><code>crate::prelude::ContainerExt::add()</code></a> has added a <a href="struct.Viewport.html" title="crate::Viewport"><code>crate::Viewport</code></a> for you, you can remove
+both your added child widget from the <a href="struct.Viewport.html" title="crate::Viewport"><code>crate::Viewport</code></a>, and the <a href="struct.Viewport.html" title="crate::Viewport"><code>crate::Viewport</code></a>
 from the <code>ScrolledWindow</code>, like this:</p>
 <pre><code class="language-C">GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 GtkWidget *child_widget = gtk_button_new ();
@@ -29,28 +29,28 @@ gtk_container_remove (GTK_CONTAINER (scrolled_window),
 gtk_container_remove (GTK_CONTAINER (scrolled_window),
                       gtk_bin_get_child (GTK_BIN (scrolled_window)));
 </code></pre>
-<p>Unless <a href="crate::ScrolledWindow:policy"><code>ScrolledWindow:policy</code></a> is GTK_POLICY_NEVER or GTK_POLICY_EXTERNAL,
-<code>ScrolledWindow</code> adds internal <a href="struct.Scrollbar.html"><code>Scrollbar</code></a> widgets around its child. The
+<p>Unless [<code>crate::ScrolledWindow:policy</code>] is GTK_POLICY_NEVER or GTK_POLICY_EXTERNAL,
+<code>ScrolledWindow</code> adds internal <a href="struct.Scrollbar.html" title="crate::Scrollbar"><code>crate::Scrollbar</code></a> widgets around its child. The
 scroll position of the child, and if applicable the scrollbars, is controlled
-by the <a href="crate::ScrolledWindow:hadjustment"><code>ScrolledWindow:hadjustment</code></a> and <a href="crate::ScrolledWindow:vadjustment"><code>ScrolledWindow:vadjustment</code></a>
-that are associated with the <code>ScrolledWindow</code>. See the docs on <a href="struct.Scrollbar.html"><code>Scrollbar</code></a>
+by the [<code>crate::ScrolledWindow:hadjustment</code>] and [<code>crate::ScrolledWindow:vadjustment</code>]
+that are associated with the <code>ScrolledWindow</code>. See the docs on <a href="struct.Scrollbar.html" title="crate::Scrollbar"><code>crate::Scrollbar</code></a>
 for the details, but note that the “step_increment” and “page_increment”
 fields are only effective if the policy causes scrollbars to be present.</p>
 <p>If a <code>ScrolledWindow</code> doesn’t behave quite as you would like, or
 doesn’t have exactly the right layout, it’s very possible to set up
-your own scrolling with <a href="struct.Scrollbar.html"><code>Scrollbar</code></a> and for example a <a href="struct.Grid.html"><code>Grid</code></a>.</p>
+your own scrolling with <a href="struct.Scrollbar.html" title="crate::Scrollbar"><code>crate::Scrollbar</code></a> and for example a <a href="struct.Grid.html" title="crate::Grid"><code>crate::Grid</code></a>.</p>
 <h1 id="touch-support" class="section-header"><a href="#touch-support">Touch support</a></h1>
 <p><code>ScrolledWindow</code> has built-in support for touch devices. When a
 touchscreen is used, swiping will move the scrolled window, and will
 expose ‘kinetic’ behavior. This can be turned off with the
-<a href="crate::ScrolledWindow:kinetic-scrolling"><code>ScrolledWindow:kinetic-scrolling</code></a> property if it is undesired.</p>
+[<code>crate::ScrolledWindow:kinetic-scrolling</code>] property if it is undesired.</p>
 <p><code>ScrolledWindow</code> also displays visual ‘overshoot’ indication when
 the content is pulled beyond the end, and this situation can be
-captured with the <a href="crate::ScrolledWindow::edge-overshot"><code>ScrolledWindow::edge-overshot</code></a> signal.</p>
+captured with the [<code>crate::ScrolledWindow::edge-overshot</code>] signal.</p>
 <p>If no mouse device is present, the scrollbars will overlayed as
 narrow, auto-hiding indicators over the content. If traditional
 scrollbars are desired although no mouse is present, this behaviour
-can be turned off with the <a href="crate::ScrolledWindow:overlay-scrolling"><code>ScrolledWindow:overlay-scrolling</code></a>
+can be turned off with the [<code>crate::ScrolledWindow:overlay-scrolling</code>]
 property.</p>
 <h1 id="css-nodes" class="section-header"><a href="#css-nodes">CSS nodes</a></h1>
 <p><code>ScrolledWindow</code> has a main CSS node with name scrolledwindow.</p>
@@ -64,7 +64,7 @@ scrolling (.overlay-indicator, .dragging, .hovering) on its scrollbars.</p>
 <p>If both scrollbars are visible, the area where they meet is drawn
 with a subnode named junction.</p>
 <h1 id="implements" class="section-header"><a href="#implements">Implements</a></h1>
-<p><a href="prelude/trait.ScrolledWindowExt.html"><code>ScrolledWindowExt</code></a>, <a href="prelude/trait.BinExt.html"><code>BinExt</code></a>, <a href="prelude/trait.ContainerExt.html"><code>ContainerExt</code></a>, <a href="prelude/trait.WidgetExt.html"><code>WidgetExt</code></a>, <a href="../glib/object/trait.ObjectExt.html" title="glib::object::ObjectExt"><code>glib::object::ObjectExt</code></a>, <a href="prelude/trait.BuildableExt.html"><code>BuildableExt</code></a>, <a href="prelude/trait.WidgetExtManual.html"><code>WidgetExtManual</code></a>, <a href="prelude/trait.BuildableExtManual.html"><code>BuildableExtManual</code></a></p>
+<p><a href="prelude/trait.ScrolledWindowExt.html" title="crate::prelude::ScrolledWindowExt"><code>crate::prelude::ScrolledWindowExt</code></a>, <a href="prelude/trait.BinExt.html" title="crate::prelude::BinExt"><code>crate::prelude::BinExt</code></a>, <a href="prelude/trait.ContainerExt.html" title="crate::prelude::ContainerExt"><code>crate::prelude::ContainerExt</code></a>, <a href="prelude/trait.WidgetExt.html" title="crate::prelude::WidgetExt"><code>crate::prelude::WidgetExt</code></a>, <a href="../glib/object/trait.ObjectExt.html" title="glib::object::ObjectExt"><code>glib::object::ObjectExt</code></a>, <a href="prelude/trait.BuildableExt.html" title="crate::prelude::BuildableExt"><code>crate::prelude::BuildableExt</code></a>, <a href="prelude/trait.WidgetExtManual.html" title="crate::prelude::WidgetExtManual"><code>crate::prelude::WidgetExtManual</code></a>, <a href="prelude/trait.BuildableExtManual.html" title="crate::prelude::BuildableExtManual"><code>crate::prelude::BuildableExtManual</code></a></p>
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.ScrolledWindow.html" title="struct gtk::ScrolledWindow">ScrolledWindow</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gtk/auto/scrolled_window.rs.html#123-152" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>&lt;P:&nbsp;<a class="trait" href="../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;, Q:&nbsp;<a class="trait" href="../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;hadjustment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;vadjustment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Q&gt;<br>) -&gt; <a class="struct" href="struct.ScrolledWindow.html" title="struct gtk::ScrolledWindow">ScrolledWindow</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gtk/auto/scrolled_window.rs.html#139-151" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new scrolled window.</p>
 <p>The two arguments are the scrolled window’s adjustments; these will be
 shared with the scrollbars and the child widget to keep the bars in sync

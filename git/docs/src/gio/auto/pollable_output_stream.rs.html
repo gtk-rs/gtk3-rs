@@ -173,14 +173,14 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`PollableOutputStream`](crate::PollableOutputStream) is implemented by `GOutputStreams` that</span>
+    <span class="doccomment">/// [`crate::PollableOutputStream`] is implemented by `GOutputStreams` that</span>
     <span class="doccomment">/// can be polled for readiness to write. This can be used when</span>
     <span class="doccomment">/// interfacing with a non-GIO API that expects</span>
     <span class="doccomment">/// UNIX-file-descriptor-style asynchronous I/O rather than GIO-style.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`PollableOutputStreamExt`](trait@crate::prelude::PollableOutputStreamExt), [`OutputStreamExt`](trait@crate::prelude::OutputStreamExt), [`trait@glib::object::ObjectExt`], [`PollableOutputStreamExtManual`](trait@crate::prelude::PollableOutputStreamExtManual), [`OutputStreamExtManual`](trait@crate::prelude::OutputStreamExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::PollableOutputStreamExt`], [`trait@crate::prelude::OutputStreamExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::PollableOutputStreamExtManual`], [`trait@crate::prelude::OutputStreamExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PollableOutputStream</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GPollableOutputStream</span>, <span class="ident">ffi::GPollableOutputStreamInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">OutputStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -194,12 +194,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ConverterOutputStream`](struct@crate::ConverterOutputStream), [`MemoryOutputStream`](struct@crate::MemoryOutputStream), [`PollableOutputStream`](struct@crate::PollableOutputStream), [`UnixOutputStream`](struct@crate::UnixOutputStream)</span>
+<span class="doccomment">/// [`struct@crate::ConverterOutputStream`], [`struct@crate::MemoryOutputStream`], [`struct@crate::PollableOutputStream`], [`struct@crate::UnixOutputStream`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PollableOutputStreamExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Checks if `self` is actually pollable. Some classes may implement</span>
-    <span class="doccomment">/// [`PollableOutputStream`](crate::PollableOutputStream) but have only certain instances of that</span>
+    <span class="doccomment">/// [`crate::PollableOutputStream`] but have only certain instances of that</span>
     <span class="doccomment">/// class be pollable. If this method returns [`false`], then the behavior</span>
-    <span class="doccomment">/// of other [`PollableOutputStream`](crate::PollableOutputStream) methods is undefined.</span>
+    <span class="doccomment">/// of other [`crate::PollableOutputStream`] methods is undefined.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For any given stream, the value returned by this method is constant;</span>
     <span class="doccomment">/// a stream cannot switch from pollable to non-pollable or vice versa.</span>
@@ -213,25 +213,25 @@
     <span class="doccomment">/// Checks if `self` can be written.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that some stream types may not be able to implement this 100%</span>
-    <span class="doccomment">/// reliably, and it is possible that a call to [`OutputStreamExt::write()`](crate::OutputStreamExt::write())</span>
+    <span class="doccomment">/// reliably, and it is possible that a call to [`crate::prelude::OutputStreamExt::write()`]</span>
     <span class="doccomment">/// after this returns [`true`] would still block. To guarantee</span>
     <span class="doccomment">/// non-blocking behavior, you should always use</span>
-    <span class="doccomment">/// [`PollableOutputStream::write_nonblocking()`](crate::PollableOutputStream::write_nonblocking()), which will return a</span>
-    <span class="doccomment">/// [`IOErrorEnum::WouldBlock`] error rather than blocking.</span>
+    <span class="doccomment">/// [`crate::PollableOutputStream::write_nonblocking()`], which will return a</span>
+    <span class="doccomment">/// [`crate::IOErrorEnum::WouldBlock`] error rather than blocking.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`true`] if `self` is writable, [`false`] if not. If an error</span>
     <span class="doccomment">///  has occurred on `self`, this will result in</span>
-    <span class="doccomment">///  [`PollableOutputStream::is_writable()`](crate::PollableOutputStream::is_writable()) returning [`true`], and the</span>
+    <span class="doccomment">///  [`crate::PollableOutputStream::is_writable()`] returning [`true`], and the</span>
     <span class="doccomment">///  next attempt to write will return the error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_pollable_output_stream_is_writable&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_writable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Attempts to write up to `count` bytes from `buffer` to `self`, as</span>
-    <span class="doccomment">/// with [`OutputStreamExt::write()`](crate::OutputStreamExt::write()). If `self` is not currently writable,</span>
-    <span class="doccomment">/// this will immediately return [`IOErrorEnum::WouldBlock`], and you can</span>
-    <span class="doccomment">/// use [`PollableOutputStream::create_source()`](crate::PollableOutputStream::create_source()) to create a [`glib::Source`](crate::glib::Source)</span>
+    <span class="doccomment">/// with [`crate::prelude::OutputStreamExt::write()`]. If `self` is not currently writable,</span>
+    <span class="doccomment">/// this will immediately return [`crate::IOErrorEnum::WouldBlock`], and you can</span>
+    <span class="doccomment">/// use [`crate::PollableOutputStream::create_source()`] to create a [`crate::glib::Source`]</span>
     <span class="doccomment">/// that will be triggered when `self` is writable.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that since this method never blocks, you cannot actually</span>
@@ -240,7 +240,7 @@
     <span class="doccomment">/// may happen if you call this method after a source triggers due</span>
     <span class="doccomment">/// to having been cancelled.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also note that if [`IOErrorEnum::WouldBlock`] is returned some underlying</span>
+    <span class="doccomment">/// Also note that if [`crate::IOErrorEnum::WouldBlock`] is returned some underlying</span>
     <span class="doccomment">/// transports like D/TLS require that you re-send the same `buffer` and</span>
     <span class="doccomment">/// `count` in the next write call.</span>
     <span class="doccomment">/// ## `buffer`</span>
@@ -249,12 +249,12 @@
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of bytes you want to write</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the number of bytes written, or -1 on error (including</span>
-    <span class="doccomment">///  [`IOErrorEnum::WouldBlock`]).</span>
+    <span class="doccomment">///  [`crate::IOErrorEnum::WouldBlock`]).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_pollable_output_stream_write_nonblocking&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">write_nonblocking</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,

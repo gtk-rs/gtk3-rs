@@ -907,7 +907,7 @@
     <span class="doccomment">/// the image&#39;s aspect ratio. Note that the returned pixbuf may be smaller</span>
     <span class="doccomment">/// than `width` x `height`, if the aspect ratio requires it. To load</span>
     <span class="doccomment">/// and image at the requested size, regardless of aspect ratio, use</span>
-    <span class="doccomment">/// [`new_from_file_at_scale()`](Self::new_from_file_at_scale()).</span>
+    <span class="doccomment">/// [`Self::new_from_file_at_scale()`].</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// Name of file to load, in the GLib file</span>
     <span class="doccomment">///  name encoding</span>
@@ -1193,9 +1193,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`PixbufFormat`](crate::PixbufFormat) describing</span>
+    <span class="doccomment">/// A [`crate::PixbufFormat`] describing</span>
     <span class="doccomment">///  the image format of the file or [`None`] if the image format wasn&#39;t</span>
-    <span class="doccomment">///  recognized. The return value is owned by [`Pixbuf`](crate::Pixbuf) and should</span>
+    <span class="doccomment">///  recognized. The return value is owned by [`crate::Pixbuf`] and should</span>
     <span class="doccomment">///  not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_file_info&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_file_info&quot;</span>)]</span>
@@ -1223,16 +1223,16 @@
     <span class="doccomment">/// Asynchronously parses an image file far enough to determine its</span>
     <span class="doccomment">/// format and size.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more details see [`get_file_info()`](Self::get_file_info()), which is the synchronous</span>
+    <span class="doccomment">/// For more details see [`Self::get_file_info()`], which is the synchronous</span>
     <span class="doccomment">/// version of this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished, `callback` will be called in the</span>
-    <span class="doccomment">/// main thread. You can then call [`get_file_info_finish()`](Self::get_file_info_finish()) to</span>
+    <span class="doccomment">/// main thread. You can then call [`Self::get_file_info_finish()`] to</span>
     <span class="doccomment">/// get the result of the operation.</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// The name of the file to identify</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::gio::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the file info is available</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1312,7 +1312,7 @@
     }
 
     <span class="doccomment">/// Saves pixbuf to a new buffer in format `type_`, which is currently &quot;jpeg&quot;,</span>
-    <span class="doccomment">/// &quot;tiff&quot;, &quot;png&quot;, &quot;ico&quot; or &quot;bmp&quot;. See [`save_to_buffer()`](Self::save_to_buffer())</span>
+    <span class="doccomment">/// &quot;tiff&quot;, &quot;png&quot;, &quot;ico&quot; or &quot;bmp&quot;. See [`Self::save_to_buffer()`]</span>
     <span class="doccomment">/// for more details.</span>
     <span class="doccomment">/// ## `buffer`</span>
     <span class="doccomment">///</span>
@@ -1360,9 +1360,9 @@
     <span class="doccomment">/// Saves `self` to an output stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Supported file formats are currently &quot;jpeg&quot;, &quot;tiff&quot;, &quot;png&quot;, &quot;ico&quot; or</span>
-    <span class="doccomment">/// &quot;bmp&quot;. See [`save_to_stream()`](Self::save_to_stream()) for more details.</span>
+    <span class="doccomment">/// &quot;bmp&quot;. See [`Self::save_to_stream()`] for more details.</span>
     <span class="doccomment">/// ## `stream`</span>
-    <span class="doccomment">/// a [`gio::OutputStream`](crate::gio::OutputStream) to save the pixbuf to</span>
+    <span class="doccomment">/// a [`crate::gio::OutputStream`] to save the pixbuf to</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// name of file format</span>
     <span class="doccomment">/// ## `option_keys`</span>
@@ -1370,7 +1370,7 @@
     <span class="doccomment">/// ## `option_values`</span>
     <span class="doccomment">/// values for named options</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::gio::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1409,13 +1409,13 @@
 
     <span class="doccomment">/// Saves `self` to an output stream asynchronously.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more details see [`save_to_streamv()`](Self::save_to_streamv()), which is the synchronous</span>
+    <span class="doccomment">/// For more details see [`Self::save_to_streamv()`], which is the synchronous</span>
     <span class="doccomment">/// version of this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished, `callback` will be called in the main thread.</span>
-    <span class="doccomment">/// You can then call [`save_to_stream_finish()`](Self::save_to_stream_finish()) to get the result of the operation.</span>
+    <span class="doccomment">/// You can then call [`Self::save_to_stream_finish()`] to get the result of the operation.</span>
     <span class="doccomment">/// ## `stream`</span>
-    <span class="doccomment">/// a [`gio::OutputStream`](crate::gio::OutputStream) to which to save the pixbuf</span>
+    <span class="doccomment">/// a [`crate::gio::OutputStream`] to which to save the pixbuf</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// name of file format</span>
     <span class="doccomment">/// ## `option_keys`</span>
@@ -1423,7 +1423,7 @@
     <span class="doccomment">/// ## `option_values`</span>
     <span class="doccomment">/// values for named options</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::gio::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the pixbuf is saved</span>
     <span class="doccomment">/// ## `user_data`</span>

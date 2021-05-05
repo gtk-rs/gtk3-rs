@@ -936,19 +936,19 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`Text`](crate::Text) should be implemented by `AtkObjects` on behalf of widgets</span>
+    <span class="doccomment">/// [`crate::Text`] should be implemented by `AtkObjects` on behalf of widgets</span>
     <span class="doccomment">/// that have text content which is either attributed or otherwise</span>
     <span class="doccomment">/// non-trivial. `AtkObjects` whose text content is simple,</span>
     <span class="doccomment">/// unattributed, and very brief may expose that content via</span>
-    <span class="doccomment">/// [`AtkObjectExt::get_name`](crate::AtkObjectExt::get_name) instead; however if the text is editable,</span>
+    <span class="doccomment">/// [`crate::prelude::AtkObjectExt::get_name`] instead; however if the text is editable,</span>
     <span class="doccomment">/// multi-line, typically longer than three or four words, attributed,</span>
     <span class="doccomment">/// selectable, or if the object already uses the &#39;name&#39; ATK property</span>
-    <span class="doccomment">/// for other information, the [`Text`](crate::Text) interface should be used to</span>
+    <span class="doccomment">/// for other information, the [`crate::Text`] interface should be used to</span>
     <span class="doccomment">/// expose the text content. In the case of editable text content,</span>
-    <span class="doccomment">/// [`EditableText`](crate::EditableText) (a subtype of the [`Text`](crate::Text) interface) should be</span>
+    <span class="doccomment">/// [`crate::EditableText`] (a subtype of the [`crate::Text`] interface) should be</span>
     <span class="doccomment">/// implemented instead.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">///  [`Text`](crate::Text) provides not only traversal facilities and change</span>
+    <span class="doccomment">///  [`crate::Text`] provides not only traversal facilities and change</span>
     <span class="doccomment">/// notification for text content, but also caret tracking and glyph</span>
     <span class="doccomment">/// bounding box calculations. Note that the text strings are exposed</span>
     <span class="doccomment">/// as UTF-8, and are therefore potentially multi-byte, and</span>
@@ -958,7 +958,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TextExt`](trait@crate::prelude::TextExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::TextExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Text</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkText</span>, <span class="ident">ffi::AtkTextIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -972,7 +972,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`NoOpObject`](struct@crate::NoOpObject), [`Text`](struct@crate::Text)</span>
+<span class="doccomment">/// [`struct@crate::NoOpObject`], [`struct@crate::Text`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TextExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds a selection bounded by the specified offsets.</span>
     <span class="doccomment">/// ## `start_offset`</span>
@@ -1142,7 +1142,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_selection&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">selection_num</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">glib::GString</span>, <span class="ident">i32</span>, <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Gets a portion of the text exposed through an [`Text`](crate::Text) according to a given `offset`</span>
+    <span class="doccomment">/// Gets a portion of the text exposed through an [`crate::Text`] according to a given `offset`</span>
     <span class="doccomment">/// and a specific `granularity`, along with the start and end offsets defining the</span>
     <span class="doccomment">/// boundaries of such a portion of text.</span>
     <span class="doccomment">///</span>
@@ -1175,7 +1175,7 @@
     <span class="doccomment">/// ## `offset`</span>
     <span class="doccomment">/// position</span>
     <span class="doccomment">/// ## `granularity`</span>
-    <span class="doccomment">/// An [`TextGranularity`](crate::TextGranularity)</span>
+    <span class="doccomment">/// An [`crate::TextGranularity`]</span>
     <span class="doccomment">/// ## `start_offset`</span>
     <span class="doccomment">/// the starting character offset of the returned string, or -1</span>
     <span class="doccomment">///  in the case of error (e.g. invalid offset, not implemented)</span>
@@ -1240,11 +1240,11 @@
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method is deprecated since ATK version</span>
-    <span class="doccomment">/// 2.9.4. Please use [`Text::get_string_at_offset()`](crate::Text::get_string_at_offset()) instead.</span>
+    <span class="doccomment">/// 2.9.4. Please use [`crate::Text::get_string_at_offset()`] instead.</span>
     <span class="doccomment">/// ## `offset`</span>
     <span class="doccomment">/// position</span>
     <span class="doccomment">/// ## `boundary_type`</span>
-    <span class="doccomment">/// An [`TextBoundary`](crate::TextBoundary)</span>
+    <span class="doccomment">/// An [`crate::TextBoundary`]</span>
     <span class="doccomment">/// ## `start_offset`</span>
     <span class="doccomment">/// the starting character offset of the returned string</span>
     <span class="doccomment">/// ## `end_offset`</span>

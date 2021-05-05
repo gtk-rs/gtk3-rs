@@ -300,20 +300,20 @@
 <span class="kw">use</span> <span class="ident">futures_core::stream::Stream</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PollableOutputStreamExtManual</span> {
-    <span class="doccomment">/// Creates a [`glib::Source`](crate::glib::Source) that triggers when `self` can be written, or</span>
+    <span class="doccomment">/// Creates a [`crate::glib::Source`] that triggers when `self` can be written, or</span>
     <span class="doccomment">/// `cancellable` is triggered or an error occurs. The callback on the</span>
     <span class="doccomment">/// source is of the `GPollableSourceFunc` type.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As with [`PollableOutputStream::is_writable()`](crate::PollableOutputStream::is_writable()), it is possible that</span>
+    <span class="doccomment">/// As with [`crate::PollableOutputStream::is_writable()`], it is possible that</span>
     <span class="doccomment">/// the stream may not actually be writable even after the source</span>
-    <span class="doccomment">/// triggers, so you should use [`PollableOutputStream::write_nonblocking()`](crate::PollableOutputStream::write_nonblocking())</span>
-    <span class="doccomment">/// rather than [`OutputStreamExt::write()`](crate::OutputStreamExt::write()) from the callback.</span>
+    <span class="doccomment">/// triggers, so you should use [`crate::PollableOutputStream::write_nonblocking()`]</span>
+    <span class="doccomment">/// rather than [`crate::prelude::OutputStreamExt::write()`] from the callback.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`glib::Source`](crate::glib::Source)</span>
+    <span class="doccomment">/// a new [`crate::glib::Source`]</span>
     <span class="kw">fn</span> <span class="ident">create_source</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">C</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,

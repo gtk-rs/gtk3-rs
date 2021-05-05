@@ -1947,18 +1947,18 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Source</span> {
-    <span class="doccomment">/// Adds a [`Source`](crate::Source) to a `context` so that it will be executed within</span>
-    <span class="doccomment">/// that context. Remove it by calling [`destroy()`](Self::destroy()).</span>
+    <span class="doccomment">/// Adds a [`crate::Source`] to a `context` so that it will be executed within</span>
+    <span class="doccomment">/// that context. Remove it by calling [`Self::destroy()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is safe to call from any thread, regardless of which thread</span>
     <span class="doccomment">/// the `context` is running in.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// a [`MainContext`](crate::MainContext) (if [`None`], the default context will be used)</span>
+    <span class="doccomment">/// a [`crate::MainContext`] (if [`None`], the default context will be used)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the ID (greater than 0) for the source within the</span>
-    <span class="doccomment">///  [`MainContext`](crate::MainContext).</span>
+    <span class="doccomment">///  [`crate::MainContext`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_source_attach&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attach</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">context</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">MainContext</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SourceId</span> {
         <span class="kw">unsafe</span> {
@@ -1970,10 +1970,10 @@
     }
 
     <span class="doccomment">/// Removes the source with the given ID from the default main context. You must</span>
-    <span class="doccomment">/// use [`destroy()`](Self::destroy()) for sources added to a non-default main context.</span>
+    <span class="doccomment">/// use [`Self::destroy()`] for sources added to a non-default main context.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The ID of a [`Source`](crate::Source) is given by [`get_id()`](Self::get_id()), or will be</span>
-    <span class="doccomment">/// returned by the functions [`attach()`](Self::attach()), `g_idle_add()`,</span>
+    <span class="doccomment">/// The ID of a [`crate::Source`] is given by [`Self::get_id()`], or will be</span>
+    <span class="doccomment">/// returned by the functions [`Self::attach()`], `g_idle_add()`,</span>
     <span class="doccomment">/// `g_idle_add_full()`, `g_timeout_add()`, `g_timeout_add_full()`,</span>
     <span class="doccomment">/// `g_child_watch_add()`, `g_child_watch_add_full()`, `g_io_add_watch()`, and</span>
     <span class="doccomment">/// `g_io_add_watch_full()`.</span>

@@ -553,10 +553,10 @@
 
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `Monitor` objects represent the individual outputs that are</span>
-    <span class="doccomment">/// associated with a [`Display`](crate::Display). `Display` has APIs to enumerate</span>
-    <span class="doccomment">/// monitors with [`Display::get_n_monitors()`](crate::Display::get_n_monitors()) and [`Display::get_monitor()`](crate::Display::get_monitor()), and</span>
-    <span class="doccomment">/// to find particular monitors with [`Display::get_primary_monitor()`](crate::Display::get_primary_monitor()) or</span>
-    <span class="doccomment">/// [`Display::get_monitor_at_window()`](crate::Display::get_monitor_at_window()).</span>
+    <span class="doccomment">/// associated with a [`crate::Display`]. `Display` has APIs to enumerate</span>
+    <span class="doccomment">/// monitors with [`crate::Display::get_n_monitors()`] and [`crate::Display::get_monitor()`], and</span>
+    <span class="doccomment">/// to find particular monitors with [`crate::Display::get_primary_monitor()`] or</span>
+    <span class="doccomment">/// [`crate::Display::get_monitor_at_window()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `Monitor` was introduced in GTK+ 3.22 and supersedes earlier</span>
     <span class="doccomment">/// APIs in `Screen` to obtain monitor-related information.</span>
@@ -581,9 +581,9 @@
 
     <span class="doccomment">/// Retrieves the size and position of an individual monitor within the</span>
     <span class="doccomment">/// display coordinate space. The returned geometry is in ”application pixels”,</span>
-    <span class="doccomment">/// not in ”device pixels” (see [`get_scale_factor()`](Self::get_scale_factor())).</span>
+    <span class="doccomment">/// not in ”device pixels” (see [`Self::get_scale_factor()`]).</span>
     <span class="doccomment">/// ## `geometry`</span>
-    <span class="doccomment">/// a [`Rectangle`](crate::Rectangle) to be filled with the monitor geometry</span>
+    <span class="doccomment">/// a [`crate::Rectangle`] to be filled with the monitor geometry</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_monitor_get_geometry&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_geometry&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">geometry</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rectangle</span> {
@@ -652,7 +652,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This can be used if you want to create pixel based data for a</span>
     <span class="doccomment">/// particular monitor, but most of the time you’re drawing to a window</span>
-    <span class="doccomment">/// where it is better to use [`Window::get_scale_factor()`](crate::Window::get_scale_factor()) instead.</span>
+    <span class="doccomment">/// where it is better to use [`crate::Window::get_scale_factor()`] instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -689,7 +689,7 @@
     <span class="doccomment">/// Retrieves the size and position of the “work area” on a monitor</span>
     <span class="doccomment">/// within the display coordinate space. The returned geometry is in</span>
     <span class="doccomment">/// ”application pixels”, not in ”device pixels” (see</span>
-    <span class="doccomment">/// [`get_scale_factor()`](Self::get_scale_factor())).</span>
+    <span class="doccomment">/// [`Self::get_scale_factor()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The work area should be considered when positioning menus and</span>
     <span class="doccomment">/// similar popups, to avoid placing them below panels, docks or other</span>
@@ -699,7 +699,7 @@
     <span class="doccomment">/// function will return the monitor geometry if a workarea is not</span>
     <span class="doccomment">/// available, or does not apply.</span>
     <span class="doccomment">/// ## `workarea`</span>
-    <span class="doccomment">/// a [`Rectangle`](crate::Rectangle) to be filled with</span>
+    <span class="doccomment">/// a [`crate::Rectangle`] to be filled with</span>
     <span class="doccomment">///  the monitor workarea</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_monitor_get_workarea&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_workarea&quot;</span>)]</span>
@@ -712,7 +712,7 @@
     }
 
     <span class="doccomment">/// Gets whether this monitor should be considered primary</span>
-    <span class="doccomment">/// (see [`Display::get_primary_monitor()`](crate::Display::get_primary_monitor())).</span>
+    <span class="doccomment">/// (see [`crate::Display::get_primary_monitor()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

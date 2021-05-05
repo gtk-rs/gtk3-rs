@@ -237,7 +237,7 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`ListStore`](crate::ListStore) is a simple implementation of [`ListModel`](crate::ListModel) that stores all</span>
+    <span class="doccomment">/// [`crate::ListStore`] is a simple implementation of [`crate::ListModel`] that stores all</span>
     <span class="doccomment">/// items in memory.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It provides insertions, deletions, and lookups in logarithmic time</span>
@@ -245,7 +245,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`ListModelExt`](trait@crate::prelude::ListModelExt), [`ListStoreExtManual`](trait@crate::prelude::ListStoreExtManual)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::ListModelExt`], [`trait@crate::prelude::ListStoreExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ListStore</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GListStore</span>, <span class="ident">ffi::GListStoreClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">ListModel</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -254,24 +254,24 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ListStore</span> {
-    <span class="doccomment">/// Creates a new [`ListStore`](crate::ListStore) with items of type `item_type`. `item_type`</span>
-    <span class="doccomment">/// must be a subclass of [`glib::object::Object`](crate::glib::object::Object).</span>
+    <span class="doccomment">/// Creates a new [`crate::ListStore`] with items of type `item_type`. `item_type`</span>
+    <span class="doccomment">/// must be a subclass of [`crate::glib::object::Object`].</span>
     <span class="doccomment">/// ## `item_type`</span>
-    <span class="doccomment">/// the [`glib::Type`](crate::glib::Type) of items in the list</span>
+    <span class="doccomment">/// the [`crate::glib::Type`] of items in the list</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ListStore`](crate::ListStore)</span>
+    <span class="doccomment">/// a new [`crate::ListStore`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_list_store_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">item_type</span>: <span class="ident">glib::types::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ListStore</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_list_store_new</span>(<span class="ident">item_type</span>.<span class="ident">into_glib</span>())) }
     }
 
-    <span class="doccomment">/// Appends `item` to `self`. `item` must be of type [`ListStore:item-type`](crate::ListStore:item-type).</span>
+    <span class="doccomment">/// Appends `item` to `self`. `item` must be of type [`crate::ListStore:item-type`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function takes a ref on `item`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`splice()`](Self::splice()) to append multiple items at the same time</span>
+    <span class="doccomment">/// Use [`Self::splice()`] to append multiple items at the same time</span>
     <span class="doccomment">/// efficiently.</span>
     <span class="doccomment">/// ## `item`</span>
     <span class="doccomment">/// the new item</span>
@@ -287,7 +287,7 @@
     <span class="doccomment">/// not be set, and this method will return [`false`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you need to compare the two items with a custom comparison function, use</span>
-    <span class="doccomment">/// [`find_with_equal_func()`](Self::find_with_equal_func()) with a custom `GEqualFunc` instead.</span>
+    <span class="doccomment">/// [`Self::find_with_equal_func()`] with a custom `GEqualFunc` instead.</span>
     <span class="doccomment">/// ## `item`</span>
     <span class="doccomment">/// an item</span>
     <span class="doccomment">/// ## `position`</span>
@@ -325,12 +325,12 @@
     <span class="comment">//}</span>
 
     <span class="doccomment">/// Inserts `item` into `self` at `position`. `item` must be of type</span>
-    <span class="doccomment">/// [`ListStore:item-type`](crate::ListStore:item-type) or derived from it. `position` must be smaller</span>
+    <span class="doccomment">/// [`crate::ListStore:item-type`] or derived from it. `position` must be smaller</span>
     <span class="doccomment">/// than the length of the list, or equal to it to append.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function takes a ref on `item`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`splice()`](Self::splice()) to insert multiple items at the same time</span>
+    <span class="doccomment">/// Use [`Self::splice()`] to insert multiple items at the same time</span>
     <span class="doccomment">/// efficiently.</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position at which to insert the new item</span>
@@ -350,7 +350,7 @@
     <span class="doccomment">/// Removes the item from `self` that is at `position`. `position` must be</span>
     <span class="doccomment">/// smaller than the current length of the list.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`splice()`](Self::splice()) to remove multiple items at the same time</span>
+    <span class="doccomment">/// Use [`Self::splice()`] to remove multiple items at the same time</span>
     <span class="doccomment">/// efficiently.</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position of the item that is to be removed</span>
@@ -371,11 +371,11 @@
 
     <span class="doccomment">/// Changes `self` by removing `n_removals` items and adding `n_additions`</span>
     <span class="doccomment">/// items to it. `additions` must contain `n_additions` items of type</span>
-    <span class="doccomment">/// [`ListStore:item-type`](crate::ListStore:item-type). [`None`] is not permitted.</span>
+    <span class="doccomment">/// [`crate::ListStore:item-type`]. [`None`] is not permitted.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is more efficient than [`insert()`](Self::insert()) and</span>
-    <span class="doccomment">/// [`remove()`](Self::remove()), because it only emits</span>
-    <span class="doccomment">/// [`ListModel::items-changed`](crate::ListModel::items-changed) once for the change.</span>
+    <span class="doccomment">/// This function is more efficient than [`Self::insert()`] and</span>
+    <span class="doccomment">/// [`Self::remove()`], because it only emits</span>
+    <span class="doccomment">/// [`crate::ListModel::items-changed`] once for the change.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function takes a ref on each item in `additions`.</span>
     <span class="doccomment">///</span>

@@ -719,11 +719,11 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`Subprocess`](crate::Subprocess) allows the creation of and interaction with child</span>
+    <span class="doccomment">/// [`crate::Subprocess`] allows the creation of and interaction with child</span>
     <span class="doccomment">/// processes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Processes can be communicated with using standard GIO-style APIs (ie:</span>
-    <span class="doccomment">/// [`InputStream`](crate::InputStream), [`OutputStream`](crate::OutputStream)). There are GIO-style APIs to wait for</span>
+    <span class="doccomment">/// [`crate::InputStream`], [`crate::OutputStream`]). There are GIO-style APIs to wait for</span>
     <span class="doccomment">/// process termination (ie: cancellable and with an asynchronous</span>
     <span class="doccomment">/// variant).</span>
     <span class="doccomment">///</span>
@@ -732,46 +732,46 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// One major advantage that GIO brings over the core GLib library is</span>
     <span class="doccomment">/// comprehensive API for asynchronous I/O, such</span>
-    <span class="doccomment">/// [`OutputStreamExt::splice_async()`](crate::OutputStreamExt::splice_async()). This makes GSubprocess</span>
+    <span class="doccomment">/// [`crate::prelude::OutputStreamExt::splice_async()`]. This makes GSubprocess</span>
     <span class="doccomment">/// significantly more powerful and flexible than equivalent APIs in</span>
     <span class="doccomment">/// some other languages such as the `subprocess.py`</span>
-    <span class="doccomment">/// included with Python. For example, using [`Subprocess`](crate::Subprocess) one could</span>
+    <span class="doccomment">/// included with Python. For example, using [`crate::Subprocess`] one could</span>
     <span class="doccomment">/// create two child processes, reading standard output from the first,</span>
     <span class="doccomment">/// processing it, and writing to the input stream of the second, all</span>
     <span class="doccomment">/// without blocking the main loop.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A powerful [`communicate()`](Self::communicate()) API is provided similar to the</span>
+    <span class="doccomment">/// A powerful [`Self::communicate()`] API is provided similar to the</span>
     <span class="doccomment">/// `communicate()` method of `subprocess.py`. This enables very easy</span>
     <span class="doccomment">/// interaction with a subprocess that has been opened with pipes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Subprocess`](crate::Subprocess) defaults to tight control over the file descriptors open</span>
+    <span class="doccomment">/// [`crate::Subprocess`] defaults to tight control over the file descriptors open</span>
     <span class="doccomment">/// in the child process, avoiding dangling-fd issues that are caused by</span>
     <span class="doccomment">/// a simple `fork()`/`exec()`. The only open file descriptors in the</span>
     <span class="doccomment">/// spawned process are ones that were explicitly specified by the</span>
-    <span class="doccomment">/// [`Subprocess`](crate::Subprocess) API (unless [`SubprocessFlags::InheritFds`] was</span>
+    <span class="doccomment">/// [`crate::Subprocess`] API (unless [`crate::SubprocessFlags::InheritFds`] was</span>
     <span class="doccomment">/// specified).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Subprocess`](crate::Subprocess) will quickly reap all child processes as they exit,</span>
+    <span class="doccomment">/// [`crate::Subprocess`] will quickly reap all child processes as they exit,</span>
     <span class="doccomment">/// avoiding &quot;zombie processes&quot; remaining around for long periods of</span>
-    <span class="doccomment">/// time. [`wait()`](Self::wait()) can be used to wait for this to happen,</span>
+    <span class="doccomment">/// time. [`Self::wait()`] can be used to wait for this to happen,</span>
     <span class="doccomment">/// but it will happen even without the call being explicitly made.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As a matter of principle, [`Subprocess`](crate::Subprocess) has no API that accepts</span>
+    <span class="doccomment">/// As a matter of principle, [`crate::Subprocess`] has no API that accepts</span>
     <span class="doccomment">/// shell-style space-separated strings. It will, however, match the</span>
     <span class="doccomment">/// typical shell behaviour of searching the PATH for executables that do</span>
     <span class="doccomment">/// not contain a directory separator in their name.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Subprocess`](crate::Subprocess) attempts to have a very simple API for most uses (ie:</span>
+    <span class="doccomment">/// [`crate::Subprocess`] attempts to have a very simple API for most uses (ie:</span>
     <span class="doccomment">/// spawning a subprocess with arguments and support for most typical</span>
-    <span class="doccomment">/// kinds of input and output redirection). See [`new()`](Self::new()). The</span>
-    <span class="doccomment">/// [`SubprocessLauncher`](crate::SubprocessLauncher) API is provided for more complicated cases</span>
+    <span class="doccomment">/// kinds of input and output redirection). See [`Self::new()`]. The</span>
+    <span class="doccomment">/// [`crate::SubprocessLauncher`] API is provided for more complicated cases</span>
     <span class="doccomment">/// (advanced types of redirection, environment variable manipulation,</span>
     <span class="doccomment">/// change of working directory, child setup functions, etc).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A typical use of [`Subprocess`](crate::Subprocess) will involve calling</span>
-    <span class="doccomment">/// [`new()`](Self::new()), followed by [`wait_async()`](Self::wait_async()) or</span>
-    <span class="doccomment">/// [`wait()`](Self::wait()). After the process exits, the status can be</span>
-    <span class="doccomment">/// checked using functions such as [`get_if_exited()`](Self::get_if_exited()) (which</span>
+    <span class="doccomment">/// A typical use of [`crate::Subprocess`] will involve calling</span>
+    <span class="doccomment">/// [`Self::new()`], followed by [`Self::wait_async()`] or</span>
+    <span class="doccomment">/// [`Self::wait()`]. After the process exits, the status can be</span>
+    <span class="doccomment">/// checked using functions such as [`Self::get_if_exited()`] (which</span>
     <span class="doccomment">/// are similar to the familiar WIFEXITED-style POSIX macros).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
@@ -800,7 +800,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly created [`Subprocess`](crate::Subprocess), or [`None`] on error (and `error`</span>
+    <span class="doccomment">/// A newly created [`crate::Subprocess`], or [`None`] on error (and `error`</span>
     <span class="doccomment">///  will be set)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_subprocess_newv&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">newv</span>(
@@ -822,26 +822,26 @@
     <span class="doccomment">/// and output has been completed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `stdin_buf` is given, the subprocess must have been created with</span>
-    <span class="doccomment">/// [`SubprocessFlags::StdinPipe`]. The given data is fed to the</span>
+    <span class="doccomment">/// [`crate::SubprocessFlags::StdinPipe`]. The given data is fed to the</span>
     <span class="doccomment">/// stdin of the subprocess and the pipe is closed (ie: EOF).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// At the same time (as not to cause blocking when dealing with large</span>
-    <span class="doccomment">/// amounts of data), if [`SubprocessFlags::StdoutPipe`] or</span>
-    <span class="doccomment">/// [`SubprocessFlags::StderrPipe`] were used, reads from those</span>
+    <span class="doccomment">/// amounts of data), if [`crate::SubprocessFlags::StdoutPipe`] or</span>
+    <span class="doccomment">/// [`crate::SubprocessFlags::StderrPipe`] were used, reads from those</span>
     <span class="doccomment">/// streams. The data that was read is returned in `stdout` and/or</span>
     <span class="doccomment">/// the `stderr`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the subprocess was created with [`SubprocessFlags::StdoutPipe`],</span>
+    <span class="doccomment">/// If the subprocess was created with [`crate::SubprocessFlags::StdoutPipe`],</span>
     <span class="doccomment">/// `stdout_buf` will contain the data read from stdout. Otherwise, for</span>
-    <span class="doccomment">/// subprocesses not created with [`SubprocessFlags::StdoutPipe`],</span>
+    <span class="doccomment">/// subprocesses not created with [`crate::SubprocessFlags::StdoutPipe`],</span>
     <span class="doccomment">/// `stdout_buf` will be set to [`None`]. Similar provisions apply to</span>
-    <span class="doccomment">/// `stderr_buf` and [`SubprocessFlags::StderrPipe`].</span>
+    <span class="doccomment">/// `stderr_buf` and [`crate::SubprocessFlags::StderrPipe`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As usual, any output variable may be given as [`None`] to ignore it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you desire the stdout and stderr data to be interleaved, create</span>
-    <span class="doccomment">/// the subprocess with [`SubprocessFlags::StdoutPipe`] and</span>
-    <span class="doccomment">/// [`SubprocessFlags::StderrMerge`]. The merged result will be returned</span>
+    <span class="doccomment">/// the subprocess with [`crate::SubprocessFlags::StdoutPipe`] and</span>
+    <span class="doccomment">/// [`crate::SubprocessFlags::StderrMerge`]. The merged result will be returned</span>
     <span class="doccomment">/// in `stdout_buf` and `stderr_buf` will be set to [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In case of any error (including cancellation), [`false`] will be</span>
@@ -851,8 +851,8 @@
     <span class="doccomment">/// been set to anything in particular and should not be inspected.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the case that [`true`] is returned, the subprocess has exited and the</span>
-    <span class="doccomment">/// exit status inspection APIs (eg: [`get_if_exited()`](Self::get_if_exited()),</span>
-    <span class="doccomment">/// [`get_exit_status()`](Self::get_exit_status())) may be used.</span>
+    <span class="doccomment">/// exit status inspection APIs (eg: [`Self::get_if_exited()`],</span>
+    <span class="doccomment">/// [`Self::get_exit_status()`]) may be used.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You should not attempt to use any of the subprocess pipes after</span>
     <span class="doccomment">/// starting this function, since they may be left in strange states,</span>
@@ -862,7 +862,7 @@
     <span class="doccomment">/// ## `stdin_buf`</span>
     <span class="doccomment">/// data to send to the stdin of the subprocess, or [`None`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable)</span>
+    <span class="doccomment">/// a [`crate::Cancellable`]</span>
     <span class="doccomment">/// ## `stdout_buf`</span>
     <span class="doccomment">/// data read from the subprocess stdout</span>
     <span class="doccomment">/// ## `stderr_buf`</span>
@@ -897,8 +897,8 @@
         }
     }
 
-    <span class="doccomment">/// Asynchronous version of [`communicate()`](Self::communicate()). Complete</span>
-    <span class="doccomment">/// invocation with [`communicate_finish()`](Self::communicate_finish()).</span>
+    <span class="doccomment">/// Asynchronous version of [`Self::communicate()`]. Complete</span>
+    <span class="doccomment">/// invocation with [`Self::communicate_finish()`].</span>
     <span class="doccomment">/// ## `stdin_buf`</span>
     <span class="doccomment">/// Input data, or [`None`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
@@ -982,7 +982,7 @@
         }))
     }
 
-    <span class="doccomment">/// Like [`communicate()`](Self::communicate()), but validates the output of the</span>
+    <span class="doccomment">/// Like [`Self::communicate()`], but validates the output of the</span>
     <span class="doccomment">/// process as UTF-8, and returns it as a regular NUL terminated string.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On error, `stdout_buf` and `stderr_buf` will be set to undefined values and</span>
@@ -990,7 +990,7 @@
     <span class="doccomment">/// ## `stdin_buf`</span>
     <span class="doccomment">/// data to send to the stdin of the subprocess, or [`None`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable)</span>
+    <span class="doccomment">/// a [`crate::Cancellable`]</span>
     <span class="doccomment">/// ## `stdout_buf`</span>
     <span class="doccomment">/// data read from the subprocess stdout</span>
     <span class="doccomment">/// ## `stderr_buf`</span>
@@ -1024,7 +1024,7 @@
     <span class="doccomment">/// Use an operating-system specific method to attempt an immediate,</span>
     <span class="doccomment">/// forceful termination of the process. There is no mechanism to</span>
     <span class="doccomment">/// determine whether or not the request itself was successful;</span>
-    <span class="doccomment">/// however, you can use [`wait()`](Self::wait()) to monitor the status of</span>
+    <span class="doccomment">/// however, you can use [`Self::wait()`] to monitor the status of</span>
     <span class="doccomment">/// the process after calling this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On Unix, this function sends `SIGKILL`.</span>
@@ -1041,8 +1041,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to the system WEXITSTATUS macro.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is an error to call this function before [`wait()`](Self::wait()) and</span>
-    <span class="doccomment">/// unless [`get_if_exited()`](Self::get_if_exited()) returned [`true`].</span>
+    <span class="doccomment">/// It is an error to call this function before [`Self::wait()`] and</span>
+    <span class="doccomment">/// unless [`Self::get_if_exited()`] returned [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1072,7 +1072,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to the system WIFEXITED macro.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is an error to call this function before [`wait()`](Self::wait()) has</span>
+    <span class="doccomment">/// It is an error to call this function before [`Self::wait()`] has</span>
     <span class="doccomment">/// returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1088,7 +1088,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to the system WIFSIGNALED macro.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is an error to call this function before [`wait()`](Self::wait()) has</span>
+    <span class="doccomment">/// It is an error to call this function before [`Self::wait()`] has</span>
     <span class="doccomment">/// returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1106,10 +1106,10 @@
     <span class="doccomment">/// macros defined by the system headers such as WIFEXITED. It can also</span>
     <span class="doccomment">/// be used with `g_spawn_check_exit_status()`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is more likely that you want to use [`get_if_exited()`](Self::get_if_exited())</span>
-    <span class="doccomment">/// followed by [`get_exit_status()`](Self::get_exit_status()).</span>
+    <span class="doccomment">/// It is more likely that you want to use [`Self::get_if_exited()`]</span>
+    <span class="doccomment">/// followed by [`Self::get_exit_status()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is an error to call this function before [`wait()`](Self::wait()) has</span>
+    <span class="doccomment">/// It is an error to call this function before [`Self::wait()`] has</span>
     <span class="doccomment">/// returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1121,10 +1121,10 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_subprocess_get_status</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the [`InputStream`](crate::InputStream) from which to read the stderr output of</span>
+    <span class="doccomment">/// Gets the [`crate::InputStream`] from which to read the stderr output of</span>
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The process must have been created with [`SubprocessFlags::StderrPipe`],</span>
+    <span class="doccomment">/// The process must have been created with [`crate::SubprocessFlags::StderrPipe`],</span>
     <span class="doccomment">/// otherwise [`None`] will be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1136,11 +1136,11 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_subprocess_get_stderr_pipe</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the [`OutputStream`](crate::OutputStream) that you can write to in order to give data</span>
+    <span class="doccomment">/// Gets the [`crate::OutputStream`] that you can write to in order to give data</span>
     <span class="doccomment">/// to the stdin of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The process must have been created with [`SubprocessFlags::StdinPipe`] and</span>
-    <span class="doccomment">/// not [`SubprocessFlags::StdinInherit`], otherwise [`None`] will be returned.</span>
+    <span class="doccomment">/// The process must have been created with [`crate::SubprocessFlags::StdinPipe`] and</span>
+    <span class="doccomment">/// not [`crate::SubprocessFlags::StdinInherit`], otherwise [`None`] will be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1151,10 +1151,10 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_subprocess_get_stdin_pipe</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the [`InputStream`](crate::InputStream) from which to read the stdout output of</span>
+    <span class="doccomment">/// Gets the [`crate::InputStream`] from which to read the stdout output of</span>
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The process must have been created with [`SubprocessFlags::StdoutPipe`],</span>
+    <span class="doccomment">/// The process must have been created with [`crate::SubprocessFlags::StdoutPipe`],</span>
     <span class="doccomment">/// otherwise [`None`] will be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1170,7 +1170,7 @@
     <span class="doccomment">/// successful if it exited cleanly with an exit status of 0, either by</span>
     <span class="doccomment">/// way of the `exit()` system call or return from `main()`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is an error to call this function before [`wait()`](Self::wait()) has</span>
+    <span class="doccomment">/// It is an error to call this function before [`Self::wait()`] has</span>
     <span class="doccomment">/// returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1187,8 +1187,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is equivalent to the system WTERMSIG macro.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is an error to call this function before [`wait()`](Self::wait()) and</span>
-    <span class="doccomment">/// unless [`get_if_signaled()`](Self::get_if_signaled()) returned [`true`].</span>
+    <span class="doccomment">/// It is an error to call this function before [`Self::wait()`] and</span>
+    <span class="doccomment">/// unless [`Self::get_if_signaled()`] returned [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1220,16 +1220,16 @@
     <span class="doccomment">/// Synchronously wait for the subprocess to terminate.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// After the process terminates you can query its exit status with</span>
-    <span class="doccomment">/// functions such as [`get_if_exited()`](Self::get_if_exited()) and</span>
-    <span class="doccomment">/// [`get_exit_status()`](Self::get_exit_status()).</span>
+    <span class="doccomment">/// functions such as [`Self::get_if_exited()`] and</span>
+    <span class="doccomment">/// [`Self::get_exit_status()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function does not fail in the case of the subprocess having</span>
-    <span class="doccomment">/// abnormal termination. See [`wait_check()`](Self::wait_check()) for that.</span>
+    <span class="doccomment">/// abnormal termination. See [`Self::wait_check()`] for that.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Cancelling `cancellable` doesn&#39;t kill the subprocess. Call</span>
-    <span class="doccomment">/// [`force_exit()`](Self::force_exit()) if it is desirable.</span>
+    <span class="doccomment">/// [`Self::force_exit()`] if it is desirable.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable)</span>
+    <span class="doccomment">/// a [`crate::Cancellable`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1253,9 +1253,9 @@
 
     <span class="doccomment">/// Wait for the subprocess to terminate.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the asynchronous version of [`wait()`](Self::wait()).</span>
+    <span class="doccomment">/// This is the asynchronous version of [`Self::wait()`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the operation is complete</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1308,9 +1308,9 @@
         }))
     }
 
-    <span class="doccomment">/// Combines [`wait()`](Self::wait()) with `g_spawn_check_exit_status()`.</span>
+    <span class="doccomment">/// Combines [`Self::wait()`] with `g_spawn_check_exit_status()`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable)</span>
+    <span class="doccomment">/// a [`crate::Cancellable`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1336,11 +1336,11 @@
         }
     }
 
-    <span class="doccomment">/// Combines [`wait_async()`](Self::wait_async()) with `g_spawn_check_exit_status()`.</span>
+    <span class="doccomment">/// Combines [`Self::wait_async()`] with `g_spawn_check_exit_status()`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the asynchronous version of [`wait_check()`](Self::wait_check()).</span>
+    <span class="doccomment">/// This is the asynchronous version of [`Self::wait_check()`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the operation is complete</span>
     <span class="doccomment">/// ## `user_data`</span>

@@ -44,39 +44,39 @@ another AtkObject in a sequential way, (for instance text-flow).</p>
 </div><div id="variant.Embeds" class="variant small-section-header"><a href="#variant.Embeds" class="anchor field"></a><code>Embeds</code></div><div class="docblock"><p>Indicates that the object visually embeds
 another object’s content, i.e. this object’s content flows around
 another’s content.</p>
-</div><div id="variant.EmbeddedBy" class="variant small-section-header"><a href="#variant.EmbeddedBy" class="anchor field"></a><code>EmbeddedBy</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.Embeds"><code>Embeds</code></a>, indicates that
+</div><div id="variant.EmbeddedBy" class="variant small-section-header"><a href="#variant.EmbeddedBy" class="anchor field"></a><code>EmbeddedBy</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.Embeds" title="Self::Embeds"><code>Self::Embeds</code></a>, indicates that
 this object’s content is visualy embedded in another object.</p>
 </div><div id="variant.PopupFor" class="variant small-section-header"><a href="#variant.PopupFor" class="anchor field"></a><code>PopupFor</code></div><div class="docblock"><p>Indicates that an object is a popup for another object.</p>
 </div><div id="variant.ParentWindowOf" class="variant small-section-header"><a href="#variant.ParentWindowOf" class="anchor field"></a><code>ParentWindowOf</code></div><div class="docblock"><p>Indicates that an object is a parent window of another object.</p>
-</div><div id="variant.DescribedBy" class="variant small-section-header"><a href="#variant.DescribedBy" class="anchor field"></a><code>DescribedBy</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.DescriptionFor"><code>DescriptionFor</code></a>. Indicates that one
+</div><div id="variant.DescribedBy" class="variant small-section-header"><a href="#variant.DescribedBy" class="anchor field"></a><code>DescribedBy</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.DescriptionFor" title="Self::DescriptionFor"><code>Self::DescriptionFor</code></a>. Indicates that one
 or more target objects provide descriptive information about this object. This relation
 type is most appropriate for information that is not essential as its presentation may
 be user-configurable and/or limited to an on-demand mechanism such as an assistive
 technology command. For brief, essential information such as can be found in a widget’s
-on-screen label, use <a href="enum.RelationType.html#variant.LabelledBy"><code>LabelledBy</code></a>. For an on-screen error message, use
-<a href="enum.RelationType.html#variant.ErrorMessage"><code>ErrorMessage</code></a>. For lengthy extended descriptive information contained in
-an on-screen object, consider using <a href="enum.RelationType.html#variant.Details"><code>Details</code></a> as assistive technologies may
+on-screen label, use <a href="enum.RelationType.html#variant.LabelledBy" title="Self::LabelledBy"><code>Self::LabelledBy</code></a>. For an on-screen error message, use
+<a href="enum.RelationType.html#variant.ErrorMessage" title="Self::ErrorMessage"><code>Self::ErrorMessage</code></a>. For lengthy extended descriptive information contained in
+an on-screen object, consider using <a href="enum.RelationType.html#variant.Details" title="Self::Details"><code>Self::Details</code></a> as assistive technologies may
 provide a means for the user to navigate to objects containing detailed descriptions so
 that their content can be more closely reviewed.</p>
-</div><div id="variant.DescriptionFor" class="variant small-section-header"><a href="#variant.DescriptionFor" class="anchor field"></a><code>DescriptionFor</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.DescribedBy"><code>DescribedBy</code></a>. Indicates that this
+</div><div id="variant.DescriptionFor" class="variant small-section-header"><a href="#variant.DescriptionFor" class="anchor field"></a><code>DescriptionFor</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.DescribedBy" title="Self::DescribedBy"><code>Self::DescribedBy</code></a>. Indicates that this
 object provides descriptive information about the target object(s). See also
-<a href="enum.RelationType.html#variant.DetailsFor"><code>DetailsFor</code></a> and <a href="enum.RelationType.html#variant.ErrorFor"><code>ErrorFor</code></a>.</p>
+<a href="enum.RelationType.html#variant.DetailsFor" title="Self::DetailsFor"><code>Self::DetailsFor</code></a> and <a href="enum.RelationType.html#variant.ErrorFor" title="Self::ErrorFor"><code>Self::ErrorFor</code></a>.</p>
 </div><div id="variant.NodeParentOf" class="variant small-section-header"><a href="#variant.NodeParentOf" class="anchor field"></a><code>NodeParentOf</code></div><div class="docblock"><p>Indicates an object is a cell in a treetable and is expanded to display other cells in the same column.</p>
-</div><div id="variant.Details" class="variant small-section-header"><a href="#variant.Details" class="anchor field"></a><code>Details</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.DetailsFor"><code>DetailsFor</code></a>. Indicates that this object
+</div><div id="variant.Details" class="variant small-section-header"><a href="#variant.Details" class="anchor field"></a><code>Details</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.DetailsFor" title="Self::DetailsFor"><code>Self::DetailsFor</code></a>. Indicates that this object
 has a detailed or extended description, the contents of which can be found in the target
 object(s). This relation type is most appropriate for information that is sufficiently
 lengthy as to make navigation to the container of that information desirable. For less
-verbose information suitable for announcement only, see <a href="enum.RelationType.html#variant.DescribedBy"><code>DescribedBy</code></a>. If
-the detailed information describes an error condition, <a href="enum.RelationType.html#variant.ErrorFor"><code>ErrorFor</code></a> should be
+verbose information suitable for announcement only, see <a href="enum.RelationType.html#variant.DescribedBy" title="Self::DescribedBy"><code>Self::DescribedBy</code></a>. If
+the detailed information describes an error condition, <a href="enum.RelationType.html#variant.ErrorFor" title="Self::ErrorFor"><code>Self::ErrorFor</code></a> should be
 used instead. <code>Since</code>: ATK-2.26.</p>
-</div><div id="variant.DetailsFor" class="variant small-section-header"><a href="#variant.DetailsFor" class="anchor field"></a><code>DetailsFor</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.Details"><code>Details</code></a>. Indicates that this object
+</div><div id="variant.DetailsFor" class="variant small-section-header"><a href="#variant.DetailsFor" class="anchor field"></a><code>DetailsFor</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.Details" title="Self::Details"><code>Self::Details</code></a>. Indicates that this object
 provides a detailed or extended description about the target object(s). See also
-<a href="enum.RelationType.html#variant.DescriptionFor"><code>DescriptionFor</code></a> and <a href="enum.RelationType.html#variant.ErrorFor"><code>ErrorFor</code></a>. <code>Since</code>: ATK-2.26.</p>
-</div><div id="variant.ErrorMessage" class="variant small-section-header"><a href="#variant.ErrorMessage" class="anchor field"></a><code>ErrorMessage</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.ErrorFor"><code>ErrorFor</code></a>. Indicates that this object
+<a href="enum.RelationType.html#variant.DescriptionFor" title="Self::DescriptionFor"><code>Self::DescriptionFor</code></a> and <a href="enum.RelationType.html#variant.ErrorFor" title="Self::ErrorFor"><code>Self::ErrorFor</code></a>. <code>Since</code>: ATK-2.26.</p>
+</div><div id="variant.ErrorMessage" class="variant small-section-header"><a href="#variant.ErrorMessage" class="anchor field"></a><code>ErrorMessage</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.ErrorFor" title="Self::ErrorFor"><code>Self::ErrorFor</code></a>. Indicates that this object
 has one or more errors, the nature of which is described in the contents of the target
-object(s). Objects that have this relation type should also contain <a href="enum.StateType.html#variant.InvalidEntry" title="StateType::InvalidEntry"><code>StateType::InvalidEntry</code></a>
-in their <a href="struct.StateSet.html"><code>StateSet</code></a>. <code>Since</code>: ATK-2.26.</p>
-</div><div id="variant.ErrorFor" class="variant small-section-header"><a href="#variant.ErrorFor" class="anchor field"></a><code>ErrorFor</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.ErrorMessage"><code>ErrorMessage</code></a>. Indicates that this object
+object(s). Objects that have this relation type should also contain <a href="enum.StateType.html#variant.InvalidEntry" title="crate::StateType::InvalidEntry"><code>crate::StateType::InvalidEntry</code></a>
+in their <a href="struct.StateSet.html" title="crate::StateSet"><code>crate::StateSet</code></a>. <code>Since</code>: ATK-2.26.</p>
+</div><div id="variant.ErrorFor" class="variant small-section-header"><a href="#variant.ErrorFor" class="anchor field"></a><code>ErrorFor</code></div><div class="docblock"><p>Reciprocal of <a href="enum.RelationType.html#variant.ErrorMessage" title="Self::ErrorMessage"><code>Self::ErrorMessage</code></a>. Indicates that this object
 contains an error message describing an invalid condition in the target object(s). <code>Since</code>:
 ATK_2.26.</p>
 </div><div id="variant.LastDefined" class="variant small-section-header"><a href="#variant.LastDefined" class="anchor field"></a><code>LastDefined</code></div><div class="docblock"><p>Not used, this value indicates the end of the enumeration.</p>

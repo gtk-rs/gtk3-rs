@@ -202,9 +202,9 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`ThemedIcon`](crate::ThemedIcon) is an implementation of [`Icon`](crate::Icon) that supports icon themes.</span>
-    <span class="doccomment">/// [`ThemedIcon`](crate::ThemedIcon) contains a list of all of the icons present in an icon</span>
-    <span class="doccomment">/// theme, so that icons can be looked up quickly. [`ThemedIcon`](crate::ThemedIcon) does</span>
+    <span class="doccomment">/// [`crate::ThemedIcon`] is an implementation of [`crate::Icon`] that supports icon themes.</span>
+    <span class="doccomment">/// [`crate::ThemedIcon`] contains a list of all of the icons present in an icon</span>
+    <span class="doccomment">/// theme, so that icons can be looked up quickly. [`crate::ThemedIcon`] does</span>
     <span class="doccomment">/// not provide actual pixmaps for icons, just the icon names.</span>
     <span class="doccomment">/// Ideally something like `gtk_icon_theme_choose_icon()` should be used to</span>
     <span class="doccomment">/// resolve the list of names so that fallback icons work nicely with</span>
@@ -212,7 +212,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`IconExt`](trait@crate::prelude::IconExt)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::IconExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThemedIcon</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GThemedIcon</span>, <span class="ident">ffi::GThemedIconClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Icon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -227,7 +227,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ThemedIcon`](crate::ThemedIcon).</span>
+    <span class="doccomment">/// a new [`crate::ThemedIcon`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_themed_icon_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">iconname</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ThemedIcon</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_themed_icon_new</span>(<span class="ident">iconname</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
@@ -242,7 +242,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ThemedIcon`](crate::ThemedIcon)</span>
+    <span class="doccomment">/// a new [`crate::ThemedIcon`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_themed_icon_new_from_names&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_names&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_names</span>(<span class="ident">iconnames</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ThemedIcon</span> {
@@ -276,7 +276,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ThemedIcon`](crate::ThemedIcon).</span>
+    <span class="doccomment">/// a new [`crate::ThemedIcon`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_themed_icon_new_with_default_fallbacks&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_default_fallbacks&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_default_fallbacks</span>(<span class="ident">iconname</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ThemedIcon</span> {
@@ -290,7 +290,7 @@
     <span class="doccomment">/// Append a name to the list of icons from within `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that doing so invalidates the hash computed by prior calls</span>
-    <span class="doccomment">/// to [`Icon::hash()`](crate::Icon::hash()).</span>
+    <span class="doccomment">/// to [`crate::Icon::hash()`].</span>
     <span class="doccomment">/// ## `iconname`</span>
     <span class="doccomment">/// name of icon to append to list of icons from within `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_themed_icon_append_name&quot;</span>)]</span>
@@ -318,7 +318,7 @@
     <span class="doccomment">/// Prepend a name to the list of icons from within `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that doing so invalidates the hash computed by prior calls</span>
-    <span class="doccomment">/// to [`Icon::hash()`](crate::Icon::hash()).</span>
+    <span class="doccomment">/// to [`crate::Icon::hash()`].</span>
     <span class="doccomment">/// ## `iconname`</span>
     <span class="doccomment">/// name of icon to prepend to list of icons from within `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_themed_icon_prepend_name&quot;</span>)]</span>

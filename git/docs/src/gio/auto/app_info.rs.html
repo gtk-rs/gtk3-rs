@@ -951,11 +951,11 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`AppInfo`](crate::AppInfo) and [`AppLaunchContext`](crate::AppLaunchContext) are used for describing and launching</span>
+    <span class="doccomment">/// [`crate::AppInfo`] and [`crate::AppLaunchContext`] are used for describing and launching</span>
     <span class="doccomment">/// applications installed on the system.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As of GLib 2.20, URIs will always be converted to POSIX paths</span>
-    <span class="doccomment">/// (using [`File::get_path()`](crate::File::get_path())) when using [`launch()`](Self::launch()) even if</span>
+    <span class="doccomment">/// (using [`crate::File::get_path()`]) when using [`Self::launch()`] even if</span>
     <span class="doccomment">/// the application requested an URI and not a POSIX path. For example</span>
     <span class="doccomment">/// for a desktop-file based application with Exec key `totem</span>
     <span class="doccomment">/// %U` and a single URI, `sftp://foo/file.avi`, then</span>
@@ -968,12 +968,12 @@
     <span class="doccomment">/// passed unmodified to the application.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Specifically for gvfs 2.26 and later, the POSIX URI will be mapped</span>
-    <span class="doccomment">/// back to the GIO URI in the [`File`](crate::File) constructors (since gvfs</span>
-    <span class="doccomment">/// implements the [`Vfs`](crate::Vfs) extension point). As such, if the application</span>
-    <span class="doccomment">/// needs to examine the URI, it needs to use [`File::get_uri()`](crate::File::get_uri()) or</span>
-    <span class="doccomment">/// similar on [`File`](crate::File). In other words, an application cannot assume</span>
-    <span class="doccomment">/// that the URI passed to e.g. [`File::new_for_commandline_arg()`](crate::File::new_for_commandline_arg()) is</span>
-    <span class="doccomment">/// equal to the result of [`File::get_uri()`](crate::File::get_uri()). The following snippet</span>
+    <span class="doccomment">/// back to the GIO URI in the [`crate::File`] constructors (since gvfs</span>
+    <span class="doccomment">/// implements the [`crate::Vfs`] extension point). As such, if the application</span>
+    <span class="doccomment">/// needs to examine the URI, it needs to use [`crate::File::get_uri()`] or</span>
+    <span class="doccomment">/// similar on [`crate::File`]. In other words, an application cannot assume</span>
+    <span class="doccomment">/// that the URI passed to e.g. [`crate::File::new_for_commandline_arg()`] is</span>
+    <span class="doccomment">/// equal to the result of [`crate::File::get_uri()`]. The following snippet</span>
     <span class="doccomment">/// illustrates this:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -1003,7 +1003,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AppInfoExt`](trait@crate::prelude::AppInfoExt), [`AppInfoExtManual`](trait@crate::prelude::AppInfoExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::AppInfoExt`], [`trait@crate::prelude::AppInfoExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AppInfo</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GAppInfo</span>, <span class="ident">ffi::GAppInfoIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1012,7 +1012,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">AppInfo</span> {
-    <span class="doccomment">/// Creates a new [`AppInfo`](crate::AppInfo) from the given information.</span>
+    <span class="doccomment">/// Creates a new [`crate::AppInfo`] from the given information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that for `commandline`, the quoting rules of the Exec key of the</span>
     <span class="doccomment">/// [freedesktop.org Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec)</span>
@@ -1024,11 +1024,11 @@
     <span class="doccomment">/// ## `application_name`</span>
     <span class="doccomment">/// the application name, or [`None`] to use `commandline`</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags that can specify details of the created [`AppInfo`](crate::AppInfo)</span>
+    <span class="doccomment">/// flags that can specify details of the created [`crate::AppInfo`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// new [`AppInfo`](crate::AppInfo) for given command.</span>
+    <span class="doccomment">/// new [`crate::AppInfo`] for given command.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_create_from_commandline&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_from_commandline</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::ffi::OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">commandline</span>: <span class="ident">P</span>,
@@ -1056,13 +1056,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// For desktop files, this includes applications that have</span>
     <span class="doccomment">/// `NoDisplay=true` set or are excluded from display by means</span>
-    <span class="doccomment">/// of `OnlyShowIn` or `NotShowIn`. See [`should_show()`](Self::should_show()).</span>
+    <span class="doccomment">/// of `OnlyShowIn` or `NotShowIn`. See [`Self::should_show()`].</span>
     <span class="doccomment">/// The returned list does not include applications which have</span>
     <span class="doccomment">/// the `Hidden` key set.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly allocated [`glib::List`](crate::glib::List) of references to `GAppInfos`.</span>
+    <span class="doccomment">/// a newly allocated [`crate::glib::List`] of references to `GAppInfos`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_all&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_all&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">all</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AppInfo</span><span class="op">&gt;</span> {
@@ -1071,14 +1071,14 @@
 
     <span class="doccomment">/// Gets a list of all `GAppInfos` for a given content type,</span>
     <span class="doccomment">/// including the recommended and fallback `GAppInfos`. See</span>
-    <span class="doccomment">/// [`get_recommended_for_type()`](Self::get_recommended_for_type()) and</span>
-    <span class="doccomment">/// [`get_fallback_for_type()`](Self::get_fallback_for_type()).</span>
+    <span class="doccomment">/// [`Self::get_recommended_for_type()`] and</span>
+    <span class="doccomment">/// [`Self::get_fallback_for_type()`].</span>
     <span class="doccomment">/// ## `content_type`</span>
-    <span class="doccomment">/// the content type to find a [`AppInfo`](crate::AppInfo) for</span>
+    <span class="doccomment">/// the content type to find a [`crate::AppInfo`] for</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`glib::List`](crate::glib::List) of `GAppInfos`</span>
+    <span class="doccomment">/// [`crate::glib::List`] of `GAppInfos`</span>
     <span class="doccomment">///  for given `content_type` or [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_all_for_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_all_for_type&quot;</span>)]</span>
@@ -1090,16 +1090,16 @@
         }
     }
 
-    <span class="doccomment">/// Gets the default [`AppInfo`](crate::AppInfo) for a given content type.</span>
+    <span class="doccomment">/// Gets the default [`crate::AppInfo`] for a given content type.</span>
     <span class="doccomment">/// ## `content_type`</span>
-    <span class="doccomment">/// the content type to find a [`AppInfo`](crate::AppInfo) for</span>
+    <span class="doccomment">/// the content type to find a [`crate::AppInfo`] for</span>
     <span class="doccomment">/// ## `must_support_uris`</span>
-    <span class="doccomment">/// if [`true`], the [`AppInfo`](crate::AppInfo) is expected to</span>
+    <span class="doccomment">/// if [`true`], the [`crate::AppInfo`] is expected to</span>
     <span class="doccomment">///  support URIs</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AppInfo`](crate::AppInfo) for given `content_type` or</span>
+    <span class="doccomment">/// [`crate::AppInfo`] for given `content_type` or</span>
     <span class="doccomment">///  [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_default_for_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default_for_type&quot;</span>)]</span>
@@ -1121,7 +1121,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AppInfo`](crate::AppInfo) for given `uri_scheme` or</span>
+    <span class="doccomment">/// [`crate::AppInfo`] for given `uri_scheme` or</span>
     <span class="doccomment">///  [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_default_for_uri_scheme&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default_for_uri_scheme&quot;</span>)]</span>
@@ -1137,11 +1137,11 @@
     <span class="doccomment">/// those applications which claim to support the given content type</span>
     <span class="doccomment">/// by MIME type subclassing and not directly.</span>
     <span class="doccomment">/// ## `content_type`</span>
-    <span class="doccomment">/// the content type to find a [`AppInfo`](crate::AppInfo) for</span>
+    <span class="doccomment">/// the content type to find a [`crate::AppInfo`] for</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`glib::List`](crate::glib::List) of `GAppInfos`</span>
+    <span class="doccomment">/// [`crate::glib::List`] of `GAppInfos`</span>
     <span class="doccomment">///  for given `content_type` or [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_fallback_for_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_fallback_for_type&quot;</span>)]</span>
@@ -1157,14 +1157,14 @@
     <span class="doccomment">/// those applications which claim to support the given content type exactly,</span>
     <span class="doccomment">/// and not by MIME type subclassing.</span>
     <span class="doccomment">/// Note that the first application of the list is the last used one, i.e.</span>
-    <span class="doccomment">/// the last one for which [`set_as_last_used_for_type()`](Self::set_as_last_used_for_type()) has been</span>
+    <span class="doccomment">/// the last one for which [`Self::set_as_last_used_for_type()`] has been</span>
     <span class="doccomment">/// called.</span>
     <span class="doccomment">/// ## `content_type`</span>
-    <span class="doccomment">/// the content type to find a [`AppInfo`](crate::AppInfo) for</span>
+    <span class="doccomment">/// the content type to find a [`crate::AppInfo`] for</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`glib::List`](crate::glib::List) of `GAppInfos`</span>
+    <span class="doccomment">/// [`crate::glib::List`] of `GAppInfos`</span>
     <span class="doccomment">///  for given `content_type` or [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_recommended_for_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_recommended_for_type&quot;</span>)]</span>
@@ -1183,11 +1183,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The D-Bus–activated applications don&#39;t have to be started if your application</span>
     <span class="doccomment">/// terminates too soon after this function. To prevent this, use</span>
-    <span class="doccomment">/// [`launch_default_for_uri_async()`](Self::launch_default_for_uri_async()) instead.</span>
+    <span class="doccomment">/// [`Self::launch_default_for_uri_async()`] instead.</span>
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// the uri to show</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// an optional [`AppLaunchContext`](crate::AppLaunchContext)</span>
+    <span class="doccomment">/// an optional [`crate::AppLaunchContext`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1212,7 +1212,7 @@
         }
     }
 
-    <span class="doccomment">/// Async version of [`launch_default_for_uri()`](Self::launch_default_for_uri()).</span>
+    <span class="doccomment">/// Async version of [`Self::launch_default_for_uri()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This version is useful if you are interested in receiving</span>
     <span class="doccomment">/// error information in the case where the application is</span>
@@ -1225,9 +1225,9 @@
     <span class="doccomment">/// ## `uri`</span>
     <span class="doccomment">/// the uri to show</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// an optional [`AppLaunchContext`](crate::AppLaunchContext)</span>
+    <span class="doccomment">/// an optional [`crate::AppLaunchContext`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable)</span>
+    <span class="doccomment">/// a [`crate::Cancellable`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the request is done</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1299,10 +1299,10 @@
     }
 
     <span class="doccomment">/// Removes all changes to the type associations done by</span>
-    <span class="doccomment">/// [`set_as_default_for_type()`](Self::set_as_default_for_type()),</span>
-    <span class="doccomment">/// [`set_as_default_for_extension()`](Self::set_as_default_for_extension()),</span>
-    <span class="doccomment">/// [`add_supports_type()`](Self::add_supports_type()) or</span>
-    <span class="doccomment">/// [`remove_supports_type()`](Self::remove_supports_type()).</span>
+    <span class="doccomment">/// [`Self::set_as_default_for_type()`],</span>
+    <span class="doccomment">/// [`Self::set_as_default_for_extension()`],</span>
+    <span class="doccomment">/// [`Self::add_supports_type()`] or</span>
+    <span class="doccomment">/// [`Self::remove_supports_type()`].</span>
     <span class="doccomment">/// ## `content_type`</span>
     <span class="doccomment">/// a content type</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_reset_type_associations&quot;</span>)]</span>
@@ -1319,7 +1319,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`AppInfo`](struct@crate::AppInfo), [`DesktopAppInfo`](struct@crate::DesktopAppInfo)</span>
+<span class="doccomment">/// [`struct@crate::AppInfo`], [`struct@crate::DesktopAppInfo`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AppInfoExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds a content type to the application information to indicate the</span>
     <span class="doccomment">/// application is capable of opening files with the given content type.</span>
@@ -1332,8 +1332,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_add_supports_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_supports_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">content_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Obtains the information whether the [`AppInfo`](crate::AppInfo) can be deleted.</span>
-    <span class="doccomment">/// See [`AppInfo::delete()`](crate::AppInfo::delete()).</span>
+    <span class="doccomment">/// Obtains the information whether the [`crate::AppInfo`] can be deleted.</span>
+    <span class="doccomment">/// See [`crate::AppInfo::delete()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1350,11 +1350,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_can_remove_supports_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">can_remove_supports_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Tries to delete a [`AppInfo`](crate::AppInfo).</span>
+    <span class="doccomment">/// Tries to delete a [`crate::AppInfo`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On some platforms, there may be a difference between user-defined</span>
     <span class="doccomment">/// `GAppInfos` which can be deleted, and system-wide ones which cannot.</span>
-    <span class="doccomment">/// See [`AppInfo::can_delete()`](crate::AppInfo::can_delete()).</span>
+    <span class="doccomment">/// See [`crate::AppInfo::can_delete()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1362,7 +1362,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_delete&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">delete</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Creates a duplicate of a [`AppInfo`](crate::AppInfo).</span>
+    <span class="doccomment">/// Creates a duplicate of a [`crate::AppInfo`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1376,7 +1376,7 @@
     <span class="doccomment">/// field, and only does an identity check. In case detecting changes in the</span>
     <span class="doccomment">/// contents is needed, program code must additionally compare relevant fields.</span>
     <span class="doccomment">/// ## `appinfo2`</span>
-    <span class="doccomment">/// the second [`AppInfo`](crate::AppInfo).</span>
+    <span class="doccomment">/// the second [`crate::AppInfo`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1430,7 +1430,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the default [`Icon`](crate::Icon) for `self` or [`None`]</span>
+    <span class="doccomment">/// the default [`crate::Icon`] for `self` or [`None`]</span>
     <span class="doccomment">/// if there is no default icon.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_icon&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_icon&quot;</span>)]</span>
@@ -1464,7 +1464,7 @@
     <span class="doccomment">/// If this information is not provided by the environment, this function</span>
     <span class="doccomment">/// will return [`None`].</span>
     <span class="doccomment">/// This function does not take in consideration associations added with</span>
-    <span class="doccomment">/// [`AppInfo::add_supports_type()`](crate::AppInfo::add_supports_type()), but only those exported directly by</span>
+    <span class="doccomment">/// [`crate::AppInfo::add_supports_type()`], but only those exported directly by</span>
     <span class="doccomment">/// the application.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1489,11 +1489,11 @@
     <span class="doccomment">/// Some URIs can be changed when passed through a GFile (for instance</span>
     <span class="doccomment">/// unsupported URIs with strange formats like mailto:), so if you have</span>
     <span class="doccomment">/// a textual URI you want to pass in as argument, consider using</span>
-    <span class="doccomment">/// [`AppInfo::launch_uris()`](crate::AppInfo::launch_uris()) instead.</span>
+    <span class="doccomment">/// [`crate::AppInfo::launch_uris()`] instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The launched application inherits the environment of the launching</span>
-    <span class="doccomment">/// process, but it can be modified with [`AppLaunchContextExt::setenv()`](crate::AppLaunchContextExt::setenv())</span>
-    <span class="doccomment">/// and [`AppLaunchContextExt::unsetenv()`](crate::AppLaunchContextExt::unsetenv()).</span>
+    <span class="doccomment">/// process, but it can be modified with [`crate::prelude::AppLaunchContextExt::setenv()`]</span>
+    <span class="doccomment">/// and [`crate::prelude::AppLaunchContextExt::unsetenv()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On UNIX, this function sets the `GIO_LAUNCHED_DESKTOP_FILE`</span>
     <span class="doccomment">/// environment variable with the path of the launched desktop file and</span>
@@ -1503,9 +1503,9 @@
     <span class="doccomment">/// `DESKTOP_STARTUP_ID` environment variables are also set, based</span>
     <span class="doccomment">/// on information provided in `context`.</span>
     <span class="doccomment">/// ## `files`</span>
-    <span class="doccomment">/// a [`glib::List`](crate::glib::List) of [`File`](crate::File) objects</span>
+    <span class="doccomment">/// a [`crate::glib::List`] of [`crate::File`] objects</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// a [`AppLaunchContext`](crate::AppLaunchContext) or [`None`]</span>
+    <span class="doccomment">/// a [`crate::AppLaunchContext`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1528,9 +1528,9 @@
     <span class="doccomment">/// can fail to start if it runs into problems during startup. There is</span>
     <span class="doccomment">/// no way to detect this.</span>
     <span class="doccomment">/// ## `uris`</span>
-    <span class="doccomment">/// a [`glib::List`](crate::glib::List) containing URIs to launch.</span>
+    <span class="doccomment">/// a [`crate::glib::List`] containing URIs to launch.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// a [`AppLaunchContext`](crate::AppLaunchContext) or [`None`]</span>
+    <span class="doccomment">/// a [`crate::AppLaunchContext`] or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1578,7 +1578,7 @@
 
     <span class="doccomment">/// Sets the application as the last used application for a given type.</span>
     <span class="doccomment">/// This will make the application appear as first in the list returned</span>
-    <span class="doccomment">/// by [`AppInfo::get_recommended_for_type()`](crate::AppInfo::get_recommended_for_type()), regardless of the default</span>
+    <span class="doccomment">/// by [`crate::AppInfo::get_recommended_for_type()`], regardless of the default</span>
     <span class="doccomment">/// application for that content type.</span>
     <span class="doccomment">/// ## `content_type`</span>
     <span class="doccomment">/// the content type.</span>

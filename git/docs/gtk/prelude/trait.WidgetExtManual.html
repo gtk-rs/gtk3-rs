@@ -16,20 +16,20 @@
 }</pre></div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.drag_dest_set" class="method"><code>fn <a href="#tymethod.drag_dest_set" class="fnname">drag_dest_set</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;flags: <a class="struct" href="../struct.DestDefaults.html" title="struct gtk::DestDefaults">DestDefaults</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;targets: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="struct" href="../struct.TargetEntry.html" title="struct gtk::TargetEntry">TargetEntry</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;actions: <a class="struct" href="../../gdk/auto/flags/struct.DragAction.html" title="struct gdk::auto::flags::DragAction">DragAction</a><br>)</code><a class="srclink" href="../../src/gtk/widget.rs.html#83" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets a widget as a potential drop destination, and adds default behaviors.</p>
 <p>The default behaviors listed in <code>flags</code> have an effect similar
 to installing default handlers for the widget’s drag-and-drop signals
-(<a href="crate::Widget::drag-motion"><code>Widget::drag-motion</code></a>, <a href="crate::Widget::drag-drop"><code>Widget::drag-drop</code></a>, …). They all exist
-for convenience. When passing <a href="crate::DestDefaults::All"><code>DestDefaults::All</code></a> for instance it is
-sufficient to connect to the widget’s <a href="crate::Widget::drag-data-received"><code>Widget::drag-data-received</code></a>
+([<code>crate::Widget::drag-motion</code>], [<code>crate::Widget::drag-drop</code>], …). They all exist
+for convenience. When passing [<code>crate::DestDefaults::All</code>] for instance it is
+sufficient to connect to the widget’s [<code>crate::Widget::drag-data-received</code>]
 signal to get primitive, but consistent drag-and-drop support.</p>
 <p>Things become more complicated when you try to preview the dragged data,
-as described in the documentation for <a href="crate::Widget::drag-motion"><code>Widget::drag-motion</code></a>. The default
+as described in the documentation for [<code>crate::Widget::drag-motion</code>]. The default
 behaviors described by <code>flags</code> make some assumptions, that can conflict
-with your own signal handlers. For instance <a href="crate::DestDefaults::Drop"><code>DestDefaults::Drop</code></a> causes
-invokations of <code>gdk_drag_status()</code> in the context of <a href="crate::Widget::drag-motion"><code>Widget::drag-motion</code></a>,
-and invokations of <code>gtk_drag_finish()</code> in <a href="crate::Widget::drag-data-received"><code>Widget::drag-data-received</code></a>.
-Especially the later is dramatic, when your own <a href="crate::Widget::drag-motion"><code>Widget::drag-motion</code></a>
-handler calls <a href="crate::WidgetExt::drag_get_data()"><code>WidgetExt::drag_get_data()</code></a> to inspect the dragged data.</p>
+with your own signal handlers. For instance [<code>crate::DestDefaults::Drop</code>] causes
+invokations of <code>gdk_drag_status()</code> in the context of [<code>crate::Widget::drag-motion</code>],
+and invokations of <code>gtk_drag_finish()</code> in [<code>crate::Widget::drag-data-received</code>].
+Especially the later is dramatic, when your own [<code>crate::Widget::drag-motion</code>]
+handler calls <a href="trait.WidgetExt.html#tymethod.drag_get_data" title="crate::prelude::WidgetExt::drag_get_data()"><code>crate::prelude::WidgetExt::drag_get_data()</code></a> to inspect the dragged data.</p>
 <p>There’s no way to set a default action here, you can use the
-<a href="crate::Widget::drag-motion"><code>Widget::drag-motion</code></a> callback for that. Here’s an example which selects
+[<code>crate::Widget::drag-motion</code>] callback for that. Here’s an example which selects
 the action to use depending on whether the control key is pressed or not:</p>
 <pre><code class="language-C">static void
 drag_motion (GtkWidget *widget,
@@ -54,7 +54,7 @@ drag_motion (GtkWidget *widget,
 <p>a pointer to an array of
 <code>GtkTargetEntrys</code> indicating the drop types that this <code>self</code> will
 accept, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. Later you can access the list with
-<a href="crate::WidgetExt::drag_dest_get_target_list()"><code>WidgetExt::drag_dest_get_target_list()</code></a> and <a href="crate::WidgetExt::drag_dest_find_target()"><code>WidgetExt::drag_dest_find_target()</code></a>.</p>
+<a href="trait.WidgetExt.html#tymethod.drag_dest_get_target_list" title="crate::prelude::WidgetExt::drag_dest_get_target_list()"><code>crate::prelude::WidgetExt::drag_dest_get_target_list()</code></a> and <a href="trait.WidgetExt.html#tymethod.drag_dest_find_target" title="crate::prelude::WidgetExt::drag_dest_find_target()"><code>crate::prelude::WidgetExt::drag_dest_find_target()</code></a>.</p>
 <h2 id="n_targets" class="section-header"><a href="#n_targets"><code>n_targets</code></a></h2>
 <p>the number of entries in <code>targets</code></p>
 <h2 id="actions" class="section-header"><a href="#actions"><code>actions</code></a></h2>
@@ -83,21 +83,21 @@ intersection of <code>self</code> and <code>area</code></p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if there was an intersection</p>
 </div><h3 id="tymethod.connect_map_event" class="method"><code>fn <a href="#tymethod.connect_map_event" class="fnname">connect_map_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/event/struct.Event.html" title="struct gdk::event::Event">Event</a>) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/widget.rs.html#133-134" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::map-event signal will be emitted when the <code>widget</code>’s window is
 mapped. A window is mapped when it becomes visible on the screen.</p>
-<p>To receive this signal, the <a href="../../gdk/auto/window/struct.Window.html"><code>gdk::Window</code></a> associated to the widget needs
-to enable the <a href="crate::gdk::EventMask::StructureMask"><code>gdk::EventMask::StructureMask</code></a> mask. GDK will enable this mask
+<p>To receive this signal, the <a href="../../gdk/auto/window/struct.Window.html" title="crate::gdk::Window"><code>crate::gdk::Window</code></a> associated to the widget needs
+to enable the [<code>crate::gdk::EventMask::StructureMask</code>] mask. GDK will enable this mask
 automatically for all new windows.</p>
 <h2 id="event" class="section-header"><a href="#event"><code>event</code></a></h2>
-<p>the <a href="crate::gdk::EventAny"><code>gdk::EventAny</code></a> which triggered this signal.</p>
+<p>the [<code>crate::gdk::EventAny</code>] which triggered this signal.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to stop other handlers from being invoked for the event.
 <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> to propagate the event further.</p>
 </div><h3 id="tymethod.connect_unmap_event" class="method"><code>fn <a href="#tymethod.connect_unmap_event" class="fnname">connect_unmap_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/event/struct.Event.html" title="struct gdk::event::Event">Event</a>) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/widget.rs.html#149-152" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::unmap-event signal will be emitted when the <code>widget</code>’s window is
 unmapped. A window is unmapped when it becomes invisible on the screen.</p>
-<p>To receive this signal, the <a href="../../gdk/auto/window/struct.Window.html"><code>gdk::Window</code></a> associated to the widget needs
-to enable the <a href="crate::gdk::EventMask::StructureMask"><code>gdk::EventMask::StructureMask</code></a> mask. GDK will enable this mask
+<p>To receive this signal, the <a href="../../gdk/auto/window/struct.Window.html" title="crate::gdk::Window"><code>crate::gdk::Window</code></a> associated to the widget needs
+to enable the [<code>crate::gdk::EventMask::StructureMask</code>] mask. GDK will enable this mask
 automatically for all new windows.</p>
 <h2 id="event-1" class="section-header"><a href="#event-1"><code>event</code></a></h2>
-<p>the <a href="crate::gdk::EventAny"><code>gdk::EventAny</code></a> which triggered this signal</p>
+<p>the [<code>crate::gdk::EventAny</code>] which triggered this signal</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to stop other handlers from being invoked for the event.
 <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> to propagate the event further.</p>
@@ -109,16 +109,16 @@ slower). For this reason, is most suitable for handling graphics
 that change every frame or every few frames. The tick callback does
 not automatically imply a relayout or repaint. If you want a
 repaint or relayout, and aren’t changing widget properties that
-would trigger that (for example, changing the text of a <a href="../struct.Label.html"><code>Label</code></a>),
-then you will have to call <a href="crate::WidgetExt::queue_resize()"><code>WidgetExt::queue_resize()</code></a> or
-<a href="crate::WidgetExt::queue_draw_area()"><code>WidgetExt::queue_draw_area()</code></a> yourself.</p>
-<p><a href="crate::gdk::FrameClock::get_frame_time()"><code>gdk::FrameClock::get_frame_time()</code></a> should generally be used for timing
+would trigger that (for example, changing the text of a <a href="../struct.Label.html" title="crate::Label"><code>crate::Label</code></a>),
+then you will have to call <a href="trait.WidgetExt.html#tymethod.queue_resize" title="crate::prelude::WidgetExt::queue_resize()"><code>crate::prelude::WidgetExt::queue_resize()</code></a> or
+<a href="trait.WidgetExt.html#tymethod.queue_draw_area" title="crate::prelude::WidgetExt::queue_draw_area()"><code>crate::prelude::WidgetExt::queue_draw_area()</code></a> yourself.</p>
+<p>[<code>crate::gdk::FrameClock::get_frame_time()</code>] should generally be used for timing
 continuous animations and
-<a href="crate::gdk::FrameTimings::get_predicted_presentation_time()"><code>gdk::FrameTimings::get_predicted_presentation_time()</code></a> if you are
+[<code>crate::gdk::FrameTimings::get_predicted_presentation_time()</code>] if you are
 trying to display isolated frames at particular times.</p>
 <p>This is a more convenient alternative to connecting directly to the
-<a href="crate::gdk::FrameClock::update"><code>gdk::FrameClock::update</code></a> signal of <a href="../../gdk/auto/frame_clock/struct.FrameClock.html"><code>gdk::FrameClock</code></a>, since you don’t
-have to worry about when a <a href="../../gdk/auto/frame_clock/struct.FrameClock.html"><code>gdk::FrameClock</code></a> is assigned to a widget.</p>
+[<code>crate::gdk::FrameClock::update</code>] signal of <a href="../../gdk/auto/frame_clock/struct.FrameClock.html" title="crate::gdk::FrameClock"><code>crate::gdk::FrameClock</code></a>, since you don’t
+have to worry about when a <a href="../../gdk/auto/frame_clock/struct.FrameClock.html" title="crate::gdk::FrameClock"><code>crate::gdk::FrameClock</code></a> is assigned to a widget.</p>
 <h2 id="callback" class="section-header"><a href="#callback"><code>callback</code></a></h2>
 <p>function to call for updating animations</p>
 <h2 id="user_data" class="section-header"><a href="#user_data"><code>user_data</code></a></h2>
@@ -127,30 +127,30 @@ have to worry about when a <a href="../../gdk/auto/frame_clock/struct.FrameClock
 <p>function to call to free <code>user_data</code> when the callback is removed.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>an id for the connection of this callback. Remove the callback
-by passing it to <a href="crate::Widget::remove_tick_callback()"><code>Widget::remove_tick_callback()</code></a></p>
+by passing it to [<code>crate::Widget::remove_tick_callback()</code>]</p>
 </div><h3 id="tymethod.add_events" class="method"><code>fn <a href="#tymethod.add_events" class="fnname">add_events</a>(&amp;self, events: <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a>)</code><a class="srclink" href="../../src/gtk/widget.rs.html#197" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds the events in the bitfield <code>events</code> to the event mask for
-<code>self</code>. See <a href="crate::Widget::set_events()"><code>Widget::set_events()</code></a> and the
+<code>self</code>. See [<code>crate::Widget::set_events()</code>] and the
 [input handling overview][event-masks] for details.</p>
 <h2 id="events" class="section-header"><a href="#events"><code>events</code></a></h2>
-<p>an event mask, see <a href="../../gdk/auto/flags/struct.EventMask.html"><code>gdk::EventMask</code></a></p>
-</div><h3 id="tymethod.events" class="method"><code>fn <a href="#tymethod.events" class="fnname">events</a>(&amp;self) -&gt; <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a></code><a class="srclink" href="../../src/gtk/widget.rs.html#212" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the event mask (see <a href="../../gdk/auto/flags/struct.EventMask.html"><code>gdk::EventMask</code></a>) for the widget. These are the
+<p>an event mask, see <a href="../../gdk/auto/flags/struct.EventMask.html" title="crate::gdk::EventMask"><code>crate::gdk::EventMask</code></a></p>
+</div><h3 id="tymethod.events" class="method"><code>fn <a href="#tymethod.events" class="fnname">events</a>(&amp;self) -&gt; <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a></code><a class="srclink" href="../../src/gtk/widget.rs.html#212" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the event mask (see <a href="../../gdk/auto/flags/struct.EventMask.html" title="crate::gdk::EventMask"><code>crate::gdk::EventMask</code></a>) for the widget. These are the
 events that the widget will receive.</p>
 <p>Note: Internally, the widget event mask will be the logical OR of the event
-mask set through <a href="crate::Widget::set_events()"><code>Widget::set_events()</code></a> or <a href="crate::Widget::add_events()"><code>Widget::add_events()</code></a>, and the
-event mask necessary to cater for every <a href="../struct.EventController.html"><code>EventController</code></a> created for the
+mask set through [<code>crate::Widget::set_events()</code>] or [<code>crate::Widget::add_events()</code>], and the
+event mask necessary to cater for every <a href="../struct.EventController.html" title="crate::EventController"><code>crate::EventController</code></a> created for the
 widget.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>event mask for <code>self</code></p>
-</div><h3 id="tymethod.set_events" class="method"><code>fn <a href="#tymethod.set_events" class="fnname">set_events</a>(&amp;self, events: <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a>)</code><a class="srclink" href="../../src/gtk/widget.rs.html#228" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the event mask (see <a href="../../gdk/auto/flags/struct.EventMask.html"><code>gdk::EventMask</code></a>) for a widget. The event
+</div><h3 id="tymethod.set_events" class="method"><code>fn <a href="#tymethod.set_events" class="fnname">set_events</a>(&amp;self, events: <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a>)</code><a class="srclink" href="../../src/gtk/widget.rs.html#228" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the event mask (see <a href="../../gdk/auto/flags/struct.EventMask.html" title="crate::gdk::EventMask"><code>crate::gdk::EventMask</code></a>) for a widget. The event
 mask determines which events a widget will receive. Keep in mind
 that different widgets have different default event masks, and by
 changing the event mask you may disrupt a widget’s functionality,
 so be careful. This function must be called while a widget is
-unrealized. Consider <a href="crate::Widget::add_events()"><code>Widget::add_events()</code></a> for widgets that are
+unrealized. Consider [<code>crate::Widget::add_events()</code>] for widgets that are
 already realized, or if you want to preserve the existing event
 mask. This function can’t be used with widgets that have no window.
-(See <a href="crate::WidgetExt::get_has_window()"><code>WidgetExt::get_has_window()</code></a>). To get events on those widgets,
-place them inside a <a href="../struct.EventBox.html"><code>EventBox</code></a> and receive events on the event
+(See [<code>crate::prelude::WidgetExt::get_has_window()</code>]). To get events on those widgets,
+place them inside a <a href="../struct.EventBox.html" title="crate::EventBox"><code>crate::EventBox</code></a> and receive events on the event
 box.</p>
 <h2 id="events-1" class="section-header"><a href="#events-1"><code>events</code></a></h2>
 <p>event mask</p>
@@ -159,8 +159,8 @@ box.</p>
 <p>This will not necessarily entirely remove the widget from existence but
 you must <em>NOT</em> query the widget’s state subsequently.  Do not call this
 yourself unless you really mean to.</p>
-</div><h3 id="tymethod.hide_on_delete" class="method"><code>fn <a href="#tymethod.hide_on_delete" class="fnname">hide_on_delete</a>(&amp;self) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a></code><a class="srclink" href="../../src/gtk/widget.rs.html#253" title="goto source code">[src]</a></h3><div class="docblock"><p>Utility function; intended to be connected to the <a href="crate::Widget::delete-event"><code>Widget::delete-event</code></a>
-signal on a <a href="../struct.Window.html"><code>Window</code></a>. The function calls <a href="crate::WidgetExt::hide()"><code>WidgetExt::hide()</code></a> on its
+</div><h3 id="tymethod.hide_on_delete" class="method"><code>fn <a href="#tymethod.hide_on_delete" class="fnname">hide_on_delete</a>(&amp;self) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a></code><a class="srclink" href="../../src/gtk/widget.rs.html#253" title="goto source code">[src]</a></h3><div class="docblock"><p>Utility function; intended to be connected to the [<code>crate::Widget::delete-event</code>]
+signal on a <a href="../struct.Window.html" title="crate::Window"><code>crate::Window</code></a>. The function calls <a href="trait.WidgetExt.html#tymethod.hide" title="crate::prelude::WidgetExt::hide()"><code>crate::prelude::WidgetExt::hide()</code></a> on its
 argument, then returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>. If connected to ::delete-event, the
 result is that clicking the close button for a window (on the
 window frame, top right corner usually) will hide but not destroy

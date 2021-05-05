@@ -233,7 +233,7 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`GlyphString`](crate::GlyphString) structure is used to store strings</span>
+    <span class="doccomment">/// The [`crate::GlyphString`] structure is used to store strings</span>
     <span class="doccomment">/// of glyphs with geometry and visual attribute information.</span>
     <span class="doccomment">/// The storage for the glyph information is owned</span>
     <span class="doccomment">/// by the structure which simplifies memory management.</span>
@@ -248,26 +248,26 @@
 }
 
 <span class="kw">impl</span> <span class="ident">GlyphString</span> {
-    <span class="doccomment">/// Create a new [`GlyphString`](crate::GlyphString).</span>
+    <span class="doccomment">/// Create a new [`crate::GlyphString`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly allocated [`GlyphString`](crate::GlyphString), which</span>
-    <span class="doccomment">///  should be freed with [`free()`](Self::free()).</span>
+    <span class="doccomment">/// the newly allocated [`crate::GlyphString`], which</span>
+    <span class="doccomment">///  should be freed with [`Self::free()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_glyph_string_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GlyphString</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_glyph_string_new</span>()) }
     }
 
     <span class="doccomment">/// Compute the logical and ink extents of a glyph string. See the documentation</span>
-    <span class="doccomment">/// for [`FontExt::get_glyph_extents()`](crate::FontExt::get_glyph_extents()) for details about the interpretation</span>
+    <span class="doccomment">/// for [`crate::prelude::FontExt::get_glyph_extents()`] for details about the interpretation</span>
     <span class="doccomment">/// of the rectangles.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Examples of logical (red) and ink (green) rects:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ![](rects1.png) ![](rects2.png)</span>
     <span class="doccomment">/// ## `font`</span>
-    <span class="doccomment">/// a [`Font`](crate::Font)</span>
+    <span class="doccomment">/// a [`crate::Font`]</span>
     <span class="doccomment">/// ## `ink_rect`</span>
     <span class="doccomment">/// rectangle used to store the extents of the glyph string</span>
     <span class="doccomment">///  as drawn or [`None`] to indicate that the result is not needed.</span>
@@ -299,7 +299,7 @@
     <span class="doccomment">/// end index (the range is the set of bytes with</span>
     <span class="doccomment">///      indices such that start &lt;= index &lt; end)</span>
     <span class="doccomment">/// ## `font`</span>
-    <span class="doccomment">/// a [`Font`](crate::Font)</span>
+    <span class="doccomment">/// a [`crate::Font`]</span>
     <span class="doccomment">/// ## `ink_rect`</span>
     <span class="doccomment">/// rectangle used to</span>
     <span class="doccomment">///  store the extents of the glyph string range as drawn or</span>

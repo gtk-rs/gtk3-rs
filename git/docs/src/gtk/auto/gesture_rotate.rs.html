@@ -182,13 +182,13 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`GestureRotate`](crate::GestureRotate) is a [`Gesture`](crate::Gesture) implementation able to recognize</span>
+    <span class="doccomment">/// [`crate::GestureRotate`] is a [`crate::Gesture`] implementation able to recognize</span>
     <span class="doccomment">/// 2-finger rotations, whenever the angle between both handled sequences</span>
-    <span class="doccomment">/// changes, the [`GestureRotate::angle-changed`](crate::GestureRotate::angle-changed) signal is emitted.</span>
+    <span class="doccomment">/// changes, the [`crate::GestureRotate::angle-changed`] signal is emitted.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GestureExt`](trait@crate::prelude::GestureExt), [`EventControllerExt`](trait@crate::prelude::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::GestureExt`], [`trait@crate::prelude::EventControllerExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GestureRotate</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkGestureRotate</span>, <span class="ident">ffi::GtkGestureRotateClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Gesture</span>, <span class="ident">EventController</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -197,14 +197,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">GestureRotate</span> {
-    <span class="doccomment">/// Returns a newly created [`Gesture`](crate::Gesture) that recognizes 2-touch</span>
+    <span class="doccomment">/// Returns a newly created [`crate::Gesture`] that recognizes 2-touch</span>
     <span class="doccomment">/// rotation gestures.</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created [`GestureRotate`](crate::GestureRotate)</span>
+    <span class="doccomment">/// a newly created [`crate::GestureRotate`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_gesture_rotate_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GestureRotate</span> {
         <span class="macro">skip_assert_initialized!</span>();

@@ -169,16 +169,16 @@
 
 <span class="kw">impl</span> <span class="ident">Keymap</span> {
     <span class="doccomment">/// Returns the keyvals bound to `hardware_keycode`.</span>
-    <span class="doccomment">/// The Nth [`KeymapKey`](crate::KeymapKey) in `keys` is bound to the Nth</span>
+    <span class="doccomment">/// The Nth [`crate::KeymapKey`] in `keys` is bound to the Nth</span>
     <span class="doccomment">/// keyval in `keyvals`. Free the returned arrays with `g_free()`.</span>
     <span class="doccomment">/// When a keycode is pressed by the user, the keyval from</span>
     <span class="doccomment">/// this list of entries is selected by considering the effective</span>
-    <span class="doccomment">/// keyboard group and level. See [`translate_keyboard_state()`](Self::translate_keyboard_state()).</span>
+    <span class="doccomment">/// keyboard group and level. See [`Self::translate_keyboard_state()`].</span>
     <span class="doccomment">/// ## `hardware_keycode`</span>
     <span class="doccomment">/// a keycode</span>
     <span class="doccomment">/// ## `keys`</span>
     <span class="doccomment">/// return</span>
-    <span class="doccomment">///  location for array of [`KeymapKey`](crate::KeymapKey), or [`None`]</span>
+    <span class="doccomment">///  location for array of [`crate::KeymapKey`], or [`None`]</span>
     <span class="doccomment">/// ## `keyvals`</span>
     <span class="doccomment">/// return</span>
     <span class="doccomment">///  location for array of keyvals, or [`None`]</span>
@@ -224,7 +224,7 @@
     <span class="doccomment">/// right symbol is used. On US keyboards, the shift key changes the</span>
     <span class="doccomment">/// keyboard level, and there are no groups. A group switch key might</span>
     <span class="doccomment">/// convert a keyboard between Hebrew to English modes, for example.</span>
-    <span class="doccomment">/// [`EventKey`](crate::EventKey) contains a `group` field that indicates the active</span>
+    <span class="doccomment">/// [`crate::EventKey`] contains a `group` field that indicates the active</span>
     <span class="doccomment">/// keyboard group. The level is computed from the modifier mask.</span>
     <span class="doccomment">/// The returned array should be freed</span>
     <span class="doccomment">/// with `g_free()`.</span>
@@ -232,7 +232,7 @@
     <span class="doccomment">/// a keyval, such as `GDK_KEY_a`, `GDK_KEY_Up`, `GDK_KEY_Return`, etc.</span>
     <span class="doccomment">/// ## `keys`</span>
     <span class="doccomment">/// return location</span>
-    <span class="doccomment">///  for an array of [`KeymapKey`](crate::KeymapKey)</span>
+    <span class="doccomment">///  for an array of [`crate::KeymapKey`]</span>
     <span class="doccomment">/// ## `n_keys`</span>
     <span class="doccomment">/// return location for number of elements in returned array</span>
     <span class="doccomment">///</span>

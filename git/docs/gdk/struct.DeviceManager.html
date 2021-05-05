@@ -10,27 +10,27 @@ additional device-dependent information.</p>
 <p>In order to query the device hierarchy and be aware of changes in the
 device hierarchy (such as virtual devices being created or removed, or
 physical devices being plugged or unplugged), GDK provides
-<a href="struct.DeviceManager.html"><code>DeviceManager</code></a>.</p>
+<a href="struct.DeviceManager.html" title="crate::DeviceManager"><code>crate::DeviceManager</code></a>.</p>
 <p>By default, and if the platform supports it, GDK is aware of multiple
 keyboard/pointer pairs and multitouch devices. This behavior can be
-changed by calling <code>gdk_disable_multidevice()</code> before <a href="struct.Display.html#method.open"><code>Display::open()</code></a>.
+changed by calling <code>gdk_disable_multidevice()</code> before <a href="struct.Display.html#method.open" title="crate::Display::open()"><code>crate::Display::open()</code></a>.
 There should rarely be a need to do that though, since GDK defaults
 to a compatibility mode in which it will emit just one enter/leave
 event pair for all devices on a window. To enable per-device
 enter/leave events and other multi-pointer interaction features,
-<a href="struct.Window.html#method.set_support_multidevice"><code>Window::set_support_multidevice()</code></a> must be called on
+<a href="struct.Window.html#method.set_support_multidevice" title="crate::Window::set_support_multidevice()"><code>crate::Window::set_support_multidevice()</code></a> must be called on
 <code>GdkWindows</code> (or <code>gtk_widget_set_support_multidevice()</code> on widgets).
-window. See the <a href="struct.Window.html#method.set_support_multidevice"><code>Window::set_support_multidevice()</code></a> documentation
+window. See the <a href="struct.Window.html#method.set_support_multidevice" title="crate::Window::set_support_multidevice()"><code>crate::Window::set_support_multidevice()</code></a> documentation
 for more information.</p>
 <p>On X11, multi-device support is implemented through XInput 2.
 Unless <code>gdk_disable_multidevice()</code> is called, the XInput 2
-<a href="struct.DeviceManager.html"><code>DeviceManager</code></a> implementation will be used as the input source.
+<a href="struct.DeviceManager.html" title="crate::DeviceManager"><code>crate::DeviceManager</code></a> implementation will be used as the input source.
 Otherwise either the core or XInput 1 implementations will be used.</p>
 <p>For simple applications that don’t have any special interest in
 input devices, the so-called “client pointer”
 provides a reasonable approximation to a simple setup with a single
 pointer and keyboard. The device that has been set as the client
-pointer can be accessed via <a href="Self::get_client_pointer()"><code>get_client_pointer()</code></a>.</p>
+pointer can be accessed via [<code>Self::get_client_pointer()</code>].</p>
 <p>Conceptually, in multidevice mode there are 2 device types. Virtual
 devices (or master devices) are represented by the pointer cursors
 and keyboard foci that are seen on the screen. Physical devices (or
@@ -38,7 +38,7 @@ slave devices) represent the hardware that is controlling the virtual
 devices, and thus have no visible cursor on the screen.</p>
 <p>Virtual devices are always paired, so there is a keyboard device for every
 pointer device. Associations between devices may be inspected through
-<a href="crate::Device::get_associated_device()"><code>Device::get_associated_device()</code></a>.</p>
+[<code>crate::Device::get_associated_device()</code>].</p>
 <p>There may be several virtual devices, and several physical devices could
 be controlling each of these virtual devices. Physical devices may also
 be “floating”, which means they are not attached to any virtual device.</p>
@@ -61,14 +61,14 @@ be “floating”, which means they are not attached to any virtual device.</p>
     ↳ ThinkPad Extra Buttons                    id=15   [slave  keyboard (3)]
 </code></pre>
 <p>By default, GDK will automatically listen for events coming from all
-master devices, setting the <a href="struct.Device.html"><code>Device</code></a> for all events coming from input
-devices. Events containing device information are <a href="enum.EventType.html#variant.MotionNotify"><code>EventType::MotionNotify</code></a>,
-<a href="enum.EventType.html#variant.ButtonPress"><code>EventType::ButtonPress</code></a>, <a href="crate::EventType::2buttonPress"><code>EventType::2buttonPress</code></a>, <a href="crate::EventType::3buttonPress"><code>EventType::3buttonPress</code></a>,
-<a href="enum.EventType.html#variant.ButtonRelease"><code>EventType::ButtonRelease</code></a>, <a href="enum.EventType.html#variant.Scroll"><code>EventType::Scroll</code></a>, <a href="enum.EventType.html#variant.KeyPress"><code>EventType::KeyPress</code></a>, <a href="enum.EventType.html#variant.KeyRelease"><code>EventType::KeyRelease</code></a>,
-<a href="enum.EventType.html#variant.EnterNotify"><code>EventType::EnterNotify</code></a>, <a href="enum.EventType.html#variant.LeaveNotify"><code>EventType::LeaveNotify</code></a>, <a href="enum.EventType.html#variant.FocusChange"><code>EventType::FocusChange</code></a>,
-<a href="enum.EventType.html#variant.ProximityIn"><code>EventType::ProximityIn</code></a>, <a href="enum.EventType.html#variant.ProximityOut"><code>EventType::ProximityOut</code></a>, <a href="enum.EventType.html#variant.DragEnter"><code>EventType::DragEnter</code></a>, <a href="enum.EventType.html#variant.DragLeave"><code>EventType::DragLeave</code></a>,
-<a href="enum.EventType.html#variant.DragMotion"><code>EventType::DragMotion</code></a>, <a href="enum.EventType.html#variant.DragStatus"><code>EventType::DragStatus</code></a>, <a href="enum.EventType.html#variant.DropStart"><code>EventType::DropStart</code></a>, <a href="enum.EventType.html#variant.DropFinished"><code>EventType::DropFinished</code></a>
-and <a href="enum.EventType.html#variant.GrabBroken"><code>EventType::GrabBroken</code></a>. When dealing with an event on a master device,
+master devices, setting the <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a> for all events coming from input
+devices. Events containing device information are <a href="enum.EventType.html#variant.MotionNotify" title="crate::EventType::MotionNotify"><code>crate::EventType::MotionNotify</code></a>,
+<a href="enum.EventType.html#variant.ButtonPress" title="crate::EventType::ButtonPress"><code>crate::EventType::ButtonPress</code></a>, [<code>crate::EventType::2buttonPress</code>], [<code>crate::EventType::3buttonPress</code>],
+<a href="enum.EventType.html#variant.ButtonRelease" title="crate::EventType::ButtonRelease"><code>crate::EventType::ButtonRelease</code></a>, <a href="enum.EventType.html#variant.Scroll" title="crate::EventType::Scroll"><code>crate::EventType::Scroll</code></a>, <a href="enum.EventType.html#variant.KeyPress" title="crate::EventType::KeyPress"><code>crate::EventType::KeyPress</code></a>, <a href="enum.EventType.html#variant.KeyRelease" title="crate::EventType::KeyRelease"><code>crate::EventType::KeyRelease</code></a>,
+<a href="enum.EventType.html#variant.EnterNotify" title="crate::EventType::EnterNotify"><code>crate::EventType::EnterNotify</code></a>, <a href="enum.EventType.html#variant.LeaveNotify" title="crate::EventType::LeaveNotify"><code>crate::EventType::LeaveNotify</code></a>, <a href="enum.EventType.html#variant.FocusChange" title="crate::EventType::FocusChange"><code>crate::EventType::FocusChange</code></a>,
+<a href="enum.EventType.html#variant.ProximityIn" title="crate::EventType::ProximityIn"><code>crate::EventType::ProximityIn</code></a>, <a href="enum.EventType.html#variant.ProximityOut" title="crate::EventType::ProximityOut"><code>crate::EventType::ProximityOut</code></a>, <a href="enum.EventType.html#variant.DragEnter" title="crate::EventType::DragEnter"><code>crate::EventType::DragEnter</code></a>, <a href="enum.EventType.html#variant.DragLeave" title="crate::EventType::DragLeave"><code>crate::EventType::DragLeave</code></a>,
+<a href="enum.EventType.html#variant.DragMotion" title="crate::EventType::DragMotion"><code>crate::EventType::DragMotion</code></a>, <a href="enum.EventType.html#variant.DragStatus" title="crate::EventType::DragStatus"><code>crate::EventType::DragStatus</code></a>, <a href="enum.EventType.html#variant.DropStart" title="crate::EventType::DropStart"><code>crate::EventType::DropStart</code></a>, <a href="enum.EventType.html#variant.DropFinished" title="crate::EventType::DropFinished"><code>crate::EventType::DropFinished</code></a>
+and <a href="enum.EventType.html#variant.GrabBroken" title="crate::EventType::GrabBroken"><code>crate::EventType::GrabBroken</code></a>. When dealing with an event on a master device,
 it is possible to get the source (slave) device that the event originated
 from via <code>gdk_event_get_source_device()</code>.</p>
 <p>On a standard session, all physical devices are connected by default to
@@ -79,46 +79,46 @@ more permanently by user modifications to the device hierarchy.</p>
 <p>On certain application specific setups, it may make sense
 to detach a physical device from its master pointer, and mapping it to
 an specific window. This can be achieved by the combination of
-<a href="struct.Device.html#method.grab"><code>Device::grab()</code></a> and <a href="struct.Device.html#method.set_mode"><code>Device::set_mode()</code></a>.</p>
+<a href="struct.Device.html#method.grab" title="crate::Device::grab()"><code>crate::Device::grab()</code></a> and <a href="struct.Device.html#method.set_mode" title="crate::Device::set_mode()"><code>crate::Device::set_mode()</code></a>.</p>
 <p>In order to listen for events coming from devices
-other than a virtual device, <a href="struct.Window.html#method.set_device_events"><code>Window::set_device_events()</code></a> must be
+other than a virtual device, <a href="struct.Window.html#method.set_device_events" title="crate::Window::set_device_events()"><code>crate::Window::set_device_events()</code></a> must be
 called. Generally, this function can be used to modify the event mask
 for any given device.</p>
 <p>Input devices may also provide additional information besides X/Y.
 For example, graphics tablets may also provide pressure and X/Y tilt
 information. This information is device-dependent, and may be
-queried through <a href="crate::Device::get_axis()"><code>Device::get_axis()</code></a>. In multidevice mode, virtual
+queried through [<code>crate::Device::get_axis()</code>]. In multidevice mode, virtual
 devices will change axes in order to always represent the physical
 device that is routing events through it. Whenever the physical device
-changes, the <a href="crate::Device:n-axes"><code>Device:n-axes</code></a> property will be notified, and
-<a href="struct.Device.html#method.list_axes"><code>Device::list_axes()</code></a> will return the new device axes.</p>
+changes, the [<code>crate::Device:n-axes</code>] property will be notified, and
+<a href="struct.Device.html#method.list_axes" title="crate::Device::list_axes()"><code>crate::Device::list_axes()</code></a> will return the new device axes.</p>
 <p>Devices may also have associated “keys” or
 macro buttons. Such keys can be globally set to map into normal X
-keyboard events. The mapping is set using <a href="struct.Device.html#method.set_key"><code>Device::set_key()</code></a>.</p>
-<p>In GTK+ 3.20, a new <a href="struct.Seat.html"><code>Seat</code></a> object has been introduced that
-supersedes <a href="struct.DeviceManager.html"><code>DeviceManager</code></a> and should be preferred in newly
+keyboard events. The mapping is set using <a href="struct.Device.html#method.set_key" title="crate::Device::set_key()"><code>crate::Device::set_key()</code></a>.</p>
+<p>In GTK+ 3.20, a new <a href="struct.Seat.html" title="crate::Seat"><code>crate::Seat</code></a> object has been introduced that
+supersedes <a href="struct.DeviceManager.html" title="crate::DeviceManager"><code>crate::DeviceManager</code></a> and should be preferred in newly
 written code.</p>
 <p>This is an Abstract Base Class, you cannot instantiate it.</p>
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.DeviceManager.html" title="struct gdk::DeviceManager">DeviceManager</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#141-307" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.client_pointer" class="method"><code>pub fn <a href="#method.client_pointer" class="fnname">client_pointer</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>&gt;</code><a href="#method.client_pointer" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#160-166" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the client pointer, that is, the master pointer that acts as the core pointer
 for this application. In X11, window managers may change this depending on the interaction
 pattern under the presence of several pointers.</p>
 <p>You should use this function seldomly, only in code that isn’t triggered by a <code>GdkEvent</code>
-and there aren’t other means to get a meaningful <a href="struct.Device.html"><code>Device</code></a> to operate on.</p>
+and there aren’t other means to get a meaningful <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a> to operate on.</p>
 <h1 id="deprecated-since-320" class="section-header"><a href="#deprecated-since-320">Deprecated since 3.20</a></h1>
-<p>Use <a href="crate::Seat::get_pointer()"><code>Seat::get_pointer()</code></a> instead.</p>
+<p>Use [<code>crate::Seat::get_pointer()</code>] instead.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>The client pointer. This memory is
 owned by GDK and must not be freed or unreferenced.</p>
-</div><h4 id="method.display" class="method"><code>pub fn <a href="#method.display" class="fnname">display</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Display.html" title="struct gdk::Display">Display</a>&gt;</code><a href="#method.display" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#177-179" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <a href="struct.Display.html"><code>Display</code></a> associated to <code>self</code>.</p>
+</div><h4 id="method.display" class="method"><code>pub fn <a href="#method.display" class="fnname">display</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Display.html" title="struct gdk::Display">Display</a>&gt;</code><a href="#method.display" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#177-179" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <a href="struct.Display.html" title="crate::Display"><code>crate::Display</code></a> associated to <code>self</code>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>the <a href="struct.Display.html"><code>Display</code></a> to which
+<p>the <a href="struct.Display.html" title="crate::Display"><code>crate::Display</code></a> to which
 <code>self</code> is associated to, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. This memory is
 owned by GDK and must not be freed or unreferenced.</p>
 </div><h4 id="method.list_devices" class="method"><code>pub fn <a href="#method.list_devices" class="fnname">list_devices</a>(&amp;self, type_: <a class="enum" href="enum.DeviceType.html" title="enum gdk::DeviceType">DeviceType</a>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>&gt;</code><a href="#method.list_devices" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#199-206" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the list of devices of type <code>type_</code> currently attached to
 <code>self</code>.</p>
 <h1 id="deprecated-since-320-1" class="section-header"><a href="#deprecated-since-320-1">Deprecated since 3.20</a></h1>
-<p>, use <a href="crate::Seat::get_pointer()"><code>Seat::get_pointer()</code></a>, <a href="crate::Seat::get_keyboard()"><code>Seat::get_keyboard()</code></a>
-and <a href="crate::Seat::get_slaves()"><code>Seat::get_slaves()</code></a> instead.</p>
+<p>, use [<code>crate::Seat::get_pointer()</code>], [<code>crate::Seat::get_keyboard()</code>]
+and [<code>crate::Seat::get_slaves()</code>] instead.</p>
 <h2 id="type_" class="section-header"><a href="#type_"><code>type_</code></a></h2>
 <p>device type to get.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
@@ -130,23 +130,23 @@ GTK+ and must not be freed or unreffed.</p>
 pointer is created, or when a slave (Hardware) input device
 is plugged in.</p>
 <h2 id="device" class="section-header"><a href="#device"><code>device</code></a></h2>
-<p>the newly added <a href="struct.Device.html"><code>Device</code></a>.</p>
+<p>the newly added <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a>.</p>
 </div><h4 id="method.connect_device_changed" class="method"><code>pub fn <a href="#method.connect_device_changed" class="fnname">connect_device_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="struct.DeviceManager.html" title="struct gdk::DeviceManager">DeviceManager</a>, &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a href="#method.connect_device_changed" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#252-275" title="goto source code">[src]</a></h4><div class="docblock"><p>The ::device-changed signal is emitted whenever a device
 has changed in the hierarchy, either slave devices being
 disconnected from their master device or connected to
 another one, or master devices being added or removed
 a slave device.</p>
 <p>If a slave device is detached from all master devices
-(<a href="crate::Device::get_associated_device()"><code>Device::get_associated_device()</code></a> returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>), its
-<a href="enum.DeviceType.html"><code>DeviceType</code></a> will change to <a href="enum.DeviceType.html#variant.Floating" title="DeviceType::Floating"><code>DeviceType::Floating</code></a>,
-if it’s attached, it will change to <a href="enum.DeviceType.html#variant.Slave" title="DeviceType::Slave"><code>DeviceType::Slave</code></a>.</p>
+([<code>crate::Device::get_associated_device()</code>] returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>), its
+<a href="enum.DeviceType.html" title="crate::DeviceType"><code>crate::DeviceType</code></a> will change to <a href="enum.DeviceType.html#variant.Floating" title="crate::DeviceType::Floating"><code>crate::DeviceType::Floating</code></a>,
+if it’s attached, it will change to <a href="enum.DeviceType.html#variant.Slave" title="crate::DeviceType::Slave"><code>crate::DeviceType::Slave</code></a>.</p>
 <h2 id="device-1" class="section-header"><a href="#device-1"><code>device</code></a></h2>
-<p>the <a href="struct.Device.html"><code>Device</code></a> that changed.</p>
+<p>the <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a> that changed.</p>
 </div><h4 id="method.connect_device_removed" class="method"><code>pub fn <a href="#method.connect_device_removed" class="fnname">connect_device_removed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="struct.DeviceManager.html" title="struct gdk::DeviceManager">DeviceManager</a>, &amp;<a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a href="#method.connect_device_removed" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#283-306" title="goto source code">[src]</a></h4><div class="docblock"><p>The ::device-removed signal is emitted either when a master
 pointer is removed, or when a slave (Hardware) input device
 is unplugged.</p>
 <h2 id="device-2" class="section-header"><a href="#device-2"><code>device</code></a></h2>
-<p>the just removed <a href="struct.Device.html"><code>Device</code></a>.</p>
+<p>the just removed <a href="struct.Device.html" title="crate::Device"><code>crate::Device</code></a>.</p>
 </div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-1" class="impl"><code class="in-band">impl <a class="struct" href="struct.DeviceManager.html" title="struct gdk::DeviceManager">DeviceManager</a></code><a href="#impl-1" class="anchor"></a><a class="srclink" href="../src/gdk/device_manager.rs.html#5-11" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.disable_multidevice" class="method"><code>pub fn <a href="#method.disable_multidevice" class="fnname">disable_multidevice</a>()</code><a href="#method.disable_multidevice" class="anchor"></a><a class="srclink" href="../src/gdk/device_manager.rs.html#7-10" title="goto source code">[src]</a></h4></div></details><h2 id="trait-implementations" class="small-section-header">Trait Implementations<a href="#trait-implementations" class="anchor"></a></h2><div id="trait-implementations-list"><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Clone" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="struct.DeviceManager.html" title="struct gdk::DeviceManager">DeviceManager</a></code><a href="#impl-Clone" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#16-139" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.clone" class="method hidden trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone" class="fnname">clone</a>(&amp;self) -&gt; <a class="struct" href="struct.DeviceManager.html" title="struct gdk::DeviceManager">DeviceManager</a></code><a href="#method.clone" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#16-139" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
 </div><h4 id="method.clone_from" class="method hidden trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from" class="fnname">clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a href="#method.clone_from" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
 </div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Debug" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="struct.DeviceManager.html" title="struct gdk::DeviceManager">DeviceManager</a></code><a href="#impl-Debug" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#16-139" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.fmt" class="method hidden trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt" class="fnname">fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>&lt;'_&gt;) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code><a href="#method.fmt" class="anchor"></a><a class="srclink" href="../src/gdk/auto/device_manager.rs.html#16-139" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>

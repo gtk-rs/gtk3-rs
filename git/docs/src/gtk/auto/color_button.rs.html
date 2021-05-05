@@ -864,18 +864,18 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`ColorButton`](crate::ColorButton) is a button which displays the currently selected</span>
+    <span class="doccomment">/// The [`crate::ColorButton`] is a button which displays the currently selected</span>
     <span class="doccomment">/// color and allows to open a color selection dialog to change the color.</span>
     <span class="doccomment">/// It is suitable widget for selecting a color in a preference dialog.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `ColorButton` has a single CSS node with name button. To differentiate</span>
-    <span class="doccomment">/// it from a plain [`Button`](crate::Button), it gets the .color style class.</span>
+    <span class="doccomment">/// it from a plain [`crate::Button`], it gets the .color style class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ColorButtonExt`](trait@crate::prelude::ColorButtonExt), [`ButtonExt`](trait@crate::prelude::ButtonExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`ColorChooserExt`](trait@crate::prelude::ColorChooserExt), [`ColorButtonExtManual`](trait@crate::prelude::ColorButtonExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual), [`ColorChooserExtManual`](trait@crate::prelude::ColorChooserExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ColorButtonExt`], [`trait@crate::prelude::ButtonExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::ColorChooserExt`], [`trait@crate::prelude::ColorButtonExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`], [`trait@crate::prelude::ColorChooserExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ColorButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkColorButton</span>, <span class="ident">ffi::GtkColorButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Button</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>, <span class="ident">ColorChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -903,7 +903,7 @@
 
     <span class="doccomment">/// Creates a new color button.</span>
     <span class="doccomment">/// ## `rgba`</span>
-    <span class="doccomment">/// A [`gdk::RGBA`](crate::gdk::RGBA) to set the current color with</span>
+    <span class="doccomment">/// A [`crate::gdk::RGBA`] to set the current color with</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1389,7 +1389,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ColorButton`](struct@crate::ColorButton)</span>
+<span class="doccomment">/// [`struct@crate::ColorButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ColorButtonExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the title of the color selection dialog.</span>
     <span class="doccomment">///</span>
@@ -1421,7 +1421,7 @@
     <span class="kw">fn</span> <span class="ident">set_show_editor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">show_editor</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// The ::color-set signal is emitted when the user selects a color.</span>
-    <span class="doccomment">/// When handling this signal, use [`ColorButton::get_rgba()`](crate::ColorButton::get_rgba()) to</span>
+    <span class="doccomment">/// When handling this signal, use [`crate::ColorButton::get_rgba()`] to</span>
     <span class="doccomment">/// find out which color was just selected.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this signal is only emitted when the user</span>

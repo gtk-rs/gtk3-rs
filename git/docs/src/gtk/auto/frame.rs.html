@@ -852,7 +852,7 @@
     <span class="doccomment">/// The frame widget is a bin that surrounds its child with a decorative</span>
     <span class="doccomment">/// frame and an optional label. If present, the label is drawn in a gap</span>
     <span class="doccomment">/// in the top side of the frame. The position of the label can be</span>
-    <span class="doccomment">/// controlled with [`FrameExt::set_label_align()`](crate::FrameExt::set_label_align()).</span>
+    <span class="doccomment">/// controlled with [`crate::prelude::FrameExt::set_label_align()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # `Frame` as `Buildable`</span>
     <span class="doccomment">///</span>
@@ -876,12 +876,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The border node can be given the style class “.flat”, which is used by themes</span>
     <span class="doccomment">/// to disable drawing of the border. To do this from code, call</span>
-    <span class="doccomment">/// [`FrameExt::set_shadow_type()`](crate::FrameExt::set_shadow_type()) with [`ShadowType::None`] to add the “.flat” class or</span>
+    <span class="doccomment">/// [`crate::prelude::FrameExt::set_shadow_type()`] with [`crate::ShadowType::None`] to add the “.flat” class or</span>
     <span class="doccomment">/// any other shadow type to remove it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FrameExt`](trait@crate::prelude::FrameExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::FrameExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Frame</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkFrame</span>, <span class="ident">ffi::GtkFrameClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -890,14 +890,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Frame</span> {
-    <span class="doccomment">/// Creates a new [`Frame`](crate::Frame), with optional label `label`.</span>
+    <span class="doccomment">/// Creates a new [`crate::Frame`], with optional label `label`.</span>
     <span class="doccomment">/// If `label` is [`None`], the label is omitted.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// the text to use as the label of the frame</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Frame`](crate::Frame) widget</span>
+    <span class="doccomment">/// a new [`crate::Frame`] widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Frame</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1291,25 +1291,25 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`AspectFrame`](struct@crate::AspectFrame), [`Frame`](struct@crate::Frame)</span>
+<span class="doccomment">/// [`struct@crate::AspectFrame`], [`struct@crate::Frame`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FrameExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// If the frame’s label widget is a [`Label`](crate::Label), returns the</span>
-    <span class="doccomment">/// text in the label widget. (The frame will have a [`Label`](crate::Label)</span>
+    <span class="doccomment">/// If the frame’s label widget is a [`crate::Label`], returns the</span>
+    <span class="doccomment">/// text in the label widget. (The frame will have a [`crate::Label`]</span>
     <span class="doccomment">/// for the label widget if a non-[`None`] argument was passed</span>
-    <span class="doccomment">/// to [`Frame::new()`](crate::Frame::new()).)</span>
+    <span class="doccomment">/// to [`crate::Frame::new()`].)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the text in the label, or [`None`] if there</span>
     <span class="doccomment">///  was no label widget or the lable widget was not</span>
-    <span class="doccomment">///  a [`Label`](crate::Label). This string is owned by GTK+ and</span>
+    <span class="doccomment">///  a [`crate::Label`]. This string is owned by GTK+ and</span>
     <span class="doccomment">///  must not be modified or freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_get_label&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_label&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Retrieves the X and Y alignment of the frame’s label. See</span>
-    <span class="doccomment">/// [`set_label_align()`](Self::set_label_align()).</span>
+    <span class="doccomment">/// [`Self::set_label_align()`].</span>
     <span class="doccomment">/// ## `xalign`</span>
     <span class="doccomment">/// location to store X alignment of</span>
     <span class="doccomment">///  frame’s label, or [`None`]</span>
@@ -1321,7 +1321,7 @@
     <span class="kw">fn</span> <span class="ident">label_align</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f32</span>, <span class="ident">f32</span>);
 
     <span class="doccomment">/// Retrieves the label widget for the frame. See</span>
-    <span class="doccomment">/// [`set_label_widget()`](Self::set_label_widget()).</span>
+    <span class="doccomment">/// [`Self::set_label_widget()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1332,7 +1332,7 @@
     <span class="kw">fn</span> <span class="ident">label_widget</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Retrieves the shadow type of the frame. See</span>
-    <span class="doccomment">/// [`set_shadow_type()`](Self::set_shadow_type()).</span>
+    <span class="doccomment">/// [`Self::set_shadow_type()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1341,8 +1341,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_shadow_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shadow_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ShadowType</span>;
 
-    <span class="doccomment">/// Removes the current [`Frame:label-widget`](crate::Frame:label-widget). If `label` is not [`None`], creates a</span>
-    <span class="doccomment">/// new [`Label`](crate::Label) with that text and adds it as the [`Frame:label-widget`](crate::Frame:label-widget).</span>
+    <span class="doccomment">/// Removes the current [`crate::Frame:label-widget`]. If `label` is not [`None`], creates a</span>
+    <span class="doccomment">/// new [`crate::Label`] with that text and adds it as the [`crate::Frame:label-widget`].</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// the text to use as the label of the frame</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_set_label&quot;</span>)]</span>
@@ -1362,19 +1362,19 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_set_label_align&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_label_align</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">xalign</span>: <span class="ident">f32</span>, <span class="ident">yalign</span>: <span class="ident">f32</span>);
 
-    <span class="doccomment">/// Sets the [`Frame:label-widget`](crate::Frame:label-widget) for the frame. This is the widget that</span>
+    <span class="doccomment">/// Sets the [`crate::Frame:label-widget`] for the frame. This is the widget that</span>
     <span class="doccomment">/// will appear embedded in the top edge of the frame as a title.</span>
     <span class="doccomment">/// ## `label_widget`</span>
     <span class="doccomment">/// the new label widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_set_label_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_label_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label_widget</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// Sets the [`Frame:shadow-type`](crate::Frame:shadow-type) for `self`, i.e. whether it is drawn without</span>
-    <span class="doccomment">/// ([`ShadowType::None`]) or with (other values) a visible border. Values other than</span>
-    <span class="doccomment">/// [`ShadowType::None`] are treated identically by `Frame`. The chosen type is</span>
+    <span class="doccomment">/// Sets the [`crate::Frame:shadow-type`] for `self`, i.e. whether it is drawn without</span>
+    <span class="doccomment">/// ([`crate::ShadowType::None`]) or with (other values) a visible border. Values other than</span>
+    <span class="doccomment">/// [`crate::ShadowType::None`] are treated identically by `Frame`. The chosen type is</span>
     <span class="doccomment">/// applied by removing or adding the .flat class to the CSS node named border.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// the new [`ShadowType`](crate::ShadowType)</span>
+    <span class="doccomment">/// the new [`crate::ShadowType`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_set_shadow_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_shadow_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">ShadowType</span>);
 

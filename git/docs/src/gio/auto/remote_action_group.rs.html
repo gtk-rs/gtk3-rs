@@ -148,31 +148,31 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The GRemoteActionGroup interface is implemented by [`ActionGroup`](crate::ActionGroup)</span>
+    <span class="doccomment">/// The GRemoteActionGroup interface is implemented by [`crate::ActionGroup`]</span>
     <span class="doccomment">/// instances that either transmit action invocations to other processes</span>
     <span class="doccomment">/// or receive action invocations in the local process from other</span>
     <span class="doccomment">/// processes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The interface has `_full` variants of the two</span>
-    <span class="doccomment">/// methods on [`ActionGroup`](crate::ActionGroup) used to activate actions:</span>
-    <span class="doccomment">/// [`ActionGroup::activate_action()`](crate::ActionGroup::activate_action()) and</span>
-    <span class="doccomment">/// [`ActionGroup::change_action_state()`](crate::ActionGroup::change_action_state()). These variants allow a</span>
-    <span class="doccomment">/// &quot;platform data&quot; [`glib::Variant`](crate::glib::Variant) to be specified: a dictionary providing</span>
+    <span class="doccomment">/// methods on [`crate::ActionGroup`] used to activate actions:</span>
+    <span class="doccomment">/// [`crate::ActionGroup::activate_action()`] and</span>
+    <span class="doccomment">/// [`crate::ActionGroup::change_action_state()`]. These variants allow a</span>
+    <span class="doccomment">/// &quot;platform data&quot; [`crate::glib::Variant`] to be specified: a dictionary providing</span>
     <span class="doccomment">/// context for the action invocation (for example: timestamps, startup</span>
     <span class="doccomment">/// notification IDs, etc).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DBusActionGroup`](crate::DBusActionGroup) implements [`RemoteActionGroup`](crate::RemoteActionGroup). This provides a</span>
+    <span class="doccomment">/// [`crate::DBusActionGroup`] implements [`crate::RemoteActionGroup`]. This provides a</span>
     <span class="doccomment">/// mechanism to send platform data for action invocations over D-Bus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Additionally, [`DBusConnection::export_action_group()`](crate::DBusConnection::export_action_group()) will check if</span>
-    <span class="doccomment">/// the exported [`ActionGroup`](crate::ActionGroup) implements [`RemoteActionGroup`](crate::RemoteActionGroup) and use the</span>
+    <span class="doccomment">/// Additionally, [`crate::DBusConnection::export_action_group()`] will check if</span>
+    <span class="doccomment">/// the exported [`crate::ActionGroup`] implements [`crate::RemoteActionGroup`] and use the</span>
     <span class="doccomment">/// `_full` variants of the calls if available. This</span>
     <span class="doccomment">/// provides a mechanism by which to receive platform data for action</span>
     <span class="doccomment">/// invocations that arrive by way of D-Bus.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`RemoteActionGroupExt`](trait@crate::prelude::RemoteActionGroupExt), [`ActionGroupExt`](trait@crate::prelude::ActionGroupExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::RemoteActionGroupExt`], [`trait@crate::prelude::ActionGroupExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RemoteActionGroup</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GRemoteActionGroup</span>, <span class="ident">ffi::GRemoteActionGroupInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">ActionGroup</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -186,11 +186,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`DBusActionGroup`](struct@crate::DBusActionGroup), [`RemoteActionGroup`](struct@crate::RemoteActionGroup)</span>
+<span class="doccomment">/// [`struct@crate::DBusActionGroup`], [`struct@crate::RemoteActionGroup`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RemoteActionGroupExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Activates the remote action.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the same as [`ActionGroup::activate_action()`](crate::ActionGroup::activate_action()) except that it</span>
+    <span class="doccomment">/// This is the same as [`crate::ActionGroup::activate_action()`] except that it</span>
     <span class="doccomment">/// allows for provision of &quot;platform data&quot; to be sent along with the</span>
     <span class="doccomment">/// activation request. This typically contains details such as the user</span>
     <span class="doccomment">/// interaction timestamp or startup notification information.</span>
@@ -213,7 +213,7 @@
 
     <span class="doccomment">/// Changes the state of a remote action.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the same as [`ActionGroup::change_action_state()`](crate::ActionGroup::change_action_state()) except that</span>
+    <span class="doccomment">/// This is the same as [`crate::ActionGroup::change_action_state()`] except that</span>
     <span class="doccomment">/// it allows for provision of &quot;platform data&quot; to be sent along with the</span>
     <span class="doccomment">/// state change request. This typically contains details such as the</span>
     <span class="doccomment">/// user interaction timestamp or startup notification information.</span>

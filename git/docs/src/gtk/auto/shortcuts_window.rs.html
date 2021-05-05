@@ -939,9 +939,9 @@
     <span class="doccomment">/// showing information that is not relevant in the current application context.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The recommended way to construct a `ShortcutsWindow` is with `Builder`,</span>
-    <span class="doccomment">/// by populating a [`ShortcutsWindow`](crate::ShortcutsWindow) with one or more [`ShortcutsSection`](crate::ShortcutsSection)</span>
+    <span class="doccomment">/// by populating a [`crate::ShortcutsWindow`] with one or more [`crate::ShortcutsSection`]</span>
     <span class="doccomment">/// objects, which contain ``GtkShortcutsGroups`` that in turn contain objects of</span>
-    <span class="doccomment">/// class [`ShortcutsShortcut`](crate::ShortcutsShortcut).</span>
+    <span class="doccomment">/// class [`crate::ShortcutsShortcut`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # A simple example:</span>
     <span class="doccomment">///</span>
@@ -957,7 +957,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ![](clocks-shortcuts.png)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This example shows a [`ShortcutsWindow`](crate::ShortcutsWindow) that has been configured to show only</span>
+    <span class="doccomment">/// This example shows a [`crate::ShortcutsWindow`] that has been configured to show only</span>
     <span class="doccomment">/// the shortcuts relevant to the &quot;stopwatch&quot; view.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The .ui file for this example can be found [here](https://git.gnome.org/browse/gtk+/tree/demos/gtk-demo/shortcuts-clocks.ui).</span>
@@ -966,14 +966,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ![](builder-shortcuts.png)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This example shows a [`ShortcutsWindow`](crate::ShortcutsWindow) with two sections, &quot;Editor Shortcuts&quot;</span>
+    <span class="doccomment">/// This example shows a [`crate::ShortcutsWindow`] with two sections, &quot;Editor Shortcuts&quot;</span>
     <span class="doccomment">/// and &quot;Terminal Shortcuts&quot;.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The .ui file for this example can be found [here](https://git.gnome.org/browse/gtk+/tree/demos/gtk-demo/shortcuts-builder.ui).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ShortcutsWindowExt`](trait@crate::prelude::ShortcutsWindowExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ShortcutsWindowExt`], [`trait@crate::prelude::GtkWindowExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::GtkWindowExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ShortcutsWindow</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkShortcutsWindow</span>, <span class="ident">ffi::GtkShortcutsWindowClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1593,7 +1593,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ShortcutsWindow`](struct@crate::ShortcutsWindow)</span>
+<span class="doccomment">/// [`struct@crate::ShortcutsWindow`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ShortcutsWindowExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;section-name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">section_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;

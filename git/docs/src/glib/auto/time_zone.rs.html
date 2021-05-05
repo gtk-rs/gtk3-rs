@@ -178,7 +178,7 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::TimeType</span>;
 
 <span class="kw">crate</span><span class="macro">::wrapper!</span> {
-    <span class="doccomment">/// [`TimeZone`](crate::TimeZone) is an opaque structure whose members cannot be accessed</span>
+    <span class="doccomment">/// [`crate::TimeZone`] is an opaque structure whose members cannot be accessed</span>
     <span class="doccomment">/// directly.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TimeZone</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi::GTimeZone</span><span class="op">&gt;</span>);
@@ -214,14 +214,14 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_time_zone_new</span>(<span class="ident">identifier</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Creates a [`TimeZone`](crate::TimeZone) corresponding to local time. The local time</span>
+    <span class="doccomment">/// Creates a [`crate::TimeZone`] corresponding to local time. The local time</span>
     <span class="doccomment">/// zone may change between invocations to this function; for example,</span>
     <span class="doccomment">/// if the system administrator changes it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is equivalent to calling [`new()`](Self::new()) with the value of</span>
+    <span class="doccomment">/// This is equivalent to calling [`Self::new()`] with the value of</span>
     <span class="doccomment">/// the `TZ` environment variable (including the possibility of [`None`]).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You should release the return value by calling [`unref()`](Self::unref())</span>
+    <span class="doccomment">/// You should release the return value by calling [`Self::unref()`]</span>
     <span class="doccomment">/// when you are done with it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -232,10 +232,10 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_time_zone_new_local</span>()) }
     }
 
-    <span class="doccomment">/// Creates a [`TimeZone`](crate::TimeZone) corresponding to the given constant offset from UTC,</span>
+    <span class="doccomment">/// Creates a [`crate::TimeZone`] corresponding to the given constant offset from UTC,</span>
     <span class="doccomment">/// in seconds.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is equivalent to calling [`new()`](Self::new()) with a string in the form</span>
+    <span class="doccomment">/// This is equivalent to calling [`Self::new()`] with a string in the form</span>
     <span class="doccomment">/// `[+|-]hh[:mm[:ss]]`.</span>
     <span class="doccomment">/// ## `seconds`</span>
     <span class="doccomment">/// offset to UTC, in seconds</span>
@@ -250,12 +250,12 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_time_zone_new_offset</span>(<span class="ident">seconds</span>)) }
     }
 
-    <span class="doccomment">/// Creates a [`TimeZone`](crate::TimeZone) corresponding to UTC.</span>
+    <span class="doccomment">/// Creates a [`crate::TimeZone`] corresponding to UTC.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is equivalent to calling [`new()`](Self::new()) with a value like</span>
+    <span class="doccomment">/// This is equivalent to calling [`Self::new()`] with a value like</span>
     <span class="doccomment">/// &quot;Z&quot;, &quot;UTC&quot;, &quot;+00&quot;, etc.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You should release the return value by calling [`unref()`](Self::unref())</span>
+    <span class="doccomment">/// You should release the return value by calling [`Self::unref()`]</span>
     <span class="doccomment">/// when you are done with it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -269,11 +269,11 @@
     <span class="doccomment">/// Finds an interval within `self` that corresponds to the given `time_`.</span>
     <span class="doccomment">/// The meaning of `time_` depends on `type_`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `type_` is [`TimeType::Universal`] then this function will always</span>
+    <span class="doccomment">/// If `type_` is [`crate::TimeType::Universal`] then this function will always</span>
     <span class="doccomment">/// succeed (since universal time is monotonic and continuous).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Otherwise `time_` is treated as local time. The distinction between</span>
-    <span class="doccomment">/// [`TimeType::Standard`] and [`TimeType::Daylight`] is ignored except in</span>
+    <span class="doccomment">/// [`crate::TimeType::Standard`] and [`crate::TimeType::Daylight`] is ignored except in</span>
     <span class="doccomment">/// the case that the given `time_` is ambiguous. In Toronto, for example,</span>
     <span class="doccomment">/// 01:30 on November 7th 2010 occurred twice (once inside of daylight</span>
     <span class="doccomment">/// savings time and the next, an hour later, outside of daylight savings</span>
@@ -285,7 +285,7 @@
     <span class="doccomment">/// forward to begin daylight savings time). -1 is returned in that</span>
     <span class="doccomment">/// case.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// the [`TimeType`](crate::TimeType) of `time_`</span>
+    <span class="doccomment">/// the [`crate::TimeType`] of `time_`</span>
     <span class="doccomment">/// ## `time_`</span>
     <span class="doccomment">/// a number of seconds since January 1, 1970</span>
     <span class="doccomment">///</span>

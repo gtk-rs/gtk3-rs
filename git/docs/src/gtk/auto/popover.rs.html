@@ -1170,26 +1170,26 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `Popover` is a bubble-like context window, primarily meant to</span>
     <span class="doccomment">/// provide context-dependent information or options. Popovers are</span>
-    <span class="doccomment">/// attached to a widget, passed at construction time on [`new()`](Self::new()),</span>
-    <span class="doccomment">/// or updated afterwards through [`PopoverExt::set_relative_to()`](crate::PopoverExt::set_relative_to()), by</span>
+    <span class="doccomment">/// attached to a widget, passed at construction time on [`Self::new()`],</span>
+    <span class="doccomment">/// or updated afterwards through [`crate::prelude::PopoverExt::set_relative_to()`], by</span>
     <span class="doccomment">/// default they will point to the whole widget area, although this</span>
-    <span class="doccomment">/// behavior can be changed through [`PopoverExt::set_pointing_to()`](crate::PopoverExt::set_pointing_to()).</span>
+    <span class="doccomment">/// behavior can be changed through [`crate::prelude::PopoverExt::set_pointing_to()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The position of a popover relative to the widget it is attached to</span>
-    <span class="doccomment">/// can also be changed through [`PopoverExt::set_position()`](crate::PopoverExt::set_position()).</span>
+    <span class="doccomment">/// can also be changed through [`crate::prelude::PopoverExt::set_position()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// By default, [`Popover`](crate::Popover) performs a GTK+ grab, in order to ensure</span>
+    <span class="doccomment">/// By default, [`crate::Popover`] performs a GTK+ grab, in order to ensure</span>
     <span class="doccomment">/// input events get redirected to it while it is shown, and also so</span>
     <span class="doccomment">/// the popover is dismissed in the expected situations (clicks outside</span>
     <span class="doccomment">/// the popover, or the Esc key being pressed). If no such modal behavior</span>
-    <span class="doccomment">/// is desired on a popover, [`PopoverExt::set_modal()`](crate::PopoverExt::set_modal()) may be called on it</span>
+    <span class="doccomment">/// is desired on a popover, [`crate::prelude::PopoverExt::set_modal()`] may be called on it</span>
     <span class="doccomment">/// to tweak its behavior.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `Popover` as menu replacement</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `Popover` is often used to replace menus. To facilitate this, it</span>
-    <span class="doccomment">/// supports being populated from a [`gio::MenuModel`](crate::gio::MenuModel), using</span>
-    <span class="doccomment">/// [`new_from_model()`](Self::new_from_model()). In addition to all the regular menu</span>
+    <span class="doccomment">/// supports being populated from a [`crate::gio::MenuModel`], using</span>
+    <span class="doccomment">/// [`Self::new_from_model()`]. In addition to all the regular menu</span>
     <span class="doccomment">/// model features, this function supports rendering sections in the</span>
     <span class="doccomment">/// model in a more compact form, as a row of icon buttons instead of</span>
     <span class="doccomment">/// menu items.</span>
@@ -1224,16 +1224,16 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `Popover` has a single css node called popover. It always gets the</span>
     <span class="doccomment">/// .background style class and it gets the .menu style class if it is</span>
-    <span class="doccomment">/// menu-like (e.g. [`PopoverMenu`](crate::PopoverMenu) or created using [`new_from_model()`](Self::new_from_model()).</span>
+    <span class="doccomment">/// menu-like (e.g. [`crate::PopoverMenu`] or created using [`Self::new_from_model()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Particular uses of `Popover`, such as touch selection popups</span>
-    <span class="doccomment">/// or magnifiers in [`Entry`](crate::Entry) or [`TextView`](crate::TextView) get style classes</span>
+    <span class="doccomment">/// or magnifiers in [`crate::Entry`] or [`crate::TextView`] get style classes</span>
     <span class="doccomment">/// like .touch-selection or .magnifier to differentiate from</span>
     <span class="doccomment">/// plain popovers.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`PopoverExt`](trait@crate::prelude::PopoverExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::PopoverExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Popover</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkPopover</span>, <span class="ident">ffi::GtkPopoverClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1244,11 +1244,11 @@
 <span class="kw">impl</span> <span class="ident">Popover</span> {
     <span class="doccomment">/// Creates a new popover to point to `relative_to`</span>
     <span class="doccomment">/// ## `relative_to`</span>
-    <span class="doccomment">/// [`Widget`](crate::Widget) the popover is related to</span>
+    <span class="doccomment">/// [`crate::Widget`] the popover is related to</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Popover`](crate::Popover)</span>
+    <span class="doccomment">/// a new [`crate::Popover`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">relative_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Popover</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1260,24 +1260,24 @@
         }
     }
 
-    <span class="doccomment">/// Creates a [`Popover`](crate::Popover) and populates it according to</span>
+    <span class="doccomment">/// Creates a [`crate::Popover`] and populates it according to</span>
     <span class="doccomment">/// `model`. The popover is pointed to the `relative_to` widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The created buttons are connected to actions found in the</span>
-    <span class="doccomment">/// [`ApplicationWindow`](crate::ApplicationWindow) to which the popover belongs - typically</span>
+    <span class="doccomment">/// [`crate::ApplicationWindow`] to which the popover belongs - typically</span>
     <span class="doccomment">/// by means of being attached to a widget that is contained within</span>
     <span class="doccomment">/// the ``GtkApplicationWindows`` widget hierarchy.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Actions can also be added using [`WidgetExt::insert_action_group()`](crate::WidgetExt::insert_action_group())</span>
+    <span class="doccomment">/// Actions can also be added using [`crate::prelude::WidgetExt::insert_action_group()`]</span>
     <span class="doccomment">/// on the menus attach widget or on any of its parent widgets.</span>
     <span class="doccomment">/// ## `relative_to`</span>
-    <span class="doccomment">/// [`Widget`](crate::Widget) the popover is related to</span>
+    <span class="doccomment">/// [`crate::Widget`] the popover is related to</span>
     <span class="doccomment">/// ## `model`</span>
-    <span class="doccomment">/// a [`gio::MenuModel`](crate::gio::MenuModel)</span>
+    <span class="doccomment">/// a [`crate::gio::MenuModel`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`Popover`](crate::Popover)</span>
+    <span class="doccomment">/// the new [`crate::Popover`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_new_from_model&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_model&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(
@@ -1700,9 +1700,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`PopoverMenu`](struct@crate::PopoverMenu), [`Popover`](struct@crate::Popover)</span>
+<span class="doccomment">/// [`struct@crate::PopoverMenu`], [`struct@crate::Popover`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PopoverExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Establishes a binding between a [`Popover`](crate::Popover) and a [`gio::MenuModel`](crate::gio::MenuModel).</span>
+    <span class="doccomment">/// Establishes a binding between a [`crate::Popover`] and a [`crate::gio::MenuModel`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The contents of `self` are removed and then refilled with menu items</span>
     <span class="doccomment">/// according to `model`. When `model` changes, `self` is updated.</span>
@@ -1717,17 +1717,17 @@
     <span class="doccomment">/// mentioned and `action_namespace` is “app” then the effective action</span>
     <span class="doccomment">/// name is “app.quit”.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function uses [`Actionable`](crate::Actionable) to define the action name and</span>
+    <span class="doccomment">/// This function uses [`crate::Actionable`] to define the action name and</span>
     <span class="doccomment">/// target values on the created menu items. If you want to use an</span>
     <span class="doccomment">/// action group other than “app” and “win”, or if you want to use a</span>
-    <span class="doccomment">/// [`MenuShell`](crate::MenuShell) outside of a [`ApplicationWindow`](crate::ApplicationWindow), then you will need</span>
+    <span class="doccomment">/// [`crate::MenuShell`] outside of a [`crate::ApplicationWindow`], then you will need</span>
     <span class="doccomment">/// to attach your own action group to the widget hierarchy using</span>
-    <span class="doccomment">/// [`WidgetExt::insert_action_group()`](crate::WidgetExt::insert_action_group()). As an example, if you created a</span>
+    <span class="doccomment">/// [`crate::prelude::WidgetExt::insert_action_group()`]. As an example, if you created a</span>
     <span class="doccomment">/// group with a “quit” action and inserted it with the name “mygroup”</span>
     <span class="doccomment">/// then you would use the action name “mygroup.quit” in your</span>
-    <span class="doccomment">/// [`gio::MenuModel`](crate::gio::MenuModel).</span>
+    <span class="doccomment">/// [`crate::gio::MenuModel`].</span>
     <span class="doccomment">/// ## `model`</span>
-    <span class="doccomment">/// the [`gio::MenuModel`](crate::gio::MenuModel) to bind to or [`None`] to remove</span>
+    <span class="doccomment">/// the [`crate::gio::MenuModel`] to bind to or [`None`] to remove</span>
     <span class="doccomment">///  binding</span>
     <span class="doccomment">/// ## `action_namespace`</span>
     <span class="doccomment">/// the namespace for actions in `model`</span>
@@ -1735,7 +1735,7 @@
     <span class="kw">fn</span> <span class="ident">bind_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::MenuModel</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">model</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>, <span class="ident">action_namespace</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Returns the constraint for placing this popover.</span>
-    <span class="doccomment">/// See [`set_constrain_to()`](Self::set_constrain_to()).</span>
+    <span class="doccomment">/// See [`Self::set_constrain_to()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1764,7 +1764,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`true`](crate::true) if `self` is modal</span>
+    <span class="doccomment">/// [`crate::true`] if `self` is modal</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_get_modal&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_modal&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_modal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
@@ -1796,7 +1796,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_get_relative_to&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_relative_to&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">relative_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
@@ -1806,13 +1806,13 @@
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can show or hide the popover without transitions</span>
-    <span class="doccomment">///  using [`WidgetExt::show()`](crate::WidgetExt::show()) and [`WidgetExt::hide()`](crate::WidgetExt::hide()) while [`popup()`](Self::popup())</span>
-    <span class="doccomment">///  and [`popdown()`](Self::popdown()) will use transitions.</span>
+    <span class="doccomment">///  using [`crate::prelude::WidgetExt::show()`] and [`crate::prelude::WidgetExt::hide()`] while [`Self::popup()`]</span>
+    <span class="doccomment">///  and [`Self::popdown()`] will use transitions.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`true`](crate::true) if the show and hide transitions of the given</span>
-    <span class="doccomment">///  popover are enabled, [`false`](crate::false) otherwise.</span>
+    <span class="doccomment">/// [`crate::true`] if the show and hide transitions of the given</span>
+    <span class="doccomment">///  popover are enabled, [`crate::false`] otherwise.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
@@ -1820,17 +1820,17 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_transitions_enabled&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_transitions_enabled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Pops `self` down.This is different than a [`WidgetExt::hide()`](crate::WidgetExt::hide()) call</span>
+    <span class="doccomment">/// Pops `self` down.This is different than a [`crate::prelude::WidgetExt::hide()`] call</span>
     <span class="doccomment">/// in that it shows the popover with a transition. If you want to hide</span>
-    <span class="doccomment">/// the popover without a transition, use [`WidgetExt::hide()`](crate::WidgetExt::hide()).</span>
+    <span class="doccomment">/// the popover without a transition, use [`crate::prelude::WidgetExt::hide()`].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_popdown&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">popdown</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Pops `self` up. This is different than a [`WidgetExt::show()`](crate::WidgetExt::show()) call</span>
+    <span class="doccomment">/// Pops `self` up. This is different than a [`crate::prelude::WidgetExt::show()`] call</span>
     <span class="doccomment">/// in that it shows the popover with a transition. If you want to show</span>
-    <span class="doccomment">/// the popover without a transition, use [`WidgetExt::show()`](crate::WidgetExt::show()).</span>
+    <span class="doccomment">/// the popover without a transition, use [`crate::prelude::WidgetExt::show()`].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_popup&quot;</span>)]</span>
@@ -1848,7 +1848,7 @@
     <span class="kw">fn</span> <span class="ident">set_constrain_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">constraint</span>: <span class="ident">PopoverConstraint</span>);
 
     <span class="doccomment">/// Sets the widget that should be set as default widget while</span>
-    <span class="doccomment">/// the popover is shown (see [``GtkWindowExt`::set_default()`](crate::`GtkWindowExt`::set_default())). [`Popover`](crate::Popover)</span>
+    <span class="doccomment">/// the popover is shown (see [`crate::prelude::`GtkWindowExt`::set_default()`]). [`crate::Popover`]</span>
     <span class="doccomment">/// remembers the previous default widget and reestablishes it</span>
     <span class="doccomment">/// when the popover is dismissed.</span>
     <span class="doccomment">/// ## `widget`</span>
@@ -1863,13 +1863,13 @@
     <span class="doccomment">/// displayed. Clicking outside the popover area or pressing Esc will</span>
     <span class="doccomment">/// dismiss the popover and ungrab input.</span>
     <span class="doccomment">/// ## `modal`</span>
-    <span class="doccomment">/// [`true`](crate::true) to make popover claim all input within the toplevel</span>
+    <span class="doccomment">/// [`crate::true`] to make popover claim all input within the toplevel</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_set_modal&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_modal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">modal</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Sets the rectangle that `self` will point to, in the</span>
     <span class="doccomment">/// coordinate space of the widget `self` is attached to,</span>
-    <span class="doccomment">/// see [`set_relative_to()`](Self::set_relative_to()).</span>
+    <span class="doccomment">/// see [`Self::set_relative_to()`].</span>
     <span class="doccomment">/// ## `rect`</span>
     <span class="doccomment">/// rectangle to point to</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_set_pointing_to&quot;</span>)]</span>
@@ -1880,7 +1880,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This preference will be respected where possible, although</span>
     <span class="doccomment">/// on lack of space (eg. if close to the window edges), the</span>
-    <span class="doccomment">/// [`Popover`](crate::Popover) may choose to appear on the opposite side</span>
+    <span class="doccomment">/// [`crate::Popover`] may choose to appear on the opposite side</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// preferred popover position</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_set_position&quot;</span>)]</span>
@@ -1894,7 +1894,7 @@
     <span class="doccomment">/// will be detached from its previous widget, and consequently destroyed</span>
     <span class="doccomment">/// unless extra references are kept.</span>
     <span class="doccomment">/// ## `relative_to`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_set_relative_to&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_relative_to</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">relative_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
@@ -1903,8 +1903,8 @@
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can show or hide the popover without transitions</span>
-    <span class="doccomment">///  using [`WidgetExt::show()`](crate::WidgetExt::show()) and [`WidgetExt::hide()`](crate::WidgetExt::hide()) while [`popup()`](Self::popup())</span>
-    <span class="doccomment">///  and [`popdown()`](Self::popdown()) will use transitions.</span>
+    <span class="doccomment">///  using [`crate::prelude::WidgetExt::show()`] and [`crate::prelude::WidgetExt::hide()`] while [`Self::popup()`]</span>
+    <span class="doccomment">///  and [`Self::popdown()`] will use transitions.</span>
     <span class="doccomment">/// ## `transitions_enabled`</span>
     <span class="doccomment">/// Whether transitions are enabled</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>

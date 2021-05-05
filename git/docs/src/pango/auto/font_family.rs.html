@@ -179,7 +179,7 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`FontFamily`](crate::FontFamily) structure is used to represent a family of related</span>
+    <span class="doccomment">/// The [`crate::FontFamily`] structure is used to represent a family of related</span>
     <span class="doccomment">/// font faces. The faces in a family share a common design, but differ in</span>
     <span class="doccomment">/// slant, weight, width and other aspects.</span>
     <span class="doccomment">///</span>
@@ -187,7 +187,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FontFamilyExt`](trait@crate::prelude::FontFamilyExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::FontFamilyExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontFamily</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::PangoFontFamily</span>, <span class="ident">ffi::PangoFontFamilyClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -201,9 +201,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`FontFamily`](struct@crate::FontFamily)</span>
+<span class="doccomment">/// [`struct@crate::FontFamily`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FontFamilyExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the [`FontFace`](crate::FontFace) of `self` with the given name.</span>
+    <span class="doccomment">/// Gets the [`crate::FontFace`] of `self` with the given name.</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// the name of a face. If the name is [`None`],</span>
     <span class="doccomment">///  the family&#39;s default face (fontconfig calls it &quot;Regular&quot;)</span>
@@ -211,7 +211,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`FontFace`](crate::FontFace),</span>
+    <span class="doccomment">/// the [`crate::FontFace`],</span>
     <span class="doccomment">///  or [`None`] if no face with the given name exists.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>)))]</span>
@@ -220,7 +220,7 @@
     <span class="kw">fn</span> <span class="ident">face</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FontFace</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the name of the family. The name is unique among all</span>
-    <span class="doccomment">/// fonts for the font backend and can be used in a [`FontDescription`](crate::FontDescription)</span>
+    <span class="doccomment">/// fonts for the font backend and can be used in a [`crate::FontDescription`]</span>
     <span class="doccomment">/// to specify that a face from this family is desired.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -240,8 +240,8 @@
     <span class="doccomment">/// character is typically double-width in a monospace font.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The best way to find out the grid-cell size is to call</span>
-    <span class="doccomment">/// [`FontMetrics::get_approximate_digit_width()`](crate::FontMetrics::get_approximate_digit_width()), since the results</span>
-    <span class="doccomment">/// of [`FontMetrics::get_approximate_char_width()`](crate::FontMetrics::get_approximate_char_width()) may be affected</span>
+    <span class="doccomment">/// [`crate::FontMetrics::get_approximate_digit_width()`], since the results</span>
+    <span class="doccomment">/// of [`crate::FontMetrics::get_approximate_char_width()`] may be affected</span>
     <span class="doccomment">/// by double-width characters.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -266,7 +266,7 @@
     <span class="doccomment">/// width and other aspects.</span>
     <span class="doccomment">/// ## `faces`</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">///  location to store an array of pointers to [`FontFace`](crate::FontFace) objects,</span>
+    <span class="doccomment">///  location to store an array of pointers to [`crate::FontFace`] objects,</span>
     <span class="doccomment">///  or [`None`]. This array should be freed with `g_free()` when it is no</span>
     <span class="doccomment">///  longer needed.</span>
     <span class="doccomment">/// ## `n_faces`</span>

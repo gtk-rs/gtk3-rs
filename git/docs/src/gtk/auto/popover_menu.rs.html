@@ -699,21 +699,21 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `PopoverMenu` is a subclass of [`Popover`](crate::Popover) that treats its</span>
+    <span class="doccomment">/// `PopoverMenu` is a subclass of [`crate::Popover`] that treats its</span>
     <span class="doccomment">/// children like menus and allows switching between them. It is</span>
-    <span class="doccomment">/// meant to be used primarily together with [`ModelButton`](crate::ModelButton), but</span>
-    <span class="doccomment">/// any widget can be used, such as [`SpinButton`](crate::SpinButton) or [`Scale`](crate::Scale).</span>
+    <span class="doccomment">/// meant to be used primarily together with [`crate::ModelButton`], but</span>
+    <span class="doccomment">/// any widget can be used, such as [`crate::SpinButton`] or [`crate::Scale`].</span>
     <span class="doccomment">/// In this respect, `PopoverMenu` is more flexible than popovers</span>
-    <span class="doccomment">/// that are created from a [`gio::MenuModel`](crate::gio::MenuModel) with [`Popover::new_from_model()`](crate::Popover::new_from_model()).</span>
+    <span class="doccomment">/// that are created from a [`crate::gio::MenuModel`] with [`crate::Popover::new_from_model()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To add a child as a submenu, set the [`PopoverMenu:submenu`](crate::PopoverMenu:submenu)</span>
+    <span class="doccomment">/// To add a child as a submenu, set the [`crate::PopoverMenu:submenu`]</span>
     <span class="doccomment">/// child property to the name of the submenu. To let the user open</span>
-    <span class="doccomment">/// this submenu, add a [`ModelButton`](crate::ModelButton) whose [`ModelButton:menu-name`](crate::ModelButton:menu-name)</span>
+    <span class="doccomment">/// this submenu, add a [`crate::ModelButton`] whose [`crate::ModelButton:menu-name`]</span>
     <span class="doccomment">/// property is set to the name you&#39;ve given to the submenu.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// By convention, the first child of a submenu should be a [`ModelButton`](crate::ModelButton)</span>
+    <span class="doccomment">/// By convention, the first child of a submenu should be a [`crate::ModelButton`]</span>
     <span class="doccomment">/// to switch back to the parent menu. Such a button should use the</span>
-    <span class="doccomment">/// [`ModelButton:inverted`](crate::ModelButton:inverted) and [`ModelButton:centered`](crate::ModelButton:centered) properties</span>
+    <span class="doccomment">/// [`crate::ModelButton:inverted`] and [`crate::ModelButton:centered`] properties</span>
     <span class="doccomment">/// to achieve a title-like appearance and place the submenu indicator</span>
     <span class="doccomment">/// at the opposite side. To switch back to the main menu, use &quot;main&quot;</span>
     <span class="doccomment">/// as the menu name.</span>
@@ -770,12 +770,12 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Just like normal popovers created using gtk_popover_new_from_model,</span>
-    <span class="doccomment">/// [`PopoverMenu`](crate::PopoverMenu) instances have a single css node called &quot;popover&quot;</span>
+    <span class="doccomment">/// [`crate::PopoverMenu`] instances have a single css node called &quot;popover&quot;</span>
     <span class="doccomment">/// and get the .menu style class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`PopoverExt`](trait@crate::prelude::PopoverExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::PopoverExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PopoverMenu</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkPopoverMenu</span>, <span class="ident">ffi::GtkPopoverMenuClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Popover</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -788,7 +788,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`PopoverMenu`](crate::PopoverMenu)</span>
+    <span class="doccomment">/// a new [`crate::PopoverMenu`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_menu_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PopoverMenu</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -797,11 +797,11 @@
 
     <span class="doccomment">/// Opens a submenu of the `self`. The `name`</span>
     <span class="doccomment">/// must be one of the names given to the submenus</span>
-    <span class="doccomment">/// of `self` with [`PopoverMenu:submenu`](crate::PopoverMenu:submenu), or</span>
+    <span class="doccomment">/// of `self` with [`crate::PopoverMenu:submenu`], or</span>
     <span class="doccomment">/// &quot;main&quot; to switch back to the main menu.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ModelButton`](crate::ModelButton) will open submenus automatically</span>
-    <span class="doccomment">/// when the [`ModelButton:menu-name`](crate::ModelButton:menu-name) property is set,</span>
+    <span class="doccomment">/// [`crate::ModelButton`] will open submenus automatically</span>
+    <span class="doccomment">/// when the [`crate::ModelButton:menu-name`] property is set,</span>
     <span class="doccomment">/// so this function is only needed when you are using</span>
     <span class="doccomment">/// other kinds of widgets to initiate menu changes.</span>
     <span class="doccomment">/// ## `name`</span>

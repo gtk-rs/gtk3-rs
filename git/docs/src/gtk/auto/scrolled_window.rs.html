@@ -2010,15 +2010,15 @@
     <span class="doccomment">/// associated adjustments, and optionally draws a frame around the child.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Widgets with native scrolling support, i.e. those whose classes implement the</span>
-    <span class="doccomment">/// [`Scrollable`](crate::Scrollable) interface, are added directly. For other types of widget, the</span>
-    <span class="doccomment">/// class [`Viewport`](crate::Viewport) acts as an adaptor, giving scrollability to other widgets.</span>
-    <span class="doccomment">/// `ScrolledWindow`’s implementation of [`ContainerExt::add()`](crate::ContainerExt::add()) intelligently</span>
-    <span class="doccomment">/// accounts for whether or not the added child is a [`Scrollable`](crate::Scrollable). If it isn’t,</span>
-    <span class="doccomment">/// [`ScrolledWindow`](crate::ScrolledWindow) wraps the child in a [`Viewport`](crate::Viewport) and adds that for you.</span>
+    <span class="doccomment">/// [`crate::Scrollable`] interface, are added directly. For other types of widget, the</span>
+    <span class="doccomment">/// class [`crate::Viewport`] acts as an adaptor, giving scrollability to other widgets.</span>
+    <span class="doccomment">/// `ScrolledWindow`’s implementation of [`crate::prelude::ContainerExt::add()`] intelligently</span>
+    <span class="doccomment">/// accounts for whether or not the added child is a [`crate::Scrollable`]. If it isn’t,</span>
+    <span class="doccomment">/// [`crate::ScrolledWindow`] wraps the child in a [`crate::Viewport`] and adds that for you.</span>
     <span class="doccomment">/// Therefore, you can just add any child widget and not worry about the details.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`ContainerExt::add()`](crate::ContainerExt::add()) has added a [`Viewport`](crate::Viewport) for you, you can remove</span>
-    <span class="doccomment">/// both your added child widget from the [`Viewport`](crate::Viewport), and the [`Viewport`](crate::Viewport)</span>
+    <span class="doccomment">/// If [`crate::prelude::ContainerExt::add()`] has added a [`crate::Viewport`] for you, you can remove</span>
+    <span class="doccomment">/// both your added child widget from the [`crate::Viewport`], and the [`crate::Viewport`]</span>
     <span class="doccomment">/// from the `ScrolledWindow`, like this:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -2039,33 +2039,33 @@
     <span class="doccomment">///                       gtk_bin_get_child (GTK_BIN (scrolled_window)));</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Unless [`ScrolledWindow:policy`](crate::ScrolledWindow:policy) is GTK_POLICY_NEVER or GTK_POLICY_EXTERNAL,</span>
-    <span class="doccomment">/// `ScrolledWindow` adds internal [`Scrollbar`](crate::Scrollbar) widgets around its child. The</span>
+    <span class="doccomment">/// Unless [`crate::ScrolledWindow:policy`] is GTK_POLICY_NEVER or GTK_POLICY_EXTERNAL,</span>
+    <span class="doccomment">/// `ScrolledWindow` adds internal [`crate::Scrollbar`] widgets around its child. The</span>
     <span class="doccomment">/// scroll position of the child, and if applicable the scrollbars, is controlled</span>
-    <span class="doccomment">/// by the [`ScrolledWindow:hadjustment`](crate::ScrolledWindow:hadjustment) and [`ScrolledWindow:vadjustment`](crate::ScrolledWindow:vadjustment)</span>
-    <span class="doccomment">/// that are associated with the `ScrolledWindow`. See the docs on [`Scrollbar`](crate::Scrollbar)</span>
+    <span class="doccomment">/// by the [`crate::ScrolledWindow:hadjustment`] and [`crate::ScrolledWindow:vadjustment`]</span>
+    <span class="doccomment">/// that are associated with the `ScrolledWindow`. See the docs on [`crate::Scrollbar`]</span>
     <span class="doccomment">/// for the details, but note that the “step_increment” and “page_increment”</span>
     <span class="doccomment">/// fields are only effective if the policy causes scrollbars to be present.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If a `ScrolledWindow` doesn’t behave quite as you would like, or</span>
     <span class="doccomment">/// doesn’t have exactly the right layout, it’s very possible to set up</span>
-    <span class="doccomment">/// your own scrolling with [`Scrollbar`](crate::Scrollbar) and for example a [`Grid`](crate::Grid).</span>
+    <span class="doccomment">/// your own scrolling with [`crate::Scrollbar`] and for example a [`crate::Grid`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Touch support</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `ScrolledWindow` has built-in support for touch devices. When a</span>
     <span class="doccomment">/// touchscreen is used, swiping will move the scrolled window, and will</span>
     <span class="doccomment">/// expose &#39;kinetic&#39; behavior. This can be turned off with the</span>
-    <span class="doccomment">/// [`ScrolledWindow:kinetic-scrolling`](crate::ScrolledWindow:kinetic-scrolling) property if it is undesired.</span>
+    <span class="doccomment">/// [`crate::ScrolledWindow:kinetic-scrolling`] property if it is undesired.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `ScrolledWindow` also displays visual &#39;overshoot&#39; indication when</span>
     <span class="doccomment">/// the content is pulled beyond the end, and this situation can be</span>
-    <span class="doccomment">/// captured with the [`ScrolledWindow::edge-overshot`](crate::ScrolledWindow::edge-overshot) signal.</span>
+    <span class="doccomment">/// captured with the [`crate::ScrolledWindow::edge-overshot`] signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If no mouse device is present, the scrollbars will overlayed as</span>
     <span class="doccomment">/// narrow, auto-hiding indicators over the content. If traditional</span>
     <span class="doccomment">/// scrollbars are desired although no mouse is present, this behaviour</span>
-    <span class="doccomment">/// can be turned off with the [`ScrolledWindow:overlay-scrolling`](crate::ScrolledWindow:overlay-scrolling)</span>
+    <span class="doccomment">/// can be turned off with the [`crate::ScrolledWindow:overlay-scrolling`]</span>
     <span class="doccomment">/// property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
@@ -2086,7 +2086,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ScrolledWindowExt`](trait@crate::prelude::ScrolledWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ScrolledWindowExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScrolledWindow</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkScrolledWindow</span>, <span class="ident">ffi::GtkScrolledWindowClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -2618,10 +2618,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`PlacesSidebar`](struct@crate::PlacesSidebar), [`ScrolledWindow`](struct@crate::ScrolledWindow)</span>
+<span class="doccomment">/// [`struct@crate::PlacesSidebar`], [`struct@crate::ScrolledWindow`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ScrolledWindowExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Return whether button presses are captured during kinetic</span>
-    <span class="doccomment">/// scrolling. See [`set_capture_button_press()`](Self::set_capture_button_press()).</span>
+    <span class="doccomment">/// scrolling. See [`Self::set_capture_button_press()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2636,7 +2636,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the horizontal [`Adjustment`](crate::Adjustment)</span>
+    <span class="doccomment">/// the horizontal [`crate::Adjustment`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_get_hadjustment&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_hadjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">hadjustment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Adjustment</span>;
@@ -2711,20 +2711,20 @@
     <span class="kw">fn</span> <span class="ident">is_overlay_scrolling</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the placement of the contents with respect to the scrollbars</span>
-    <span class="doccomment">/// for the scrolled window. See [`set_placement()`](Self::set_placement()).</span>
+    <span class="doccomment">/// for the scrolled window. See [`Self::set_placement()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the current placement value.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`set_placement()`](Self::set_placement()) and</span>
-    <span class="doccomment">/// [`unset_placement()`](Self::unset_placement()).</span>
+    <span class="doccomment">/// See also [`Self::set_placement()`] and</span>
+    <span class="doccomment">/// [`Self::unset_placement()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_get_placement&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_placement&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">placement</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CornerType</span>;
 
     <span class="doccomment">/// Retrieves the current policy values for the horizontal and vertical</span>
-    <span class="doccomment">/// scrollbars. See [`set_policy()`](Self::set_policy()).</span>
+    <span class="doccomment">/// scrollbars. See [`Self::set_policy()`].</span>
     <span class="doccomment">/// ## `hscrollbar_policy`</span>
     <span class="doccomment">/// location to store the policy</span>
     <span class="doccomment">///  for the horizontal scrollbar, or [`None`]</span>
@@ -2760,7 +2760,7 @@
     <span class="kw">fn</span> <span class="ident">propagates_natural_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the shadow type of the scrolled window. See</span>
-    <span class="doccomment">/// [`set_shadow_type()`](Self::set_shadow_type()).</span>
+    <span class="doccomment">/// [`Self::set_shadow_type()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2774,7 +2774,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the vertical [`Adjustment`](crate::Adjustment)</span>
+    <span class="doccomment">/// the vertical [`crate::Adjustment`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_get_vadjustment&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_vadjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">vadjustment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Adjustment</span>;
@@ -2794,8 +2794,8 @@
     <span class="doccomment">/// then later replayed if it is meant to go to the child widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This should be enabled if any child widgets perform non-reversible</span>
-    <span class="doccomment">/// actions on [`Widget::button-press-event`](crate::Widget::button-press-event). If they don&#39;t, and handle</span>
-    <span class="doccomment">/// additionally handle [`Widget::grab-broken-event`](crate::Widget::grab-broken-event), it might be better</span>
+    <span class="doccomment">/// actions on [`crate::Widget::button-press-event`]. If they don&#39;t, and handle</span>
+    <span class="doccomment">/// additionally handle [`crate::Widget::grab-broken-event`], it might be better</span>
     <span class="doccomment">/// to set `capture_button_press` to [`false`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This setting only has an effect if kinetic scrolling is enabled.</span>
@@ -2804,15 +2804,15 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_set_capture_button_press&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_capture_button_press</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">capture_button_press</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the [`Adjustment`](crate::Adjustment) for the horizontal scrollbar.</span>
+    <span class="doccomment">/// Sets the [`crate::Adjustment`] for the horizontal scrollbar.</span>
     <span class="doccomment">/// ## `hadjustment`</span>
-    <span class="doccomment">/// the [`Adjustment`](crate::Adjustment) to use, or [`None`] to create a new one</span>
+    <span class="doccomment">/// the [`crate::Adjustment`] to use, or [`None`] to create a new one</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_set_hadjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_hadjustment</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hadjustment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Turns kinetic scrolling on or off.</span>
     <span class="doccomment">/// Kinetic scrolling only applies to devices with source</span>
-    <span class="doccomment">/// [`gdk::InputSource::Touchscreen`].</span>
+    <span class="doccomment">/// [`crate::gdk::InputSource::Touchscreen`].</span>
     <span class="doccomment">/// ## `kinetic_scrolling`</span>
     <span class="doccomment">/// [`true`] to enable kinetic scrolling</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_set_kinetic_scrolling&quot;</span>)]</span>
@@ -2823,7 +2823,7 @@
     <span class="doccomment">/// the content.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is a programming error to set the maximum content height to a value</span>
-    <span class="doccomment">/// smaller than [`ScrolledWindow:min-content-height`](crate::ScrolledWindow:min-content-height).</span>
+    <span class="doccomment">/// smaller than [`crate::ScrolledWindow:min-content-height`].</span>
     <span class="doccomment">/// ## `height`</span>
     <span class="doccomment">/// the maximum content height</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -2836,7 +2836,7 @@
     <span class="doccomment">/// the content.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is a programming error to set the maximum content width to a value</span>
-    <span class="doccomment">/// smaller than [`ScrolledWindow:min-content-width`](crate::ScrolledWindow:min-content-width).</span>
+    <span class="doccomment">/// smaller than [`crate::ScrolledWindow:min-content-width`].</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// the maximum content width</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -2849,7 +2849,7 @@
     <span class="doccomment">/// size of the content.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is a programming error to set the minimum content height to a</span>
-    <span class="doccomment">/// value greater than [`ScrolledWindow:max-content-height`](crate::ScrolledWindow:max-content-height).</span>
+    <span class="doccomment">/// value greater than [`crate::ScrolledWindow:max-content-height`].</span>
     <span class="doccomment">/// ## `height`</span>
     <span class="doccomment">/// the minimal content height</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_set_min_content_height&quot;</span>)]</span>
@@ -2860,7 +2860,7 @@
     <span class="doccomment">/// size of the content.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is a programming error to set the minimum content width to a</span>
-    <span class="doccomment">/// value greater than [`ScrolledWindow:max-content-width`](crate::ScrolledWindow:max-content-width).</span>
+    <span class="doccomment">/// value greater than [`crate::ScrolledWindow:max-content-width`].</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// the minimal content width</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_set_min_content_width&quot;</span>)]</span>
@@ -2877,13 +2877,13 @@
     <span class="doccomment">/// Sets the placement of the contents with respect to the scrollbars</span>
     <span class="doccomment">/// for the scrolled window.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The default is [`CornerType::TopLeft`], meaning the child is</span>
+    <span class="doccomment">/// The default is [`crate::CornerType::TopLeft`], meaning the child is</span>
     <span class="doccomment">/// in the top left, with the scrollbars underneath and to the right.</span>
-    <span class="doccomment">/// Other values in [`CornerType`](crate::CornerType) are [`CornerType::TopRight`],</span>
-    <span class="doccomment">/// [`CornerType::BottomLeft`], and [`CornerType::BottomRight`].</span>
+    <span class="doccomment">/// Other values in [`crate::CornerType`] are [`crate::CornerType::TopRight`],</span>
+    <span class="doccomment">/// [`crate::CornerType::BottomLeft`], and [`crate::CornerType::BottomRight`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`get_placement()`](Self::get_placement()) and</span>
-    <span class="doccomment">/// [`unset_placement()`](Self::unset_placement()).</span>
+    <span class="doccomment">/// See also [`Self::get_placement()`] and</span>
+    <span class="doccomment">/// [`Self::unset_placement()`].</span>
     <span class="doccomment">/// ## `window_placement`</span>
     <span class="doccomment">/// position of the child window</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_set_placement&quot;</span>)]</span>
@@ -2892,9 +2892,9 @@
     <span class="doccomment">/// Sets the scrollbar policy for the horizontal and vertical scrollbars.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The policy determines when the scrollbar should appear; it is a value</span>
-    <span class="doccomment">/// from the [`PolicyType`](crate::PolicyType) enumeration. If [`PolicyType::Always`], the</span>
-    <span class="doccomment">/// scrollbar is always present; if [`PolicyType::Never`], the scrollbar is</span>
-    <span class="doccomment">/// never present; if [`PolicyType::Automatic`], the scrollbar is present only</span>
+    <span class="doccomment">/// from the [`crate::PolicyType`] enumeration. If [`crate::PolicyType::Always`], the</span>
+    <span class="doccomment">/// scrollbar is always present; if [`crate::PolicyType::Never`], the scrollbar is</span>
+    <span class="doccomment">/// never present; if [`crate::PolicyType::Automatic`], the scrollbar is present only</span>
     <span class="doccomment">/// if needed (that is, if the slider part of the bar would be smaller</span>
     <span class="doccomment">/// than the trough — the display is larger than the page size).</span>
     <span class="doccomment">/// ## `hscrollbar_policy`</span>
@@ -2929,18 +2929,18 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_set_shadow_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_shadow_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">ShadowType</span>);
 
-    <span class="doccomment">/// Sets the [`Adjustment`](crate::Adjustment) for the vertical scrollbar.</span>
+    <span class="doccomment">/// Sets the [`crate::Adjustment`] for the vertical scrollbar.</span>
     <span class="doccomment">/// ## `vadjustment`</span>
-    <span class="doccomment">/// the [`Adjustment`](crate::Adjustment) to use, or [`None`] to create a new one</span>
+    <span class="doccomment">/// the [`crate::Adjustment`] to use, or [`None`] to create a new one</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_set_vadjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_vadjustment</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">vadjustment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Unsets the placement of the contents with respect to the scrollbars</span>
     <span class="doccomment">/// for the scrolled window. If no window placement is set for a scrolled</span>
-    <span class="doccomment">/// window, it defaults to [`CornerType::TopLeft`].</span>
+    <span class="doccomment">/// window, it defaults to [`crate::CornerType::TopLeft`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`set_placement()`](Self::set_placement()) and</span>
-    <span class="doccomment">/// [`get_placement()`](Self::get_placement()).</span>
+    <span class="doccomment">/// See also [`Self::set_placement()`] and</span>
+    <span class="doccomment">/// [`Self::get_placement()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_scrolled_window_unset_placement&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unset_placement</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
@@ -2967,7 +2967,7 @@
     <span class="doccomment">/// the lower or upper limits defined by the adjustment in that orientation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A similar behavior without edge resistance is provided by the</span>
-    <span class="doccomment">/// [`ScrolledWindow::edge-reached`](crate::ScrolledWindow::edge-reached) signal.</span>
+    <span class="doccomment">/// [`crate::ScrolledWindow::edge-reached`] signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: The `pos` argument is LTR/RTL aware, so callers should be aware too</span>
     <span class="doccomment">/// if intending to provide behavior on horizontal edges.</span>
@@ -2983,7 +2983,7 @@
     <span class="doccomment">/// defined by the adjustment in that orientation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A similar behavior with edge resistance is provided by the</span>
-    <span class="doccomment">/// [`ScrolledWindow::edge-overshot`](crate::ScrolledWindow::edge-overshot) signal.</span>
+    <span class="doccomment">/// [`crate::ScrolledWindow::edge-overshot`] signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: The `pos` argument is LTR/RTL aware, so callers should be aware too</span>
     <span class="doccomment">/// if intending to provide behavior on horizontal edges.</span>
@@ -2997,13 +2997,13 @@
     <span class="doccomment">/// The ::move-focus-out signal is a</span>
     <span class="doccomment">/// [keybinding signal][`BindingSignal`] which gets</span>
     <span class="doccomment">/// emitted when focus is moved away from the scrolled window by a</span>
-    <span class="doccomment">/// keybinding. The [`Widget::move-focus`](crate::Widget::move-focus) signal is emitted with</span>
+    <span class="doccomment">/// keybinding. The [`crate::Widget::move-focus`] signal is emitted with</span>
     <span class="doccomment">/// `direction_type` on this scrolled window’s toplevel parent in the</span>
     <span class="doccomment">/// container hierarchy. The default bindings for this signal are</span>
     <span class="doccomment">/// `Ctrl + Tab` to move forward and `Ctrl + Shift + Tab` to move backward.</span>
     <span class="doccomment">/// ## `direction_type`</span>
-    <span class="doccomment">/// either [`DirectionType::TabForward`] or</span>
-    <span class="doccomment">///  [`DirectionType::TabBackward`]</span>
+    <span class="doccomment">/// either [`crate::DirectionType::TabForward`] or</span>
+    <span class="doccomment">///  [`crate::DirectionType::TabBackward`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;move-focus-out&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_move_focus_out</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">DirectionType</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -3018,7 +3018,7 @@
     <span class="doccomment">/// The horizontal or vertical adjustment is updated which triggers a</span>
     <span class="doccomment">/// signal that the scrolled window’s child may listen to and scroll itself.</span>
     <span class="doccomment">/// ## `scroll`</span>
-    <span class="doccomment">/// a [`ScrollType`](crate::ScrollType) describing how much to scroll</span>
+    <span class="doccomment">/// a [`crate::ScrollType`] describing how much to scroll</span>
     <span class="doccomment">/// ## `horizontal`</span>
     <span class="doccomment">/// whether the keybinding scrolls the child</span>
     <span class="doccomment">///  horizontally or not</span>

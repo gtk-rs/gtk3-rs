@@ -513,17 +513,17 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`TlsInteraction`](crate::TlsInteraction) provides a mechanism for the TLS connection and database</span>
+    <span class="doccomment">/// [`crate::TlsInteraction`] provides a mechanism for the TLS connection and database</span>
     <span class="doccomment">/// code to interact with the user. It can be used to ask the user for passwords.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To use a [`TlsInteraction`](crate::TlsInteraction) with a TLS connection use</span>
-    <span class="doccomment">/// [`TlsConnectionExt::set_interaction()`](crate::TlsConnectionExt::set_interaction()).</span>
+    <span class="doccomment">/// To use a [`crate::TlsInteraction`] with a TLS connection use</span>
+    <span class="doccomment">/// [`crate::prelude::TlsConnectionExt::set_interaction()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Callers should instantiate a derived class that implements the various</span>
     <span class="doccomment">/// interaction methods to show the required dialogs.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Callers should use the &#39;invoke&#39; functions like</span>
-    <span class="doccomment">/// [`TlsInteractionExt::invoke_ask_password()`](crate::TlsInteractionExt::invoke_ask_password()) to run interaction methods. These</span>
+    <span class="doccomment">/// [`crate::prelude::TlsInteractionExt::invoke_ask_password()`] to run interaction methods. These</span>
     <span class="doccomment">/// functions make sure that the interaction is invoked in the main loop</span>
     <span class="doccomment">/// and not in the current thread, if the current thread is not running the</span>
     <span class="doccomment">/// main loop.</span>
@@ -531,12 +531,12 @@
     <span class="doccomment">/// Derived classes can choose to implement whichever interactions methods they&#39;d</span>
     <span class="doccomment">/// like to support by overriding those virtual methods in their class</span>
     <span class="doccomment">/// initialization function. Any interactions not implemented will return</span>
-    <span class="doccomment">/// [`TlsInteractionResult::Unhandled`]. If a derived class implements an async method,</span>
+    <span class="doccomment">/// [`crate::TlsInteractionResult::Unhandled`]. If a derived class implements an async method,</span>
     <span class="doccomment">/// it must also implement the corresponding finish method.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TlsInteractionExt`](trait@crate::prelude::TlsInteractionExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::TlsInteractionExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsInteraction</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GTlsInteraction</span>, <span class="ident">ffi::GTlsInteractionClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -550,10 +550,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`TlsInteraction`](struct@crate::TlsInteraction)</span>
+<span class="doccomment">/// [`struct@crate::TlsInteraction`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TlsInteractionExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Run synchronous interaction to ask the user for a password. In general,</span>
-    <span class="doccomment">/// [`invoke_ask_password()`](Self::invoke_ask_password()) should be used instead of this</span>
+    <span class="doccomment">/// [`Self::invoke_ask_password()`] should be used instead of this</span>
     <span class="doccomment">/// function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Derived subclasses usually implement a password prompt, although they may</span>
@@ -562,13 +562,13 @@
     <span class="doccomment">/// abort this password request, which will usually abort the TLS connection.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the interaction is cancelled by the cancellation object, or by the</span>
-    <span class="doccomment">/// user then [`TlsInteractionResult::Failed`] will be returned with an error that</span>
-    <span class="doccomment">/// contains a [`IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
+    <span class="doccomment">/// user then [`crate::TlsInteractionResult::Failed`] will be returned with an error that</span>
+    <span class="doccomment">/// contains a [`crate::IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
     <span class="doccomment">/// not support immediate cancellation.</span>
     <span class="doccomment">/// ## `password`</span>
-    <span class="doccomment">/// a [`TlsPassword`](crate::TlsPassword) object</span>
+    <span class="doccomment">/// a [`crate::TlsPassword`] object</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// an optional [`Cancellable`](crate::Cancellable) cancellation object</span>
+    <span class="doccomment">/// an optional [`crate::Cancellable`] cancellation object</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -581,7 +581,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TlsInteractionResult</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Run asynchronous interaction to ask the user for a password. In general,</span>
-    <span class="doccomment">/// [`invoke_ask_password()`](Self::invoke_ask_password()) should be used instead of this</span>
+    <span class="doccomment">/// [`Self::invoke_ask_password()`] should be used instead of this</span>
     <span class="doccomment">/// function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Derived subclasses usually implement a password prompt, although they may</span>
@@ -590,15 +590,15 @@
     <span class="doccomment">/// abort this password request, which will usually abort the TLS connection.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the interaction is cancelled by the cancellation object, or by the</span>
-    <span class="doccomment">/// user then [`TlsInteractionResult::Failed`] will be returned with an error that</span>
-    <span class="doccomment">/// contains a [`IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
+    <span class="doccomment">/// user then [`crate::TlsInteractionResult::Failed`] will be returned with an error that</span>
+    <span class="doccomment">/// contains a [`crate::IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
     <span class="doccomment">/// not support immediate cancellation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Certain implementations may not support immediate cancellation.</span>
     <span class="doccomment">/// ## `password`</span>
-    <span class="doccomment">/// a [`TlsPassword`](crate::TlsPassword) object</span>
+    <span class="doccomment">/// a [`crate::TlsPassword`] object</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// an optional [`Cancellable`](crate::Cancellable) cancellation object</span>
+    <span class="doccomment">/// an optional [`crate::Cancellable`] cancellation object</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// will be called when the interaction completes</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -623,9 +623,9 @@
     <span class="op">&gt;</span>;
 
     <span class="doccomment">/// Invoke the interaction to ask the user for a password. It invokes this</span>
-    <span class="doccomment">/// interaction in the main loop, specifically the [`glib::MainContext`](crate::glib::MainContext) returned by</span>
-    <span class="doccomment">/// [`glib::MainContext::get_thread_default()`](crate::glib::MainContext::get_thread_default()) when the interaction is created. This</span>
-    <span class="doccomment">/// is called by called by [`TlsConnection`](crate::TlsConnection) or [`TlsDatabase`](crate::TlsDatabase) to ask the user</span>
+    <span class="doccomment">/// interaction in the main loop, specifically the [`crate::glib::MainContext`] returned by</span>
+    <span class="doccomment">/// [`crate::glib::MainContext::get_thread_default()`] when the interaction is created. This</span>
+    <span class="doccomment">/// is called by called by [`crate::TlsConnection`] or [`crate::TlsDatabase`] to ask the user</span>
     <span class="doccomment">/// for a password.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Derived subclasses usually implement a password prompt, although they may</span>
@@ -638,13 +638,13 @@
     <span class="doccomment">/// calling which ever one correctly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the interaction is cancelled by the cancellation object, or by the</span>
-    <span class="doccomment">/// user then [`TlsInteractionResult::Failed`] will be returned with an error that</span>
-    <span class="doccomment">/// contains a [`IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
+    <span class="doccomment">/// user then [`crate::TlsInteractionResult::Failed`] will be returned with an error that</span>
+    <span class="doccomment">/// contains a [`crate::IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
     <span class="doccomment">/// not support immediate cancellation.</span>
     <span class="doccomment">/// ## `password`</span>
-    <span class="doccomment">/// a [`TlsPassword`](crate::TlsPassword) object</span>
+    <span class="doccomment">/// a [`crate::TlsPassword`] object</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// an optional [`Cancellable`](crate::Cancellable) cancellation object</span>
+    <span class="doccomment">/// an optional [`crate::Cancellable`] cancellation object</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -658,9 +658,9 @@
 
     <span class="doccomment">/// Invoke the interaction to ask the user to choose a certificate to</span>
     <span class="doccomment">/// use with the connection. It invokes this interaction in the main</span>
-    <span class="doccomment">/// loop, specifically the [`glib::MainContext`](crate::glib::MainContext) returned by</span>
-    <span class="doccomment">/// [`glib::MainContext::get_thread_default()`](crate::glib::MainContext::get_thread_default()) when the interaction is</span>
-    <span class="doccomment">/// created. This is called by called by [`TlsConnection`](crate::TlsConnection) when the peer</span>
+    <span class="doccomment">/// loop, specifically the [`crate::glib::MainContext`] returned by</span>
+    <span class="doccomment">/// [`crate::glib::MainContext::get_thread_default()`] when the interaction is</span>
+    <span class="doccomment">/// created. This is called by called by [`crate::TlsConnection`] when the peer</span>
     <span class="doccomment">/// requests a certificate during the handshake.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Derived subclasses usually implement a certificate selector,</span>
@@ -673,15 +673,15 @@
     <span class="doccomment">/// calling which ever one correctly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the interaction is cancelled by the cancellation object, or by the</span>
-    <span class="doccomment">/// user then [`TlsInteractionResult::Failed`] will be returned with an error that</span>
-    <span class="doccomment">/// contains a [`IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
+    <span class="doccomment">/// user then [`crate::TlsInteractionResult::Failed`] will be returned with an error that</span>
+    <span class="doccomment">/// contains a [`crate::IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
     <span class="doccomment">/// not support immediate cancellation.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// a [`TlsConnection`](crate::TlsConnection) object</span>
+    <span class="doccomment">/// a [`crate::TlsConnection`] object</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags providing more information about the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// an optional [`Cancellable`](crate::Cancellable) cancellation object</span>
+    <span class="doccomment">/// an optional [`crate::Cancellable`] cancellation object</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -695,27 +695,27 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TlsInteractionResult</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Run synchronous interaction to ask the user to choose a certificate to use</span>
-    <span class="doccomment">/// with the connection. In general, [`invoke_request_certificate()`](Self::invoke_request_certificate())</span>
+    <span class="doccomment">/// with the connection. In general, [`Self::invoke_request_certificate()`]</span>
     <span class="doccomment">/// should be used instead of this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Derived subclasses usually implement a certificate selector, although they may</span>
     <span class="doccomment">/// also choose to provide a certificate from elsewhere. Alternatively the user may</span>
     <span class="doccomment">/// abort this certificate request, which will usually abort the TLS connection.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`TlsInteractionResult::Handled`] is returned, then the [`TlsConnection`](crate::TlsConnection)</span>
-    <span class="doccomment">/// passed to [`request_certificate()`](Self::request_certificate()) will have had its</span>
-    <span class="doccomment">/// [`TlsConnection:certificate`](crate::TlsConnection:certificate) filled in.</span>
+    <span class="doccomment">/// If [`crate::TlsInteractionResult::Handled`] is returned, then the [`crate::TlsConnection`]</span>
+    <span class="doccomment">/// passed to [`Self::request_certificate()`] will have had its</span>
+    <span class="doccomment">/// [`crate::TlsConnection:certificate`] filled in.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the interaction is cancelled by the cancellation object, or by the</span>
-    <span class="doccomment">/// user then [`TlsInteractionResult::Failed`] will be returned with an error that</span>
-    <span class="doccomment">/// contains a [`IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
+    <span class="doccomment">/// user then [`crate::TlsInteractionResult::Failed`] will be returned with an error that</span>
+    <span class="doccomment">/// contains a [`crate::IOErrorEnum::Cancelled`] error code. Certain implementations may</span>
     <span class="doccomment">/// not support immediate cancellation.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// a [`TlsConnection`](crate::TlsConnection) object</span>
+    <span class="doccomment">/// a [`crate::TlsConnection`] object</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags providing more information about the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// an optional [`Cancellable`](crate::Cancellable) cancellation object</span>
+    <span class="doccomment">/// an optional [`crate::Cancellable`] cancellation object</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -729,7 +729,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TlsInteractionResult</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Run asynchronous interaction to ask the user for a certificate to use with</span>
-    <span class="doccomment">/// the connection. In general, [`invoke_request_certificate()`](Self::invoke_request_certificate()) should</span>
+    <span class="doccomment">/// the connection. In general, [`Self::invoke_request_certificate()`] should</span>
     <span class="doccomment">/// be used instead of this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Derived subclasses usually implement a certificate selector, although they may</span>
@@ -737,11 +737,11 @@
     <span class="doccomment">/// when the operation completes. Alternatively the user may abort this certificate</span>
     <span class="doccomment">/// request, which will usually abort the TLS connection.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// a [`TlsConnection`](crate::TlsConnection) object</span>
+    <span class="doccomment">/// a [`crate::TlsConnection`] object</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags providing more information about the request</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// an optional [`Cancellable`](crate::Cancellable) cancellation object</span>
+    <span class="doccomment">/// an optional [`crate::Cancellable`] cancellation object</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// will be called when the interaction completes</span>
     <span class="doccomment">/// ## `user_data`</span>

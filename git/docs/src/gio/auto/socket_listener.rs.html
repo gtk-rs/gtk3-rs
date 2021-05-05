@@ -747,24 +747,24 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`SocketListener`](crate::SocketListener) is an object that keeps track of a set</span>
+    <span class="doccomment">/// A [`crate::SocketListener`] is an object that keeps track of a set</span>
     <span class="doccomment">/// of server sockets and helps you accept sockets from any of the</span>
     <span class="doccomment">/// socket, either sync or async.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Add addresses and ports to listen on using [`SocketListenerExt::add_address()`](crate::SocketListenerExt::add_address())</span>
-    <span class="doccomment">/// and [`SocketListenerExt::add_inet_port()`](crate::SocketListenerExt::add_inet_port()). These will be listened on until</span>
-    <span class="doccomment">/// [`SocketListenerExt::close()`](crate::SocketListenerExt::close()) is called. Dropping your final reference to the</span>
-    <span class="doccomment">/// [`SocketListener`](crate::SocketListener) will not cause [`SocketListenerExt::close()`](crate::SocketListenerExt::close()) to be called</span>
-    <span class="doccomment">/// implicitly, as some references to the [`SocketListener`](crate::SocketListener) may be held</span>
+    <span class="doccomment">/// Add addresses and ports to listen on using [`crate::prelude::SocketListenerExt::add_address()`]</span>
+    <span class="doccomment">/// and [`crate::prelude::SocketListenerExt::add_inet_port()`]. These will be listened on until</span>
+    <span class="doccomment">/// [`crate::prelude::SocketListenerExt::close()`] is called. Dropping your final reference to the</span>
+    <span class="doccomment">/// [`crate::SocketListener`] will not cause [`crate::prelude::SocketListenerExt::close()`] to be called</span>
+    <span class="doccomment">/// implicitly, as some references to the [`crate::SocketListener`] may be held</span>
     <span class="doccomment">/// internally.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you want to implement a network server, also look at [`SocketService`](crate::SocketService)</span>
-    <span class="doccomment">/// and [`ThreadedSocketService`](crate::ThreadedSocketService) which are subclasses of [`SocketListener`](crate::SocketListener)</span>
+    <span class="doccomment">/// If you want to implement a network server, also look at [`crate::SocketService`]</span>
+    <span class="doccomment">/// and [`crate::ThreadedSocketService`] which are subclasses of [`crate::SocketListener`]</span>
     <span class="doccomment">/// that make this even easier.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SocketListenerExt`](trait@crate::prelude::SocketListenerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SocketListenerExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SocketListener</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSocketListener</span>, <span class="ident">ffi::GSocketListenerClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -773,13 +773,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SocketListener</span> {
-    <span class="doccomment">/// Creates a new [`SocketListener`](crate::SocketListener) with no sockets to listen for.</span>
-    <span class="doccomment">/// New listeners can be added with e.g. [`SocketListenerExt::add_address()`](crate::SocketListenerExt::add_address())</span>
-    <span class="doccomment">/// or [`SocketListenerExt::add_inet_port()`](crate::SocketListenerExt::add_inet_port()).</span>
+    <span class="doccomment">/// Creates a new [`crate::SocketListener`] with no sockets to listen for.</span>
+    <span class="doccomment">/// New listeners can be added with e.g. [`crate::prelude::SocketListenerExt::add_address()`]</span>
+    <span class="doccomment">/// or [`crate::prelude::SocketListenerExt::add_inet_port()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`SocketListener`](crate::SocketListener).</span>
+    <span class="doccomment">/// a new [`crate::SocketListener`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_listener_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SocketListener</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_socket_listener_new</span>()) }
@@ -798,10 +798,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`SocketListener`](struct@crate::SocketListener), [`SocketService`](struct@crate::SocketService)</span>
+<span class="doccomment">/// [`struct@crate::SocketListener`], [`struct@crate::SocketService`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SocketListenerExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Blocks waiting for a client to connect to any of the sockets added</span>
-    <span class="doccomment">/// to the listener. Returns a [`SocketConnection`](crate::SocketConnection) for the socket that was</span>
+    <span class="doccomment">/// to the listener. Returns a [`crate::SocketConnection`] for the socket that was</span>
     <span class="doccomment">/// accepted.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `source_object` is not [`None`] it will be filled out with the source</span>
@@ -810,28 +810,28 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// ## `source_object`</span>
-    <span class="doccomment">/// location where [`glib::object::Object`](crate::glib::object::Object) pointer will be stored, or [`None`]</span>
+    <span class="doccomment">/// location where [`crate::glib::object::Object`] pointer will be stored, or [`None`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`SocketConnection`](crate::SocketConnection) on success, [`None`] on error.</span>
+    <span class="doccomment">/// a [`crate::SocketConnection`] on success, [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_listener_accept&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">accept</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">SocketConnection</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This is the asynchronous version of [`accept()`](Self::accept()).</span>
+    <span class="doccomment">/// This is the asynchronous version of [`Self::accept()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call [`accept_socket()`](Self::accept_socket())</span>
+    <span class="doccomment">/// called. You can then call [`Self::accept_socket()`]</span>
     <span class="doccomment">/// to get the result of the operation.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -857,10 +857,10 @@
     <span class="op">&gt;</span>;
 
     <span class="doccomment">/// Blocks waiting for a client to connect to any of the sockets added</span>
-    <span class="doccomment">/// to the listener. Returns the [`Socket`](crate::Socket) that was accepted.</span>
+    <span class="doccomment">/// to the listener. Returns the [`crate::Socket`] that was accepted.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you want to accept the high-level [`SocketConnection`](crate::SocketConnection), not a [`Socket`](crate::Socket),</span>
-    <span class="doccomment">/// which is often the case, then you should use [`accept()`](Self::accept())</span>
+    <span class="doccomment">/// If you want to accept the high-level [`crate::SocketConnection`], not a [`crate::Socket`],</span>
+    <span class="doccomment">/// which is often the case, then you should use [`Self::accept()`]</span>
     <span class="doccomment">/// instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `source_object` is not [`None`] it will be filled out with the source</span>
@@ -869,28 +869,28 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// ## `source_object`</span>
-    <span class="doccomment">/// location where [`glib::object::Object`](crate::glib::object::Object) pointer will be stored, or [`None`].</span>
+    <span class="doccomment">/// location where [`crate::glib::object::Object`] pointer will be stored, or [`None`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Socket`](crate::Socket) on success, [`None`] on error.</span>
+    <span class="doccomment">/// a [`crate::Socket`] on success, [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_listener_accept_socket&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">accept_socket</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Socket</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This is the asynchronous version of [`accept_socket()`](Self::accept_socket()).</span>
+    <span class="doccomment">/// This is the asynchronous version of [`Self::accept_socket()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished `callback` will be</span>
-    <span class="doccomment">/// called. You can then call [`accept_socket_finish()`](Self::accept_socket_finish())</span>
+    <span class="doccomment">/// called. You can then call [`Self::accept_socket_finish()`]</span>
     <span class="doccomment">/// to get the result of the operation.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -921,7 +921,7 @@
     <span class="doccomment">/// Note that adding an IPv6 address, depending on the platform,</span>
     <span class="doccomment">/// may or may not result in a listener that also accepts IPv4</span>
     <span class="doccomment">/// connections. For more deterministic behavior, see</span>
-    <span class="doccomment">/// [`add_inet_port()`](Self::add_inet_port()).</span>
+    <span class="doccomment">/// [`Self::add_inet_port()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `source_object` will be passed out in the various calls</span>
     <span class="doccomment">/// to accept to identify this particular source, which is</span>
@@ -934,17 +934,17 @@
     <span class="doccomment">/// requesting a binding to port 0 (ie: &quot;any port&quot;). This address, if</span>
     <span class="doccomment">/// requested, belongs to the caller and must be freed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Call [`close()`](Self::close()) to stop listening on `address`; this will not</span>
+    <span class="doccomment">/// Call [`Self::close()`] to stop listening on `address`; this will not</span>
     <span class="doccomment">/// be done automatically when you drop your final reference to `self`, as</span>
     <span class="doccomment">/// references may be held internally.</span>
     <span class="doccomment">/// ## `address`</span>
-    <span class="doccomment">/// a [`SocketAddress`](crate::SocketAddress)</span>
+    <span class="doccomment">/// a [`crate::SocketAddress`]</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// a [`SocketType`](crate::SocketType)</span>
+    <span class="doccomment">/// a [`crate::SocketType`]</span>
     <span class="doccomment">/// ## `protocol`</span>
-    <span class="doccomment">/// a [`SocketProtocol`](crate::SocketProtocol)</span>
+    <span class="doccomment">/// a [`crate::SocketProtocol`]</span>
     <span class="doccomment">/// ## `source_object`</span>
-    <span class="doccomment">/// Optional [`glib::object::Object`](crate::glib::object::Object) identifying this source</span>
+    <span class="doccomment">/// Optional [`crate::glib::object::Object`] identifying this source</span>
     <span class="doccomment">/// ## `effective_address`</span>
     <span class="doccomment">/// location to store the address that was bound to, or [`None`].</span>
     <span class="doccomment">///</span>
@@ -971,7 +971,7 @@
     <span class="doccomment">/// useful if you&#39;re listening on multiple addresses and do</span>
     <span class="doccomment">/// different things depending on what address is connected to.</span>
     <span class="doccomment">/// ## `source_object`</span>
-    <span class="doccomment">/// Optional [`glib::object::Object`](crate::glib::object::Object) identifying this source</span>
+    <span class="doccomment">/// Optional [`crate::glib::object::Object`] identifying this source</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -982,7 +982,7 @@
         <span class="ident">source_object</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u16</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Helper function for [`add_address()`](Self::add_address()) that</span>
+    <span class="doccomment">/// Helper function for [`Self::add_address()`] that</span>
     <span class="doccomment">/// creates a TCP/IP socket listening on IPv4 and IPv6 (if</span>
     <span class="doccomment">/// supported) on the specified port on all interfaces.</span>
     <span class="doccomment">///</span>
@@ -991,13 +991,13 @@
     <span class="doccomment">/// useful if you&#39;re listening on multiple addresses and do</span>
     <span class="doccomment">/// different things depending on what address is connected to.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Call [`close()`](Self::close()) to stop listening on `port`; this will not</span>
+    <span class="doccomment">/// Call [`Self::close()`] to stop listening on `port`; this will not</span>
     <span class="doccomment">/// be done automatically when you drop your final reference to `self`, as</span>
     <span class="doccomment">/// references may be held internally.</span>
     <span class="doccomment">/// ## `port`</span>
     <span class="doccomment">/// an IP port number (non-zero)</span>
     <span class="doccomment">/// ## `source_object`</span>
-    <span class="doccomment">/// Optional [`glib::object::Object`](crate::glib::object::Object) identifying this source</span>
+    <span class="doccomment">/// Optional [`crate::glib::object::Object`] identifying this source</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1023,9 +1023,9 @@
     <span class="doccomment">/// the `socket` was automatically closed on finalization of the `self`, even</span>
     <span class="doccomment">/// if references to it were held elsewhere.</span>
     <span class="doccomment">/// ## `socket`</span>
-    <span class="doccomment">/// a listening [`Socket`](crate::Socket)</span>
+    <span class="doccomment">/// a listening [`crate::Socket`]</span>
     <span class="doccomment">/// ## `source_object`</span>
-    <span class="doccomment">/// Optional [`glib::object::Object`](crate::glib::object::Object) identifying this source</span>
+    <span class="doccomment">/// Optional [`crate::glib::object::Object`] identifying this source</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1042,10 +1042,10 @@
     <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Sets the listen backlog on the sockets in the listener. This must be called</span>
-    <span class="doccomment">/// before adding any sockets, addresses or ports to the [`SocketListener`](crate::SocketListener) (for</span>
-    <span class="doccomment">/// example, by calling [`add_inet_port()`](Self::add_inet_port())) to be effective.</span>
+    <span class="doccomment">/// before adding any sockets, addresses or ports to the [`crate::SocketListener`] (for</span>
+    <span class="doccomment">/// example, by calling [`Self::add_inet_port()`]) to be effective.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`SocketExt::set_listen_backlog()`](crate::SocketExt::set_listen_backlog()) for details</span>
+    <span class="doccomment">/// See [`crate::prelude::SocketExt::set_listen_backlog()`] for details</span>
     <span class="doccomment">/// ## `listen_backlog`</span>
     <span class="doccomment">/// an integer</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_listener_set_backlog&quot;</span>)]</span>
@@ -1064,7 +1064,7 @@
     <span class="doccomment">/// ## `event`</span>
     <span class="doccomment">/// the event that is occurring</span>
     <span class="doccomment">/// ## `socket`</span>
-    <span class="doccomment">/// the [`Socket`](crate::Socket) the event is occurring on</span>
+    <span class="doccomment">/// the [`crate::Socket`] the event is occurring on</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;event&quot;</span>)]</span>

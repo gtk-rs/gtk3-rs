@@ -107,13 +107,13 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`FontMap`](crate::FontMap) is an interface exported by font maps for</span>
+    <span class="doccomment">/// [`crate::FontMap`] is an interface exported by font maps for</span>
     <span class="doccomment">/// use with Cairo. The actual type of the font map will depend</span>
     <span class="doccomment">/// on the particular font technology Cairo was compiled to use.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FontMapExt`](trait@crate::prelude::FontMapExt), [`trait@pango::FontMapExt`], [`FontMapExtManual`](trait@crate::prelude::FontMapExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::FontMapExt`], [`trait@pango::prelude::FontMapExt`], [`trait@crate::prelude::FontMapExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontMap</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::PangoCairoFontMap</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">pango::FontMap</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -122,15 +122,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FontMap</span> {
-    <span class="doccomment">/// Gets a default [`FontMap`](crate::FontMap) to use with Cairo.</span>
+    <span class="doccomment">/// Gets a default [`crate::FontMap`] to use with Cairo.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the type of the returned object will depend</span>
     <span class="doccomment">/// on the particular font backend Cairo was compiled to use;</span>
-    <span class="doccomment">/// You generally should only use the [`pango::FontMap`](crate::pango::FontMap) and</span>
-    <span class="doccomment">/// [`FontMap`](crate::FontMap) interfaces on the returned object.</span>
+    <span class="doccomment">/// You generally should only use the [`crate::pango::FontMap`] and</span>
+    <span class="doccomment">/// [`crate::FontMap`] interfaces on the returned object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default Cairo fontmap can be changed by using</span>
-    <span class="doccomment">/// [`set_default()`](Self::set_default()). This can be used to</span>
+    <span class="doccomment">/// [`Self::set_default()`]. This can be used to</span>
     <span class="doccomment">/// change the Cairo font backend that the default fontmap</span>
     <span class="doccomment">/// uses for example.</span>
     <span class="doccomment">///</span>
@@ -155,9 +155,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`FontMap`](struct@crate::FontMap)</span>
+<span class="doccomment">/// [`struct@crate::FontMap`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FontMapExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the resolution for the fontmap. See [`FontMap::set_resolution()`](crate::FontMap::set_resolution())</span>
+    <span class="doccomment">/// Gets the resolution for the fontmap. See [`crate::FontMap::set_resolution()`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -167,7 +167,7 @@
     <span class="kw">fn</span> <span class="ident">resolution</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
 
     <span class="doccomment">/// Sets the resolution for the fontmap. This is a scale factor between</span>
-    <span class="doccomment">/// points specified in a [`pango::FontDescription`](crate::pango::FontDescription) and Cairo units. The</span>
+    <span class="doccomment">/// points specified in a [`crate::pango::FontDescription`] and Cairo units. The</span>
     <span class="doccomment">/// default value is 96, meaning that a 10 point font will be 13</span>
     <span class="doccomment">/// units high. (10 * 96. / 72. = 13.3).</span>
     <span class="doccomment">/// ## `dpi`</span>

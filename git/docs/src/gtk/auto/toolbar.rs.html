@@ -1151,25 +1151,25 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A toolbar is created with a call to [`new()`](Self::new()).</span>
+    <span class="doccomment">/// A toolbar is created with a call to [`Self::new()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A toolbar can contain instances of a subclass of [`ToolItem`](crate::ToolItem). To add</span>
-    <span class="doccomment">/// a [`ToolItem`](crate::ToolItem) to the a toolbar, use [`ToolbarExt::insert()`](crate::ToolbarExt::insert()). To remove</span>
-    <span class="doccomment">/// an item from the toolbar use [`ContainerExt::remove()`](crate::ContainerExt::remove()). To add a button</span>
-    <span class="doccomment">/// to the toolbar, add an instance of [`ToolButton`](crate::ToolButton).</span>
+    <span class="doccomment">/// A toolbar can contain instances of a subclass of [`crate::ToolItem`]. To add</span>
+    <span class="doccomment">/// a [`crate::ToolItem`] to the a toolbar, use [`crate::prelude::ToolbarExt::insert()`]. To remove</span>
+    <span class="doccomment">/// an item from the toolbar use [`crate::prelude::ContainerExt::remove()`]. To add a button</span>
+    <span class="doccomment">/// to the toolbar, add an instance of [`crate::ToolButton`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Toolbar items can be visually grouped by adding instances of</span>
-    <span class="doccomment">/// [`SeparatorToolItem`](crate::SeparatorToolItem) to the toolbar. If the `Toolbar` child property</span>
-    <span class="doccomment">/// “expand” is [`true`](crate::true) and the property [`SeparatorToolItem:draw`](crate::SeparatorToolItem:draw) is set to</span>
-    <span class="doccomment">/// [`false`](crate::false), the effect is to force all following items to the end of the toolbar.</span>
+    <span class="doccomment">/// [`crate::SeparatorToolItem`] to the toolbar. If the `Toolbar` child property</span>
+    <span class="doccomment">/// “expand” is [`crate::true`] and the property [`crate::SeparatorToolItem:draw`] is set to</span>
+    <span class="doccomment">/// [`crate::false`], the effect is to force all following items to the end of the toolbar.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, a toolbar can be shrunk, upon which it will add an arrow button</span>
-    <span class="doccomment">/// to show an overflow menu offering access to any [`ToolItem`](crate::ToolItem) child that has</span>
+    <span class="doccomment">/// to show an overflow menu offering access to any [`crate::ToolItem`] child that has</span>
     <span class="doccomment">/// a proxy menu item. To disable this and request enough size for all children,</span>
-    <span class="doccomment">/// call [`ToolbarExt::set_show_arrow()`](crate::ToolbarExt::set_show_arrow()) to set [`Toolbar:show-arrow`](crate::Toolbar:show-arrow) to [`false`].</span>
+    <span class="doccomment">/// call [`crate::prelude::ToolbarExt::set_show_arrow()`] to set [`crate::Toolbar:show-arrow`] to [`false`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Creating a context menu for the toolbar can be done by connecting to</span>
-    <span class="doccomment">/// the [`Toolbar::popup-context-menu`](crate::Toolbar::popup-context-menu) signal.</span>
+    <span class="doccomment">/// the [`crate::Toolbar::popup-context-menu`] signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
@@ -1177,7 +1177,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ToolbarExt`](trait@crate::prelude::ToolbarExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`ToolShellExt`](trait@crate::prelude::ToolShellExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ToolbarExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::OrientableExt`], [`trait@crate::prelude::ToolShellExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Toolbar</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkToolbar</span>, <span class="ident">ffi::GtkToolbarClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">ToolShell</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1590,7 +1590,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Toolbar`](struct@crate::Toolbar)</span>
+<span class="doccomment">/// [`struct@crate::Toolbar`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ToolbarExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the position corresponding to the indicated point on</span>
     <span class="doccomment">/// `self`. This is useful when dragging items to the toolbar:</span>
@@ -1613,7 +1613,7 @@
     <span class="doccomment">/// Returns the position of `item` on the toolbar, starting from 0.</span>
     <span class="doccomment">/// It is an error if `item` is not a child of the toolbar.</span>
     <span class="doccomment">/// ## `item`</span>
-    <span class="doccomment">/// a [`ToolItem`](crate::ToolItem) that is a child of `self`</span>
+    <span class="doccomment">/// a [`crate::ToolItem`] that is a child of `self`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1638,14 +1638,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `n`&#39;th [`ToolItem`](crate::ToolItem) on `self`,</span>
+    <span class="doccomment">/// The `n`&#39;th [`crate::ToolItem`] on `self`,</span>
     <span class="doccomment">///  or [`None`] if there isn’t an `n`&#39;th item.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toolbar_get_nth_item&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_nth_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">nth_item</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">n</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ToolItem</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns whether the toolbar has an overflow menu.</span>
-    <span class="doccomment">/// See [`set_show_arrow()`](Self::set_show_arrow()).</span>
+    <span class="doccomment">/// See [`Self::set_show_arrow()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1654,11 +1654,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_show_arrow&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_arrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Insert a [`ToolItem`](crate::ToolItem) into the toolbar at position `pos`. If `pos` is</span>
+    <span class="doccomment">/// Insert a [`crate::ToolItem`] into the toolbar at position `pos`. If `pos` is</span>
     <span class="doccomment">/// 0 the item is prepended to the start of the toolbar. If `pos` is</span>
     <span class="doccomment">/// negative, the item is appended to the end of the toolbar.</span>
     <span class="doccomment">/// ## `item`</span>
-    <span class="doccomment">/// a [`ToolItem`](crate::ToolItem)</span>
+    <span class="doccomment">/// a [`crate::ToolItem`]</span>
     <span class="doccomment">/// ## `pos`</span>
     <span class="doccomment">/// the position of the new item</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toolbar_insert&quot;</span>)]</span>
@@ -1674,7 +1674,7 @@
     <span class="doccomment">/// added to any widget hierarchy or used as highlight item for another</span>
     <span class="doccomment">/// toolbar.</span>
     <span class="doccomment">/// ## `tool_item`</span>
-    <span class="doccomment">/// a [`ToolItem`](crate::ToolItem), or [`None`] to turn of highlighting</span>
+    <span class="doccomment">/// a [`crate::ToolItem`], or [`None`] to turn of highlighting</span>
     <span class="doccomment">/// ## `index_`</span>
     <span class="doccomment">/// a position on `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toolbar_set_drop_highlight_item&quot;</span>)]</span>
@@ -1689,14 +1689,14 @@
     <span class="doccomment">/// application toolbars should respect the user preferences for the</span>
     <span class="doccomment">/// size of icons.</span>
     <span class="doccomment">/// ## `icon_size`</span>
-    <span class="doccomment">/// The [`IconSize`](crate::IconSize) that stock icons in the toolbar shall have.</span>
+    <span class="doccomment">/// The [`crate::IconSize`] that stock icons in the toolbar shall have.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toolbar_set_icon_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_icon_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon_size</span>: <span class="ident">IconSize</span>);
 
     <span class="doccomment">/// Sets whether to show an overflow menu when `self` isn’t allocated enough</span>
     <span class="doccomment">/// size to show all of its items. If [`true`], items which can’t fit in `self`,</span>
-    <span class="doccomment">/// and which have a proxy menu item set by [`ToolItemExt::set_proxy_menu_item()`](crate::ToolItemExt::set_proxy_menu_item())</span>
-    <span class="doccomment">/// or [`ToolItem::create-menu-proxy`](crate::ToolItem::create-menu-proxy), will be available in an overflow menu,</span>
+    <span class="doccomment">/// and which have a proxy menu item set by [`crate::prelude::ToolItemExt::set_proxy_menu_item()`]</span>
+    <span class="doccomment">/// or [`crate::ToolItem::create-menu-proxy`], will be available in an overflow menu,</span>
     <span class="doccomment">/// which can be opened by an added arrow button. If [`false`], `self` will</span>
     <span class="doccomment">/// request enough size to fit all of its child items without any overflow.</span>
     <span class="doccomment">/// ## `show_arrow`</span>
@@ -1710,12 +1710,12 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toolbar_set_style&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">style</span>: <span class="ident">ToolbarStyle</span>);
 
-    <span class="doccomment">/// Unsets toolbar icon size set with [`set_icon_size()`](Self::set_icon_size()), so that</span>
+    <span class="doccomment">/// Unsets toolbar icon size set with [`Self::set_icon_size()`], so that</span>
     <span class="doccomment">/// user preferences will be used to determine the icon size.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toolbar_unset_icon_size&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unset_icon_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Unsets a toolbar style set with [`set_style()`](Self::set_style()), so that</span>
+    <span class="doccomment">/// Unsets a toolbar style set with [`Self::set_style()`], so that</span>
     <span class="doccomment">/// user preferences will be used to determine the toolbar style.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toolbar_unset_style&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unset_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -1758,7 +1758,7 @@
 
     <span class="doccomment">/// Emitted when the orientation of the toolbar changes.</span>
     <span class="doccomment">/// ## `orientation`</span>
-    <span class="doccomment">/// the new [`Orientation`](crate::Orientation) of the toolbar</span>
+    <span class="doccomment">/// the new [`crate::Orientation`] of the toolbar</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;orientation-changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_orientation_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">Orientation</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1791,7 +1791,7 @@
 
     <span class="doccomment">/// Emitted when the style of the toolbar changes.</span>
     <span class="doccomment">/// ## `style`</span>
-    <span class="doccomment">/// the new [`ToolbarStyle`](crate::ToolbarStyle) of the toolbar</span>
+    <span class="doccomment">/// the new [`crate::ToolbarStyle`] of the toolbar</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;style-changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_style_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">ToolbarStyle</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 

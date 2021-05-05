@@ -17,27 +17,27 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_can_release_notify" class="fnname">connect_can_release_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>Permission</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.Permission.html"><code>Permission</code></a>, <a href="../struct.SimplePermission.html"><code>SimplePermission</code></a></p>
+<p><a href="../struct.Permission.html" title="crate::Permission"><code>crate::Permission</code></a>, <a href="../struct.SimplePermission.html" title="crate::SimplePermission"><code>crate::SimplePermission</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.acquire" class="method"><code>fn <a href="#tymethod.acquire" class="fnname">acquire</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/permission.rs.html#77" title="goto source code">[src]</a></h3><div class="docblock"><p>Attempts to acquire the permission represented by <code>self</code>.</p>
 <p>The precise method by which this happens depends on the permission
 and the underlying authentication mechanism. A simple example is
 that a dialog may appear asking the user to enter their password.</p>
-<p>You should check with <a href="Self::get_can_acquire()"><code>get_can_acquire()</code></a> before calling
+<p>You should check with [<code>Self::get_can_acquire()</code>] before calling
 this function.</p>
 <p>If the permission is acquired then <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> is returned. Otherwise,
 <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> is returned and <code>error</code> is set appropriately.</p>
 <p>This call is blocking, likely for a very long time (in the case that
-user interaction is required). See <a href="trait.PermissionExt.html#tymethod.acquire_async"><code>acquire_async()</code></a> for
+user interaction is required). See <a href="trait.PermissionExt.html#tymethod.acquire_async" title="Self::acquire_async()"><code>Self::acquire_async()</code></a> for
 the non-blocking version.</p>
 <h2 id="cancellable" class="section-header"><a href="#cancellable"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html"><code>Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the permission was successfully acquired</p>
 </div><h3 id="tymethod.acquire_async" class="method"><code>fn <a href="#tymethod.acquire_async" class="fnname">acquire_async</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;, Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(<a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;) + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;callback: Q<br>)</code><a class="srclink" href="../../src/gio/auto/permission.rs.html#90-94" title="goto source code">[src]</a></h3><div class="docblock"><p>Attempts to acquire the permission represented by <code>self</code>.</p>
 <p>This is the first half of the asynchronous version of
-<a href="trait.PermissionExt.html#tymethod.acquire"><code>acquire()</code></a>.</p>
+<a href="trait.PermissionExt.html#tymethod.acquire" title="Self::acquire()"><code>Self::acquire()</code></a>.</p>
 <h2 id="cancellable-1" class="section-header"><a href="#cancellable-1"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html"><code>Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="callback" class="section-header"><a href="#callback"><code>callback</code></a></h2>
 <p>the <code>GAsyncReadyCallback</code> to call when done</p>
 <h2 id="user_data" class="section-header"><a href="#user_data"><code>user_data</code></a></h2>
@@ -49,17 +49,17 @@ the caller currently has permission to perform the action that
 <p>the value of the ‘allowed’ property</p>
 </div><h3 id="tymethod.can_acquire" class="method"><code>fn <a href="#tymethod.can_acquire" class="fnname">can_acquire</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/permission.rs.html#120" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value of the ‘can-acquire’ property. This property is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>
 if it is generally possible to acquire the permission by calling
-<a href="trait.PermissionExt.html#tymethod.acquire"><code>acquire()</code></a>.</p>
+<a href="trait.PermissionExt.html#tymethod.acquire" title="Self::acquire()"><code>Self::acquire()</code></a>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the value of the ‘can-acquire’ property</p>
 </div><h3 id="tymethod.can_release" class="method"><code>fn <a href="#tymethod.can_release" class="fnname">can_release</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/permission.rs.html#131" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value of the ‘can-release’ property. This property is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>
 if it is generally possible to release the permission by calling
-<a href="trait.PermissionExt.html#tymethod.release"><code>release()</code></a>.</p>
+<a href="trait.PermissionExt.html#tymethod.release" title="Self::release()"><code>Self::release()</code></a>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>the value of the ‘can-release’ property</p>
-</div><h3 id="tymethod.impl_update" class="method"><code>fn <a href="#tymethod.impl_update" class="fnname">impl_update</a>(&amp;self, allowed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, can_acquire: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, can_release: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gio/auto/permission.rs.html#145" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is called by the <a href="../struct.Permission.html"><code>Permission</code></a> implementation to update
+</div><h3 id="tymethod.impl_update" class="method"><code>fn <a href="#tymethod.impl_update" class="fnname">impl_update</a>(&amp;self, allowed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, can_acquire: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, can_release: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gio/auto/permission.rs.html#145" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is called by the <a href="../struct.Permission.html" title="crate::Permission"><code>crate::Permission</code></a> implementation to update
 the properties of the permission. You should never call this
-function except from a <a href="../struct.Permission.html"><code>Permission</code></a> implementation.</p>
+function except from a <a href="../struct.Permission.html" title="crate::Permission"><code>crate::Permission</code></a> implementation.</p>
 <p>GObject notify signals are generated, as appropriate.</p>
 <h2 id="allowed" class="section-header"><a href="#allowed"><code>allowed</code></a></h2>
 <p>the new value for the ‘allowed’ property</p>
@@ -71,22 +71,22 @@ function except from a <a href="../struct.Permission.html"><code>Permission</cod
 <p>The precise method by which this happens depends on the permission
 and the underlying authentication mechanism. In most cases the
 permission will be dropped immediately without further action.</p>
-<p>You should check with <a href="Self::get_can_release()"><code>get_can_release()</code></a> before calling
+<p>You should check with [<code>Self::get_can_release()</code>] before calling
 this function.</p>
 <p>If the permission is released then <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> is returned. Otherwise,
 <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> is returned and <code>error</code> is set appropriately.</p>
 <p>This call is blocking, likely for a very long time (in the case that
-user interaction is required). See <a href="trait.PermissionExt.html#tymethod.release_async"><code>release_async()</code></a> for
+user interaction is required). See <a href="trait.PermissionExt.html#tymethod.release_async" title="Self::release_async()"><code>Self::release_async()</code></a> for
 the non-blocking version.</p>
 <h2 id="cancellable-2" class="section-header"><a href="#cancellable-2"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html"><code>Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the permission was successfully released</p>
 </div><h3 id="tymethod.release_async" class="method"><code>fn <a href="#tymethod.release_async" class="fnname">release_async</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;, Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(<a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;) + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;callback: Q<br>)</code><a class="srclink" href="../../src/gio/auto/permission.rs.html#182-186" title="goto source code">[src]</a></h3><div class="docblock"><p>Attempts to release the permission represented by <code>self</code>.</p>
 <p>This is the first half of the asynchronous version of
-<a href="trait.PermissionExt.html#tymethod.release"><code>release()</code></a>.</p>
+<a href="trait.PermissionExt.html#tymethod.release" title="Self::release()"><code>Self::release()</code></a>.</p>
 <h2 id="cancellable-3" class="section-header"><a href="#cancellable-3"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html"><code>Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="callback-1" class="section-header"><a href="#callback-1"><code>callback</code></a></h2>
 <p>the <code>GAsyncReadyCallback</code> to call when done</p>
 <h2 id="user_data-1" class="section-header"><a href="#user_data-1"><code>user_data</code></a></h2>

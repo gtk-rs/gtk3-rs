@@ -2347,7 +2347,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used when creating a [`AppInfo`](crate::AppInfo).</span>
+    <span class="doccomment">/// Flags used when creating a [`crate::AppInfo`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AppInfoCreateFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -2415,7 +2415,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used to define the behaviour of a [`Application`](crate::Application).</span>
+    <span class="doccomment">/// Flags used to define the behaviour of a [`crate::Application`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Default</span>
         <span class="kw">const</span> <span class="ident">FLAGS_NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -2429,13 +2429,13 @@
         <span class="doccomment">/// This application handles opening files (in</span>
         <span class="doccomment">///  the primary instance). Note that this flag only affects the default</span>
         <span class="doccomment">///  implementation of `local_command_line()`, and has no effect if</span>
-        <span class="doccomment">///  [`HandlesCommandLine`](Self::HandlesCommandLine) is given.</span>
-        <span class="doccomment">///  See [`Application::run()`](crate::Application::run()) for details.</span>
+        <span class="doccomment">///  [`Self::HandlesCommandLine`] is given.</span>
+        <span class="doccomment">///  See [`crate::Application::run()`] for details.</span>
         <span class="kw">const</span> <span class="ident">HANDLES_OPEN</span> <span class="op">=</span> <span class="number">4</span>;
         <span class="doccomment">/// This application handles command line</span>
         <span class="doccomment">///  arguments (in the primary instance). Note that this flag only affect</span>
         <span class="doccomment">///  the default implementation of `local_command_line()`.</span>
-        <span class="doccomment">///  See [`Application::run()`](crate::Application::run()) for details.</span>
+        <span class="doccomment">///  See [`crate::Application::run()`] for details.</span>
         <span class="kw">const</span> <span class="ident">HANDLES_COMMAND_LINE</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// Send the environment of the</span>
         <span class="doccomment">///  launching process to the primary instance. Set this flag if your</span>
@@ -2443,8 +2443,8 @@
         <span class="doccomment">///  environment variables. For instance, an editor might be expected</span>
         <span class="doccomment">///  to use the `GIT_COMMITTER_NAME` environment variable</span>
         <span class="doccomment">///  when editing a git commit message. The environment is available</span>
-        <span class="doccomment">///  to the [`Application::command-line`](crate::Application::command-line) signal handler, via</span>
-        <span class="doccomment">///  [`ApplicationCommandLineExt::getenv()`](crate::ApplicationCommandLineExt::getenv()).</span>
+        <span class="doccomment">///  to the [`crate::Application::command-line`] signal handler, via</span>
+        <span class="doccomment">///  [`crate::prelude::ApplicationCommandLineExt::getenv()`].</span>
         <span class="kw">const</span> <span class="ident">SEND_ENVIRONMENT</span> <span class="op">=</span> <span class="number">16</span>;
         <span class="doccomment">/// Make no attempts to do any of the typical</span>
         <span class="doccomment">///  single-instance application negotiation, even if the application</span>
@@ -2522,7 +2522,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// [`AskPasswordFlags`](crate::AskPasswordFlags) are used to request specific information from the</span>
+    <span class="doccomment">/// [`crate::AskPasswordFlags`] are used to request specific information from the</span>
     <span class="doccomment">/// user, or to notify the user of their choices in an authentication</span>
     <span class="doccomment">/// situation.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AskPasswordFlags</span>: <span class="ident">u32</span> {
@@ -2603,7 +2603,7 @@
         <span class="doccomment">/// Allow another message bus connection to claim the name.</span>
         <span class="kw">const</span> <span class="ident">ALLOW_REPLACEMENT</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="doccomment">/// If another message bus connection owns the name and have</span>
-        <span class="doccomment">/// specified [`AllowReplacement`](Self::AllowReplacement), then take the name from the other connection.</span>
+        <span class="doccomment">/// specified [`Self::AllowReplacement`], then take the name from the other connection.</span>
         <span class="kw">const</span> <span class="ident">REPLACE</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// If another message bus connection owns the name, immediately</span>
         <span class="doccomment">/// return an error from `g_bus_own_name()` rather than entering the waiting queue for that name. (Since 2.54)</span>
@@ -2732,7 +2732,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used when calling a [`Converter::convert()`](crate::Converter::convert()).</span>
+    <span class="doccomment">/// Flags used when calling a [`crate::Converter::convert()`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConverterFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -2798,7 +2798,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used in [`DBusConnection::call()`](crate::DBusConnection::call()) and similar APIs.</span>
+    <span class="doccomment">/// Flags used in [`crate::DBusConnection::call()`] and similar APIs.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusCallFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -2932,7 +2932,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used when creating a new [`DBusConnection`](crate::DBusConnection).</span>
+    <span class="doccomment">/// Flags used when creating a new [`crate::DBusConnection`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusConnectionFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -2948,7 +2948,7 @@
         <span class="doccomment">/// message bus. This means that the Hello() method will be invoked as part of the connection setup.</span>
         <span class="kw">const</span> <span class="ident">MESSAGE_BUS_CONNECTION</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// If set, processing of D-Bus messages is</span>
-        <span class="doccomment">/// delayed until [`DBusConnection::start_message_processing()`](crate::DBusConnection::start_message_processing()) is called.</span>
+        <span class="doccomment">/// delayed until [`crate::DBusConnection::start_message_processing()`] is called.</span>
         <span class="kw">const</span> <span class="ident">DELAY_MESSAGE_PROCESSING</span> <span class="op">=</span> <span class="number">16</span>;
     }
 }
@@ -3008,7 +3008,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags describing the behavior of a [`DBusInterfaceSkeleton`](crate::DBusInterfaceSkeleton) instance.</span>
+    <span class="doccomment">/// Flags describing the behavior of a [`crate::DBusInterfaceSkeleton`] instance.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusInterfaceSkeletonFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -3075,7 +3075,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Message flags used in [`DBusMessage`](crate::DBusMessage).</span>
+    <span class="doccomment">/// Message flags used in [`crate::DBusMessage`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusMessageFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -3146,7 +3146,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used when constructing an instance of a [`DBusProxy`](crate::DBusProxy) derived class.</span>
+    <span class="doccomment">/// Flags used when constructing an instance of a [`crate::DBusProxy`] derived class.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusProxyFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -3158,12 +3158,12 @@
         <span class="doccomment">/// do not ask the bus to launch an owner during proxy initialization or a method call.</span>
         <span class="doccomment">/// This flag is only meaningful in proxies for well-known names.</span>
         <span class="kw">const</span> <span class="ident">DO_NOT_AUTO_START</span> <span class="op">=</span> <span class="number">4</span>;
-        <span class="doccomment">/// If set, the property value for any __invalidated property__ will be (asynchronously) retrieved upon receiving the [`PropertiesChanged`](http://dbus.freedesktop.org/doc/dbus-specification.html`standard`-interfaces-properties) D-Bus signal and the property will not cause emission of the [`DBusProxy::g-properties-changed`](crate::DBusProxy::g-properties-changed) signal. When the value is received the [`DBusProxy::g-properties-changed`](crate::DBusProxy::g-properties-changed) signal is emitted for the property along with the retrieved value. Since 2.32.</span>
+        <span class="doccomment">/// If set, the property value for any __invalidated property__ will be (asynchronously) retrieved upon receiving the [`PropertiesChanged`](http://dbus.freedesktop.org/doc/dbus-specification.html`standard`-interfaces-properties) D-Bus signal and the property will not cause emission of the [`crate::DBusProxy::g-properties-changed`] signal. When the value is received the [`crate::DBusProxy::g-properties-changed`] signal is emitted for the property along with the retrieved value. Since 2.32.</span>
         <span class="kw">const</span> <span class="ident">GET_INVALIDATED_PROPERTIES</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// If the proxy is for a well-known name,</span>
         <span class="doccomment">/// do not ask the bus to launch an owner during proxy initialization, but allow it to be</span>
         <span class="doccomment">/// autostarted by a method call. This flag is only meaningful in proxies for well-known names,</span>
-        <span class="doccomment">/// and only if [`DoNotAutoStart`](Self::DoNotAutoStart) is not also specified.</span>
+        <span class="doccomment">/// and only if [`Self::DoNotAutoStart`] is not also specified.</span>
         <span class="kw">const</span> <span class="ident">DO_NOT_AUTO_START_AT_CONSTRUCTION</span> <span class="op">=</span> <span class="number">16</span>;
     }
 }
@@ -3223,12 +3223,12 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used when sending `GDBusMessages` on a [`DBusConnection`](crate::DBusConnection).</span>
+    <span class="doccomment">/// Flags used when sending `GDBusMessages` on a [`crate::DBusConnection`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusSendMessageFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="doccomment">/// Do not automatically</span>
-        <span class="doccomment">/// assign a serial number from the [`DBusConnection`](crate::DBusConnection) object when</span>
+        <span class="doccomment">/// assign a serial number from the [`crate::DBusConnection`] object when</span>
         <span class="doccomment">/// sending a message.</span>
         <span class="kw">const</span> <span class="ident">PRESERVE_SERIAL</span> <span class="op">=</span> <span class="number">1</span>;
     }
@@ -3289,11 +3289,11 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used when creating a [`DBusServer`](crate::DBusServer).</span>
+    <span class="doccomment">/// Flags used when creating a [`crate::DBusServer`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusServerFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="doccomment">/// All [`DBusServer::new-connection`](crate::DBusServer::new-connection)</span>
+        <span class="doccomment">/// All [`crate::DBusServer::new-connection`]</span>
         <span class="doccomment">/// signals will run in separated dedicated threads (see signal for</span>
         <span class="doccomment">/// details).</span>
         <span class="kw">const</span> <span class="ident">RUN_IN_THREAD</span> <span class="op">=</span> <span class="number">1</span>;
@@ -3358,7 +3358,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used when subscribing to signals via [`DBusConnection::signal_subscribe()`](crate::DBusConnection::signal_subscribe()).</span>
+    <span class="doccomment">/// Flags used when subscribing to signals via [`crate::DBusConnection::signal_subscribe()`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusSignalFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -3503,7 +3503,7 @@
         <span class="kw">const</span> <span class="ident">BACKUP</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// Don&#39;t follow symlinks.</span>
         <span class="kw">const</span> <span class="ident">NOFOLLOW_SYMLINKS</span> <span class="op">=</span> <span class="number">4</span>;
-        <span class="doccomment">/// Copy all file metadata instead of just default set used for copy (see [`FileInfo`](crate::FileInfo)).</span>
+        <span class="doccomment">/// Copy all file metadata instead of just default set used for copy (see [`crate::FileInfo`]).</span>
         <span class="kw">const</span> <span class="ident">ALL_METADATA</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// Don&#39;t use copy and delete fallback if native move not supported.</span>
         <span class="kw">const</span> <span class="ident">NO_FALLBACK_FOR_MOVE</span> <span class="op">=</span> <span class="number">16</span>;
@@ -3582,7 +3582,7 @@
         <span class="doccomment">///  You can think of it as &quot;unlink destination&quot; before</span>
         <span class="doccomment">///  writing to it, although the implementation may not</span>
         <span class="doccomment">///  be exactly like that. This flag can only be used with</span>
-        <span class="doccomment">///  [`File::replace()`](crate::File::replace()) and its variants, including [`File::replace_contents()`](crate::File::replace_contents()).</span>
+        <span class="doccomment">///  [`crate::File::replace()`] and its variants, including [`crate::File::replace_contents()`].</span>
         <span class="doccomment">///  Since 2.20</span>
         <span class="kw">const</span> <span class="ident">REPLACE_DESTINATION</span> <span class="op">=</span> <span class="number">2</span>;
     }
@@ -3643,7 +3643,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags that can be used with [`File::measure_disk_usage()`](crate::File::measure_disk_usage()).</span>
+    <span class="doccomment">/// Flags that can be used with [`crate::File::measure_disk_usage()`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileMeasureFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -3717,7 +3717,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used to set what a [`FileMonitor`](crate::FileMonitor) will watch for.</span>
+    <span class="doccomment">/// Flags used to set what a [`crate::FileMonitor`] will watch for.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileMonitorFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -3728,14 +3728,14 @@
         <span class="doccomment">///  event instead (NB: not supported on all backends; the default</span>
         <span class="doccomment">///  behaviour -without specifying this flag- is to send single DELETED</span>
         <span class="doccomment">///  and CREATED events). Deprecated since 2.46: use</span>
-        <span class="doccomment">///  [`WatchMoves`](Self::WatchMoves) instead.</span>
+        <span class="doccomment">///  [`Self::WatchMoves`] instead.</span>
         <span class="kw">const</span> <span class="ident">SEND_MOVED</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// Watch for changes to the file made</span>
         <span class="doccomment">///  via another hard link. Since 2.36.</span>
         <span class="kw">const</span> <span class="ident">WATCH_HARD_LINKS</span> <span class="op">=</span> <span class="number">4</span>;
         <span class="doccomment">/// Watch for rename operations on a</span>
-        <span class="doccomment">///  monitored directory. This causes [`FileMonitorEvent::Renamed`],</span>
-        <span class="doccomment">///  [`FileMonitorEvent::MovedIn`] and [`FileMonitorEvent::MovedOut`]</span>
+        <span class="doccomment">///  monitored directory. This causes [`crate::FileMonitorEvent::Renamed`],</span>
+        <span class="doccomment">///  [`crate::FileMonitorEvent::MovedIn`] and [`crate::FileMonitorEvent::MovedOut`]</span>
         <span class="doccomment">///  events to be emitted when possible. Since: 2.46.</span>
         <span class="kw">const</span> <span class="ident">WATCH_MOVES</span> <span class="op">=</span> <span class="number">8</span>;
     }
@@ -3796,7 +3796,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags used when querying a [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// Flags used when querying a [`crate::FileInfo`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileQueryInfoFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags set.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -4130,7 +4130,7 @@
 <span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags to modify lookup behavior.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ResolverNameLookupFlags</span>: <span class="ident">u32</span> {
-        <span class="doccomment">/// default behavior (same as [`ResolverExt::lookup_by_name()`](crate::ResolverExt::lookup_by_name()))</span>
+        <span class="doccomment">/// default behavior (same as [`crate::prelude::ResolverExt::lookup_by_name()`])</span>
         <span class="kw">const</span> <span class="ident">DEFAULT</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="doccomment">/// only resolve ipv4 addresses</span>
         <span class="kw">const</span> <span class="ident">IPV4_ONLY</span> <span class="op">=</span> <span class="number">1</span>;
@@ -4276,20 +4276,20 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SettingsBindFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Equivalent to `G_SETTINGS_BIND_GET|G_SETTINGS_BIND_SET`</span>
         <span class="kw">const</span> <span class="ident">DEFAULT</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="doccomment">/// Update the [`glib::object::Object`](crate::glib::object::Object) property when the setting changes.</span>
+        <span class="doccomment">/// Update the [`crate::glib::object::Object`] property when the setting changes.</span>
         <span class="doccomment">///  It is an error to use this flag if the property is not writable.</span>
         <span class="kw">const</span> <span class="ident">GET</span> <span class="op">=</span> <span class="number">1</span>;
-        <span class="doccomment">/// Update the setting when the [`glib::object::Object`](crate::glib::object::Object) property changes.</span>
+        <span class="doccomment">/// Update the setting when the [`crate::glib::object::Object`] property changes.</span>
         <span class="doccomment">///  It is an error to use this flag if the property is not readable.</span>
         <span class="kw">const</span> <span class="ident">SET</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// Do not try to bind a &quot;sensitivity&quot; property to the writability of the setting</span>
         <span class="kw">const</span> <span class="ident">NO_SENSITIVITY</span> <span class="op">=</span> <span class="number">4</span>;
-        <span class="doccomment">/// When set in addition to [`Get`](Self::Get), set the [`glib::object::Object`](crate::glib::object::Object) property</span>
+        <span class="doccomment">/// When set in addition to [`Self::Get`], set the [`crate::glib::object::Object`] property</span>
         <span class="doccomment">///  value initially from the setting, but do not listen for changes of the setting</span>
         <span class="kw">const</span> <span class="ident">GET_NO_CHANGES</span> <span class="op">=</span> <span class="number">8</span>;
-        <span class="doccomment">/// When passed to [`Settings::bind()`](crate::Settings::bind()), uses a pair of mapping functions that invert</span>
+        <span class="doccomment">/// When passed to [`crate::Settings::bind()`], uses a pair of mapping functions that invert</span>
         <span class="doccomment">///  the boolean value when mapping between the setting and the property. The setting and property must both</span>
-        <span class="doccomment">///  be booleans. You cannot pass this flag to [`Settings::bind_with_mapping()`](crate::Settings::bind_with_mapping()).</span>
+        <span class="doccomment">///  be booleans. You cannot pass this flag to [`crate::Settings::bind_with_mapping()`].</span>
         <span class="kw">const</span> <span class="ident">INVERT_BOOLEAN</span> <span class="op">=</span> <span class="number">16</span>;
     }
 }
@@ -4349,35 +4349,35 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags to define the behaviour of a [`Subprocess`](crate::Subprocess).</span>
+    <span class="doccomment">/// Flags to define the behaviour of a [`crate::Subprocess`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the default for stdin is to redirect from `/dev/null`. For</span>
     <span class="doccomment">/// stdout and stderr the default are for them to inherit the</span>
     <span class="doccomment">/// corresponding descriptor from the calling process.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that it is a programmer error to mix &#39;incompatible&#39; flags. For</span>
-    <span class="doccomment">/// example, you may not request both [`StdoutPipe`](Self::StdoutPipe) and</span>
-    <span class="doccomment">/// [`StdoutSilence`](Self::StdoutSilence).</span>
+    <span class="doccomment">/// example, you may not request both [`Self::StdoutPipe`] and</span>
+    <span class="doccomment">/// [`Self::StdoutSilence`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubprocessFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No flags.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="doccomment">/// create a pipe for the stdin of the</span>
         <span class="doccomment">///  spawned process that can be accessed with</span>
-        <span class="doccomment">///  [`Subprocess::get_stdin_pipe()`](crate::Subprocess::get_stdin_pipe()).</span>
+        <span class="doccomment">///  [`crate::Subprocess::get_stdin_pipe()`].</span>
         <span class="kw">const</span> <span class="ident">STDIN_PIPE</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="doccomment">/// stdin is inherited from the</span>
         <span class="doccomment">///  calling process.</span>
         <span class="kw">const</span> <span class="ident">STDIN_INHERIT</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// create a pipe for the stdout of the</span>
         <span class="doccomment">///  spawned process that can be accessed with</span>
-        <span class="doccomment">///  [`Subprocess::get_stdout_pipe()`](crate::Subprocess::get_stdout_pipe()).</span>
+        <span class="doccomment">///  [`crate::Subprocess::get_stdout_pipe()`].</span>
         <span class="kw">const</span> <span class="ident">STDOUT_PIPE</span> <span class="op">=</span> <span class="number">4</span>;
         <span class="doccomment">/// silence the stdout of the spawned</span>
         <span class="doccomment">///  process (ie: redirect to `/dev/null`).</span>
         <span class="kw">const</span> <span class="ident">STDOUT_SILENCE</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// create a pipe for the stderr of the</span>
         <span class="doccomment">///  spawned process that can be accessed with</span>
-        <span class="doccomment">///  [`Subprocess::get_stderr_pipe()`](crate::Subprocess::get_stderr_pipe()).</span>
+        <span class="doccomment">///  [`crate::Subprocess::get_stderr_pipe()`].</span>
         <span class="kw">const</span> <span class="ident">STDERR_PIPE</span> <span class="op">=</span> <span class="number">16</span>;
         <span class="doccomment">/// silence the stderr of the spawned</span>
         <span class="doccomment">///  process (ie: redirect to `/dev/null`).</span>
@@ -4451,9 +4451,9 @@
 <span class="macro">bitflags!</span> {
     <span class="doccomment">/// A set of flags describing TLS certification validation. This can be</span>
     <span class="doccomment">/// used to set which validation steps to perform (eg, with</span>
-    <span class="doccomment">/// [`TlsClientConnection::set_validation_flags()`](crate::TlsClientConnection::set_validation_flags())), or to describe why</span>
+    <span class="doccomment">/// [`crate::TlsClientConnection::set_validation_flags()`]), or to describe why</span>
     <span class="doccomment">/// a particular certificate was rejected (eg, in</span>
-    <span class="doccomment">/// [`TlsConnection::accept-certificate`](crate::TlsConnection::accept-certificate)).</span>
+    <span class="doccomment">/// [`crate::TlsConnection::accept-certificate`]).</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsCertificateFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// The signing certificate authority is</span>
         <span class="doccomment">///  not known.</span>
@@ -4467,7 +4467,7 @@
         <span class="doccomment">/// The certificate has expired</span>
         <span class="kw">const</span> <span class="ident">EXPIRED</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// The certificate has been revoked</span>
-        <span class="doccomment">///  according to the [`TlsConnection`](crate::TlsConnection)&#39;s certificate revocation list.</span>
+        <span class="doccomment">///  according to the [`crate::TlsConnection`]&#39;s certificate revocation list.</span>
         <span class="kw">const</span> <span class="ident">REVOKED</span> <span class="op">=</span> <span class="number">16</span>;
         <span class="doccomment">/// The certificate&#39;s algorithm is</span>
         <span class="doccomment">///  considered insecure.</span>
@@ -4536,7 +4536,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags for [`TlsDatabaseExt::verify_chain()`](crate::TlsDatabaseExt::verify_chain()).</span>
+    <span class="doccomment">/// Flags for [`crate::prelude::TlsDatabaseExt::verify_chain()`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsDatabaseVerifyFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// No verification flags</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;

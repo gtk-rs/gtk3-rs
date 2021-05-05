@@ -61,7 +61,7 @@ pub enum StateType {
 user can change the textual contents of this object by editing those contents
 directly. For an object which is expected to be editable due to its type, but
 which cannot be edited due to the application or platform preventing the user
-from doing so, that object’s <a href="struct.StateSet.html"><code>StateSet</code></a> should lack ATK_STATE_EDITABLE and
+from doing so, that object’s <a href="struct.StateSet.html" title="crate::StateSet"><code>crate::StateSet</code></a> should lack ATK_STATE_EDITABLE and
 should contain ATK_STATE_READ_ONLY.</p>
 </div><div id="variant.Enabled" class="variant small-section-header"><a href="#variant.Enabled" class="anchor field"></a><code>Enabled</code></div><div class="docblock"><p>Indicates that this object is enabled, i.e. that it currently reflects some application state. Objects that are “greyed out” may lack this state, and may lack the STATE_SENSITIVE if direct user interaction cannot cause them to acquire STATE_ENABLED. See also: ATK_STATE_SENSITIVE</p>
 </div><div id="variant.Expandable" class="variant small-section-header"><a href="#variant.Expandable" class="anchor field"></a><code>Expandable</code></div><div class="docblock"><p>Indicates this object allows progressive disclosure of its children</p>
@@ -99,13 +99,13 @@ state changes. Data from objects with ATK_STATE_TRANSIENT should not be cached, 
 notification given when the cached data becomes obsolete.</p>
 </div><div id="variant.Vertical" class="variant small-section-header"><a href="#variant.Vertical" class="anchor field"></a><code>Vertical</code></div><div class="docblock"><p>Indicates the orientation of this object is vertical</p>
 </div><div id="variant.Visible" class="variant small-section-header"><a href="#variant.Visible" class="anchor field"></a><code>Visible</code></div><div class="docblock"><p>Indicates this object is visible, e.g. has been explicitly marked for exposure to the user.
-<strong>note</strong>: <a href="enum.StateType.html#variant.Visible"><code>Visible</code></a> is no guarantee that the object is actually unobscured on the screen, only
+<strong>note</strong>: <a href="enum.StateType.html#variant.Visible" title="Self::Visible"><code>Self::Visible</code></a> is no guarantee that the object is actually unobscured on the screen, only
 that it is ‘potentially’ visible, barring obstruction, being scrolled or clipped out of the
 field of view, or having an ancestor container that has not yet made visible.
-A widget is potentially onscreen if it has both <a href="enum.StateType.html#variant.Visible"><code>Visible</code></a> and <a href="enum.StateType.html#variant.Showing"><code>Showing</code></a>.
-The absence of <a href="enum.StateType.html#variant.Visible"><code>Visible</code></a> and <a href="enum.StateType.html#variant.Showing"><code>Showing</code></a> is semantically equivalent to saying
-that an object is ‘hidden’. See also <a href="enum.StateType.html#variant.Truncated"><code>Truncated</code></a>, which applies if an object with
-<a href="enum.StateType.html#variant.Visible"><code>Visible</code></a> and <a href="enum.StateType.html#variant.Showing"><code>Showing</code></a> set lies within a viewport which means that its
+A widget is potentially onscreen if it has both <a href="enum.StateType.html#variant.Visible" title="Self::Visible"><code>Self::Visible</code></a> and <a href="enum.StateType.html#variant.Showing" title="Self::Showing"><code>Self::Showing</code></a>.
+The absence of <a href="enum.StateType.html#variant.Visible" title="Self::Visible"><code>Self::Visible</code></a> and <a href="enum.StateType.html#variant.Showing" title="Self::Showing"><code>Self::Showing</code></a> is semantically equivalent to saying
+that an object is ‘hidden’. See also <a href="enum.StateType.html#variant.Truncated" title="Self::Truncated"><code>Self::Truncated</code></a>, which applies if an object with
+<a href="enum.StateType.html#variant.Visible" title="Self::Visible"><code>Self::Visible</code></a> and <a href="enum.StateType.html#variant.Showing" title="Self::Showing"><code>Self::Showing</code></a> set lies within a viewport which means that its
 contents are clipped, e.g. a truncated spreadsheet cell or
 an image within a scrolling viewport. Mostly useful for screen-review and magnification
 algorithms.</p>
@@ -136,7 +136,7 @@ This state is normally only useful and encountered on objects that implement Sel
 In some cases the typeahead behavior may result in full or partial ¨completion¨ of
 the data in the input field, in which case these input events may trigger text-changed
 events from the AtkText interface. This state supplants <a href="enum.Role.html#variant.Autocomplete" title="crate::Role::Autocomplete"><code>crate::Role::Autocomplete</code></a> (XXX: @-reference does not belong to StateType!).</p>
-</div><div id="variant.SelectableText" class="variant small-section-header"><a href="#variant.SelectableText" class="anchor field"></a><code>SelectableText</code></div><div class="docblock"><p>Indicates that the object in question supports text selection. It should only be exposed on objects which implement the Text interface, in order to distinguish this state from <a href="enum.StateType.html#variant.Selectable"><code>Selectable</code></a>, which infers that the object in question is a selectable child of an object which implements Selection. While similar, text selection and subelement selection are distinct operations.</p>
+</div><div id="variant.SelectableText" class="variant small-section-header"><a href="#variant.SelectableText" class="anchor field"></a><code>SelectableText</code></div><div class="docblock"><p>Indicates that the object in question supports text selection. It should only be exposed on objects which implement the Text interface, in order to distinguish this state from <a href="enum.StateType.html#variant.Selectable" title="Self::Selectable"><code>Self::Selectable</code></a>, which infers that the object in question is a selectable child of an object which implements Selection. While similar, text selection and subelement selection are distinct operations.</p>
 </div><div id="variant.Default" class="variant small-section-header"><a href="#variant.Default" class="anchor field"></a><code>Default</code></div><div class="docblock"><p>Indicates that the object is the “default” active component, i.e. the object which is activated by an end-user press of the “Enter” or “Return” key. Typically a “close” or “submit” button.</p>
 </div><div id="variant.Animated" class="variant small-section-header"><a href="#variant.Animated" class="anchor field"></a><code>Animated</code></div><div class="docblock"><p>Indicates that the object changes its appearance dynamically as an inherent part of its presentation. This state may come and go if an object is only temporarily animated on the way to a ‘final’ onscreen presentation.
 <strong>note</strong>: some applications, notably content viewers, may not be able to detect

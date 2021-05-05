@@ -259,16 +259,16 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`Proxy`](crate::Proxy) handles connecting to a remote host via a given type of</span>
+    <span class="doccomment">/// A [`crate::Proxy`] handles connecting to a remote host via a given type of</span>
     <span class="doccomment">/// proxy server. It is implemented by the &#39;gio-proxy&#39; extension point.</span>
     <span class="doccomment">/// The extensions are named after their proxy protocol name. As an</span>
     <span class="doccomment">/// example, a SOCKS5 proxy implementation can be retrieved with the</span>
     <span class="doccomment">/// name &#39;socks5&#39; using the function</span>
-    <span class="doccomment">/// [`IOExtensionPoint::get_extension_by_name()`](crate::IOExtensionPoint::get_extension_by_name()).</span>
+    <span class="doccomment">/// [`crate::IOExtensionPoint::get_extension_by_name()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ProxyExt`](trait@crate::prelude::ProxyExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ProxyExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Proxy</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GProxy</span>, <span class="ident">ffi::GProxyInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -284,7 +284,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// return a [`Proxy`](crate::Proxy) or NULL if protocol</span>
+    <span class="doccomment">/// return a [`crate::Proxy`] or NULL if protocol</span>
     <span class="doccomment">///  is not supported.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_proxy_get_default_for_protocol&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default_for_protocol&quot;</span>)]</span>
@@ -303,22 +303,22 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Proxy`](struct@crate::Proxy)</span>
+<span class="doccomment">/// [`struct@crate::Proxy`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ProxyExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Given `connection` to communicate with a proxy (eg, a</span>
-    <span class="doccomment">/// [`SocketConnection`](crate::SocketConnection) that is connected to the proxy server), this</span>
+    <span class="doccomment">/// [`crate::SocketConnection`] that is connected to the proxy server), this</span>
     <span class="doccomment">/// does the necessary handshake to connect to `proxy_address`, and if</span>
-    <span class="doccomment">/// required, wraps the [`IOStream`](crate::IOStream) to handle proxy payload.</span>
+    <span class="doccomment">/// required, wraps the [`crate::IOStream`] to handle proxy payload.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// a [`IOStream`](crate::IOStream)</span>
+    <span class="doccomment">/// a [`crate::IOStream`]</span>
     <span class="doccomment">/// ## `proxy_address`</span>
-    <span class="doccomment">/// a [`ProxyAddress`](crate::ProxyAddress)</span>
+    <span class="doccomment">/// a [`crate::ProxyAddress`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable)</span>
+    <span class="doccomment">/// a [`crate::Cancellable`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`IOStream`](crate::IOStream) that will replace `connection`. This might</span>
+    <span class="doccomment">/// a [`crate::IOStream`] that will replace `connection`. This might</span>
     <span class="doccomment">///  be the same as `connection`, in which case a reference</span>
     <span class="doccomment">///  will be added.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_proxy_connect&quot;</span>)]</span>
@@ -329,13 +329,13 @@
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">R</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">IOStream</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Asynchronous version of [`Proxy::connect()`](crate::Proxy::connect()).</span>
+    <span class="doccomment">/// Asynchronous version of [`crate::Proxy::connect()`].</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// a [`IOStream`](crate::IOStream)</span>
+    <span class="doccomment">/// a [`crate::IOStream`]</span>
     <span class="doccomment">/// ## `proxy_address`</span>
-    <span class="doccomment">/// a [`ProxyAddress`](crate::ProxyAddress)</span>
+    <span class="doccomment">/// a [`crate::ProxyAddress`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable)</span>
+    <span class="doccomment">/// a [`crate::Cancellable`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -368,8 +368,8 @@
     <span class="doccomment">/// not allow this. This function will return [`false`] if `self` is</span>
     <span class="doccomment">/// implementing such a protocol. When [`false`] is returned, the caller</span>
     <span class="doccomment">/// should resolve the destination hostname first, and then pass a</span>
-    <span class="doccomment">/// [`ProxyAddress`](crate::ProxyAddress) containing the stringified IP address to</span>
-    <span class="doccomment">/// [`Proxy::connect()`](crate::Proxy::connect()) or [`Proxy::connect_async()`](crate::Proxy::connect_async()).</span>
+    <span class="doccomment">/// [`crate::ProxyAddress`] containing the stringified IP address to</span>
+    <span class="doccomment">/// [`crate::Proxy::connect()`] or [`crate::Proxy::connect_async()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

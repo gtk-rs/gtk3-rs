@@ -1504,7 +1504,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`Assistant`](crate::Assistant) is a widget used to represent a generally complex</span>
+    <span class="doccomment">/// A [`crate::Assistant`] is a widget used to represent a generally complex</span>
     <span class="doccomment">/// operation splitted in several steps, guiding the user through its</span>
     <span class="doccomment">/// pages and controlling the page flow to collect the necessary data.</span>
     <span class="doccomment">///</span>
@@ -1516,16 +1516,16 @@
     <span class="doccomment">/// and [committed][gtk-assistant-commit] status.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you have a case that doesn’t quite fit in ``GtkAssistants`` way of</span>
-    <span class="doccomment">/// handling buttons, you can use the [`AssistantPageType::Custom`](crate::AssistantPageType::Custom) page</span>
+    <span class="doccomment">/// handling buttons, you can use the [`crate::AssistantPageType::Custom`] page</span>
     <span class="doccomment">/// type and handle buttons yourself.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # `Assistant` as `Buildable`</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Assistant` implementation of the [`Buildable`](crate::Buildable) interface</span>
+    <span class="doccomment">/// The `Assistant` implementation of the [`crate::Buildable`] interface</span>
     <span class="doccomment">/// exposes the `action_area` as internal children with the name</span>
     <span class="doccomment">/// “action_area”.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To add pages to an assistant in [`Builder`](crate::Builder), simply add it as a</span>
+    <span class="doccomment">/// To add pages to an assistant in [`crate::Builder`], simply add it as a</span>
     <span class="doccomment">/// child to the `Assistant` object, and set its child properties</span>
     <span class="doccomment">/// as necessary.</span>
     <span class="doccomment">///</span>
@@ -1535,7 +1535,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AssistantExt`](trait@crate::prelude::AssistantExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::AssistantExt`], [`trait@crate::prelude::GtkWindowExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::GtkWindowExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Assistant</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkAssistant</span>, <span class="ident">ffi::GtkAssistantClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1544,11 +1544,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Assistant</span> {
-    <span class="doccomment">/// Creates a new [`Assistant`](crate::Assistant).</span>
+    <span class="doccomment">/// Creates a new [`crate::Assistant`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created [`Assistant`](crate::Assistant)</span>
+    <span class="doccomment">/// a newly created [`crate::Assistant`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_assistant_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Assistant</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2165,17 +2165,17 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Assistant`](struct@crate::Assistant)</span>
+<span class="doccomment">/// [`struct@crate::Assistant`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AssistantExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Adds a widget to the action area of a [`Assistant`](crate::Assistant).</span>
+    <span class="doccomment">/// Adds a widget to the action area of a [`crate::Assistant`].</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_assistant_add_action_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_action_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Appends a page to the `self`.</span>
     <span class="doccomment">/// ## `page`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2276,7 +2276,7 @@
 
     <span class="doccomment">/// Inserts a page in the `self` at a given position.</span>
     <span class="doccomment">/// ## `page`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the index (starting at 0) at which to insert the page,</span>
     <span class="doccomment">///  or -1 to append the page to the `self`</span>
@@ -2293,13 +2293,13 @@
     <span class="doccomment">/// there is no next page.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is for use when creating pages of the</span>
-    <span class="doccomment">/// [`AssistantPageType::Custom`](crate::AssistantPageType::Custom) type.</span>
+    <span class="doccomment">/// [`crate::AssistantPageType::Custom`] type.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_assistant_next_page&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">next_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Prepends a page to the `self`.</span>
     <span class="doccomment">/// ## `page`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2313,13 +2313,13 @@
     <span class="doccomment">/// no previous page is available.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is for use when creating pages of the</span>
-    <span class="doccomment">/// [`AssistantPageType::Custom`](crate::AssistantPageType::Custom) type.</span>
+    <span class="doccomment">/// [`crate::AssistantPageType::Custom`] type.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_assistant_previous_page&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">previous_page</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Removes a widget from the action area of a [`Assistant`](crate::Assistant).</span>
+    <span class="doccomment">/// Removes a widget from the action area of a [`crate::Assistant`].</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_assistant_remove_action_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">remove_action_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -2334,7 +2334,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this will only be necessary in custom buttons,</span>
     <span class="doccomment">/// as the `self` flow can be set with</span>
-    <span class="doccomment">/// [`set_forward_page_func()`](Self::set_forward_page_func()).</span>
+    <span class="doccomment">/// [`Self::set_forward_page_func()`].</span>
     <span class="doccomment">/// ## `page_num`</span>
     <span class="doccomment">/// index of the page to switch to, starting from 0.</span>
     <span class="doccomment">///  If negative, the last page will be used. If greater</span>
@@ -2440,14 +2440,14 @@
 
     <span class="doccomment">/// The ::apply signal is emitted when the apply button is clicked.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The default behavior of the [`Assistant`](crate::Assistant) is to switch to the page</span>
+    <span class="doccomment">/// The default behavior of the [`crate::Assistant`] is to switch to the page</span>
     <span class="doccomment">/// after the current page, unless the current page is the last one.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A handler for the ::apply signal should carry out the actions for</span>
     <span class="doccomment">/// which the wizard has collected data. If the action takes a long time</span>
     <span class="doccomment">/// to complete, you might consider putting a page of type</span>
-    <span class="doccomment">/// [`AssistantPageType::Progress`] after the confirmation page and handle</span>
-    <span class="doccomment">/// this operation within the [`Assistant::prepare`](crate::Assistant::prepare) signal of the progress</span>
+    <span class="doccomment">/// [`crate::AssistantPageType::Progress`] after the confirmation page and handle</span>
+    <span class="doccomment">/// this operation within the [`crate::Assistant::prepare`] signal of the progress</span>
     <span class="doccomment">/// page.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;apply&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_apply</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
@@ -2458,7 +2458,7 @@
 
     <span class="doccomment">/// The ::close signal is emitted either when the close button of</span>
     <span class="doccomment">/// a summary page is clicked, or when the apply button in the last</span>
-    <span class="doccomment">/// page in the flow (of type [`AssistantPageType::Confirm`]) is clicked.</span>
+    <span class="doccomment">/// page in the flow (of type [`crate::AssistantPageType::Confirm`]) is clicked.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;close&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_close</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 

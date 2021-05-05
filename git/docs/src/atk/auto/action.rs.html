@@ -229,27 +229,27 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`Action`](crate::Action) should be implemented by instances of [`Object`](crate::Object) classes</span>
+    <span class="doccomment">/// [`crate::Action`] should be implemented by instances of [`crate::Object`] classes</span>
     <span class="doccomment">/// with which the user can interact directly, i.e. buttons,</span>
     <span class="doccomment">/// checkboxes, scrollbars, e.g. components which are not &quot;passive&quot;</span>
     <span class="doccomment">/// providers of UI information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Exceptions: when the user interaction is already covered by another</span>
-    <span class="doccomment">/// appropriate interface such as [`EditableText`](crate::EditableText) (insert/delete text,</span>
-    <span class="doccomment">/// etc.) or [`Value`](crate::Value) (set value) then these actions should not be</span>
-    <span class="doccomment">/// exposed by [`Action`](crate::Action) as well.</span>
+    <span class="doccomment">/// appropriate interface such as [`crate::EditableText`] (insert/delete text,</span>
+    <span class="doccomment">/// etc.) or [`crate::Value`] (set value) then these actions should not be</span>
+    <span class="doccomment">/// exposed by [`crate::Action`] as well.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Though most UI interactions on components should be invocable via</span>
     <span class="doccomment">/// keyboard as well as mouse, there will generally be a close mapping</span>
     <span class="doccomment">/// between &quot;mouse actions&quot; that are possible on a component and the</span>
     <span class="doccomment">/// AtkActions. Where mouse and keyboard actions are redundant in</span>
-    <span class="doccomment">/// effect, [`Action`](crate::Action) should expose only one action rather than</span>
+    <span class="doccomment">/// effect, [`crate::Action`] should expose only one action rather than</span>
     <span class="doccomment">/// exposing redundant actions if possible. By convention we have been</span>
-    <span class="doccomment">/// using &quot;mouse centric&quot; terminology for [`Action`](crate::Action) names.</span>
+    <span class="doccomment">/// using &quot;mouse centric&quot; terminology for [`crate::Action`] names.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AtkActionExt`](trait@crate::prelude::AtkActionExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::AtkActionExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Action</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkAction</span>, <span class="ident">ffi::AtkActionIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -263,7 +263,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Action`](struct@crate::Action), [`Hyperlink`](struct@crate::Hyperlink), [`NoOpObject`](struct@crate::NoOpObject)</span>
+<span class="doccomment">/// [`struct@crate::Action`], [`struct@crate::Hyperlink`], [`struct@crate::NoOpObject`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AtkActionExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Perform the specified action on the object.</span>
     <span class="doccomment">/// ## `i`</span>
@@ -356,7 +356,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// For technical reasons, some toolkits cannot guarantee that the</span>
     <span class="doccomment">/// reported action is actually &#39;bound&#39; to a nontrivial user event;</span>
-    <span class="doccomment">/// i.e. the result of some actions via [`Action::do_action()`](crate::Action::do_action()) may be</span>
+    <span class="doccomment">/// i.e. the result of some actions via [`crate::Action::do_action()`] may be</span>
     <span class="doccomment">/// NIL.</span>
     <span class="doccomment">/// ## `i`</span>
     <span class="doccomment">/// the action index corresponding to the action to be performed</span>

@@ -183,8 +183,8 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="kw">crate</span><span class="macro">::wrapper!</span> {
-    <span class="doccomment">/// [`Binding`](crate::Binding) is the representation of a binding between a property on a</span>
-    <span class="doccomment">/// [`Object`](crate::Object) instance (or source) and another property on another [`Object`](crate::Object)</span>
+    <span class="doccomment">/// [`crate::Binding`] is the representation of a binding between a property on a</span>
+    <span class="doccomment">/// [`crate::Object`] instance (or source) and another property on another [`crate::Object`]</span>
     <span class="doccomment">/// instance (or target). Whenever the source property changes, the same</span>
     <span class="doccomment">/// value is applied to the target property; for instance, the following</span>
     <span class="doccomment">/// binding:</span>
@@ -197,11 +197,11 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// will cause the property named &quot;property-b&quot; of `object2` to be updated</span>
-    <span class="doccomment">/// every time [`ObjectExt::set()`](crate::ObjectExt::set()) or the specific accessor changes the value of</span>
+    <span class="doccomment">/// every time [`crate::prelude::ObjectExt::set()`] or the specific accessor changes the value of</span>
     <span class="doccomment">/// the property &quot;property-a&quot; of `object1`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is possible to create a bidirectional binding between two properties</span>
-    <span class="doccomment">/// of two [`Object`](crate::Object) instances, so that if either property changes, the</span>
+    <span class="doccomment">/// of two [`crate::Object`] instances, so that if either property changes, the</span>
     <span class="doccomment">/// other is updated as well, for instance:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -238,7 +238,7 @@
     <span class="doccomment">/// current value of the property before applying it to the &quot;value&quot; property</span>
     <span class="doccomment">/// of `adjustment1`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that [`Binding`](crate::Binding) does not resolve cycles by itself; a cycle like</span>
+    <span class="doccomment">/// Note that [`crate::Binding`] does not resolve cycles by itself; a cycle like</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```text</span>
@@ -248,26 +248,26 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// might lead to an infinite loop. The loop, in this particular case,</span>
-    <span class="doccomment">/// can be avoided if the objects emit the [`Object::notify`](crate::Object::notify) signal only</span>
+    <span class="doccomment">/// can be avoided if the objects emit the [`crate::Object::notify`] signal only</span>
     <span class="doccomment">/// if the value has effectively been changed. A binding is implemented</span>
-    <span class="doccomment">/// using the [`Object::notify`](crate::Object::notify) signal, so it is susceptible to all the</span>
+    <span class="doccomment">/// using the [`crate::Object::notify`] signal, so it is susceptible to all the</span>
     <span class="doccomment">/// various ways of blocking a signal emission, like `g_signal_stop_emission()`</span>
     <span class="doccomment">/// or `g_signal_handler_block()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A binding will be severed, and the resources it allocates freed, whenever</span>
-    <span class="doccomment">/// either one of the [`Object`](crate::Object) instances it refers to are finalized, or when</span>
-    <span class="doccomment">/// the [`Binding`](crate::Binding) instance loses its last reference.</span>
+    <span class="doccomment">/// either one of the [`crate::Object`] instances it refers to are finalized, or when</span>
+    <span class="doccomment">/// the [`crate::Binding`] instance loses its last reference.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Bindings for languages with garbage collection can use</span>
-    <span class="doccomment">/// [`unbind()`](Self::unbind()) to explicitly release a binding between the source</span>
+    <span class="doccomment">/// [`Self::unbind()`] to explicitly release a binding between the source</span>
     <span class="doccomment">/// and target properties, instead of relying on the last reference on the</span>
     <span class="doccomment">/// binding, source, and target instances to drop.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Binding`](crate::Binding) is available since GObject 2.26</span>
+    <span class="doccomment">/// [`crate::Binding`] is available since GObject 2.26</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ObjectExt`](trait@crate::prelude::ObjectExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Binding</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">gobject_ffi::GBinding</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -276,18 +276,18 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Binding</span> {
-    <span class="doccomment">/// Retrieves the flags passed when constructing the [`Binding`](crate::Binding).</span>
+    <span class="doccomment">/// Retrieves the flags passed when constructing the [`crate::Binding`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`BindingFlags`](crate::BindingFlags) used by the [`Binding`](crate::Binding)</span>
+    <span class="doccomment">/// the [`crate::BindingFlags`] used by the [`crate::Binding`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_binding_get_flags&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_flags&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BindingFlags</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">gobject_ffi::g_binding_get_flags</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Retrieves the name of the property of [`Binding:source`](crate::Binding:source) used as the source</span>
+    <span class="doccomment">/// Retrieves the name of the property of [`crate::Binding:source`] used as the source</span>
     <span class="doccomment">/// of the binding.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -303,7 +303,7 @@
         }
     }
 
-    <span class="doccomment">/// Retrieves the name of the property of [`Binding:target`](crate::Binding:target) used as the target</span>
+    <span class="doccomment">/// Retrieves the name of the property of [`crate::Binding:target`] used as the target</span>
     <span class="doccomment">/// of the binding.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -324,12 +324,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function will release the reference that is being held on</span>
     <span class="doccomment">/// the `self` instance if the binding is still bound; if you want to hold on</span>
-    <span class="doccomment">/// to the [`Binding`](crate::Binding) instance after calling [`unbind()`](Self::unbind()), you will need</span>
+    <span class="doccomment">/// to the [`crate::Binding`] instance after calling [`Self::unbind()`], you will need</span>
     <span class="doccomment">/// to hold a reference to it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note however that this function does not take ownership of `self`, it</span>
     <span class="doccomment">/// only unrefs the reference that was initially created by</span>
-    <span class="doccomment">/// [`ObjectExt::bind_property()`](crate::ObjectExt::bind_property()) and is owned by the binding.</span>
+    <span class="doccomment">/// [`crate::prelude::ObjectExt::bind_property()`] and is owned by the binding.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_binding_unbind&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unbind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {

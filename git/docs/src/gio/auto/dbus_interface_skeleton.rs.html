@@ -439,7 +439,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DBusInterfaceSkeletonExt`](trait@crate::prelude::DBusInterfaceSkeletonExt), [`trait@glib::object::ObjectExt`], [`DBusInterfaceExt`](trait@crate::prelude::DBusInterfaceExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::DBusInterfaceSkeletonExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::DBusInterfaceExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DBusInterfaceSkeleton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GDBusInterfaceSkeleton</span>, <span class="ident">ffi::GDBusInterfaceSkeletonClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">DBusInterface</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -453,7 +453,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`DBusInterfaceSkeleton`](struct@crate::DBusInterfaceSkeleton)</span>
+<span class="doccomment">/// [`struct@crate::DBusInterfaceSkeleton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">DBusInterfaceSkeletonExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Exports `self` at `object_path` on `connection`.</span>
     <span class="doccomment">///</span>
@@ -461,9 +461,9 @@
     <span class="doccomment">/// onto multiple connections however the `object_path` provided must be</span>
     <span class="doccomment">/// the same for all connections.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`unexport()`](Self::unexport()) to unexport the object.</span>
+    <span class="doccomment">/// Use [`Self::unexport()`] to unexport the object.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// A [`DBusConnection`](crate::DBusConnection) to export `self` on.</span>
+    <span class="doccomment">/// A [`crate::DBusConnection`] to export `self` on.</span>
     <span class="doccomment">/// ## `object_path`</span>
     <span class="doccomment">/// The path to export the interface at.</span>
     <span class="doccomment">///</span>
@@ -489,7 +489,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DBusConnection`](crate::DBusConnection) or [`None`] if `self` is</span>
+    <span class="doccomment">/// A [`crate::DBusConnection`] or [`None`] if `self` is</span>
     <span class="doccomment">/// not exported anywhere. Do not free, the object belongs to `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_skeleton_get_connection&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_connection&quot;</span>)]</span>
@@ -501,18 +501,18 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// A list of</span>
     <span class="doccomment">///  all the connections that `self` is exported on. The returned</span>
-    <span class="doccomment">///  list should be freed with [`glib::List::free()`](crate::glib::List::free()) after each element has</span>
-    <span class="doccomment">///  been freed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">///  list should be freed with [`crate::glib::List::free()`] after each element has</span>
+    <span class="doccomment">///  been freed with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_skeleton_get_connections&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_connections&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connections</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">DBusConnection</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the [`DBusInterfaceSkeletonFlags`](crate::DBusInterfaceSkeletonFlags) that describes what the behavior</span>
+    <span class="doccomment">/// Gets the [`crate::DBusInterfaceSkeletonFlags`] that describes what the behavior</span>
     <span class="doccomment">/// of `self`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// One or more flags from the [`DBusInterfaceSkeletonFlags`](crate::DBusInterfaceSkeletonFlags) enumeration.</span>
+    <span class="doccomment">/// One or more flags from the [`crate::DBusInterfaceSkeletonFlags`] enumeration.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_skeleton_get_flags&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_flags&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusInterfaceSkeletonFlags</span>;
@@ -531,9 +531,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`glib::Variant`](crate::glib::Variant) of type</span>
+    <span class="doccomment">/// A [`crate::glib::Variant`] of type</span>
     <span class="doccomment">/// [&#39;a{sv}&#39;][G-VARIANT-TYPE-VARDICT:CAPS].</span>
-    <span class="doccomment">/// Free with [`glib::Variant::unref()`](crate::glib::Variant::unref()).</span>
+    <span class="doccomment">/// Free with [`crate::glib::Variant::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_skeleton_get_properties&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_properties&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">properties</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Variant</span>;
@@ -544,7 +544,7 @@
 
     <span class="doccomment">/// Checks if `self` is exported on `connection`.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// A [`DBusConnection`](crate::DBusConnection).</span>
+    <span class="doccomment">/// A [`crate::DBusConnection`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -554,23 +554,23 @@
 
     <span class="doccomment">/// Sets flags describing what the behavior of `skeleton` should be.</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// Flags from the [`DBusInterfaceSkeletonFlags`](crate::DBusInterfaceSkeletonFlags) enumeration.</span>
+    <span class="doccomment">/// Flags from the [`crate::DBusInterfaceSkeletonFlags`] enumeration.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_skeleton_set_flags&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">DBusInterfaceSkeletonFlags</span>);
 
     <span class="doccomment">/// Stops exporting `self` on all connections it is exported on.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To unexport `self` from only a single connection, use</span>
-    <span class="doccomment">/// [`unexport_from_connection()`](Self::unexport_from_connection())</span>
+    <span class="doccomment">/// [`Self::unexport_from_connection()`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_skeleton_unexport&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unexport</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Stops exporting `self` on `connection`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To stop exporting on all connections the interface is exported on,</span>
-    <span class="doccomment">/// use [`unexport()`](Self::unexport()).</span>
+    <span class="doccomment">/// use [`Self::unexport()`].</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// A [`DBusConnection`](crate::DBusConnection).</span>
+    <span class="doccomment">/// A [`crate::DBusConnection`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_skeleton_unexport_from_connection&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unexport_from_connection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">connection</span>: <span class="kw-2">&amp;</span><span class="ident">DBusConnection</span>);
 
@@ -594,12 +594,12 @@
     <span class="doccomment">/// If [`false`] is returned then no further handlers are run and the</span>
     <span class="doccomment">/// signal handler must take a reference to `invocation` and finish</span>
     <span class="doccomment">/// handling the call (e.g. return an error via</span>
-    <span class="doccomment">/// [`DBusMethodInvocation::return_error()`](crate::DBusMethodInvocation::return_error())).</span>
+    <span class="doccomment">/// [`crate::DBusMethodInvocation::return_error()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Otherwise, if [`true`] is returned, signal emission continues. If no</span>
     <span class="doccomment">/// handlers return [`false`], then the method is dispatched. If</span>
-    <span class="doccomment">/// `interface` has an enclosing [`DBusObjectSkeleton`](crate::DBusObjectSkeleton), then the</span>
-    <span class="doccomment">/// [`DBusObjectSkeleton::authorize-method`](crate::DBusObjectSkeleton::authorize-method) signal handlers run before</span>
+    <span class="doccomment">/// `interface` has an enclosing [`crate::DBusObjectSkeleton`], then the</span>
+    <span class="doccomment">/// [`crate::DBusObjectSkeleton::authorize-method`] signal handlers run before</span>
     <span class="doccomment">/// the handlers for this signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default class handler just returns [`true`].</span>
@@ -607,14 +607,14 @@
     <span class="doccomment">/// Please note that the common case is optimized: if no signals</span>
     <span class="doccomment">/// handlers are connected and the default class handler isn&#39;t</span>
     <span class="doccomment">/// overridden (for both `interface` and the enclosing</span>
-    <span class="doccomment">/// [`DBusObjectSkeleton`](crate::DBusObjectSkeleton), if any) and [`DBusInterfaceSkeleton:g-flags`](crate::DBusInterfaceSkeleton:g-flags) does</span>
+    <span class="doccomment">/// [`crate::DBusObjectSkeleton`], if any) and [`crate::DBusInterfaceSkeleton:g-flags`] does</span>
     <span class="doccomment">/// not have the</span>
-    <span class="doccomment">/// [`DBusInterfaceSkeletonFlags::HandleMethodInvocationsInThread`]</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceSkeletonFlags::HandleMethodInvocationsInThread`]</span>
     <span class="doccomment">/// flags set, no dedicated thread is ever used and the call will be</span>
     <span class="doccomment">/// handled in the same thread as the object that `interface` belongs</span>
     <span class="doccomment">/// to was exported in.</span>
     <span class="doccomment">/// ## `invocation`</span>
-    <span class="doccomment">/// A [`DBusMethodInvocation`](crate::DBusMethodInvocation).</span>
+    <span class="doccomment">/// A [`crate::DBusMethodInvocation`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

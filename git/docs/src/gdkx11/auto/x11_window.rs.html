@@ -237,7 +237,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@gdk::WindowExt`]</span>
+    <span class="doccomment">/// [`trait@gdk::prelude::WindowExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">X11Window</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkX11Window</span>, <span class="ident">ffi::GdkX11WindowClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">gdk::Window</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -246,21 +246,21 @@
 }
 
 <span class="kw">impl</span> <span class="ident">X11Window</span> {
-    <span class="doccomment">/// Wraps a native window in a [`gdk::Window`](crate::gdk::Window). The function will try to</span>
-    <span class="doccomment">/// look up the window using [`lookup_for_display()`](Self::lookup_for_display()) first.</span>
+    <span class="doccomment">/// Wraps a native window in a [`crate::gdk::Window`]. The function will try to</span>
+    <span class="doccomment">/// look up the window using [`Self::lookup_for_display()`] first.</span>
     <span class="doccomment">/// If it does not find it there, it will create a new window.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This may fail if the window has been destroyed. If the window</span>
     <span class="doccomment">/// was already known to GDK, a new reference to the existing</span>
-    <span class="doccomment">/// [`gdk::Window`](crate::gdk::Window) is returned.</span>
+    <span class="doccomment">/// [`crate::gdk::Window`] is returned.</span>
     <span class="doccomment">/// ## `display`</span>
-    <span class="doccomment">/// the [`gdk::Display`](crate::gdk::Display) where the window handle comes from.</span>
+    <span class="doccomment">/// the [`crate::gdk::Display`] where the window handle comes from.</span>
     <span class="doccomment">/// ## `window`</span>
     <span class="doccomment">/// an Xlib Window</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`gdk::Window`](crate::gdk::Window) wrapper for the native</span>
+    <span class="doccomment">/// a [`crate::gdk::Window`] wrapper for the native</span>
     <span class="doccomment">///  window, or [`None`] if the window has been destroyed. The wrapper</span>
     <span class="doccomment">///  will be newly created, if one doesn’t exist already.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_x11_window_foreign_new_for_display&quot;</span>)]</span>
@@ -286,7 +286,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_x11_window_get_desktop</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Returns the X resource (window) belonging to a [`gdk::Window`](crate::gdk::Window).</span>
+    <span class="doccomment">/// Returns the X resource (window) belonging to a [`crate::gdk::Window`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -414,16 +414,16 @@
         }
     }
 
-    <span class="doccomment">/// Looks up the [`gdk::Window`](crate::gdk::Window) that wraps the given native window handle.</span>
+    <span class="doccomment">/// Looks up the [`crate::gdk::Window`] that wraps the given native window handle.</span>
     <span class="doccomment">/// ## `display`</span>
-    <span class="doccomment">/// the [`gdk::Display`](crate::gdk::Display) corresponding to the</span>
+    <span class="doccomment">/// the [`crate::gdk::Display`] corresponding to the</span>
     <span class="doccomment">///  window handle</span>
     <span class="doccomment">/// ## `window`</span>
     <span class="doccomment">/// an Xlib Window</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`gdk::Window`](crate::gdk::Window) wrapper for the native</span>
+    <span class="doccomment">/// the [`crate::gdk::Window`] wrapper for the native</span>
     <span class="doccomment">///  window, or [`None`] if there is none.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_x11_window_lookup_for_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lookup_for_display</span>(<span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">X11Display</span>, <span class="ident">window</span>: <span class="ident">xlib::Window</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">X11Window</span><span class="op">&gt;</span> {

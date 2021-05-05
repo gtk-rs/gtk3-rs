@@ -1640,28 +1640,28 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// This class is the primary class for accessibility support via the</span>
     <span class="doccomment">/// Accessibility ToolKit (ATK). Objects which are instances of</span>
-    <span class="doccomment">/// [`Object`](crate::Object) (or instances of AtkObject-derived types) are queried</span>
+    <span class="doccomment">/// [`crate::Object`] (or instances of AtkObject-derived types) are queried</span>
     <span class="doccomment">/// for properties which relate basic (and generic) properties of a UI</span>
-    <span class="doccomment">/// component such as name and description. Instances of [`Object`](crate::Object)</span>
+    <span class="doccomment">/// component such as name and description. Instances of [`crate::Object`]</span>
     <span class="doccomment">/// may also be queried as to whether they implement other ATK</span>
-    <span class="doccomment">/// interfaces (e.g. [`Action`](crate::Action), [`Component`](crate::Component), etc.), as appropriate</span>
+    <span class="doccomment">/// interfaces (e.g. [`crate::Action`], [`crate::Component`], etc.), as appropriate</span>
     <span class="doccomment">/// to the role which a given UI component plays in a user interface.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// All UI components in an application which provide useful</span>
     <span class="doccomment">/// information or services to the user must provide corresponding</span>
-    <span class="doccomment">/// [`Object`](crate::Object) instances on request (in GTK+, for instance, usually on</span>
+    <span class="doccomment">/// [`crate::Object`] instances on request (in GTK+, for instance, usually on</span>
     <span class="doccomment">/// a call to `gtk_widget_get_accessible` ()), either via ATK support</span>
     <span class="doccomment">/// built into the toolkit for the widget class or ancestor class, or</span>
-    <span class="doccomment">/// in the case of custom widgets, if the inherited [`Object`](crate::Object)</span>
-    <span class="doccomment">/// implementation is insufficient, via instances of a new [`Object`](crate::Object)</span>
+    <span class="doccomment">/// in the case of custom widgets, if the inherited [`crate::Object`]</span>
+    <span class="doccomment">/// implementation is insufficient, via instances of a new [`crate::Object`]</span>
     <span class="doccomment">/// subclass.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`ObjectFactory`](crate::ObjectFactory), [`Registry`](crate::Registry). (GTK+ users see also</span>
+    <span class="doccomment">/// See also: [`crate::ObjectFactory`], [`crate::Registry`]. (GTK+ users see also</span>
     <span class="doccomment">/// ``GtkAccessible``).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AtkObjectExt`](trait@crate::prelude::AtkObjectExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::AtkObjectExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Object</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkObject</span>, <span class="ident">ffi::AtkObjectClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1675,13 +1675,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`GObjectAccessible`](struct@crate::GObjectAccessible), [`NoOpObject`](struct@crate::NoOpObject), [`Object`](struct@crate::Object), [`Plug`](struct@crate::Plug), [`Socket`](struct@crate::Socket), [`TableCell`](struct@crate::TableCell), [`Window`](struct@crate::Window)</span>
+<span class="doccomment">/// [`struct@crate::GObjectAccessible`], [`struct@crate::NoOpObject`], [`struct@crate::Object`], [`struct@crate::Plug`], [`struct@crate::Socket`], [`struct@crate::TableCell`], [`struct@crate::Window`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AtkObjectExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds a relationship of the specified type with the specified target.</span>
     <span class="doccomment">/// ## `relationship`</span>
-    <span class="doccomment">/// The [`RelationType`](crate::RelationType) of the relation</span>
+    <span class="doccomment">/// The [`crate::RelationType`] of the relation</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// The [`Object`](crate::Object) which is to be the target of the relation.</span>
+    <span class="doccomment">/// The [`crate::Object`] which is to be the target of the relation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1733,7 +1733,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`Layer`](crate::Layer) which is the layer of the accessible</span>
+    <span class="doccomment">/// an [`crate::Layer`] which is the layer of the accessible</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_get_layer&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_layer&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">layer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Layer</span>;
@@ -1785,17 +1785,17 @@
     <span class="kw">fn</span> <span class="ident">object_locale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the accessible parent of the accessible. By default this is</span>
-    <span class="doccomment">/// the one assigned with [`set_parent()`](Self::set_parent()), but it is assumed</span>
+    <span class="doccomment">/// the one assigned with [`Self::set_parent()`], but it is assumed</span>
     <span class="doccomment">/// that ATK implementors have ways to get the parent of the object</span>
     <span class="doccomment">/// without the need of assigning it manually with</span>
-    <span class="doccomment">/// [`set_parent()`](Self::set_parent()), and will return it with this method.</span>
+    <span class="doccomment">/// [`Self::set_parent()`], and will return it with this method.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you are only interested on the parent assigned with</span>
-    <span class="doccomment">/// [`set_parent()`](Self::set_parent()), use [`peek_parent()`](Self::peek_parent()).</span>
+    <span class="doccomment">/// [`Self::set_parent()`], use [`Self::peek_parent()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`Object`](crate::Object) representing the accessible</span>
+    <span class="doccomment">/// an [`crate::Object`] representing the accessible</span>
     <span class="doccomment">/// parent of the accessible</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_get_parent&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_parent&quot;</span>)]</span>
@@ -1805,7 +1805,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`Role`](crate::Role) which is the role of the accessible</span>
+    <span class="doccomment">/// an [`crate::Role`] which is the role of the accessible</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_get_role&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_role&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Role</span>;
@@ -1818,7 +1818,7 @@
     <span class="doccomment">/// Note that as a general rule when the state of an existing object changes,</span>
     <span class="doccomment">/// emitting a notification is expected.</span>
     <span class="doccomment">/// ## `state`</span>
-    <span class="doccomment">/// an [`State`](crate::State) whose state is changed</span>
+    <span class="doccomment">/// an [`crate::State`] whose state is changed</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// a gboolean which indicates whether the state is being set on or off</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_notify_state_change&quot;</span>)]</span>
@@ -1829,12 +1829,12 @@
     <span class="doccomment">/// function returns [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method is intended as an utility for ATK implementors, and not</span>
-    <span class="doccomment">/// to be exposed to accessible tools. See [`get_parent()`](Self::get_parent()) for</span>
+    <span class="doccomment">/// to be exposed to accessible tools. See [`Self::get_parent()`] for</span>
     <span class="doccomment">/// further reference.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`Object`](crate::Object) representing the accessible</span>
+    <span class="doccomment">/// an [`crate::Object`] representing the accessible</span>
     <span class="doccomment">/// parent of the accessible if assigned</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_peek_parent&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">peek_parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;
@@ -1847,16 +1847,16 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`Object`](crate::Object) representing the specified</span>
+    <span class="doccomment">/// an [`crate::Object`] representing the specified</span>
     <span class="doccomment">/// accessible child of the accessible.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_ref_accessible_child&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">ref_accessible_child</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the [`RelationSet`](crate::RelationSet) associated with the object.</span>
+    <span class="doccomment">/// Gets the [`crate::RelationSet`] associated with the object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`RelationSet`](crate::RelationSet) representing the relation set</span>
+    <span class="doccomment">/// an [`crate::RelationSet`] representing the relation set</span>
     <span class="doccomment">/// of the object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_ref_relation_set&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">ref_relation_set</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RelationSet</span><span class="op">&gt;</span>;
@@ -1866,16 +1866,16 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a reference to an [`StateSet`](crate::StateSet) which is the state</span>
+    <span class="doccomment">/// a reference to an [`crate::StateSet`] which is the state</span>
     <span class="doccomment">/// set of the accessible</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_ref_state_set&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">ref_state_set</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">StateSet</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Removes a relationship of the specified type with the specified target.</span>
     <span class="doccomment">/// ## `relationship`</span>
-    <span class="doccomment">/// The [`RelationType`](crate::RelationType) of the relation</span>
+    <span class="doccomment">/// The [`crate::RelationType`] of the relation</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// The [`Object`](crate::Object) which is the target of the relation to be removed.</span>
+    <span class="doccomment">/// The [`crate::Object`] which is the target of the relation to be removed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1915,13 +1915,13 @@
 
     <span class="doccomment">/// Sets the accessible parent of the accessible. `parent` can be NULL.</span>
     <span class="doccomment">/// ## `parent`</span>
-    <span class="doccomment">/// an [`Object`](crate::Object) to be set as the accessible parent</span>
+    <span class="doccomment">/// an [`crate::Object`] to be set as the accessible parent</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_set_parent&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_parent</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">parent</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Sets the role of the accessible.</span>
     <span class="doccomment">/// ## `role`</span>
-    <span class="doccomment">/// an [`Role`](crate::Role) to be set as the role</span>
+    <span class="doccomment">/// an [`crate::Role`] to be set as the role</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_set_role&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_role</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">role</span>: <span class="ident">Role</span>);
 

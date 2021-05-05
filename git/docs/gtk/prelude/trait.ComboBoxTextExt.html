@@ -13,17 +13,17 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.remove_all" class="fnname">remove_all</a>(&amp;self);
 }</pre></div><div class="docblock"><p>Trait containing all <code>ComboBoxText</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.ComboBoxText.html"><code>ComboBoxText</code></a></p>
+<p><a href="../struct.ComboBoxText.html" title="crate::ComboBoxText"><code>crate::ComboBoxText</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.append" class="method"><code>fn <a href="#tymethod.append" class="fnname">append</a>(&amp;self, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/combo_box_text.rs.html#589" title="goto source code">[src]</a></h3><div class="docblock"><p>Appends <code>text</code> to the list of strings stored in <code>self</code>.
 If <code>id</code> is non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then it is used as the ID of the row.</p>
-<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert"><code>insert()</code></a> with a
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert" title="Self::insert()"><code>Self::insert()</code></a> with a
 position of -1.</p>
 <h2 id="id" class="section-header"><a href="#id"><code>id</code></a></h2>
 <p>a string ID for this value, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="text" class="section-header"><a href="#text"><code>text</code></a></h2>
 <p>A string</p>
 </div><h3 id="tymethod.append_text" class="method"><code>fn <a href="#tymethod.append_text" class="fnname">append_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/combo_box_text.rs.html#598" title="goto source code">[src]</a></h3><div class="docblock"><p>Appends <code>text</code> to the list of strings stored in <code>self</code>.</p>
-<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert_text"><code>insert_text()</code></a> with a
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert_text" title="Self::insert_text()"><code>Self::insert_text()</code></a> with a
 position of -1.</p>
 <h2 id="text-1" class="section-header"><a href="#text-1"><code>text</code></a></h2>
 <p>A string</p>
@@ -36,7 +36,7 @@ be an item from the list).</p>
 currently active text. Must be freed with <code>g_free()</code>.</p>
 </div><h3 id="tymethod.insert" class="method"><code>fn <a href="#tymethod.insert" class="fnname">insert</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/combo_box_text.rs.html#625" title="goto source code">[src]</a></h3><div class="docblock"><p>Inserts <code>text</code> at <code>position</code> in the list of strings stored in <code>self</code>.
 If <code>id</code> is non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then it is used as the ID of the row. See
-<a href="crate::ComboBox:id-column"><code>ComboBox:id-column</code></a>.</p>
+[<code>crate::ComboBox:id-column</code>].</p>
 <p>If <code>position</code> is negative then <code>text</code> is appended.</p>
 <h2 id="position" class="section-header"><a href="#position"><code>position</code></a></h2>
 <p>An index to insert <code>text</code></p>
@@ -46,7 +46,7 @@ If <code>id</code> is non-<a href="https://doc.rust-lang.org/nightly/core/option
 <p>A string to display</p>
 </div><h3 id="tymethod.insert_text" class="method"><code>fn <a href="#tymethod.insert_text" class="fnname">insert_text</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/combo_box_text.rs.html#638" title="goto source code">[src]</a></h3><div class="docblock"><p>Inserts <code>text</code> at <code>position</code> in the list of strings stored in <code>self</code>.</p>
 <p>If <code>position</code> is negative then <code>text</code> is appended.</p>
-<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert"><code>insert()</code></a> with a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert" title="Self::insert()"><code>Self::insert()</code></a> with a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
 ID string.</p>
 <h2 id="position-1" class="section-header"><a href="#position-1"><code>position</code></a></h2>
 <p>An index to insert <code>text</code></p>
@@ -54,14 +54,14 @@ ID string.</p>
 <p>A string</p>
 </div><h3 id="tymethod.prepend" class="method"><code>fn <a href="#tymethod.prepend" class="fnname">prepend</a>(&amp;self, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/combo_box_text.rs.html#650" title="goto source code">[src]</a></h3><div class="docblock"><p>Prepends <code>text</code> to the list of strings stored in <code>self</code>.
 If <code>id</code> is non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> then it is used as the ID of the row.</p>
-<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert"><code>insert()</code></a> with a
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert" title="Self::insert()"><code>Self::insert()</code></a> with a
 position of 0.</p>
 <h2 id="id-2" class="section-header"><a href="#id-2"><code>id</code></a></h2>
 <p>a string ID for this value, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="text-4" class="section-header"><a href="#text-4"><code>text</code></a></h2>
 <p>a string</p>
 </div><h3 id="tymethod.prepend_text" class="method"><code>fn <a href="#tymethod.prepend_text" class="fnname">prepend_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/combo_box_text.rs.html#659" title="goto source code">[src]</a></h3><div class="docblock"><p>Prepends <code>text</code> to the list of strings stored in <code>self</code>.</p>
-<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert_text"><code>insert_text()</code></a> with a
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#tymethod.insert_text" title="Self::insert_text()"><code>Self::insert_text()</code></a> with a
 position of 0.</p>
 <h2 id="text-5" class="section-header"><a href="#text-5"><code>text</code></a></h2>
 <p>A string</p>

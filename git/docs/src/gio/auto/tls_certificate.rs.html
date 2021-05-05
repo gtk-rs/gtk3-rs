@@ -339,13 +339,13 @@
     <span class="doccomment">/// This can represent either a certificate only (eg, the certificate</span>
     <span class="doccomment">/// received by a client from a server), or the combination of</span>
     <span class="doccomment">/// a certificate and a private key (which is needed when acting as a</span>
-    <span class="doccomment">/// [`TlsServerConnection`](crate::TlsServerConnection)).</span>
+    <span class="doccomment">/// [`crate::TlsServerConnection`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TlsCertificateExt`](trait@crate::prelude::TlsCertificateExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::TlsCertificateExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TlsCertificate</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GTlsCertificate</span>, <span class="ident">ffi::GTlsCertificateClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -354,19 +354,19 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TlsCertificate</span> {
-    <span class="doccomment">/// Creates a [`TlsCertificate`](crate::TlsCertificate) from the PEM-encoded data in `file`. The</span>
+    <span class="doccomment">/// Creates a [`crate::TlsCertificate`] from the PEM-encoded data in `file`. The</span>
     <span class="doccomment">/// returned certificate will be the first certificate found in `file`. As</span>
     <span class="doccomment">/// of GLib 2.44, if `file` contains more certificates it will try to load</span>
     <span class="doccomment">/// a certificate chain. All certificates will be verified in the order</span>
     <span class="doccomment">/// found (top-level certificate should be the last one in the file) and</span>
-    <span class="doccomment">/// the [`TlsCertificate:issuer`](crate::TlsCertificate:issuer) property of each certificate will be set</span>
+    <span class="doccomment">/// the [`crate::TlsCertificate:issuer`] property of each certificate will be set</span>
     <span class="doccomment">/// accordingly if the verification succeeds. If any certificate in the</span>
     <span class="doccomment">/// chain cannot be verified, the first certificate in the file will</span>
     <span class="doccomment">/// still be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `file` cannot be read or parsed, the function will return [`None`] and</span>
     <span class="doccomment">/// set `error`. Otherwise, this behaves like</span>
-    <span class="doccomment">/// [`new_from_pem()`](Self::new_from_pem()).</span>
+    <span class="doccomment">/// [`Self::new_from_pem()`].</span>
     <span class="doccomment">/// ## `file`</span>
     <span class="doccomment">/// file containing a PEM-encoded certificate to import</span>
     <span class="doccomment">///</span>
@@ -388,20 +388,20 @@
         }
     }
 
-    <span class="doccomment">/// Creates a [`TlsCertificate`](crate::TlsCertificate) from the PEM-encoded data in `cert_file`</span>
+    <span class="doccomment">/// Creates a [`crate::TlsCertificate`] from the PEM-encoded data in `cert_file`</span>
     <span class="doccomment">/// and `key_file`. The returned certificate will be the first certificate</span>
     <span class="doccomment">/// found in `cert_file`. As of GLib 2.44, if `cert_file` contains more</span>
     <span class="doccomment">/// certificates it will try to load a certificate chain. All</span>
     <span class="doccomment">/// certificates will be verified in the order found (top-level</span>
     <span class="doccomment">/// certificate should be the last one in the file) and the</span>
-    <span class="doccomment">/// [`TlsCertificate:issuer`](crate::TlsCertificate:issuer) property of each certificate will be set</span>
+    <span class="doccomment">/// [`crate::TlsCertificate:issuer`] property of each certificate will be set</span>
     <span class="doccomment">/// accordingly if the verification succeeds. If any certificate in the</span>
     <span class="doccomment">/// chain cannot be verified, the first certificate in the file will</span>
     <span class="doccomment">/// still be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If either file cannot be read or parsed, the function will return</span>
     <span class="doccomment">/// [`None`] and set `error`. Otherwise, this behaves like</span>
-    <span class="doccomment">/// [`new_from_pem()`](Self::new_from_pem()).</span>
+    <span class="doccomment">/// [`Self::new_from_pem()`].</span>
     <span class="doccomment">/// ## `cert_file`</span>
     <span class="doccomment">/// file containing one or more PEM-encoded</span>
     <span class="doccomment">///  certificates to import</span>
@@ -433,17 +433,17 @@
         }
     }
 
-    <span class="doccomment">/// Creates a [`TlsCertificate`](crate::TlsCertificate) from the PEM-encoded data in `data`. If</span>
+    <span class="doccomment">/// Creates a [`crate::TlsCertificate`] from the PEM-encoded data in `data`. If</span>
     <span class="doccomment">/// `data` includes both a certificate and a private key, then the</span>
     <span class="doccomment">/// returned certificate will include the private key data as well. (See</span>
-    <span class="doccomment">/// the [`TlsCertificate:private-key-pem`](crate::TlsCertificate:private-key-pem) property for information about</span>
+    <span class="doccomment">/// the [`crate::TlsCertificate:private-key-pem`] property for information about</span>
     <span class="doccomment">/// supported formats.)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned certificate will be the first certificate found in</span>
     <span class="doccomment">/// `data`. As of GLib 2.44, if `data` contains more certificates it will</span>
     <span class="doccomment">/// try to load a certificate chain. All certificates will be verified in</span>
     <span class="doccomment">/// the order found (top-level certificate should be the last one in the</span>
-    <span class="doccomment">/// file) and the [`TlsCertificate:issuer`](crate::TlsCertificate:issuer) property of each certificate</span>
+    <span class="doccomment">/// file) and the [`crate::TlsCertificate:issuer`] property of each certificate</span>
     <span class="doccomment">/// will be set accordingly if the verification succeeds. If any</span>
     <span class="doccomment">/// certificate in the chain cannot be verified, the first certificate in</span>
     <span class="doccomment">/// the file will still be returned.</span>
@@ -482,7 +482,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a</span>
-    <span class="doccomment">/// [`glib::List`](crate::glib::List) containing [`TlsCertificate`](crate::TlsCertificate) objects. You must free the list</span>
+    <span class="doccomment">/// [`crate::glib::List`] containing [`crate::TlsCertificate`] objects. You must free the list</span>
     <span class="doccomment">/// and its contents when you are done with it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_tls_certificate_list_new_from_file&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_new_from_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(
@@ -509,9 +509,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`TlsCertificate`](struct@crate::TlsCertificate)</span>
+<span class="doccomment">/// [`struct@crate::TlsCertificate`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TlsCertificateExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the [`TlsCertificate`](crate::TlsCertificate) representing `self`&#39;s issuer, if known</span>
+    <span class="doccomment">/// Gets the [`crate::TlsCertificate`] representing `self`&#39;s issuer, if known</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -522,11 +522,11 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_issuer&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">issuer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TlsCertificate</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Check if two [`TlsCertificate`](crate::TlsCertificate) objects represent the same certificate.</span>
+    <span class="doccomment">/// Check if two [`crate::TlsCertificate`] objects represent the same certificate.</span>
     <span class="doccomment">/// The raw DER byte data of the two certificates are checked for equality.</span>
     <span class="doccomment">/// This has the effect that two certificates may compare equal even if</span>
-    <span class="doccomment">/// their [`TlsCertificate:issuer`](crate::TlsCertificate:issuer), [`TlsCertificate:private-key`](crate::TlsCertificate:private-key), or</span>
-    <span class="doccomment">/// [`TlsCertificate:private-key-pem`](crate::TlsCertificate:private-key-pem) properties differ.</span>
+    <span class="doccomment">/// their [`crate::TlsCertificate:issuer`], [`crate::TlsCertificate:private-key`], or</span>
+    <span class="doccomment">/// [`crate::TlsCertificate:private-key-pem`] properties differ.</span>
     <span class="doccomment">/// ## `cert_two`</span>
     <span class="doccomment">/// second certificate to compare</span>
     <span class="doccomment">///</span>
@@ -536,24 +536,24 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_tls_certificate_is_same&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_same</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TlsCertificate</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cert_two</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// This verifies `self` and returns a set of [`TlsCertificateFlags`](crate::TlsCertificateFlags)</span>
+    <span class="doccomment">/// This verifies `self` and returns a set of [`crate::TlsCertificateFlags`]</span>
     <span class="doccomment">/// indicating any problems found with it. This can be used to verify a</span>
     <span class="doccomment">/// certificate outside the context of making a connection, or to</span>
     <span class="doccomment">/// check a certificate against a CA that is not part of the system</span>
     <span class="doccomment">/// CA database.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `identity` is not [`None`], `self`&#39;s name(s) will be compared against</span>
-    <span class="doccomment">/// it, and [`TlsCertificateFlags::BadIdentity`] will be set in the return</span>
+    <span class="doccomment">/// it, and [`crate::TlsCertificateFlags::BadIdentity`] will be set in the return</span>
     <span class="doccomment">/// value if it does not match. If `identity` is [`None`], that bit will</span>
     <span class="doccomment">/// never be set in the return value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `trusted_ca` is not [`None`], then `self` (or one of the certificates</span>
     <span class="doccomment">/// in its chain) must be signed by it, or else</span>
-    <span class="doccomment">/// [`TlsCertificateFlags::UnknownCa`] will be set in the return value. If</span>
+    <span class="doccomment">/// [`crate::TlsCertificateFlags::UnknownCa`] will be set in the return value. If</span>
     <span class="doccomment">/// `trusted_ca` is [`None`], that bit will never be set in the return</span>
     <span class="doccomment">/// value.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// (All other [`TlsCertificateFlags`](crate::TlsCertificateFlags) values will always be set or unset</span>
+    <span class="doccomment">/// (All other [`crate::TlsCertificateFlags`] values will always be set or unset</span>
     <span class="doccomment">/// as appropriate.)</span>
     <span class="doccomment">/// ## `identity`</span>
     <span class="doccomment">/// the expected peer identity</span>
@@ -562,7 +562,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the appropriate [`TlsCertificateFlags`](crate::TlsCertificateFlags)</span>
+    <span class="doccomment">/// the appropriate [`crate::TlsCertificateFlags`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_tls_certificate_verify&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">verify</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">SocketConnectable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TlsCertificate</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,

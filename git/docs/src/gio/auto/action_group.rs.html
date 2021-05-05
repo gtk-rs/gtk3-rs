@@ -649,25 +649,25 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`ActionGroup`](crate::ActionGroup) represents a group of actions. Actions can be used to</span>
+    <span class="doccomment">/// [`crate::ActionGroup`] represents a group of actions. Actions can be used to</span>
     <span class="doccomment">/// expose functionality in a structured way, either from one part of a</span>
     <span class="doccomment">/// program to another, or to the outside world. Action groups are often</span>
-    <span class="doccomment">/// used together with a [`MenuModel`](crate::MenuModel) that provides additional</span>
+    <span class="doccomment">/// used together with a [`crate::MenuModel`] that provides additional</span>
     <span class="doccomment">/// representation data for displaying the actions to the user, e.g. in</span>
     <span class="doccomment">/// a menu.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The main way to interact with the actions in a GActionGroup is to</span>
-    <span class="doccomment">/// activate them with [`activate_action()`](Self::activate_action()). Activating an</span>
-    <span class="doccomment">/// action may require a [`glib::Variant`](crate::glib::Variant) parameter. The required type of the</span>
-    <span class="doccomment">/// parameter can be inquired with [`get_action_parameter_type()`](Self::get_action_parameter_type()).</span>
-    <span class="doccomment">/// Actions may be disabled, see [`get_action_enabled()`](Self::get_action_enabled()).</span>
+    <span class="doccomment">/// activate them with [`Self::activate_action()`]. Activating an</span>
+    <span class="doccomment">/// action may require a [`crate::glib::Variant`] parameter. The required type of the</span>
+    <span class="doccomment">/// parameter can be inquired with [`Self::get_action_parameter_type()`].</span>
+    <span class="doccomment">/// Actions may be disabled, see [`Self::get_action_enabled()`].</span>
     <span class="doccomment">/// Activating a disabled action has no effect.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Actions may optionally have a state in the form of a [`glib::Variant`](crate::glib::Variant). The</span>
+    <span class="doccomment">/// Actions may optionally have a state in the form of a [`crate::glib::Variant`]. The</span>
     <span class="doccomment">/// current state of an action can be inquired with</span>
-    <span class="doccomment">/// [`get_action_state()`](Self::get_action_state()). Activating a stateful action may</span>
+    <span class="doccomment">/// [`Self::get_action_state()`]. Activating a stateful action may</span>
     <span class="doccomment">/// change its state, but it is also possible to set the state by calling</span>
-    <span class="doccomment">/// [`change_action_state()`](Self::change_action_state()).</span>
+    <span class="doccomment">/// [`Self::change_action_state()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// As typical example, consider a text editing application which has an</span>
     <span class="doccomment">/// option to change the current font to &#39;bold&#39;. A good way to represent</span>
@@ -675,29 +675,29 @@
     <span class="doccomment">/// action would toggle the state.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Each action in the group has a unique name (which is a string). All</span>
-    <span class="doccomment">/// method calls, except [`list_actions()`](Self::list_actions()) take the name of</span>
+    <span class="doccomment">/// method calls, except [`Self::list_actions()`] take the name of</span>
     <span class="doccomment">/// an action as an argument.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`ActionGroup`](crate::ActionGroup) API is meant to be the &#39;public&#39; API to the action</span>
+    <span class="doccomment">/// The [`crate::ActionGroup`] API is meant to be the &#39;public&#39; API to the action</span>
     <span class="doccomment">/// group. The calls here are exactly the interaction that &#39;external</span>
     <span class="doccomment">/// forces&#39; (eg: UI, incoming D-Bus messages, etc.) are supposed to have</span>
     <span class="doccomment">/// with actions. &#39;Internal&#39; APIs (ie: ones meant only to be accessed by</span>
     <span class="doccomment">/// the action group implementation) are found on subclasses. This is</span>
-    <span class="doccomment">/// why you will find - for example - [`get_action_enabled()`](Self::get_action_enabled())</span>
+    <span class="doccomment">/// why you will find - for example - [`Self::get_action_enabled()`]</span>
     <span class="doccomment">/// but not an equivalent `set()` call.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Signals are emitted on the action group in response to state changes</span>
     <span class="doccomment">/// on individual actions.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Implementations of [`ActionGroup`](crate::ActionGroup) should provide implementations for</span>
-    <span class="doccomment">/// the virtual functions [`list_actions()`](Self::list_actions()) and</span>
-    <span class="doccomment">/// [`query_action()`](Self::query_action()). The other virtual functions should</span>
+    <span class="doccomment">/// Implementations of [`crate::ActionGroup`] should provide implementations for</span>
+    <span class="doccomment">/// the virtual functions [`Self::list_actions()`] and</span>
+    <span class="doccomment">/// [`Self::query_action()`]. The other virtual functions should</span>
     <span class="doccomment">/// not be implemented - their &quot;wrappers&quot; are actually implemented with</span>
-    <span class="doccomment">/// calls to [`query_action()`](Self::query_action()).</span>
+    <span class="doccomment">/// calls to [`Self::query_action()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ActionGroupExt`](trait@crate::prelude::ActionGroupExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ActionGroupExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ActionGroup</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GActionGroup</span>, <span class="ident">ffi::GActionGroupInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -711,19 +711,19 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ActionGroup`](struct@crate::ActionGroup), [`Application`](struct@crate::Application), [`DBusActionGroup`](struct@crate::DBusActionGroup), [`RemoteActionGroup`](struct@crate::RemoteActionGroup), [`SimpleActionGroup`](struct@crate::SimpleActionGroup)</span>
+<span class="doccomment">/// [`struct@crate::ActionGroup`], [`struct@crate::Application`], [`struct@crate::DBusActionGroup`], [`struct@crate::RemoteActionGroup`], [`struct@crate::SimpleActionGroup`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ActionGroupExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Emits the [`ActionGroup::action-added`](crate::ActionGroup::action-added) signal on `self`.</span>
+    <span class="doccomment">/// Emits the [`crate::ActionGroup::action-added`] signal on `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function should only be called by [`ActionGroup`](crate::ActionGroup) implementations.</span>
+    <span class="doccomment">/// This function should only be called by [`crate::ActionGroup`] implementations.</span>
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// the name of an action in the group</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_action_group_action_added&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">action_added</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">action_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// Emits the [`ActionGroup::action-enabled-changed`](crate::ActionGroup::action-enabled-changed) signal on `self`.</span>
+    <span class="doccomment">/// Emits the [`crate::ActionGroup::action-enabled-changed`] signal on `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function should only be called by [`ActionGroup`](crate::ActionGroup) implementations.</span>
+    <span class="doccomment">/// This function should only be called by [`crate::ActionGroup`] implementations.</span>
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// the name of an action in the group</span>
     <span class="doccomment">/// ## `enabled`</span>
@@ -731,17 +731,17 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_action_group_action_enabled_changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">action_enabled_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">action_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">enabled</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Emits the [`ActionGroup::action-removed`](crate::ActionGroup::action-removed) signal on `self`.</span>
+    <span class="doccomment">/// Emits the [`crate::ActionGroup::action-removed`] signal on `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function should only be called by [`ActionGroup`](crate::ActionGroup) implementations.</span>
+    <span class="doccomment">/// This function should only be called by [`crate::ActionGroup`] implementations.</span>
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// the name of an action in the group</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_action_group_action_removed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">action_removed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">action_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// Emits the [`ActionGroup::action-state-changed`](crate::ActionGroup::action-state-changed) signal on `self`.</span>
+    <span class="doccomment">/// Emits the [`crate::ActionGroup::action-state-changed`] signal on `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function should only be called by [`ActionGroup`](crate::ActionGroup) implementations.</span>
+    <span class="doccomment">/// This function should only be called by [`crate::ActionGroup`] implementations.</span>
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// the name of an action in the group</span>
     <span class="doccomment">/// ## `state`</span>
@@ -754,21 +754,21 @@
     <span class="doccomment">/// If the action is expecting a parameter, then the correct type of</span>
     <span class="doccomment">/// parameter must be given as `parameter`. If the action is expecting no</span>
     <span class="doccomment">/// parameters then `parameter` must be [`None`]. See</span>
-    <span class="doccomment">/// [`ActionGroup::get_action_parameter_type()`](crate::ActionGroup::get_action_parameter_type()).</span>
+    <span class="doccomment">/// [`crate::ActionGroup::get_action_parameter_type()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the [`ActionGroup`](crate::ActionGroup) implementation supports asynchronous remote</span>
+    <span class="doccomment">/// If the [`crate::ActionGroup`] implementation supports asynchronous remote</span>
     <span class="doccomment">/// activation over D-Bus, this call may return before the relevant</span>
     <span class="doccomment">/// D-Bus traffic has been sent, or any replies have been received. In</span>
     <span class="doccomment">/// order to block on such asynchronous activation calls,</span>
-    <span class="doccomment">/// [`DBusConnection::flush()`](crate::DBusConnection::flush()) should be called prior to the code, which</span>
+    <span class="doccomment">/// [`crate::DBusConnection::flush()`] should be called prior to the code, which</span>
     <span class="doccomment">/// depends on the result of the action activation. Without flushing</span>
     <span class="doccomment">/// the D-Bus connection, there is no guarantee that the action would</span>
     <span class="doccomment">/// have been activated.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The following code which runs in a remote app instance, shows an</span>
     <span class="doccomment">/// example of a &quot;quit&quot; action being activated on the primary app</span>
-    <span class="doccomment">/// instance over D-Bus. Here [`DBusConnection::flush()`](crate::DBusConnection::flush()) is called</span>
-    <span class="doccomment">/// before `exit()`. Without [`DBusConnection::flush()`](crate::DBusConnection::flush()), the &quot;quit&quot; action</span>
+    <span class="doccomment">/// instance over D-Bus. Here [`crate::DBusConnection::flush()`] is called</span>
+    <span class="doccomment">/// before `exit()`. Without [`crate::DBusConnection::flush()`], the &quot;quit&quot; action</span>
     <span class="doccomment">/// may fail to be activated on the primary instance.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -794,11 +794,11 @@
     <span class="doccomment">/// changed to `value`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The action must be stateful and `value` must be of the correct type.</span>
-    <span class="doccomment">/// See [`ActionGroup::get_action_state_type()`](crate::ActionGroup::get_action_state_type()).</span>
+    <span class="doccomment">/// See [`crate::ActionGroup::get_action_state_type()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call merely requests a change. The action may refuse to change</span>
     <span class="doccomment">/// its state or may change its state to something other than `value`.</span>
-    <span class="doccomment">/// See [`ActionGroup::get_action_state_hint()`](crate::ActionGroup::get_action_state_hint()).</span>
+    <span class="doccomment">/// See [`crate::ActionGroup::get_action_state_hint()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the `value` GVariant is floating, it is consumed.</span>
     <span class="doccomment">/// ## `action_name`</span>
@@ -825,12 +825,12 @@
     <span class="doccomment">/// Queries the type of the parameter that must be given when activating</span>
     <span class="doccomment">/// the named action within `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When activating the action using [`ActionGroup::activate_action()`](crate::ActionGroup::activate_action()),</span>
-    <span class="doccomment">/// the [`glib::Variant`](crate::glib::Variant) given to that function must be of the type returned</span>
+    <span class="doccomment">/// When activating the action using [`crate::ActionGroup::activate_action()`],</span>
+    <span class="doccomment">/// the [`crate::glib::Variant`] given to that function must be of the type returned</span>
     <span class="doccomment">/// by this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the case that this function returns [`None`], you must not give any</span>
-    <span class="doccomment">/// [`glib::Variant`](crate::glib::Variant), but [`None`] instead.</span>
+    <span class="doccomment">/// [`crate::glib::Variant`], but [`None`] instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The parameter type of a particular action will never change but it is</span>
     <span class="doccomment">/// possible for an action to be removed and for a new action to be added</span>
@@ -849,10 +849,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the action is not stateful then [`None`] will be returned. If the</span>
     <span class="doccomment">/// action is stateful then the type of the return value is the type</span>
-    <span class="doccomment">/// given by [`ActionGroup::get_action_state_type()`](crate::ActionGroup::get_action_state_type()).</span>
+    <span class="doccomment">/// given by [`crate::ActionGroup::get_action_state_type()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The return value (if non-[`None`]) should be freed with</span>
-    <span class="doccomment">/// [`glib::Variant::unref()`](crate::glib::Variant::unref()) when it is no longer required.</span>
+    <span class="doccomment">/// [`crate::glib::Variant::unref()`] when it is no longer required.</span>
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// the name of the action to query</span>
     <span class="doccomment">///</span>
@@ -870,8 +870,8 @@
     <span class="doccomment">/// or that there is no hint about the valid range of values for the</span>
     <span class="doccomment">/// state of the action.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If a [`glib::Variant`](crate::glib::Variant) array is returned then each item in the array is a</span>
-    <span class="doccomment">/// possible value for the state. If a [`glib::Variant`](crate::glib::Variant) pair (ie: two-tuple) is</span>
+    <span class="doccomment">/// If a [`crate::glib::Variant`] array is returned then each item in the array is a</span>
+    <span class="doccomment">/// possible value for the state. If a [`crate::glib::Variant`] pair (ie: two-tuple) is</span>
     <span class="doccomment">/// returned then the tuple specifies the inclusive lower and upper bound</span>
     <span class="doccomment">/// of valid values for the state.</span>
     <span class="doccomment">///</span>
@@ -880,7 +880,7 @@
     <span class="doccomment">/// within the range may fail.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The return value (if non-[`None`]) should be freed with</span>
-    <span class="doccomment">/// [`glib::Variant::unref()`](crate::glib::Variant::unref()) when it is no longer required.</span>
+    <span class="doccomment">/// [`crate::glib::Variant::unref()`] when it is no longer required.</span>
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// the name of the action to query</span>
     <span class="doccomment">///</span>
@@ -895,14 +895,14 @@
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the action is stateful then this function returns the</span>
-    <span class="doccomment">/// [`glib::VariantType`](crate::glib::VariantType) of the state. All calls to</span>
-    <span class="doccomment">/// [`ActionGroup::change_action_state()`](crate::ActionGroup::change_action_state()) must give a [`glib::Variant`](crate::glib::Variant) of this</span>
-    <span class="doccomment">/// type and [`ActionGroup::get_action_state()`](crate::ActionGroup::get_action_state()) will return a [`glib::Variant`](crate::glib::Variant)</span>
+    <span class="doccomment">/// [`crate::glib::VariantType`] of the state. All calls to</span>
+    <span class="doccomment">/// [`crate::ActionGroup::change_action_state()`] must give a [`crate::glib::Variant`] of this</span>
+    <span class="doccomment">/// type and [`crate::ActionGroup::get_action_state()`] will return a [`crate::glib::Variant`]</span>
     <span class="doccomment">/// of the same type.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the action is not stateful then this function will return [`None`].</span>
-    <span class="doccomment">/// In that case, [`ActionGroup::get_action_state()`](crate::ActionGroup::get_action_state()) will return [`None`]</span>
-    <span class="doccomment">/// and you must not call [`ActionGroup::change_action_state()`](crate::ActionGroup::change_action_state()).</span>
+    <span class="doccomment">/// In that case, [`crate::ActionGroup::get_action_state()`] will return [`None`]</span>
+    <span class="doccomment">/// and you must not call [`crate::ActionGroup::change_action_state()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The state type of a particular action will never change but it is</span>
     <span class="doccomment">/// possible for an action to be removed and for a new action to be added</span>

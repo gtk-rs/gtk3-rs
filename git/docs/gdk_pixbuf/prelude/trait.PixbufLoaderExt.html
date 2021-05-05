@@ -15,9 +15,9 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_size_prepared" class="fnname">connect_size_prepared</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 }</pre></div><div class="docblock"><p>Trait containing all <code>PixbufLoader</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.PixbufLoader.html"><code>PixbufLoader</code></a></p>
+<p><a href="../struct.PixbufLoader.html" title="crate::PixbufLoader"><code>crate::PixbufLoader</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.close" class="method"><code>fn <a href="#tymethod.close" class="fnname">close</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#142" title="goto source code">[src]</a></h3><div class="docblock"><p>Informs a pixbuf loader that no further writes with
-<a href="trait.PixbufLoaderExt.html#tymethod.write"><code>write()</code></a> will occur, so that it can free its
+<a href="trait.PixbufLoaderExt.html#tymethod.write" title="Self::write()"><code>Self::write()</code></a> will occur, so that it can free its
 internal loading structures. Also, tries to parse any data that
 hasn’t yet been parsed; if the remaining data is partial or
 corrupt, an error will be returned. If <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> is returned, <code>error</code>
@@ -26,41 +26,41 @@ domains. If you’re just cancelling a load rather than expecting it
 to be finished, passing <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for <code>error</code> to ignore it is
 reasonable.</p>
 <p>Remember that this does not unref the loader, so if you plan not to
-use it anymore, please <a href="crate::glib::object::Object::unref()"><code>glib::object::Object::unref()</code></a> it.</p>
+use it anymore, please [<code>crate::glib::object::Object::unref()</code>] it.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if all image data written so far was successfully
 passed out via the update_area signal</p>
-</div><h3 id="tymethod.animation" class="method"><code>fn <a href="#tymethod.animation" class="fnname">animation</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.PixbufAnimation.html" title="struct gdk_pixbuf::PixbufAnimation">PixbufAnimation</a>&gt;</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#156" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the <a href="../struct.PixbufAnimation.html"><code>PixbufAnimation</code></a> that a pixbuf loader is currently creating.
+</div><h3 id="tymethod.animation" class="method"><code>fn <a href="#tymethod.animation" class="fnname">animation</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.PixbufAnimation.html" title="struct gdk_pixbuf::PixbufAnimation">PixbufAnimation</a>&gt;</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#156" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the <a href="../struct.PixbufAnimation.html" title="crate::PixbufAnimation"><code>crate::PixbufAnimation</code></a> that a pixbuf loader is currently creating.
 In general it only makes sense to call this function after the “area-prepared”
 signal has been emitted by the loader. If the loader doesn’t have enough
 bytes yet (hasn’t emitted the “area-prepared” signal) this function will
 return <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>The <a href="../struct.PixbufAnimation.html"><code>PixbufAnimation</code></a> that the loader is loading, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if
+<p>The <a href="../struct.PixbufAnimation.html" title="crate::PixbufAnimation"><code>crate::PixbufAnimation</code></a> that the loader is loading, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if
 not enough data has been read to determine the information.</p>
 </div><h3 id="tymethod.format" class="method"><code>fn <a href="#tymethod.format" class="fnname">format</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.PixbufFormat.html" title="struct gdk_pixbuf::PixbufFormat">PixbufFormat</a>&gt;</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#168" title="goto source code">[src]</a></h3><div class="docblock"><p>Obtains the available information about the format of the
 currently loading image file.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>A <a href="../struct.PixbufFormat.html"><code>PixbufFormat</code></a> or
+<p>A <a href="../struct.PixbufFormat.html" title="crate::PixbufFormat"><code>crate::PixbufFormat</code></a> or
 <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. The return value is owned by <code>Pixbuf</code> and should not be
 freed.</p>
-</div><h3 id="tymethod.pixbuf" class="method"><code>fn <a href="#tymethod.pixbuf" class="fnname">pixbuf</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Pixbuf.html" title="struct gdk_pixbuf::Pixbuf">Pixbuf</a>&gt;</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#188" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the <a href="../struct.Pixbuf.html"><code>Pixbuf</code></a> that a pixbuf loader is currently creating.
+</div><h3 id="tymethod.pixbuf" class="method"><code>fn <a href="#tymethod.pixbuf" class="fnname">pixbuf</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Pixbuf.html" title="struct gdk_pixbuf::Pixbuf">Pixbuf</a>&gt;</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#188" title="goto source code">[src]</a></h3><div class="docblock"><p>Queries the <a href="../struct.Pixbuf.html" title="crate::Pixbuf"><code>crate::Pixbuf</code></a> that a pixbuf loader is currently creating.
 In general it only makes sense to call this function after the
 “area-prepared” signal has been emitted by the loader; this means
 that enough data has been read to know the size of the image that
 will be allocated. If the loader has not received enough data via
-<a href="trait.PixbufLoaderExt.html#tymethod.write"><code>write()</code></a>, then this function returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. The
+<a href="trait.PixbufLoaderExt.html#tymethod.write" title="Self::write()"><code>Self::write()</code></a>, then this function returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. The
 returned pixbuf will be the same in all future calls to the loader,
-so simply calling <a href="crate::glib::object::Object::ref()"><code>glib::object::Object::ref()</code></a> should be sufficient to continue
+so simply calling [<code>crate::glib::object::Object::ref()</code>] should be sufficient to continue
 using it. Additionally, if the loader is an animation, it will
 return the “static image” of the animation
-(see <a href="crate::PixbufAnimationExt::get_static_image()"><code>PixbufAnimationExt::get_static_image()</code></a>).</p>
+(see [<code>crate::prelude::PixbufAnimationExt::get_static_image()</code>]).</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p>The <a href="../struct.Pixbuf.html"><code>Pixbuf</code></a> that the loader is creating, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if not
+<p>The <a href="../struct.Pixbuf.html" title="crate::Pixbuf"><code>crate::Pixbuf</code></a> that the loader is creating, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if not
 enough data has been read to determine how to create the image buffer.</p>
 </div><h3 id="tymethod.set_size" class="method"><code>fn <a href="#tymethod.set_size" class="fnname">set_size</a>(&amp;self, width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#202" title="goto source code">[src]</a></h3><div class="docblock"><p>Causes the image to be scaled while it is loaded. The desired
 image size can be determined relative to the original size of
-the image by calling <a href="trait.PixbufLoaderExt.html#tymethod.set_size"><code>set_size()</code></a> from a
+the image by calling <a href="trait.PixbufLoaderExt.html#tymethod.set_size" title="Self::set_size()"><code>Self::set_size()</code></a> from a
 signal handler for the ::size-prepared signal.</p>
 <p>Attempts to set the desired image size are ignored after the
 emission of the ::size-prepared signal.</p>
@@ -81,21 +81,21 @@ or <code>G_FILE_ERROR</code> domains.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the write was successful, or <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if the loader
 cannot parse the buffer.</p>
-</div><h3 id="tymethod.write_bytes" class="method"><code>fn <a href="#tymethod.write_bytes" class="fnname">write_bytes</a>(&amp;self, buffer: &amp;<a class="struct" href="../../glib/bytes/struct.Bytes.html" title="struct glib::bytes::Bytes">Bytes</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#238" title="goto source code">[src]</a></h3><div class="docblock"><p>This will cause a pixbuf loader to parse a buffer inside a <a href="../../glib/bytes/struct.Bytes.html"><code>glib::Bytes</code></a>
+</div><h3 id="tymethod.write_bytes" class="method"><code>fn <a href="#tymethod.write_bytes" class="fnname">write_bytes</a>(&amp;self, buffer: &amp;<a class="struct" href="../../glib/bytes/struct.Bytes.html" title="struct glib::bytes::Bytes">Bytes</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#238" title="goto source code">[src]</a></h3><div class="docblock"><p>This will cause a pixbuf loader to parse a buffer inside a <a href="../../glib/bytes/struct.Bytes.html" title="crate::glib::Bytes"><code>crate::glib::Bytes</code></a>
 for an image. It will return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the data was loaded successfully,
 and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if an error occurred. In the latter case, the loader
 will be closed, and will not accept further writes. If <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> is
 returned, <code>error</code> will be set to an error from the <code>GDK_PIXBUF_ERROR</code>
 or <code>G_FILE_ERROR</code> domains.</p>
-<p>See also: <a href="trait.PixbufLoaderExt.html#tymethod.write"><code>write()</code></a></p>
+<p>See also: <a href="trait.PixbufLoaderExt.html#tymethod.write" title="Self::write()"><code>Self::write()</code></a></p>
 <h2 id="buffer" class="section-header"><a href="#buffer"><code>buffer</code></a></h2>
-<p>The image data as a <a href="../../glib/bytes/struct.Bytes.html"><code>glib::Bytes</code></a></p>
+<p>The image data as a <a href="../../glib/bytes/struct.Bytes.html" title="crate::glib::Bytes"><code>crate::glib::Bytes</code></a></p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the write was successful, or <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if the loader
 cannot parse the buffer.</p>
 </div><h3 id="tymethod.connect_area_prepared" class="method"><code>fn <a href="#tymethod.connect_area_prepared" class="fnname">connect_area_prepared</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#245" title="goto source code">[src]</a></h3><div class="docblock"><p>This signal is emitted when the pixbuf loader has allocated the
 pixbuf in the desired size. After this signal is emitted,
-applications can call <a href="Self::get_pixbuf()"><code>get_pixbuf()</code></a> to fetch
+applications can call [<code>Self::get_pixbuf()</code>] to fetch
 the partially-loaded pixbuf.</p>
 </div><h3 id="tymethod.connect_area_updated" class="method"><code>fn <a href="#tymethod.connect_area_updated" class="fnname">connect_area_updated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#261-264" title="goto source code">[src]</a></h3><div class="docblock"><p>This signal is emitted when a significant area of the image being
 loaded has been updated. Normally it means that a complete
@@ -110,14 +110,14 @@ areas of an image that is being loaded.</p>
 <p>Width of updated area.</p>
 <h2 id="height-1" class="section-header"><a href="#height-1"><code>height</code></a></h2>
 <p>Height of updated area.</p>
-</div><h3 id="tymethod.connect_closed" class="method"><code>fn <a href="#tymethod.connect_closed" class="fnname">connect_closed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#271" title="goto source code">[src]</a></h3><div class="docblock"><p>This signal is emitted when <a href="trait.PixbufLoaderExt.html#tymethod.close"><code>close()</code></a> is called.
+</div><h3 id="tymethod.connect_closed" class="method"><code>fn <a href="#tymethod.connect_closed" class="fnname">connect_closed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#271" title="goto source code">[src]</a></h3><div class="docblock"><p>This signal is emitted when <a href="trait.PixbufLoaderExt.html#tymethod.close" title="Self::close()"><code>Self::close()</code></a> is called.
 It can be used by different parts of an application to receive
 notification when an image loader is closed by the code that
 drives it.</p>
 </div><h3 id="tymethod.connect_size_prepared" class="method"><code>fn <a href="#tymethod.connect_size_prepared" class="fnname">connect_size_prepared</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gdk_pixbuf/auto/pixbuf_loader.rs.html#283" title="goto source code">[src]</a></h3><div class="docblock"><p>This signal is emitted when the pixbuf loader has been fed the
 initial amount of data that is required to figure out the size
 of the image that it will create. Applications can call
-<a href="trait.PixbufLoaderExt.html#tymethod.set_size"><code>set_size()</code></a> in response to this signal to set
+<a href="trait.PixbufLoaderExt.html#tymethod.set_size" title="Self::set_size()"><code>Self::set_size()</code></a> in response to this signal to set
 the desired size to which the image should be scaled.</p>
 <h2 id="width-2" class="section-header"><a href="#width-2"><code>width</code></a></h2>
 <p>the original width of the image</p>

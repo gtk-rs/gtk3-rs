@@ -6,14 +6,14 @@ in various event types. Typical modifier keys are Shift, Control, Meta,
 Super, Hyper, Alt, Compose, Apple, CapsLock or ShiftLock.</p>
 <p>Like the X Window System, GDK supports 8 modifier keys and 5 mouse buttons.</p>
 <p>Since 2.10, GDK recognizes which of the Meta, Super or Hyper keys are mapped
-to Mod2 - Mod5, and indicates this by setting <a href="Self::SuperMask"><code>SuperMask</code></a>,
-<a href="Self::HyperMask"><code>HyperMask</code></a> or <a href="Self::MetaMask"><code>MetaMask</code></a> in the state field of key events.</p>
+to Mod2 - Mod5, and indicates this by setting [<code>Self::SuperMask</code>],
+[<code>Self::HyperMask</code>] or [<code>Self::MetaMask</code>] in the state field of key events.</p>
 <p>Note that GDK may add internal values to events which include
-reserved values such as <a href="Self::ModifierReserved13Mask"><code>ModifierReserved13Mask</code></a>. Your code
-should preserve and ignore them. You can use <a href="Self::ModifierMask"><code>ModifierMask</code></a> to
+reserved values such as [<code>Self::ModifierReserved13Mask</code>]. Your code
+should preserve and ignore them. You can use [<code>Self::ModifierMask</code>] to
 remove all reserved values.</p>
 <p>Also note that the GDK X backend interprets button press events for button
-4-7 as scroll events, so <a href="Self::Button4Mask"><code>Button4Mask</code></a> and <a href="Self::Button5Mask"><code>Button5Mask</code></a> will never
+4-7 as scroll events, so [<code>Self::Button4Mask</code>] and [<code>Self::Button5Mask</code>] will never
 be set.</p>
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.ModifierType.html" title="struct gdk::ModifierType">ModifierType</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gdk/auto/flags.rs.html#517-610" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="associatedconstant.SHIFT_MASK" class="associatedconstant"><code>pub const <a href="#associatedconstant.SHIFT_MASK" class="constant"><b>SHIFT_MASK</b></a>: <a class="struct" href="struct.ModifierType.html" title="struct gdk::ModifierType">ModifierType</a></code><a href="#associatedconstant.SHIFT_MASK" class="anchor"></a><a class="srclink" href="../src/gdk/auto/flags.rs.html#517-610" title="goto source code">[src]</a></h4><div class="docblock"><p>the Shift key.</p>
 </div><h4 id="associatedconstant.LOCK_MASK" class="associatedconstant"><code>pub const <a href="#associatedconstant.LOCK_MASK" class="constant"><b>LOCK_MASK</b></a>: <a class="struct" href="struct.ModifierType.html" title="struct gdk::ModifierType">ModifierType</a></code><a href="#associatedconstant.LOCK_MASK" class="anchor"></a><a class="srclink" href="../src/gdk/auto/flags.rs.html#517-610" title="goto source code">[src]</a></h4><div class="docblock"><p>a Lock key (depending on the modifier mapping of the

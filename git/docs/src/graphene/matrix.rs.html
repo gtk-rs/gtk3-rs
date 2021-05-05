@@ -196,6 +196,10 @@
 <span id="193">193</span>
 <span id="194">194</span>
 <span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -206,7 +210,7 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl</span> <span class="ident">Matrix</span> {
-    <span class="doccomment">/// Initializes a [`Matrix`](crate::Matrix) with the given array of floating</span>
+    <span class="doccomment">/// Initializes a [`crate::Matrix`] with the given array of floating</span>
     <span class="doccomment">/// point values.</span>
     <span class="doccomment">/// ## `v`</span>
     <span class="doccomment">/// an array of at least 16 floating</span>
@@ -223,7 +227,8 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_from_2d&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_2d</span>(<span class="ident">xx</span>: <span class="ident">f64</span>, <span class="ident">yx</span>: <span class="ident">f64</span>, <span class="ident">xy</span>: <span class="ident">f64</span>, <span class="ident">yy</span>: <span class="ident">f64</span>, <span class="ident">x_0</span>: <span class="ident">f64</span>, <span class="ident">y_0</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_2d&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_2d</span>(<span class="ident">xx</span>: <span class="ident">f64</span>, <span class="ident">yx</span>: <span class="ident">f64</span>, <span class="ident">xy</span>: <span class="ident">f64</span>, <span class="ident">yy</span>: <span class="ident">f64</span>, <span class="ident">x_0</span>: <span class="ident">f64</span>, <span class="ident">y_0</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi::graphene_matrix_alloc</span>();
@@ -233,7 +238,8 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_from_float&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_float</span>(<span class="ident">v</span>: <span class="kw-2">&amp;</span>[<span class="ident">f32</span>; <span class="number">16</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_float&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_float</span>(<span class="ident">v</span>: <span class="kw-2">&amp;</span>[<span class="ident">f32</span>; <span class="number">16</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi::graphene_matrix_alloc</span>();
@@ -243,7 +249,8 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_from_matrix&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_matrix</span>(<span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_matrix&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_matrix</span>(<span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi::graphene_matrix_alloc</span>();
@@ -253,7 +260,8 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_matrix_init_from_vec4&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_vec4</span>(<span class="ident">v0</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v1</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v2</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v3</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_vec4&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_vec4</span>(<span class="ident">v0</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v1</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v2</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>, <span class="ident">v3</span>: <span class="kw-2">&amp;</span><span class="ident">Vec4</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi::graphene_matrix_alloc</span>();
@@ -377,7 +385,7 @@
         }
     }
 
-    <span class="doccomment">/// Converts a [`Matrix`](crate::Matrix) to an array of floating point</span>
+    <span class="doccomment">/// Converts a [`crate::Matrix`] to an array of floating point</span>
     <span class="doccomment">/// values.</span>
     <span class="doccomment">/// ## `v`</span>
     <span class="doccomment">/// return location</span>

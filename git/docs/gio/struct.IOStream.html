@@ -5,44 +5,44 @@
 Generally the two streams act as separate input and output streams,
 but they share some common resources and state. For instance, for
 seekable streams, both streams may use the same position.</p>
-<p>Examples of <a href="struct.IOStream.html"><code>IOStream</code></a> objects are <a href="struct.SocketConnection.html"><code>SocketConnection</code></a>, which represents
-a two-way network connection; and <a href="struct.FileIOStream.html"><code>FileIOStream</code></a>, which represents a
+<p>Examples of <a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a> objects are <a href="struct.SocketConnection.html" title="crate::SocketConnection"><code>crate::SocketConnection</code></a>, which represents
+a two-way network connection; and <a href="struct.FileIOStream.html" title="crate::FileIOStream"><code>crate::FileIOStream</code></a>, which represents a
 file handle opened in read-write mode.</p>
 <p>To do the actual reading and writing you need to get the substreams
-with <a href="crate::IOStreamExt::get_input_stream()"><code>IOStreamExt::get_input_stream()</code></a> and <a href="crate::IOStreamExt::get_output_stream()"><code>IOStreamExt::get_output_stream()</code></a>.</p>
-<p>The <a href="struct.IOStream.html"><code>IOStream</code></a> object owns the input and the output streams, not the other
-way around, so keeping the substreams alive will not keep the <a href="struct.IOStream.html"><code>IOStream</code></a>
-object alive. If the <a href="struct.IOStream.html"><code>IOStream</code></a> object is freed it will be closed, thus
+with [<code>crate::prelude::IOStreamExt::get_input_stream()</code>] and [<code>crate::prelude::IOStreamExt::get_output_stream()</code>].</p>
+<p>The <a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a> object owns the input and the output streams, not the other
+way around, so keeping the substreams alive will not keep the <a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a>
+object alive. If the <a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a> object is freed it will be closed, thus
 closing the substreams, so even if the substreams stay alive they will
-always return [<code>IOErrorEnum::Closed</code>] for all operations.</p>
-<p>To close a stream use <a href="crate::IOStreamExt::close()"><code>IOStreamExt::close()</code></a> which will close the common
+always return <a href="enum.IOErrorEnum.html#variant.Closed" title="crate::IOErrorEnum::Closed"><code>crate::IOErrorEnum::Closed</code></a> for all operations.</p>
+<p>To close a stream use <a href="prelude/trait.IOStreamExt.html#tymethod.close" title="crate::prelude::IOStreamExt::close()"><code>crate::prelude::IOStreamExt::close()</code></a> which will close the common
 stream object and also the individual substreams. You can also close
 the substreams themselves. In most cases this only marks the
 substream as closed, so further I/O on it fails but common state in the
-<a href="struct.IOStream.html"><code>IOStream</code></a> may still be open. However, some streams may support
+<a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a> may still be open. However, some streams may support
 “half-closed” states where one direction of the stream is actually shut down.</p>
 <p>Operations on <code>GIOStreams</code> cannot be started while another operation on the
-<a href="struct.IOStream.html"><code>IOStream</code></a> or its substreams is in progress. Specifically, an application can
-read from the <a href="struct.InputStream.html"><code>InputStream</code></a> and write to the <a href="struct.OutputStream.html"><code>OutputStream</code></a> simultaneously
+<a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a> or its substreams is in progress. Specifically, an application can
+read from the <a href="struct.InputStream.html" title="crate::InputStream"><code>crate::InputStream</code></a> and write to the <a href="struct.OutputStream.html" title="crate::OutputStream"><code>crate::OutputStream</code></a> simultaneously
 (either in separate threads, or as asynchronous operations in the same
-thread), but an application cannot start any <a href="struct.IOStream.html"><code>IOStream</code></a> operation while there
-is a <a href="struct.IOStream.html"><code>IOStream</code></a>, <a href="struct.InputStream.html"><code>InputStream</code></a> or <a href="struct.OutputStream.html"><code>OutputStream</code></a> operation in progress, and
-an application can’t start any <a href="struct.InputStream.html"><code>InputStream</code></a> or <a href="struct.OutputStream.html"><code>OutputStream</code></a> operation
-while there is a <a href="struct.IOStream.html"><code>IOStream</code></a> operation in progress.</p>
+thread), but an application cannot start any <a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a> operation while there
+is a <a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a>, <a href="struct.InputStream.html" title="crate::InputStream"><code>crate::InputStream</code></a> or <a href="struct.OutputStream.html" title="crate::OutputStream"><code>crate::OutputStream</code></a> operation in progress, and
+an application can’t start any <a href="struct.InputStream.html" title="crate::InputStream"><code>crate::InputStream</code></a> or <a href="struct.OutputStream.html" title="crate::OutputStream"><code>crate::OutputStream</code></a> operation
+while there is a <a href="struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a> operation in progress.</p>
 <p>This is a product of individual stream operations being associated with a
-given <a href="../glib/auto/main_context/struct.MainContext.html"><code>glib::MainContext</code></a> (the thread-default context at the time the operation was
+given <a href="../glib/auto/main_context/struct.MainContext.html" title="crate::glib::MainContext"><code>crate::glib::MainContext</code></a> (the thread-default context at the time the operation was
 started), rather than entire streams being associated with a single
-<a href="../glib/auto/main_context/struct.MainContext.html"><code>glib::MainContext</code></a>.</p>
+<a href="../glib/auto/main_context/struct.MainContext.html" title="crate::glib::MainContext"><code>crate::glib::MainContext</code></a>.</p>
 <p>GIO may run operations on <code>GIOStreams</code> from other (worker) threads, and this
 may be exposed to application code in the behaviour of wrapper streams, such
-as <a href="struct.BufferedInputStream.html"><code>BufferedInputStream</code></a> or <a href="struct.TlsConnection.html"><code>TlsConnection</code></a>. With such wrapper APIs,
+as <a href="struct.BufferedInputStream.html" title="crate::BufferedInputStream"><code>crate::BufferedInputStream</code></a> or <a href="struct.TlsConnection.html" title="crate::TlsConnection"><code>crate::TlsConnection</code></a>. With such wrapper APIs,
 application code may only run operations on the base (wrapped) stream when
 the wrapper stream is idle. Note that the semantics of such operations may
 not be well-defined due to the state the wrapper stream leaves the base
 stream in (though they are guaranteed not to crash).</p>
 <p>This is an Abstract Base Class, you cannot instantiate it.</p>
 <h1 id="implements" class="section-header"><a href="#implements">Implements</a></h1>
-<p><a href="prelude/trait.IOStreamExt.html"><code>IOStreamExt</code></a>, <a href="../glib/object/trait.ObjectExt.html" title="glib::object::ObjectExt"><code>glib::object::ObjectExt</code></a>, <a href="prelude/trait.IOStreamExtManual.html"><code>IOStreamExtManual</code></a></p>
+<p><a href="prelude/trait.IOStreamExt.html" title="crate::prelude::IOStreamExt"><code>crate::prelude::IOStreamExt</code></a>, <a href="../glib/object/trait.ObjectExt.html" title="glib::object::ObjectExt"><code>glib::object::ObjectExt</code></a>, <a href="prelude/trait.IOStreamExtManual.html" title="crate::prelude::IOStreamExtManual"><code>crate::prelude::IOStreamExtManual</code></a></p>
 </div><h2 id="trait-implementations" class="small-section-header">Trait Implementations<a href="#trait-implementations" class="anchor"></a></h2><div id="trait-implementations-list"><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Clone" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="struct.IOStream.html" title="struct gio::IOStream">IOStream</a></code><a href="#impl-Clone" class="anchor"></a><a class="srclink" href="../src/gio/auto/io_stream.rs.html#20-78" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.clone" class="method hidden trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone" class="fnname">clone</a>(&amp;self) -&gt; <a class="struct" href="struct.IOStream.html" title="struct gio::IOStream">IOStream</a></code><a href="#method.clone" class="anchor"></a><a class="srclink" href="../src/gio/auto/io_stream.rs.html#20-78" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
 </div><h4 id="method.clone_from" class="method hidden trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from" class="fnname">clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a href="#method.clone_from" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
 </div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Debug" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="struct.IOStream.html" title="struct gio::IOStream">IOStream</a></code><a href="#impl-Debug" class="anchor"></a><a class="srclink" href="../src/gio/auto/io_stream.rs.html#20-78" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.fmt" class="method hidden trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt" class="fnname">fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>&lt;'_&gt;) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code><a href="#method.fmt" class="anchor"></a><a class="srclink" href="../src/gio/auto/io_stream.rs.html#20-78" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>

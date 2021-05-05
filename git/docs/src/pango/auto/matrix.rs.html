@@ -189,7 +189,7 @@
     <span class="doccomment">/// transformation given by first applying transformation</span>
     <span class="doccomment">/// given by `new_matrix` then applying the original transformation.</span>
     <span class="doccomment">/// ## `new_matrix`</span>
-    <span class="doccomment">/// a [`Matrix`](crate::Matrix)</span>
+    <span class="doccomment">/// a [`crate::Matrix`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_matrix_concat&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">concat</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">new_matrix</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) {
         <span class="kw">unsafe</span> {
@@ -250,7 +250,7 @@
     }
 
     <span class="doccomment">/// Transforms the distance vector (`dx`,`dy`) by `self`. This is</span>
-    <span class="doccomment">/// similar to [`transform_point()`](Self::transform_point()) except that the translation</span>
+    <span class="doccomment">/// similar to [`Self::transform_point()`] except that the translation</span>
     <span class="doccomment">/// components of the transformation are ignored. The calculation of</span>
     <span class="doccomment">/// the returned vector is as follows:</span>
     <span class="doccomment">///</span>

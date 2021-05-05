@@ -9,23 +9,23 @@ asynchronous function. This callback will be triggered when the
 operation has completed, and must be run in a later iteration of
 the [thread-default main context][g-main-context-push-thread-default]
 from where the operation was initiated. It will be passed a
-<a href="struct.AsyncResult.html"><code>AsyncResult</code></a> instance filled with the details of the operation’s
+<a href="struct.AsyncResult.html" title="crate::AsyncResult"><code>crate::AsyncResult</code></a> instance filled with the details of the operation’s
 success or failure, the object the asynchronous function was
 started for and any error codes returned. The asynchronous callback
 function is then expected to call the corresponding “<code>_finish()</code>”
 function, passing the object the function was called for, the
-<a href="struct.AsyncResult.html"><code>AsyncResult</code></a> instance, and (optionally) an <code>error</code> to grab any
+<a href="struct.AsyncResult.html" title="crate::AsyncResult"><code>crate::AsyncResult</code></a> instance, and (optionally) an <code>error</code> to grab any
 error conditions that may have occurred.</p>
 <p>The “<code>_finish()</code>” function for an operation takes the generic result
-(of type <a href="struct.AsyncResult.html"><code>AsyncResult</code></a>) and returns the specific result that the
-operation in question yields (e.g. a <a href="struct.FileEnumerator.html"><code>FileEnumerator</code></a> for a
+(of type <a href="struct.AsyncResult.html" title="crate::AsyncResult"><code>crate::AsyncResult</code></a>) and returns the specific result that the
+operation in question yields (e.g. a <a href="struct.FileEnumerator.html" title="crate::FileEnumerator"><code>crate::FileEnumerator</code></a> for a
 “enumerate children” operation). If the result or error status of the
 operation is not needed, there is no need to call the “<code>_finish()</code>”
 function; GIO will take care of cleaning up the result and error
 information after the <code>GAsyncReadyCallback</code> returns. You can pass
 <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for the <code>GAsyncReadyCallback</code> if you don’t need to take any
 action at all after the operation completes. Applications may also
-take a reference to the <a href="struct.AsyncResult.html"><code>AsyncResult</code></a> and call “<code>_finish()</code>” later;
+take a reference to the <a href="struct.AsyncResult.html" title="crate::AsyncResult"><code>crate::AsyncResult</code></a> and call “<code>_finish()</code>” later;
 however, the “<code>_finish()</code>” function may be called at most once.</p>
 <p>Example of a typical asynchronous operation flow:</p>
 <pre><code class="language-C">void _theoretical_frobnitz_async (Theoretical         *t,
@@ -69,7 +69,7 @@ int main (int argc, void *argv[])
 </code></pre>
 <p>The callback for an asynchronous operation is called only once, and is
 always called, even in the case of a cancelled operation. On cancellation
-the result is a [<code>IOErrorEnum::Cancelled</code>] error.</p>
+the result is a <a href="enum.IOErrorEnum.html#variant.Cancelled" title="crate::IOErrorEnum::Cancelled"><code>crate::IOErrorEnum::Cancelled</code></a> error.</p>
 <h2 id="io-priority--io-priority" class="section-header"><a href="#io-priority--io-priority">I/O Priority # {<code>io</code>-priority}</a></h2>
 <p>Many I/O-related asynchronous operations have a priority parameter,
 which is used in certain cases to determine the order in which
@@ -79,7 +79,7 @@ higher priority. It is recommended to choose priorities between
 <code>G_PRIORITY_LOW</code> and <code>G_PRIORITY_HIGH</code>, with <code>G_PRIORITY_DEFAULT</code>
 as a default.</p>
 <h1 id="implements" class="section-header"><a href="#implements">Implements</a></h1>
-<p><a href="prelude/trait.AsyncResultExt.html"><code>AsyncResultExt</code></a></p>
+<p><a href="prelude/trait.AsyncResultExt.html" title="crate::prelude::AsyncResultExt"><code>crate::prelude::AsyncResultExt</code></a></p>
 </div><h2 id="trait-implementations" class="small-section-header">Trait Implementations<a href="#trait-implementations" class="anchor"></a></h2><div id="trait-implementations-list"><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Clone" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="struct.AsyncResult.html" title="struct gio::AsyncResult">AsyncResult</a></code><a href="#impl-Clone" class="anchor"></a><a class="srclink" href="../src/gio/auto/async_result.rs.html#10-105" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.clone" class="method hidden trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone" class="fnname">clone</a>(&amp;self) -&gt; <a class="struct" href="struct.AsyncResult.html" title="struct gio::AsyncResult">AsyncResult</a></code><a href="#method.clone" class="anchor"></a><a class="srclink" href="../src/gio/auto/async_result.rs.html#10-105" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
 </div><h4 id="method.clone_from" class="method hidden trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from" class="fnname">clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a href="#method.clone_from" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
 </div></div></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Debug" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="struct.AsyncResult.html" title="struct gio::AsyncResult">AsyncResult</a></code><a href="#impl-Debug" class="anchor"></a><a class="srclink" href="../src/gio/auto/async_result.rs.html#10-105" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.fmt" class="method hidden trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt" class="fnname">fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>&lt;'_&gt;) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code><a href="#method.fmt" class="anchor"></a><a class="srclink" href="../src/gio/auto/async_result.rs.html#10-105" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>

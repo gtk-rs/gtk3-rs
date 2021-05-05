@@ -9,14 +9,14 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.unset_property" class="fnname">unset_property</a>(&amp;self, property: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, state: <a class="struct" href="../struct.StateFlags.html" title="struct gtk::StateFlags">StateFlags</a>);
 }</pre></div><div class="docblock"><p><code>[Deprecated since 3.16]</code> Trait containing all <code>StyleProperties</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.StyleProperties.html"><code>StyleProperties</code></a></p>
+<p><a href="../struct.StyleProperties.html" title="crate::StyleProperties"><code>crate::StyleProperties</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.clear" class="method"><code>fn <a href="#tymethod.clear" class="fnname">clear</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/style_properties.rs.html#78" title="goto source code">[src]</a></h3><div class="docblock"><p>Clears all style information from <code>self</code>.</p>
 <h1 id="deprecated-since-316" class="section-header"><a href="#deprecated-since-316">Deprecated since 3.16</a></h1>
-<p><a href="../struct.StyleProperties.html"><code>StyleProperties</code></a> are deprecated.</p>
+<p><a href="../struct.StyleProperties.html" title="crate::StyleProperties"><code>crate::StyleProperties</code></a> are deprecated.</p>
 </div><h3 id="tymethod.property" class="method"><code>fn <a href="#tymethod.property" class="fnname">property</a>(&amp;self, property: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, state: <a class="struct" href="../struct.StateFlags.html" title="struct gtk::StateFlags">StateFlags</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/style_properties.rs.html#103" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets a style property from <code>self</code> for the given state. When done with <code>value</code>,
-<a href="crate::glib::object::Value::unset()"><code>glib::object::Value::unset()</code></a> needs to be called to free any allocated memory.</p>
+[<code>crate::glib::object::Value::unset()</code>] needs to be called to free any allocated memory.</p>
 <h1 id="deprecated-since-316-1" class="section-header"><a href="#deprecated-since-316-1">Deprecated since 3.16</a></h1>
-<p><a href="../struct.StyleProperties.html"><code>StyleProperties</code></a> are deprecated.</p>
+<p><a href="../struct.StyleProperties.html" title="crate::StyleProperties"><code>crate::StyleProperties</code></a> are deprecated.</p>
 <h2 id="property" class="section-header"><a href="#property"><code>property</code></a></h2>
 <p>style property name</p>
 <h2 id="state" class="section-header"><a href="#state"><code>state</code></a></h2>
@@ -30,14 +30,14 @@ in <code>props_to_merge</code>. If <code>replace</code> is <a href="https://doc.
 will be overwritten, if it is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>, the older values
 will prevail.</p>
 <h1 id="deprecated-since-316-2" class="section-header"><a href="#deprecated-since-316-2">Deprecated since 3.16</a></h1>
-<p><a href="../struct.StyleProperties.html"><code>StyleProperties</code></a> are deprecated.</p>
+<p><a href="../struct.StyleProperties.html" title="crate::StyleProperties"><code>crate::StyleProperties</code></a> are deprecated.</p>
 <h2 id="props_to_merge" class="section-header"><a href="#props_to_merge"><code>props_to_merge</code></a></h2>
-<p>a second <a href="../struct.StyleProperties.html"><code>StyleProperties</code></a></p>
+<p>a second <a href="../struct.StyleProperties.html" title="crate::StyleProperties"><code>crate::StyleProperties</code></a></p>
 <h2 id="replace" class="section-header"><a href="#replace"><code>replace</code></a></h2>
 <p>whether to replace values or not</p>
 </div><h3 id="tymethod.set_property" class="method"><code>fn <a href="#tymethod.set_property" class="fnname">set_property</a>(&amp;self, property: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, state: <a class="struct" href="../struct.StateFlags.html" title="struct gtk::StateFlags">StateFlags</a>, value: &amp;<a class="struct" href="../../glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>)</code><a class="srclink" href="../../src/gtk/auto/style_properties.rs.html#143" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets a styling property in <code>self</code>.</p>
 <h1 id="deprecated-since-316-3" class="section-header"><a href="#deprecated-since-316-3">Deprecated since 3.16</a></h1>
-<p><a href="../struct.StyleProperties.html"><code>StyleProperties</code></a> are deprecated.</p>
+<p><a href="../struct.StyleProperties.html" title="crate::StyleProperties"><code>crate::StyleProperties</code></a> are deprecated.</p>
 <h2 id="property-1" class="section-header"><a href="#property-1"><code>property</code></a></h2>
 <p>styling property to set</p>
 <h2 id="state-1" class="section-header"><a href="#state-1"><code>state</code></a></h2>
@@ -46,7 +46,7 @@ will prevail.</p>
 <p>new value for the property</p>
 </div><h3 id="tymethod.unset_property" class="method"><code>fn <a href="#tymethod.unset_property" class="fnname">unset_property</a>(&amp;self, property: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, state: <a class="struct" href="../struct.StateFlags.html" title="struct gtk::StateFlags">StateFlags</a>)</code><a class="srclink" href="../../src/gtk/auto/style_properties.rs.html#160" title="goto source code">[src]</a></h3><div class="docblock"><p>Unsets a style property in <code>self</code>.</p>
 <h1 id="deprecated-since-316-4" class="section-header"><a href="#deprecated-since-316-4">Deprecated since 3.16</a></h1>
-<p><a href="../struct.StyleProperties.html"><code>StyleProperties</code></a> are deprecated.</p>
+<p><a href="../struct.StyleProperties.html" title="crate::StyleProperties"><code>crate::StyleProperties</code></a> are deprecated.</p>
 <h2 id="property-2" class="section-header"><a href="#property-2"><code>property</code></a></h2>
 <p>property to unset</p>
 <h2 id="state-2" class="section-header"><a href="#state-2"><code>state</code></a></h2>

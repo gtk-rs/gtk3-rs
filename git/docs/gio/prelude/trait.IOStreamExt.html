@@ -14,13 +14,13 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_closed_notify" class="fnname">connect_closed_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 }</pre></div><div class="docblock"><p>Trait containing all <code>IOStream</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.FileIOStream.html"><code>FileIOStream</code></a>, <a href="../struct.IOStream.html"><code>IOStream</code></a>, <a href="../struct.SimpleIOStream.html"><code>SimpleIOStream</code></a>, <a href="../struct.SocketConnection.html"><code>SocketConnection</code></a>, <a href="../struct.TlsConnection.html"><code>TlsConnection</code></a></p>
+<p><a href="../struct.FileIOStream.html" title="crate::FileIOStream"><code>crate::FileIOStream</code></a>, <a href="../struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a>, <a href="../struct.SimpleIOStream.html" title="crate::SimpleIOStream"><code>crate::SimpleIOStream</code></a>, <a href="../struct.SocketConnection.html" title="crate::SocketConnection"><code>crate::SocketConnection</code></a>, <a href="../struct.TlsConnection.html" title="crate::TlsConnection"><code>crate::TlsConnection</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.clear_pending" class="method"><code>fn <a href="#tymethod.clear_pending" class="fnname">clear_pending</a>(&amp;self)</code><a class="srclink" href="../../src/gio/auto/io_stream.rs.html#92" title="goto source code">[src]</a></h3><div class="docblock"><p>Clears the pending flag on <code>self</code>.</p>
 </div><h3 id="tymethod.close" class="method"><code>fn <a href="#tymethod.close" class="fnname">close</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gio/auto/io_stream.rs.html#134" title="goto source code">[src]</a></h3><div class="docblock"><p>Closes the stream, releasing resources related to it. This will also
 close the individual input and output streams, if they are not already
 closed.</p>
 <p>Once the stream is closed, all other operations will return
-[<code>IOErrorEnum::Closed</code>]. Closing a stream multiple times will not
+<a href="../enum.IOErrorEnum.html#variant.Closed" title="crate::IOErrorEnum::Closed"><code>crate::IOErrorEnum::Closed</code></a>. Closing a stream multiple times will not
 return an error.</p>
 <p>Closing a stream will automatically flush any outstanding buffers
 in the stream.</p>
@@ -32,25 +32,25 @@ descriptor) open after the stream is closed. See the documentation for
 the individual stream for details.</p>
 <p>On failure the first error that happened will be reported, but the
 close operation will finish as much as possible. A stream that failed
-to close will still return [<code>IOErrorEnum::Closed</code>] for all operations.
+to close will still return <a href="../enum.IOErrorEnum.html#variant.Closed" title="crate::IOErrorEnum::Closed"><code>crate::IOErrorEnum::Closed</code></a> for all operations.
 Still, it is important to check and report the error to the user,
 otherwise there might be a loss of data as all data might not be written.</p>
 <p>If <code>cancellable</code> is not NULL, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
-was cancelled, the error [<code>IOErrorEnum::Cancelled</code>] will be returned.
+was cancelled, the error <a href="../enum.IOErrorEnum.html#variant.Cancelled" title="crate::IOErrorEnum::Cancelled"><code>crate::IOErrorEnum::Cancelled</code></a> will be returned.
 Cancelling a close will still leave the stream closed, but some streams
 can use a faster close that doesn’t block to e.g. check errors.</p>
 <p>The default implementation of this method just calls close on the
 individual input/output streams.</p>
 <h2 id="cancellable" class="section-header"><a href="#cancellable"><code>cancellable</code></a></h2>
-<p>optional <a href="../struct.Cancellable.html"><code>Cancellable</code></a> object, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to ignore</p>
+<p>optional <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a> object, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to ignore</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> on success, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> on failure</p>
 </div><h3 id="tymethod.close_async" class="method"><code>fn <a href="#tymethod.close_async" class="fnname">close_async</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;, Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(<a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;) + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;io_priority: <a class="struct" href="../../glib/source/struct.Priority.html" title="struct glib::source::Priority">Priority</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;callback: Q<br>)</code><a class="srclink" href="../../src/gio/auto/io_stream.rs.html#155-160" title="goto source code">[src]</a></h3><div class="docblock"><p>Requests an asynchronous close of the stream, releasing resources
 related to it. When the operation is finished <code>callback</code> will be
-called. You can then call <a href="Self::close_finish()"><code>close_finish()</code></a> to get
+called. You can then call [<code>Self::close_finish()</code>] to get
 the result of the operation.</p>
-<p>For behaviour details see <a href="trait.IOStreamExt.html#tymethod.close"><code>close()</code></a>.</p>
+<p>For behaviour details see <a href="trait.IOStreamExt.html#tymethod.close" title="Self::close()"><code>Self::close()</code></a>.</p>
 <p>The asynchronous methods have a default fallback that uses threads
 to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.</p>
@@ -65,12 +65,12 @@ classes. However, if you override one you must override all.</p>
 </div><h3 id="tymethod.close_async_future" class="method"><code>fn <a href="#tymethod.close_async_future" class="fnname">close_async_future</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;io_priority: <a class="struct" href="../../glib/source/struct.Priority.html" title="struct glib::source::Priority">Priority</a><br>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/core/pin/struct.Pin.html" title="struct core::pin::Pin">Pin</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a>&lt;Output = <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;&gt; + 'static&gt;&gt;</code><a class="srclink" href="../../src/gio/auto/io_stream.rs.html#162-165" title="goto source code">[src]</a></h3><h3 id="tymethod.input_stream" class="method"><code>fn <a href="#tymethod.input_stream" class="fnname">input_stream</a>(&amp;self) -&gt; <a class="struct" href="../struct.InputStream.html" title="struct gio::InputStream">InputStream</a></code><a class="srclink" href="../../src/gio/auto/io_stream.rs.html#176" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the input stream for this object. This is used
 for reading.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>a <a href="../struct.InputStream.html"><code>InputStream</code></a>, owned by the <a href="../struct.IOStream.html"><code>IOStream</code></a>.
+<p>a <a href="../struct.InputStream.html" title="crate::InputStream"><code>crate::InputStream</code></a>, owned by the <a href="../struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a>.
 Do not free.</p>
 </div><h3 id="tymethod.output_stream" class="method"><code>fn <a href="#tymethod.output_stream" class="fnname">output_stream</a>(&amp;self) -&gt; <a class="struct" href="../struct.OutputStream.html" title="struct gio::OutputStream">OutputStream</a></code><a class="srclink" href="../../src/gio/auto/io_stream.rs.html#187" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the output stream for this object. This is used for
 writing.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>a <a href="../struct.OutputStream.html"><code>OutputStream</code></a>, owned by the <a href="../struct.IOStream.html"><code>IOStream</code></a>.
+<p>a <a href="../struct.OutputStream.html" title="crate::OutputStream"><code>crate::OutputStream</code></a>, owned by the <a href="../struct.IOStream.html" title="crate::IOStream"><code>crate::IOStream</code></a>.
 Do not free.</p>
 </div><h3 id="tymethod.has_pending" class="method"><code>fn <a href="#tymethod.has_pending" class="fnname">has_pending</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/io_stream.rs.html#195" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if a stream has pending actions.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>

@@ -9,17 +9,17 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.list_faces" class="fnname">list_faces</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.FontFace.html" title="struct pango::FontFace">FontFace</a>&gt;;
 }</pre></div><div class="docblock"><p>Trait containing all <code>FontFamily</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.FontFamily.html"><code>FontFamily</code></a></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.face" class="method"><code>fn <a href="#tymethod.face" class="fnname">face</a>(&amp;self, name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontFace.html" title="struct pango::FontFace">FontFace</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font_family.rs.html#51" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v1_46</code></strong> only.</div></div><div class="docblock"><p>Gets the <a href="../struct.FontFace.html"><code>FontFace</code></a> of <code>self</code> with the given name.</p>
+<p><a href="../struct.FontFamily.html" title="crate::FontFamily"><code>crate::FontFamily</code></a></p>
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.face" class="method"><code>fn <a href="#tymethod.face" class="fnname">face</a>(&amp;self, name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontFace.html" title="struct pango::FontFace">FontFace</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font_family.rs.html#51" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v1_46</code></strong> only.</div></div><div class="docblock"><p>Gets the <a href="../struct.FontFace.html" title="crate::FontFace"><code>crate::FontFace</code></a> of <code>self</code> with the given name.</p>
 <h2 id="name" class="section-header"><a href="#name"><code>name</code></a></h2>
 <p>the name of a face. If the name is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>,
 the family’s default face (fontconfig calls it “Regular”)
 will be returned.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>the <a href="../struct.FontFace.html"><code>FontFace</code></a>,
+<p>the <a href="../struct.FontFace.html" title="crate::FontFace"><code>crate::FontFace</code></a>,
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if no face with the given name exists.</p>
 </div><h3 id="tymethod.name" class="method"><code>fn <a href="#tymethod.name" class="fnname">name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font_family.rs.html#63" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the name of the family. The name is unique among all
-fonts for the font backend and can be used in a <a href="../struct.FontDescription.html"><code>FontDescription</code></a>
+fonts for the font backend and can be used in a <a href="../struct.FontDescription.html" title="crate::FontDescription"><code>crate::FontDescription</code></a>
 to specify that a face from this family is desired.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the name of the family. This string is owned
@@ -32,8 +32,8 @@ double-width characters: characters that occupy two grid cells.
 <code>g_unichar_iswide()</code> returns a result that indicates whether a
 character is typically double-width in a monospace font.</p>
 <p>The best way to find out the grid-cell size is to call
-<a href="crate::FontMetrics::get_approximate_digit_width()"><code>FontMetrics::get_approximate_digit_width()</code></a>, since the results
-of <a href="crate::FontMetrics::get_approximate_char_width()"><code>FontMetrics::get_approximate_char_width()</code></a> may be affected
+[<code>crate::FontMetrics::get_approximate_digit_width()</code>], since the results
+of [<code>crate::FontMetrics::get_approximate_char_width()</code>] may be affected
 by double-width characters.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the family is monospace.</p>
@@ -45,7 +45,7 @@ produce different faces.</p>
 in a family share a common design, but differ in slant, weight,
 width and other aspects.</p>
 <h2 id="faces" class="section-header"><a href="#faces"><code>faces</code></a></h2>
-<p>location to store an array of pointers to <a href="../struct.FontFace.html"><code>FontFace</code></a> objects,
+<p>location to store an array of pointers to <a href="../struct.FontFace.html" title="crate::FontFace"><code>crate::FontFace</code></a> objects,
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. This array should be freed with <code>g_free()</code> when it is no
 longer needed.</p>
 <h2 id="n_faces" class="section-header"><a href="#n_faces"><code>n_faces</code></a></h2>

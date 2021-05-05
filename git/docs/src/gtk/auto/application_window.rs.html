@@ -910,30 +910,30 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`ApplicationWindow`](crate::ApplicationWindow) is a [`Window`](crate::Window) subclass that offers some</span>
-    <span class="doccomment">/// extra functionality for better integration with [`Application`](crate::Application)</span>
+    <span class="doccomment">/// [`crate::ApplicationWindow`] is a [`crate::Window`] subclass that offers some</span>
+    <span class="doccomment">/// extra functionality for better integration with [`crate::Application`]</span>
     <span class="doccomment">/// features. Notably, it can handle both the application menu as well</span>
-    <span class="doccomment">/// as the menubar. See [``GtkApplicationExt`::set_app_menu()`](crate::`GtkApplicationExt`::set_app_menu()) and</span>
-    <span class="doccomment">/// [``GtkApplicationExt`::set_menubar()`](crate::`GtkApplicationExt`::set_menubar()).</span>
+    <span class="doccomment">/// as the menubar. See [`crate::prelude::`GtkApplicationExt`::set_app_menu()`] and</span>
+    <span class="doccomment">/// [`crate::prelude::`GtkApplicationExt`::set_menubar()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This class implements the [`gio::ActionGroup`](crate::gio::ActionGroup) and [`gio::ActionMap`](crate::gio::ActionMap) interfaces,</span>
+    <span class="doccomment">/// This class implements the [`crate::gio::ActionGroup`] and [`crate::gio::ActionMap`] interfaces,</span>
     <span class="doccomment">/// to let you add window-specific actions that will be exported by the</span>
-    <span class="doccomment">/// associated [`Application`](crate::Application), together with its application-wide</span>
+    <span class="doccomment">/// associated [`crate::Application`], together with its application-wide</span>
     <span class="doccomment">/// actions. Window-specific actions are prefixed with the “win.”</span>
     <span class="doccomment">/// prefix and application-wide actions are prefixed with the “app.”</span>
     <span class="doccomment">/// prefix. Actions must be addressed with the prefixed name when</span>
-    <span class="doccomment">/// referring to them from a [`gio::MenuModel`](crate::gio::MenuModel).</span>
+    <span class="doccomment">/// referring to them from a [`crate::gio::MenuModel`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that widgets that are placed inside a [`ApplicationWindow`](crate::ApplicationWindow)</span>
+    <span class="doccomment">/// Note that widgets that are placed inside a [`crate::ApplicationWindow`]</span>
     <span class="doccomment">/// can also activate these actions, if they implement the</span>
-    <span class="doccomment">/// [`Actionable`](crate::Actionable) interface.</span>
+    <span class="doccomment">/// [`crate::Actionable`] interface.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As with [`Application`](crate::Application), the GDK lock will be acquired when</span>
+    <span class="doccomment">/// As with [`crate::Application`], the GDK lock will be acquired when</span>
     <span class="doccomment">/// processing actions arriving from other processes and should therefore</span>
     <span class="doccomment">/// be held when activating actions locally (if GDK threads are enabled).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The settings [`Settings:gtk-shell-shows-app-menu`](crate::Settings:gtk-shell-shows-app-menu) and</span>
-    <span class="doccomment">/// [`Settings:gtk-shell-shows-menubar`](crate::Settings:gtk-shell-shows-menubar) tell GTK+ whether the</span>
+    <span class="doccomment">/// The settings [`crate::Settings:gtk-shell-shows-app-menu`] and</span>
+    <span class="doccomment">/// [`crate::Settings:gtk-shell-shows-menubar`] tell GTK+ whether the</span>
     <span class="doccomment">/// desktop environment is showing the application menu and menubar</span>
     <span class="doccomment">/// models outside the application as part of the desktop shell.</span>
     <span class="doccomment">/// For instance, on OS X, both menus will be displayed remotely;</span>
@@ -941,8 +941,8 @@
     <span class="doccomment">/// will display the application menu, but not the menubar.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the desktop environment does not display the menubar, then</span>
-    <span class="doccomment">/// [`ApplicationWindow`](crate::ApplicationWindow) will automatically show a [`MenuBar`](crate::MenuBar) for it.</span>
-    <span class="doccomment">/// This behaviour can be overridden with the [`ApplicationWindow:show-menubar`](crate::ApplicationWindow:show-menubar)</span>
+    <span class="doccomment">/// [`crate::ApplicationWindow`] will automatically show a [`crate::MenuBar`] for it.</span>
+    <span class="doccomment">/// This behaviour can be overridden with the [`crate::ApplicationWindow:show-menubar`]</span>
     <span class="doccomment">/// property. If the desktop environment does not display the application</span>
     <span class="doccomment">/// menu, then it will automatically be included in the menubar or in the</span>
     <span class="doccomment">/// windows client-side decorations.</span>
@@ -978,7 +978,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [A simple example](https://git.gnome.org/browse/gtk+/tree/examples/sunny.c)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The XML format understood by [`Builder`](crate::Builder) for [`gio::MenuModel`](crate::gio::MenuModel) consists</span>
+    <span class="doccomment">/// The XML format understood by [`crate::Builder`] for [`crate::gio::MenuModel`] consists</span>
     <span class="doccomment">/// of a toplevel `&lt;menu&gt;` element, which contains one or more `&lt;item&gt;`</span>
     <span class="doccomment">/// elements. Each `&lt;item&gt;` element contains `&lt;attribute&gt;` and `&lt;link&gt;`</span>
     <span class="doccomment">/// elements with a mandatory name attribute. `&lt;link&gt;` elements have the</span>
@@ -986,11 +986,11 @@
     <span class="doccomment">/// `&lt;link name=&quot;section&quot;&gt;`, you can use `&lt;submenu&gt;` or `&lt;section&gt;`</span>
     <span class="doccomment">/// elements.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Attribute values can be translated using gettext, like other [`Builder`](crate::Builder)</span>
+    <span class="doccomment">/// Attribute values can be translated using gettext, like other [`crate::Builder`]</span>
     <span class="doccomment">/// content. `&lt;attribute&gt;` elements can be marked for translation with a</span>
     <span class="doccomment">/// `translatable=&quot;yes&quot;` attribute. It is also possible to specify message</span>
     <span class="doccomment">/// context and translator comments, using the context and comments attributes.</span>
-    <span class="doccomment">/// To make use of this, the [`Builder`](crate::Builder) must have been given the gettext</span>
+    <span class="doccomment">/// To make use of this, the [`crate::Builder`] must have been given the gettext</span>
     <span class="doccomment">/// domain to use.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The following attributes are used when constructing menu items:</span>
@@ -1007,7 +1007,7 @@
     <span class="doccomment">/// - &quot;label&quot;: a user-visible string to use as section heading</span>
     <span class="doccomment">/// - &quot;display-hint&quot;: a string used to determine special formatting for the section.</span>
     <span class="doccomment">///  Possible values include &quot;horizontal-buttons&quot;.</span>
-    <span class="doccomment">/// - &quot;text-direction&quot;: a string used to determine the [`TextDirection`](crate::TextDirection) to use</span>
+    <span class="doccomment">/// - &quot;text-direction&quot;: a string used to determine the [`crate::TextDirection`] to use</span>
     <span class="doccomment">///  when &quot;display-hint&quot; is set to &quot;horizontal-buttons&quot;. Possible values</span>
     <span class="doccomment">///  include &quot;rtl&quot;, &quot;ltr&quot;, and &quot;none&quot;.</span>
     <span class="doccomment">///</span>
@@ -1017,7 +1017,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ApplicationWindowExt`](trait@crate::prelude::ApplicationWindowExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`trait@gio::ActionGroupExt`], [`trait@gio::ActionMapExt`], [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ApplicationWindowExt`], [`trait@crate::prelude::GtkWindowExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@gio::prelude::ActionGroupExt`], [`trait@gio::prelude::ActionMapExt`], [`trait@crate::prelude::GtkWindowExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationWindow</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkApplicationWindow</span>, <span class="ident">ffi::GtkApplicationWindowClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">gio::ActionGroup</span>, <span class="ident">gio::ActionMap</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1628,10 +1628,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ApplicationWindow`](struct@crate::ApplicationWindow)</span>
+<span class="doccomment">/// [`struct@crate::ApplicationWindow`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ApplicationWindowExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the [`ShortcutsWindow`](crate::ShortcutsWindow) that has been set up with</span>
-    <span class="doccomment">/// a prior call to [`set_help_overlay()`](Self::set_help_overlay()).</span>
+    <span class="doccomment">/// Gets the [`crate::ShortcutsWindow`] that has been set up with</span>
+    <span class="doccomment">/// a prior call to [`Self::set_help_overlay()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1643,12 +1643,12 @@
     <span class="kw">fn</span> <span class="ident">help_overlay</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ShortcutsWindow</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns the unique ID of the window. If the window has not yet been added to</span>
-    <span class="doccomment">/// a [`Application`](crate::Application), returns `0`.</span>
+    <span class="doccomment">/// a [`crate::Application`], returns `0`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the unique ID for `self`, or `0` if the window</span>
-    <span class="doccomment">///  has not yet been added to a [`Application`](crate::Application)</span>
+    <span class="doccomment">///  has not yet been added to a [`crate::Application`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_application_window_get_id&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_id&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
@@ -1669,7 +1669,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `self` takes resposibility for destroying `help_overlay`.</span>
     <span class="doccomment">/// ## `help_overlay`</span>
-    <span class="doccomment">/// a [`ShortcutsWindow`](crate::ShortcutsWindow)</span>
+    <span class="doccomment">/// a [`crate::ShortcutsWindow`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_application_window_set_help_overlay&quot;</span>)]</span>

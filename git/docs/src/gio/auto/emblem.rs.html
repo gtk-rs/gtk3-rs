@@ -103,16 +103,16 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`Emblem`](crate::Emblem) is an implementation of [`Icon`](crate::Icon) that supports</span>
+    <span class="doccomment">/// [`crate::Emblem`] is an implementation of [`crate::Icon`] that supports</span>
     <span class="doccomment">/// having an emblem, which is an icon with additional properties.</span>
-    <span class="doccomment">/// It can than be added to a [`EmblemedIcon`](crate::EmblemedIcon).</span>
+    <span class="doccomment">/// It can than be added to a [`crate::EmblemedIcon`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Currently, only metainformation about the emblem&#39;s origin is</span>
     <span class="doccomment">/// supported. More may be added in the future.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`IconExt`](trait@crate::prelude::IconExt)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::IconExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Emblem</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GEmblem</span>, <span class="ident">ffi::GEmblemClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Icon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -127,7 +127,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Emblem`](crate::Emblem).</span>
+    <span class="doccomment">/// a new [`crate::Emblem`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_emblem_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Emblem</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_emblem_new</span>(<span class="ident">icon</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
@@ -141,7 +141,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Emblem`](crate::Emblem).</span>
+    <span class="doccomment">/// a new [`crate::Emblem`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_emblem_new_with_origin&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_origin&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_origin</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">origin</span>: <span class="ident">EmblemOrigin</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Emblem</span> {
@@ -157,7 +157,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon). The returned object belongs to</span>
+    <span class="doccomment">/// a [`crate::Icon`]. The returned object belongs to</span>
     <span class="doccomment">///  the emblem and should not be modified or freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_emblem_get_icon&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_icon&quot;</span>)]</span>

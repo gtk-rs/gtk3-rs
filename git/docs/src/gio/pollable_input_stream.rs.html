@@ -286,20 +286,20 @@
 <span class="kw">use</span> <span class="ident">std::pin::Pin</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PollableInputStreamExtManual</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Creates a [`glib::Source`](crate::glib::Source) that triggers when `self` can be read, or</span>
+    <span class="doccomment">/// Creates a [`crate::glib::Source`] that triggers when `self` can be read, or</span>
     <span class="doccomment">/// `cancellable` is triggered or an error occurs. The callback on the</span>
     <span class="doccomment">/// source is of the `GPollableSourceFunc` type.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As with [`PollableInputStream::is_readable()`](crate::PollableInputStream::is_readable()), it is possible that</span>
+    <span class="doccomment">/// As with [`crate::PollableInputStream::is_readable()`], it is possible that</span>
     <span class="doccomment">/// the stream may not actually be readable even after the source</span>
-    <span class="doccomment">/// triggers, so you should use [`PollableInputStream::read_nonblocking()`](crate::PollableInputStream::read_nonblocking())</span>
-    <span class="doccomment">/// rather than [`InputStream::read()`](crate::InputStream::read()) from the callback.</span>
+    <span class="doccomment">/// triggers, so you should use [`crate::PollableInputStream::read_nonblocking()`]</span>
+    <span class="doccomment">/// rather than [`crate::InputStream::read()`] from the callback.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`glib::Source`](crate::glib::Source)</span>
+    <span class="doccomment">/// a new [`crate::glib::Source`]</span>
     <span class="kw">fn</span> <span class="ident">create_source</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">C</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">C</span><span class="op">&gt;</span>,
@@ -324,9 +324,9 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Attempts to read up to `count` bytes from `self` into `buffer`, as</span>
-    <span class="doccomment">/// with [`InputStream::read()`](crate::InputStream::read()). If `self` is not currently readable,</span>
-    <span class="doccomment">/// this will immediately return [`IOErrorEnum::WouldBlock`], and you can</span>
-    <span class="doccomment">/// use [`PollableInputStream::create_source()`](crate::PollableInputStream::create_source()) to create a [`glib::Source`](crate::glib::Source)</span>
+    <span class="doccomment">/// with [`crate::InputStream::read()`]. If `self` is not currently readable,</span>
+    <span class="doccomment">/// this will immediately return [`crate::IOErrorEnum::WouldBlock`], and you can</span>
+    <span class="doccomment">/// use [`crate::PollableInputStream::create_source()`] to create a [`crate::glib::Source`]</span>
     <span class="doccomment">/// that will be triggered when `self` is readable.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that since this method never blocks, you cannot actually</span>
@@ -340,12 +340,12 @@
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of bytes you want to read</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the number of bytes read, or -1 on error (including</span>
-    <span class="doccomment">///  [`IOErrorEnum::WouldBlock`]).</span>
+    <span class="doccomment">///  [`crate::IOErrorEnum::WouldBlock`]).</span>
     <span class="kw">fn</span> <span class="ident">read_nonblocking</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],

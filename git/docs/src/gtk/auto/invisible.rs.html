@@ -469,7 +469,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Invisible`](crate::Invisible) widget is used internally in GTK+, and is probably not</span>
+    <span class="doccomment">/// The [`crate::Invisible`] widget is used internally in GTK+, and is probably not</span>
     <span class="doccomment">/// very useful for application developers.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is used for reliable pointer grabs and selection handling in the code</span>
@@ -477,7 +477,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`InvisibleExt`](trait@crate::prelude::InvisibleExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`InvisibleExtManual`](trait@crate::prelude::InvisibleExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::InvisibleExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::InvisibleExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Invisible</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkInvisible</span>, <span class="ident">ffi::GtkInvisibleClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -486,25 +486,25 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Invisible</span> {
-    <span class="doccomment">/// Creates a new [`Invisible`](crate::Invisible).</span>
+    <span class="doccomment">/// Creates a new [`crate::Invisible`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`Invisible`](crate::Invisible).</span>
+    <span class="doccomment">/// a new [`crate::Invisible`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_invisible_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Invisible</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_invisible_new</span>()).<span class="ident">unsafe_cast</span>() }
     }
 
-    <span class="doccomment">/// Creates a new [`Invisible`](crate::Invisible) object for a specified screen</span>
+    <span class="doccomment">/// Creates a new [`crate::Invisible`] object for a specified screen</span>
     <span class="doccomment">/// ## `screen`</span>
-    <span class="doccomment">/// a [`gdk::Screen`](crate::gdk::Screen) which identifies on which</span>
-    <span class="doccomment">///  the new [`Invisible`](crate::Invisible) will be created.</span>
+    <span class="doccomment">/// a [`crate::gdk::Screen`] which identifies on which</span>
+    <span class="doccomment">///  the new [`crate::Invisible`] will be created.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created [`Invisible`](crate::Invisible) object</span>
+    <span class="doccomment">/// a newly created [`crate::Invisible`] object</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_invisible_new_for_screen&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_for_screen&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_screen</span>(<span class="ident">screen</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::Screen</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Invisible</span> {
@@ -846,11 +846,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Invisible`](struct@crate::Invisible)</span>
+<span class="doccomment">/// [`struct@crate::Invisible`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InvisibleExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Sets the [`gdk::Screen`](crate::gdk::Screen) where the [`Invisible`](crate::Invisible) object will be displayed.</span>
+    <span class="doccomment">/// Sets the [`crate::gdk::Screen`] where the [`crate::Invisible`] object will be displayed.</span>
     <span class="doccomment">/// ## `screen`</span>
-    <span class="doccomment">/// a [`gdk::Screen`](crate::gdk::Screen).</span>
+    <span class="doccomment">/// a [`crate::gdk::Screen`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_invisible_set_screen&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_screen</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">screen</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::Screen</span>);
 

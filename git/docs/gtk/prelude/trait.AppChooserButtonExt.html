@@ -17,13 +17,13 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_show_dialog_item_notify" class="fnname">connect_show_dialog_item_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>AppChooserButton</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.AppChooserButton.html"><code>AppChooserButton</code></a></p>
+<p><a href="../struct.AppChooserButton.html" title="crate::AppChooserButton"><code>crate::AppChooserButton</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.append_custom_item" class="method"><code>fn <a href="#tymethod.append_custom_item" class="fnname">append_custom_item</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../gio/auto/icon/struct.Icon.html" title="struct gio::auto::icon::Icon">Icon</a>&gt;&gt;(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, label: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, icon: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#603" title="goto source code">[src]</a></h3><div class="docblock"><p>Appends a custom item to the list of applications that is shown
 in the popup; the item name must be unique per-widget.
 Clients can use the provided name as a detail for the
-<a href="crate::AppChooserButton::custom-item-activated"><code>AppChooserButton::custom-item-activated</code></a> signal, to add a
+[<code>crate::AppChooserButton::custom-item-activated</code>] signal, to add a
 callback for the activation of a particular custom item in the list.
-See also <a href="trait.AppChooserButtonExt.html#tymethod.append_separator"><code>append_separator()</code></a>.</p>
+See also <a href="trait.AppChooserButtonExt.html#tymethod.append_separator" title="Self::append_separator()"><code>Self::append_separator()</code></a>.</p>
 <h2 id="name" class="section-header"><a href="#name"><code>name</code></a></h2>
 <p>the name of the custom item</p>
 <h2 id="label" class="section-header"><a href="#label"><code>label</code></a></h2>
@@ -36,17 +36,17 @@ in the popup.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the text to display at the top of the dialog,
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, in which case a default text is displayed</p>
-</div><h3 id="tymethod.shows_default_item" class="method"><code>fn <a href="#tymethod.shows_default_item" class="fnname">shows_default_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#628" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the current value of the <a href="crate::AppChooserButton:show-default-item"><code>AppChooserButton:show-default-item</code></a>
+</div><h3 id="tymethod.shows_default_item" class="method"><code>fn <a href="#tymethod.shows_default_item" class="fnname">shows_default_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#628" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the current value of the [<code>crate::AppChooserButton:show-default-item</code>]
 property.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>the value of <a href="crate::AppChooserButton:show-default-item"><code>AppChooserButton:show-default-item</code></a></p>
-</div><h3 id="tymethod.shows_dialog_item" class="method"><code>fn <a href="#tymethod.shows_dialog_item" class="fnname">shows_dialog_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#638" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the current value of the <a href="crate::AppChooserButton:show-dialog-item"><code>AppChooserButton:show-dialog-item</code></a>
+<p>the value of [<code>crate::AppChooserButton:show-default-item</code>]</p>
+</div><h3 id="tymethod.shows_dialog_item" class="method"><code>fn <a href="#tymethod.shows_dialog_item" class="fnname">shows_dialog_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#638" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the current value of the [<code>crate::AppChooserButton:show-dialog-item</code>]
 property.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>the value of <a href="crate::AppChooserButton:show-dialog-item"><code>AppChooserButton:show-dialog-item</code></a></p>
+<p>the value of [<code>crate::AppChooserButton:show-dialog-item</code>]</p>
 </div><h3 id="tymethod.set_active_custom_item" class="method"><code>fn <a href="#tymethod.set_active_custom_item" class="fnname">set_active_custom_item</a>(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#648" title="goto source code">[src]</a></h3><div class="docblock"><p>Selects a custom item previously added with
-<a href="trait.AppChooserButtonExt.html#tymethod.append_custom_item"><code>append_custom_item()</code></a>.</p>
-<p>Use <a href="crate::AppChooser::refresh()"><code>AppChooser::refresh()</code></a> to bring the selection
+<a href="trait.AppChooserButtonExt.html#tymethod.append_custom_item" title="Self::append_custom_item()"><code>Self::append_custom_item()</code></a>.</p>
+<p>Use [<code>crate::AppChooser::refresh()</code>] to bring the selection
 to its initial state.</p>
 <h2 id="name-1" class="section-header"><a href="#name-1"><code>name</code></a></h2>
 <p>the name of the custom item</p>
@@ -57,13 +57,13 @@ If the heading is not set, the dialog displays a default text.</p>
 </div><h3 id="tymethod.set_show_default_item" class="method"><code>fn <a href="#tymethod.set_show_default_item" class="fnname">set_show_default_item</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#662" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether the dropdown menu of this button should show the
 default application for the given content type at top.</p>
 <h2 id="setting" class="section-header"><a href="#setting"><code>setting</code></a></h2>
-<p>the new value for <a href="crate::AppChooserButton:show-default-item"><code>AppChooserButton:show-default-item</code></a></p>
+<p>the new value for [<code>crate::AppChooserButton:show-default-item</code>]</p>
 </div><h3 id="tymethod.set_show_dialog_item" class="method"><code>fn <a href="#tymethod.set_show_dialog_item" class="fnname">set_show_dialog_item</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#669" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether the dropdown menu of this button should show an
-entry to trigger a <a href="../struct.AppChooserDialog.html"><code>AppChooserDialog</code></a>.</p>
+entry to trigger a <a href="../struct.AppChooserDialog.html" title="crate::AppChooserDialog"><code>crate::AppChooserDialog</code></a>.</p>
 <h2 id="setting-1" class="section-header"><a href="#setting-1"><code>setting</code></a></h2>
-<p>the new value for <a href="crate::AppChooserButton:show-dialog-item"><code>AppChooserButton:show-dialog-item</code></a></p>
+<p>the new value for [<code>crate::AppChooserButton:show-dialog-item</code>]</p>
 </div><h3 id="tymethod.connect_custom_item_activated" class="method"><code>fn <a href="#tymethod.connect_custom_item_activated" class="fnname">connect_custom_item_activated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#677-681" title="goto source code">[src]</a></h3><div class="docblock"><p>Emitted when a custom item, previously added with
-<a href="trait.AppChooserButtonExt.html#tymethod.append_custom_item"><code>append_custom_item()</code></a>, is activated from the
+<a href="trait.AppChooserButtonExt.html#tymethod.append_custom_item" title="Self::append_custom_item()"><code>Self::append_custom_item()</code></a>, is activated from the
 dropdown menu.</p>
 <h2 id="item_name" class="section-header"><a href="#item_name"><code>item_name</code></a></h2>
 <p>the name of the activated item</p>

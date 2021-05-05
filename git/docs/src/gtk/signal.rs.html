@@ -417,7 +417,7 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">EditableSignals</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// The ::changed signal is emitted at the end of a single</span>
-    <span class="doccomment">/// user-visible operation on the contents of the [`Editable`](crate::Editable).</span>
+    <span class="doccomment">/// user-visible operation on the contents of the [`crate::Editable`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// E.g., a paste operation that replaces the contents of the</span>
     <span class="doccomment">/// selection will cause only one signal emission (even though it</span>
@@ -435,7 +435,7 @@
     <span class="doccomment">/// is possible to modify the range of deleted text, or</span>
     <span class="doccomment">/// prevent it from being deleted entirely. The `start_pos`</span>
     <span class="doccomment">/// and `end_pos` parameters are interpreted as for</span>
-    <span class="doccomment">/// [`Editable::delete_text()`](crate::Editable::delete_text()).</span>
+    <span class="doccomment">/// [`crate::Editable::delete_text()`].</span>
     <span class="doccomment">/// ## `start_pos`</span>
     <span class="doccomment">/// the starting position</span>
     <span class="doccomment">/// ## `end_pos`</span>

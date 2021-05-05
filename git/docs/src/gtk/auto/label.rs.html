@@ -2592,9 +2592,9 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Label`](crate::Label) widget displays a small amount of text. As the name</span>
+    <span class="doccomment">/// The [`crate::Label`] widget displays a small amount of text. As the name</span>
     <span class="doccomment">/// implies, most labels are used to label another widget such as a</span>
-    <span class="doccomment">/// [`Button`](crate::Button), a [`MenuItem`](crate::MenuItem), or a [`ComboBox`](crate::ComboBox).</span>
+    <span class="doccomment">/// [`crate::Button`], a [`crate::MenuItem`], or a [`crate::ComboBox`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
@@ -2609,7 +2609,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `Label` has a single CSS node with the name label. A wide variety</span>
     <span class="doccomment">/// of style classes may be applied to labels, such as .title, .subtitle,</span>
-    <span class="doccomment">/// .dim-label, etc. In the [`ShortcutsWindow`](crate::ShortcutsWindow), labels are used wth the</span>
+    <span class="doccomment">/// .dim-label, etc. In the [`crate::ShortcutsWindow`], labels are used wth the</span>
     <span class="doccomment">/// .keycap style class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the label has a selection, it gets a subnode with name selection.</span>
@@ -2623,7 +2623,7 @@
     <span class="doccomment">/// The `Label` implementation of the `Buildable` interface supports a</span>
     <span class="doccomment">/// custom `&lt;attributes&gt;` element, which supports any number of `&lt;attribute&gt;`</span>
     <span class="doccomment">/// elements. The `&lt;attribute&gt;` element has attributes named “name“, “value“,</span>
-    <span class="doccomment">/// “start“ and “end“ and allows you to specify [`pango::Attribute`](crate::pango::Attribute) values for</span>
+    <span class="doccomment">/// “start“ and “end“ and allows you to specify [`crate::pango::Attribute`] values for</span>
     <span class="doccomment">/// this label.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An example of a UI definition fragment specifying Pango attributes:</span>
@@ -2645,8 +2645,8 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To create a mnemonic for a widget alongside the label, such as a</span>
-    <span class="doccomment">/// [`Entry`](crate::Entry), you have to point the label at the entry with</span>
-    <span class="doccomment">/// [`LabelExt::set_mnemonic_widget()`](crate::LabelExt::set_mnemonic_widget()):</span>
+    <span class="doccomment">/// [`crate::Entry`], you have to point the label at the entry with</span>
+    <span class="doccomment">/// [`crate::prelude::LabelExt::set_mnemonic_widget()`]:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -2672,24 +2672,24 @@
     <span class="doccomment">/// (See [complete documentation][PangoMarkupFormat] of available</span>
     <span class="doccomment">/// tags in the Pango manual.)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The markup passed to [`LabelExt::set_markup()`](crate::LabelExt::set_markup()) must be valid; for example,</span>
+    <span class="doccomment">/// The markup passed to [`crate::prelude::LabelExt::set_markup()`] must be valid; for example,</span>
     <span class="doccomment">/// literal &lt;, &gt; and &amp; characters must be escaped as &amp;lt;, &amp;gt;, and &amp;amp;.</span>
     <span class="doccomment">/// If you pass text obtained from the user, file, or a network to</span>
-    <span class="doccomment">/// [`LabelExt::set_markup()`](crate::LabelExt::set_markup()), you’ll want to escape it with</span>
+    <span class="doccomment">/// [`crate::prelude::LabelExt::set_markup()`], you’ll want to escape it with</span>
     <span class="doccomment">/// `g_markup_escape_text()` or `g_markup_printf_escaped()`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Markup strings are just a convenient way to set the [`pango::AttrList`](crate::pango::AttrList) on</span>
-    <span class="doccomment">/// a label; [`LabelExt::set_attributes()`](crate::LabelExt::set_attributes()) may be a simpler way to set</span>
-    <span class="doccomment">/// attributes in some cases. Be careful though; [`pango::AttrList`](crate::pango::AttrList) tends to</span>
+    <span class="doccomment">/// Markup strings are just a convenient way to set the [`crate::pango::AttrList`] on</span>
+    <span class="doccomment">/// a label; [`crate::prelude::LabelExt::set_attributes()`] may be a simpler way to set</span>
+    <span class="doccomment">/// attributes in some cases. Be careful though; [`crate::pango::AttrList`] tends to</span>
     <span class="doccomment">/// cause internationalization problems, unless you’re applying attributes</span>
     <span class="doccomment">/// to the entire string (i.e. unless you set the range of each attribute</span>
     <span class="doccomment">/// to [0, `G_MAXINT`)). The reason is that specifying the start_index and</span>
-    <span class="doccomment">/// end_index for a [`pango::Attribute`](crate::pango::Attribute) requires knowledge of the exact string</span>
+    <span class="doccomment">/// end_index for a [`crate::pango::Attribute`] requires knowledge of the exact string</span>
     <span class="doccomment">/// being displayed, so translations will cause problems.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Selectable labels</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Labels can be made selectable with [`LabelExt::set_selectable()`](crate::LabelExt::set_selectable()).</span>
+    <span class="doccomment">/// Labels can be made selectable with [`crate::prelude::LabelExt::set_selectable()`].</span>
     <span class="doccomment">/// Selectable labels allow the user to copy the label contents to</span>
     <span class="doccomment">/// the clipboard. Only labels that contain useful-to-copy information</span>
     <span class="doccomment">/// — such as error messages — should be made selectable.</span>
@@ -2702,14 +2702,14 @@
     <span class="doccomment">/// understood by Pango.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Labels can automatically wrap text if you call</span>
-    <span class="doccomment">/// [`LabelExt::set_line_wrap()`](crate::LabelExt::set_line_wrap()).</span>
+    <span class="doccomment">/// [`crate::prelude::LabelExt::set_line_wrap()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LabelExt::set_justify()`](crate::LabelExt::set_justify()) sets how the lines in a label align</span>
+    <span class="doccomment">/// [`crate::prelude::LabelExt::set_justify()`] sets how the lines in a label align</span>
     <span class="doccomment">/// with one another. If you want to set how the label as a whole</span>
-    <span class="doccomment">/// aligns in its available space, see the [`Widget:halign`](crate::Widget:halign) and</span>
-    <span class="doccomment">/// [`Widget:valign`](crate::Widget:valign) properties.</span>
+    <span class="doccomment">/// aligns in its available space, see the [`crate::Widget:halign`] and</span>
+    <span class="doccomment">/// [`crate::Widget:valign`] properties.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`Label:width-chars`](crate::Label:width-chars) and [`Label:max-width-chars`](crate::Label:max-width-chars) properties</span>
+    <span class="doccomment">/// The [`crate::Label:width-chars`] and [`crate::Label:max-width-chars`] properties</span>
     <span class="doccomment">/// can be used to control the size allocation of ellipsized or wrapped</span>
     <span class="doccomment">/// labels. For ellipsizing labels, if either is specified (and less</span>
     <span class="doccomment">/// than the actual text size), it is used as the minimum width, and the actual</span>
@@ -2718,8 +2718,8 @@
     <span class="doccomment">/// is used as the natural width. Even if max-width-chars specified, wrapping</span>
     <span class="doccomment">/// labels will be rewrapped to use all of the available width.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that the interpretation of [`Label:width-chars`](crate::Label:width-chars) and</span>
-    <span class="doccomment">/// [`Label:max-width-chars`](crate::Label:max-width-chars) has changed a bit with the introduction of</span>
+    <span class="doccomment">/// Note that the interpretation of [`crate::Label:width-chars`] and</span>
+    <span class="doccomment">/// [`crate::Label:max-width-chars`] has changed a bit with the introduction of</span>
     <span class="doccomment">/// [width-for-height geometry management.][geometry-management]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Links</span>
@@ -2743,11 +2743,11 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is possible to implement custom handling for links and their tooltips with</span>
-    <span class="doccomment">/// the [`Label::activate-link`](crate::Label::activate-link) signal and the [`LabelExt::get_current_uri()`](crate::LabelExt::get_current_uri()) function.</span>
+    <span class="doccomment">/// the [`crate::Label::activate-link`] signal and the [`crate::prelude::LabelExt::get_current_uri()`] function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LabelExt`](trait@crate::prelude::LabelExt), [`MiscExt`](trait@crate::prelude::MiscExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::LabelExt`], [`trait@crate::prelude::MiscExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Label</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkLabel</span>, <span class="ident">ffi::GtkLabelClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Misc</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -2763,24 +2763,24 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`Label`](crate::Label)</span>
+    <span class="doccomment">/// the new [`crate::Label`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">str</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Label</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">Widget::from_glib_none</span>(<span class="ident">ffi::gtk_label_new</span>(<span class="ident">str</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)).<span class="ident">unsafe_cast</span>() }
     }
 
-    <span class="doccomment">/// Creates a new [`Label`](crate::Label), containing the text in `str`.</span>
+    <span class="doccomment">/// Creates a new [`crate::Label`], containing the text in `str`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If characters in `str` are preceded by an underscore, they are</span>
     <span class="doccomment">/// underlined. If you need a literal underscore character in a label, use</span>
     <span class="doccomment">/// &#39;__&#39; (two underscores). The first underlined character represents a</span>
     <span class="doccomment">/// keyboard accelerator called a mnemonic. The mnemonic key can be used</span>
     <span class="doccomment">/// to activate another widget, chosen automatically, or explicitly using</span>
-    <span class="doccomment">/// [`LabelExt::set_mnemonic_widget()`](crate::LabelExt::set_mnemonic_widget()).</span>
+    <span class="doccomment">/// [`crate::prelude::LabelExt::set_mnemonic_widget()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`LabelExt::set_mnemonic_widget()`](crate::LabelExt::set_mnemonic_widget()) is not called, then the first</span>
-    <span class="doccomment">/// activatable ancestor of the [`Label`](crate::Label) will be chosen as the mnemonic</span>
+    <span class="doccomment">/// If [`crate::prelude::LabelExt::set_mnemonic_widget()`] is not called, then the first</span>
+    <span class="doccomment">/// activatable ancestor of the [`crate::Label`] will be chosen as the mnemonic</span>
     <span class="doccomment">/// widget. For instance, if the label is inside a button or menu item,</span>
     <span class="doccomment">/// the button or menu item will automatically become the mnemonic widget</span>
     <span class="doccomment">/// and be activated by the mnemonic.</span>
@@ -2790,7 +2790,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`Label`](crate::Label)</span>
+    <span class="doccomment">/// the new [`crate::Label`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_new_with_mnemonic&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_mnemonic&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_mnemonic</span>(<span class="ident">str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Label</span> {
@@ -3297,10 +3297,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`AccelLabel`](struct@crate::AccelLabel), [`Label`](struct@crate::Label)</span>
+<span class="doccomment">/// [`struct@crate::AccelLabel`], [`struct@crate::Label`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LabelExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the angle of rotation for the label. See</span>
-    <span class="doccomment">/// [`set_angle()`](Self::set_angle()).</span>
+    <span class="doccomment">/// [`Self::set_angle()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3310,9 +3310,9 @@
     <span class="kw">fn</span> <span class="ident">angle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
 
     <span class="doccomment">/// Gets the attribute list that was set on the label using</span>
-    <span class="doccomment">/// [`set_attributes()`](Self::set_attributes()), if any. This function does</span>
+    <span class="doccomment">/// [`Self::set_attributes()`], if any. This function does</span>
     <span class="doccomment">/// not reflect attributes that come from the labels markup</span>
-    <span class="doccomment">/// (see [`set_markup()`](Self::set_markup())). If you want to get the</span>
+    <span class="doccomment">/// (see [`Self::set_markup()`]). If you want to get the</span>
     <span class="doccomment">/// effective attributes for the label, use</span>
     <span class="doccomment">/// pango_layout_get_attribute (gtk_label_get_layout (label)).</span>
     <span class="doccomment">///</span>
@@ -3329,8 +3329,8 @@
     <span class="doccomment">/// selectable label, the link in which the text cursor is currently</span>
     <span class="doccomment">/// positioned.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is intended for use in a [`Label::activate-link`](crate::Label::activate-link) handler</span>
-    <span class="doccomment">/// or for use in a [`Widget::query-tooltip`](crate::Widget::query-tooltip) handler.</span>
+    <span class="doccomment">/// This function is intended for use in a [`crate::Label::activate-link`] handler</span>
+    <span class="doccomment">/// or for use in a [`crate::Widget::query-tooltip`] handler.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3340,27 +3340,27 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_current_uri&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">current_uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Returns the ellipsizing position of the label. See [`set_ellipsize()`](Self::set_ellipsize()).</span>
+    <span class="doccomment">/// Returns the ellipsizing position of the label. See [`Self::set_ellipsize()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`pango::EllipsizeMode`](crate::pango::EllipsizeMode)</span>
+    <span class="doccomment">/// [`crate::pango::EllipsizeMode`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_get_ellipsize&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_ellipsize&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">ellipsize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">pango::EllipsizeMode</span>;
 
-    <span class="doccomment">/// Returns the justification of the label. See [`set_justify()`](Self::set_justify()).</span>
+    <span class="doccomment">/// Returns the justification of the label. See [`Self::set_justify()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Justification`](crate::Justification)</span>
+    <span class="doccomment">/// [`crate::Justification`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_get_justify&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_justify&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">justify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Justification</span>;
 
     <span class="doccomment">/// Fetches the text from a label widget including any embedded</span>
     <span class="doccomment">/// underlines indicating mnemonics and Pango markup. (See</span>
-    <span class="doccomment">/// [`get_text()`](Self::get_text())).</span>
+    <span class="doccomment">/// [`Self::get_text()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3370,28 +3370,28 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_label&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::GString</span>;
 
-    <span class="doccomment">/// Gets the [`pango::Layout`](crate::pango::Layout) used to display the label.</span>
+    <span class="doccomment">/// Gets the [`crate::pango::Layout`] used to display the label.</span>
     <span class="doccomment">/// The layout is useful to e.g. convert text positions to</span>
-    <span class="doccomment">/// pixel positions, in combination with [`get_layout_offsets()`](Self::get_layout_offsets()).</span>
+    <span class="doccomment">/// pixel positions, in combination with [`Self::get_layout_offsets()`].</span>
     <span class="doccomment">/// The returned layout is owned by the `self` so need not be</span>
     <span class="doccomment">/// freed by the caller. The `self` is free to recreate its layout at</span>
     <span class="doccomment">/// any time, so it should be considered read-only.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`pango::Layout`](crate::pango::Layout) for this label</span>
+    <span class="doccomment">/// the [`crate::pango::Layout`] for this label</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_get_layout&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_layout&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">layout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango::Layout</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Obtains the coordinates where the label will draw the [`pango::Layout`](crate::pango::Layout)</span>
+    <span class="doccomment">/// Obtains the coordinates where the label will draw the [`crate::pango::Layout`]</span>
     <span class="doccomment">/// representing the text in the label; useful to convert mouse events</span>
-    <span class="doccomment">/// into coordinates inside the [`pango::Layout`](crate::pango::Layout), e.g. to take some action</span>
+    <span class="doccomment">/// into coordinates inside the [`crate::pango::Layout`], e.g. to take some action</span>
     <span class="doccomment">/// if some part of the label is clicked. Of course you will need to</span>
-    <span class="doccomment">/// create a [`EventBox`](crate::EventBox) to receive the events, and pack the label</span>
+    <span class="doccomment">/// create a [`crate::EventBox`] to receive the events, and pack the label</span>
     <span class="doccomment">/// inside it, since labels are windowless (they return [`false`] from</span>
-    <span class="doccomment">/// [`WidgetExt::get_has_window()`](crate::WidgetExt::get_has_window())). Remember</span>
-    <span class="doccomment">/// when using the [`pango::Layout`](crate::pango::Layout) functions you need to convert to</span>
+    <span class="doccomment">/// [`crate::prelude::WidgetExt::get_has_window()`]). Remember</span>
+    <span class="doccomment">/// when using the [`crate::pango::Layout`] functions you need to convert to</span>
     <span class="doccomment">/// and from pixels using PANGO_PIXELS() or `PANGO_SCALE`.</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// location to store X offset of layout, or [`None`]</span>
@@ -3402,7 +3402,7 @@
     <span class="kw">fn</span> <span class="ident">layout_offsets</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>);
 
     <span class="doccomment">/// Returns whether lines in the label are automatically wrapped.</span>
-    <span class="doccomment">/// See [`set_line_wrap()`](Self::set_line_wrap()).</span>
+    <span class="doccomment">/// See [`Self::set_line_wrap()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3411,7 +3411,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_line_wrap&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_line_wrap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Returns line wrap mode used by the label. See [`set_line_wrap_mode()`](Self::set_line_wrap_mode()).</span>
+    <span class="doccomment">/// Returns line wrap mode used by the label. See [`Self::set_line_wrap_mode()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3421,7 +3421,7 @@
     <span class="kw">fn</span> <span class="ident">line_wrap_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">pango::WrapMode</span>;
 
     <span class="doccomment">/// Gets the number of lines to which an ellipsized, wrapping</span>
-    <span class="doccomment">/// label should be limited. See [`set_lines()`](Self::set_lines()).</span>
+    <span class="doccomment">/// label should be limited. See [`Self::set_lines()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3431,7 +3431,7 @@
     <span class="kw">fn</span> <span class="ident">lines</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
     <span class="doccomment">/// Retrieves the desired maximum width of `self`, in characters. See</span>
-    <span class="doccomment">/// [`set_width_chars()`](Self::set_width_chars()).</span>
+    <span class="doccomment">/// [`Self::set_width_chars()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3452,7 +3452,7 @@
     <span class="kw">fn</span> <span class="ident">mnemonic_keyval</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Retrieves the target of the mnemonic (keyboard shortcut) of this</span>
-    <span class="doccomment">/// label. See [`set_mnemonic_widget()`](Self::set_mnemonic_widget()).</span>
+    <span class="doccomment">/// label. See [`Self::set_mnemonic_widget()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3462,7 +3462,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_mnemonic_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">mnemonic_widget</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the value set by [`set_selectable()`](Self::set_selectable()).</span>
+    <span class="doccomment">/// Gets the value set by [`Self::set_selectable()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3496,7 +3496,7 @@
 
     <span class="doccomment">/// Fetches the text from a label widget, as displayed on the</span>
     <span class="doccomment">/// screen. This does not include any embedded underlines</span>
-    <span class="doccomment">/// indicating mnemonics or Pango markup. (See [`get_label()`](Self::get_label()))</span>
+    <span class="doccomment">/// indicating mnemonics or Pango markup. (See [`Self::get_label()`])</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3528,7 +3528,7 @@
     <span class="kw">fn</span> <span class="ident">uses_markup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Returns whether an embedded underline in the label indicates a</span>
-    <span class="doccomment">/// mnemonic. See [`set_use_underline()`](Self::set_use_underline()).</span>
+    <span class="doccomment">/// mnemonic. See [`Self::set_use_underline()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3539,7 +3539,7 @@
     <span class="kw">fn</span> <span class="ident">uses_underline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Retrieves the desired width of `self`, in characters. See</span>
-    <span class="doccomment">/// [`set_width_chars()`](Self::set_width_chars()).</span>
+    <span class="doccomment">/// [`Self::set_width_chars()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3548,7 +3548,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_width_chars&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">width_chars</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Gets the [`Label:xalign`](crate::Label:xalign) property for `self`.</span>
+    <span class="doccomment">/// Gets the [`crate::Label:xalign`] property for `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3559,7 +3559,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_xalign&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">xalign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span>;
 
-    <span class="doccomment">/// Gets the [`Label:yalign`](crate::Label:yalign) property for `self`.</span>
+    <span class="doccomment">/// Gets the [`crate::Label:yalign`] property for `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3571,7 +3571,7 @@
     <span class="kw">fn</span> <span class="ident">yalign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f32</span>;
 
     <span class="doccomment">/// Selects a range of characters in the label, if the label is selectable.</span>
-    <span class="doccomment">/// See [`set_selectable()`](Self::set_selectable()). If the label is not selectable,</span>
+    <span class="doccomment">/// See [`Self::set_selectable()`]. If the label is not selectable,</span>
     <span class="doccomment">/// this function has no effect. If `start_offset` or</span>
     <span class="doccomment">/// `end_offset` are -1, then the end of the label will be substituted.</span>
     <span class="doccomment">/// ## `start_offset`</span>
@@ -3591,48 +3591,48 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_angle&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_angle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f64</span>);
 
-    <span class="doccomment">/// Sets a [`pango::AttrList`](crate::pango::AttrList); the attributes in the list are applied to the</span>
+    <span class="doccomment">/// Sets a [`crate::pango::AttrList`]; the attributes in the list are applied to the</span>
     <span class="doccomment">/// label text.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The attributes set with this function will be applied</span>
     <span class="doccomment">/// and merged with any other attributes previously effected by way</span>
-    <span class="doccomment">/// of the [`Label:use-underline`](crate::Label:use-underline) or [`Label:use-markup`](crate::Label:use-markup) properties.</span>
+    <span class="doccomment">/// of the [`crate::Label:use-underline`] or [`crate::Label:use-markup`] properties.</span>
     <span class="doccomment">/// While it is not recommended to mix markup strings with manually set</span>
     <span class="doccomment">/// attributes, if you must; know that the attributes will be applied</span>
     <span class="doccomment">/// to the label after the markup string is parsed.</span>
     <span class="doccomment">/// ## `attrs`</span>
-    <span class="doccomment">/// a [`pango::AttrList`](crate::pango::AttrList), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::pango::AttrList`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_attributes&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attrs</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">pango::AttrList</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Sets the mode used to ellipsize (add an ellipsis: &quot;...&quot;) to the text</span>
     <span class="doccomment">/// if there is not enough space to render the entire string.</span>
     <span class="doccomment">/// ## `mode`</span>
-    <span class="doccomment">/// a [`pango::EllipsizeMode`](crate::pango::EllipsizeMode)</span>
+    <span class="doccomment">/// a [`crate::pango::EllipsizeMode`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_ellipsize&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_ellipsize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mode</span>: <span class="ident">pango::EllipsizeMode</span>);
 
     <span class="doccomment">/// Sets the alignment of the lines in the text of the label relative to</span>
-    <span class="doccomment">/// each other. [`Justification::Left`] is the default value when the widget is</span>
-    <span class="doccomment">/// first created with [`Label::new()`](crate::Label::new()). If you instead want to set the</span>
-    <span class="doccomment">/// alignment of the label as a whole, use [`WidgetExt::set_halign()`](crate::WidgetExt::set_halign()) instead.</span>
-    <span class="doccomment">/// [`set_justify()`](Self::set_justify()) has no effect on labels containing only a</span>
+    <span class="doccomment">/// each other. [`crate::Justification::Left`] is the default value when the widget is</span>
+    <span class="doccomment">/// first created with [`crate::Label::new()`]. If you instead want to set the</span>
+    <span class="doccomment">/// alignment of the label as a whole, use [`crate::prelude::WidgetExt::set_halign()`] instead.</span>
+    <span class="doccomment">/// [`Self::set_justify()`] has no effect on labels containing only a</span>
     <span class="doccomment">/// single line.</span>
     <span class="doccomment">/// ## `jtype`</span>
-    <span class="doccomment">/// a [`Justification`](crate::Justification)</span>
+    <span class="doccomment">/// a [`crate::Justification`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_justify&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_justify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">jtype</span>: <span class="ident">Justification</span>);
 
     <span class="doccomment">/// Sets the text of the label. The label is interpreted as</span>
     <span class="doccomment">/// including embedded underlines and/or Pango markup depending</span>
-    <span class="doccomment">/// on the values of the [`Label:use-underline`](crate::Label:use-underline) and</span>
-    <span class="doccomment">/// [`Label:use-markup`](crate::Label:use-markup) properties.</span>
+    <span class="doccomment">/// on the values of the [`crate::Label:use-underline`] and</span>
+    <span class="doccomment">/// [`crate::Label:use-markup`] properties.</span>
     <span class="doccomment">/// ## `str`</span>
     <span class="doccomment">/// the new text to set for the label</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_label&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// Toggles line wrapping within the [`Label`](crate::Label) widget. [`true`] makes it break</span>
+    <span class="doccomment">/// Toggles line wrapping within the [`crate::Label`] widget. [`true`] makes it break</span>
     <span class="doccomment">/// lines if text exceeds the widget’s size. [`false`] lets the text get cut off</span>
     <span class="doccomment">/// by the edge of the widget if it exceeds the widget size.</span>
     <span class="doccomment">///</span>
@@ -3640,14 +3640,14 @@
     <span class="doccomment">/// wrap at its parent container’s width, because GTK+ widgets</span>
     <span class="doccomment">/// conceptually can’t make their requisition depend on the parent</span>
     <span class="doccomment">/// container’s size. For a label that wraps at a specific position,</span>
-    <span class="doccomment">/// set the label’s width using [`WidgetExt::set_size_request()`](crate::WidgetExt::set_size_request()).</span>
+    <span class="doccomment">/// set the label’s width using [`crate::prelude::WidgetExt::set_size_request()`].</span>
     <span class="doccomment">/// ## `wrap`</span>
     <span class="doccomment">/// the setting</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_line_wrap&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_line_wrap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">wrap</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// If line wrapping is on (see [`set_line_wrap()`](Self::set_line_wrap())) this controls how</span>
-    <span class="doccomment">/// the line wrapping is done. The default is [`pango::WrapMode::Word`] which means</span>
+    <span class="doccomment">/// If line wrapping is on (see [`Self::set_line_wrap()`]) this controls how</span>
+    <span class="doccomment">/// the line wrapping is done. The default is [`crate::pango::WrapMode::Word`] which means</span>
     <span class="doccomment">/// wrap on word boundaries.</span>
     <span class="doccomment">/// ## `wrap_mode`</span>
     <span class="doccomment">/// the line wrapping mode</span>
@@ -3682,14 +3682,14 @@
     <span class="doccomment">/// g_free (markup);</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function will set the [`Label:use-markup`](crate::Label:use-markup) property to [`true`] as</span>
+    <span class="doccomment">/// This function will set the [`crate::Label:use-markup`] property to [`true`] as</span>
     <span class="doccomment">/// a side effect.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you set the label contents using the [`Label:label`](crate::Label:label) property you</span>
-    <span class="doccomment">/// should also ensure that you set the [`Label:use-markup`](crate::Label:use-markup) property</span>
+    <span class="doccomment">/// If you set the label contents using the [`crate::Label:label`] property you</span>
+    <span class="doccomment">/// should also ensure that you set the [`crate::Label:use-markup`] property</span>
     <span class="doccomment">/// accordingly.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`set_text()`](Self::set_text())</span>
+    <span class="doccomment">/// See also: [`Self::set_text()`]</span>
     <span class="doccomment">/// ## `str`</span>
     <span class="doccomment">/// a markup string (see [Pango markup format][PangoMarkupFormat])</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_markup&quot;</span>)]</span>
@@ -3702,7 +3702,7 @@
     <span class="doccomment">/// indicating that they represent a keyboard accelerator called a mnemonic.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The mnemonic key can be used to activate another widget, chosen</span>
-    <span class="doccomment">/// automatically, or explicitly using [`set_mnemonic_widget()`](Self::set_mnemonic_widget()).</span>
+    <span class="doccomment">/// automatically, or explicitly using [`Self::set_mnemonic_widget()`].</span>
     <span class="doccomment">/// ## `str`</span>
     <span class="doccomment">/// a markup string (see</span>
     <span class="doccomment">///  [Pango markup format][PangoMarkupFormat])</span>
@@ -3716,13 +3716,13 @@
     <span class="kw">fn</span> <span class="ident">set_max_width_chars</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">n_chars</span>: <span class="ident">i32</span>);
 
     <span class="doccomment">/// If the label has been set so that it has an mnemonic key (using</span>
-    <span class="doccomment">/// i.e. [`set_markup_with_mnemonic()`](Self::set_markup_with_mnemonic()),</span>
-    <span class="doccomment">/// [`set_text_with_mnemonic()`](Self::set_text_with_mnemonic()), [`Label::new_with_mnemonic()`](crate::Label::new_with_mnemonic())</span>
+    <span class="doccomment">/// i.e. [`Self::set_markup_with_mnemonic()`],</span>
+    <span class="doccomment">/// [`Self::set_text_with_mnemonic()`], [`crate::Label::new_with_mnemonic()`]</span>
     <span class="doccomment">/// or the “use_underline” property) the label can be associated with a</span>
     <span class="doccomment">/// widget that is the target of the mnemonic. When the label is inside</span>
-    <span class="doccomment">/// a widget (like a [`Button`](crate::Button) or a [`Notebook`](crate::Notebook) tab) it is</span>
+    <span class="doccomment">/// a widget (like a [`crate::Button`] or a [`crate::Notebook`] tab) it is</span>
     <span class="doccomment">/// automatically associated with the correct widget, but sometimes</span>
-    <span class="doccomment">/// (i.e. when the target is a [`Entry`](crate::Entry) next to the label) you need to</span>
+    <span class="doccomment">/// (i.e. when the target is a [`crate::Entry`] next to the label) you need to</span>
     <span class="doccomment">/// set it explicitly using this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The target widget will be accelerated by emitting the</span>
@@ -3730,12 +3730,12 @@
     <span class="doccomment">/// this signal will activate the widget if there are no mnemonic collisions</span>
     <span class="doccomment">/// and toggle focus between the colliding widgets otherwise.</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// the target [`Widget`](crate::Widget), or [`None`] to unset</span>
+    <span class="doccomment">/// the target [`crate::Widget`], or [`None`] to unset</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_mnemonic_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_mnemonic_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// The pattern of underlines you want under the existing text within the</span>
-    <span class="doccomment">/// [`Label`](crate::Label) widget. For example if the current text of the label says</span>
+    <span class="doccomment">/// [`crate::Label`] widget. For example if the current text of the label says</span>
     <span class="doccomment">/// “FooBarBaz” passing a pattern of “___ ___” will underline</span>
     <span class="doccomment">/// “Foo” and “Baz” but not “Bar”.</span>
     <span class="doccomment">/// ## `pattern`</span>
@@ -3756,16 +3756,16 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_single_line_mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_single_line_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">single_line_mode</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the text within the [`Label`](crate::Label) widget. It overwrites any text that</span>
+    <span class="doccomment">/// Sets the text within the [`crate::Label`] widget. It overwrites any text that</span>
     <span class="doccomment">/// was there before.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function will clear any previously set mnemonic accelerators, and</span>
-    <span class="doccomment">/// set the [`Label:use-underline`](crate::Label:use-underline) property to [`false`] as a side effect.</span>
+    <span class="doccomment">/// set the [`crate::Label:use-underline`] property to [`false`] as a side effect.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function will set the [`Label:use-markup`](crate::Label:use-markup) property to [`false`]</span>
+    <span class="doccomment">/// This function will set the [`crate::Label:use-markup`] property to [`false`]</span>
     <span class="doccomment">/// as a side effect.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`set_markup()`](Self::set_markup())</span>
+    <span class="doccomment">/// See also: [`Self::set_markup()`]</span>
     <span class="doccomment">/// ## `str`</span>
     <span class="doccomment">/// The text you want to set</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_text&quot;</span>)]</span>
@@ -3775,7 +3775,7 @@
     <span class="doccomment">/// If characters in `str` are preceded by an underscore, they are underlined</span>
     <span class="doccomment">/// indicating that they represent a keyboard accelerator called a mnemonic.</span>
     <span class="doccomment">/// The mnemonic key can be used to activate another widget, chosen</span>
-    <span class="doccomment">/// automatically, or explicitly using [`set_mnemonic_widget()`](Self::set_mnemonic_widget()).</span>
+    <span class="doccomment">/// automatically, or explicitly using [`Self::set_mnemonic_widget()`].</span>
     <span class="doccomment">/// ## `str`</span>
     <span class="doccomment">/// a string</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_text_with_mnemonic&quot;</span>)]</span>
@@ -3790,7 +3790,7 @@
 
     <span class="doccomment">/// Sets whether the text of the label contains markup in</span>
     <span class="doccomment">/// [Pango’s text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// See [`set_markup()`](Self::set_markup()).</span>
+    <span class="doccomment">/// See [`Self::set_markup()`].</span>
     <span class="doccomment">/// ## `setting`</span>
     <span class="doccomment">/// [`true`] if the label’s text should be parsed for markup.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_use_markup&quot;</span>)]</span>
@@ -3809,7 +3809,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_width_chars&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_width_chars</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">n_chars</span>: <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Sets the [`Label:xalign`](crate::Label:xalign) property for `self`.</span>
+    <span class="doccomment">/// Sets the [`crate::Label:xalign`] property for `self`.</span>
     <span class="doccomment">/// ## `xalign`</span>
     <span class="doccomment">/// the new xalign value, between 0 and 1</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -3817,7 +3817,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_label_set_xalign&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_xalign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">xalign</span>: <span class="ident">f32</span>);
 
-    <span class="doccomment">/// Sets the [`Label:yalign`](crate::Label:yalign) property for `self`.</span>
+    <span class="doccomment">/// Sets the [`crate::Label:yalign`] property for `self`.</span>
     <span class="doccomment">/// ## `yalign`</span>
     <span class="doccomment">/// the new yalign value, between 0 and 1</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -3896,7 +3896,7 @@
     <span class="doccomment">/// - Ctrl-arrow key combinations move by words/paragraphs</span>
     <span class="doccomment">/// - Home/End keys move to the ends of the buffer</span>
     <span class="doccomment">/// ## `step`</span>
-    <span class="doccomment">/// the granularity of the move, as a [`MovementStep`](crate::MovementStep)</span>
+    <span class="doccomment">/// the granularity of the move, as a [`crate::MovementStep`]</span>
     <span class="doccomment">/// ## `count`</span>
     <span class="doccomment">/// the number of `step` units to move</span>
     <span class="doccomment">/// ## `extend_selection`</span>

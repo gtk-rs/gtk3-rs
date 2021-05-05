@@ -1321,7 +1321,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@gio::IconExt`], [`trait@gio::LoadableIconExt`]</span>
+    <span class="doccomment">/// [`trait@gio::prelude::IconExt`], [`trait@gio::prelude::LoadableIconExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pixbuf</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkPixbuf</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">gio::Icon</span>, <span class="ident">gio::LoadableIcon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1330,7 +1330,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Pixbuf</span> {
-    <span class="doccomment">/// Creates a new [`Pixbuf`](crate::Pixbuf) structure and allocates a buffer for it. The</span>
+    <span class="doccomment">/// Creates a new [`crate::Pixbuf`] structure and allocates a buffer for it. The</span>
     <span class="doccomment">/// buffer has an optimal rowstride. Note that the buffer is not cleared;</span>
     <span class="doccomment">/// you will have to fill it completely yourself.</span>
     <span class="doccomment">/// ## `colorspace`</span>
@@ -1346,7 +1346,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly-created [`Pixbuf`](crate::Pixbuf) with a reference count of 1, or</span>
+    <span class="doccomment">/// A newly-created [`crate::Pixbuf`] with a reference count of 1, or</span>
     <span class="doccomment">/// [`None`] if not enough memory could be allocated for the image buffer.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
@@ -1367,11 +1367,11 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`Pixbuf`](crate::Pixbuf) out of in-memory readonly image data.</span>
+    <span class="doccomment">/// Creates a new [`crate::Pixbuf`] out of in-memory readonly image data.</span>
     <span class="doccomment">/// Currently only RGB images with 8 bits per sample are supported.</span>
-    <span class="doccomment">/// This is the [`glib::Bytes`](crate::glib::Bytes) variant of [`new_from_data()`](Self::new_from_data()).</span>
+    <span class="doccomment">/// This is the [`crate::glib::Bytes`] variant of [`Self::new_from_data()`].</span>
     <span class="doccomment">/// ## `data`</span>
-    <span class="doccomment">/// Image data in 8-bit/sample packed format inside a [`glib::Bytes`](crate::glib::Bytes)</span>
+    <span class="doccomment">/// Image data in 8-bit/sample packed format inside a [`crate::glib::Bytes`]</span>
     <span class="doccomment">/// ## `colorspace`</span>
     <span class="doccomment">/// Colorspace for the image data</span>
     <span class="doccomment">/// ## `has_alpha`</span>
@@ -1387,7 +1387,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly-created [`Pixbuf`](crate::Pixbuf) structure with a reference count of 1.</span>
+    <span class="doccomment">/// A newly-created [`crate::Pixbuf`] structure with a reference count of 1.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_from_bytes&quot;</span>)]</span>
@@ -1420,7 +1420,7 @@
     <span class="comment">//    unsafe { TODO: call ffi:gdk_pixbuf_new_from_data() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Create a [`Pixbuf`](crate::Pixbuf) from a flat representation that is suitable for</span>
+    <span class="doccomment">/// Create a [`crate::Pixbuf`] from a flat representation that is suitable for</span>
     <span class="doccomment">/// storing as inline data in a program. This is useful if you want to</span>
     <span class="doccomment">/// ship a program with images, but don&#39;t want to depend on any</span>
     <span class="doccomment">/// external files.</span>
@@ -1455,7 +1455,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 2.32</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`gio::Resource`](crate::gio::Resource) instead.</span>
+    <span class="doccomment">/// Use [`crate::gio::Resource`] instead.</span>
     <span class="doccomment">/// ## `data_length`</span>
     <span class="doccomment">/// Length in bytes of the `data` argument or -1 to</span>
     <span class="doccomment">///  disable length checks</span>
@@ -1468,7 +1468,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly-created [`Pixbuf`](crate::Pixbuf) structure with a reference,</span>
+    <span class="doccomment">/// A newly-created [`crate::Pixbuf`] structure with a reference,</span>
     <span class="doccomment">///  count of 1, or [`None`] if an error occurred.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 2.32&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_new_from_inline&quot;</span>)]</span>
@@ -1576,14 +1576,14 @@
     <span class="doccomment">/// The file format is detected automatically. If [`None`] is returned, then</span>
     <span class="doccomment">/// `error` will be set. The `cancellable` can be used to abort the operation</span>
     <span class="doccomment">/// from another thread. If the operation was cancelled, the error</span>
-    <span class="doccomment">/// [`gio::IOErrorEnum::Cancelled`] will be returned. Other possible errors are in</span>
+    <span class="doccomment">/// [`crate::gio::IOErrorEnum::Cancelled`] will be returned. Other possible errors are in</span>
     <span class="doccomment">/// the `GDK_PIXBUF_ERROR` and `G_IO_ERROR` domains.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The stream is not closed.</span>
     <span class="doccomment">/// ## `stream`</span>
-    <span class="doccomment">/// a [`gio::InputStream`](crate::gio::InputStream) to load the pixbuf from</span>
+    <span class="doccomment">/// a [`crate::gio::InputStream`] to load the pixbuf from</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::gio::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1617,7 +1617,7 @@
     <span class="doccomment">/// The file format is detected automatically. If [`None`] is returned, then</span>
     <span class="doccomment">/// `error` will be set. The `cancellable` can be used to abort the operation</span>
     <span class="doccomment">/// from another thread. If the operation was cancelled, the error</span>
-    <span class="doccomment">/// [`gio::IOErrorEnum::Cancelled`] will be returned. Other possible errors are in</span>
+    <span class="doccomment">/// [`crate::gio::IOErrorEnum::Cancelled`] will be returned. Other possible errors are in</span>
     <span class="doccomment">/// the `GDK_PIXBUF_ERROR` and `G_IO_ERROR` domains.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The image will be scaled to fit in the requested size, optionally</span>
@@ -1634,7 +1634,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The stream is not closed.</span>
     <span class="doccomment">/// ## `stream`</span>
-    <span class="doccomment">/// a [`gio::InputStream`](crate::gio::InputStream) to load the pixbuf from</span>
+    <span class="doccomment">/// a [`crate::gio::InputStream`] to load the pixbuf from</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// The width the image should have or -1 to not constrain the width</span>
     <span class="doccomment">/// ## `height`</span>
@@ -1642,7 +1642,7 @@
     <span class="doccomment">/// ## `preserve_aspect_ratio`</span>
     <span class="doccomment">/// [`true`] to preserve the image&#39;s aspect ratio</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`gio::Cancellable`](crate::gio::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::gio::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1761,7 +1761,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ![](composite.png)</span>
     <span class="doccomment">/// ## `dest`</span>
-    <span class="doccomment">/// the [`Pixbuf`](crate::Pixbuf) into which to render the results</span>
+    <span class="doccomment">/// the [`crate::Pixbuf`] into which to render the results</span>
     <span class="doccomment">/// ## `dest_x`</span>
     <span class="doccomment">/// the left coordinate for region to render</span>
     <span class="doccomment">/// ## `dest_y`</span>
@@ -1825,10 +1825,10 @@
     <span class="doccomment">/// If the source image has no alpha channel, and `overall_alpha` is 255, a fast</span>
     <span class="doccomment">/// path is used which omits the alpha blending and just performs the scaling.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`composite_color_simple()`](Self::composite_color_simple()) for a simpler variant of this</span>
+    <span class="doccomment">/// See [`Self::composite_color_simple()`] for a simpler variant of this</span>
     <span class="doccomment">/// function suitable for many tasks.</span>
     <span class="doccomment">/// ## `dest`</span>
-    <span class="doccomment">/// the [`Pixbuf`](crate::Pixbuf) into which to render the results</span>
+    <span class="doccomment">/// the [`crate::Pixbuf`] into which to render the results</span>
     <span class="doccomment">/// ## `dest_x`</span>
     <span class="doccomment">/// the left coordinate for region to render</span>
     <span class="doccomment">/// ## `dest_y`</span>
@@ -1902,7 +1902,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`Pixbuf`](crate::Pixbuf) by scaling `self` to `dest_width` x</span>
+    <span class="doccomment">/// Creates a new [`crate::Pixbuf`] by scaling `self` to `dest_width` x</span>
     <span class="doccomment">/// `dest_height` and alpha blending the result with a checkboard of colors</span>
     <span class="doccomment">/// `color1` and `color2`.</span>
     <span class="doccomment">/// ## `dest_width`</span>
@@ -1922,7 +1922,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`Pixbuf`](crate::Pixbuf), or [`None`] if not enough memory could be</span>
+    <span class="doccomment">/// the new [`crate::Pixbuf`], or [`None`] if not enough memory could be</span>
     <span class="doccomment">/// allocated for it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_composite_color_simple&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">composite_color_simple</span>(
@@ -1949,9 +1949,9 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`Pixbuf`](crate::Pixbuf) with a copy of the information in the specified</span>
-    <span class="doccomment">/// `self`. Note that this does not copy the options set on the original [`Pixbuf`](crate::Pixbuf),</span>
-    <span class="doccomment">/// use [`copy_options()`](Self::copy_options()) for this.</span>
+    <span class="doccomment">/// Creates a new [`crate::Pixbuf`] with a copy of the information in the specified</span>
+    <span class="doccomment">/// `self`. Note that this does not copy the options set on the original [`crate::Pixbuf`],</span>
+    <span class="doccomment">/// use [`Self::copy_options()`] for this.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2007,12 +2007,12 @@
         }
     }
 
-    <span class="doccomment">/// Copy the key/value pair options attached to a [`Pixbuf`](crate::Pixbuf) to another.</span>
+    <span class="doccomment">/// Copy the key/value pair options attached to a [`crate::Pixbuf`] to another.</span>
     <span class="doccomment">/// This is useful to keep original metadata after having manipulated</span>
     <span class="doccomment">/// a file. However be careful to remove metadata which you&#39;ve already</span>
     <span class="doccomment">/// applied, such as the &quot;orientation&quot; option after rotating the image.</span>
     <span class="doccomment">/// ## `dest_pixbuf`</span>
-    <span class="doccomment">/// the [`Pixbuf`](crate::Pixbuf) to copy options to</span>
+    <span class="doccomment">/// the [`crate::Pixbuf`] to copy options to</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2049,7 +2049,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`Pixbuf`](crate::Pixbuf), or [`None`]</span>
+    <span class="doccomment">/// the new [`crate::Pixbuf`], or [`None`]</span>
     <span class="doccomment">/// if not enough memory could be allocated for it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_flip&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flip</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">horizontal</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
@@ -2129,7 +2129,7 @@
 
     <span class="doccomment">/// Looks up `key` in the list of options that may have been attached to the</span>
     <span class="doccomment">/// `self` when it was loaded, or that may have been attached by another</span>
-    <span class="doccomment">/// function using [`set_option()`](Self::set_option()).</span>
+    <span class="doccomment">/// function using [`Self::set_option()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For instance, the ANI loader provides &quot;Title&quot; and &quot;Artist&quot; options.</span>
     <span class="doccomment">/// The ICO, XBM, and XPM loaders provide &quot;x_hot&quot; and &quot;y_hot&quot; hot-spot</span>
@@ -2224,9 +2224,9 @@
         }
     }
 
-    <span class="doccomment">/// Provides a [`glib::Bytes`](crate::glib::Bytes) buffer containing the raw pixel data; the data</span>
+    <span class="doccomment">/// Provides a [`crate::glib::Bytes`] buffer containing the raw pixel data; the data</span>
     <span class="doccomment">/// must not be modified. This function allows skipping the implicit</span>
-    <span class="doccomment">/// copy that must be made if [`get_pixels()`](Self::get_pixels()) is called on a</span>
+    <span class="doccomment">/// copy that must be made if [`Self::get_pixels()`] is called on a</span>
     <span class="doccomment">/// read-only pixbuf.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -2234,7 +2234,7 @@
     <span class="doccomment">/// A new reference to a read-only copy of</span>
     <span class="doccomment">///  the pixel data. Note that for mutable pixbufs, this function will</span>
     <span class="doccomment">///  incur a one-time copy of the pixel data for conversion into the</span>
-    <span class="doccomment">///  returned [`glib::Bytes`](crate::glib::Bytes).</span>
+    <span class="doccomment">///  returned [`crate::glib::Bytes`].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_32&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_read_pixel_bytes&quot;</span>)]</span>
@@ -2242,7 +2242,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gdk_pixbuf_read_pixel_bytes</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Remove the key/value pair option attached to a [`Pixbuf`](crate::Pixbuf).</span>
+    <span class="doccomment">/// Remove the key/value pair option attached to a [`crate::Pixbuf`].</span>
     <span class="doccomment">/// ## `key`</span>
     <span class="doccomment">/// a nul-terminated string representing the key to remove.</span>
     <span class="doccomment">///</span>
@@ -2270,7 +2270,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`Pixbuf`](crate::Pixbuf), or [`None`]</span>
+    <span class="doccomment">/// the new [`crate::Pixbuf`], or [`None`]</span>
     <span class="doccomment">/// if not enough memory could be allocated for it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_rotate_simple&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate_simple</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">PixbufRotation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Pixbuf</span><span class="op">&gt;</span> {
@@ -2365,15 +2365,15 @@
     <span class="doccomment">/// `dest_height`) of the resulting image onto the destination image</span>
     <span class="doccomment">/// replacing the previous contents.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Try to use [`scale_simple()`](Self::scale_simple()) first, this function is</span>
+    <span class="doccomment">/// Try to use [`Self::scale_simple()`] first, this function is</span>
     <span class="doccomment">/// the industrial-strength power tool you can fall back to if</span>
-    <span class="doccomment">/// [`scale_simple()`](Self::scale_simple()) isn&#39;t powerful enough.</span>
+    <span class="doccomment">/// [`Self::scale_simple()`] isn&#39;t powerful enough.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the source rectangle overlaps the destination rectangle on the</span>
     <span class="doccomment">/// same pixbuf, it will be overwritten during the scaling which</span>
     <span class="doccomment">/// results in rendering artifacts.</span>
     <span class="doccomment">/// ## `dest`</span>
-    <span class="doccomment">/// the [`Pixbuf`](crate::Pixbuf) into which to render the results</span>
+    <span class="doccomment">/// the [`crate::Pixbuf`] into which to render the results</span>
     <span class="doccomment">/// ## `dest_x`</span>
     <span class="doccomment">/// the left coordinate for region to render</span>
     <span class="doccomment">/// ## `dest_y`</span>
@@ -2423,21 +2423,21 @@
         }
     }
 
-    <span class="doccomment">/// Create a new [`Pixbuf`](crate::Pixbuf) containing a copy of `self` scaled to</span>
+    <span class="doccomment">/// Create a new [`crate::Pixbuf`] containing a copy of `self` scaled to</span>
     <span class="doccomment">/// `dest_width` x `dest_height`. Leaves `self` unaffected. `interp_type`</span>
-    <span class="doccomment">/// should be [`InterpType::Nearest`](crate::InterpType::Nearest) if you want maximum speed (but when</span>
-    <span class="doccomment">/// scaling down [`InterpType::Nearest`](crate::InterpType::Nearest) is usually unusably ugly). The</span>
-    <span class="doccomment">/// default `interp_type` should be [`InterpType::Bilinear`](crate::InterpType::Bilinear) which offers</span>
+    <span class="doccomment">/// should be [`crate::InterpType::Nearest`] if you want maximum speed (but when</span>
+    <span class="doccomment">/// scaling down [`crate::InterpType::Nearest`] is usually unusably ugly). The</span>
+    <span class="doccomment">/// default `interp_type` should be [`crate::InterpType::Bilinear`] which offers</span>
     <span class="doccomment">/// reasonable quality and speed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can scale a sub-portion of `self` by creating a sub-pixbuf</span>
-    <span class="doccomment">/// pointing into `self`; see [`new_subpixbuf()`](Self::new_subpixbuf()).</span>
+    <span class="doccomment">/// pointing into `self`; see [`Self::new_subpixbuf()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `dest_width` and `dest_height` are equal to the `self` width and height, a</span>
     <span class="doccomment">/// copy of `self` is returned, avoiding any scaling.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more complicated scaling/alpha blending see [`scale()`](Self::scale())</span>
-    <span class="doccomment">/// and [`composite()`](Self::composite()).</span>
+    <span class="doccomment">/// For more complicated scaling/alpha blending see [`Self::scale()`]</span>
+    <span class="doccomment">/// and [`Self::composite()`].</span>
     <span class="doccomment">/// ## `dest_width`</span>
     <span class="doccomment">/// the width of destination image</span>
     <span class="doccomment">/// ## `dest_height`</span>
@@ -2447,7 +2447,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`Pixbuf`](crate::Pixbuf), or [`None`] if not enough memory could be</span>
+    <span class="doccomment">/// the new [`crate::Pixbuf`], or [`None`] if not enough memory could be</span>
     <span class="doccomment">/// allocated for it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_scale_simple&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scale_simple</span>(
@@ -2466,7 +2466,7 @@
         }
     }
 
-    <span class="doccomment">/// Attaches a key/value pair as an option to a [`Pixbuf`](crate::Pixbuf). If `key` already</span>
+    <span class="doccomment">/// Attaches a key/value pair as an option to a [`crate::Pixbuf`]. If `key` already</span>
     <span class="doccomment">/// exists in the list of options attached to `self`, the new value is</span>
     <span class="doccomment">/// ignored and [`false`] is returned.</span>
     <span class="doccomment">/// ## `key`</span>
@@ -2549,7 +2549,7 @@
     <span class="doccomment">/// A list of</span>
     <span class="doccomment">/// ``GdkPixbufFormats`` describing the supported image formats. The list should</span>
     <span class="doccomment">/// be freed when it is no longer needed, but the structures themselves are</span>
-    <span class="doccomment">/// owned by [`Pixbuf`](crate::Pixbuf) and should not be freed.</span>
+    <span class="doccomment">/// owned by [`crate::Pixbuf`] and should not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_get_formats&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_formats&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">formats</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PixbufFormat</span><span class="op">&gt;</span> {

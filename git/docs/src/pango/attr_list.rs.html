@@ -101,13 +101,13 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="kw">impl</span> <span class="ident">AttrList</span> {
-    <span class="doccomment">/// Insert the given attribute into the [`AttrList`](crate::AttrList). It will</span>
+    <span class="doccomment">/// Insert the given attribute into the [`crate::AttrList`]. It will</span>
     <span class="doccomment">/// replace any attributes of the same type on that segment</span>
     <span class="doccomment">/// and be merged with any adjoining attributes that are identical.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is slower than [`insert()`](Self::insert()) for</span>
+    <span class="doccomment">/// This function is slower than [`Self::insert()`] for</span>
     <span class="doccomment">/// creating an attribute list in order (potentially much slower</span>
-    <span class="doccomment">/// for large lists). However, [`insert()`](Self::insert()) is not</span>
+    <span class="doccomment">/// for large lists). However, [`Self::insert()`] is not</span>
     <span class="doccomment">/// suitable for continually changing a set of attributes</span>
     <span class="doccomment">/// since it never removes or combines existing attributes.</span>
     <span class="doccomment">/// ## `attr`</span>
@@ -125,7 +125,7 @@
     <span class="doccomment">/// whether those attributes apply to the same ranges. Beware that this</span>
     <span class="doccomment">/// will return wrong values if any list contains duplicates.</span>
     <span class="doccomment">/// ## `other_list`</span>
-    <span class="doccomment">/// the other [`AttrList`](crate::AttrList)</span>
+    <span class="doccomment">/// the other [`crate::AttrList`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -142,7 +142,7 @@
         }
     }
 
-    <span class="doccomment">/// Insert the given attribute into the [`AttrList`](crate::AttrList). It will</span>
+    <span class="doccomment">/// Insert the given attribute into the [`crate::AttrList`]. It will</span>
     <span class="doccomment">/// be inserted after all other attributes with a matching</span>
     <span class="doccomment">/// `start_index`.</span>
     <span class="doccomment">/// ## `attr`</span>
@@ -156,7 +156,7 @@
         }
     }
 
-    <span class="doccomment">/// Insert the given attribute into the [`AttrList`](crate::AttrList). It will</span>
+    <span class="doccomment">/// Insert the given attribute into the [`crate::AttrList`]. It will</span>
     <span class="doccomment">/// be inserted before all other attributes with a matching</span>
     <span class="doccomment">/// `start_index`.</span>
     <span class="doccomment">/// ## `attr`</span>

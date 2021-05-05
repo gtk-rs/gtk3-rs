@@ -287,22 +287,22 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`GestureSingle`](crate::GestureSingle) is a subclass of [`Gesture`](crate::Gesture), optimized (although</span>
+    <span class="doccomment">/// [`crate::GestureSingle`] is a subclass of [`crate::Gesture`], optimized (although</span>
     <span class="doccomment">/// not restricted) for dealing with mouse and single-touch gestures. Under</span>
     <span class="doccomment">/// interaction, these gestures stick to the first interacting sequence, which</span>
-    <span class="doccomment">/// is accessible through [`GestureSingleExt::get_current_sequence()`](crate::GestureSingleExt::get_current_sequence()) while the</span>
+    <span class="doccomment">/// is accessible through [`crate::prelude::GestureSingleExt::get_current_sequence()`] while the</span>
     <span class="doccomment">/// gesture is being interacted with.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default gestures react to both `GDK_BUTTON_PRIMARY` and touch</span>
-    <span class="doccomment">/// events, [`GestureSingleExt::set_touch_only()`](crate::GestureSingleExt::set_touch_only()) can be used to change the</span>
+    <span class="doccomment">/// events, [`crate::prelude::GestureSingleExt::set_touch_only()`] can be used to change the</span>
     <span class="doccomment">/// touch behavior. Callers may also specify a different mouse button number</span>
-    <span class="doccomment">/// to interact with through [`GestureSingleExt::set_button()`](crate::GestureSingleExt::set_button()), or react to any</span>
+    <span class="doccomment">/// to interact with through [`crate::prelude::GestureSingleExt::set_button()`], or react to any</span>
     <span class="doccomment">/// mouse button by setting 0. While the gesture is active, the button being</span>
-    <span class="doccomment">/// currently pressed can be known through [`GestureSingleExt::get_current_button()`](crate::GestureSingleExt::get_current_button()).</span>
+    <span class="doccomment">/// currently pressed can be known through [`crate::prelude::GestureSingleExt::get_current_button()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GestureSingleExt`](trait@crate::prelude::GestureSingleExt), [`GestureExt`](trait@crate::prelude::GestureExt), [`EventControllerExt`](trait@crate::prelude::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::GestureSingleExt`], [`trait@crate::prelude::GestureExt`], [`trait@crate::prelude::EventControllerExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GestureSingle</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkGestureSingle</span>, <span class="ident">ffi::GtkGestureSingleClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Gesture</span>, <span class="ident">EventController</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -316,7 +316,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`GestureDrag`](struct@crate::GestureDrag), [`GestureLongPress`](struct@crate::GestureLongPress), [`GestureMultiPress`](struct@crate::GestureMultiPress), [`GestureSingle`](struct@crate::GestureSingle), [`GestureStylus`](struct@crate::GestureStylus), [`GestureSwipe`](struct@crate::GestureSwipe)</span>
+<span class="doccomment">/// [`struct@crate::GestureDrag`], [`struct@crate::GestureLongPress`], [`struct@crate::GestureMultiPress`], [`struct@crate::GestureSingle`], [`struct@crate::GestureStylus`], [`struct@crate::GestureSwipe`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">GestureSingleExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the button number `self` listens for, or 0 if `self`</span>
     <span class="doccomment">/// reacts to any button press.</span>
@@ -339,7 +339,7 @@
     <span class="kw">fn</span> <span class="ident">current_button</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Returns the event sequence currently interacting with `self`.</span>
-    <span class="doccomment">/// This is only meaningful if [`GestureExt::is_active()`](crate::GestureExt::is_active()) returns [`true`].</span>
+    <span class="doccomment">/// This is only meaningful if [`crate::prelude::GestureExt::is_active()`] returns [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -349,7 +349,7 @@
     <span class="kw">fn</span> <span class="ident">current_sequence</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk::EventSequence</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets whether a gesture is exclusive. For more information, see</span>
-    <span class="doccomment">/// [`set_exclusive()`](Self::set_exclusive()).</span>
+    <span class="doccomment">/// [`Self::set_exclusive()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -385,7 +385,7 @@
     <span class="kw">fn</span> <span class="ident">set_exclusive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">exclusive</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// If `touch_only` is [`true`], `self` will only handle events of type</span>
-    <span class="doccomment">/// [`gdk::EventType::TouchBegin`](crate::gdk::EventType::TouchBegin), [`gdk::EventType::TouchUpdate`](crate::gdk::EventType::TouchUpdate) or [`gdk::EventType::TouchEnd`](crate::gdk::EventType::TouchEnd). If [`false`],</span>
+    <span class="doccomment">/// [`crate::gdk::EventType::TouchBegin`], [`crate::gdk::EventType::TouchUpdate`] or [`crate::gdk::EventType::TouchEnd`]. If [`false`],</span>
     <span class="doccomment">/// mouse events will be handled too.</span>
     <span class="doccomment">/// ## `touch_only`</span>
     <span class="doccomment">/// whether `self` handles only touch events</span>

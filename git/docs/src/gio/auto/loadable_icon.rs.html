@@ -204,12 +204,12 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Extends the [`Icon`](crate::Icon) interface and adds the ability to</span>
+    <span class="doccomment">/// Extends the [`crate::Icon`] interface and adds the ability to</span>
     <span class="doccomment">/// load icons from streams.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LoadableIconExt`](trait@crate::prelude::LoadableIconExt), [`IconExt`](trait@crate::prelude::IconExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::LoadableIconExt`], [`trait@crate::prelude::IconExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LoadableIcon</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GLoadableIcon</span>, <span class="ident">ffi::GLoadableIconIface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Icon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -223,22 +223,22 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`BytesIcon`](struct@crate::BytesIcon), [`FileIcon`](struct@crate::FileIcon), [`LoadableIcon`](struct@crate::LoadableIcon)</span>
+<span class="doccomment">/// [`struct@crate::BytesIcon`], [`struct@crate::FileIcon`], [`struct@crate::LoadableIcon`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LoadableIconExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Loads a loadable icon. For the asynchronous version of this function,</span>
-    <span class="doccomment">/// see [`LoadableIcon::load_async()`](crate::LoadableIcon::load_async()).</span>
+    <span class="doccomment">/// see [`crate::LoadableIcon::load_async()`].</span>
     <span class="doccomment">/// ## `size`</span>
     <span class="doccomment">/// an integer.</span>
     <span class="doccomment">/// ## `type_`</span>
     <span class="doccomment">/// a location to store the type of the loaded</span>
     <span class="doccomment">/// icon, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to</span>
     <span class="doccomment">/// ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`InputStream`](crate::InputStream) to read the icon from.</span>
+    <span class="doccomment">/// a [`crate::InputStream`] to read the icon from.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_loadable_icon_load&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">load</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -247,12 +247,12 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">InputStream</span>, <span class="ident">glib::GString</span>), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Loads an icon asynchronously. To finish this function, see</span>
-    <span class="doccomment">/// [`LoadableIcon::load_finish()`](crate::LoadableIcon::load_finish()). For the synchronous, blocking</span>
-    <span class="doccomment">/// version of this function, see [`LoadableIcon::load()`](crate::LoadableIcon::load()).</span>
+    <span class="doccomment">/// [`crate::LoadableIcon::load_finish()`]. For the synchronous, blocking</span>
+    <span class="doccomment">/// version of this function, see [`crate::LoadableIcon::load()`].</span>
     <span class="doccomment">/// ## `size`</span>
     <span class="doccomment">/// an integer.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the</span>
     <span class="doccomment">///  request is satisfied</span>

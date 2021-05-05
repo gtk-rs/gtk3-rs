@@ -5,7 +5,7 @@
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.FileAttributeMatcher.html" title="struct gio::FileAttributeMatcher">FileAttributeMatcher</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#20-152" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>(attributes: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="struct.FileAttributeMatcher.html" title="struct gio::FileAttributeMatcher">FileAttributeMatcher</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#47-53" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new file attribute matcher, which matches attributes
 against a given string. <code>GFileAttributeMatchers</code> are reference
 counted structures, and are created with a reference count of 1. If
-the number of references falls to 0, the <a href="struct.FileAttributeMatcher.html"><code>FileAttributeMatcher</code></a> is
+the number of references falls to 0, the <a href="struct.FileAttributeMatcher.html" title="crate::FileAttributeMatcher"><code>crate::FileAttributeMatcher</code></a> is
 automatically destroyed.</p>
 <p>The <code>attributes</code> string should be formatted with specific keys separated
 from namespaces with a double colon. Several “namespace::key” strings may be
@@ -23,7 +23,7 @@ namespace and all keys in the unix namespace.</li>
 <h2 id="attributes" class="section-header"><a href="#attributes"><code>attributes</code></a></h2>
 <p>an attribute string to match.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a <a href="struct.FileAttributeMatcher.html"><code>FileAttributeMatcher</code></a></p>
+<p>a <a href="struct.FileAttributeMatcher.html" title="crate::FileAttributeMatcher"><code>crate::FileAttributeMatcher</code></a></p>
 </div><h4 id="method.enumerate_namespace" class="method"><code>pub fn <a href="#method.enumerate_namespace" class="fnname">enumerate_namespace</a>(&amp;self, ns: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.enumerate_namespace" class="anchor"></a><a class="srclink" href="../src/gio/auto/file_attribute_matcher.rs.html#69-76" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks if the matcher will match all of the keys in a given namespace.
 This will always return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if a wildcard character is in use (e.g. if
 matcher was created with “standard::<em>” and <code>ns</code> is “standard”, or if matcher was created

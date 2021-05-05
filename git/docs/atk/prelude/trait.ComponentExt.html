@@ -19,7 +19,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_bounds_changed" class="fnname">connect_bounds_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../struct.Rectangle.html" title="struct atk::Rectangle">Rectangle</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>Component</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.Component.html"><code>Component</code></a>, <a href="../struct.NoOpObject.html"><code>NoOpObject</code></a>, <a href="../struct.Plug.html"><code>Plug</code></a>, <a href="../struct.Socket.html"><code>Socket</code></a></p>
+<p><a href="../struct.Component.html" title="crate::Component"><code>crate::Component</code></a>, <a href="../struct.NoOpObject.html" title="crate::NoOpObject"><code>crate::NoOpObject</code></a>, <a href="../struct.Plug.html" title="crate::Plug"><code>crate::Plug</code></a>, <a href="../struct.Socket.html" title="crate::Socket"><code>crate::Socket</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.contains" class="method"><code>fn <a href="#tymethod.contains" class="fnname">contains</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, coord_type: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/component.rs.html#70" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks whether the specified point is within the extent of the <code>self</code>.</p>
 <p>Toolkit implementor note: ATK provides a default implementation for
 this virtual method. In general there are little reason to
@@ -55,7 +55,7 @@ support), all of x, y, width, height are set to -1.</p>
 or to the components top level window</p>
 </div><h3 id="tymethod.layer" class="method"><code>fn <a href="#tymethod.layer" class="fnname">layer</a>(&amp;self) -&gt; <a class="enum" href="../enum.Layer.html" title="enum atk::Layer">Layer</a></code><a class="srclink" href="../../src/atk/auto/component.rs.html#109" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the layer of the component.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>an <a href="../enum.Layer.html"><code>Layer</code></a> which is the layer of the component</p>
+<p>an <a href="../enum.Layer.html" title="crate::Layer"><code>crate::Layer</code></a> which is the layer of the component</p>
 </div><h3 id="tymethod.mdi_zorder" class="method"><code>fn <a href="#tymethod.mdi_zorder" class="fnname">mdi_zorder</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/atk/auto/component.rs.html#121" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the zorder of the component. The value G_MININT will be returned
 if the layer of the component is not ATK_LAYER_MDI or ATK_LAYER_WINDOW.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
@@ -67,7 +67,7 @@ a point specifying <code>self</code>’s top-left corner.</p>
 <p>If the position can not be obtained (e.g. a non-embedded plug or missing
 support), x and y are set to -1.</p>
 <h1 id="deprecated" class="section-header"><a href="#deprecated">Deprecated</a></h1>
-<p>Since 2.12. Use <a href="crate::Component::get_extents()"><code>Component::get_extents()</code></a> instead.</p>
+<p>Since 2.12. Use [<code>crate::Component::get_extents()</code>] instead.</p>
 <h2 id="x-2" class="section-header"><a href="#x-2"><code>x</code></a></h2>
 <p>address of <code>gint</code> to put x coordinate position</p>
 <h2 id="y-2" class="section-header"><a href="#y-2"><code>y</code></a></h2>
@@ -79,7 +79,7 @@ or to the components top level window</p>
 <p>If the size can not be obtained (e.g. a non-embedded plug or missing
 support), width and height are set to -1.</p>
 <h1 id="deprecated-1" class="section-header"><a href="#deprecated-1">Deprecated</a></h1>
-<p>Since 2.12. Use <a href="crate::Component::get_extents()"><code>Component::get_extents()</code></a> instead.</p>
+<p>Since 2.12. Use [<code>crate::Component::get_extents()</code>] instead.</p>
 <h2 id="width-1" class="section-header"><a href="#width-1"><code>width</code></a></h2>
 <p>address of <code>gint</code> to put width of <code>self</code></p>
 <h2 id="height-1" class="section-header"><a href="#height-1"><code>height</code></a></h2>

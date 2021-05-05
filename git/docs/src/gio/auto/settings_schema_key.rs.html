@@ -119,7 +119,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`SettingsSchemaKey`](crate::SettingsSchemaKey) is an opaque data structure and can only be accessed</span>
+    <span class="doccomment">/// [`crate::SettingsSchemaKey`] is an opaque data structure and can only be accessed</span>
     <span class="doccomment">/// using the following functions.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SettingsSchemaKey</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi::GSettingsSchemaKey</span><span class="op">&gt;</span>);

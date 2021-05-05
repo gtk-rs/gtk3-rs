@@ -154,11 +154,11 @@
     <span class="doccomment">/// Gets the hardware ID of this tool, or 0 if it&#39;s not known. When</span>
     <span class="doccomment">/// non-zero, the identificator is unique for the given tool model,</span>
     <span class="doccomment">/// meaning that two identical tools will share the same `hardware_id`,</span>
-    <span class="doccomment">/// but will have different serial numbers (see [`get_serial()`](Self::get_serial())).</span>
+    <span class="doccomment">/// but will have different serial numbers (see [`Self::get_serial()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a more concrete (and device specific) method to identify</span>
-    <span class="doccomment">/// a [`DeviceTool`](crate::DeviceTool) than [`get_tool_type()`](Self::get_tool_type()), as a tablet</span>
-    <span class="doccomment">/// may support multiple devices with the same [`DeviceToolType`](crate::DeviceToolType),</span>
+    <span class="doccomment">/// a [`crate::DeviceTool`] than [`Self::get_tool_type()`], as a tablet</span>
+    <span class="doccomment">/// may support multiple devices with the same [`crate::DeviceToolType`],</span>
     <span class="doccomment">/// but having different hardware identificators.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -182,7 +182,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_device_tool_get_serial</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the [`DeviceToolType`](crate::DeviceToolType) of the tool.</span>
+    <span class="doccomment">/// Gets the [`crate::DeviceToolType`] of the tool.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

@@ -3415,13 +3415,13 @@
     <span class="doccomment">/// `settings.ini` files in</span>
     <span class="doccomment">/// `/etc/gtk-3.0`, `$XDG_CONFIG_DIRS/gtk-3.0`</span>
     <span class="doccomment">/// and `$XDG_CONFIG_HOME/gtk-3.0`.</span>
-    <span class="doccomment">/// These files must be valid key files (see [`glib::KeyFile`](crate::glib::KeyFile)), and have</span>
+    <span class="doccomment">/// These files must be valid key files (see [`crate::glib::KeyFile`]), and have</span>
     <span class="doccomment">/// a section called Settings. Themes can also provide default values</span>
     <span class="doccomment">/// for settings by installing a `settings.ini` file</span>
     <span class="doccomment">/// next to their `gtk.css` file.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Applications can override system-wide settings by setting the property</span>
-    <span class="doccomment">/// of the `Settings` object with [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set()). This should be restricted</span>
+    <span class="doccomment">/// of the `Settings` object with [`crate::glib::object::ObjectExt::set()`]. This should be restricted</span>
     <span class="doccomment">/// to special cases though; `Settings` are not meant as an application</span>
     <span class="doccomment">/// configuration facility. When doing so, you need to be aware that settings</span>
     <span class="doccomment">/// that are specific to individual widgets may not be available before the</span>
@@ -3438,13 +3438,13 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There is one `Settings` instance per screen. It can be obtained with</span>
-    <span class="doccomment">/// [`get_for_screen()`](Self::get_for_screen()), but in many cases, it is more convenient</span>
-    <span class="doccomment">/// to use [`WidgetExt::get_settings()`](crate::WidgetExt::get_settings()). [`get_default()`](Self::get_default()) returns the</span>
+    <span class="doccomment">/// [`Self::get_for_screen()`], but in many cases, it is more convenient</span>
+    <span class="doccomment">/// to use [`crate::prelude::WidgetExt::get_settings()`]. [`Self::get_default()`] returns the</span>
     <span class="doccomment">/// `Settings` instance for the default screen.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SettingsExt`](trait@crate::prelude::SettingsExt), [`trait@glib::object::ObjectExt`], [`StyleProviderExt`](trait@crate::prelude::StyleProviderExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SettingsExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::StyleProviderExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Settings</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkSettings</span>, <span class="ident">ffi::GtkSettingsClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">StyleProvider</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -3453,12 +3453,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Settings</span> {
-    <span class="doccomment">/// Gets the [`Settings`](crate::Settings) object for the default GDK screen, creating</span>
-    <span class="doccomment">/// it if necessary. See [`get_for_screen()`](Self::get_for_screen()).</span>
+    <span class="doccomment">/// Gets the [`crate::Settings`] object for the default GDK screen, creating</span>
+    <span class="doccomment">/// it if necessary. See [`Self::get_for_screen()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Settings`](crate::Settings) object. If there is</span>
+    <span class="doccomment">/// a [`crate::Settings`] object. If there is</span>
     <span class="doccomment">/// no default screen, then returns [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_settings_get_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default&quot;</span>)]</span>
@@ -3467,13 +3467,13 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_settings_get_default</span>()) }
     }
 
-    <span class="doccomment">/// Gets the [`Settings`](crate::Settings) object for `screen`, creating it if necessary.</span>
+    <span class="doccomment">/// Gets the [`crate::Settings`] object for `screen`, creating it if necessary.</span>
     <span class="doccomment">/// ## `screen`</span>
-    <span class="doccomment">/// a [`gdk::Screen`](crate::gdk::Screen).</span>
+    <span class="doccomment">/// a [`crate::gdk::Screen`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Settings`](crate::Settings) object.</span>
+    <span class="doccomment">/// a [`crate::Settings`] object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_settings_get_for_screen&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_for_screen&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_screen</span>(<span class="ident">screen</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::Screen</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Settings</span><span class="op">&gt;</span> {
@@ -3488,9 +3488,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Settings`](struct@crate::Settings)</span>
+<span class="doccomment">/// [`struct@crate::Settings`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SettingsExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Undoes the effect of calling [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set()) to install an</span>
+    <span class="doccomment">/// Undoes the effect of calling [`crate::glib::object::ObjectExt::set()`] to install an</span>
     <span class="doccomment">/// application-specific value for a setting. After this call,</span>
     <span class="doccomment">/// the setting will again follow the session-wide value for</span>
     <span class="doccomment">/// this setting.</span>
@@ -3504,7 +3504,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set()) instead.</span>
+    <span class="doccomment">/// Use [`crate::glib::object::ObjectExt::set()`] instead.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.16&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_settings_set_double_property&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_double_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">v_double</span>: <span class="ident">f64</span>, <span class="ident">origin</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
@@ -3512,7 +3512,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set()) instead.</span>
+    <span class="doccomment">/// Use [`crate::glib::object::ObjectExt::set()`] instead.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.16&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_settings_set_long_property&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_long_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">v_long</span>: <span class="ident">libc::c_long</span>, <span class="ident">origin</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
@@ -3524,7 +3524,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.16</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set()) instead.</span>
+    <span class="doccomment">/// Use [`crate::glib::object::ObjectExt::set()`] instead.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.16&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_settings_set_string_property&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_string_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">v_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">origin</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);

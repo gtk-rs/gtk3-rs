@@ -823,22 +823,22 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`CellRendererPixbuf`](crate::CellRendererPixbuf) can be used to render an image in a cell. It allows</span>
-    <span class="doccomment">/// to render either a given [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) (set via the</span>
-    <span class="doccomment">/// [`CellRendererPixbuf:pixbuf`](crate::CellRendererPixbuf:pixbuf) property) or a named icon (set via the</span>
-    <span class="doccomment">/// [`CellRendererPixbuf:icon-name`](crate::CellRendererPixbuf:icon-name) property).</span>
+    <span class="doccomment">/// A [`crate::CellRendererPixbuf`] can be used to render an image in a cell. It allows</span>
+    <span class="doccomment">/// to render either a given [`crate::gdk_pixbuf::Pixbuf`] (set via the</span>
+    <span class="doccomment">/// [`crate::CellRendererPixbuf:pixbuf`] property) or a named icon (set via the</span>
+    <span class="doccomment">/// [`crate::CellRendererPixbuf:icon-name`] property).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To support the tree view, [`CellRendererPixbuf`](crate::CellRendererPixbuf) also supports rendering two</span>
-    <span class="doccomment">/// alternative pixbufs, when the [`CellRenderer:is-expander`](crate::CellRenderer:is-expander) property is [`true`].</span>
-    <span class="doccomment">/// If the [`CellRenderer:is-expanded`](crate::CellRenderer:is-expanded) property is [`true`] and the</span>
-    <span class="doccomment">/// [`CellRendererPixbuf:pixbuf-expander-open`](crate::CellRendererPixbuf:pixbuf-expander-open) property is set to a pixbuf, it</span>
-    <span class="doccomment">/// renders that pixbuf, if the [`CellRenderer:is-expanded`](crate::CellRenderer:is-expanded) property is [`false`]</span>
-    <span class="doccomment">/// and the [`CellRendererPixbuf:pixbuf-expander-closed`](crate::CellRendererPixbuf:pixbuf-expander-closed) property is set to a</span>
+    <span class="doccomment">/// To support the tree view, [`crate::CellRendererPixbuf`] also supports rendering two</span>
+    <span class="doccomment">/// alternative pixbufs, when the [`crate::CellRenderer:is-expander`] property is [`true`].</span>
+    <span class="doccomment">/// If the [`crate::CellRenderer:is-expanded`] property is [`true`] and the</span>
+    <span class="doccomment">/// [`crate::CellRendererPixbuf:pixbuf-expander-open`] property is set to a pixbuf, it</span>
+    <span class="doccomment">/// renders that pixbuf, if the [`crate::CellRenderer:is-expanded`] property is [`false`]</span>
+    <span class="doccomment">/// and the [`crate::CellRendererPixbuf:pixbuf-expander-closed`] property is set to a</span>
     <span class="doccomment">/// pixbuf, it renders that one.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CellRendererPixbufExt`](trait@crate::prelude::CellRendererPixbufExt), [`CellRendererExt`](trait@crate::prelude::CellRendererExt), [`trait@glib::object::ObjectExt`], [`CellRendererPixbufExtManual`](trait@crate::prelude::CellRendererPixbufExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::CellRendererPixbufExt`], [`trait@crate::prelude::CellRendererExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::CellRendererPixbufExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CellRendererPixbuf</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkCellRendererPixbuf</span>, <span class="ident">ffi::GtkCellRendererPixbufClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">CellRenderer</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -847,13 +847,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">CellRendererPixbuf</span> {
-    <span class="doccomment">/// Creates a new [`CellRendererPixbuf`](crate::CellRendererPixbuf). Adjust rendering</span>
+    <span class="doccomment">/// Creates a new [`crate::CellRendererPixbuf`]. Adjust rendering</span>
     <span class="doccomment">/// parameters using object properties. Object properties can be set</span>
-    <span class="doccomment">/// globally (with [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set())). Also, with [`TreeViewColumn`](crate::TreeViewColumn), you</span>
-    <span class="doccomment">/// can bind a property to a value in a [`TreeModel`](crate::TreeModel). For example, you</span>
+    <span class="doccomment">/// globally (with [`crate::glib::object::ObjectExt::set()`]). Also, with [`crate::TreeViewColumn`], you</span>
+    <span class="doccomment">/// can bind a property to a value in a [`crate::TreeModel`]. For example, you</span>
     <span class="doccomment">/// can bind the “pixbuf” property on the cell renderer to a pixbuf value</span>
     <span class="doccomment">/// in the model, thus rendering a different image in each row of the</span>
-    <span class="doccomment">/// [`TreeView`](crate::TreeView).</span>
+    <span class="doccomment">/// [`crate::TreeView`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1100,7 +1100,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`CellRendererPixbuf`](struct@crate::CellRendererPixbuf)</span>
+<span class="doccomment">/// [`struct@crate::CellRendererPixbuf`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CellRendererPixbufExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.16&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;follow-state&quot;</span>)]</span>

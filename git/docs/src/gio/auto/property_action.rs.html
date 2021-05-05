@@ -259,12 +259,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`PropertyAction`](crate::PropertyAction) is a way to get a [`Action`](crate::Action) with a state value</span>
-    <span class="doccomment">/// reflecting and controlling the value of a [`glib::object::Object`](crate::glib::object::Object) property.</span>
+    <span class="doccomment">/// A [`crate::PropertyAction`] is a way to get a [`crate::Action`] with a state value</span>
+    <span class="doccomment">/// reflecting and controlling the value of a [`crate::glib::object::Object`] property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The state of the action will correspond to the value of the property.</span>
     <span class="doccomment">/// Changing it will change the property (assuming the requested value</span>
-    <span class="doccomment">/// matches the requirements as specified in the [`glib::object::ParamSpec`](crate::glib::object::ParamSpec)).</span>
+    <span class="doccomment">/// matches the requirements as specified in the [`crate::glib::object::ParamSpec`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Only the most common types are presently supported. Booleans are</span>
     <span class="doccomment">/// mapped to booleans, strings to strings, signed/unsigned integers to</span>
@@ -272,14 +272,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the property is an enum then the state will be string-typed and</span>
     <span class="doccomment">/// conversion will automatically be performed between the enum value and</span>
-    <span class="doccomment">/// &quot;nick&quot; string as per the [`glib::object::EnumValue`](crate::glib::object::EnumValue) table.</span>
+    <span class="doccomment">/// &quot;nick&quot; string as per the [`crate::glib::object::EnumValue`] table.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Flags types are not currently supported.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Properties of object types, boxed types and pointer types are not</span>
     <span class="doccomment">/// supported and probably never will be.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Properties of [`glib::Variant`](crate::glib::Variant) types are not currently supported.</span>
+    <span class="doccomment">/// Properties of [`crate::glib::Variant`] types are not currently supported.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the property is boolean-valued then the action will have a NULL</span>
     <span class="doccomment">/// parameter type, and activating the action (with no parameter) will</span>
@@ -290,10 +290,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The general idea here is to reduce the number of locations where a</span>
     <span class="doccomment">/// particular piece of state is kept (and therefore has to be synchronised</span>
-    <span class="doccomment">/// between). [`PropertyAction`](crate::PropertyAction) does not have a separate state that is kept</span>
+    <span class="doccomment">/// between). [`crate::PropertyAction`] does not have a separate state that is kept</span>
     <span class="doccomment">/// in sync with the property value -- its state is the property value.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For example, it might be useful to create a [`Action`](crate::Action) corresponding to</span>
+    <span class="doccomment">/// For example, it might be useful to create a [`crate::Action`] corresponding to</span>
     <span class="doccomment">/// the &quot;visible-child-name&quot; property of a ``GtkStack`` so that the current</span>
     <span class="doccomment">/// page can be switched from a menu. The active radio indication in the</span>
     <span class="doccomment">/// menu is then directly determined from the active page of the</span>
@@ -306,14 +306,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Another anti-example would be to bind to the &quot;visible-child-name&quot;</span>
     <span class="doccomment">/// property of a ``GtkStack`` if this value is actually stored in</span>
-    <span class="doccomment">/// [`Settings`](crate::Settings). In that case, the real source of the value is</span>
-    <span class="doccomment">/// [`Settings`](crate::Settings). If you want a [`Action`](crate::Action) to control a setting stored in</span>
-    <span class="doccomment">/// [`Settings`](crate::Settings), see [`SettingsExt::create_action()`](crate::SettingsExt::create_action()) instead, and possibly</span>
-    <span class="doccomment">/// combine its use with [`Settings::bind()`](crate::Settings::bind()).</span>
+    <span class="doccomment">/// [`crate::Settings`]. In that case, the real source of the value is</span>
+    <span class="doccomment">/// [`crate::Settings`]. If you want a [`crate::Action`] to control a setting stored in</span>
+    <span class="doccomment">/// [`crate::Settings`], see [`crate::prelude::SettingsExt::create_action()`] instead, and possibly</span>
+    <span class="doccomment">/// combine its use with [`crate::Settings::bind()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`ActionExt`](trait@crate::prelude::ActionExt)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::ActionExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PropertyAction</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GPropertyAction</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Action</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -322,7 +322,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PropertyAction</span> {
-    <span class="doccomment">/// Creates a [`Action`](crate::Action) corresponding to the value of property</span>
+    <span class="doccomment">/// Creates a [`crate::Action`] corresponding to the value of property</span>
     <span class="doccomment">/// `property_name` on `object`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The property must be existent and readable and writable (and not</span>
@@ -340,7 +340,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`PropertyAction`](crate::PropertyAction)</span>
+    <span class="doccomment">/// a new [`crate::PropertyAction`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_property_action_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,

@@ -12,14 +12,14 @@ pub enum FileType {
     Mountable,
     // some variants omitted
 }</pre></div><div class="docblock"><p>Indicates the file’s on-disk type.</p>
-<p>On Windows systems a file will never have <a href="enum.FileType.html#variant.SymbolicLink"><code>SymbolicLink</code></a> type;
-use <a href="struct.FileInfo.html"><code>FileInfo</code></a> and <code>G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK</code> to determine
+<p>On Windows systems a file will never have <a href="enum.FileType.html#variant.SymbolicLink" title="Self::SymbolicLink"><code>Self::SymbolicLink</code></a> type;
+use <a href="struct.FileInfo.html" title="crate::FileInfo"><code>crate::FileInfo</code></a> and <code>G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK</code> to determine
 whether a file is a symlink or not. This is due to the fact that NTFS does
 not have a single filesystem object type for symbolic links - it has
 files that symlink to files, and directories that symlink to directories.
-<a href="enum.FileType.html"><code>FileType</code></a> enumeration cannot precisely represent this important distinction,
+<a href="enum.FileType.html" title="crate::FileType"><code>crate::FileType</code></a> enumeration cannot precisely represent this important distinction,
 which is why all Windows symlinks will continue to be reported as
-<a href="enum.FileType.html#variant.Regular"><code>Regular</code></a> or <a href="enum.FileType.html#variant.Directory"><code>Directory</code></a>.</p>
+<a href="enum.FileType.html#variant.Regular" title="Self::Regular"><code>Self::Regular</code></a> or <a href="enum.FileType.html#variant.Directory" title="Self::Directory"><code>Self::Directory</code></a>.</p>
 </div><h2 id="variants" class="variants small-section-header">
                    Variants (Non-exhaustive)<a href="#variants" class="anchor"></a></h2>
 <div class="docblock non-exhaustive non-exhaustive-enum">Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.</div><div id="variant.Unknown" class="variant small-section-header"><a href="#variant.Unknown" class="anchor field"></a><code>Unknown</code></div><div class="docblock"><p>File’s type is unknown.</p>

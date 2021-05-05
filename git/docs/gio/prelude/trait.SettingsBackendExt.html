@@ -6,7 +6,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.writable_changed" class="fnname">writable_changed</a>(&amp;self, key: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>);
 }</pre></div><div class="docblock"><p>Trait containing all <code>SettingsBackend</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.SettingsBackend.html"><code>SettingsBackend</code></a></p>
+<p><a href="../struct.SettingsBackend.html" title="crate::SettingsBackend"><code>crate::SettingsBackend</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.path_writable_changed" class="method"><code>fn <a href="#tymethod.path_writable_changed" class="fnname">path_writable_changed</a>(&amp;self, path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gio/auto/settings_backend.rs.html#99" title="goto source code">[src]</a></h3><div class="docblock"><p>Signals that the writability of all keys below a given path may have
 changed.</p>
 <p>Since GSettings performs no locking operations for itself, this call

@@ -2106,20 +2106,20 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Notebook`](crate::Notebook) widget is a [`Container`](crate::Container) whose children are pages that</span>
+    <span class="doccomment">/// The [`crate::Notebook`] widget is a [`crate::Container`] whose children are pages that</span>
     <span class="doccomment">/// can be switched between using tab labels along one edge.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There are many configuration options for `Notebook`. Among other</span>
     <span class="doccomment">/// things, you can choose on which edge the tabs appear</span>
-    <span class="doccomment">/// (see [`NotebookExt::set_tab_pos()`](crate::NotebookExt::set_tab_pos())), whether, if there are too many</span>
+    <span class="doccomment">/// (see [`crate::prelude::NotebookExt::set_tab_pos()`]), whether, if there are too many</span>
     <span class="doccomment">/// tabs to fit the notebook should be made bigger or scrolling</span>
-    <span class="doccomment">/// arrows added (see [`NotebookExt::set_scrollable()`](crate::NotebookExt::set_scrollable())), and whether there</span>
+    <span class="doccomment">/// arrows added (see [`crate::prelude::NotebookExt::set_scrollable()`]), and whether there</span>
     <span class="doccomment">/// will be a popup menu allowing the users to switch pages.</span>
-    <span class="doccomment">/// (see [`NotebookExt::popup_enable()`](crate::NotebookExt::popup_enable()), [`NotebookExt::popup_disable()`](crate::NotebookExt::popup_disable()))</span>
+    <span class="doccomment">/// (see [`crate::prelude::NotebookExt::popup_enable()`], [`crate::prelude::NotebookExt::popup_disable()`])</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # `Notebook` as `Buildable`</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Notebook` implementation of the [`Buildable`](crate::Buildable) interface</span>
+    <span class="doccomment">/// The `Notebook` implementation of the [`crate::Buildable`] interface</span>
     <span class="doccomment">/// supports placing children into tabs by specifying “tab” as the</span>
     <span class="doccomment">/// “type” attribute of a `&lt;child&gt;` element. Note that the content</span>
     <span class="doccomment">/// of the tab must be created before the tab can be filled.</span>
@@ -2161,7 +2161,7 @@
     <span class="doccomment">/// name arrow are placed as first and last child of the tabs node.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The main node gets the .frame style class when the notebook</span>
-    <span class="doccomment">/// has a border (see [`NotebookExt::set_show_border()`](crate::NotebookExt::set_show_border())).</span>
+    <span class="doccomment">/// has a border (see [`crate::prelude::NotebookExt::set_show_border()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The header node gets one of the style class .top, .bottom,</span>
     <span class="doccomment">/// .left or .right, depending on where the tabs are placed. For</span>
@@ -2173,7 +2173,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`NotebookExt`](trait@crate::prelude::NotebookExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`NotebookExtManual`](trait@crate::prelude::NotebookExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::NotebookExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::NotebookExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Notebook</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkNotebook</span>, <span class="ident">ffi::GtkNotebookClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -2182,11 +2182,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Notebook</span> {
-    <span class="doccomment">/// Creates a new [`Notebook`](crate::Notebook) widget with no pages.</span>
+    <span class="doccomment">/// Creates a new [`crate::Notebook`] widget with no pages.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`Notebook`](crate::Notebook)</span>
+    <span class="doccomment">/// the newly created [`crate::Notebook`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Notebook</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2605,11 +2605,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Notebook`](struct@crate::Notebook)</span>
+<span class="doccomment">/// [`struct@crate::Notebook`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">NotebookExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Removes the child from the notebook.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function is very similar to [`ContainerExt::remove()`](crate::ContainerExt::remove()),</span>
+    <span class="doccomment">/// This function is very similar to [`crate::prelude::ContainerExt::remove()`],</span>
     <span class="doccomment">/// but additionally informs the notebook that the removal</span>
     <span class="doccomment">/// is happening as part of a tab DND operation, which should</span>
     <span class="doccomment">/// not be cancelled.</span>
@@ -2620,7 +2620,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_detach_tab&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">detach_tab</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// Gets one of the action widgets. See [`set_action_widget()`](Self::set_action_widget()).</span>
+    <span class="doccomment">/// Gets one of the action widgets. See [`Self::set_action_widget()`].</span>
     <span class="doccomment">/// ## `pack_type`</span>
     <span class="doccomment">/// pack type of the action widget to receive</span>
     <span class="doccomment">///</span>
@@ -2663,14 +2663,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the text of the tab label, or [`None`] if the widget does</span>
     <span class="doccomment">/// not have a menu label other than the default menu label, or the menu label</span>
-    <span class="doccomment">/// widget is not a [`Label`](crate::Label). The string is owned by the widget and must not be</span>
+    <span class="doccomment">/// widget is not a [`crate::Label`]. The string is owned by the widget and must not be</span>
     <span class="doccomment">/// freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_get_menu_label_text&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_menu_label_text&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">menu_label_text</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns whether the tab label area has arrows for scrolling.</span>
-    <span class="doccomment">/// See [`set_scrollable()`](Self::set_scrollable()).</span>
+    <span class="doccomment">/// See [`Self::set_scrollable()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2680,7 +2680,7 @@
     <span class="kw">fn</span> <span class="ident">is_scrollable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Returns whether a bevel will be drawn around the notebook pages.</span>
-    <span class="doccomment">/// See [`set_show_border()`](Self::set_show_border()).</span>
+    <span class="doccomment">/// See [`Self::set_show_border()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2690,7 +2690,7 @@
     <span class="kw">fn</span> <span class="ident">shows_border</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Returns whether the tabs of the notebook are shown.</span>
-    <span class="doccomment">/// See [`set_show_tabs()`](Self::set_show_tabs()).</span>
+    <span class="doccomment">/// See [`Self::set_show_tabs()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2701,7 +2701,7 @@
 
     <span class="doccomment">/// Returns whether the tab contents can be detached from `self`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a child [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a child [`crate::Widget`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2731,7 +2731,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the text of the tab label, or [`None`] if the tab label</span>
-    <span class="doccomment">/// widget is not a [`Label`](crate::Label). The string is owned by the widget and must not be</span>
+    <span class="doccomment">/// widget is not a [`crate::Label`]. The string is owned by the widget and must not be</span>
     <span class="doccomment">/// freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_get_tab_label_text&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_tab_label_text&quot;</span>)]</span>
@@ -2749,7 +2749,7 @@
 
     <span class="doccomment">/// Gets whether the tab can be reordered via drag and drop or not.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a child [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a child [`crate::Widget`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -2780,12 +2780,12 @@
 
     <span class="doccomment">/// Sets `widget` as one of the action widgets. Depending on the pack type</span>
     <span class="doccomment">/// the widget will be placed before or after the tabs. You can use</span>
-    <span class="doccomment">/// a [`Box`](crate::Box) if you need to pack more than one widget on the same side.</span>
+    <span class="doccomment">/// a [`crate::Box`] if you need to pack more than one widget on the same side.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that action widgets are “internal” children of the notebook and thus</span>
-    <span class="doccomment">/// not included in the list returned from [`ContainerExt::foreach()`](crate::ContainerExt::foreach()).</span>
+    <span class="doccomment">/// not included in the list returned from [`crate::prelude::ContainerExt::foreach()`].</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">/// ## `pack_type`</span>
     <span class="doccomment">/// pack type of the action widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_set_action_widget&quot;</span>)]</span>
@@ -2827,7 +2827,7 @@
 
     <span class="doccomment">/// Sets whether a bevel will be drawn around the notebook pages.</span>
     <span class="doccomment">/// This only has a visual effect when the tabs are not shown.</span>
-    <span class="doccomment">/// See [`set_show_tabs()`](Self::set_show_tabs()).</span>
+    <span class="doccomment">/// See [`Self::set_show_tabs()`].</span>
     <span class="doccomment">/// ## `show_border`</span>
     <span class="doccomment">/// [`true`] if a bevel should be drawn around the notebook</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_set_show_border&quot;</span>)]</span>
@@ -2843,7 +2843,7 @@
     <span class="doccomment">/// notebook or widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that 2 notebooks must share a common group identificator</span>
-    <span class="doccomment">/// (see [`set_group_name()`](Self::set_group_name())) to allow automatic tabs</span>
+    <span class="doccomment">/// (see [`Self::set_group_name()`]) to allow automatic tabs</span>
     <span class="doccomment">/// interchange between them.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you want a widget to interact with a notebook through DnD</span>
@@ -2852,8 +2852,8 @@
     <span class="doccomment">/// will fill the selection with a `Widget`** pointing to the child</span>
     <span class="doccomment">/// widget that corresponds to the dropped tab.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that you should use [`detach_tab()`](Self::detach_tab()) instead</span>
-    <span class="doccomment">/// of [`ContainerExt::remove()`](crate::ContainerExt::remove()) if you want to remove the tab from</span>
+    <span class="doccomment">/// Note that you should use [`Self::detach_tab()`] instead</span>
+    <span class="doccomment">/// of [`crate::prelude::ContainerExt::remove()`] if you want to remove the tab from</span>
     <span class="doccomment">/// the source notebook as part of accepting a drop. Otherwise,</span>
     <span class="doccomment">/// the source notebook will think that the dragged tab was</span>
     <span class="doccomment">/// removed from underneath the ongoing drag operation, and</span>
@@ -2886,7 +2886,7 @@
     <span class="doccomment">/// If you want a notebook to accept drags from other widgets,</span>
     <span class="doccomment">/// you will have to set your own DnD code to do it.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a child [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a child [`crate::Widget`]</span>
     <span class="doccomment">/// ## `detachable`</span>
     <span class="doccomment">/// whether the tab is detachable or not</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_set_tab_detachable&quot;</span>)]</span>
@@ -2922,7 +2922,7 @@
     <span class="doccomment">/// Sets whether the notebook tab can be reordered</span>
     <span class="doccomment">/// via drag and drop or not.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a child [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a child [`crate::Widget`]</span>
     <span class="doccomment">/// ## `reorderable`</span>
     <span class="doccomment">/// whether the tab is reorderable or not</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_notebook_set_tab_reorderable&quot;</span>)]</span>
@@ -3003,7 +3003,7 @@
     <span class="doccomment">/// a notebook where the tab will be attached. It is also</span>
     <span class="doccomment">/// responsible for moving/resizing the window and adding the</span>
     <span class="doccomment">/// necessary properties to the notebook (e.g. the</span>
-    <span class="doccomment">/// [`Notebook:group-name`](crate::Notebook:group-name) ).</span>
+    <span class="doccomment">/// [`crate::Notebook:group-name`] ).</span>
     <span class="doccomment">/// ## `page`</span>
     <span class="doccomment">/// the tab of `notebook` that is being detached</span>
     <span class="doccomment">/// ## `x`</span>
@@ -3013,7 +3013,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Notebook`](crate::Notebook) that `page` should be</span>
+    <span class="doccomment">/// a [`crate::Notebook`] that `page` should be</span>
     <span class="doccomment">///  added to, or [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;create-window&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_create_window</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Widget</span>, <span class="ident">i32</span>, <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Notebook</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
@@ -3040,7 +3040,7 @@
     <span class="doccomment">/// the ::page-added signal is emitted in the notebook</span>
     <span class="doccomment">/// right after a page is added to the notebook.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the child [`Widget`](crate::Widget) affected</span>
+    <span class="doccomment">/// the child [`crate::Widget`] affected</span>
     <span class="doccomment">/// ## `page_num`</span>
     <span class="doccomment">/// the new page number for `child`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;page-added&quot;</span>)]</span>
@@ -3049,7 +3049,7 @@
     <span class="doccomment">/// the ::page-removed signal is emitted in the notebook</span>
     <span class="doccomment">/// right after a page is removed from the notebook.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the child [`Widget`](crate::Widget) affected</span>
+    <span class="doccomment">/// the child [`crate::Widget`] affected</span>
     <span class="doccomment">/// ## `page_num`</span>
     <span class="doccomment">/// the `child` page number</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;page-removed&quot;</span>)]</span>
@@ -3058,7 +3058,7 @@
     <span class="doccomment">/// the ::page-reordered signal is emitted in the notebook</span>
     <span class="doccomment">/// right after a page has been reordered.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the child [`Widget`](crate::Widget) affected</span>
+    <span class="doccomment">/// the child [`crate::Widget`] affected</span>
     <span class="doccomment">/// ## `page_num`</span>
     <span class="doccomment">/// the new page number for `child`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;page-reordered&quot;</span>)]</span>

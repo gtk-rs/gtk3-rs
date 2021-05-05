@@ -185,7 +185,7 @@
     <span class="doccomment">/// Note that the default behaviour is to pass stderr through to the</span>
     <span class="doccomment">/// stderr of the parent process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The passed `fd` belongs to the [`SubprocessLauncher`](crate::SubprocessLauncher). It will be</span>
+    <span class="doccomment">/// The passed `fd` belongs to the [`crate::SubprocessLauncher`]. It will be</span>
     <span class="doccomment">/// automatically closed when the launcher is finalized. The file</span>
     <span class="doccomment">/// descriptor will also be closed on the child side when executing the</span>
     <span class="doccomment">/// spawned process.</span>
@@ -210,7 +210,7 @@
     <span class="doccomment">/// If `fd` is -1 then any previously given fd is unset.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that if your intention is to have the stdin of the calling</span>
-    <span class="doccomment">/// process inherited by the child then [`SubprocessFlags::StdinInherit`]</span>
+    <span class="doccomment">/// process inherited by the child then [`crate::SubprocessFlags::StdinInherit`]</span>
     <span class="doccomment">/// is a better way to go about doing that.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The passed `fd` is noted but will not be touched in the current</span>

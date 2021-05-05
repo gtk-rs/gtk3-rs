@@ -400,11 +400,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ByteArray</span> {
-    <span class="doccomment">/// Creates a new [`ByteArray`](crate::ByteArray) with a reference count of 1.</span>
+    <span class="doccomment">/// Creates a new [`crate::ByteArray`] with a reference count of 1.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// the new [`crate::ByteArray`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_byte_array_new</span>()) }
@@ -425,10 +425,10 @@
         }
     }
 
-    <span class="doccomment">/// Adds the given bytes to the end of the [`ByteArray`](crate::ByteArray).</span>
+    <span class="doccomment">/// Adds the given bytes to the end of the [`crate::ByteArray`].</span>
     <span class="doccomment">/// The array will grow in size automatically if necessary.</span>
     <span class="doccomment">/// ## `array`</span>
-    <span class="doccomment">/// a [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// a [`crate::ByteArray`]</span>
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// the byte data to be added</span>
     <span class="doccomment">/// ## `len`</span>
@@ -436,7 +436,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// the [`crate::ByteArray`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_append&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>();
@@ -450,10 +450,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Adds the given data to the start of the [`ByteArray`](crate::ByteArray).</span>
+    <span class="doccomment">/// Adds the given data to the start of the [`crate::ByteArray`].</span>
     <span class="doccomment">/// The array will grow in size automatically if necessary.</span>
     <span class="doccomment">/// ## `array`</span>
-    <span class="doccomment">/// a [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// a [`crate::ByteArray`]</span>
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// the byte data to be added</span>
     <span class="doccomment">/// ## `len`</span>
@@ -461,7 +461,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// the [`crate::ByteArray`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_prepend&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepend</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>();
@@ -475,16 +475,16 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Removes the byte at the given index from a [`ByteArray`](crate::ByteArray).</span>
+    <span class="doccomment">/// Removes the byte at the given index from a [`crate::ByteArray`].</span>
     <span class="doccomment">/// The following bytes are moved down one place.</span>
     <span class="doccomment">/// ## `array`</span>
-    <span class="doccomment">/// a [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// a [`crate::ByteArray`]</span>
     <span class="doccomment">/// ## `index_`</span>
     <span class="doccomment">/// the index of the byte to remove</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// the [`crate::ByteArray`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_remove_index&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_index</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
@@ -492,18 +492,18 @@
         }
     }
 
-    <span class="doccomment">/// Removes the byte at the given index from a [`ByteArray`](crate::ByteArray). The last</span>
+    <span class="doccomment">/// Removes the byte at the given index from a [`crate::ByteArray`]. The last</span>
     <span class="doccomment">/// element in the array is used to fill in the space, so this function</span>
-    <span class="doccomment">/// does not preserve the order of the [`ByteArray`](crate::ByteArray). But it is faster</span>
-    <span class="doccomment">/// than [`remove_index()`](Self::remove_index()).</span>
+    <span class="doccomment">/// does not preserve the order of the [`crate::ByteArray`]. But it is faster</span>
+    <span class="doccomment">/// than [`Self::remove_index()`].</span>
     <span class="doccomment">/// ## `array`</span>
-    <span class="doccomment">/// a [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// a [`crate::ByteArray`]</span>
     <span class="doccomment">/// ## `index_`</span>
     <span class="doccomment">/// the index of the byte to remove</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// the [`crate::ByteArray`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_remove_index_fast&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_index_fast</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
@@ -512,7 +512,7 @@
     }
 
     <span class="doccomment">/// Removes the given number of bytes starting at the given index from a</span>
-    <span class="doccomment">/// [`ByteArray`](crate::ByteArray). The following elements are moved to close the gap.</span>
+    <span class="doccomment">/// [`crate::ByteArray`]. The following elements are moved to close the gap.</span>
     <span class="doccomment">/// ## `array`</span>
     <span class="doccomment">/// a [`crate::ByteArray`] (XXX: @-reference does not belong to ByteArray!)</span>
     <span class="doccomment">/// ## `index_`</span>
@@ -522,7 +522,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// the [`crate::ByteArray`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_remove_range&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>, <span class="ident">length</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
@@ -530,15 +530,15 @@
         }
     }
 
-    <span class="doccomment">/// Sets the size of the [`ByteArray`](crate::ByteArray), expanding it if necessary.</span>
+    <span class="doccomment">/// Sets the size of the [`crate::ByteArray`], expanding it if necessary.</span>
     <span class="doccomment">/// ## `array`</span>
-    <span class="doccomment">/// a [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// a [`crate::ByteArray`]</span>
     <span class="doccomment">/// ## `length`</span>
-    <span class="doccomment">/// the new size of the [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// the new size of the [`crate::ByteArray`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// the [`crate::ByteArray`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_set_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">size</span>: <span class="ident">usize</span>) {
         <span class="ident">ffi::g_byte_array_set_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">size</span> <span class="kw">as</span> <span class="ident">u32</span>);
@@ -555,7 +555,7 @@
     <span class="doccomment">/// if two elements would otherwise compare equal, compares them by</span>
     <span class="doccomment">/// their addresses.</span>
     <span class="doccomment">/// ## `array`</span>
-    <span class="doccomment">/// a [`ByteArray`](crate::ByteArray)</span>
+    <span class="doccomment">/// a [`crate::ByteArray`]</span>
     <span class="doccomment">/// ## `compare_func`</span>
     <span class="doccomment">/// comparison function</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_sort_with_data&quot;</span>)]</span>

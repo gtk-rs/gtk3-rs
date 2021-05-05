@@ -464,7 +464,7 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`Permission`](crate::Permission) represents the status of the caller&#39;s permission to</span>
+    <span class="doccomment">/// A [`crate::Permission`] represents the status of the caller&#39;s permission to</span>
     <span class="doccomment">/// perform a certain action.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can query if the action is currently allowed and if it is</span>
@@ -474,8 +474,8 @@
     <span class="doccomment">/// There is also an API to actually acquire the permission and one to</span>
     <span class="doccomment">/// release it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As an example, a [`Permission`](crate::Permission) might represent the ability for the</span>
-    <span class="doccomment">/// user to write to a [`Settings`](crate::Settings) object. This [`Permission`](crate::Permission) object could</span>
+    <span class="doccomment">/// As an example, a [`crate::Permission`] might represent the ability for the</span>
+    <span class="doccomment">/// user to write to a [`crate::Settings`] object. This [`crate::Permission`] object could</span>
     <span class="doccomment">/// then be used to decide if it is appropriate to show a &quot;Click here to</span>
     <span class="doccomment">/// unlock&quot; button in a dialog and to provide the mechanism to invoke</span>
     <span class="doccomment">/// when that button is clicked.</span>
@@ -484,7 +484,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`PermissionExt`](trait@crate::prelude::PermissionExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::PermissionExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Permission</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GPermission</span>, <span class="ident">ffi::GPermissionClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -498,7 +498,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Permission`](struct@crate::Permission), [`SimplePermission`](struct@crate::SimplePermission)</span>
+<span class="doccomment">/// [`struct@crate::Permission`], [`struct@crate::SimplePermission`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PermissionExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Attempts to acquire the permission represented by `self`.</span>
     <span class="doccomment">///</span>
@@ -506,17 +506,17 @@
     <span class="doccomment">/// and the underlying authentication mechanism. A simple example is</span>
     <span class="doccomment">/// that a dialog may appear asking the user to enter their password.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You should check with [`get_can_acquire()`](Self::get_can_acquire()) before calling</span>
+    <span class="doccomment">/// You should check with [`Self::get_can_acquire()`] before calling</span>
     <span class="doccomment">/// this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the permission is acquired then [`true`] is returned. Otherwise,</span>
     <span class="doccomment">/// [`false`] is returned and `error` is set appropriately.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call is blocking, likely for a very long time (in the case that</span>
-    <span class="doccomment">/// user interaction is required). See [`acquire_async()`](Self::acquire_async()) for</span>
+    <span class="doccomment">/// user interaction is required). See [`Self::acquire_async()`] for</span>
     <span class="doccomment">/// the non-blocking version.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -527,9 +527,9 @@
     <span class="doccomment">/// Attempts to acquire the permission represented by `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is the first half of the asynchronous version of</span>
-    <span class="doccomment">/// [`acquire()`](Self::acquire()).</span>
+    <span class="doccomment">/// [`Self::acquire()`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// the `GAsyncReadyCallback` to call when done</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -558,7 +558,7 @@
 
     <span class="doccomment">/// Gets the value of the &#39;can-acquire&#39; property. This property is [`true`]</span>
     <span class="doccomment">/// if it is generally possible to acquire the permission by calling</span>
-    <span class="doccomment">/// [`acquire()`](Self::acquire()).</span>
+    <span class="doccomment">/// [`Self::acquire()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -569,7 +569,7 @@
 
     <span class="doccomment">/// Gets the value of the &#39;can-release&#39; property. This property is [`true`]</span>
     <span class="doccomment">/// if it is generally possible to release the permission by calling</span>
-    <span class="doccomment">/// [`release()`](Self::release()).</span>
+    <span class="doccomment">/// [`Self::release()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -578,9 +578,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_can_release&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">can_release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// This function is called by the [`Permission`](crate::Permission) implementation to update</span>
+    <span class="doccomment">/// This function is called by the [`crate::Permission`] implementation to update</span>
     <span class="doccomment">/// the properties of the permission. You should never call this</span>
-    <span class="doccomment">/// function except from a [`Permission`](crate::Permission) implementation.</span>
+    <span class="doccomment">/// function except from a [`crate::Permission`] implementation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// GObject notify signals are generated, as appropriate.</span>
     <span class="doccomment">/// ## `allowed`</span>
@@ -598,17 +598,17 @@
     <span class="doccomment">/// and the underlying authentication mechanism. In most cases the</span>
     <span class="doccomment">/// permission will be dropped immediately without further action.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You should check with [`get_can_release()`](Self::get_can_release()) before calling</span>
+    <span class="doccomment">/// You should check with [`Self::get_can_release()`] before calling</span>
     <span class="doccomment">/// this function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the permission is released then [`true`] is returned. Otherwise,</span>
     <span class="doccomment">/// [`false`] is returned and `error` is set appropriately.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call is blocking, likely for a very long time (in the case that</span>
-    <span class="doccomment">/// user interaction is required). See [`release_async()`](Self::release_async()) for</span>
+    <span class="doccomment">/// user interaction is required). See [`Self::release_async()`] for</span>
     <span class="doccomment">/// the non-blocking version.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -619,9 +619,9 @@
     <span class="doccomment">/// Attempts to release the permission represented by `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is the first half of the asynchronous version of</span>
-    <span class="doccomment">/// [`release()`](Self::release()).</span>
+    <span class="doccomment">/// [`Self::release()`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// the `GAsyncReadyCallback` to call when done</span>
     <span class="doccomment">/// ## `user_data`</span>

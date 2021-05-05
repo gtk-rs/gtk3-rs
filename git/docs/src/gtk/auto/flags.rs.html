@@ -1707,7 +1707,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Accelerator flags used with [`AccelGroup::connect()`](crate::AccelGroup::connect()).</span>
+    <span class="doccomment">/// Accelerator flags used with [`crate::AccelGroup::connect()`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AccelFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Accelerator is visible</span>
         <span class="kw">const</span> <span class="ident">VISIBLE</span> <span class="op">=</span> <span class="number">1</span>;
@@ -1775,7 +1775,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Types of user actions that may be blocked by [``GtkApplicationExt`::inhibit()`](crate::`GtkApplicationExt`::inhibit()).</span>
+    <span class="doccomment">/// Types of user actions that may be blocked by [`crate::prelude::`GtkApplicationExt`::inhibit()`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationInhibitFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Inhibit ending the user session</span>
         <span class="doccomment">///  by logging out or by shutting down the computer</span>
@@ -1848,7 +1848,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// These options can be used to influence the display and behaviour of a [`Calendar`](crate::Calendar).</span>
+    <span class="doccomment">/// These options can be used to influence the display and behaviour of a [`crate::Calendar`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CalendarDisplayOptions</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Specifies that the month and year should be displayed.</span>
         <span class="kw">const</span> <span class="ident">SHOW_HEADING</span> <span class="op">=</span> <span class="number">1</span>;
@@ -1860,7 +1860,7 @@
         <span class="doccomment">/// left side of the calendar.</span>
         <span class="kw">const</span> <span class="ident">SHOW_WEEK_NUMBERS</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// Just show an indicator, not the full details</span>
-        <span class="doccomment">/// text when details are provided. See [`CalendarExt::set_detail_func()`](crate::CalendarExt::set_detail_func()).</span>
+        <span class="doccomment">/// text when details are provided. See [`crate::prelude::CalendarExt::set_detail_func()`].</span>
         <span class="kw">const</span> <span class="ident">SHOW_DETAILS</span> <span class="op">=</span> <span class="number">32</span>;
     }
 }
@@ -1999,7 +1999,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// The [`DestDefaults`](crate::DestDefaults) enumeration specifies the various</span>
+    <span class="doccomment">/// The [`crate::DestDefaults`] enumeration specifies the various</span>
     <span class="doccomment">/// types of action that will be taken on behalf</span>
     <span class="doccomment">/// of the user for a drag destination site.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DestDefaults</span>: <span class="ident">u32</span> {
@@ -2014,7 +2014,7 @@
         <span class="kw">const</span> <span class="ident">HIGHLIGHT</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// If set for a widget, when a drop occurs, GTK+ will</span>
         <span class="doccomment">///  will check if the drag matches this widget’s list of possible targets and</span>
-        <span class="doccomment">///  actions. If so, GTK+ will call [`WidgetExt::drag_get_data()`](crate::WidgetExt::drag_get_data()) on behalf of the widget.</span>
+        <span class="doccomment">///  actions. If so, GTK+ will call [`crate::prelude::WidgetExt::drag_get_data()`] on behalf of the widget.</span>
         <span class="doccomment">///  Whether or not the drop is successful, GTK+ will call `gtk_drag_finish()`. If</span>
         <span class="doccomment">///  the action was a move, then if the drag was successful, then [`true`] will be</span>
         <span class="doccomment">///  passed for the `delete` parameter to `gtk_drag_finish()`.</span>
@@ -2085,10 +2085,10 @@
     <span class="doccomment">/// Flags used to influence dialog construction.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DialogFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Make the constructed dialog modal,</span>
-        <span class="doccomment">///  see [``GtkWindowExt`::set_modal()`](crate::`GtkWindowExt`::set_modal())</span>
+        <span class="doccomment">///  see [`crate::prelude::`GtkWindowExt`::set_modal()`]</span>
         <span class="kw">const</span> <span class="ident">MODAL</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="doccomment">/// Destroy the dialog when its</span>
-        <span class="doccomment">///  parent is destroyed, see [``GtkWindowExt`::set_destroy_with_parent()`](crate::`GtkWindowExt`::set_destroy_with_parent())</span>
+        <span class="doccomment">///  parent is destroyed, see [`crate::prelude::`GtkWindowExt`::set_destroy_with_parent()`]</span>
         <span class="kw">const</span> <span class="ident">DESTROY_WITH_PARENT</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// Create dialog with actions in header</span>
         <span class="doccomment">///  bar instead of action area. Since 3.12.</span>
@@ -2155,7 +2155,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>)))]</span>
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Describes the behavior of a [`EventControllerScroll`](crate::EventControllerScroll).</span>
+    <span class="doccomment">/// Describes the behavior of a [`crate::EventControllerScroll`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventControllerScrollFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Don&#39;t emit scroll.</span>
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -2165,7 +2165,7 @@
         <span class="kw">const</span> <span class="ident">HORIZONTAL</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// Only emit deltas that are multiples of 1.</span>
         <span class="kw">const</span> <span class="ident">DISCRETE</span> <span class="op">=</span> <span class="number">4</span>;
-        <span class="doccomment">/// Emit [`EventControllerScroll::decelerate`](crate::EventControllerScroll::decelerate)</span>
+        <span class="doccomment">/// Emit [`crate::EventControllerScroll::decelerate`]</span>
         <span class="doccomment">///  after continuous scroll finishes.</span>
         <span class="kw">const</span> <span class="ident">KINETIC</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// Emit scroll on both axes.</span>
@@ -2244,7 +2244,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// These flags indicate what parts of a [`FileFilterInfo`](crate::FileFilterInfo) struct</span>
+    <span class="doccomment">/// These flags indicate what parts of a [`crate::FileFilterInfo`] struct</span>
     <span class="doccomment">/// are filled or need to be filled.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileFilterFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// the filename of the file being tested</span>
@@ -2407,24 +2407,24 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Used to specify options for [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon())</span>
+    <span class="doccomment">/// Used to specify options for [`crate::prelude::IconThemeExt::lookup_icon()`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IconLookupFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// Never get SVG icons, even if gdk-pixbuf</span>
-        <span class="doccomment">///  supports them. Cannot be used together with [`ForceSvg`](Self::ForceSvg).</span>
+        <span class="doccomment">///  supports them. Cannot be used together with [`Self::ForceSvg`].</span>
         <span class="kw">const</span> <span class="ident">NO_SVG</span> <span class="op">=</span> <span class="number">1</span>;
         <span class="doccomment">/// Get SVG icons, even if gdk-pixbuf</span>
         <span class="doccomment">///  doesn’t support them.</span>
-        <span class="doccomment">///  Cannot be used together with [`NoSvg`](Self::NoSvg).</span>
+        <span class="doccomment">///  Cannot be used together with [`Self::NoSvg`].</span>
         <span class="kw">const</span> <span class="ident">FORCE_SVG</span> <span class="op">=</span> <span class="number">2</span>;
         <span class="doccomment">/// When passed to</span>
-        <span class="doccomment">///  [`IconThemeExt::lookup_icon()`](crate::IconThemeExt::lookup_icon()) includes builtin icons</span>
-        <span class="doccomment">///  as well as files. For a builtin icon, [`IconInfo::get_filename()`](crate::IconInfo::get_filename())</span>
-        <span class="doccomment">///  is [`None`] and you need to call [`IconInfo::get_builtin_pixbuf()`](crate::IconInfo::get_builtin_pixbuf()).</span>
+        <span class="doccomment">///  [`crate::prelude::IconThemeExt::lookup_icon()`] includes builtin icons</span>
+        <span class="doccomment">///  as well as files. For a builtin icon, [`crate::IconInfo::get_filename()`]</span>
+        <span class="doccomment">///  is [`None`] and you need to call [`crate::IconInfo::get_builtin_pixbuf()`].</span>
         <span class="kw">const</span> <span class="ident">USE_BUILTIN</span> <span class="op">=</span> <span class="number">4</span>;
         <span class="doccomment">/// Try to shorten icon name at &#39;-&#39;</span>
         <span class="doccomment">///  characters before looking at inherited themes. This flag is only</span>
         <span class="doccomment">///  supported in functions that take a single icon name. For more general</span>
-        <span class="doccomment">///  fallback, see [`IconTheme::choose_icon()`](crate::IconTheme::choose_icon()). Since 2.12.</span>
+        <span class="doccomment">///  fallback, see [`crate::IconTheme::choose_icon()`]. Since 2.12.</span>
         <span class="kw">const</span> <span class="ident">GENERIC_FALLBACK</span> <span class="op">=</span> <span class="number">8</span>;
         <span class="doccomment">/// Always get the icon scaled to the</span>
         <span class="doccomment">///  requested size. Since 2.14.</span>
@@ -2503,10 +2503,10 @@
 <span class="macro">bitflags!</span> {
     <span class="doccomment">/// Describes hints that might be taken into account by input methods</span>
     <span class="doccomment">/// or applications. Note that input methods may already tailor their</span>
-    <span class="doccomment">/// behaviour according to the [`InputPurpose`](crate::InputPurpose) of the entry.</span>
+    <span class="doccomment">/// behaviour according to the [`crate::InputPurpose`] of the entry.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Some common sense is expected when using these flags - mixing</span>
-    <span class="doccomment">/// [`Lowercase`](Self::Lowercase) with any of the uppercase hints makes no sense.</span>
+    <span class="doccomment">/// [`Self::Lowercase`] with any of the uppercase hints makes no sense.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This enumeration may be extended in the future; input methods should</span>
     <span class="doccomment">/// ignore unknown values.</span>
@@ -2682,31 +2682,31 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// These flags serve two purposes. First, the application can call [`PlacesSidebar::set_open_flags()`](crate::PlacesSidebar::set_open_flags())</span>
+    <span class="doccomment">/// These flags serve two purposes. First, the application can call [`crate::PlacesSidebar::set_open_flags()`]</span>
     <span class="doccomment">/// using these flags as a bitmask. This tells the sidebar that the application is able to open</span>
     <span class="doccomment">/// folders selected from the sidebar in various ways, for example, in new tabs or in new windows in</span>
     <span class="doccomment">/// addition to the normal mode.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Second, when one of these values gets passed back to the application in the</span>
-    <span class="doccomment">/// [`PlacesSidebar::open-location`](crate::PlacesSidebar::open-location) signal, it means that the application should</span>
+    <span class="doccomment">/// [`crate::PlacesSidebar::open-location`] signal, it means that the application should</span>
     <span class="doccomment">/// open the selected location in the normal way, in a new tab, or in a new</span>
     <span class="doccomment">/// window. The sidebar takes care of determining the desired way to open the location,</span>
     <span class="doccomment">/// based on the modifier keys that the user is pressing at the time the selection is made.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the application never calls [`PlacesSidebar::set_open_flags()`](crate::PlacesSidebar::set_open_flags()), then the sidebar will only</span>
-    <span class="doccomment">/// use [`Normal`](Self::Normal) in the [`PlacesSidebar::open-location`](crate::PlacesSidebar::open-location) signal. This is the</span>
+    <span class="doccomment">/// If the application never calls [`crate::PlacesSidebar::set_open_flags()`], then the sidebar will only</span>
+    <span class="doccomment">/// use [`Self::Normal`] in the [`crate::PlacesSidebar::open-location`] signal. This is the</span>
     <span class="doccomment">/// default mode of operation.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PlacesOpenFlags</span>: <span class="ident">u32</span> {
-        <span class="doccomment">/// This is the default mode that [`PlacesSidebar`](crate::PlacesSidebar) uses if no other flags</span>
+        <span class="doccomment">/// This is the default mode that [`crate::PlacesSidebar`] uses if no other flags</span>
         <span class="doccomment">///  are specified. It indicates that the calling application should open the selected location</span>
         <span class="doccomment">///  in the normal way, for example, in the folder view beside the sidebar.</span>
         <span class="kw">const</span> <span class="ident">NORMAL</span> <span class="op">=</span> <span class="number">1</span>;
-        <span class="doccomment">/// When passed to [`PlacesSidebar::set_open_flags()`](crate::PlacesSidebar::set_open_flags()), this indicates</span>
+        <span class="doccomment">/// When passed to [`crate::PlacesSidebar::set_open_flags()`], this indicates</span>
         <span class="doccomment">///  that the application can open folders selected from the sidebar in new tabs. This value</span>
-        <span class="doccomment">///  will be passed to the [`PlacesSidebar::open-location`](crate::PlacesSidebar::open-location) signal when the user selects</span>
+        <span class="doccomment">///  will be passed to the [`crate::PlacesSidebar::open-location`] signal when the user selects</span>
         <span class="doccomment">///  that a location be opened in a new tab instead of in the standard fashion.</span>
         <span class="kw">const</span> <span class="ident">NEW_TAB</span> <span class="op">=</span> <span class="number">2</span>;
-        <span class="doccomment">/// Similar to [`NewTab`](Self::NewTab), but indicates that the application</span>
+        <span class="doccomment">/// Similar to [`Self::NewTab`], but indicates that the application</span>
         <span class="doccomment">///  can open folders in new windows.</span>
         <span class="kw">const</span> <span class="ident">NEW_WINDOW</span> <span class="op">=</span> <span class="number">4</span>;
     }
@@ -2769,7 +2769,7 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// These flags indicate what parts of a [`RecentFilterInfo`](crate::RecentFilterInfo) struct</span>
+    <span class="doccomment">/// These flags indicate what parts of a [`crate::RecentFilterInfo`] struct</span>
     <span class="doccomment">/// are filled or need to be filled.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecentFilterFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// the URI of the file being tested</span>
@@ -3015,7 +3015,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags that modify the behavior of [`StyleContextExt::to_string()`](crate::StyleContextExt::to_string()).</span>
+    <span class="doccomment">/// Flags that modify the behavior of [`crate::prelude::StyleContextExt::to_string()`].</span>
     <span class="doccomment">/// New values may be added to this enumeration.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StyleContextPrintFlags</span>: <span class="ident">u32</span> {
         <span class="kw">const</span> <span class="ident">NONE</span> <span class="op">=</span> <span class="number">0</span>;
@@ -3099,8 +3099,8 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// The [`TargetFlags`](crate::TargetFlags) enumeration is used to specify</span>
-    <span class="doccomment">/// constraints on a [`TargetEntry`](crate::TargetEntry).</span>
+    <span class="doccomment">/// The [`crate::TargetFlags`] enumeration is used to specify</span>
+    <span class="doccomment">/// constraints on a [`crate::TargetEntry`].</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TargetFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// If this is set, the target will only be selected</span>
         <span class="doccomment">///  for drags within a single application.</span>
@@ -3176,7 +3176,7 @@
 <span class="macro">bitflags!</span> {
     <span class="doccomment">/// Flags affecting how a search is done.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If neither [`VisibleOnly`](Self::VisibleOnly) nor [`TextOnly`](Self::TextOnly) are</span>
+    <span class="doccomment">/// If neither [`Self::VisibleOnly`] nor [`Self::TextOnly`] are</span>
     <span class="doccomment">/// enabled, the match must be exact; the special 0xFFFC character will match</span>
     <span class="doccomment">/// embedded pixbufs or child widgets.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextSearchFlags</span>: <span class="ident">u32</span> {
@@ -3315,11 +3315,11 @@
 }
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// These flags indicate various properties of a [`TreeModel`](crate::TreeModel).</span>
+    <span class="doccomment">/// These flags indicate various properties of a [`crate::TreeModel`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// They are returned by [`TreeModel::get_flags()`](crate::TreeModel::get_flags()), and must be</span>
+    <span class="doccomment">/// They are returned by [`crate::TreeModel::get_flags()`], and must be</span>
     <span class="doccomment">/// static for the lifetime of the object. A more complete description</span>
-    <span class="doccomment">/// of [`ItersPersist`](Self::ItersPersist) can be found in the overview of</span>
+    <span class="doccomment">/// of [`Self::ItersPersist`] can be found in the overview of</span>
     <span class="doccomment">/// this section.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TreeModelFlags</span>: <span class="ident">u32</span> {
         <span class="doccomment">/// iterators survive all signals</span>

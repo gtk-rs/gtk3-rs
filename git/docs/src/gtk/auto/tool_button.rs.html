@@ -921,20 +921,20 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// ``GtkToolButtons`` are ``GtkToolItems`` containing buttons.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`new()`](Self::new()) to create a new [`ToolButton`](crate::ToolButton).</span>
+    <span class="doccomment">/// Use [`Self::new()`] to create a new [`crate::ToolButton`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The label of a [`ToolButton`](crate::ToolButton) is determined by the properties</span>
-    <span class="doccomment">/// [`ToolButton:label-widget`](crate::ToolButton:label-widget), [`ToolButton:label`](crate::ToolButton:label), and</span>
-    <span class="doccomment">/// [`ToolButton:stock-id`](crate::ToolButton:stock-id). If [`ToolButton:label-widget`](crate::ToolButton:label-widget) is</span>
+    <span class="doccomment">/// The label of a [`crate::ToolButton`] is determined by the properties</span>
+    <span class="doccomment">/// [`crate::ToolButton:label-widget`], [`crate::ToolButton:label`], and</span>
+    <span class="doccomment">/// [`crate::ToolButton:stock-id`]. If [`crate::ToolButton:label-widget`] is</span>
     <span class="doccomment">/// non-[`None`], then that widget is used as the label. Otherwise, if</span>
-    <span class="doccomment">/// [`ToolButton:label`](crate::ToolButton:label) is non-[`None`], that string is used as the label.</span>
-    <span class="doccomment">/// Otherwise, if [`ToolButton:stock-id`](crate::ToolButton:stock-id) is non-[`None`], the label is</span>
+    <span class="doccomment">/// [`crate::ToolButton:label`] is non-[`None`], that string is used as the label.</span>
+    <span class="doccomment">/// Otherwise, if [`crate::ToolButton:stock-id`] is non-[`None`], the label is</span>
     <span class="doccomment">/// determined by the stock item. Otherwise, the button does not have a label.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The icon of a [`ToolButton`](crate::ToolButton) is determined by the properties</span>
-    <span class="doccomment">/// [`ToolButton:icon-widget`](crate::ToolButton:icon-widget) and [`ToolButton:stock-id`](crate::ToolButton:stock-id). If</span>
-    <span class="doccomment">/// [`ToolButton:icon-widget`](crate::ToolButton:icon-widget) is non-[`None`], then</span>
-    <span class="doccomment">/// that widget is used as the icon. Otherwise, if [`ToolButton:stock-id`](crate::ToolButton:stock-id) is</span>
+    <span class="doccomment">/// The icon of a [`crate::ToolButton`] is determined by the properties</span>
+    <span class="doccomment">/// [`crate::ToolButton:icon-widget`] and [`crate::ToolButton:stock-id`]. If</span>
+    <span class="doccomment">/// [`crate::ToolButton:icon-widget`] is non-[`None`], then</span>
+    <span class="doccomment">/// that widget is used as the icon. Otherwise, if [`crate::ToolButton:stock-id`] is</span>
     <span class="doccomment">/// non-[`None`], the icon is determined by the stock item. Otherwise,</span>
     <span class="doccomment">/// the button does not have a icon.</span>
     <span class="doccomment">///</span>
@@ -944,7 +944,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ToolButtonExt`](trait@crate::prelude::ToolButtonExt), [`ToolItemExt`](trait@crate::prelude::ToolItemExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ToolButtonExt`], [`trait@crate::prelude::ToolItemExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToolButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkToolButton</span>, <span class="ident">ffi::GtkToolButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">ToolItem</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -953,7 +953,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ToolButton</span> {
-    <span class="doccomment">/// Creates a new [`ToolButton`](crate::ToolButton) using `icon_widget` as contents and `label` as</span>
+    <span class="doccomment">/// Creates a new [`crate::ToolButton`] using `icon_widget` as contents and `label` as</span>
     <span class="doccomment">/// label.</span>
     <span class="doccomment">/// ## `icon_widget`</span>
     <span class="doccomment">/// a widget that will be used as the button contents, or [`None`]</span>
@@ -962,7 +962,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A new [`ToolButton`](crate::ToolButton)</span>
+    <span class="doccomment">/// A new [`crate::ToolButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_button_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">icon_widget</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ToolButton</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1408,10 +1408,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`MenuToolButton`](struct@crate::MenuToolButton), [`ToggleToolButton`](struct@crate::ToggleToolButton), [`ToolButton`](struct@crate::ToolButton)</span>
+<span class="doccomment">/// [`struct@crate::MenuToolButton`], [`struct@crate::ToggleToolButton`], [`struct@crate::ToolButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ToolButtonExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the name of the themed icon for the tool button,</span>
-    <span class="doccomment">/// see [`set_icon_name()`](Self::set_icon_name()).</span>
+    <span class="doccomment">/// see [`Self::set_icon_name()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1422,7 +1422,7 @@
     <span class="kw">fn</span> <span class="ident">icon_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Return the widget used as icon widget on `self`.</span>
-    <span class="doccomment">/// See [`set_icon_widget()`](Self::set_icon_widget()).</span>
+    <span class="doccomment">/// See [`Self::set_icon_widget()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1444,7 +1444,7 @@
     <span class="kw">fn</span> <span class="ident">label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns the widget used as label on `self`.</span>
-    <span class="doccomment">/// See [`set_label_widget()`](Self::set_label_widget()).</span>
+    <span class="doccomment">/// See [`Self::set_label_widget()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1455,7 +1455,7 @@
     <span class="kw">fn</span> <span class="ident">label_widget</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns whether underscores in the label property are used as mnemonics</span>
-    <span class="doccomment">/// on menu items on the overflow menu. See [`set_use_underline()`](Self::set_use_underline()).</span>
+    <span class="doccomment">/// on menu items on the overflow menu. See [`Self::set_use_underline()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1466,28 +1466,28 @@
     <span class="kw">fn</span> <span class="ident">uses_underline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Sets the icon for the tool button from a named themed icon.</span>
-    <span class="doccomment">/// See the docs for [`IconTheme`](crate::IconTheme) for more details.</span>
-    <span class="doccomment">/// The [`ToolButton:icon-name`](crate::ToolButton:icon-name) property only has an effect if not</span>
-    <span class="doccomment">/// overridden by non-[`None`] [`ToolButton:label-widget`](crate::ToolButton:label-widget),</span>
-    <span class="doccomment">/// [`ToolButton:icon-widget`](crate::ToolButton:icon-widget) and [`ToolButton:stock-id`](crate::ToolButton:stock-id) properties.</span>
+    <span class="doccomment">/// See the docs for [`crate::IconTheme`] for more details.</span>
+    <span class="doccomment">/// The [`crate::ToolButton:icon-name`] property only has an effect if not</span>
+    <span class="doccomment">/// overridden by non-[`None`] [`crate::ToolButton:label-widget`],</span>
+    <span class="doccomment">/// [`crate::ToolButton:icon-widget`] and [`crate::ToolButton:stock-id`] properties.</span>
     <span class="doccomment">/// ## `icon_name`</span>
     <span class="doccomment">/// the name of the themed icon</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_button_set_icon_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_icon_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Sets `icon` as the widget used as icon on `self`. If `icon_widget` is</span>
-    <span class="doccomment">/// [`None`] the icon is determined by the [`ToolButton:stock-id`](crate::ToolButton:stock-id) property. If the</span>
-    <span class="doccomment">/// [`ToolButton:stock-id`](crate::ToolButton:stock-id) property is also [`None`], `self` will not have an icon.</span>
+    <span class="doccomment">/// [`None`] the icon is determined by the [`crate::ToolButton:stock-id`] property. If the</span>
+    <span class="doccomment">/// [`crate::ToolButton:stock-id`] property is also [`None`], `self` will not have an icon.</span>
     <span class="doccomment">/// ## `icon_widget`</span>
     <span class="doccomment">/// the widget used as icon, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_button_set_icon_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_icon_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon_widget</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// Sets `label` as the label used for the tool button. The [`ToolButton:label`](crate::ToolButton:label)</span>
+    <span class="doccomment">/// Sets `label` as the label used for the tool button. The [`crate::ToolButton:label`]</span>
     <span class="doccomment">/// property only has an effect if not overridden by a non-[`None`]</span>
-    <span class="doccomment">/// [`ToolButton:label-widget`](crate::ToolButton:label-widget) property. If both the [`ToolButton:label-widget`](crate::ToolButton:label-widget)</span>
-    <span class="doccomment">/// and [`ToolButton:label`](crate::ToolButton:label) properties are [`None`], the label is determined by the</span>
-    <span class="doccomment">/// [`ToolButton:stock-id`](crate::ToolButton:stock-id) property. If the [`ToolButton:stock-id`](crate::ToolButton:stock-id) property is</span>
+    <span class="doccomment">/// [`crate::ToolButton:label-widget`] property. If both the [`crate::ToolButton:label-widget`]</span>
+    <span class="doccomment">/// and [`crate::ToolButton:label`] properties are [`None`], the label is determined by the</span>
+    <span class="doccomment">/// [`crate::ToolButton:stock-id`] property. If the [`crate::ToolButton:stock-id`] property is</span>
     <span class="doccomment">/// also [`None`], `self` will not have a label.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// a string that will be used as label, or [`None`].</span>
@@ -1495,10 +1495,10 @@
     <span class="kw">fn</span> <span class="ident">set_label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Sets `label_widget` as the widget that will be used as the label</span>
-    <span class="doccomment">/// for `self`. If `label_widget` is [`None`] the [`ToolButton:label`](crate::ToolButton:label) property is used</span>
-    <span class="doccomment">/// as label. If [`ToolButton:label`](crate::ToolButton:label) is also [`None`], the label in the stock item</span>
-    <span class="doccomment">/// determined by the [`ToolButton:stock-id`](crate::ToolButton:stock-id) property is used as label. If</span>
-    <span class="doccomment">/// [`ToolButton:stock-id`](crate::ToolButton:stock-id) is also [`None`], `self` does not have a label.</span>
+    <span class="doccomment">/// for `self`. If `label_widget` is [`None`] the [`crate::ToolButton:label`] property is used</span>
+    <span class="doccomment">/// as label. If [`crate::ToolButton:label`] is also [`None`], the label in the stock item</span>
+    <span class="doccomment">/// determined by the [`crate::ToolButton:stock-id`] property is used as label. If</span>
+    <span class="doccomment">/// [`crate::ToolButton:stock-id`] is also [`None`], `self` does not have a label.</span>
     <span class="doccomment">/// ## `label_widget`</span>
     <span class="doccomment">/// the widget used as label, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_tool_button_set_label_widget&quot;</span>)]</span>

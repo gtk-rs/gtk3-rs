@@ -132,12 +132,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// This is the subclass of [`SocketConnection`](crate::SocketConnection) that is created</span>
+    <span class="doccomment">/// This is the subclass of [`crate::SocketConnection`] that is created</span>
     <span class="doccomment">/// for TCP/IP sockets.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TcpConnectionExt`](trait@crate::prelude::TcpConnectionExt), [`SocketConnectionExt`](trait@crate::prelude::SocketConnectionExt), [`IOStreamExt`](trait@crate::prelude::IOStreamExt), [`trait@glib::object::ObjectExt`], [`IOStreamExtManual`](trait@crate::prelude::IOStreamExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::TcpConnectionExt`], [`trait@crate::prelude::SocketConnectionExt`], [`trait@crate::prelude::IOStreamExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::IOStreamExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TcpConnection</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GTcpConnection</span>, <span class="ident">ffi::GTcpConnectionClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">SocketConnection</span>, <span class="ident">IOStream</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -151,10 +151,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`TcpConnection`](struct@crate::TcpConnection)</span>
+<span class="doccomment">/// [`struct@crate::TcpConnection`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TcpConnectionExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Checks if graceful disconnects are used. See</span>
-    <span class="doccomment">/// [`set_graceful_disconnect()`](Self::set_graceful_disconnect()).</span>
+    <span class="doccomment">/// [`Self::set_graceful_disconnect()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

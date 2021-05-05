@@ -565,7 +565,7 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`DesktopAppInfo`](crate::DesktopAppInfo) is an implementation of [`AppInfo`](crate::AppInfo) based on</span>
+    <span class="doccomment">/// [`crate::DesktopAppInfo`] is an implementation of [`crate::AppInfo`] based on</span>
     <span class="doccomment">/// desktop files.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `&lt;gio/gdesktopappinfo.h&gt;` belongs to the UNIX-specific</span>
@@ -574,7 +574,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`AppInfoExt`](trait@crate::prelude::AppInfoExt), [`AppInfoExtManual`](trait@crate::prelude::AppInfoExtManual)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::AppInfoExt`], [`trait@crate::prelude::AppInfoExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DesktopAppInfo</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GDesktopAppInfo</span>, <span class="ident">ffi::GDesktopAppInfoClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">AppInfo</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -583,7 +583,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DesktopAppInfo</span> {
-    <span class="doccomment">/// Creates a new [`DesktopAppInfo`](crate::DesktopAppInfo) based on a desktop file id.</span>
+    <span class="doccomment">/// Creates a new [`crate::DesktopAppInfo`] based on a desktop file id.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A desktop file id is the basename of the desktop file, including the</span>
     <span class="doccomment">/// .desktop extension. GIO is looking for a desktop file with this name</span>
@@ -599,21 +599,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`DesktopAppInfo`](crate::DesktopAppInfo), or [`None`] if no desktop</span>
+    <span class="doccomment">/// a new [`crate::DesktopAppInfo`], or [`None`] if no desktop</span>
     <span class="doccomment">///  file with that id exists.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_desktop_app_info_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">desktop_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DesktopAppInfo</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_desktop_app_info_new</span>(<span class="ident">desktop_id</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Creates a new [`DesktopAppInfo`](crate::DesktopAppInfo).</span>
+    <span class="doccomment">/// Creates a new [`crate::DesktopAppInfo`].</span>
     <span class="doccomment">/// ## `filename`</span>
     <span class="doccomment">/// the path of a desktop file, in the GLib</span>
     <span class="doccomment">///  filename encoding</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`DesktopAppInfo`](crate::DesktopAppInfo) or [`None`] on error.</span>
+    <span class="doccomment">/// a new [`crate::DesktopAppInfo`] or [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_desktop_app_info_new_from_filename&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_filename&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_filename</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">filename</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DesktopAppInfo</span><span class="op">&gt;</span> {
@@ -624,13 +624,13 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`DesktopAppInfo`](crate::DesktopAppInfo).</span>
+    <span class="doccomment">/// Creates a new [`crate::DesktopAppInfo`].</span>
     <span class="doccomment">/// ## `key_file`</span>
-    <span class="doccomment">/// an opened [`glib::KeyFile`](crate::glib::KeyFile)</span>
+    <span class="doccomment">/// an opened [`crate::glib::KeyFile`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`DesktopAppInfo`](crate::DesktopAppInfo) or [`None`] on error.</span>
+    <span class="doccomment">/// a new [`crate::DesktopAppInfo`] or [`None`] on error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_desktop_app_info_new_from_keyfile&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_keyfile&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_keyfile</span>(<span class="ident">key_file</span>: <span class="kw-2">&amp;</span><span class="ident">glib::KeyFile</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DesktopAppInfo</span><span class="op">&gt;</span> {
@@ -648,7 +648,7 @@
     <span class="doccomment">/// action.</span>
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// the name of the action as from</span>
-    <span class="doccomment">///  [`list_actions()`](Self::list_actions())</span>
+    <span class="doccomment">///  [`Self::list_actions()`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -702,8 +702,8 @@
     }
 
     <span class="doccomment">/// When `self` was created from a known filename, return it. In some</span>
-    <span class="doccomment">/// situations such as the [`DesktopAppInfo`](crate::DesktopAppInfo) returned from</span>
-    <span class="doccomment">/// [`new_from_keyfile()`](Self::new_from_keyfile()), this function will return [`None`].</span>
+    <span class="doccomment">/// situations such as the [`crate::DesktopAppInfo`] returned from</span>
+    <span class="doccomment">/// [`Self::new_from_keyfile()`], this function will return [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -783,7 +783,7 @@
 
     <span class="doccomment">/// Gets the value of the NoDisplay key, which helps determine if the</span>
     <span class="doccomment">/// application info should be shown in menus. See</span>
-    <span class="doccomment">/// `G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY` and [`AppInfo::should_show()`](crate::AppInfo::should_show()).</span>
+    <span class="doccomment">/// `G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY` and [`crate::AppInfo::should_show()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -803,7 +803,7 @@
     <span class="doccomment">/// to override the default mechanism then you may specify `desktop_env`,</span>
     <span class="doccomment">/// but this is not recommended.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that [`AppInfo::should_show()`](crate::AppInfo::should_show()) for `self` will include this check (with</span>
+    <span class="doccomment">/// Note that [`crate::AppInfo::should_show()`] for `self` will include this check (with</span>
     <span class="doccomment">/// [`None`] for `desktop_env`) as well as additional checks.</span>
     <span class="doccomment">/// ## `desktop_env`</span>
     <span class="doccomment">/// a string specifying a desktop name</span>
@@ -916,7 +916,7 @@
     <span class="doccomment">/// Activates the named application action.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You may only call this function on action names that were</span>
-    <span class="doccomment">/// returned from [`list_actions()`](Self::list_actions()).</span>
+    <span class="doccomment">/// returned from [`Self::list_actions()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that if the main entry of the desktop file indicates that the</span>
     <span class="doccomment">/// application supports startup notification, and `launch_context` is</span>
@@ -926,13 +926,13 @@
     <span class="doccomment">/// This is the expected behaviour of applications declaring additional</span>
     <span class="doccomment">/// actions, as per the desktop file specification.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As with [`AppInfo::launch()`](crate::AppInfo::launch()) there is no way to detect failures that</span>
+    <span class="doccomment">/// As with [`crate::AppInfo::launch()`] there is no way to detect failures that</span>
     <span class="doccomment">/// occur while using this function.</span>
     <span class="doccomment">/// ## `action_name`</span>
     <span class="doccomment">/// the name of the action as from</span>
-    <span class="doccomment">///  [`list_actions()`](Self::list_actions())</span>
+    <span class="doccomment">///  [`Self::list_actions()`]</span>
     <span class="doccomment">/// ## `launch_context`</span>
-    <span class="doccomment">/// a [`AppLaunchContext`](crate::AppLaunchContext)</span>
+    <span class="doccomment">/// a [`crate::AppLaunchContext`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_desktop_app_info_launch_action&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">launch_action</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">AppLaunchContext</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -948,10 +948,10 @@
         }
     }
 
-    <span class="doccomment">/// This function performs the equivalent of [`AppInfo::launch_uris()`](crate::AppInfo::launch_uris()),</span>
+    <span class="doccomment">/// This function performs the equivalent of [`crate::AppInfo::launch_uris()`],</span>
     <span class="doccomment">/// but is intended primarily for operating system components that</span>
     <span class="doccomment">/// launch applications. Ordinary applications should use</span>
-    <span class="doccomment">/// [`AppInfo::launch_uris()`](crate::AppInfo::launch_uris()).</span>
+    <span class="doccomment">/// [`crate::AppInfo::launch_uris()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the application is launched via GSpawn, then `spawn_flags`, `user_setup`</span>
     <span class="doccomment">/// and `user_setup_data` are used for the call to `g_spawn_async()`.</span>
@@ -966,9 +966,9 @@
     <span class="doccomment">/// ## `uris`</span>
     <span class="doccomment">/// List of URIs</span>
     <span class="doccomment">/// ## `launch_context`</span>
-    <span class="doccomment">/// a [`AppLaunchContext`](crate::AppLaunchContext)</span>
+    <span class="doccomment">/// a [`crate::AppLaunchContext`]</span>
     <span class="doccomment">/// ## `spawn_flags`</span>
-    <span class="doccomment">/// [`glib::SpawnFlags`](crate::glib::SpawnFlags), used for each process</span>
+    <span class="doccomment">/// [`crate::glib::SpawnFlags`], used for each process</span>
     <span class="doccomment">/// ## `user_setup`</span>
     <span class="doccomment">/// a `GSpawnChildSetupFunc`, used once</span>
     <span class="doccomment">///  for each process.</span>
@@ -1078,7 +1078,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a list of [`DesktopAppInfo`](crate::DesktopAppInfo)</span>
+    <span class="doccomment">/// a list of [`crate::DesktopAppInfo`]</span>
     <span class="doccomment">/// objects.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_desktop_app_info_get_implementations&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_implementations&quot;</span>)]</span>

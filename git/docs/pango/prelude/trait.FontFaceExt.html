@@ -9,26 +9,26 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.list_sizes" class="fnname">list_sizes</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>&gt;;
 }</pre></div><div class="docblock"><p>Trait containing all <code>FontFace</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.FontFace.html"><code>FontFace</code></a></p>
+<p><a href="../struct.FontFace.html" title="crate::FontFace"><code>crate::FontFace</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.describe" class="method"><code>fn <a href="#tymethod.describe" class="fnname">describe</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontDescription.html" title="struct pango::FontDescription">FontDescription</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font_face.rs.html#49" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the family, style, variant, weight and stretch of
-a <a href="../struct.FontFace.html"><code>FontFace</code></a>. The size field of the resulting font description
+a <a href="../struct.FontFace.html" title="crate::FontFace"><code>crate::FontFace</code></a>. The size field of the resulting font description
 will be unset.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a newly-created <a href="../struct.FontDescription.html"><code>FontDescription</code></a> structure
-holding the description of the face. Use <a href="crate::FontDescription::free()"><code>FontDescription::free()</code></a>
+<p>a newly-created <a href="../struct.FontDescription.html" title="crate::FontDescription"><code>crate::FontDescription</code></a> structure
+holding the description of the face. Use [<code>crate::FontDescription::free()</code>]
 to free the result.</p>
 </div><h3 id="tymethod.face_name" class="method"><code>fn <a href="#tymethod.face_name" class="fnname">face_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font_face.rs.html#62" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets a name representing the style of this face among the
-different faces in the <a href="../struct.FontFamily.html"><code>FontFamily</code></a> for the face. This
+different faces in the <a href="../struct.FontFamily.html" title="crate::FontFamily"><code>crate::FontFamily</code></a> for the face. This
 name is unique among all faces in the family and is suitable
 for displaying to users.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the face name for the face. This string is
 owned by the face object and must not be modified or freed.</p>
-</div><h3 id="tymethod.family" class="method"><code>fn <a href="#tymethod.family" class="fnname">family</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontFamily.html" title="struct pango::FontFamily">FontFamily</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font_face.rs.html#74" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v1_46</code></strong> only.</div></div><div class="docblock"><p>Gets the <a href="../struct.FontFamily.html"><code>FontFamily</code></a> that <code>self</code>
+</div><h3 id="tymethod.family" class="method"><code>fn <a href="#tymethod.family" class="fnname">family</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontFamily.html" title="struct pango::FontFamily">FontFamily</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font_face.rs.html#74" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v1_46</code></strong> only.</div></div><div class="docblock"><p>Gets the <a href="../struct.FontFamily.html" title="crate::FontFamily"><code>crate::FontFamily</code></a> that <code>self</code>
 belongs to.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>the <a href="../struct.FontFamily.html"><code>FontFamily</code></a></p>
-</div><h3 id="tymethod.is_synthesized" class="method"><code>fn <a href="#tymethod.is_synthesized" class="fnname">is_synthesized</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/pango/auto/font_face.rs.html#84" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether a <a href="../struct.FontFace.html"><code>FontFace</code></a> is synthesized by the underlying
+<p>the <a href="../struct.FontFamily.html" title="crate::FontFamily"><code>crate::FontFamily</code></a></p>
+</div><h3 id="tymethod.is_synthesized" class="method"><code>fn <a href="#tymethod.is_synthesized" class="fnname">is_synthesized</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/pango/auto/font_face.rs.html#84" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether a <a href="../struct.FontFace.html" title="crate::FontFace"><code>crate::FontFace</code></a> is synthesized by the underlying
 font rendering engine from another face, perhaps by shearing, emboldening,
 or lightening it.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>

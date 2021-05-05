@@ -80,10 +80,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 2.62</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`get_modification_date_time()`](Self::get_modification_date_time()) instead, as</span>
-    <span class="doccomment">///  [`glib::TimeVal`](crate::glib::TimeVal) is deprecated due to the year 2038 problem.</span>
+    <span class="doccomment">/// Use [`Self::get_modification_date_time()`] instead, as</span>
+    <span class="doccomment">///  [`crate::glib::TimeVal`] is deprecated due to the year 2038 problem.</span>
     <span class="doccomment">/// ## `result`</span>
-    <span class="doccomment">/// a [`glib::TimeVal`](crate::glib::TimeVal).</span>
+    <span class="doccomment">/// a [`crate::glib::TimeVal`].</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_62&quot;</span>, <span class="ident">deprecated</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_modification_time&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_modification_time&quot;</span>)]</span>
@@ -111,10 +111,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 2.62</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`set_modification_date_time()`](Self::set_modification_date_time()) instead, as</span>
-    <span class="doccomment">///  [`glib::TimeVal`](crate::glib::TimeVal) is deprecated due to the year 2038 problem.</span>
+    <span class="doccomment">/// Use [`Self::set_modification_date_time()`] instead, as</span>
+    <span class="doccomment">///  [`crate::glib::TimeVal`] is deprecated due to the year 2038 problem.</span>
     <span class="doccomment">/// ## `mtime`</span>
-    <span class="doccomment">/// a [`glib::TimeVal`](crate::glib::TimeVal).</span>
+    <span class="doccomment">/// a [`crate::glib::TimeVal`].</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_62&quot;</span>, <span class="ident">deprecated</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_modification_time&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_modification_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mtime</span>: <span class="ident">SystemTime</span>) {

@@ -130,21 +130,21 @@
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_int</span>, <span class="ident">c_uint</span>};
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`EntryBuffer`](crate::EntryBuffer) class contains the actual text displayed in a</span>
-    <span class="doccomment">/// [`Entry`](crate::Entry) widget.</span>
+    <span class="doccomment">/// The [`crate::EntryBuffer`] class contains the actual text displayed in a</span>
+    <span class="doccomment">/// [`crate::Entry`] widget.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A single [`EntryBuffer`](crate::EntryBuffer) object can be shared by multiple [`Entry`](crate::Entry)</span>
+    <span class="doccomment">/// A single [`crate::EntryBuffer`] object can be shared by multiple [`crate::Entry`]</span>
     <span class="doccomment">/// widgets which will then share the same text content, but not the cursor</span>
     <span class="doccomment">/// position, visibility attributes, icon etc.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EntryBuffer`](crate::EntryBuffer) may be derived from. Such a derived class might allow</span>
+    <span class="doccomment">/// [`crate::EntryBuffer`] may be derived from. Such a derived class might allow</span>
     <span class="doccomment">/// text to be stored in an alternate location, such as non-pageable memory,</span>
     <span class="doccomment">/// useful in the case of important passwords. Or a derived class could</span>
     <span class="doccomment">/// integrate with an application’s concept of undo/redo.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`EntryBufferExt`](trait@crate::prelude::EntryBufferExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::EntryBufferExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EntryBuffer</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkEntryBuffer</span>, <span class="ident">ffi::GtkEntryBufferClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {

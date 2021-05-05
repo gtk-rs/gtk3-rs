@@ -342,27 +342,27 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="kw">impl</span> <span class="ident">Task</span> {
-    <span class="doccomment">/// Creates a [`Task`](crate::Task) acting on `source_object`, which will eventually be</span>
+    <span class="doccomment">/// Creates a [`crate::Task`] acting on `source_object`, which will eventually be</span>
     <span class="doccomment">/// used to invoke `callback` in the current</span>
     <span class="doccomment">/// [thread-default main context][g-main-context-push-thread-default].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Call this in the &quot;start&quot; method of your asynchronous method, and</span>
-    <span class="doccomment">/// pass the [`Task`](crate::Task) around throughout the asynchronous operation. You</span>
-    <span class="doccomment">/// can use [`set_task_data()`](Self::set_task_data()) to attach task-specific data to the</span>
-    <span class="doccomment">/// object, which you can retrieve later via [`get_task_data()`](Self::get_task_data()).</span>
+    <span class="doccomment">/// pass the [`crate::Task`] around throughout the asynchronous operation. You</span>
+    <span class="doccomment">/// can use [`Self::set_task_data()`] to attach task-specific data to the</span>
+    <span class="doccomment">/// object, which you can retrieve later via [`Self::get_task_data()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, if `cancellable` is cancelled, then the return value of</span>
-    <span class="doccomment">/// the task will always be [`IOErrorEnum::Cancelled`], even if the task had</span>
+    <span class="doccomment">/// the task will always be [`crate::IOErrorEnum::Cancelled`], even if the task had</span>
     <span class="doccomment">/// already completed before the cancellation. This allows for</span>
     <span class="doccomment">/// simplified handling in cases where cancellation may imply that</span>
     <span class="doccomment">/// other objects that the task depends on have been destroyed. If you</span>
     <span class="doccomment">/// do not want this behavior, you can use</span>
-    <span class="doccomment">/// [`set_check_cancellable()`](Self::set_check_cancellable()) to change it.</span>
+    <span class="doccomment">/// [`Self::set_check_cancellable()`] to change it.</span>
     <span class="doccomment">/// ## `source_object`</span>
-    <span class="doccomment">/// the [`glib::object::Object`](crate::glib::object::Object) that owns</span>
+    <span class="doccomment">/// the [`crate::glib::object::Object`] that owns</span>
     <span class="doccomment">///  this task, or [`None`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`.</span>
     <span class="doccomment">/// ## `callback_data`</span>
@@ -370,7 +370,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Task`](crate::Task).</span>
+    <span class="doccomment">/// a [`crate::Task`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>, <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="ident">AsyncResult</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="ident">source_object</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
@@ -401,18 +401,18 @@
     }
 
     <span class="doccomment">/// Sets `self`&#39;s result to `error` (which `self` assumes ownership of)</span>
-    <span class="doccomment">/// and completes the task (see [`return_pointer()`](Self::return_pointer()) for more</span>
+    <span class="doccomment">/// and completes the task (see [`Self::return_pointer()`] for more</span>
     <span class="doccomment">/// discussion of exactly what this means).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that since the task takes ownership of `error`, and since the</span>
-    <span class="doccomment">/// task may be completed before returning from [`return_error()`](Self::return_error()),</span>
+    <span class="doccomment">/// task may be completed before returning from [`Self::return_error()`],</span>
     <span class="doccomment">/// you cannot assume that `error` is still valid after calling this.</span>
-    <span class="doccomment">/// Call [`glib::Error::copy()`](crate::glib::Error::copy()) on the error if you need to keep a local copy</span>
+    <span class="doccomment">/// Call [`crate::glib::Error::copy()`] on the error if you need to keep a local copy</span>
     <span class="doccomment">/// as well.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`return_new_error()`](Self::return_new_error()).</span>
+    <span class="doccomment">/// See also [`Self::return_new_error()`].</span>
     <span class="doccomment">/// ## `error`</span>
-    <span class="doccomment">/// the [`glib::Error`](crate::glib::Error) result of a task function.</span>
+    <span class="doccomment">/// the [`crate::glib::Error`] result of a task function.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">return_error</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">error</span>: <span class="ident">glib::Error</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi::g_task_return_error</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">error</span>.<span class="ident">to_glib_full</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
@@ -433,9 +433,9 @@
     <span class="doccomment">/// `G_PRIORITY_DEFAULT`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This will affect the priority of `GSources` created with</span>
-    <span class="doccomment">/// [`attach_source()`](Self::attach_source()) and the scheduling of tasks run in threads,</span>
+    <span class="doccomment">/// [`Self::attach_source()`] and the scheduling of tasks run in threads,</span>
     <span class="doccomment">/// and can also be explicitly retrieved later via</span>
-    <span class="doccomment">/// [`get_priority()`](Self::get_priority()).</span>
+    <span class="doccomment">/// [`Self::get_priority()`].</span>
     <span class="doccomment">/// ## `priority`</span>
     <span class="doccomment">/// the [priority][io-priority] of the request</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_priority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">priority</span>: <span class="ident">glib::source::Priority</span>) {
@@ -446,14 +446,14 @@
 
     <span class="doccomment">/// Sets `self`&#39;s result to `result` (by copying it) and completes the task.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `result` is [`None`] then a [`glib::object::Value`](crate::glib::object::Value) of type `G_TYPE_POINTER`</span>
+    <span class="doccomment">/// If `result` is [`None`] then a [`crate::glib::object::Value`] of type `G_TYPE_POINTER`</span>
     <span class="doccomment">/// with a value of [`None`] will be used for the result.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a very generic low-level method intended primarily for use</span>
-    <span class="doccomment">/// by language bindings; for C code, [`return_pointer()`](Self::return_pointer()) and the</span>
+    <span class="doccomment">/// by language bindings; for C code, [`Self::return_pointer()`] and the</span>
     <span class="doccomment">/// like will normally be much easier to use.</span>
     <span class="doccomment">/// ## `result`</span>
-    <span class="doccomment">/// the [`glib::object::Value`](crate::glib::object::Value) result of</span>
+    <span class="doccomment">/// the [`crate::glib::object::Value`] result of</span>
     <span class="doccomment">///  a task function</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">return_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">result</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Value</span>) {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">value_free</span>(<span class="ident">value</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>) {
@@ -471,9 +471,9 @@
         }
     }
 
-    <span class="doccomment">/// Gets the result of `self` as a [`glib::object::Value`](crate::glib::object::Value), and transfers ownership of</span>
-    <span class="doccomment">/// that value to the caller. As with [`return_value()`](Self::return_value()), this is</span>
-    <span class="doccomment">/// a generic low-level method; [`propagate_pointer()`](Self::propagate_pointer()) and the like</span>
+    <span class="doccomment">/// Gets the result of `self` as a [`crate::glib::object::Value`], and transfers ownership of</span>
+    <span class="doccomment">/// that value to the caller. As with [`Self::return_value()`], this is</span>
+    <span class="doccomment">/// a generic low-level method; [`Self::propagate_pointer()`] and the like</span>
     <span class="doccomment">/// will usually be more useful for C code.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the task resulted in an error, or was cancelled, then this will</span>
@@ -482,7 +482,7 @@
     <span class="doccomment">/// Since this method transfers ownership of the return value (or</span>
     <span class="doccomment">/// error) to the caller, you may only call it once.</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// return location for the [`glib::object::Value`](crate::glib::object::Value)</span>
+    <span class="doccomment">/// return location for the [`crate::glib::object::Value`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

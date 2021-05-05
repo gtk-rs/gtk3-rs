@@ -609,27 +609,27 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Volume`](crate::Volume) interface represents user-visible objects that can be</span>
-    <span class="doccomment">/// mounted. Note, when porting from GnomeVFS, [`Volume`](crate::Volume) is the moral</span>
+    <span class="doccomment">/// The [`crate::Volume`] interface represents user-visible objects that can be</span>
+    <span class="doccomment">/// mounted. Note, when porting from GnomeVFS, [`crate::Volume`] is the moral</span>
     <span class="doccomment">/// equivalent of `GnomeVFSDrive`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Mounting a [`Volume`](crate::Volume) instance is an asynchronous operation. For more</span>
-    <span class="doccomment">/// information about asynchronous operations, see [`AsyncResult`](crate::AsyncResult) and</span>
-    <span class="doccomment">/// [`Task`](crate::Task). To mount a [`Volume`](crate::Volume), first call [`mount()`](Self::mount()) with (at</span>
-    <span class="doccomment">/// least) the [`Volume`](crate::Volume) instance, optionally a [`MountOperation`](crate::MountOperation) object</span>
+    <span class="doccomment">/// Mounting a [`crate::Volume`] instance is an asynchronous operation. For more</span>
+    <span class="doccomment">/// information about asynchronous operations, see [`crate::AsyncResult`] and</span>
+    <span class="doccomment">/// [`crate::Task`]. To mount a [`crate::Volume`], first call [`Self::mount()`] with (at</span>
+    <span class="doccomment">/// least) the [`crate::Volume`] instance, optionally a [`crate::MountOperation`] object</span>
     <span class="doccomment">/// and a `GAsyncReadyCallback`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Typically, one will only want to pass [`None`] for the</span>
-    <span class="doccomment">/// [`MountOperation`](crate::MountOperation) if automounting all volumes when a desktop session</span>
+    <span class="doccomment">/// [`crate::MountOperation`] if automounting all volumes when a desktop session</span>
     <span class="doccomment">/// starts since it&#39;s not desirable to put up a lot of dialogs asking</span>
     <span class="doccomment">/// for credentials.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The callback will be fired when the operation has resolved (either</span>
-    <span class="doccomment">/// with success or failure), and a [`AsyncResult`](crate::AsyncResult) instance will be</span>
+    <span class="doccomment">/// with success or failure), and a [`crate::AsyncResult`] instance will be</span>
     <span class="doccomment">/// passed to the callback. That callback should then call</span>
-    <span class="doccomment">/// [`mount_finish()`](Self::mount_finish()) with the [`Volume`](crate::Volume) instance and the</span>
-    <span class="doccomment">/// [`AsyncResult`](crate::AsyncResult) data to see if the operation was completed</span>
-    <span class="doccomment">/// successfully. If an `error` is present when [`mount_finish()`](Self::mount_finish())</span>
+    <span class="doccomment">/// [`Self::mount_finish()`] with the [`crate::Volume`] instance and the</span>
+    <span class="doccomment">/// [`crate::AsyncResult`] data to see if the operation was completed</span>
+    <span class="doccomment">/// successfully. If an `error` is present when [`Self::mount_finish()`]</span>
     <span class="doccomment">/// is called, then it will be filled with any error information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Volume Identifiers # {`volume`-identifier}</span>
@@ -642,7 +642,7 @@
     <span class="doccomment">/// traditional Unix devices (e.g. `/dev/sda2`), UUIDs. GIO uses predefined</span>
     <span class="doccomment">/// strings as names for the different kinds of identifiers:</span>
     <span class="doccomment">/// `G_VOLUME_IDENTIFIER_KIND_UUID`, `G_VOLUME_IDENTIFIER_KIND_LABEL`, etc.</span>
-    <span class="doccomment">/// Use [`get_identifier()`](Self::get_identifier()) to obtain an identifier for a volume.</span>
+    <span class="doccomment">/// Use [`Self::get_identifier()`] to obtain an identifier for a volume.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `G_VOLUME_IDENTIFIER_KIND_HAL_UDI` will only be available</span>
@@ -653,7 +653,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`VolumeExt`](trait@crate::prelude::VolumeExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::VolumeExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Volume</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GVolume</span>, <span class="ident">ffi::GVolumeIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -667,7 +667,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Volume`](struct@crate::Volume)</span>
+<span class="doccomment">/// [`struct@crate::Volume`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VolumeExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Checks if a volume can be ejected.</span>
     <span class="doccomment">///</span>
@@ -686,15 +686,15 @@
     <span class="kw">fn</span> <span class="ident">can_mount</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Ejects a volume. This is an asynchronous operation, and is</span>
-    <span class="doccomment">/// finished by calling [`Volume::eject_with_operation_finish()`](crate::Volume::eject_with_operation_finish()) with the `self`</span>
-    <span class="doccomment">/// and [`AsyncResult`](crate::AsyncResult) data returned in the `callback`.</span>
+    <span class="doccomment">/// finished by calling [`crate::Volume::eject_with_operation_finish()`] with the `self`</span>
+    <span class="doccomment">/// and [`crate::AsyncResult`] data returned in the `callback`.</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags affecting the unmount if required for eject</span>
     <span class="doccomment">/// ## `mount_operation`</span>
-    <span class="doccomment">/// a [`MountOperation`](crate::MountOperation) or [`None`] to</span>
+    <span class="doccomment">/// a [`crate::MountOperation`] or [`None`] to</span>
     <span class="doccomment">///  avoid user interaction</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`, or [`None`]</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -719,7 +719,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets the kinds of [identifiers][volume-identifier] that `self` has.</span>
-    <span class="doccomment">/// Use [`Volume::get_identifier()`](crate::Volume::get_identifier()) to obtain the identifiers themselves.</span>
+    <span class="doccomment">/// Use [`crate::Volume::get_identifier()`] to obtain the identifiers themselves.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -728,10 +728,10 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_enumerate_identifiers&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">enumerate_identifiers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the activation root for a [`Volume`](crate::Volume) if it is known ahead of</span>
+    <span class="doccomment">/// Gets the activation root for a [`crate::Volume`] if it is known ahead of</span>
     <span class="doccomment">/// mount time. Returns [`None`] otherwise. If not [`None`] and if `self`</span>
-    <span class="doccomment">/// is mounted, then the result of [`Mount::get_root()`](crate::Mount::get_root()) on the</span>
-    <span class="doccomment">/// [`Mount`](crate::Mount) object obtained from [`Volume::get_mount()`](crate::Volume::get_mount()) will always</span>
+    <span class="doccomment">/// is mounted, then the result of [`crate::Mount::get_root()`] on the</span>
+    <span class="doccomment">/// [`crate::Mount`] object obtained from [`crate::Volume::get_mount()`] will always</span>
     <span class="doccomment">/// either be equal or a prefix of what this function returns. In</span>
     <span class="doccomment">/// other words, in code</span>
     <span class="doccomment">///</span>
@@ -753,14 +753,14 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// will always be [`true`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Activation roots are typically used in [`VolumeMonitor`](crate::VolumeMonitor)</span>
+    <span class="doccomment">/// Activation roots are typically used in [`crate::VolumeMonitor`]</span>
     <span class="doccomment">/// implementations to find the underlying mount to shadow, see</span>
-    <span class="doccomment">/// [`Mount::is_shadowed()`](crate::Mount::is_shadowed()) for more details.</span>
+    <span class="doccomment">/// [`crate::Mount::is_shadowed()`] for more details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the activation root of `self`</span>
-    <span class="doccomment">///  or [`None`]. Use [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) to free.</span>
+    <span class="doccomment">///  or [`None`]. Use [`crate::glib::object::ObjectExt::unref()`] to free.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_get_activation_root&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_activation_root&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">activation_root</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">File</span><span class="op">&gt;</span>;
@@ -769,9 +769,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Drive`](crate::Drive) or [`None`] if `self` is not</span>
+    <span class="doccomment">/// a [`crate::Drive`] or [`None`] if `self` is not</span>
     <span class="doccomment">///  associated with a drive. The returned object should be unreffed</span>
-    <span class="doccomment">///  with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when no longer needed.</span>
+    <span class="doccomment">///  with [`crate::glib::object::ObjectExt::unref()`] when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_get_drive&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_drive&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Drive</span><span class="op">&gt;</span>;
@@ -780,8 +780,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon).</span>
-    <span class="doccomment">///  The returned object should be unreffed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref())</span>
+    <span class="doccomment">/// a [`crate::Icon`].</span>
+    <span class="doccomment">///  The returned object should be unreffed with [`crate::glib::object::ObjectExt::unref()`]</span>
     <span class="doccomment">///  when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_get_icon&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_icon&quot;</span>)]</span>
@@ -796,7 +796,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a newly allocated string containing the</span>
-    <span class="doccomment">///  requested identifier, or [`None`] if the [`Volume`](crate::Volume)</span>
+    <span class="doccomment">///  requested identifier, or [`None`] if the [`crate::Volume`]</span>
     <span class="doccomment">///  doesn&#39;t have this kind of identifier</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_get_identifier&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_identifier&quot;</span>)]</span>
@@ -806,8 +806,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Mount`](crate::Mount) or [`None`] if `self` isn&#39;t mounted.</span>
-    <span class="doccomment">///  The returned object should be unreffed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref())</span>
+    <span class="doccomment">/// a [`crate::Mount`] or [`None`] if `self` isn&#39;t mounted.</span>
+    <span class="doccomment">///  The returned object should be unreffed with [`crate::glib::object::ObjectExt::unref()`]</span>
     <span class="doccomment">///  when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_get_mount&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">get_mount</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Mount</span><span class="op">&gt;</span>;
@@ -835,8 +835,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon).</span>
-    <span class="doccomment">///  The returned object should be unreffed with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref())</span>
+    <span class="doccomment">/// a [`crate::Icon`].</span>
+    <span class="doccomment">///  The returned object should be unreffed with [`crate::glib::object::ObjectExt::unref()`]</span>
     <span class="doccomment">///  when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_volume_get_symbolic_icon&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_symbolic_icon&quot;</span>)]</span>
@@ -858,14 +858,14 @@
     <span class="kw">fn</span> <span class="ident">uuid</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Mounts a volume. This is an asynchronous operation, and is</span>
-    <span class="doccomment">/// finished by calling [`Volume::mount_finish()`](crate::Volume::mount_finish()) with the `self`</span>
-    <span class="doccomment">/// and [`AsyncResult`](crate::AsyncResult) returned in the `callback`.</span>
+    <span class="doccomment">/// finished by calling [`crate::Volume::mount_finish()`] with the `self`</span>
+    <span class="doccomment">/// and [`crate::AsyncResult`] returned in the `callback`.</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags affecting the operation</span>
     <span class="doccomment">/// ## `mount_operation`</span>
-    <span class="doccomment">/// a [`MountOperation`](crate::MountOperation) or [`None`] to avoid user interaction</span>
+    <span class="doccomment">/// a [`crate::MountOperation`] or [`None`] to avoid user interaction</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`, or [`None`]</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -901,7 +901,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// This signal is emitted when the [`Volume`](crate::Volume) have been removed. If</span>
+    <span class="doccomment">/// This signal is emitted when the [`crate::Volume`] have been removed. If</span>
     <span class="doccomment">/// the recipient is holding references to the object they should</span>
     <span class="doccomment">/// release them so the object can be finalized.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;removed&quot;</span>)]</span>

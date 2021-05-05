@@ -648,9 +648,9 @@
 }
 
 <span class="doccomment">/// This enumeration describes the different interpolation modes that</span>
-<span class="doccomment">/// can be used with the scaling functions. [`Nearest`](Self::Nearest) is</span>
+<span class="doccomment">/// can be used with the scaling functions. [`Self::Nearest`] is</span>
 <span class="doccomment">/// the fastest scaling method, but has horrible quality when</span>
-<span class="doccomment">/// scaling down. [`Bilinear`](Self::Bilinear) is the best choice if you</span>
+<span class="doccomment">/// scaling down. [`Self::Bilinear`] is the best choice if you</span>
 <span class="doccomment">/// aren&#39;t sure what to choose, it has a good speed/quality balance.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// **Note**: Cubic filtering is missing from the list; hyperbolic</span>
@@ -684,7 +684,7 @@
     <span class="doccomment">///  hyperbolic-filter sampling the ideal hyperbolic-filter interpolated</span>
     <span class="doccomment">///  image (the filter is designed to be idempotent for 1:1 pixel mapping).</span>
     <span class="doccomment">///  **Deprecated**: this interpolation filter is deprecated, as in reality</span>
-    <span class="doccomment">///  it has a lower quality than the [`Bilinear`](Self::Bilinear) filter</span>
+    <span class="doccomment">///  it has a lower quality than the [`Self::Bilinear`] filter</span>
     <span class="doccomment">///  (Since: 2.38)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_INTERP_HYPER&quot;</span>)]</span>
     <span class="ident">Hyper</span>,
@@ -790,7 +790,7 @@
     <span class="doccomment">///  considered fully opaque.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_PIXBUF_ALPHA_BILEVEL&quot;</span>)]</span>
     <span class="ident">Bilevel</span>,
-    <span class="doccomment">/// For now falls back to [`Bilevel`](Self::Bilevel).</span>
+    <span class="doccomment">/// For now falls back to [`Self::Bilevel`].</span>
     <span class="doccomment">///  In the future it will do full alpha compositing.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_PIXBUF_ALPHA_FULL&quot;</span>)]</span>
     <span class="ident">Full</span>,
@@ -1009,7 +1009,7 @@
     }
 }
 
-<span class="doccomment">/// The possible rotations which can be passed to [`Pixbuf::rotate_simple()`](crate::Pixbuf::rotate_simple()).</span>
+<span class="doccomment">/// The possible rotations which can be passed to [`crate::Pixbuf::rotate_simple()`].</span>
 <span class="doccomment">/// To make them easier to use, their numerical values are the actual degrees.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>

@@ -162,10 +162,10 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`SettingsBackend`](crate::SettingsBackend) interface defines a generic interface for</span>
+    <span class="doccomment">/// The [`crate::SettingsBackend`] interface defines a generic interface for</span>
     <span class="doccomment">/// non-strictly-typed data that is stored in a hierarchy. To implement</span>
-    <span class="doccomment">/// an alternative storage backend for [`Settings`](crate::Settings), you need to implement</span>
-    <span class="doccomment">/// the [`SettingsBackend`](crate::SettingsBackend) interface and then make it implement the</span>
+    <span class="doccomment">/// an alternative storage backend for [`crate::Settings`], you need to implement</span>
+    <span class="doccomment">/// the [`crate::SettingsBackend`] interface and then make it implement the</span>
     <span class="doccomment">/// extension point `G_SETTINGS_BACKEND_EXTENSION_POINT_NAME`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The interface defines methods for reading and writing values, a</span>
@@ -176,12 +176,12 @@
     <span class="doccomment">/// implementations must carefully adhere to the expectations of</span>
     <span class="doccomment">/// callers that are documented on each of the interface methods.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Some of the [`SettingsBackend`](crate::SettingsBackend) functions accept or return a [`glib::Tree`](crate::glib::Tree).</span>
-    <span class="doccomment">/// These trees always have strings as keys and [`glib::Variant`](crate::glib::Variant) as values.</span>
+    <span class="doccomment">/// Some of the [`crate::SettingsBackend`] functions accept or return a [`crate::glib::Tree`].</span>
+    <span class="doccomment">/// These trees always have strings as keys and [`crate::glib::Variant`] as values.</span>
     <span class="doccomment">/// `g_settings_backend_create_tree()` is a convenience function to create</span>
     <span class="doccomment">/// suitable trees.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`SettingsBackend`](crate::SettingsBackend) API is exported to allow third-party</span>
+    <span class="doccomment">/// The [`crate::SettingsBackend`] API is exported to allow third-party</span>
     <span class="doccomment">/// implementations, but does not carry the same stability guarantees</span>
     <span class="doccomment">/// as the public GIO API. For this reason, you have to define the</span>
     <span class="doccomment">/// C preprocessor symbol `G_SETTINGS_ENABLE_BACKEND` before including</span>
@@ -191,7 +191,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SettingsBackendExt`](trait@crate::prelude::SettingsBackendExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SettingsBackendExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SettingsBackend</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSettingsBackend</span>, <span class="ident">ffi::GSettingsBackendClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -205,7 +205,7 @@
     <span class="comment">//    unsafe { TODO: call ffi:g_settings_backend_flatten_tree() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Returns the default [`SettingsBackend`](crate::SettingsBackend). It is possible to override</span>
+    <span class="doccomment">/// Returns the default [`crate::SettingsBackend`]. It is possible to override</span>
     <span class="doccomment">/// the default by setting the `GSETTINGS_BACKEND` environment variable</span>
     <span class="doccomment">/// to the name of a settings backend.</span>
     <span class="doccomment">///</span>
@@ -213,7 +213,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the default [`SettingsBackend`](crate::SettingsBackend),</span>
+    <span class="doccomment">/// the default [`crate::SettingsBackend`],</span>
     <span class="doccomment">///  which will be a dummy (memory) settings backend if no other settings</span>
     <span class="doccomment">///  backend is available.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_settings_backend_get_default&quot;</span>)]</span>
@@ -229,7 +229,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`SettingsBackend`](struct@crate::SettingsBackend)</span>
+<span class="doccomment">/// [`struct@crate::SettingsBackend`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SettingsBackendExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="comment">//#[doc(alias = &quot;g_settings_backend_changed&quot;)]</span>
     <span class="comment">//fn changed(&amp;self, key: &amp;str, origin_tag: /*Unimplemented*/Option&lt;Fundamental: Pointer&gt;);</span>

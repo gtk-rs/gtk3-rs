@@ -9,7 +9,7 @@ pub enum MemoryMonitorWarningLevel {
     // some variants omitted
 }</pre></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v2_64</code></strong> only.</div></div><div class="docblock"><p>Memory availability warning levels.</p>
 <p>Note that because new values might be added, it is recommended that applications check
-<a href="enum.MemoryMonitorWarningLevel.html"><code>MemoryMonitorWarningLevel</code></a> as ranges, for example:</p>
+<a href="enum.MemoryMonitorWarningLevel.html" title="crate::MemoryMonitorWarningLevel"><code>crate::MemoryMonitorWarningLevel</code></a> as ranges, for example:</p>
 <pre><code class="language-C">if (warning_level &gt; G_MEMORY_MONITOR_WARNING_LEVEL_LOW)
   drop_caches ();
 </code></pre>
@@ -18,7 +18,7 @@ pub enum MemoryMonitorWarningLevel {
 <div class="docblock non-exhaustive non-exhaustive-enum">Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.</div><div id="variant.Low" class="variant small-section-header"><a href="#variant.Low" class="anchor field"></a><code>Low</code></div><div class="docblock"><p>Memory on the device is low, processes
 should free up unneeded resources (for example, in-memory caches) so they can
 be used elsewhere.</p>
-</div><div id="variant.Medium" class="variant small-section-header"><a href="#variant.Medium" class="anchor field"></a><code>Medium</code></div><div class="docblock"><p>Same as <a href="enum.MemoryMonitorWarningLevel.html#variant.Low"><code>Low</code></a>
+</div><div id="variant.Medium" class="variant small-section-header"><a href="#variant.Medium" class="anchor field"></a><code>Medium</code></div><div class="docblock"><p>Same as <a href="enum.MemoryMonitorWarningLevel.html#variant.Low" title="Self::Low"><code>Self::Low</code></a>
 but the device has even less free memory, so processes should try harder to free
 up unneeded resources. If your process does not need to stay running, it is a
 good time for it to quit.</p>

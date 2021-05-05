@@ -362,7 +362,7 @@
     <span class="doccomment">/// Writes the contents of `self` to `filename` using</span>
     <span class="doccomment">/// `g_file_set_contents()`. If you need stricter guarantees about durability of</span>
     <span class="doccomment">/// the written file than are provided by `g_file_set_contents()`, use</span>
-    <span class="doccomment">/// `g_file_set_contents_full()` with the return value of [`to_data()`](Self::to_data()).</span>
+    <span class="doccomment">/// `g_file_set_contents_full()` with the return value of [`Self::to_data()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function can fail for any of the reasons that</span>
     <span class="doccomment">/// `g_file_set_contents()` may fail.</span>
@@ -393,14 +393,14 @@
     <span class="doccomment">/// returned from `g_get_user_data_dir()` and `g_get_system_data_dirs()`,</span>
     <span class="doccomment">/// loads the file into `self` and returns the file&#39;s full path in</span>
     <span class="doccomment">/// `full_path`. If the file could not be loaded then an `error` is</span>
-    <span class="doccomment">/// set to either a [`FileError`](crate::FileError) or [`KeyFileError`](crate::KeyFileError).</span>
+    <span class="doccomment">/// set to either a [`crate::FileError`] or [`crate::KeyFileError`].</span>
     <span class="doccomment">/// ## `file`</span>
     <span class="doccomment">/// a relative path to a filename to open and parse</span>
     <span class="doccomment">/// ## `full_path`</span>
     <span class="doccomment">/// return location for a string containing the full path</span>
     <span class="doccomment">///  of the file, or [`None`]</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags from [`KeyFileFlags`](crate::KeyFileFlags)</span>
+    <span class="doccomment">/// flags from [`crate::KeyFileFlags`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -435,7 +435,7 @@
     <span class="doccomment">/// returns the file&#39;s full path in `full_path`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the file could not be found in any of the `search_dirs`,</span>
-    <span class="doccomment">/// [`KeyFileError::NotFound`] is returned. If</span>
+    <span class="doccomment">/// [`crate::KeyFileError::NotFound`] is returned. If</span>
     <span class="doccomment">/// the file is found but the OS returns an error when opening or reading the</span>
     <span class="doccomment">/// file, a `G_FILE_ERROR` is returned. If there is a problem parsing the file, a</span>
     <span class="doccomment">/// `G_KEY_FILE_ERROR` is returned.</span>
@@ -447,7 +447,7 @@
     <span class="doccomment">/// return location for a string containing the full path</span>
     <span class="doccomment">///  of the file, or [`None`]</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags from [`KeyFileFlags`](crate::KeyFileFlags)</span>
+    <span class="doccomment">/// flags from [`crate::KeyFileFlags`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -492,7 +492,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a newly allocated string holding</span>
-    <span class="doccomment">///  the contents of the [`KeyFile`](crate::KeyFile)</span>
+    <span class="doccomment">///  the contents of the [`crate::KeyFile`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_key_file_to_data&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GString</span> {
         <span class="kw">unsafe</span> {
@@ -524,12 +524,12 @@
     <span class="doccomment">/// Looks whether the key file has the key `key` in the group</span>
     <span class="doccomment">/// `group_name`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that this function does not follow the rules for [`Error`](crate::Error) strictly;</span>
+    <span class="doccomment">/// Note that this function does not follow the rules for [`crate::Error`] strictly;</span>
     <span class="doccomment">/// the return value both carries meaning and signals an error. To use</span>
-    <span class="doccomment">/// this function, you must pass a [`Error`](crate::Error) pointer in `error`, and check</span>
+    <span class="doccomment">/// this function, you must pass a [`crate::Error`] pointer in `error`, and check</span>
     <span class="doccomment">/// whether it is not [`None`] to see if an error occurred.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Language bindings should use [`get_value()`](Self::get_value()) to test whether</span>
+    <span class="doccomment">/// Language bindings should use [`Self::get_value()`] to test whether</span>
     <span class="doccomment">/// or not a key exists.</span>
     <span class="doccomment">/// ## `group_name`</span>
     <span class="doccomment">/// a group name</span>

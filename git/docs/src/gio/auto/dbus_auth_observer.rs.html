@@ -260,15 +260,15 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`DBusAuthObserver`](crate::DBusAuthObserver) type provides a mechanism for participating</span>
-    <span class="doccomment">/// in how a [`DBusServer`](crate::DBusServer) (or a [`DBusConnection`](crate::DBusConnection)) authenticates remote</span>
-    <span class="doccomment">/// peers. Simply instantiate a [`DBusAuthObserver`](crate::DBusAuthObserver) and connect to the</span>
+    <span class="doccomment">/// The [`crate::DBusAuthObserver`] type provides a mechanism for participating</span>
+    <span class="doccomment">/// in how a [`crate::DBusServer`] (or a [`crate::DBusConnection`]) authenticates remote</span>
+    <span class="doccomment">/// peers. Simply instantiate a [`crate::DBusAuthObserver`] and connect to the</span>
     <span class="doccomment">/// signals you are interested in. Note that new signals may be added</span>
     <span class="doccomment">/// in the future</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Controlling Authentication Mechanisms</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// By default, a [`DBusServer`](crate::DBusServer) or server-side [`DBusConnection`](crate::DBusConnection) will allow</span>
+    <span class="doccomment">/// By default, a [`crate::DBusServer`] or server-side [`crate::DBusConnection`] will allow</span>
     <span class="doccomment">/// any authentication mechanism to be used. If you only</span>
     <span class="doccomment">/// want to allow D-Bus connections with the `EXTERNAL` mechanism,</span>
     <span class="doccomment">/// which makes use of credentials passing and is the recommended</span>
@@ -293,7 +293,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Controlling Authorization # {`auth`-observer}</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// By default, a [`DBusServer`](crate::DBusServer) or server-side [`DBusConnection`](crate::DBusConnection) will accept</span>
+    <span class="doccomment">/// By default, a [`crate::DBusServer`] or server-side [`crate::DBusConnection`] will accept</span>
     <span class="doccomment">/// connections from any successfully authenticated user (but not from</span>
     <span class="doccomment">/// anonymous connections using the `ANONYMOUS` mechanism). If you only</span>
     <span class="doccomment">/// want to allow D-Bus connections from processes owned by the same uid</span>
@@ -336,17 +336,17 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DBusAuthObserver</span> {
-    <span class="doccomment">/// Creates a new [`DBusAuthObserver`](crate::DBusAuthObserver) object.</span>
+    <span class="doccomment">/// Creates a new [`crate::DBusAuthObserver`] object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DBusAuthObserver`](crate::DBusAuthObserver). Free with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// A [`crate::DBusAuthObserver`]. Free with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_auth_observer_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusAuthObserver</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_dbus_auth_observer_new</span>()) }
     }
 
-    <span class="doccomment">/// Emits the [`DBusAuthObserver::allow-mechanism`](crate::DBusAuthObserver::allow-mechanism) signal on `self`.</span>
+    <span class="doccomment">/// Emits the [`crate::DBusAuthObserver::allow-mechanism`] signal on `self`.</span>
     <span class="doccomment">/// ## `mechanism`</span>
     <span class="doccomment">/// The name of the mechanism, e.g. `DBUS_COOKIE_SHA1`.</span>
     <span class="doccomment">///</span>
@@ -363,9 +363,9 @@
         }
     }
 
-    <span class="doccomment">/// Emits the [`DBusAuthObserver::authorize-authenticated-peer`](crate::DBusAuthObserver::authorize-authenticated-peer) signal on `self`.</span>
+    <span class="doccomment">/// Emits the [`crate::DBusAuthObserver::authorize-authenticated-peer`] signal on `self`.</span>
     <span class="doccomment">/// ## `stream`</span>
-    <span class="doccomment">/// A [`IOStream`](crate::IOStream) for the [`DBusConnection`](crate::DBusConnection).</span>
+    <span class="doccomment">/// A [`crate::IOStream`] for the [`crate::DBusConnection`].</span>
     <span class="doccomment">/// ## `credentials`</span>
     <span class="doccomment">/// Credentials received from the peer or [`None`].</span>
     <span class="doccomment">///</span>
@@ -429,7 +429,7 @@
     <span class="doccomment">/// Emitted to check if a peer that is successfully authenticated</span>
     <span class="doccomment">/// is authorized.</span>
     <span class="doccomment">/// ## `stream`</span>
-    <span class="doccomment">/// A [`IOStream`](crate::IOStream) for the [`DBusConnection`](crate::DBusConnection).</span>
+    <span class="doccomment">/// A [`crate::IOStream`] for the [`crate::DBusConnection`].</span>
     <span class="doccomment">/// ## `credentials`</span>
     <span class="doccomment">/// Credentials received from the peer or [`None`].</span>
     <span class="doccomment">///</span>

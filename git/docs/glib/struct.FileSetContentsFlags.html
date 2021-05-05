@@ -12,8 +12,8 @@ on the file and use of an atomic <code>rename()</code> of the new version of the
 over the old.</p>
 </div><h4 id="associatedconstant.DURABLE" class="associatedconstant"><code>pub const <a href="#associatedconstant.DURABLE" class="constant"><b>DURABLE</b></a>: <a class="struct" href="struct.FileSetContentsFlags.html" title="struct glib::FileSetContentsFlags">FileSetContentsFlags</a></code><a href="#associatedconstant.DURABLE" class="anchor"></a><a class="srclink" href="../src/glib/auto/flags.rs.html#15-40" title="goto source code">[src]</a></h4><div class="docblock"><p>Guarantee file durability: after a crash, the
 new version of the file will be available. On Unix systems this equates to
-an <code>fsync()</code> on the file (if <a href="Self::Consistent"><code>Consistent</code></a> is unset), or
-the effects of <a href="Self::Consistent"><code>Consistent</code></a> plus an <code>fsync()</code> on the
+an <code>fsync()</code> on the file (if [<code>Self::Consistent</code>] is unset), or
+the effects of [<code>Self::Consistent</code>] plus an <code>fsync()</code> on the
 directory containing the file after calling <code>rename()</code>.</p>
 </div><h4 id="associatedconstant.ONLY_EXISTING" class="associatedconstant"><code>pub const <a href="#associatedconstant.ONLY_EXISTING" class="constant"><b>ONLY_EXISTING</b></a>: <a class="struct" href="struct.FileSetContentsFlags.html" title="struct glib::FileSetContentsFlags">FileSetContentsFlags</a></code><a href="#associatedconstant.ONLY_EXISTING" class="anchor"></a><a class="srclink" href="../src/glib/auto/flags.rs.html#15-40" title="goto source code">[src]</a></h4><div class="docblock"><p>Only apply consistency and durability
 guarantees if the file already exists. This may speed up file operations

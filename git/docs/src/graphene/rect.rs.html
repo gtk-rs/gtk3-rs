@@ -43,6 +43,7 @@
 <span id="40">40</span>
 <span id="41">41</span>
 <span id="42">42</span>
+<span id="43">43</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -77,7 +78,8 @@
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_rect_init_from_rect&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_rect</span>(<span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rect</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_rect&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_rect</span>(<span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rect</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">alloc</span> <span class="op">=</span> <span class="ident">ffi::graphene_rect_alloc</span>();

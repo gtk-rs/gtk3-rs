@@ -6,10 +6,10 @@ Windows normally have decorations that are under the control
 of the windowing system and allow the user to manipulate the window
 (resize it, move it, close it,…).</p>
 <h1 id="window-as-buildable" class="section-header"><a href="#window-as-buildable"><code>Window</code> as <code>Buildable</code></a></h1>
-<p>The <code>Window</code> implementation of the <a href="struct.Buildable.html"><code>Buildable</code></a> interface supports a
+<p>The <code>Window</code> implementation of the <a href="struct.Buildable.html" title="crate::Buildable"><code>crate::Buildable</code></a> interface supports a
 custom <code>&lt;accel-groups&gt;</code> element, which supports any number of <code>&lt;group&gt;</code>
-elements representing the <a href="struct.AccelGroup.html"><code>AccelGroup</code></a> objects you want to add to
-your window (synonymous with <a href="crate::%60GtkWindowExt%60::add_accel_group()">``GtkWindowExt<code>::add_accel_group()</code></a>.</p>
+elements representing the <a href="struct.AccelGroup.html" title="crate::AccelGroup"><code>crate::AccelGroup</code></a> objects you want to add to
+your window (synonymous with <a href="prelude/trait.GtkWindowExt.html#tymethod.add_accel_group" title="crate::prelude::GtkWindowExt::add_accel_group()"><code>crate::prelude::</code>GtkWindowExt<code>::add_accel_group()</code></a>.</p>
 <p>It also supports the <code>&lt;initial-focus&gt;</code> element, whose name property names
 the widget to receive the focus when the window is mapped.</p>
 <p>An example of a UI definition fragment with accel groups:</p>
@@ -30,39 +30,39 @@ types of window often add their own discriminating style classes, such as
 <p><code>Window</code> adds the .titlebar and .default-decoration style classes to the
 widget that is added as a titlebar child.</p>
 <h1 id="implements" class="section-header"><a href="#implements">Implements</a></h1>
-<p><a href="prelude/trait.GtkWindowExt.html"><code>GtkWindowExt</code></a>, <a href="prelude/trait.BinExt.html"><code>BinExt</code></a>, <a href="prelude/trait.ContainerExt.html"><code>ContainerExt</code></a>, <a href="prelude/trait.WidgetExt.html"><code>WidgetExt</code></a>, <a href="../glib/object/trait.ObjectExt.html" title="glib::object::ObjectExt"><code>glib::object::ObjectExt</code></a>, <a href="prelude/trait.BuildableExt.html"><code>BuildableExt</code></a>, <a href="prelude/trait.GtkWindowExtManual.html"><code>GtkWindowExtManual</code></a>, <a href="prelude/trait.WidgetExtManual.html"><code>WidgetExtManual</code></a>, <a href="prelude/trait.BuildableExtManual.html"><code>BuildableExtManual</code></a></p>
-</div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.Window.html" title="struct gtk::Window">Window</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#79-261" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>(type_: <a class="enum" href="enum.WindowType.html" title="enum gtk::WindowType">WindowType</a>) -&gt; <a class="struct" href="struct.Window.html" title="struct gtk::Window">Window</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#107-110" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new <a href="struct.Window.html"><code>Window</code></a>, which is a toplevel window that can
+<p><a href="prelude/trait.GtkWindowExt.html" title="crate::prelude::GtkWindowExt"><code>crate::prelude::GtkWindowExt</code></a>, <a href="prelude/trait.BinExt.html" title="crate::prelude::BinExt"><code>crate::prelude::BinExt</code></a>, <a href="prelude/trait.ContainerExt.html" title="crate::prelude::ContainerExt"><code>crate::prelude::ContainerExt</code></a>, <a href="prelude/trait.WidgetExt.html" title="crate::prelude::WidgetExt"><code>crate::prelude::WidgetExt</code></a>, <a href="../glib/object/trait.ObjectExt.html" title="glib::object::ObjectExt"><code>glib::object::ObjectExt</code></a>, <a href="prelude/trait.BuildableExt.html" title="crate::prelude::BuildableExt"><code>crate::prelude::BuildableExt</code></a>, <a href="prelude/trait.GtkWindowExtManual.html" title="crate::prelude::GtkWindowExtManual"><code>crate::prelude::GtkWindowExtManual</code></a>, <a href="prelude/trait.WidgetExtManual.html" title="crate::prelude::WidgetExtManual"><code>crate::prelude::WidgetExtManual</code></a>, <a href="prelude/trait.BuildableExtManual.html" title="crate::prelude::BuildableExtManual"><code>crate::prelude::BuildableExtManual</code></a></p>
+</div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.Window.html" title="struct gtk::Window">Window</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#79-261" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>(type_: <a class="enum" href="enum.WindowType.html" title="enum gtk::WindowType">WindowType</a>) -&gt; <a class="struct" href="struct.Window.html" title="struct gtk::Window">Window</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#107-110" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates a new <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>, which is a toplevel window that can
 contain other widgets. Nearly always, the type of the window should
-be <a href="enum.WindowType.html#variant.Toplevel"><code>WindowType::Toplevel</code></a>. If you’re implementing something like a
-popup menu from scratch (which is a bad idea, just use <a href="struct.Menu.html"><code>Menu</code></a>),
-you might use <a href="enum.WindowType.html#variant.Popup"><code>WindowType::Popup</code></a>. <a href="enum.WindowType.html#variant.Popup"><code>WindowType::Popup</code></a> is not for
+be <a href="enum.WindowType.html#variant.Toplevel" title="crate::WindowType::Toplevel"><code>crate::WindowType::Toplevel</code></a>. If you’re implementing something like a
+popup menu from scratch (which is a bad idea, just use <a href="struct.Menu.html" title="crate::Menu"><code>crate::Menu</code></a>),
+you might use <a href="enum.WindowType.html#variant.Popup" title="crate::WindowType::Popup"><code>crate::WindowType::Popup</code></a>. <a href="enum.WindowType.html#variant.Popup" title="crate::WindowType::Popup"><code>crate::WindowType::Popup</code></a> is not for
 dialogs, though in some other toolkits dialogs are called “popups”.
-In GTK+, <a href="enum.WindowType.html#variant.Popup"><code>WindowType::Popup</code></a> means a pop-up menu or pop-up tooltip.
+In GTK+, <a href="enum.WindowType.html#variant.Popup" title="crate::WindowType::Popup"><code>crate::WindowType::Popup</code></a> means a pop-up menu or pop-up tooltip.
 On X11, popup windows are not controlled by the
 [window manager][gtk-X11-arch].</p>
 <p>If you simply want an undecorated window (no window borders), use
-<a href="crate::%60GtkWindowExt%60::set_decorated()">``GtkWindowExt<code>::set_decorated()</code></a>, don’t use <a href="enum.WindowType.html#variant.Popup"><code>WindowType::Popup</code></a>.</p>
-<p>All top-level windows created by <a href="struct.Window.html#method.new"><code>new()</code></a> are stored in
+<a href="prelude/trait.GtkWindowExt.html#tymethod.set_decorated" title="crate::prelude::GtkWindowExt::set_decorated()"><code>crate::prelude::</code>GtkWindowExt<code>::set_decorated()</code></a>, don’t use <a href="enum.WindowType.html#variant.Popup" title="crate::WindowType::Popup"><code>crate::WindowType::Popup</code></a>.</p>
+<p>All top-level windows created by <a href="struct.Window.html#method.new" title="Self::new()"><code>Self::new()</code></a> are stored in
 an internal top-level window list. This list can be obtained from
-<a href="struct.Window.html#method.list_toplevels"><code>list_toplevels()</code></a>. Due to Gtk+ keeping a reference to
-the window internally, <a href="struct.Window.html#method.new"><code>new()</code></a> does not return a reference
+<a href="struct.Window.html#method.list_toplevels" title="Self::list_toplevels()"><code>Self::list_toplevels()</code></a>. Due to Gtk+ keeping a reference to
+the window internally, <a href="struct.Window.html#method.new" title="Self::new()"><code>Self::new()</code></a> does not return a reference
 to the caller.</p>
-<p>To delete a <a href="struct.Window.html"><code>Window</code></a>, call <a href="crate::Widget::destroy()"><code>Widget::destroy()</code></a>.</p>
+<p>To delete a <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>, call [<code>crate::Widget::destroy()</code>].</p>
 <h2 id="type_" class="section-header"><a href="#type_"><code>type_</code></a></h2>
 <p>type of window</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a new <a href="struct.Window.html"><code>Window</code></a>.</p>
-</div><h4 id="method.default_icon_list" class="method"><code>pub fn <a href="#method.default_icon_list" class="fnname">default_icon_list</a>() -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;</code><a href="#method.default_icon_list" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#122-127" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the value set by <a href="struct.Window.html#method.set_default_icon_list"><code>set_default_icon_list()</code></a>.
-The list is a copy and should be freed with <a href="crate::glib::List::free()"><code>glib::List::free()</code></a>,
+<p>a new <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>.</p>
+</div><h4 id="method.default_icon_list" class="method"><code>pub fn <a href="#method.default_icon_list" class="fnname">default_icon_list</a>() -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;</code><a href="#method.default_icon_list" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#122-127" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the value set by <a href="struct.Window.html#method.set_default_icon_list" title="Self::set_default_icon_list()"><code>Self::set_default_icon_list()</code></a>.
+The list is a copy and should be freed with [<code>crate::glib::List::free()</code>],
 but the pixbufs in the list have not had their reference count
 incremented.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>copy of default icon list</p>
 </div><h4 id="method.default_icon_name" class="method"><code>pub fn <a href="#method.default_icon_name" class="fnname">default_icon_name</a>() -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a href="#method.default_icon_name" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#140-143" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns the fallback icon name for windows that has been set
-with <a href="struct.Window.html#method.set_default_icon_name"><code>set_default_icon_name()</code></a>. The returned
+with <a href="struct.Window.html#method.set_default_icon_name" title="Self::set_default_icon_name()"><code>Self::set_default_icon_name()</code></a>. The returned
 string is owned by GTK+ and should not be modified. It
 is only valid until the next call to
-<a href="struct.Window.html#method.set_default_icon_name"><code>set_default_icon_name()</code></a>.</p>
+<a href="struct.Window.html#method.set_default_icon_name" title="Self::set_default_icon_name()"><code>Self::set_default_icon_name()</code></a>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the fallback icon name for windows</p>
 </div><h4 id="method.list_toplevels" class="method"><code>pub fn <a href="#method.list_toplevels" class="fnname">list_toplevels</a>() -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</code><a href="#method.list_toplevels" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#156-159" title="goto source code">[src]</a></h4><div class="docblock"><p>Returns a list of all existing toplevel windows. The widgets
@@ -73,7 +73,7 @@ callbacks that might destroy the widgets, you must call
 then unref all the widgets afterwards.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>list of toplevel widgets</p>
-</div><h4 id="method.set_auto_startup_notification" class="method"><code>pub fn <a href="#method.set_auto_startup_notification" class="fnname">set_auto_startup_notification</a>(setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_auto_startup_notification" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#173-178" title="goto source code">[src]</a></h4><div class="docblock"><p>By default, after showing the first <a href="struct.Window.html"><code>Window</code></a>, GTK+ calls
+</div><h4 id="method.set_auto_startup_notification" class="method"><code>pub fn <a href="#method.set_auto_startup_notification" class="fnname">set_auto_startup_notification</a>(setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_auto_startup_notification" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#173-178" title="goto source code">[src]</a></h4><div class="docblock"><p>By default, after showing the first <a href="struct.Window.html" title="crate::Window"><code>crate::Window</code></a>, GTK+ calls
 <code>gdk_notify_startup_complete()</code>. Call this function to disable
 the automatic startup notification. You might do this if your
 first window is a splash screen, and you want to delay notification
@@ -84,25 +84,26 @@ showing the main window would automatically result in notification.</p>
 <h2 id="setting" class="section-header"><a href="#setting"><code>setting</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to automatically do startup notification</p>
 </div><h4 id="method.set_default_icon" class="method"><code>pub fn <a href="#method.set_default_icon" class="fnname">set_default_icon</a>(icon: &amp;<a class="struct" href="../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>)</code><a href="#method.set_default_icon" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#185-190" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets an icon to be used as fallback for windows that haven’t
-had <a href="crate::%60GtkWindowExt%60::set_icon()">``GtkWindowExt<code>::set_icon()</code></a> called on them from a pixbuf.</p>
+had <a href="prelude/trait.GtkWindowExt.html#tymethod.set_icon" title="crate::prelude::GtkWindowExt::set_icon()"><code>crate::prelude::</code>GtkWindowExt<code>::set_icon()</code></a> called on them from a pixbuf.</p>
 <h2 id="icon" class="section-header"><a href="#icon"><code>icon</code></a></h2>
 <p>the icon</p>
 </div><h4 id="method.set_default_icon_from_file" class="method"><code>pub fn <a href="#method.set_default_icon_from_file" class="fnname">set_default_icon_from_file</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;filename: P<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a href="#method.set_default_icon_from_file" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#202-218" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets an icon to be used as fallback for windows that haven’t
-had <a href="crate::%60GtkWindowExt%60::set_icon_list()">``GtkWindowExt<code>::set_icon_list()</code></a> called on them from a file
+had <a href="prelude/trait.GtkWindowExt.html#tymethod.set_icon_list" title="crate::prelude::GtkWindowExt::set_icon_list()"><code>crate::prelude::</code>GtkWindowExt<code>::set_icon_list()</code></a> called on them from a file
 on disk. Warns on failure if <code>err</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 <h2 id="filename" class="section-header"><a href="#filename"><code>filename</code></a></h2>
 <p>location of icon file</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if setting the icon succeeded.</p>
 </div><h4 id="method.set_default_icon_list" class="method"><code>pub fn <a href="#method.set_default_icon_list" class="fnname">set_default_icon_list</a>(list: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="struct" href="../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>)</code><a href="#method.set_default_icon_list" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#229-234" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets an icon list to be used as fallback for windows that haven’t
-had <a href="crate::%60GtkWindowExt%60::set_icon_list()">``GtkWindowExt<code>::set_icon_list()</code></a> called on them to set up a
+had <a href="prelude/trait.GtkWindowExt.html#tymethod.set_icon_list" title="crate::prelude::GtkWindowExt::set_icon_list()"><code>crate::prelude::</code>GtkWindowExt<code>::set_icon_list()</code></a> called on them to set up a
 window-specific icon list. This function allows you to set up the
 icon for all windows in your app at once.</p>
-<p>See <a href="crate::%60GtkWindowExt%60::set_icon_list()">``GtkWindowExt<code>::set_icon_list()</code></a> for more details.</p>
+<p>See <a href="prelude/trait.GtkWindowExt.html#tymethod.set_icon_list" title="crate::prelude::GtkWindowExt::set_icon_list()"><code>crate::prelude::</code>GtkWindowExt<code>::set_icon_list()</code></a> for more details.</p>
 <h2 id="list" class="section-header"><a href="#list"><code>list</code></a></h2>
-<p>a list of <a href="../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html"><code>gdk_pixbuf::Pixbuf</code></a></p>
+<p>a list of <a href="../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="crate::gdk_pixbuf::Pixbuf"><code>crate::gdk_pixbuf::Pixbuf</code></a></p>
 </div><h4 id="method.set_default_icon_name" class="method"><code>pub fn <a href="#method.set_default_icon_name" class="fnname">set_default_icon_name</a>(name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a href="#method.set_default_icon_name" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#242-247" title="goto source code">[src]</a></h4><div class="docblock"><p>Sets an icon to be used as fallback for windows that haven’t
-had <a href="crate::%60GtkWindowExt%60::set_icon_name()"><code>GtkWindowExt`::set_icon_list()`](crate::`GtkWindowExt`::set_icon_list()) called on them from a named themed icon, see [</code>GtkWindowExt<code>::set_icon_name()</code></a>.</p>
+had <a href="prelude/trait.GtkWindowExt.html#tymethod.set_icon_list" title="crate::prelude::GtkWindowExt::set_icon_list()"><code>crate::prelude::</code>GtkWindowExt<code>::set_icon_list()</code></a> called on them from a named
+themed icon, see <a href="prelude/trait.GtkWindowExt.html#tymethod.set_icon_name" title="crate::prelude::GtkWindowExt::set_icon_name()"><code>crate::prelude::</code>GtkWindowExt<code>::set_icon_name()</code></a>.</p>
 <h2 id="name" class="section-header"><a href="#name"><code>name</code></a></h2>
 <p>the name of the themed icon</p>
 </div><h4 id="method.set_interactive_debugging" class="method"><code>pub fn <a href="#method.set_interactive_debugging" class="fnname">set_interactive_debugging</a>(enable: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a href="#method.set_interactive_debugging" class="anchor"></a><a class="srclink" href="../src/gtk/auto/window.rs.html#255-260" title="goto source code">[src]</a></h4><div class="docblock"><p>Opens or closes the [interactive debugger][interactive-debugging],

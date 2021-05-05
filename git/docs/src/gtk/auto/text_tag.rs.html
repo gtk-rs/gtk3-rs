@@ -5065,20 +5065,20 @@
     <span class="doccomment">/// which gives an overview of all the objects and</span>
     <span class="doccomment">/// data types related to the text widget and how they work together.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Tags should be in the [`TextTagTable`](crate::TextTagTable) for a given [`TextBuffer`](crate::TextBuffer)</span>
+    <span class="doccomment">/// Tags should be in the [`crate::TextTagTable`] for a given [`crate::TextBuffer`]</span>
     <span class="doccomment">/// before using them with that buffer.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TextBufferExt::create_tag()`](crate::TextBufferExt::create_tag()) is the best way to create tags.</span>
+    <span class="doccomment">/// [`crate::prelude::TextBufferExt::create_tag()`] is the best way to create tags.</span>
     <span class="doccomment">/// See “gtk3-demo” for numerous examples.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For each property of [`TextTag`](crate::TextTag), there is a “set” property, e.g.</span>
+    <span class="doccomment">/// For each property of [`crate::TextTag`], there is a “set” property, e.g.</span>
     <span class="doccomment">/// “font-set” corresponds to “font”. These “set” properties reflect</span>
     <span class="doccomment">/// whether a property has been set or not.</span>
     <span class="doccomment">/// They are maintained by GTK+ and you should not set them independently.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`TextTagExt`](trait@crate::prelude::TextTagExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::TextTagExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextTag</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkTextTag</span>, <span class="ident">ffi::GtkTextTagClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -5087,14 +5087,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TextTag</span> {
-    <span class="doccomment">/// Creates a [`TextTag`](crate::TextTag). Configure the tag using object arguments,</span>
-    <span class="doccomment">/// i.e. using [`glib::object::ObjectExt::set()`](crate::glib::object::ObjectExt::set()).</span>
+    <span class="doccomment">/// Creates a [`crate::TextTag`]. Configure the tag using object arguments,</span>
+    <span class="doccomment">/// i.e. using [`crate::glib::object::ObjectExt::set()`].</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// tag name, or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`TextTag`](crate::TextTag)</span>
+    <span class="doccomment">/// a new [`crate::TextTag`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_tag_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TextTag</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -5797,21 +5797,21 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`TextTag`](struct@crate::TextTag)</span>
+<span class="doccomment">/// [`struct@crate::TextTag`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TextTagExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Emits the [`TextTagTable::tag-changed`](crate::TextTagTable::tag-changed) signal on the [`TextTagTable`](crate::TextTagTable) where</span>
+    <span class="doccomment">/// Emits the [`crate::TextTagTable::tag-changed`] signal on the [`crate::TextTagTable`] where</span>
     <span class="doccomment">/// the tag is included.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The signal is already emitted when setting a [`TextTag`](crate::TextTag) property. This</span>
-    <span class="doccomment">/// function is useful for a [`TextTag`](crate::TextTag) subclass.</span>
+    <span class="doccomment">/// The signal is already emitted when setting a [`crate::TextTag`] property. This</span>
+    <span class="doccomment">/// function is useful for a [`crate::TextTag`] subclass.</span>
     <span class="doccomment">/// ## `size_changed`</span>
-    <span class="doccomment">/// whether the change affects the [`TextView`](crate::TextView) layout.</span>
+    <span class="doccomment">/// whether the change affects the [`crate::TextView`] layout.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_text_tag_changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">size_changed</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Emits the “event” signal on the [`TextTag`](crate::TextTag).</span>
+    <span class="doccomment">/// Emits the “event” signal on the [`crate::TextTag`].</span>
     <span class="doccomment">/// ## `event_object`</span>
     <span class="doccomment">/// object that received the event, such as a widget</span>
     <span class="doccomment">/// ## `event`</span>
@@ -5839,8 +5839,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_priority&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">priority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
 
-    <span class="doccomment">/// Sets the priority of a [`TextTag`](crate::TextTag). Valid priorities</span>
-    <span class="doccomment">/// start at 0 and go to one less than [`TextTagTableExt::get_size()`](crate::TextTagTableExt::get_size()).</span>
+    <span class="doccomment">/// Sets the priority of a [`crate::TextTag`]. Valid priorities</span>
+    <span class="doccomment">/// start at 0 and go to one less than [`crate::prelude::TextTagTableExt::get_size()`].</span>
     <span class="doccomment">/// Each tag in a table has a unique priority; setting the priority</span>
     <span class="doccomment">/// of one tag shifts the priorities of all the other tags in the</span>
     <span class="doccomment">/// table to maintain a unique priority for each tag. Higher priority</span>
@@ -5848,7 +5848,7 @@
     <span class="doccomment">/// a tag to a tag table, it will be assigned the highest priority in</span>
     <span class="doccomment">/// the table by default; so normally the precedence of a set of tags</span>
     <span class="doccomment">/// is the order in which they were added to the table, or created with</span>
-    <span class="doccomment">/// [`TextBufferExt::create_tag()`](crate::TextBufferExt::create_tag()), which adds the tag to the buffer’s table</span>
+    <span class="doccomment">/// [`crate::prelude::TextBufferExt::create_tag()`], which adds the tag to the buffer’s table</span>
     <span class="doccomment">/// automatically.</span>
     <span class="doccomment">/// ## `priority`</span>
     <span class="doccomment">/// the new priority</span>
@@ -6259,11 +6259,11 @@
     <span class="doccomment">/// The ::event signal is emitted when an event occurs on a region of the</span>
     <span class="doccomment">/// buffer marked with this tag.</span>
     <span class="doccomment">/// ## `object`</span>
-    <span class="doccomment">/// the object the event was fired from (typically a [`TextView`](crate::TextView))</span>
+    <span class="doccomment">/// the object the event was fired from (typically a [`crate::TextView`])</span>
     <span class="doccomment">/// ## `event`</span>
     <span class="doccomment">/// the event which triggered the signal</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`TextIter`](crate::TextIter) pointing at the location the event occurred</span>
+    <span class="doccomment">/// a [`crate::TextIter`] pointing at the location the event occurred</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

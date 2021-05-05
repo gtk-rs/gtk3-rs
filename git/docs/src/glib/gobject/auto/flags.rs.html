@@ -167,8 +167,8 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">bitflags!</span> {
-    <span class="doccomment">/// Flags to be passed to [`ObjectExt::bind_property()`](crate::ObjectExt::bind_property()) or</span>
-    <span class="doccomment">/// [`ObjectExt::bind_property_full()`](crate::ObjectExt::bind_property_full()).</span>
+    <span class="doccomment">/// Flags to be passed to [`crate::prelude::ObjectExt::bind_property()`] or</span>
+    <span class="doccomment">/// [`crate::prelude::ObjectExt::bind_property_full()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This enumeration can be extended at later date.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BindingFlags</span>: <span class="ident">u32</span> {
@@ -187,7 +187,7 @@
         <span class="doccomment">///  booleans, setting one to [`true`] will result in the other being</span>
         <span class="doccomment">///  set to [`false`] and vice versa. This flag will only work for</span>
         <span class="doccomment">///  boolean properties, and cannot be used when passing custom</span>
-        <span class="doccomment">///  transformation functions to [`ObjectExt::bind_property_full()`](crate::ObjectExt::bind_property_full()).</span>
+        <span class="doccomment">///  transformation functions to [`crate::prelude::ObjectExt::bind_property_full()`].</span>
         <span class="kw">const</span> <span class="ident">INVERT_BOOLEAN</span> <span class="op">=</span> <span class="number">4</span>;
     }
 }

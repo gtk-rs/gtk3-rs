@@ -865,29 +865,29 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Mount`](crate::Mount) interface represents user-visible mounts. Note, when</span>
-    <span class="doccomment">/// porting from GnomeVFS, [`Mount`](crate::Mount) is the moral equivalent of `GnomeVFSVolume`.</span>
+    <span class="doccomment">/// The [`crate::Mount`] interface represents user-visible mounts. Note, when</span>
+    <span class="doccomment">/// porting from GnomeVFS, [`crate::Mount`] is the moral equivalent of `GnomeVFSVolume`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Mount`](crate::Mount) is a &quot;mounted&quot; filesystem that you can access. Mounted is in</span>
+    <span class="doccomment">/// [`crate::Mount`] is a &quot;mounted&quot; filesystem that you can access. Mounted is in</span>
     <span class="doccomment">/// quotes because it&#39;s not the same as a unix mount, it might be a gvfs</span>
     <span class="doccomment">/// mount, but you can still access the files on it if you use GIO. Might or</span>
     <span class="doccomment">/// might not be related to a volume object.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Unmounting a [`Mount`](crate::Mount) instance is an asynchronous operation. For</span>
-    <span class="doccomment">/// more information about asynchronous operations, see [`AsyncResult`](crate::AsyncResult)</span>
-    <span class="doccomment">/// and [`Task`](crate::Task). To unmount a [`Mount`](crate::Mount) instance, first call</span>
-    <span class="doccomment">/// [`unmount_with_operation()`](Self::unmount_with_operation()) with (at least) the [`Mount`](crate::Mount) instance and a</span>
+    <span class="doccomment">/// Unmounting a [`crate::Mount`] instance is an asynchronous operation. For</span>
+    <span class="doccomment">/// more information about asynchronous operations, see [`crate::AsyncResult`]</span>
+    <span class="doccomment">/// and [`crate::Task`]. To unmount a [`crate::Mount`] instance, first call</span>
+    <span class="doccomment">/// [`Self::unmount_with_operation()`] with (at least) the [`crate::Mount`] instance and a</span>
     <span class="doccomment">/// `GAsyncReadyCallback`. The callback will be fired when the</span>
     <span class="doccomment">/// operation has resolved (either with success or failure), and a</span>
-    <span class="doccomment">/// [`AsyncResult`](crate::AsyncResult) structure will be passed to the callback. That</span>
-    <span class="doccomment">/// callback should then call [`unmount_with_operation_finish()`](Self::unmount_with_operation_finish()) with the [`Mount`](crate::Mount)</span>
-    <span class="doccomment">/// and the [`AsyncResult`](crate::AsyncResult) data to see if the operation was completed</span>
-    <span class="doccomment">/// successfully. If an `error` is present when [`unmount_with_operation_finish()`](Self::unmount_with_operation_finish())</span>
+    <span class="doccomment">/// [`crate::AsyncResult`] structure will be passed to the callback. That</span>
+    <span class="doccomment">/// callback should then call [`Self::unmount_with_operation_finish()`] with the [`crate::Mount`]</span>
+    <span class="doccomment">/// and the [`crate::AsyncResult`] data to see if the operation was completed</span>
+    <span class="doccomment">/// successfully. If an `error` is present when [`Self::unmount_with_operation_finish()`]</span>
     <span class="doccomment">/// is called, then it will be filled with any error information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MountExt`](trait@crate::prelude::MountExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::MountExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Mount</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GMount</span>, <span class="ident">ffi::GMountIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -901,7 +901,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Mount`](struct@crate::Mount)</span>
+<span class="doccomment">/// [`struct@crate::Mount`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MountExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Checks if `self` can be ejected.</span>
     <span class="doccomment">///</span>
@@ -920,15 +920,15 @@
     <span class="kw">fn</span> <span class="ident">can_unmount</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Ejects a mount. This is an asynchronous operation, and is</span>
-    <span class="doccomment">/// finished by calling [`Mount::eject_with_operation_finish()`](crate::Mount::eject_with_operation_finish()) with the `self`</span>
-    <span class="doccomment">/// and [`AsyncResult`](crate::AsyncResult) data returned in the `callback`.</span>
+    <span class="doccomment">/// finished by calling [`crate::Mount::eject_with_operation_finish()`] with the `self`</span>
+    <span class="doccomment">/// and [`crate::AsyncResult`] data returned in the `callback`.</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags affecting the unmount if required for eject</span>
     <span class="doccomment">/// ## `mount_operation`</span>
-    <span class="doccomment">/// a [`MountOperation`](crate::MountOperation) or [`None`] to avoid</span>
+    <span class="doccomment">/// a [`crate::MountOperation`] or [`None`] to avoid</span>
     <span class="doccomment">///  user interaction.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`, or [`None`].</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -958,24 +958,24 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`File`](crate::File).</span>
+    <span class="doccomment">/// a [`crate::File`].</span>
     <span class="doccomment">///  The returned object should be unreffed with</span>
-    <span class="doccomment">///  [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when no longer needed.</span>
+    <span class="doccomment">///  [`crate::glib::object::ObjectExt::unref()`] when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_mount_get_default_location&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default_location&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">default_location</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
 
     <span class="doccomment">/// Gets the drive for the `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is a convenience method for getting the [`Volume`](crate::Volume) and then</span>
-    <span class="doccomment">/// using that object to get the [`Drive`](crate::Drive).</span>
+    <span class="doccomment">/// This is a convenience method for getting the [`crate::Volume`] and then</span>
+    <span class="doccomment">/// using that object to get the [`crate::Drive`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Drive`](crate::Drive) or [`None`] if `self` is not</span>
+    <span class="doccomment">/// a [`crate::Drive`] or [`None`] if `self` is not</span>
     <span class="doccomment">///  associated with a volume or a drive.</span>
     <span class="doccomment">///  The returned object should be unreffed with</span>
-    <span class="doccomment">///  [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when no longer needed.</span>
+    <span class="doccomment">///  [`crate::glib::object::ObjectExt::unref()`] when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_mount_get_drive&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_drive&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Drive</span><span class="op">&gt;</span>;
@@ -984,9 +984,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon).</span>
+    <span class="doccomment">/// a [`crate::Icon`].</span>
     <span class="doccomment">///  The returned object should be unreffed with</span>
-    <span class="doccomment">///  [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when no longer needed.</span>
+    <span class="doccomment">///  [`crate::glib::object::ObjectExt::unref()`] when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_mount_get_icon&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_icon&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Icon</span>;
@@ -1006,9 +1006,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`File`](crate::File).</span>
+    <span class="doccomment">/// a [`crate::File`].</span>
     <span class="doccomment">///  The returned object should be unreffed with</span>
-    <span class="doccomment">///  [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when no longer needed.</span>
+    <span class="doccomment">///  [`crate::glib::object::ObjectExt::unref()`] when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_mount_get_root&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_root&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">root</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
@@ -1026,9 +1026,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon).</span>
+    <span class="doccomment">/// a [`crate::Icon`].</span>
     <span class="doccomment">///  The returned object should be unreffed with</span>
-    <span class="doccomment">///  [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when no longer needed.</span>
+    <span class="doccomment">///  [`crate::glib::object::ObjectExt::unref()`] when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_mount_get_symbolic_icon&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_symbolic_icon&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">symbolic_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Icon</span>;
@@ -1052,10 +1052,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Volume`](crate::Volume) or [`None`] if `self` is not</span>
+    <span class="doccomment">/// a [`crate::Volume`] or [`None`] if `self` is not</span>
     <span class="doccomment">///  associated with a volume.</span>
     <span class="doccomment">///  The returned object should be unreffed with</span>
-    <span class="doccomment">///  [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when no longer needed.</span>
+    <span class="doccomment">///  [`crate::glib::object::ObjectExt::unref()`] when no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_mount_get_volume&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_volume&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">volume</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Volume</span><span class="op">&gt;</span>;
@@ -1068,14 +1068,14 @@
     <span class="doccomment">/// specification for more on x-content types.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an asynchronous operation (see</span>
-    <span class="doccomment">/// [`Mount::guess_content_type_sync()`](crate::Mount::guess_content_type_sync()) for the synchronous version), and</span>
-    <span class="doccomment">/// is finished by calling [`Mount::guess_content_type_finish()`](crate::Mount::guess_content_type_finish()) with the</span>
-    <span class="doccomment">/// `self` and [`AsyncResult`](crate::AsyncResult) data returned in the `callback`.</span>
+    <span class="doccomment">/// [`crate::Mount::guess_content_type_sync()`] for the synchronous version), and</span>
+    <span class="doccomment">/// is finished by calling [`crate::Mount::guess_content_type_finish()`] with the</span>
+    <span class="doccomment">/// `self` and [`crate::AsyncResult`] data returned in the `callback`.</span>
     <span class="doccomment">/// ## `force_rescan`</span>
     <span class="doccomment">/// Whether to force a rescan of the content.</span>
     <span class="doccomment">///  Otherwise a cached result will be used if available</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1106,12 +1106,12 @@
     <span class="doccomment">/// specification for more on x-content types.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a synchronous operation and as such may block doing IO;</span>
-    <span class="doccomment">/// see [`Mount::guess_content_type()`](crate::Mount::guess_content_type()) for the asynchronous version.</span>
+    <span class="doccomment">/// see [`crate::Mount::guess_content_type()`] for the asynchronous version.</span>
     <span class="doccomment">/// ## `force_rescan`</span>
     <span class="doccomment">/// Whether to force a rescan of the content.</span>
     <span class="doccomment">///  Otherwise a cached result will be used if available</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1128,25 +1128,25 @@
     <span class="doccomment">/// avoid displaying `self` in the user interface if it is shadowed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A mount is said to be shadowed if there exists one or more user</span>
-    <span class="doccomment">/// visible objects (currently [`Mount`](crate::Mount) objects) with a root that is</span>
+    <span class="doccomment">/// visible objects (currently [`crate::Mount`] objects) with a root that is</span>
     <span class="doccomment">/// inside the root of `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// One application of shadow mounts is when exposing a single file</span>
     <span class="doccomment">/// system that is used to address several logical volumes. In this</span>
-    <span class="doccomment">/// situation, a [`VolumeMonitor`](crate::VolumeMonitor) implementation would create two</span>
-    <span class="doccomment">/// [`Volume`](crate::Volume) objects (for example, one for the camera functionality of</span>
+    <span class="doccomment">/// situation, a [`crate::VolumeMonitor`] implementation would create two</span>
+    <span class="doccomment">/// [`crate::Volume`] objects (for example, one for the camera functionality of</span>
     <span class="doccomment">/// the device and one for a SD card reader on the device) with</span>
     <span class="doccomment">/// activation URIs `gphoto2://[usb:001,002]/store1/`</span>
     <span class="doccomment">/// and `gphoto2://[usb:001,002]/store2/`. When the</span>
     <span class="doccomment">/// underlying mount (with root</span>
     <span class="doccomment">/// `gphoto2://[usb:001,002]/`) is mounted, said</span>
-    <span class="doccomment">/// [`VolumeMonitor`](crate::VolumeMonitor) implementation would create two [`Mount`](crate::Mount) objects</span>
+    <span class="doccomment">/// [`crate::VolumeMonitor`] implementation would create two [`crate::Mount`] objects</span>
     <span class="doccomment">/// (each with their root matching the corresponding volume activation</span>
     <span class="doccomment">/// root) that would shadow the original mount.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The proxy monitor in GVfs 2.26 and later, automatically creates and</span>
     <span class="doccomment">/// manage shadow mounts (and shadows the underlying mount) if the</span>
-    <span class="doccomment">/// activation root on a [`Volume`](crate::Volume) is set.</span>
+    <span class="doccomment">/// activation root on a [`crate::Volume`] is set.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1155,7 +1155,7 @@
     <span class="kw">fn</span> <span class="ident">is_shadowed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Remounts a mount. This is an asynchronous operation, and is</span>
-    <span class="doccomment">/// finished by calling [`Mount::remount_finish()`](crate::Mount::remount_finish()) with the `self`</span>
+    <span class="doccomment">/// finished by calling [`crate::Mount::remount_finish()`] with the `self`</span>
     <span class="doccomment">/// and `GAsyncResults` data returned in the `callback`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Remounting is useful when some setting affecting the operation</span>
@@ -1166,10 +1166,10 @@
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags affecting the operation</span>
     <span class="doccomment">/// ## `mount_operation`</span>
-    <span class="doccomment">/// a [`MountOperation`](crate::MountOperation) or [`None`] to avoid</span>
+    <span class="doccomment">/// a [`crate::MountOperation`] or [`None`] to avoid</span>
     <span class="doccomment">///  user interaction.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`, or [`None`].</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1194,22 +1194,22 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Increments the shadow count on `self`. Usually used by</span>
-    <span class="doccomment">/// [`VolumeMonitor`](crate::VolumeMonitor) implementations when creating a shadow mount for</span>
-    <span class="doccomment">/// `self`, see [`Mount::is_shadowed()`](crate::Mount::is_shadowed()) for more information. The caller</span>
-    <span class="doccomment">/// will need to emit the [`Mount::changed`](crate::Mount::changed) signal on `self` manually.</span>
+    <span class="doccomment">/// [`crate::VolumeMonitor`] implementations when creating a shadow mount for</span>
+    <span class="doccomment">/// `self`, see [`crate::Mount::is_shadowed()`] for more information. The caller</span>
+    <span class="doccomment">/// will need to emit the [`crate::Mount::changed`] signal on `self` manually.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_mount_shadow&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shadow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Unmounts a mount. This is an asynchronous operation, and is</span>
-    <span class="doccomment">/// finished by calling [`Mount::unmount_with_operation_finish()`](crate::Mount::unmount_with_operation_finish()) with the `self`</span>
-    <span class="doccomment">/// and [`AsyncResult`](crate::AsyncResult) data returned in the `callback`.</span>
+    <span class="doccomment">/// finished by calling [`crate::Mount::unmount_with_operation_finish()`] with the `self`</span>
+    <span class="doccomment">/// and [`crate::AsyncResult`] data returned in the `callback`.</span>
     <span class="doccomment">/// ## `flags`</span>
     <span class="doccomment">/// flags affecting the operation</span>
     <span class="doccomment">/// ## `mount_operation`</span>
-    <span class="doccomment">/// a [`MountOperation`](crate::MountOperation) or [`None`] to avoid</span>
+    <span class="doccomment">/// a [`crate::MountOperation`] or [`None`] to avoid</span>
     <span class="doccomment">///  user interaction.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback`, or [`None`].</span>
     <span class="doccomment">/// ## `user_data`</span>
@@ -1234,9 +1234,9 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Decrements the shadow count on `self`. Usually used by</span>
-    <span class="doccomment">/// [`VolumeMonitor`](crate::VolumeMonitor) implementations when destroying a shadow mount for</span>
-    <span class="doccomment">/// `self`, see [`Mount::is_shadowed()`](crate::Mount::is_shadowed()) for more information. The caller</span>
-    <span class="doccomment">/// will need to emit the [`Mount::changed`](crate::Mount::changed) signal on `self` manually.</span>
+    <span class="doccomment">/// [`crate::VolumeMonitor`] implementations when destroying a shadow mount for</span>
+    <span class="doccomment">/// `self`, see [`crate::Mount::is_shadowed()`] for more information. The caller</span>
+    <span class="doccomment">/// will need to emit the [`crate::Mount::changed`] signal on `self` manually.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_mount_unshadow&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unshadow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
@@ -1244,7 +1244,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// This signal may be emitted when the [`Mount`](crate::Mount) is about to be</span>
+    <span class="doccomment">/// This signal may be emitted when the [`crate::Mount`] is about to be</span>
     <span class="doccomment">/// unmounted.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This signal depends on the backend and is only emitted if</span>
@@ -1252,7 +1252,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pre-unmount&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_pre_unmount</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// This signal is emitted when the [`Mount`](crate::Mount) have been</span>
+    <span class="doccomment">/// This signal is emitted when the [`crate::Mount`] have been</span>
     <span class="doccomment">/// unmounted. If the recipient is holding references to the</span>
     <span class="doccomment">/// object they should release them so the object can be</span>
     <span class="doccomment">/// finalized.</span>

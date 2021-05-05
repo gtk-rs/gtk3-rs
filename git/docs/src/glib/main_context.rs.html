@@ -285,7 +285,7 @@
     <span class="doccomment">/// for polling is determined by calling g_main_context_query ().</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You must have successfully acquired the context with</span>
-    <span class="doccomment">/// [`acquire()`](Self::acquire()) before you may call this function.</span>
+    <span class="doccomment">/// [`Self::acquire()`] before you may call this function.</span>
     <span class="doccomment">/// ## `priority`</span>
     <span class="doccomment">/// location to store priority of highest priority</span>
     <span class="doccomment">///  source already ready.</span>
@@ -308,7 +308,7 @@
         }
     }
 
-    <span class="doccomment">/// Finds a [`Source`](crate::Source) given a pair of context and ID.</span>
+    <span class="doccomment">/// Finds a [`crate::Source`] given a pair of context and ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is a programmer error to attempt to look up a non-existent source.</span>
     <span class="doccomment">///</span>
@@ -321,11 +321,11 @@
     <span class="doccomment">/// been reissued, leading to the operation being performed against the</span>
     <span class="doccomment">/// wrong source.</span>
     <span class="doccomment">/// ## `source_id`</span>
-    <span class="doccomment">/// the source ID, as returned by [`Source::get_id()`](crate::Source::get_id()).</span>
+    <span class="doccomment">/// the source ID, as returned by [`crate::Source::get_id()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Source`](crate::Source)</span>
+    <span class="doccomment">/// the [`crate::Source`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_main_context_find_source_by_id&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find_source_by_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">source_id</span>: <span class="kw-2">&amp;</span><span class="ident">SourceId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Source</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -342,19 +342,19 @@
     <span class="doccomment">/// invocation of `function`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` is [`None`] then the global default main context — as</span>
-    <span class="doccomment">/// returned by [`default()`](Self::default()) — is used.</span>
+    <span class="doccomment">/// returned by [`Self::default()`] — is used.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` is owned by the current thread, `function` is called</span>
     <span class="doccomment">/// directly. Otherwise, if `self` is the thread-default main context</span>
-    <span class="doccomment">/// of the current thread and [`acquire()`](Self::acquire()) succeeds, then</span>
-    <span class="doccomment">/// `function` is called and [`release()`](Self::release()) is called</span>
+    <span class="doccomment">/// of the current thread and [`Self::acquire()`] succeeds, then</span>
+    <span class="doccomment">/// `function` is called and [`Self::release()`] is called</span>
     <span class="doccomment">/// afterwards.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In any other case, an idle source is created to call `function` and</span>
     <span class="doccomment">/// that source is attached to `self` (presumably to be run in another</span>
     <span class="doccomment">/// thread). The idle source is attached with `G_PRIORITY_DEFAULT`</span>
     <span class="doccomment">/// priority. If you want a different priority, use</span>
-    <span class="doccomment">/// [`invoke_full()`](Self::invoke_full()).</span>
+    <span class="doccomment">/// [`Self::invoke_full()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that, as with normal idle functions, `function` should probably</span>
     <span class="doccomment">/// return [`false`]. If it returns [`true`], it will be continuously run in a</span>

@@ -97,27 +97,27 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`AppChooser`](crate::AppChooser) is an interface that can be implemented by widgets which</span>
+    <span class="doccomment">/// [`crate::AppChooser`] is an interface that can be implemented by widgets which</span>
     <span class="doccomment">/// allow the user to choose an application (typically for the purpose of</span>
     <span class="doccomment">/// opening a file). The main objects that implement this interface are</span>
-    <span class="doccomment">/// [`AppChooserWidget`](crate::AppChooserWidget), [`AppChooserDialog`](crate::AppChooserDialog) and [`AppChooserButton`](crate::AppChooserButton).</span>
+    <span class="doccomment">/// [`crate::AppChooserWidget`], [`crate::AppChooserDialog`] and [`crate::AppChooserButton`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Applications are represented by GIO [`gio::AppInfo`](crate::gio::AppInfo) objects here.</span>
+    <span class="doccomment">/// Applications are represented by GIO [`crate::gio::AppInfo`] objects here.</span>
     <span class="doccomment">/// GIO has a concept of recommended and fallback applications for a</span>
     <span class="doccomment">/// given content type. Recommended applications are those that claim</span>
     <span class="doccomment">/// to handle the content type itself, while fallback also includes</span>
     <span class="doccomment">/// applications that handle a more generic content type. GIO also</span>
     <span class="doccomment">/// knows the default and last-used application for a given content</span>
-    <span class="doccomment">/// type. The [`AppChooserWidget`](crate::AppChooserWidget) provides detailed control over</span>
+    <span class="doccomment">/// type. The [`crate::AppChooserWidget`] provides detailed control over</span>
     <span class="doccomment">/// whether the shown list of applications should include default,</span>
     <span class="doccomment">/// recommended or fallback applications.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To obtain the application that has been selected in a [`AppChooser`](crate::AppChooser),</span>
-    <span class="doccomment">/// use [`get_app_info()`](Self::get_app_info()).</span>
+    <span class="doccomment">/// To obtain the application that has been selected in a [`crate::AppChooser`],</span>
+    <span class="doccomment">/// use [`Self::get_app_info()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AppChooserExt`](trait@crate::prelude::AppChooserExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::AppChooserExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AppChooser</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkAppChooser</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Widget</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -129,19 +129,19 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`AppChooserButton`](struct@crate::AppChooserButton), [`AppChooserDialog`](struct@crate::AppChooserDialog), [`AppChooserWidget`](struct@crate::AppChooserWidget), [`AppChooser`](struct@crate::AppChooser)</span>
+<span class="doccomment">/// [`struct@crate::AppChooserButton`], [`struct@crate::AppChooserDialog`], [`struct@crate::AppChooserWidget`], [`struct@crate::AppChooser`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AppChooserExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the currently selected application.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`gio::AppInfo`](crate::gio::AppInfo) for the currently selected</span>
-    <span class="doccomment">///  application, or [`None`] if none is selected. Free with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref())</span>
+    <span class="doccomment">/// a [`crate::gio::AppInfo`] for the currently selected</span>
+    <span class="doccomment">///  application, or [`None`] if none is selected. Free with [`crate::glib::object::ObjectExt::unref()`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_app_chooser_get_app_info&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_app_info&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">app_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AppInfo</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Returns the current value of the [`AppChooser:content-type`](crate::AppChooser:content-type) property.</span>
+    <span class="doccomment">/// Returns the current value of the [`crate::AppChooser:content-type`] property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

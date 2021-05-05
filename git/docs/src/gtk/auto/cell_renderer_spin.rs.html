@@ -854,23 +854,23 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`CellRendererSpin`](crate::CellRendererSpin) renders text in a cell like [`CellRendererText`](crate::CellRendererText) from</span>
-    <span class="doccomment">/// which it is derived. But while [`CellRendererText`](crate::CellRendererText) offers a simple entry to</span>
-    <span class="doccomment">/// edit the text, [`CellRendererSpin`](crate::CellRendererSpin) offers a [`SpinButton`](crate::SpinButton) widget. Of course,</span>
+    <span class="doccomment">/// [`crate::CellRendererSpin`] renders text in a cell like [`crate::CellRendererText`] from</span>
+    <span class="doccomment">/// which it is derived. But while [`crate::CellRendererText`] offers a simple entry to</span>
+    <span class="doccomment">/// edit the text, [`crate::CellRendererSpin`] offers a [`crate::SpinButton`] widget. Of course,</span>
     <span class="doccomment">/// that means that the text has to be parseable as a floating point number.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The range of the spinbutton is taken from the adjustment property of the</span>
     <span class="doccomment">/// cell renderer, which can be set explicitly or mapped to a column in the</span>
-    <span class="doccomment">/// tree model, like all properties of cell renders. [`CellRendererSpin`](crate::CellRendererSpin)</span>
-    <span class="doccomment">/// also has properties for the [`CellRendererSpin:climb-rate`](crate::CellRendererSpin:climb-rate) and the number</span>
-    <span class="doccomment">/// of [`CellRendererSpin:digits`](crate::CellRendererSpin:digits) to display. Other [`SpinButton`](crate::SpinButton) properties</span>
-    <span class="doccomment">/// can be set in a handler for the [`CellRenderer::editing-started`](crate::CellRenderer::editing-started) signal.</span>
+    <span class="doccomment">/// tree model, like all properties of cell renders. [`crate::CellRendererSpin`]</span>
+    <span class="doccomment">/// also has properties for the [`crate::CellRendererSpin:climb-rate`] and the number</span>
+    <span class="doccomment">/// of [`crate::CellRendererSpin:digits`] to display. Other [`crate::SpinButton`] properties</span>
+    <span class="doccomment">/// can be set in a handler for the [`crate::CellRenderer::editing-started`] signal.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`CellRendererSpin`](crate::CellRendererSpin) cell renderer was added in GTK+ 2.10.</span>
+    <span class="doccomment">/// The [`crate::CellRendererSpin`] cell renderer was added in GTK+ 2.10.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CellRendererSpinExt`](trait@crate::prelude::CellRendererSpinExt), [`CellRendererTextExt`](trait@crate::prelude::CellRendererTextExt), [`CellRendererExt`](trait@crate::prelude::CellRendererExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::CellRendererSpinExt`], [`trait@crate::prelude::CellRendererTextExt`], [`trait@crate::prelude::CellRendererExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CellRendererSpin</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkCellRendererSpin</span>, <span class="ident">ffi::GtkCellRendererSpinClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">CellRendererText</span>, <span class="ident">CellRenderer</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -879,11 +879,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">CellRendererSpin</span> {
-    <span class="doccomment">/// Creates a new [`CellRendererSpin`](crate::CellRendererSpin).</span>
+    <span class="doccomment">/// Creates a new [`crate::CellRendererSpin`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`CellRendererSpin`](crate::CellRendererSpin)</span>
+    <span class="doccomment">/// a new [`crate::CellRendererSpin`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_cell_renderer_spin_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CellRendererSpin</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1486,7 +1486,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`CellRendererSpin`](struct@crate::CellRendererSpin)</span>
+<span class="doccomment">/// [`struct@crate::CellRendererSpin`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CellRendererSpinExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="kw">fn</span> <span class="ident">adjustment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span>;
 

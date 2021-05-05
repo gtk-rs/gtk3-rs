@@ -325,15 +325,15 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`SimpleAction`](crate::SimpleAction) is the obvious simple implementation of the [`Action`](crate::Action)</span>
+    <span class="doccomment">/// A [`crate::SimpleAction`] is the obvious simple implementation of the [`crate::Action`]</span>
     <span class="doccomment">/// interface. This is the easiest way to create an action for purposes of</span>
-    <span class="doccomment">/// adding it to a [`SimpleActionGroup`](crate::SimpleActionGroup).</span>
+    <span class="doccomment">/// adding it to a [`crate::SimpleActionGroup`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See also ``GtkAction``.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`ActionExt`](trait@crate::prelude::ActionExt)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::ActionExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleAction</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSimpleAction</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Action</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -344,17 +344,17 @@
 <span class="kw">impl</span> <span class="ident">SimpleAction</span> {
     <span class="doccomment">/// Creates a new action.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The created action is stateless. See [`new_stateful()`](Self::new_stateful()) to create</span>
+    <span class="doccomment">/// The created action is stateless. See [`Self::new_stateful()`] to create</span>
     <span class="doccomment">/// an action that has state.</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// the name of the action</span>
     <span class="doccomment">/// ## `parameter_type`</span>
     <span class="doccomment">/// the type of parameter that will be passed to</span>
-    <span class="doccomment">///  handlers for the [`SimpleAction::activate`](crate::SimpleAction::activate) signal, or [`None`] for no parameter</span>
+    <span class="doccomment">///  handlers for the [`crate::SimpleAction::activate`] signal, or [`None`] for no parameter</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`SimpleAction`](crate::SimpleAction)</span>
+    <span class="doccomment">/// a new [`crate::SimpleAction`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_simple_action_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">parameter_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::VariantTy</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SimpleAction</span> {
         <span class="kw">unsafe</span> {
@@ -367,21 +367,21 @@
 
     <span class="doccomment">/// Creates a new stateful action.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// All future state values must have the same [`glib::VariantType`](crate::glib::VariantType) as the initial</span>
+    <span class="doccomment">/// All future state values must have the same [`crate::glib::VariantType`] as the initial</span>
     <span class="doccomment">/// `state`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the `state` [`glib::Variant`](crate::glib::Variant) is floating, it is consumed.</span>
+    <span class="doccomment">/// If the `state` [`crate::glib::Variant`] is floating, it is consumed.</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// the name of the action</span>
     <span class="doccomment">/// ## `parameter_type`</span>
     <span class="doccomment">/// the type of the parameter that will be passed to</span>
-    <span class="doccomment">///  handlers for the [`SimpleAction::activate`](crate::SimpleAction::activate) signal, or [`None`] for no parameter</span>
+    <span class="doccomment">///  handlers for the [`crate::SimpleAction::activate`] signal, or [`None`] for no parameter</span>
     <span class="doccomment">/// ## `state`</span>
     <span class="doccomment">/// the initial state of the action</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`SimpleAction`](crate::SimpleAction)</span>
+    <span class="doccomment">/// a new [`crate::SimpleAction`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_simple_action_new_stateful&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_stateful</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -419,12 +419,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This should only be called by the implementor of the action. Users</span>
     <span class="doccomment">/// of the action should not attempt to directly modify the &#39;state&#39;</span>
-    <span class="doccomment">/// property. Instead, they should call [`Action::change_state()`](crate::Action::change_state()) to</span>
+    <span class="doccomment">/// property. Instead, they should call [`crate::Action::change_state()`] to</span>
     <span class="doccomment">/// request the change.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the `value` GVariant is floating, it is consumed.</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// the new [`glib::Variant`](crate::glib::Variant) for the state</span>
+    <span class="doccomment">/// the new [`crate::glib::Variant`] for the state</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_simple_action_set_state&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Variant</span>) {
         <span class="kw">unsafe</span> {
@@ -434,10 +434,10 @@
 
     <span class="doccomment">/// Sets the state hint for the action.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`Action::get_state_hint()`](crate::Action::get_state_hint()) for more information about</span>
+    <span class="doccomment">/// See [`crate::Action::get_state_hint()`] for more information about</span>
     <span class="doccomment">/// action state hints.</span>
     <span class="doccomment">/// ## `state_hint`</span>
-    <span class="doccomment">/// a [`glib::Variant`](crate::glib::Variant) representing the state hint</span>
+    <span class="doccomment">/// a [`crate::glib::Variant`] representing the state hint</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_simple_action_set_state_hint&quot;</span>)]</span>
@@ -455,11 +455,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since GLib 2.40, if no handler is connected to this signal then the</span>
     <span class="doccomment">/// default behaviour for boolean-stated actions with a [`None`] parameter</span>
-    <span class="doccomment">/// type is to toggle them via the [`SimpleAction::change-state`](crate::SimpleAction::change-state) signal.</span>
+    <span class="doccomment">/// type is to toggle them via the [`crate::SimpleAction::change-state`] signal.</span>
     <span class="doccomment">/// For stateful actions where the state type is equal to the parameter</span>
     <span class="doccomment">/// type, the default is to forward them directly to</span>
-    <span class="doccomment">/// [`SimpleAction::change-state`](crate::SimpleAction::change-state). This should allow almost all users</span>
-    <span class="doccomment">/// of [`SimpleAction`](crate::SimpleAction) to connect only one handler or the other.</span>
+    <span class="doccomment">/// [`crate::SimpleAction::change-state`]. This should allow almost all users</span>
+    <span class="doccomment">/// of [`crate::SimpleAction`] to connect only one handler or the other.</span>
     <span class="doccomment">/// ## `parameter`</span>
     <span class="doccomment">/// the parameter to the activation, or [`None`] if it has</span>
     <span class="doccomment">///  no parameter</span>
@@ -500,15 +500,15 @@
     <span class="doccomment">/// state.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `value` will always be of the correct state type, i.e. the type of the</span>
-    <span class="doccomment">/// initial state passed to [`new_stateful()`](Self::new_stateful()). If an incorrect</span>
+    <span class="doccomment">/// initial state passed to [`Self::new_stateful()`]. If an incorrect</span>
     <span class="doccomment">/// type is given when requesting to change the state, this signal is not</span>
     <span class="doccomment">/// emitted.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If no handler is connected to this signal then the default</span>
-    <span class="doccomment">/// behaviour is to call [`set_state()`](Self::set_state()) to set the state</span>
+    <span class="doccomment">/// behaviour is to call [`Self::set_state()`] to set the state</span>
     <span class="doccomment">/// to the requested value. If you connect a signal handler then no</span>
     <span class="doccomment">/// default action is taken. If the state should change then you must</span>
-    <span class="doccomment">/// call [`set_state()`](Self::set_state()) from the handler.</span>
+    <span class="doccomment">/// call [`Self::set_state()`] from the handler.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An example of a &#39;change-state&#39; handler:</span>
     <span class="doccomment">///</span>

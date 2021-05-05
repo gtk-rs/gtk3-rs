@@ -25,11 +25,11 @@ unmodifiable color map that maps pixel values into RGB values.</p>
 maps pixel values into rgb values. The color map can be changed by
 an application.</p>
 </div><div id="variant.TrueColor" class="variant small-section-header"><a href="#variant.TrueColor" class="anchor field"></a><code>TrueColor</code></div><div class="docblock"><p>Each pixel value directly contains red, green,
-and blue components. Use <a href="crate::Visual::get_red_pixel_details()"><code>Visual::get_red_pixel_details()</code></a>, etc,
+and blue components. Use [<code>crate::Visual::get_red_pixel_details()</code>], etc,
 to obtain information about how the components are assembled into
 a pixel value.</p>
 </div><div id="variant.DirectColor" class="variant small-section-header"><a href="#variant.DirectColor" class="anchor field"></a><code>DirectColor</code></div><div class="docblock"><p>Each pixel value contains red, green, and blue
-components as for <a href="enum.VisualType.html#variant.TrueColor"><code>TrueColor</code></a>, but the components are
+components as for <a href="enum.VisualType.html#variant.TrueColor" title="Self::TrueColor"><code>Self::TrueColor</code></a>, but the components are
 mapped via a color table into the final output table instead of
 being converted directly.</p>
 </div><h2 id="trait-implementations" class="small-section-header">Trait Implementations<a href="#trait-implementations" class="anchor"></a></h2><div id="trait-implementations-list"><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Clone" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="enum" href="enum.VisualType.html" title="enum gdk::VisualType">VisualType</a></code><a href="#impl-Clone" class="anchor"></a><a class="srclink" href="../src/gdk/auto/enums.rs.html#3692" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.clone" class="method hidden trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone" class="fnname">clone</a>(&amp;self) -&gt; <a class="enum" href="enum.VisualType.html" title="enum gdk::VisualType">VisualType</a></code><a href="#method.clone" class="anchor"></a><a class="srclink" href="../src/gdk/auto/enums.rs.html#3692" title="goto source code">[src]</a></h4><div class='docblock hidden'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>

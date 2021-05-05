@@ -740,25 +740,25 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// `OffscreenWindow` is strictly intended to be used for obtaining</span>
     <span class="doccomment">/// snapshots of widgets that are not part of a normal widget hierarchy.</span>
-    <span class="doccomment">/// Since [`OffscreenWindow`](crate::OffscreenWindow) is a toplevel widget you cannot obtain</span>
+    <span class="doccomment">/// Since [`crate::OffscreenWindow`] is a toplevel widget you cannot obtain</span>
     <span class="doccomment">/// snapshots of a full window with it since you cannot pack a toplevel</span>
     <span class="doccomment">/// widget in another toplevel.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The idea is to take a widget and manually set the state of it,</span>
     <span class="doccomment">/// add it to a `OffscreenWindow` and then retrieve the snapshot</span>
-    <span class="doccomment">/// as a [`cairo::Surface`](crate::cairo::Surface) or [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf).</span>
+    <span class="doccomment">/// as a [`crate::cairo::Surface`] or [`crate::gdk_pixbuf::Pixbuf`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `OffscreenWindow` derives from [`Window`](crate::Window) only as an implementation</span>
-    <span class="doccomment">/// detail. Applications should not use any API specific to [`Window`](crate::Window)</span>
-    <span class="doccomment">/// to operate on this object. It should be treated as a [`Bin`](crate::Bin) that</span>
+    <span class="doccomment">/// `OffscreenWindow` derives from [`crate::Window`] only as an implementation</span>
+    <span class="doccomment">/// detail. Applications should not use any API specific to [`crate::Window`]</span>
+    <span class="doccomment">/// to operate on this object. It should be treated as a [`crate::Bin`] that</span>
     <span class="doccomment">/// has no parent widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When contained offscreen widgets are redrawn, `OffscreenWindow`</span>
-    <span class="doccomment">/// will emit a [`Widget::damage-event`](crate::Widget::damage-event) signal.</span>
+    <span class="doccomment">/// will emit a [`crate::Widget::damage-event`] signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`OffscreenWindowExt`](trait@crate::prelude::OffscreenWindowExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::OffscreenWindowExt`], [`trait@crate::prelude::GtkWindowExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::GtkWindowExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OffscreenWindow</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkOffscreenWindow</span>, <span class="ident">ffi::GtkOffscreenWindowClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -772,7 +772,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A pointer to a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// A pointer to a [`crate::Widget`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_offscreen_window_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OffscreenWindow</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1380,27 +1380,27 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`OffscreenWindow`](struct@crate::OffscreenWindow)</span>
+<span class="doccomment">/// [`struct@crate::OffscreenWindow`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OffscreenWindowExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Retrieves a snapshot of the contained widget in the form of</span>
-    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf). This is a new pixbuf with a reference count of 1,</span>
+    <span class="doccomment">/// a [`crate::gdk_pixbuf::Pixbuf`]. This is a new pixbuf with a reference count of 1,</span>
     <span class="doccomment">/// and the application should unreference it once it is no longer</span>
     <span class="doccomment">/// needed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf) pointer, or [`None`].</span>
+    <span class="doccomment">/// A [`crate::gdk_pixbuf::Pixbuf`] pointer, or [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_offscreen_window_get_pixbuf&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_pixbuf&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">pixbuf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Retrieves a snapshot of the contained widget in the form of</span>
-    <span class="doccomment">/// a [`cairo::Surface`](crate::cairo::Surface). If you need to keep this around over window</span>
+    <span class="doccomment">/// a [`crate::cairo::Surface`]. If you need to keep this around over window</span>
     <span class="doccomment">/// resizes then you should add a reference to it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`cairo::Surface`](crate::cairo::Surface) pointer to the offscreen</span>
+    <span class="doccomment">/// A [`crate::cairo::Surface`] pointer to the offscreen</span>
     <span class="doccomment">///  surface, or [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_offscreen_window_get_surface&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_surface&quot;</span>)]</span>

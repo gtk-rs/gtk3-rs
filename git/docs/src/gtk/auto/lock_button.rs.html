@@ -952,9 +952,9 @@
     <span class="doccomment">/// `LockButton` is a widget that can be used in control panels or</span>
     <span class="doccomment">/// preference dialogs to allow users to obtain and revoke authorizations</span>
     <span class="doccomment">/// needed to operate the controls. The required authorization is represented</span>
-    <span class="doccomment">/// by a [`gio::Permission`](crate::gio::Permission) object. Concrete implementations of [`gio::Permission`](crate::gio::Permission) may use</span>
+    <span class="doccomment">/// by a [`crate::gio::Permission`] object. Concrete implementations of [`crate::gio::Permission`] may use</span>
     <span class="doccomment">/// PolicyKit or some other authorization framework. To obtain a PolicyKit-based</span>
-    <span class="doccomment">/// [`gio::Permission`](crate::gio::Permission), use `polkit_permission_new()`.</span>
+    <span class="doccomment">/// [`crate::gio::Permission`], use `polkit_permission_new()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the user is not currently allowed to perform the action, but can obtain</span>
     <span class="doccomment">/// the permission, the widget looks like this:</span>
@@ -976,13 +976,13 @@
     <span class="doccomment">/// If the user has the permission and cannot drop it, the button is hidden.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The text (and tooltips) that are shown in the various cases can be adjusted</span>
-    <span class="doccomment">/// with the [`LockButton:text-lock`](crate::LockButton:text-lock), [`LockButton:text-unlock`](crate::LockButton:text-unlock),</span>
-    <span class="doccomment">/// [`LockButton:tooltip-lock`](crate::LockButton:tooltip-lock), [`LockButton:tooltip-unlock`](crate::LockButton:tooltip-unlock) and</span>
-    <span class="doccomment">/// [`LockButton:tooltip-not-authorized`](crate::LockButton:tooltip-not-authorized) properties.</span>
+    <span class="doccomment">/// with the [`crate::LockButton:text-lock`], [`crate::LockButton:text-unlock`],</span>
+    <span class="doccomment">/// [`crate::LockButton:tooltip-lock`], [`crate::LockButton:tooltip-unlock`] and</span>
+    <span class="doccomment">/// [`crate::LockButton:tooltip-not-authorized`] properties.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`LockButtonExt`](trait@crate::prelude::LockButtonExt), [`ButtonExt`](trait@crate::prelude::ButtonExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::LockButtonExt`], [`trait@crate::prelude::ButtonExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LockButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkLockButton</span>, <span class="ident">ffi::GtkLockButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Button</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -993,11 +993,11 @@
 <span class="kw">impl</span> <span class="ident">LockButton</span> {
     <span class="doccomment">/// Creates a new lock button which reflects the `permission`.</span>
     <span class="doccomment">/// ## `permission`</span>
-    <span class="doccomment">/// a [`gio::Permission`](crate::gio::Permission)</span>
+    <span class="doccomment">/// a [`crate::gio::Permission`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`LockButton`](crate::LockButton)</span>
+    <span class="doccomment">/// a new [`crate::LockButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_lock_button_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Permission</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">permission</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LockButton</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1478,20 +1478,20 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`LockButton`](struct@crate::LockButton)</span>
+<span class="doccomment">/// [`struct@crate::LockButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LockButtonExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Obtains the [`gio::Permission`](crate::gio::Permission) object that controls `self`.</span>
+    <span class="doccomment">/// Obtains the [`crate::gio::Permission`] object that controls `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`gio::Permission`](crate::gio::Permission) of `self`</span>
+    <span class="doccomment">/// the [`crate::gio::Permission`] of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_lock_button_get_permission&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_permission&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">permission</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gio::Permission</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Sets the [`gio::Permission`](crate::gio::Permission) object that controls `self`.</span>
+    <span class="doccomment">/// Sets the [`crate::gio::Permission`] object that controls `self`.</span>
     <span class="doccomment">/// ## `permission`</span>
-    <span class="doccomment">/// a [`gio::Permission`](crate::gio::Permission) object, or [`None`]</span>
+    <span class="doccomment">/// a [`crate::gio::Permission`] object, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_lock_button_set_permission&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_permission</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Permission</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">permission</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 

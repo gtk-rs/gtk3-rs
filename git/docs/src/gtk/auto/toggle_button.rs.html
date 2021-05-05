@@ -911,27 +911,27 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`ToggleButton`](crate::ToggleButton) is a [`Button`](crate::Button) which will remain “pressed-in” when</span>
+    <span class="doccomment">/// A [`crate::ToggleButton`] is a [`crate::Button`] which will remain “pressed-in” when</span>
     <span class="doccomment">/// clicked. Clicking again will cause the toggle button to return to its</span>
     <span class="doccomment">/// normal state.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A toggle button is created by calling either [`new()`](Self::new()) or</span>
-    <span class="doccomment">/// [`new_with_label()`](Self::new_with_label()). If using the former, it is advisable to</span>
-    <span class="doccomment">/// pack a widget, (such as a [`Label`](crate::Label) and/or a [`Image`](crate::Image)), into the toggle</span>
-    <span class="doccomment">/// button’s container. (See [`Button`](crate::Button) for more information).</span>
+    <span class="doccomment">/// A toggle button is created by calling either [`Self::new()`] or</span>
+    <span class="doccomment">/// [`Self::new_with_label()`]. If using the former, it is advisable to</span>
+    <span class="doccomment">/// pack a widget, (such as a [`crate::Label`] and/or a [`crate::Image`]), into the toggle</span>
+    <span class="doccomment">/// button’s container. (See [`crate::Button`] for more information).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The state of a [`ToggleButton`](crate::ToggleButton) can be set specifically using</span>
-    <span class="doccomment">/// [`ToggleButtonExt::set_active()`](crate::ToggleButtonExt::set_active()), and retrieved using</span>
-    <span class="doccomment">/// [`ToggleButtonExt::get_active()`](crate::ToggleButtonExt::get_active()).</span>
+    <span class="doccomment">/// The state of a [`crate::ToggleButton`] can be set specifically using</span>
+    <span class="doccomment">/// [`crate::prelude::ToggleButtonExt::set_active()`], and retrieved using</span>
+    <span class="doccomment">/// [`crate::prelude::ToggleButtonExt::get_active()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To simply switch the state of a toggle button, use [`ToggleButtonExt::toggled()`](crate::ToggleButtonExt::toggled()).</span>
+    <span class="doccomment">/// To simply switch the state of a toggle button, use [`crate::prelude::ToggleButtonExt::toggled()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `ToggleButton` has a single CSS node with name button. To differentiate</span>
-    <span class="doccomment">/// it from a plain [`Button`](crate::Button), it gets the .toggle style class.</span>
+    <span class="doccomment">/// it from a plain [`crate::Button`], it gets the .toggle style class.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Creating two [`ToggleButton`](crate::ToggleButton) widgets.</span>
+    <span class="doccomment">/// ## Creating two [`crate::ToggleButton`] widgets.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -975,7 +975,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ToggleButtonExt`](trait@crate::prelude::ToggleButtonExt), [`ButtonExt`](trait@crate::prelude::ButtonExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ToggleButtonExt`], [`trait@crate::prelude::ButtonExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToggleButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkToggleButton</span>, <span class="ident">ffi::GtkToggleButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Button</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -984,7 +984,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ToggleButton</span> {
-    <span class="doccomment">/// Creates a new toggle button. A widget should be packed into the button, as in [`Button::new()`](crate::Button::new()).</span>
+    <span class="doccomment">/// Creates a new toggle button. A widget should be packed into the button, as in [`crate::Button::new()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1014,8 +1014,8 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`ToggleButton`](crate::ToggleButton) containing a label. The label</span>
-    <span class="doccomment">/// will be created using [`Label::new_with_mnemonic()`](crate::Label::new_with_mnemonic()), so underscores</span>
+    <span class="doccomment">/// Creates a new [`crate::ToggleButton`] containing a label. The label</span>
+    <span class="doccomment">/// will be created using [`crate::Label::new_with_mnemonic()`], so underscores</span>
     <span class="doccomment">/// in `label` indicate the mnemonic for the button.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// the text of the button, with an underscore in front of the</span>
@@ -1023,7 +1023,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ToggleButton`](crate::ToggleButton)</span>
+    <span class="doccomment">/// a new [`crate::ToggleButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toggle_button_new_with_mnemonic&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_mnemonic&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_mnemonic</span>(<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ToggleButton</span> {
@@ -1484,9 +1484,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`CheckButton`](struct@crate::CheckButton), [`MenuButton`](struct@crate::MenuButton), [`ToggleButton`](struct@crate::ToggleButton)</span>
+<span class="doccomment">/// [`struct@crate::CheckButton`], [`struct@crate::MenuButton`], [`struct@crate::ToggleButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ToggleButtonExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Queries a [`ToggleButton`](crate::ToggleButton) and returns its current state. Returns [`true`] if</span>
+    <span class="doccomment">/// Queries a [`crate::ToggleButton`] and returns its current state. Returns [`true`] if</span>
     <span class="doccomment">/// the toggle button is pressed in and [`false`] if it is raised.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1496,7 +1496,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_active&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_active</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Gets the value set by [`set_inconsistent()`](Self::set_inconsistent()).</span>
+    <span class="doccomment">/// Gets the value set by [`Self::set_inconsistent()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1506,7 +1506,7 @@
     <span class="kw">fn</span> <span class="ident">is_inconsistent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Retrieves whether the button is displayed as a separate indicator</span>
-    <span class="doccomment">/// and label. See [`set_mode()`](Self::set_mode()).</span>
+    <span class="doccomment">/// and label. See [`Self::set_mode()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1518,8 +1518,8 @@
 
     <span class="doccomment">/// Sets the status of the toggle button. Set to [`true`] if you want the</span>
     <span class="doccomment">/// `ToggleButton` to be “pressed in”, and [`false`] to raise it.</span>
-    <span class="doccomment">/// This action causes the [`ToggleButton::toggled`](crate::ToggleButton::toggled) signal and the</span>
-    <span class="doccomment">/// [`Button::clicked`](crate::Button::clicked) signal to be emitted.</span>
+    <span class="doccomment">/// This action causes the [`crate::ToggleButton::toggled`] signal and the</span>
+    <span class="doccomment">/// [`crate::Button::clicked`] signal to be emitted.</span>
     <span class="doccomment">/// ## `is_active`</span>
     <span class="doccomment">/// [`true`] or [`false`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toggle_button_set_active&quot;</span>)]</span>
@@ -1531,7 +1531,7 @@
     <span class="doccomment">/// display the toggle in an “in between” state. This function turns on</span>
     <span class="doccomment">/// “in between” display. Normally you would turn off the inconsistent</span>
     <span class="doccomment">/// state again if the user toggles the toggle button. This has to be</span>
-    <span class="doccomment">/// done manually, [`set_inconsistent()`](Self::set_inconsistent()) only affects</span>
+    <span class="doccomment">/// done manually, [`Self::set_inconsistent()`] only affects</span>
     <span class="doccomment">/// visual appearance, it doesn’t affect the semantics of the button.</span>
     <span class="doccomment">/// ## `setting`</span>
     <span class="doccomment">/// [`true`] if state is inconsistent</span>
@@ -1543,19 +1543,19 @@
     <span class="doccomment">/// `draw_indicator` = [`false`] to make the button look like a normal button.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This can be used to create linked strip of buttons that work like</span>
-    <span class="doccomment">/// a [`StackSwitcher`](crate::StackSwitcher).</span>
+    <span class="doccomment">/// a [`crate::StackSwitcher`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function only affects instances of classes like [`CheckButton`](crate::CheckButton)</span>
-    <span class="doccomment">/// and [`RadioButton`](crate::RadioButton) that derive from [`ToggleButton`](crate::ToggleButton),</span>
-    <span class="doccomment">/// not instances of [`ToggleButton`](crate::ToggleButton) itself.</span>
+    <span class="doccomment">/// This function only affects instances of classes like [`crate::CheckButton`]</span>
+    <span class="doccomment">/// and [`crate::RadioButton`] that derive from [`crate::ToggleButton`],</span>
+    <span class="doccomment">/// not instances of [`crate::ToggleButton`] itself.</span>
     <span class="doccomment">/// ## `draw_indicator`</span>
     <span class="doccomment">/// if [`true`], draw the button as a separate indicator</span>
     <span class="doccomment">/// and label; if [`false`], draw the button like a normal button</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toggle_button_set_mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">draw_indicator</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Emits the [`ToggleButton::toggled`](crate::ToggleButton::toggled) signal on the</span>
-    <span class="doccomment">/// [`ToggleButton`](crate::ToggleButton). There is no good reason for an</span>
+    <span class="doccomment">/// Emits the [`crate::ToggleButton::toggled`] signal on the</span>
+    <span class="doccomment">/// [`crate::ToggleButton`]. There is no good reason for an</span>
     <span class="doccomment">/// application ever to call this function.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_toggle_button_toggled&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">toggled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -1567,7 +1567,7 @@
     <span class="kw">fn</span> <span class="ident">set_draw_indicator</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">draw_indicator</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// Should be connected if you wish to perform an action whenever the</span>
-    <span class="doccomment">/// [`ToggleButton`](crate::ToggleButton)&#39;s state is changed.</span>
+    <span class="doccomment">/// [`crate::ToggleButton`]&#39;s state is changed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;toggled&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_toggled</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 

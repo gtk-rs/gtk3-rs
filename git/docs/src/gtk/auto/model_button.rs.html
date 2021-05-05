@@ -1182,33 +1182,33 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `ModelButton` is a button class that can use a [`gio::Action`](crate::gio::Action) as its model.</span>
-    <span class="doccomment">/// In contrast to [`ToggleButton`](crate::ToggleButton) or [`RadioButton`](crate::RadioButton), which can also</span>
-    <span class="doccomment">/// be backed by a [`gio::Action`](crate::gio::Action) via the [`Actionable:action-name`](crate::Actionable:action-name) property,</span>
+    <span class="doccomment">/// `ModelButton` is a button class that can use a [`crate::gio::Action`] as its model.</span>
+    <span class="doccomment">/// In contrast to [`crate::ToggleButton`] or [`crate::RadioButton`], which can also</span>
+    <span class="doccomment">/// be backed by a [`crate::gio::Action`] via the [`crate::Actionable:action-name`] property,</span>
     <span class="doccomment">/// `ModelButton` will adapt its appearance according to the kind of</span>
     <span class="doccomment">/// action it is backed by, and appear either as a plain, check or</span>
     <span class="doccomment">/// radio button.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Model buttons are used when popovers from a menu model with</span>
-    <span class="doccomment">/// [`Popover::new_from_model()`](crate::Popover::new_from_model()); they can also be used manually in</span>
-    <span class="doccomment">/// a [`PopoverMenu`](crate::PopoverMenu).</span>
+    <span class="doccomment">/// [`crate::Popover::new_from_model()`]; they can also be used manually in</span>
+    <span class="doccomment">/// a [`crate::PopoverMenu`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When the action is specified via the [`Actionable:action-name`](crate::Actionable:action-name)</span>
-    <span class="doccomment">/// and [`Actionable:action-target`](crate::Actionable:action-target) properties, the role of the button</span>
+    <span class="doccomment">/// When the action is specified via the [`crate::Actionable:action-name`]</span>
+    <span class="doccomment">/// and [`crate::Actionable:action-target`] properties, the role of the button</span>
     <span class="doccomment">/// (i.e. whether it is a plain, check or radio button) is determined by</span>
     <span class="doccomment">/// the type of the action and doesn&#39;t have to be explicitly specified</span>
-    <span class="doccomment">/// with the [`ModelButton:role`](crate::ModelButton:role) property.</span>
+    <span class="doccomment">/// with the [`crate::ModelButton:role`] property.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The content of the button is specified by the [`ModelButton:text`](crate::ModelButton:text)</span>
-    <span class="doccomment">/// and [`ModelButton:icon`](crate::ModelButton:icon) properties.</span>
+    <span class="doccomment">/// The content of the button is specified by the [`crate::ModelButton:text`]</span>
+    <span class="doccomment">/// and [`crate::ModelButton:icon`] properties.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The appearance of model buttons can be influenced with the</span>
-    <span class="doccomment">/// [`ModelButton:centered`](crate::ModelButton:centered) and [`ModelButton:iconic`](crate::ModelButton:iconic) properties.</span>
+    <span class="doccomment">/// [`crate::ModelButton:centered`] and [`crate::ModelButton:iconic`] properties.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Model buttons have built-in support for submenus in [`PopoverMenu`](crate::PopoverMenu).</span>
+    <span class="doccomment">/// Model buttons have built-in support for submenus in [`crate::PopoverMenu`].</span>
     <span class="doccomment">/// To make a `ModelButton` that opens a submenu when activated, set</span>
-    <span class="doccomment">/// the [`ModelButton:menu-name`](crate::ModelButton:menu-name) property. To make a button that goes</span>
-    <span class="doccomment">/// back to the parent menu, you should set the [`ModelButton:inverted`](crate::ModelButton:inverted)</span>
+    <span class="doccomment">/// the [`crate::ModelButton:menu-name`] property. To make a button that goes</span>
+    <span class="doccomment">/// back to the parent menu, you should set the [`crate::ModelButton:inverted`]</span>
     <span class="doccomment">/// property to place the submenu indicator at the opposite side.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Example</span>
@@ -1248,13 +1248,13 @@
     <span class="doccomment">/// ╰── check</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Iconic model buttons (see [`ModelButton:iconic`](crate::ModelButton:iconic)) change the name of</span>
+    <span class="doccomment">/// Iconic model buttons (see [`crate::ModelButton:iconic`]) change the name of</span>
     <span class="doccomment">/// their main node to button and add a .model style class to it. The indicator</span>
     <span class="doccomment">/// subnode is invisible in this case.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ButtonExt`](trait@crate::prelude::ButtonExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ButtonExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ModelButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkModelButton</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Button</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1267,7 +1267,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`ModelButton`](crate::ModelButton) widget</span>
+    <span class="doccomment">/// the newly created [`crate::ModelButton`] widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_model_button_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ModelButton</span> {
         <span class="macro">assert_initialized_main_thread!</span>();

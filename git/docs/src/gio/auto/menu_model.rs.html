@@ -431,7 +431,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`MenuModel`](crate::MenuModel) represents the contents of a menu -- an ordered list of</span>
+    <span class="doccomment">/// [`crate::MenuModel`] represents the contents of a menu -- an ordered list of</span>
     <span class="doccomment">/// menu items. The items are associated with actions, which can be</span>
     <span class="doccomment">/// activated through them. Items can be grouped in sections, and may</span>
     <span class="doccomment">/// have submenus associated with them. Both items and sections usually</span>
@@ -439,10 +439,10 @@
     <span class="doccomment">/// the associated action (ie whether it is stateful, and what kind of</span>
     <span class="doccomment">/// state it has) can influence the representation of the item.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The conceptual model of menus in [`MenuModel`](crate::MenuModel) is hierarchical:</span>
+    <span class="doccomment">/// The conceptual model of menus in [`crate::MenuModel`] is hierarchical:</span>
     <span class="doccomment">/// sections and submenus are again represented by `GMenuModels`.</span>
     <span class="doccomment">/// Menus themselves do not define their own roles. Rather, the role</span>
-    <span class="doccomment">/// of a particular [`MenuModel`](crate::MenuModel) is defined by the item that references</span>
+    <span class="doccomment">/// of a particular [`crate::MenuModel`] is defined by the item that references</span>
     <span class="doccomment">/// it (or, in the case of the &#39;root&#39; menu, is defined by the context</span>
     <span class="doccomment">/// in which it is used).</span>
     <span class="doccomment">///</span>
@@ -487,18 +487,18 @@
     <span class="doccomment">/// information about actions and their representation in menus, which</span>
     <span class="doccomment">/// is exactly what the [GActionGroup exporter][gio-GActionGroup-exporter]</span>
     <span class="doccomment">/// and the [GMenuModel exporter][gio-GMenuModel-exporter] do for</span>
-    <span class="doccomment">/// [`ActionGroup`](crate::ActionGroup) and [`MenuModel`](crate::MenuModel). The client-side counterparts to</span>
-    <span class="doccomment">/// make use of the exported information are [`DBusActionGroup`](crate::DBusActionGroup) and</span>
-    <span class="doccomment">/// [`DBusMenuModel`](crate::DBusMenuModel).</span>
+    <span class="doccomment">/// [`crate::ActionGroup`] and [`crate::MenuModel`]. The client-side counterparts to</span>
+    <span class="doccomment">/// make use of the exported information are [`crate::DBusActionGroup`] and</span>
+    <span class="doccomment">/// [`crate::DBusMenuModel`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The API of [`MenuModel`](crate::MenuModel) is very generic, with iterators for the</span>
-    <span class="doccomment">/// attributes and links of an item, see [`MenuModelExt::iterate_item_attributes()`](crate::MenuModelExt::iterate_item_attributes())</span>
-    <span class="doccomment">/// and [`MenuModelExt::iterate_item_links()`](crate::MenuModelExt::iterate_item_links()). The &#39;standard&#39; attributes and</span>
+    <span class="doccomment">/// The API of [`crate::MenuModel`] is very generic, with iterators for the</span>
+    <span class="doccomment">/// attributes and links of an item, see [`crate::prelude::MenuModelExt::iterate_item_attributes()`]</span>
+    <span class="doccomment">/// and [`crate::prelude::MenuModelExt::iterate_item_links()`]. The &#39;standard&#39; attributes and</span>
     <span class="doccomment">/// link types have predefined names: `G_MENU_ATTRIBUTE_LABEL`,</span>
     <span class="doccomment">/// `G_MENU_ATTRIBUTE_ACTION`, `G_MENU_ATTRIBUTE_TARGET`, `G_MENU_LINK_SECTION`</span>
     <span class="doccomment">/// and `G_MENU_LINK_SUBMENU`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Items in a [`MenuModel`](crate::MenuModel) represent active controls if they refer to</span>
+    <span class="doccomment">/// Items in a [`crate::MenuModel`] represent active controls if they refer to</span>
     <span class="doccomment">/// an action that can get activated when the user interacts with the</span>
     <span class="doccomment">/// menu item. The reference to the action is encoded by the string id</span>
     <span class="doccomment">/// in the `G_MENU_ATTRIBUTE_ACTION` attribute. An action id uniquely</span>
@@ -549,7 +549,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MenuModelExt`](trait@crate::prelude::MenuModelExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::MenuModelExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuModel</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GMenuModel</span>, <span class="ident">ffi::GMenuModelClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -563,7 +563,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`DBusMenuModel`](struct@crate::DBusMenuModel), [`MenuModel`](struct@crate::MenuModel), [`Menu`](struct@crate::Menu)</span>
+<span class="doccomment">/// [`struct@crate::DBusMenuModel`], [`struct@crate::MenuModel`], [`struct@crate::Menu`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MenuModelExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="comment">//#[doc(alias = &quot;g_menu_model_get_item_attribute&quot;)]</span>
     <span class="comment">//#[doc(alias = &quot;get_item_attribute&quot;)]</span>
@@ -603,7 +603,7 @@
     <span class="doccomment">/// Queries the item at position `item_index` in `self` for the link</span>
     <span class="doccomment">/// specified by `link`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the link exists, the linked [`MenuModel`](crate::MenuModel) is returned. If the link</span>
+    <span class="doccomment">/// If the link exists, the linked [`crate::MenuModel`] is returned. If the link</span>
     <span class="doccomment">/// does not exist, [`None`] is returned.</span>
     <span class="doccomment">/// ## `item_index`</span>
     <span class="doccomment">/// the index of the item</span>
@@ -612,7 +612,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the linked [`MenuModel`](crate::MenuModel), or [`None`]</span>
+    <span class="doccomment">/// the linked [`crate::MenuModel`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_model_get_item_link&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_item_link&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">item_link</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>, <span class="ident">link</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MenuModel</span><span class="op">&gt;</span>;
@@ -628,7 +628,7 @@
 
     <span class="doccomment">/// Queries if `self` is mutable.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// An immutable [`MenuModel`](crate::MenuModel) will never emit the [`MenuModel::items-changed`](crate::MenuModel::items-changed)</span>
+    <span class="doccomment">/// An immutable [`crate::MenuModel`] will never emit the [`crate::MenuModel::items-changed`]</span>
     <span class="doccomment">/// signal. Consumers of the model may make optimisations accordingly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -638,9 +638,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_model_is_mutable&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_mutable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Requests emission of the [`MenuModel::items-changed`](crate::MenuModel::items-changed) signal on `self`.</span>
+    <span class="doccomment">/// Requests emission of the [`crate::MenuModel::items-changed`] signal on `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function should never be called except by [`MenuModel`](crate::MenuModel)</span>
+    <span class="doccomment">/// This function should never be called except by [`crate::MenuModel`]</span>
     <span class="doccomment">/// subclasses. Any other calls to this function will very likely lead</span>
     <span class="doccomment">/// to a violation of the interface of the model.</span>
     <span class="doccomment">///</span>
@@ -651,7 +651,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The implementation must dispatch this call directly from a mainloop</span>
     <span class="doccomment">/// entry and not in response to calls -- particularly those from the</span>
-    <span class="doccomment">/// [`MenuModel`](crate::MenuModel) API. Said another way: the menu must not change while</span>
+    <span class="doccomment">/// [`crate::MenuModel`] API. Said another way: the menu must not change while</span>
     <span class="doccomment">/// user code is running without returning to the mainloop.</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position of the change</span>
@@ -662,29 +662,29 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_model_items_changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">items_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position</span>: <span class="ident">i32</span>, <span class="ident">removed</span>: <span class="ident">i32</span>, <span class="ident">added</span>: <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Creates a [`MenuAttributeIter`](crate::MenuAttributeIter) to iterate over the attributes of</span>
+    <span class="doccomment">/// Creates a [`crate::MenuAttributeIter`] to iterate over the attributes of</span>
     <span class="doccomment">/// the item at position `item_index` in `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You must free the iterator with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when you are done.</span>
+    <span class="doccomment">/// You must free the iterator with [`crate::glib::object::ObjectExt::unref()`] when you are done.</span>
     <span class="doccomment">/// ## `item_index`</span>
     <span class="doccomment">/// the index of the item</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`MenuAttributeIter`](crate::MenuAttributeIter)</span>
+    <span class="doccomment">/// a new [`crate::MenuAttributeIter`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_model_iterate_item_attributes&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">iterate_item_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MenuAttributeIter</span>;
 
-    <span class="doccomment">/// Creates a [`MenuLinkIter`](crate::MenuLinkIter) to iterate over the links of the item at</span>
+    <span class="doccomment">/// Creates a [`crate::MenuLinkIter`] to iterate over the links of the item at</span>
     <span class="doccomment">/// position `item_index` in `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// You must free the iterator with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when you are done.</span>
+    <span class="doccomment">/// You must free the iterator with [`crate::glib::object::ObjectExt::unref()`] when you are done.</span>
     <span class="doccomment">/// ## `item_index`</span>
     <span class="doccomment">/// the index of the item</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`MenuLinkIter`](crate::MenuLinkIter)</span>
+    <span class="doccomment">/// a new [`crate::MenuLinkIter`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_model_iterate_item_links&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">iterate_item_links</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MenuLinkIter</span>;
 

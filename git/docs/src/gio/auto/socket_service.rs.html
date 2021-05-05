@@ -288,25 +288,25 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`SocketService`](crate::SocketService) is an object that represents a service that</span>
+    <span class="doccomment">/// A [`crate::SocketService`] is an object that represents a service that</span>
     <span class="doccomment">/// is provided to the network or over local sockets. When a new</span>
-    <span class="doccomment">/// connection is made to the service the [`SocketService::incoming`](crate::SocketService::incoming)</span>
+    <span class="doccomment">/// connection is made to the service the [`crate::SocketService::incoming`]</span>
     <span class="doccomment">/// signal is emitted.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`SocketService`](crate::SocketService) is a subclass of [`SocketListener`](crate::SocketListener) and you need</span>
+    <span class="doccomment">/// A [`crate::SocketService`] is a subclass of [`crate::SocketListener`] and you need</span>
     <span class="doccomment">/// to add the addresses you want to accept connections on with the</span>
-    <span class="doccomment">/// [`SocketListener`](crate::SocketListener) APIs.</span>
+    <span class="doccomment">/// [`crate::SocketListener`] APIs.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There are two options for implementing a network service based on</span>
-    <span class="doccomment">/// [`SocketService`](crate::SocketService). The first is to create the service using</span>
-    <span class="doccomment">/// [`new()`](Self::new()) and to connect to the [`SocketService::incoming`](crate::SocketService::incoming)</span>
-    <span class="doccomment">/// signal. The second is to subclass [`SocketService`](crate::SocketService) and override the</span>
+    <span class="doccomment">/// [`crate::SocketService`]. The first is to create the service using</span>
+    <span class="doccomment">/// [`Self::new()`] and to connect to the [`crate::SocketService::incoming`]</span>
+    <span class="doccomment">/// signal. The second is to subclass [`crate::SocketService`] and override the</span>
     <span class="doccomment">/// default signal handler implementation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In either case, the handler must immediately return, or else it</span>
     <span class="doccomment">/// will block additional incoming connections from being serviced.</span>
     <span class="doccomment">/// If you are interested in writing connection handlers that contain</span>
-    <span class="doccomment">/// blocking code then see [`ThreadedSocketService`](crate::ThreadedSocketService).</span>
+    <span class="doccomment">/// blocking code then see [`crate::ThreadedSocketService`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The socket service runs on the main loop of the</span>
     <span class="doccomment">/// [thread-default context][g-main-context-push-thread-default-context]</span>
@@ -317,7 +317,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SocketServiceExt`](trait@crate::prelude::SocketServiceExt), [`SocketListenerExt`](trait@crate::prelude::SocketListenerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SocketServiceExt`], [`trait@crate::prelude::SocketListenerExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SocketService</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GSocketService</span>, <span class="ident">ffi::GSocketServiceClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">SocketListener</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -326,17 +326,17 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SocketService</span> {
-    <span class="doccomment">/// Creates a new [`SocketService`](crate::SocketService) with no sockets to listen for.</span>
-    <span class="doccomment">/// New listeners can be added with e.g. [`SocketListenerExt::add_address()`](crate::SocketListenerExt::add_address())</span>
-    <span class="doccomment">/// or [`SocketListenerExt::add_inet_port()`](crate::SocketListenerExt::add_inet_port()).</span>
+    <span class="doccomment">/// Creates a new [`crate::SocketService`] with no sockets to listen for.</span>
+    <span class="doccomment">/// New listeners can be added with e.g. [`crate::prelude::SocketListenerExt::add_address()`]</span>
+    <span class="doccomment">/// or [`crate::prelude::SocketListenerExt::add_inet_port()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// New services are created active, there is no need to call</span>
-    <span class="doccomment">/// [`SocketServiceExt::start()`](crate::SocketServiceExt::start()), unless [`SocketServiceExt::stop()`](crate::SocketServiceExt::stop()) has been</span>
+    <span class="doccomment">/// [`crate::prelude::SocketServiceExt::start()`], unless [`crate::prelude::SocketServiceExt::stop()`] has been</span>
     <span class="doccomment">/// called before.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`SocketService`](crate::SocketService).</span>
+    <span class="doccomment">/// a new [`crate::SocketService`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_service_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SocketService</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_socket_service_new</span>()) }
@@ -355,7 +355,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`SocketService`](struct@crate::SocketService), [`ThreadedSocketService`](struct@crate::ThreadedSocketService)</span>
+<span class="doccomment">/// [`struct@crate::SocketService`], [`struct@crate::ThreadedSocketService`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SocketServiceExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Check whether the service is active or not. An active</span>
     <span class="doccomment">/// service will accept new clients that connect, while</span>
@@ -371,7 +371,7 @@
     <span class="doccomment">/// Restarts the service, i.e. start accepting connections</span>
     <span class="doccomment">/// from the added sockets when the mainloop runs. This only needs</span>
     <span class="doccomment">/// to be called after the service has been stopped from</span>
-    <span class="doccomment">/// [`stop()`](Self::stop()).</span>
+    <span class="doccomment">/// [`Self::stop()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This call is thread-safe, so it may be called from a thread</span>
     <span class="doccomment">/// handling an incoming client request.</span>
@@ -386,11 +386,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this only stops accepting new connections; it does not</span>
     <span class="doccomment">/// close the listening sockets, and you can call</span>
-    <span class="doccomment">/// [`start()`](Self::start()) again later to begin listening again. To</span>
-    <span class="doccomment">/// close the listening sockets, call [`SocketListenerExt::close()`](crate::SocketListenerExt::close()). (This</span>
-    <span class="doccomment">/// will happen automatically when the [`SocketService`](crate::SocketService) is finalized.)</span>
+    <span class="doccomment">/// [`Self::start()`] again later to begin listening again. To</span>
+    <span class="doccomment">/// close the listening sockets, call [`crate::prelude::SocketListenerExt::close()`]. (This</span>
+    <span class="doccomment">/// will happen automatically when the [`crate::SocketService`] is finalized.)</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This must be called before calling [`SocketListenerExt::close()`](crate::SocketListenerExt::close()) as</span>
+    <span class="doccomment">/// This must be called before calling [`crate::prelude::SocketListenerExt::close()`] as</span>
     <span class="doccomment">/// the socket service will start accepting connections immediately</span>
     <span class="doccomment">/// when a new socket is added.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_socket_service_stop&quot;</span>)]</span>
@@ -408,10 +408,10 @@
     <span class="doccomment">/// `connection` will be unreffed once the signal handler returns,</span>
     <span class="doccomment">/// so you need to ref it yourself if you are planning to use it.</span>
     <span class="doccomment">/// ## `connection`</span>
-    <span class="doccomment">/// a new [`SocketConnection`](crate::SocketConnection) object</span>
+    <span class="doccomment">/// a new [`crate::SocketConnection`] object</span>
     <span class="doccomment">/// ## `source_object`</span>
     <span class="doccomment">/// the source_object passed to</span>
-    <span class="doccomment">///  [`SocketListenerExt::add_address()`](crate::SocketListenerExt::add_address())</span>
+    <span class="doccomment">///  [`crate::prelude::SocketListenerExt::add_address()`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

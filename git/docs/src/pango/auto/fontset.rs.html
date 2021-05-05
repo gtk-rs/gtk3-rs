@@ -132,9 +132,9 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`Fontset`](crate::Fontset) represents a set of [`Font`](crate::Font) to use</span>
+    <span class="doccomment">/// A [`crate::Fontset`] represents a set of [`crate::Font`] to use</span>
     <span class="doccomment">/// when rendering text. It is the result of resolving a</span>
-    <span class="doccomment">/// [`FontDescription`](crate::FontDescription) against a particular [`Context`](crate::Context).</span>
+    <span class="doccomment">/// [`crate::FontDescription`] against a particular [`crate::Context`].</span>
     <span class="doccomment">/// It has operations for finding the component font for</span>
     <span class="doccomment">/// a particular Unicode character, and for finding a composite</span>
     <span class="doccomment">/// set of metrics for the entire fontset.</span>
@@ -143,7 +143,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FontsetExt`](trait@crate::prelude::FontsetExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::FontsetExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Fontset</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::PangoFontset</span>, <span class="ident">ffi::PangoFontsetClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -157,7 +157,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`FontsetSimple`](struct@crate::FontsetSimple), [`Fontset`](struct@crate::Fontset)</span>
+<span class="doccomment">/// [`struct@crate::FontsetSimple`], [`struct@crate::Fontset`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FontsetExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Iterates through all the fonts in a fontset, calling `func` for</span>
     <span class="doccomment">/// each one. If `func` returns [`true`], that stops the iteration.</span>
@@ -175,7 +175,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Font`](crate::Font). The caller must call</span>
+    <span class="doccomment">/// a [`crate::Font`]. The caller must call</span>
     <span class="doccomment">///  g_object_unref when finished with the font.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_fontset_get_font&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_font&quot;</span>)]</span>
@@ -185,7 +185,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`FontMetrics`](crate::FontMetrics) object. The caller must call [`FontMetrics::unref()`](crate::FontMetrics::unref())</span>
+    <span class="doccomment">/// a [`crate::FontMetrics`] object. The caller must call [`crate::FontMetrics::unref()`]</span>
     <span class="doccomment">///  when finished using the object.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_fontset_get_metrics&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_metrics&quot;</span>)]</span>

@@ -4,11 +4,11 @@
                 <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gdk</a>::<wbr><a class="struct" href="">AnchorHints</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gdk/auto/flags.rs.html#15-51" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct AnchorHints { /* fields omitted */ }</pre></div><div class="docblock"><p>Positioning hints for aligning a window relative to a rectangle.</p>
 <p>These hints determine how the window should be positioned in the case that
 the window would fall off-screen if placed in its ideal position.</p>
-<p>For example, <a href="Self::FlipX"><code>FlipX</code></a> will replace [<code>Gravity::NorthWest</code>] with
-[<code>Gravity::NorthEast</code>] and vice versa if the window extends beyond the left
+<p>For example, [<code>Self::FlipX</code>] will replace <a href="enum.Gravity.html#variant.NorthWest" title="crate::Gravity::NorthWest"><code>crate::Gravity::NorthWest</code></a> with
+<a href="enum.Gravity.html#variant.NorthEast" title="crate::Gravity::NorthEast"><code>crate::Gravity::NorthEast</code></a> and vice versa if the window extends beyond the left
 or right edges of the monitor.</p>
-<p>If <a href="Self::SlideX"><code>SlideX</code></a> is set, the window can be shifted horizontally to fit
-on-screen. If <a href="Self::ResizeX"><code>ResizeX</code></a> is set, the window can be shrunken
+<p>If [<code>Self::SlideX</code>] is set, the window can be shifted horizontally to fit
+on-screen. If [<code>Self::ResizeX</code>] is set, the window can be shrunken
 horizontally to fit.</p>
 <p>In general, when multiple flags are set, flipping should take precedence over
 sliding, which should take precedence over resizing.</p>

@@ -98,14 +98,14 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`MenuLinkIter`](crate::MenuLinkIter) is an opaque structure type. You must access it using</span>
+    <span class="doccomment">/// [`crate::MenuLinkIter`] is an opaque structure type. You must access it using</span>
     <span class="doccomment">/// the functions below.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MenuLinkIterExt`](trait@crate::prelude::MenuLinkIterExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::MenuLinkIterExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuLinkIter</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GMenuLinkIter</span>, <span class="ident">ffi::GMenuLinkIterClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -119,26 +119,26 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`MenuLinkIter`](struct@crate::MenuLinkIter)</span>
+<span class="doccomment">/// [`struct@crate::MenuLinkIter`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MenuLinkIterExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// This function combines [`MenuLinkIter::next()`](crate::MenuLinkIter::next()) with</span>
-    <span class="doccomment">/// [`MenuLinkIter::get_name()`](crate::MenuLinkIter::get_name()) and [`MenuLinkIter::get_value()`](crate::MenuLinkIter::get_value()).</span>
+    <span class="doccomment">/// This function combines [`crate::MenuLinkIter::next()`] with</span>
+    <span class="doccomment">/// [`crate::MenuLinkIter::get_name()`] and [`crate::MenuLinkIter::get_value()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// First the iterator is advanced to the next (possibly first) link.</span>
     <span class="doccomment">/// If that fails, then [`false`] is returned and there are no other effects.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If successful, `out_link` and `value` are set to the name and [`MenuModel`](crate::MenuModel)</span>
+    <span class="doccomment">/// If successful, `out_link` and `value` are set to the name and [`crate::MenuModel`]</span>
     <span class="doccomment">/// of the link that has just been advanced to. At this point,</span>
-    <span class="doccomment">/// [`MenuLinkIter::get_name()`](crate::MenuLinkIter::get_name()) and [`MenuLinkIter::get_value()`](crate::MenuLinkIter::get_value()) will return the</span>
+    <span class="doccomment">/// [`crate::MenuLinkIter::get_name()`] and [`crate::MenuLinkIter::get_value()`] will return the</span>
     <span class="doccomment">/// same values again.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The value returned in `out_link` remains valid for as long as the iterator</span>
     <span class="doccomment">/// remains at the current position. The value returned in `value` must</span>
-    <span class="doccomment">/// be unreffed using [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()) when it is no longer in use.</span>
+    <span class="doccomment">/// be unreffed using [`crate::glib::object::ObjectExt::unref()`] when it is no longer in use.</span>
     <span class="doccomment">/// ## `out_link`</span>
     <span class="doccomment">/// the name of the link</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// the linked [`MenuModel`](crate::MenuModel)</span>
+    <span class="doccomment">/// the linked [`crate::MenuModel`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

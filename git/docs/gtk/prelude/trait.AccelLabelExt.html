@@ -14,19 +14,19 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_accel_widget_notify" class="fnname">connect_accel_widget_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 }</pre></div><div class="docblock"><p>Trait containing all <code>AccelLabel</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.AccelLabel.html"><code>AccelLabel</code></a></p>
+<p><a href="../struct.AccelLabel.html" title="crate::AccelLabel"><code>crate::AccelLabel</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.accel" class="method"><code>fn <a href="#tymethod.accel" class="fnname">accel</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="struct" href="../../gdk/auto/flags/struct.ModifierType.html" title="struct gdk::auto::flags::ModifierType">ModifierType</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/accel_label.rs.html#639" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the keyval and modifier mask set with
-<a href="trait.AccelLabelExt.html#tymethod.set_accel"><code>set_accel()</code></a>.</p>
+<a href="trait.AccelLabelExt.html#tymethod.set_accel" title="Self::set_accel()"><code>Self::set_accel()</code></a>.</p>
 <h2 id="accelerator_key" class="section-header"><a href="#accelerator_key"><code>accelerator_key</code></a></h2>
 <p>return location for the keyval</p>
 <h2 id="accelerator_mods" class="section-header"><a href="#accelerator_mods"><code>accelerator_mods</code></a></h2>
 <p>return location for the modifier mask</p>
 </div><h3 id="tymethod.accel_widget" class="method"><code>fn <a href="#tymethod.accel_widget" class="fnname">accel_widget</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/accel_label.rs.html#649" title="goto source code">[src]</a></h3><div class="docblock"><p>Fetches the widget monitored by this accelerator label. See
-<a href="trait.AccelLabelExt.html#tymethod.set_accel_widget"><code>set_accel_widget()</code></a>.</p>
+<a href="trait.AccelLabelExt.html#tymethod.set_accel_widget" title="Self::set_accel_widget()"><code>Self::set_accel_widget()</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the object monitored by the accelerator label, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 </div><h3 id="tymethod.accel_width" class="method"><code>fn <a href="#tymethod.accel_width" class="fnname">accel_width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code><a class="srclink" href="../../src/gtk/auto/accel_label.rs.html#660" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the width needed to display the accelerator key(s).
-This is used by menus to align all of the <a href="../struct.MenuItem.html"><code>MenuItem</code></a> widgets, and shouldn’t
+This is used by menus to align all of the <a href="../struct.MenuItem.html" title="crate::MenuItem"><code>crate::MenuItem</code></a> widgets, and shouldn’t
 be needed by applications.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the width needed to display the accelerator key(s).</p>
@@ -45,7 +45,7 @@ used regardless of any associated accel closure or widget.</p>
 <h2 id="accelerator_mods-1" class="section-header"><a href="#accelerator_mods-1"><code>accelerator_mods</code></a></h2>
 <p>the modifier mask for the accel</p>
 </div><h3 id="tymethod.set_accel_closure" class="method"><code>fn <a href="#tymethod.set_accel_closure" class="fnname">set_accel_closure</a>(&amp;self, accel_closure: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../../glib/closure/struct.Closure.html" title="struct glib::closure::Closure">Closure</a>&gt;)</code><a class="srclink" href="../../src/gtk/auto/accel_label.rs.html#694" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the closure to be monitored by this accelerator label. The closure
-must be connected to an accelerator group; see <a href="crate::AccelGroup::connect()"><code>AccelGroup::connect()</code></a>.
+must be connected to an accelerator group; see [<code>crate::AccelGroup::connect()</code>].
 Passing <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for <code>accel_closure</code> will dissociate <code>self</code> from its
 current closure, if any.</p>
 <h2 id="accel_closure" class="section-header"><a href="#accel_closure"><code>accel_closure</code></a></h2>

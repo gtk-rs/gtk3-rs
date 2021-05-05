@@ -156,8 +156,8 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`TargetList`](crate::TargetList)-struct is a reference counted list</span>
-    <span class="doccomment">/// of [`TargetPair`](crate::TargetPair) and should be treated as</span>
+    <span class="doccomment">/// A [`crate::TargetList`]-struct is a reference counted list</span>
+    <span class="doccomment">/// of [`crate::TargetPair`] and should be treated as</span>
     <span class="doccomment">/// opaque.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TargetList</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi::GtkTargetList</span><span class="op">&gt;</span>);
@@ -170,7 +170,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TargetList</span> {
-    <span class="doccomment">/// Appends another target to a [`TargetList`](crate::TargetList).</span>
+    <span class="doccomment">/// Appends another target to a [`crate::TargetList`].</span>
     <span class="doccomment">/// ## `target`</span>
     <span class="doccomment">/// the interned atom representing the target</span>
     <span class="doccomment">/// ## `flags`</span>
@@ -184,7 +184,7 @@
         }
     }
 
-    <span class="doccomment">/// Appends the image targets supported by [`SelectionData`](crate::SelectionData) to</span>
+    <span class="doccomment">/// Appends the image targets supported by [`crate::SelectionData`] to</span>
     <span class="doccomment">/// the target list. All targets are added with the same `info`.</span>
     <span class="doccomment">/// ## `info`</span>
     <span class="doccomment">/// an ID that will be passed back to the application</span>
@@ -203,8 +203,8 @@
     }
 
     <span class="doccomment">/// Appends the rich text targets registered with</span>
-    <span class="doccomment">/// [`TextBuffer::register_serialize_format()`](crate::TextBuffer::register_serialize_format()) or</span>
-    <span class="doccomment">/// [`TextBufferExt::register_deserialize_format()`](crate::TextBufferExt::register_deserialize_format()) to the target list. All</span>
+    <span class="doccomment">/// [`crate::TextBuffer::register_serialize_format()`] or</span>
+    <span class="doccomment">/// [`crate::prelude::TextBufferExt::register_deserialize_format()`] to the target list. All</span>
     <span class="doccomment">/// targets are added with the same `info`.</span>
     <span class="doccomment">/// ## `info`</span>
     <span class="doccomment">/// an ID that will be passed back to the application</span>
@@ -212,7 +212,7 @@
     <span class="doccomment">/// if [`true`], then deserializable rich text formats</span>
     <span class="doccomment">///  will be added, serializable formats otherwise.</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// a [`TextBuffer`](crate::TextBuffer).</span>
+    <span class="doccomment">/// a [`crate::TextBuffer`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_target_list_add_rich_text_targets&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_rich_text_targets</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">TextBuffer</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -230,7 +230,7 @@
         }
     }
 
-    <span class="doccomment">/// Appends the text targets supported by [`SelectionData`](crate::SelectionData) to</span>
+    <span class="doccomment">/// Appends the text targets supported by [`crate::SelectionData`] to</span>
     <span class="doccomment">/// the target list. All targets are added with the same `info`.</span>
     <span class="doccomment">/// ## `info`</span>
     <span class="doccomment">/// an ID that will be passed back to the application</span>
@@ -241,7 +241,7 @@
         }
     }
 
-    <span class="doccomment">/// Appends the URI targets supported by [`SelectionData`](crate::SelectionData) to</span>
+    <span class="doccomment">/// Appends the URI targets supported by [`crate::SelectionData`] to</span>
     <span class="doccomment">/// the target list. All targets are added with the same `info`.</span>
     <span class="doccomment">/// ## `info`</span>
     <span class="doccomment">/// an ID that will be passed back to the application</span>
@@ -252,7 +252,7 @@
         }
     }
 
-    <span class="doccomment">/// Looks up a given target in a [`TargetList`](crate::TargetList).</span>
+    <span class="doccomment">/// Looks up a given target in a [`crate::TargetList`].</span>
     <span class="doccomment">/// ## `target`</span>
     <span class="doccomment">/// an interned atom representing the target to search for</span>
     <span class="doccomment">/// ## `info`</span>

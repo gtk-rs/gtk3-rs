@@ -13,17 +13,17 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.has_char" class="fnname">has_char</a>(&amp;self, wc: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
 }</pre></div><div class="docblock"><p>Trait containing all <code>Font</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.Font.html"><code>Font</code></a></p>
+<p><a href="../struct.Font.html" title="crate::Font"><code>crate::Font</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.describe" class="method"><code>fn <a href="#tymethod.describe" class="fnname">describe</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontDescription.html" title="struct pango::FontDescription">FontDescription</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font.rs.html#62" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns a description of the font, with font size set in points.
-Use <a href="trait.FontExt.html#tymethod.describe_with_absolute_size"><code>describe_with_absolute_size()</code></a> if you want the font
+Use <a href="trait.FontExt.html#tymethod.describe_with_absolute_size" title="Self::describe_with_absolute_size()"><code>Self::describe_with_absolute_size()</code></a> if you want the font
 size in device units.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a newly-allocated <a href="../struct.FontDescription.html"><code>FontDescription</code></a> object.</p>
+<p>a newly-allocated <a href="../struct.FontDescription.html" title="crate::FontDescription"><code>crate::FontDescription</code></a> object.</p>
 </div><h3 id="tymethod.describe_with_absolute_size" class="method"><code>fn <a href="#tymethod.describe_with_absolute_size" class="fnname">describe_with_absolute_size</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontDescription.html" title="struct pango::FontDescription">FontDescription</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font.rs.html#72" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns a description of the font, with absolute font size set
-(in device units). Use <a href="trait.FontExt.html#tymethod.describe"><code>describe()</code></a> if you want the font
+(in device units). Use <a href="trait.FontExt.html#tymethod.describe" title="Self::describe()"><code>Self::describe()</code></a> if you want the font
 size in points.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>a newly-allocated <a href="../struct.FontDescription.html"><code>FontDescription</code></a> object.</p>
+<p>a newly-allocated <a href="../struct.FontDescription.html" title="crate::FontDescription"><code>crate::FontDescription</code></a> object.</p>
 </div><h3 id="tymethod.find_shaper" class="method"><code>fn <a href="#tymethod.find_shaper" class="fnname">find_shaper</a>(&amp;self, language: &amp;<a class="struct" href="../language/struct.Language.html" title="struct pango::language::Language">Language</a>, ch: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.EngineShape.html" title="struct pango::EngineShape">EngineShape</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font.rs.html#89" title="goto source code">[src]</a></h3><div class="docblock"><p>Finds the best matching shaper for a font for a particular
 language tag and character point.</p>
 <h1 id="deprecated" class="section-header"><a href="#deprecated">Deprecated</a></h1>
@@ -38,21 +38,21 @@ language tag and character point.</p>
 <h2 id="language-1" class="section-header"><a href="#language-1"><code>language</code></a></h2>
 <p>the language tag</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p>a newly-allocated <a href="../struct.Coverage.html"><code>Coverage</code></a>
+<p>a newly-allocated <a href="../struct.Coverage.html" title="crate::Coverage"><code>crate::Coverage</code></a>
 object.</p>
-</div><h3 id="tymethod.face" class="method"><code>fn <a href="#tymethod.face" class="fnname">face</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontFace.html" title="struct pango::FontFace">FontFace</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font.rs.html#112" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v1_46</code></strong> only.</div></div><div class="docblock"><p>Gets the <a href="../struct.FontFace.html"><code>FontFace</code></a> to which <code>self</code> belongs.</p>
+</div><h3 id="tymethod.face" class="method"><code>fn <a href="#tymethod.face" class="fnname">face</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontFace.html" title="struct pango::FontFace">FontFace</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font.rs.html#112" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v1_46</code></strong> only.</div></div><div class="docblock"><p>Gets the <a href="../struct.FontFace.html" title="crate::FontFace"><code>crate::FontFace</code></a> to which <code>self</code> belongs.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
-<p>the <a href="../struct.FontFace.html"><code>FontFace</code></a></p>
+<p>the <a href="../struct.FontFace.html" title="crate::FontFace"><code>crate::FontFace</code></a></p>
 </div><h3 id="tymethod.font_map" class="method"><code>fn <a href="#tymethod.font_map" class="fnname">font_map</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FontMap.html" title="struct pango::FontMap">FontMap</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font.rs.html#136" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the font map for which the font was created.</p>
 <p>Note that the font maintains a <code>&lt;firstterm&gt;</code>weak<code>&lt;/firstterm&gt;</code> reference
 to the font map, so if all references to font map are dropped, the font
 map will be finalized even if there are fonts created with the font
 map that are still alive. In that case this function will return <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.
 It is the responsibility of the user to ensure that the font map is kept
-alive. In most uses this is not an issue as a <a href="../struct.Context.html"><code>Context</code></a> holds
+alive. In most uses this is not an issue as a <a href="../struct.Context.html" title="crate::Context"><code>crate::Context</code></a> holds
 a reference to the font map.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
-<p>the <a href="../struct.FontMap.html"><code>FontMap</code></a> for the
+<p>the <a href="../struct.FontMap.html" title="crate::FontMap"><code>crate::FontMap</code></a> for the
 font, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if <code>self</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
 </div><h3 id="tymethod.glyph_extents" class="method"><code>fn <a href="#tymethod.glyph_extents" class="fnname">glyph_extents</a>(&amp;self, glyph: <a class="type" href="../type.Glyph.html" title="type pango::Glyph">Glyph</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../rectangle/struct.Rectangle.html" title="struct pango::rectangle::Rectangle">Rectangle</a>, <a class="struct" href="../rectangle/struct.Rectangle.html" title="struct pango::rectangle::Rectangle">Rectangle</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/pango/auto/font.rs.html#158" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the logical and ink extents of a glyph within a font. The
 coordinate system for each rectangle has its origin at the
@@ -81,7 +81,7 @@ output variables and returns.</p>
 <p>language tag used to determine which script to get the metrics
 for, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to indicate to get the metrics for the entire font.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p>a <a href="../struct.FontMetrics.html"><code>FontMetrics</code></a> object. The caller must call <a href="crate::FontMetrics::unref()"><code>FontMetrics::unref()</code></a>
+<p>a <a href="../struct.FontMetrics.html" title="crate::FontMetrics"><code>crate::FontMetrics</code></a> object. The caller must call [<code>crate::FontMetrics::unref()</code>]
 when finished using the object.</p>
 </div><h3 id="tymethod.has_char" class="method"><code>fn <a href="#tymethod.has_char" class="fnname">has_char</a>(&amp;self, wc: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/pango/auto/font.rs.html#193" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v1_44</code></strong> only.</div></div><div class="docblock"><p>Returns whether the font provides a glyph for this character.</p>
 <p>Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> can render <code>wc</code></p>

@@ -102,7 +102,7 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`Item`](crate::Item) structure stores information about a segment of text.</span>
+    <span class="doccomment">/// The [`crate::Item`] structure stores information about a segment of text.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Item</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoItem</span><span class="op">&gt;</span>);
 
@@ -114,12 +114,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Item</span> {
-    <span class="doccomment">/// Creates a new [`Item`](crate::Item) structure initialized to default values.</span>
+    <span class="doccomment">/// Creates a new [`crate::Item`] structure initialized to default values.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly allocated [`Item`](crate::Item), which should</span>
-    <span class="doccomment">///  be freed with [`free()`](Self::free()).</span>
+    <span class="doccomment">/// the newly allocated [`crate::Item`], which should</span>
+    <span class="doccomment">///  be freed with [`Self::free()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_item_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Item</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::pango_item_new</span>()) }
@@ -127,7 +127,7 @@
 
     <span class="doccomment">/// Add attributes to a PangoItem. The idea is that you have</span>
     <span class="doccomment">/// attributes that don&#39;t affect itemization, such as font features,</span>
-    <span class="doccomment">/// so you filter them out using [`AttrList::filter()`](crate::AttrList::filter()), itemize</span>
+    <span class="doccomment">/// so you filter them out using [`crate::AttrList::filter()`], itemize</span>
     <span class="doccomment">/// your text, then reapply the attributes to the resulting items</span>
     <span class="doccomment">/// using this function.</span>
     <span class="doccomment">///</span>
@@ -136,7 +136,7 @@
     <span class="doccomment">/// in a loop over the items resulting from itemization, while passing</span>
     <span class="doccomment">/// the iter to each call.</span>
     <span class="doccomment">/// ## `iter`</span>
-    <span class="doccomment">/// a [`AttrIterator`](crate::AttrIterator)</span>
+    <span class="doccomment">/// a [`crate::AttrIterator`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_item_apply_attrs&quot;</span>)]</span>
@@ -154,7 +154,7 @@
     <span class="doccomment">/// be at least one byte assigned to each item, you can&#39;t create a</span>
     <span class="doccomment">/// zero-length item). `split_offset` is the length of the first item in</span>
     <span class="doccomment">/// chars, and must be provided because the text used to generate the</span>
-    <span class="doccomment">/// item isn&#39;t available, so [`split()`](Self::split()) can&#39;t count the char</span>
+    <span class="doccomment">/// item isn&#39;t available, so [`Self::split()`] can&#39;t count the char</span>
     <span class="doccomment">/// length of the split items itself.</span>
     <span class="doccomment">/// ## `split_index`</span>
     <span class="doccomment">/// byte index of position to split item, relative to the start of the item</span>
@@ -164,7 +164,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// new item representing text before `split_index`, which</span>
-    <span class="doccomment">///  should be freed with [`free()`](Self::free()).</span>
+    <span class="doccomment">///  should be freed with [`Self::free()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_item_split&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">split</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">split_index</span>: <span class="ident">i32</span>, <span class="ident">split_offset</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Item</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

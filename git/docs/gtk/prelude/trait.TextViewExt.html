@@ -130,23 +130,23 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_wrap_mode_notify" class="fnname">connect_wrap_mode_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>TextView</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.TextView.html"><code>TextView</code></a></p>
+<p><a href="../struct.TextView.html" title="crate::TextView"><code>crate::TextView</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add_child_at_anchor" class="method"><code>fn <a href="#tymethod.add_child_at_anchor" class="fnname">add_child_at_anchor</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;, Q:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TextChildAnchor.html" title="struct gtk::TextChildAnchor">TextChildAnchor</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;anchor: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Q<br>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#713" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds a child widget in the text buffer, at the given <code>anchor</code>.</p>
 <h2 id="child" class="section-header"><a href="#child"><code>child</code></a></h2>
-<p>a <a href="../struct.Widget.html"><code>Widget</code></a></p>
+<p>a <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a></p>
 <h2 id="anchor" class="section-header"><a href="#anchor"><code>anchor</code></a></h2>
-<p>a <a href="../struct.TextChildAnchor.html"><code>TextChildAnchor</code></a> in the <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a> for <code>self</code></p>
+<p>a <a href="../struct.TextChildAnchor.html" title="crate::TextChildAnchor"><code>crate::TextChildAnchor</code></a> in the <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a> for <code>self</code></p>
 </div><h3 id="tymethod.add_child_in_window" class="method"><code>fn <a href="#tymethod.add_child_in_window" class="fnname">add_child_in_window</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;which_window: <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;xpos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;ypos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#734-740" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds a child at fixed coordinates in one of the text widget’s
 windows.</p>
 <p>The window must have nonzero size (see
-<a href="trait.TextViewExt.html#tymethod.set_border_window_size"><code>set_border_window_size()</code></a>). Note that the child
+<a href="trait.TextViewExt.html#tymethod.set_border_window_size" title="Self::set_border_window_size()"><code>Self::set_border_window_size()</code></a>). Note that the child
 coordinates are given relative to scrolling. When
-placing a child in <a href="../enum.TextWindowType.html#variant.Widget"><code>TextWindowType::Widget</code></a>, scrolling is
+placing a child in <a href="../enum.TextWindowType.html#variant.Widget" title="crate::TextWindowType::Widget"><code>crate::TextWindowType::Widget</code></a>, scrolling is
 irrelevant, the child floats above all scrollable areas. But when
 placing a child in one of the scrollable windows (border windows or
 text window) it will move with the scrolling as needed.</p>
 <h2 id="child-1" class="section-header"><a href="#child-1"><code>child</code></a></h2>
-<p>a <a href="../struct.Widget.html"><code>Widget</code></a></p>
+<p>a <a href="../struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a></p>
 <h2 id="which_window" class="section-header"><a href="#which_window"><code>which_window</code></a></h2>
 <p>which window the child should appear in</p>
 <h2 id="xpos" class="section-header"><a href="#xpos"><code>xpos</code></a></h2>
@@ -160,9 +160,9 @@ Display lines are created by line-wrapping a paragraph. If
 wrapping is turned off, display lines and paragraphs will be the
 same. Display lines are divided differently for each view, since
 they depend on the view’s width; paragraphs are the same in all
-views, since they depend on the contents of the <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a>.</p>
+views, since they depend on the contents of the <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a>.</p>
 <h2 id="iter" class="section-header"><a href="#iter"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>iter</code> was moved and is not on the end iterator</p>
 </div><h3 id="tymethod.backward_display_line_start" class="method"><code>fn <a href="#tymethod.backward_display_line_start" class="fnname">backward_display_line_start</a>(&amp;self, iter: &amp;mut <a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#774" title="goto source code">[src]</a></h3><div class="docblock"><p>Moves the given <code>iter</code> backward to the next display line start.
@@ -172,17 +172,17 @@ Display lines are created by line-wrapping a paragraph. If
 wrapping is turned off, display lines and paragraphs will be the
 same. Display lines are divided differently for each view, since
 they depend on the view’s width; paragraphs are the same in all
-views, since they depend on the contents of the <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a>.</p>
+views, since they depend on the contents of the <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a>.</p>
 <h2 id="iter-1" class="section-header"><a href="#iter-1"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>iter</code> was moved and is not on the end iterator</p>
 </div><h3 id="tymethod.buffer_to_window_coords" class="method"><code>fn <a href="#tymethod.buffer_to_window_coords" class="fnname">buffer_to_window_coords</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;win: <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;buffer_x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;buffer_y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#792-797" title="goto source code">[src]</a></h3><div class="docblock"><p>Converts coordinate (<code>buffer_x</code>, <code>buffer_y</code>) to coordinates for the window
 <code>win</code>, and stores the result in (<code>window_x</code>, <code>window_y</code>).</p>
 <p>Note that you can’t convert coordinates for a nonexisting window (see
-<a href="trait.TextViewExt.html#tymethod.set_border_window_size"><code>set_border_window_size()</code></a>).</p>
+<a href="trait.TextViewExt.html#tymethod.set_border_window_size" title="Self::set_border_window_size()"><code>Self::set_border_window_size()</code></a>).</p>
 <h2 id="win" class="section-header"><a href="#win"><code>win</code></a></h2>
-<p>a <a href="../enum.TextWindowType.html"><code>TextWindowType</code></a>, except <a href="../enum.TextWindowType.html#variant.Private" title="TextWindowType::Private"><code>TextWindowType::Private</code></a></p>
+<p>a <a href="../enum.TextWindowType.html" title="crate::TextWindowType"><code>crate::TextWindowType</code></a>, except <a href="../enum.TextWindowType.html#variant.Private" title="crate::TextWindowType::Private"><code>crate::TextWindowType::Private</code></a></p>
 <h2 id="buffer_x" class="section-header"><a href="#buffer_x"><code>buffer_x</code></a></h2>
 <p>buffer x coordinate</p>
 <h2 id="buffer_y" class="section-header"><a href="#buffer_y"><code>buffer_y</code></a></h2>
@@ -198,9 +198,9 @@ Display lines are created by line-wrapping a paragraph. If
 wrapping is turned off, display lines and paragraphs will be the
 same. Display lines are divided differently for each view, since
 they depend on the view’s width; paragraphs are the same in all
-views, since they depend on the contents of the <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a>.</p>
+views, since they depend on the contents of the <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a>.</p>
 <h2 id="iter-2" class="section-header"><a href="#iter-2"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>iter</code> was moved and is not on the end iterator</p>
 </div><h3 id="tymethod.forward_display_line_end" class="method"><code>fn <a href="#tymethod.forward_display_line_end" class="fnname">forward_display_line_end</a>(&amp;self, iter: &amp;mut <a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#831" title="goto source code">[src]</a></h3><div class="docblock"><p>Moves the given <code>iter</code> forward to the next display line end.
@@ -210,18 +210,18 @@ Display lines are created by line-wrapping a paragraph. If
 wrapping is turned off, display lines and paragraphs will be the
 same. Display lines are divided differently for each view, since
 they depend on the view’s width; paragraphs are the same in all
-views, since they depend on the contents of the <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a>.</p>
+views, since they depend on the contents of the <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a>.</p>
 <h2 id="iter-3" class="section-header"><a href="#iter-3"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>iter</code> was moved and is not on the end iterator</p>
 </div><h3 id="tymethod.accepts_tab" class="method"><code>fn <a href="#tymethod.accepts_tab" class="fnname">accepts_tab</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#842" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether pressing the Tab key inserts a tab characters.
-<a href="trait.TextViewExt.html#tymethod.set_accepts_tab"><code>set_accepts_tab()</code></a>.</p>
+<a href="trait.TextViewExt.html#tymethod.set_accepts_tab" title="Self::set_accepts_tab()"><code>Self::set_accepts_tab()</code></a>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if pressing the Tab key inserts a tab character,
 <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if pressing the Tab key moves the keyboard focus.</p>
 </div><h3 id="tymethod.border_window_size" class="method"><code>fn <a href="#tymethod.border_window_size" class="fnname">border_window_size</a>(&amp;self, type_: <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#854" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the width of the specified border window. See
-<a href="trait.TextViewExt.html#tymethod.set_border_window_size"><code>set_border_window_size()</code></a>.</p>
+<a href="trait.TextViewExt.html#tymethod.set_border_window_size" title="Self::set_border_window_size()"><code>Self::set_border_window_size()</code></a>.</p>
 <h2 id="type_" class="section-header"><a href="#type_"><code>type_</code></a></h2>
 <p>window to return size from</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
@@ -229,11 +229,11 @@ views, since they depend on the contents of the <a href="../struct.TextBuffer.ht
 </div><h3 id="tymethod.bottom_margin" class="method"><code>fn <a href="#tymethod.bottom_margin" class="fnname">bottom_margin</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#865" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_18</code></strong> only.</div></div><div class="docblock"><p>Gets the bottom margin for text in the <code>self</code>.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p>bottom margin in pixels</p>
-</div><h3 id="tymethod.buffer" class="method"><code>fn <a href="#tymethod.buffer" class="fnname">buffer</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TextBuffer.html" title="struct gtk::TextBuffer">TextBuffer</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#876" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a> being displayed by this text view.
+</div><h3 id="tymethod.buffer" class="method"><code>fn <a href="#tymethod.buffer" class="fnname">buffer</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TextBuffer.html" title="struct gtk::TextBuffer">TextBuffer</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#876" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a> being displayed by this text view.
 The reference count on the buffer is not incremented; the caller
 of this function won’t own a new reference.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
-<p>a <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a></p>
+<p>a <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a></p>
 </div><h3 id="tymethod.cursor_locations" class="method"><code>fn <a href="#tymethod.cursor_locations" class="fnname">cursor_locations</a>(&amp;self, iter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a>, <a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#907" title="goto source code">[src]</a></h3><div class="docblock"><p>Given an <code>iter</code> within a text layout, determine the positions of the
 strong and weak cursors if the insertion point is at that
 iterator. The position of each cursor is stored as a zero-width
@@ -248,10 +248,10 @@ there is currently an IM preedit sequence being entered, the
 returned locations will be adjusted to account for the preedit
 cursor’s offset within the preedit sequence.</p>
 <p>The rectangle position is in buffer coordinates; use
-<a href="trait.TextViewExt.html#tymethod.buffer_to_window_coords"><code>buffer_to_window_coords()</code></a> to convert these
+<a href="trait.TextViewExt.html#tymethod.buffer_to_window_coords" title="Self::buffer_to_window_coords()"><code>Self::buffer_to_window_coords()</code></a> to convert these
 coordinates to coordinates for one of the windows in the text view.</p>
 <h2 id="iter-4" class="section-header"><a href="#iter-4"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h2 id="strong" class="section-header"><a href="#strong"><code>strong</code></a></h2>
 <p>location to store the strong
 cursor position (may be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>)</p>
@@ -264,13 +264,13 @@ cursor position (may be <a href="https://doc.rust-lang.org/nightly/core/option/e
 </div><h3 id="tymethod.default_attributes" class="method"><code>fn <a href="#tymethod.default_attributes" class="fnname">default_attributes</a>(&amp;self) -&gt; <a class="struct" href="../struct.TextAttributes.html" title="struct gtk::TextAttributes">TextAttributes</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#932" title="goto source code">[src]</a></h3><div class="docblock"><p>Obtains a copy of the default text attributes. These are the
 attributes used for text unless a tag overrides them.
 You’d typically pass the default attributes in to
-<a href="crate::TextIter::get_attributes()"><code>TextIter::get_attributes()</code></a> in order to get the
+[<code>crate::TextIter::get_attributes()</code>] in order to get the
 attributes in effect at a given text position.</p>
 <p>The return value is a copy owned by the caller of this function,
-and should be freed with <a href="crate::TextAttributes::unref()"><code>TextAttributes::unref()</code></a>.</p>
+and should be freed with [<code>crate::TextAttributes::unref()</code>].</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
-<p>a new <a href="../struct.TextAttributes.html"><code>TextAttributes</code></a></p>
-</div><h3 id="tymethod.is_editable" class="method"><code>fn <a href="#tymethod.is_editable" class="fnname">is_editable</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#942" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the default editability of the <a href="../struct.TextView.html"><code>TextView</code></a>. Tags in the
+<p>a new <a href="../struct.TextAttributes.html" title="crate::TextAttributes"><code>crate::TextAttributes</code></a></p>
+</div><h3 id="tymethod.is_editable" class="method"><code>fn <a href="#tymethod.is_editable" class="fnname">is_editable</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#942" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the default editability of the <a href="../struct.TextView.html" title="crate::TextView"><code>crate::TextView</code></a>. Tags in the
 buffer may override this setting for some ranges of text.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
 <p>whether text is editable by default</p>
@@ -279,15 +279,15 @@ Tags in the view’s buffer may override the default.
 The indentation may be negative.</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>
 <p>number of pixels of indentation</p>
-</div><h3 id="tymethod.input_hints" class="method"><code>fn <a href="#tymethod.input_hints" class="fnname">input_hints</a>(&amp;self) -&gt; <a class="struct" href="../struct.InputHints.html" title="struct gtk::InputHints">InputHints</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#958" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value of the <a href="crate::TextView:input-hints"><code>TextView:input-hints</code></a> property.</p>
-</div><h3 id="tymethod.input_purpose" class="method"><code>fn <a href="#tymethod.input_purpose" class="fnname">input_purpose</a>(&amp;self) -&gt; <a class="enum" href="../enum.InputPurpose.html" title="enum gtk::InputPurpose">InputPurpose</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#963" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value of the <a href="crate::TextView:input-purpose"><code>TextView:input-purpose</code></a> property.</p>
+</div><h3 id="tymethod.input_hints" class="method"><code>fn <a href="#tymethod.input_hints" class="fnname">input_hints</a>(&amp;self) -&gt; <a class="struct" href="../struct.InputHints.html" title="struct gtk::InputHints">InputHints</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#958" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value of the [<code>crate::TextView:input-hints</code>] property.</p>
+</div><h3 id="tymethod.input_purpose" class="method"><code>fn <a href="#tymethod.input_purpose" class="fnname">input_purpose</a>(&amp;self) -&gt; <a class="enum" href="../enum.InputPurpose.html" title="enum gtk::InputPurpose">InputPurpose</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#963" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value of the [<code>crate::TextView:input-purpose</code>] property.</p>
 </div><h3 id="tymethod.iter_at_location" class="method"><code>fn <a href="#tymethod.iter_at_location" class="fnname">iter_at_location</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#982" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the iterator at buffer coordinates <code>x</code> and <code>y</code>. Buffer
 coordinates are coordinates for the entire buffer, not just the
 currently-displayed portion. If you have coordinates from an
 event, you have to convert those to buffer coordinates with
-<a href="trait.TextViewExt.html#tymethod.window_to_buffer_coords"><code>window_to_buffer_coords()</code></a>.</p>
+<a href="trait.TextViewExt.html#tymethod.window_to_buffer_coords" title="Self::window_to_buffer_coords()"><code>Self::window_to_buffer_coords()</code></a>.</p>
 <h2 id="iter-5" class="section-header"><a href="#iter-5"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h2 id="x" class="section-header"><a href="#x"><code>x</code></a></h2>
 <p>x position, in buffer coordinates</p>
 <h2 id="y" class="section-header"><a href="#y"><code>y</code></a></h2>
@@ -299,12 +299,12 @@ coordinates <code>x</code> and <code>y</code>. Buffer coordinates are coordinate
 the entire buffer, not just the currently-displayed portion.
 If you have coordinates from an event, you have to convert
 those to buffer coordinates with
-<a href="trait.TextViewExt.html#tymethod.window_to_buffer_coords"><code>window_to_buffer_coords()</code></a>.</p>
-<p>Note that this is different from <a href="Self::get_iter_at_location()"><code>get_iter_at_location()</code></a>,
+<a href="trait.TextViewExt.html#tymethod.window_to_buffer_coords" title="Self::window_to_buffer_coords()"><code>Self::window_to_buffer_coords()</code></a>.</p>
+<p>Note that this is different from [<code>Self::get_iter_at_location()</code>],
 which returns cursor locations, i.e. positions between
 characters.</p>
 <h2 id="iter-6" class="section-header"><a href="#iter-6"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h2 id="trailing" class="section-header"><a href="#trailing"><code>trailing</code></a></h2>
 <p>if non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, location to store an integer indicating where
 in the grapheme the user clicked. It will either be
@@ -318,10 +318,10 @@ zero, or the number of characters in the grapheme.
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the position is over text</p>
 </div><h3 id="tymethod.iter_location" class="method"><code>fn <a href="#tymethod.iter_location" class="fnname">iter_location</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>) -&gt; <a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1023" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets a rectangle which roughly contains the character at <code>iter</code>.
 The rectangle position is in buffer coordinates; use
-<a href="trait.TextViewExt.html#tymethod.buffer_to_window_coords"><code>buffer_to_window_coords()</code></a> to convert these
+<a href="trait.TextViewExt.html#tymethod.buffer_to_window_coords" title="Self::buffer_to_window_coords()"><code>Self::buffer_to_window_coords()</code></a> to convert these
 coordinates to coordinates for one of the windows in the text view.</p>
 <h2 id="iter-7" class="section-header"><a href="#iter-7"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h2 id="location" class="section-header"><a href="#location"><code>location</code></a></h2>
 <p>bounds of the character at <code>iter</code></p>
 </div><h3 id="tymethod.justification" class="method"><code>fn <a href="#tymethod.justification" class="fnname">justification</a>(&amp;self) -&gt; <a class="enum" href="../enum.Justification.html" title="enum gtk::Justification">Justification</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1033" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the default justification of paragraphs in <code>self</code>.
@@ -332,43 +332,43 @@ Tags in the buffer may override the default.</p>
 Tags in the buffer may override the default.</p>
 <h1 id="returns-15" class="section-header"><a href="#returns-15">Returns</a></h1>
 <p>left margin in pixels</p>
-</div><h3 id="tymethod.line_at_y" class="method"><code>fn <a href="#tymethod.line_at_y" class="fnname">line_at_y</a>(&amp;self, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1058" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <a href="../struct.TextIter.html"><code>TextIter</code></a> at the start of the line containing
+</div><h3 id="tymethod.line_at_y" class="method"><code>fn <a href="#tymethod.line_at_y" class="fnname">line_at_y</a>(&amp;self, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1058" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a> at the start of the line containing
 the coordinate <code>y</code>. <code>y</code> is in buffer coordinates, convert from
-window coordinates with <a href="trait.TextViewExt.html#tymethod.window_to_buffer_coords"><code>window_to_buffer_coords()</code></a>.
+window coordinates with <a href="trait.TextViewExt.html#tymethod.window_to_buffer_coords" title="Self::window_to_buffer_coords()"><code>Self::window_to_buffer_coords()</code></a>.
 If non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, <code>line_top</code> will be filled with the coordinate of the top
 edge of the line.</p>
 <h2 id="target_iter" class="section-header"><a href="#target_iter"><code>target_iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h2 id="y-2" class="section-header"><a href="#y-2"><code>y</code></a></h2>
 <p>a y coordinate</p>
 <h2 id="line_top" class="section-header"><a href="#line_top"><code>line_top</code></a></h2>
 <p>return location for top coordinate of the line</p>
 </div><h3 id="tymethod.line_yrange" class="method"><code>fn <a href="#tymethod.line_yrange" class="fnname">line_yrange</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1071" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the y coordinate of the top of the line containing <code>iter</code>,
 and the height of the line. The coordinate is a buffer coordinate;
-convert to window coordinates with <a href="trait.TextViewExt.html#tymethod.buffer_to_window_coords"><code>buffer_to_window_coords()</code></a>.</p>
+convert to window coordinates with <a href="trait.TextViewExt.html#tymethod.buffer_to_window_coords" title="Self::buffer_to_window_coords()"><code>Self::buffer_to_window_coords()</code></a>.</p>
 <h2 id="iter-8" class="section-header"><a href="#iter-8"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h2 id="y-3" class="section-header"><a href="#y-3"><code>y</code></a></h2>
 <p>return location for a y coordinate</p>
 <h2 id="height" class="section-header"><a href="#height"><code>height</code></a></h2>
 <p>return location for a height</p>
-</div><h3 id="tymethod.is_monospace" class="method"><code>fn <a href="#tymethod.is_monospace" class="fnname">is_monospace</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1082" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Gets the value of the <a href="crate::TextView:monospace"><code>TextView:monospace</code></a> property.</p>
+</div><h3 id="tymethod.is_monospace" class="method"><code>fn <a href="#tymethod.is_monospace" class="fnname">is_monospace</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1082" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Gets the value of the [<code>crate::TextView:monospace</code>] property.</p>
 <h1 id="returns-16" class="section-header"><a href="#returns-16">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if monospace fonts are desired</p>
-</div><h3 id="tymethod.overwrites" class="method"><code>fn <a href="#tymethod.overwrites" class="fnname">overwrites</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1091" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the <a href="../struct.TextView.html"><code>TextView</code></a> is in overwrite mode or not.</p>
+</div><h3 id="tymethod.overwrites" class="method"><code>fn <a href="#tymethod.overwrites" class="fnname">overwrites</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1091" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the <a href="../struct.TextView.html" title="crate::TextView"><code>crate::TextView</code></a> is in overwrite mode or not.</p>
 <h1 id="returns-17" class="section-header"><a href="#returns-17">Returns</a></h1>
 <p>whether <code>self</code> is in overwrite mode or not.</p>
 </div><h3 id="tymethod.pixels_above_lines" class="method"><code>fn <a href="#tymethod.pixels_above_lines" class="fnname">pixels_above_lines</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1102" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the default number of pixels to put above paragraphs.
-Adding this function with <a href="Self::get_pixels_below_lines()"><code>get_pixels_below_lines()</code></a>
+Adding this function with [<code>Self::get_pixels_below_lines()</code>]
 is equal to the line space between each paragraph.</p>
 <h1 id="returns-18" class="section-header"><a href="#returns-18">Returns</a></h1>
 <p>default number of pixels above paragraphs</p>
-</div><h3 id="tymethod.pixels_below_lines" class="method"><code>fn <a href="#tymethod.pixels_below_lines" class="fnname">pixels_below_lines</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1114" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <a href="trait.TextViewExt.html#tymethod.set_pixels_below_lines"><code>set_pixels_below_lines()</code></a>.</p>
+</div><h3 id="tymethod.pixels_below_lines" class="method"><code>fn <a href="#tymethod.pixels_below_lines" class="fnname">pixels_below_lines</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1114" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <a href="trait.TextViewExt.html#tymethod.set_pixels_below_lines" title="Self::set_pixels_below_lines()"><code>Self::set_pixels_below_lines()</code></a>.</p>
 <p>The line space is the sum of the value returned by this function and the
-value returned by <a href="Self::get_pixels_above_lines()"><code>get_pixels_above_lines()</code></a>.</p>
+value returned by [<code>Self::get_pixels_above_lines()</code>].</p>
 <h1 id="returns-19" class="section-header"><a href="#returns-19">Returns</a></h1>
 <p>default number of blank pixels below paragraphs</p>
-</div><h3 id="tymethod.pixels_inside_wrap" class="method"><code>fn <a href="#tymethod.pixels_inside_wrap" class="fnname">pixels_inside_wrap</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1123" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <a href="trait.TextViewExt.html#tymethod.set_pixels_inside_wrap"><code>set_pixels_inside_wrap()</code></a>.</p>
+</div><h3 id="tymethod.pixels_inside_wrap" class="method"><code>fn <a href="#tymethod.pixels_inside_wrap" class="fnname">pixels_inside_wrap</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1123" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <a href="trait.TextViewExt.html#tymethod.set_pixels_inside_wrap" title="Self::set_pixels_inside_wrap()"><code>Self::set_pixels_inside_wrap()</code></a>.</p>
 <h1 id="returns-20" class="section-header"><a href="#returns-20">Returns</a></h1>
 <p>default number of pixels of blank space between wrapped lines</p>
 </div><h3 id="tymethod.right_margin" class="method"><code>fn <a href="#tymethod.right_margin" class="fnname">right_margin</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1133" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the default right margin for text in <code>self</code>. Tags
@@ -378,19 +378,19 @@ in the buffer may override the default.</p>
 </div><h3 id="tymethod.tabs" class="method"><code>fn <a href="#tymethod.tabs" class="fnname">tabs</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../pango/auto/tab_array/struct.TabArray.html" title="struct pango::auto::tab_array::TabArray">TabArray</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1146" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the default tabs for <code>self</code>. Tags in the buffer may
 override the defaults. The returned array will be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if
 “standard” (8-space) tabs are used. Free the return value
-with <a href="crate::pango::TabArray::free()"><code>pango::TabArray::free()</code></a>.</p>
+with [<code>crate::pango::TabArray::free()</code>].</p>
 <h1 id="returns-22" class="section-header"><a href="#returns-22">Returns</a></h1>
 <p>copy of default tab array, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if
-“standard“ tabs are used; must be freed with <a href="crate::pango::TabArray::free()"><code>pango::TabArray::free()</code></a>.</p>
+“standard“ tabs are used; must be freed with [<code>crate::pango::TabArray::free()</code>].</p>
 </div><h3 id="tymethod.top_margin" class="method"><code>fn <a href="#tymethod.top_margin" class="fnname">top_margin</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1157" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_18</code></strong> only.</div></div><div class="docblock"><p>Gets the top margin for text in the <code>self</code>.</p>
 <h1 id="returns-23" class="section-header"><a href="#returns-23">Returns</a></h1>
 <p>top margin in pixels</p>
 </div><h3 id="tymethod.visible_rect" class="method"><code>fn <a href="#tymethod.visible_rect" class="fnname">visible_rect</a>(&amp;self) -&gt; <a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1166" title="goto source code">[src]</a></h3><div class="docblock"><p>Fills <code>visible_rect</code> with the currently-visible
 region of the buffer, in buffer coordinates. Convert to window coordinates
-with <a href="trait.TextViewExt.html#tymethod.buffer_to_window_coords"><code>buffer_to_window_coords()</code></a>.</p>
+with <a href="trait.TextViewExt.html#tymethod.buffer_to_window_coords" title="Self::buffer_to_window_coords()"><code>Self::buffer_to_window_coords()</code></a>.</p>
 <h2 id="visible_rect" class="section-header"><a href="#visible_rect"><code>visible_rect</code></a></h2>
 <p>rectangle to fill</p>
-</div><h3 id="tymethod.window" class="method"><code>fn <a href="#tymethod.window" class="fnname">window</a>(&amp;self, win: <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/window/struct.Window.html" title="struct gdk::auto::window::Window">Window</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1182" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the <a href="../../gdk/auto/window/struct.Window.html"><code>gdk::Window</code></a> corresponding to an area of the text view;
+</div><h3 id="tymethod.window" class="method"><code>fn <a href="#tymethod.window" class="fnname">window</a>(&amp;self, win: <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/window/struct.Window.html" title="struct gdk::auto::window::Window">Window</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1182" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the <a href="../../gdk/auto/window/struct.Window.html" title="crate::gdk::Window"><code>crate::gdk::Window</code></a> corresponding to an area of the text view;
 possible windows include the overall widget window, child windows
 on the left, right, top, bottom, and the window that displays the
 text buffer. Windows are <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> and nonexistent if their width or
@@ -399,7 +399,7 @@ realized.</p>
 <h2 id="win-1" class="section-header"><a href="#win-1"><code>win</code></a></h2>
 <p>window to get</p>
 <h1 id="returns-24" class="section-header"><a href="#returns-24">Returns</a></h1>
-<p>a <a href="../../gdk/auto/window/struct.Window.html"><code>gdk::Window</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../../gdk/auto/window/struct.Window.html" title="crate::gdk::Window"><code>crate::gdk::Window</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.window_type" class="method"><code>fn <a href="#tymethod.window_type" class="fnname">window_type</a>(&amp;self, window: &amp;<a class="struct" href="../../gdk/auto/window/struct.Window.html" title="struct gdk::auto::window::Window">Window</a>) -&gt; <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1196" title="goto source code">[src]</a></h3><div class="docblock"><p>Usually used to find out which window an event corresponds to.</p>
 <p>If you connect to an event signal on <code>self</code>, this function
 should be called on <code>event-&gt;window</code> to see which window it was.</p>
@@ -410,14 +410,14 @@ should be called on <code>event-&gt;window</code> to see which window it was.</p
 </div><h3 id="tymethod.wrap_mode" class="method"><code>fn <a href="#tymethod.wrap_mode" class="fnname">wrap_mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.WrapMode.html" title="enum gtk::WrapMode">WrapMode</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1205" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the line wrapping for the view.</p>
 <h1 id="returns-26" class="section-header"><a href="#returns-26">Returns</a></h1>
 <p>the line wrap setting</p>
-</div><h3 id="tymethod.im_context_filter_keypress" class="method"><code>fn <a href="#tymethod.im_context_filter_keypress" class="fnname">im_context_filter_keypress</a>(&amp;self, event: &amp;<a class="struct" href="../../gdk/event_key/struct.EventKey.html" title="struct gdk::event_key::EventKey">EventKey</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1245" title="goto source code">[src]</a></h3><div class="docblock"><p>Allow the <a href="../struct.TextView.html"><code>TextView</code></a> input method to internally handle key press
+</div><h3 id="tymethod.im_context_filter_keypress" class="method"><code>fn <a href="#tymethod.im_context_filter_keypress" class="fnname">im_context_filter_keypress</a>(&amp;self, event: &amp;<a class="struct" href="../../gdk/event_key/struct.EventKey.html" title="struct gdk::event_key::EventKey">EventKey</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1245" title="goto source code">[src]</a></h3><div class="docblock"><p>Allow the <a href="../struct.TextView.html" title="crate::TextView"><code>crate::TextView</code></a> input method to internally handle key press
 and release events. If this function returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, then no further
 processing should be done for this key event. See
-<a href="crate::IMContextExt::filter_keypress()"><code>IMContextExt::filter_keypress()</code></a>.</p>
+<a href="trait.IMContextExt.html#tymethod.filter_keypress" title="crate::prelude::IMContextExt::filter_keypress()"><code>crate::prelude::IMContextExt::filter_keypress()</code></a>.</p>
 <p>Note that you are expected to call this function from your handler
 when overriding key event handling. This is needed in the case when
 you need to insert your own key handling between the input method
-and the default key event handling of the <a href="../struct.TextView.html"><code>TextView</code></a>.</p>
+and the default key event handling of the <a href="../struct.TextView.html" title="crate::TextView"><code>crate::TextView</code></a>.</p>
 <pre><code class="language-C">static gboolean
 gtk_foo_bar_key_press_event (GtkWidget   *widget,
                              GdkEventKey *event)
@@ -441,7 +441,7 @@ gtk_foo_bar_key_press_event (GtkWidget   *widget,
 <p>the key event</p>
 <h1 id="returns-27" class="section-header"><a href="#returns-27">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the input method handled the key event.</p>
-</div><h3 id="tymethod.move_child" class="method"><code>fn <a href="#tymethod.move_child" class="fnname">move_child</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, xpos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, ypos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1255" title="goto source code">[src]</a></h3><div class="docblock"><p>Updates the position of a child, as for <a href="trait.TextViewExt.html#tymethod.add_child_in_window"><code>add_child_in_window()</code></a>.</p>
+</div><h3 id="tymethod.move_child" class="method"><code>fn <a href="#tymethod.move_child" class="fnname">move_child</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(&amp;self, child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, xpos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, ypos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1255" title="goto source code">[src]</a></h3><div class="docblock"><p>Updates the position of a child, as for <a href="trait.TextViewExt.html#tymethod.add_child_in_window" title="Self::add_child_in_window()"><code>Self::add_child_in_window()</code></a>.</p>
 <h2 id="child-2" class="section-header"><a href="#child-2"><code>child</code></a></h2>
 <p>child widget already added to the text view</p>
 <h2 id="xpos-1" class="section-header"><a href="#xpos-1"><code>xpos</code></a></h2>
@@ -451,7 +451,7 @@ gtk_foo_bar_key_press_event (GtkWidget   *widget,
 </div><h3 id="tymethod.move_mark_onscreen" class="method"><code>fn <a href="#tymethod.move_mark_onscreen" class="fnname">move_mark_onscreen</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TextMark.html" title="struct gtk::TextMark">TextMark</a>&gt;&gt;(&amp;self, mark: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1266" title="goto source code">[src]</a></h3><div class="docblock"><p>Moves a mark within the buffer so that it’s
 located within the currently-visible text area.</p>
 <h2 id="mark" class="section-header"><a href="#mark"><code>mark</code></a></h2>
-<p>a <a href="../struct.TextMark.html"><code>TextMark</code></a></p>
+<p>a <a href="../struct.TextMark.html" title="crate::TextMark"><code>crate::TextMark</code></a></p>
 <h1 id="returns-28" class="section-header"><a href="#returns-28">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the mark moved (wasn’t already onscreen)</p>
 </div><h3 id="tymethod.move_visually" class="method"><code>fn <a href="#tymethod.move_visually" class="fnname">move_visually</a>(&amp;self, iter: &amp;mut <a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>, count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1289" title="goto source code">[src]</a></h3><div class="docblock"><p>Move the iterator a given number of characters visually, treating
@@ -465,7 +465,7 @@ between logical and visual order will depend on the direction
 of the current run, and there may be jumps when the cursor
 is moved off of the end of a run.</p>
 <h2 id="iter-9" class="section-header"><a href="#iter-9"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h2 id="count" class="section-header"><a href="#count"><code>count</code></a></h2>
 <p>number of characters to move (negative moves left,
 positive moves right)</p>
@@ -480,7 +480,7 @@ interval) and resets the time that it will stay blinking (or
 visible, in case blinking is disabled).</p>
 <p>This function should be called in response to user input
 (e.g. from derived classes that override the textview’s
-<a href="crate::Widget::key-press-event"><code>Widget::key-press-event</code></a> handler).</p>
+[<code>crate::Widget::key-press-event</code>] handler).</p>
 </div><h3 id="tymethod.reset_im_context" class="method"><code>fn <a href="#tymethod.reset_im_context" class="fnname">reset_im_context</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1317" title="goto source code">[src]</a></h3><div class="docblock"><p>Reset the input method context of the text view if needed.</p>
 <p>This can be necessary in the case where modifying the buffer
 would confuse on-going input method behavior.</p>
@@ -499,10 +499,10 @@ screen for purposes of this function is reduced by a margin of size
 lines in the text buffer. Line heights are computed in an idle
 handler; so this function may not have the desired effect if it’s
 called before the height computations. To avoid oddness, consider
-using <a href="trait.TextViewExt.html#tymethod.scroll_to_mark"><code>scroll_to_mark()</code></a> which saves a point to be
+using <a href="trait.TextViewExt.html#tymethod.scroll_to_mark" title="Self::scroll_to_mark()"><code>Self::scroll_to_mark()</code></a> which saves a point to be
 scrolled to after line validation.</p>
 <h2 id="iter-10" class="section-header"><a href="#iter-10"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h2 id="within_margin" class="section-header"><a href="#within_margin"><code>within_margin</code></a></h2>
 <p>margin as a [0.0,0.5) fraction of screen size</p>
 <h2 id="use_align" class="section-header"><a href="#use_align"><code>use_align</code></a></h2>
@@ -522,7 +522,7 @@ get the mark onscreen, possibly not scrolling at all. The effective
 screen for purposes of this function is reduced by a margin of size
 <code>within_margin</code>.</p>
 <h2 id="mark-2" class="section-header"><a href="#mark-2"><code>mark</code></a></h2>
-<p>a <a href="../struct.TextMark.html"><code>TextMark</code></a></p>
+<p>a <a href="../struct.TextMark.html" title="crate::TextMark"><code>crate::TextMark</code></a></p>
 <h2 id="within_margin-1" class="section-header"><a href="#within_margin-1"><code>within_margin</code></a></h2>
 <p>margin as a [0.0,0.5) fraction of screen size</p>
 <h2 id="use_align-1" class="section-header"><a href="#use_align-1"><code>use_align</code></a></h2>
@@ -540,13 +540,13 @@ chain.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if pressing the Tab key should insert a tab
 character, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>, if pressing the Tab key should move the
 keyboard focus.</p>
-</div><h3 id="tymethod.set_border_window_size" class="method"><code>fn <a href="#tymethod.set_border_window_size" class="fnname">set_border_window_size</a>(&amp;self, type_: <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>, size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1416" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the width of <a href="../enum.TextWindowType.html#variant.Left" title="TextWindowType::Left"><code>TextWindowType::Left</code></a> or <a href="../enum.TextWindowType.html#variant.Right" title="TextWindowType::Right"><code>TextWindowType::Right</code></a>,
-or the height of <a href="../enum.TextWindowType.html#variant.Top" title="TextWindowType::Top"><code>TextWindowType::Top</code></a> or <a href="../enum.TextWindowType.html#variant.Bottom" title="TextWindowType::Bottom"><code>TextWindowType::Bottom</code></a>.
+</div><h3 id="tymethod.set_border_window_size" class="method"><code>fn <a href="#tymethod.set_border_window_size" class="fnname">set_border_window_size</a>(&amp;self, type_: <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>, size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1416" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the width of <a href="../enum.TextWindowType.html#variant.Left" title="crate::TextWindowType::Left"><code>crate::TextWindowType::Left</code></a> or <a href="../enum.TextWindowType.html#variant.Right" title="crate::TextWindowType::Right"><code>crate::TextWindowType::Right</code></a>,
+or the height of <a href="../enum.TextWindowType.html#variant.Top" title="crate::TextWindowType::Top"><code>crate::TextWindowType::Top</code></a> or <a href="../enum.TextWindowType.html#variant.Bottom" title="crate::TextWindowType::Bottom"><code>crate::TextWindowType::Bottom</code></a>.
 Automatically destroys the corresponding window if the size is set
 to 0, and creates the window if the size is set to non-zero. This
 function can only be used for the “border windows”, and it won’t
-work with <a href="../enum.TextWindowType.html#variant.Widget" title="TextWindowType::Widget"><code>TextWindowType::Widget</code></a>, <a href="../enum.TextWindowType.html#variant.Text" title="TextWindowType::Text"><code>TextWindowType::Text</code></a>, or
-<a href="../enum.TextWindowType.html#variant.Private" title="TextWindowType::Private"><code>TextWindowType::Private</code></a>.</p>
+work with <a href="../enum.TextWindowType.html#variant.Widget" title="crate::TextWindowType::Widget"><code>crate::TextWindowType::Widget</code></a>, <a href="../enum.TextWindowType.html#variant.Text" title="crate::TextWindowType::Text"><code>crate::TextWindowType::Text</code></a>, or
+<a href="../enum.TextWindowType.html#variant.Private" title="crate::TextWindowType::Private"><code>crate::TextWindowType::Private</code></a>.</p>
 <h2 id="type_-1" class="section-header"><a href="#type_-1"><code>type_</code></a></h2>
 <p>window to affect</p>
 <h2 id="size" class="section-header"><a href="#size"><code>size</code></a></h2>
@@ -559,18 +559,18 @@ In CSS terms, the value set here is padding.</p>
 </div><h3 id="tymethod.set_buffer" class="method"><code>fn <a href="#tymethod.set_buffer" class="fnname">set_buffer</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TextBuffer.html" title="struct gtk::TextBuffer">TextBuffer</a>&gt;&gt;(&amp;self, buffer: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1437" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>buffer</code> as the buffer being displayed by <code>self</code>. The previous
 buffer displayed by the text view is unreferenced, and a reference is
 added to <code>buffer</code>. If you owned a reference to <code>buffer</code> before passing it
-to this function, you must remove that reference yourself; <a href="../struct.TextView.html"><code>TextView</code></a>
+to this function, you must remove that reference yourself; <a href="../struct.TextView.html" title="crate::TextView"><code>crate::TextView</code></a>
 will not “adopt” it.</p>
 <h2 id="buffer" class="section-header"><a href="#buffer"><code>buffer</code></a></h2>
-<p>a <a href="../struct.TextBuffer.html"><code>TextBuffer</code></a></p>
+<p>a <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a></p>
 </div><h3 id="tymethod.set_cursor_visible" class="method"><code>fn <a href="#tymethod.set_cursor_visible" class="fnname">set_cursor_visible</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1448" title="goto source code">[src]</a></h3><div class="docblock"><p>Toggles whether the insertion point should be displayed. A buffer with
 no editable text probably shouldn’t have a visible cursor, so you may
 want to turn the cursor off.</p>
 <p>Note that this property may be overridden by the
-<a href="crate::Settings:gtk-keynave-use-caret"><code>Settings:gtk-keynave-use-caret</code></a> settings.</p>
+[<code>crate::Settings:gtk-keynave-use-caret</code>] settings.</p>
 <h2 id="setting" class="section-header"><a href="#setting"><code>setting</code></a></h2>
 <p>whether to show the insertion cursor</p>
-</div><h3 id="tymethod.set_editable" class="method"><code>fn <a href="#tymethod.set_editable" class="fnname">set_editable</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1456" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the default editability of the <a href="../struct.TextView.html"><code>TextView</code></a>. You can override
+</div><h3 id="tymethod.set_editable" class="method"><code>fn <a href="#tymethod.set_editable" class="fnname">set_editable</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1456" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the default editability of the <a href="../struct.TextView.html" title="crate::TextView"><code>crate::TextView</code></a>. You can override
 this default setting with tags in the buffer, using the “editable”
 attribute of tags.</p>
 <h2 id="setting-1" class="section-header"><a href="#setting-1"><code>setting</code></a></h2>
@@ -579,11 +579,11 @@ attribute of tags.</p>
 Tags in the buffer may override the default.</p>
 <h2 id="indent" class="section-header"><a href="#indent"><code>indent</code></a></h2>
 <p>indentation in pixels</p>
-</div><h3 id="tymethod.set_input_hints" class="method"><code>fn <a href="#tymethod.set_input_hints" class="fnname">set_input_hints</a>(&amp;self, hints: <a class="struct" href="../struct.InputHints.html" title="struct gtk::InputHints">InputHints</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1470" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the <a href="crate::TextView:input-hints"><code>TextView:input-hints</code></a> property, which
+</div><h3 id="tymethod.set_input_hints" class="method"><code>fn <a href="#tymethod.set_input_hints" class="fnname">set_input_hints</a>(&amp;self, hints: <a class="struct" href="../struct.InputHints.html" title="struct gtk::InputHints">InputHints</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1470" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the [<code>crate::TextView:input-hints</code>] property, which
 allows input methods to fine-tune their behaviour.</p>
 <h2 id="hints" class="section-header"><a href="#hints"><code>hints</code></a></h2>
 <p>the hints</p>
-</div><h3 id="tymethod.set_input_purpose" class="method"><code>fn <a href="#tymethod.set_input_purpose" class="fnname">set_input_purpose</a>(&amp;self, purpose: <a class="enum" href="../enum.InputPurpose.html" title="enum gtk::InputPurpose">InputPurpose</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1478" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the <a href="crate::TextView:input-purpose"><code>TextView:input-purpose</code></a> property which
+</div><h3 id="tymethod.set_input_purpose" class="method"><code>fn <a href="#tymethod.set_input_purpose" class="fnname">set_input_purpose</a>(&amp;self, purpose: <a class="enum" href="../enum.InputPurpose.html" title="enum gtk::InputPurpose">InputPurpose</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1478" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the [<code>crate::TextView:input-purpose</code>] property which
 can be used by on-screen keyboards and other input
 methods to adjust their behaviour.</p>
 <h2 id="purpose" class="section-header"><a href="#purpose"><code>purpose</code></a></h2>
@@ -598,12 +598,12 @@ Tags in the buffer may override the default.</p>
 In CSS terms, the value set here is padding.</p>
 <h2 id="left_margin" class="section-header"><a href="#left_margin"><code>left_margin</code></a></h2>
 <p>left margin in pixels</p>
-</div><h3 id="tymethod.set_monospace" class="method"><code>fn <a href="#tymethod.set_monospace" class="fnname">set_monospace</a>(&amp;self, monospace: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1505" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Sets the <a href="crate::TextView:monospace"><code>TextView:monospace</code></a> property, which
+</div><h3 id="tymethod.set_monospace" class="method"><code>fn <a href="#tymethod.set_monospace" class="fnname">set_monospace</a>(&amp;self, monospace: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1505" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Sets the [<code>crate::TextView:monospace</code>] property, which
 indicates that the text view should use monospace
 fonts.</p>
 <h2 id="monospace" class="section-header"><a href="#monospace"><code>monospace</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to request monospace styling</p>
-</div><h3 id="tymethod.set_overwrite" class="method"><code>fn <a href="#tymethod.set_overwrite" class="fnname">set_overwrite</a>(&amp;self, overwrite: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1511" title="goto source code">[src]</a></h3><div class="docblock"><p>Changes the <a href="../struct.TextView.html"><code>TextView</code></a> overwrite mode.</p>
+</div><h3 id="tymethod.set_overwrite" class="method"><code>fn <a href="#tymethod.set_overwrite" class="fnname">set_overwrite</a>(&amp;self, overwrite: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1511" title="goto source code">[src]</a></h3><div class="docblock"><p>Changes the <a href="../struct.TextView.html" title="crate::TextView"><code>crate::TextView</code></a> overwrite mode.</p>
 <h2 id="overwrite" class="section-header"><a href="#overwrite"><code>overwrite</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to turn on overwrite mode, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> to turn it off</p>
 </div><h3 id="tymethod.set_pixels_above_lines" class="method"><code>fn <a href="#tymethod.set_pixels_above_lines" class="fnname">set_pixels_above_lines</a>(&amp;self, pixels_above_lines: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1518" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the default number of blank pixels above paragraphs in <code>self</code>.
@@ -629,7 +629,7 @@ In CSS terms, the value set here is padding.</p>
 </div><h3 id="tymethod.set_tabs" class="method"><code>fn <a href="#tymethod.set_tabs" class="fnname">set_tabs</a>(&amp;self, tabs: &amp;<a class="struct" href="../../pango/auto/tab_array/struct.TabArray.html" title="struct pango::auto::tab_array::TabArray">TabArray</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1551" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the default tab stops for paragraphs in <code>self</code>.
 Tags in the buffer may override the default.</p>
 <h2 id="tabs" class="section-header"><a href="#tabs"><code>tabs</code></a></h2>
-<p>tabs as a <a href="../../pango/auto/tab_array/struct.TabArray.html"><code>pango::TabArray</code></a></p>
+<p>tabs as a <a href="../../pango/auto/tab_array/struct.TabArray.html" title="crate::pango::TabArray"><code>crate::pango::TabArray</code></a></p>
 </div><h3 id="tymethod.set_top_margin" class="method"><code>fn <a href="#tymethod.set_top_margin" class="fnname">set_top_margin</a>(&amp;self, top_margin: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1562" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_18</code></strong> only.</div></div><div class="docblock"><p>Sets the top margin for text in <code>self</code>.</p>
 <p>Note that this function is confusingly named.
 In CSS terms, the value set here is padding.</p>
@@ -637,20 +637,20 @@ In CSS terms, the value set here is padding.</p>
 <p>top margin in pixels</p>
 </div><h3 id="tymethod.set_wrap_mode" class="method"><code>fn <a href="#tymethod.set_wrap_mode" class="fnname">set_wrap_mode</a>(&amp;self, wrap_mode: <a class="enum" href="../enum.WrapMode.html" title="enum gtk::WrapMode">WrapMode</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1568" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the line wrapping for the view.</p>
 <h2 id="wrap_mode" class="section-header"><a href="#wrap_mode"><code>wrap_mode</code></a></h2>
-<p>a <a href="../enum.WrapMode.html"><code>WrapMode</code></a></p>
+<p>a <a href="../enum.WrapMode.html" title="crate::WrapMode"><code>crate::WrapMode</code></a></p>
 </div><h3 id="tymethod.starts_display_line" class="method"><code>fn <a href="#tymethod.starts_display_line" class="fnname">starts_display_line</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1580" title="goto source code">[src]</a></h3><div class="docblock"><p>Determines whether <code>iter</code> is at the start of a display line.
-See <a href="trait.TextViewExt.html#tymethod.forward_display_line"><code>forward_display_line()</code></a> for an explanation of
+See <a href="trait.TextViewExt.html#tymethod.forward_display_line" title="Self::forward_display_line()"><code>Self::forward_display_line()</code></a> for an explanation of
 display lines vs. paragraphs.</p>
 <h2 id="iter-11" class="section-header"><a href="#iter-11"><code>iter</code></a></h2>
-<p>a <a href="../struct.TextIter.html"><code>TextIter</code></a></p>
+<p>a <a href="../struct.TextIter.html" title="crate::TextIter"><code>crate::TextIter</code></a></p>
 <h1 id="returns-32" class="section-header"><a href="#returns-32">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>iter</code> begins a wrapped line</p>
 </div><h3 id="tymethod.window_to_buffer_coords" class="method"><code>fn <a href="#tymethod.window_to_buffer_coords" class="fnname">window_to_buffer_coords</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;win: <a class="enum" href="../enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;window_x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;window_y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1598-1603" title="goto source code">[src]</a></h3><div class="docblock"><p>Converts coordinates on the window identified by <code>win</code> to buffer
 coordinates, storing the result in (<code>buffer_x</code>,<code>buffer_y</code>).</p>
 <p>Note that you can’t convert coordinates for a nonexisting window (see
-<a href="trait.TextViewExt.html#tymethod.set_border_window_size"><code>set_border_window_size()</code></a>).</p>
+<a href="trait.TextViewExt.html#tymethod.set_border_window_size" title="Self::set_border_window_size()"><code>Self::set_border_window_size()</code></a>).</p>
 <h2 id="win-2" class="section-header"><a href="#win-2"><code>win</code></a></h2>
-<p>a <a href="../enum.TextWindowType.html"><code>TextWindowType</code></a> except <a href="../enum.TextWindowType.html#variant.Private" title="TextWindowType::Private"><code>TextWindowType::Private</code></a></p>
+<p>a <a href="../enum.TextWindowType.html" title="crate::TextWindowType"><code>crate::TextWindowType</code></a> except <a href="../enum.TextWindowType.html#variant.Private" title="crate::TextWindowType::Private"><code>crate::TextWindowType::Private</code></a></p>
 <h2 id="window_x-1" class="section-header"><a href="#window_x-1"><code>window_x</code></a></h2>
 <p>window x coordinate</p>
 <h2 id="window_y-1" class="section-header"><a href="#window_y-1"><code>window_y</code></a></h2>
@@ -677,7 +677,7 @@ Ctrl-x and Shift-Delete.</p>
 </div><h3 id="tymethod.emit_cut_clipboard" class="method"><code>fn <a href="#tymethod.emit_cut_clipboard" class="fnname">emit_cut_clipboard</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1652" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_delete_from_cursor" class="method"><code>fn <a href="#tymethod.connect_delete_from_cursor" class="fnname">connect_delete_from_cursor</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="enum" href="../enum.DeleteType.html" title="enum gtk::DeleteType">DeleteType</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1671-1674" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::delete-from-cursor signal is a
 [keybinding signal][<code>BindingSignal</code>]
 which gets emitted when the user initiates a text deletion.</p>
-<p>If the <code>type_</code> is <a href="../enum.DeleteType.html#variant.Chars" title="DeleteType::Chars"><code>DeleteType::Chars</code></a>, GTK+ deletes the selection
+<p>If the <code>type_</code> is <a href="../enum.DeleteType.html#variant.Chars" title="crate::DeleteType::Chars"><code>crate::DeleteType::Chars</code></a>, GTK+ deletes the selection
 if there is one, otherwise it deletes the requested number
 of characters.</p>
 <p>The default bindings for this signal are
@@ -685,7 +685,7 @@ Delete for deleting a character, Ctrl-Delete for
 deleting a word and Ctrl-Backspace for deleting a word
 backwords.</p>
 <h2 id="type_-2" class="section-header"><a href="#type_-2"><code>type_</code></a></h2>
-<p>the granularity of the deletion, as a <a href="../enum.DeleteType.html"><code>DeleteType</code></a></p>
+<p>the granularity of the deletion, as a <a href="../enum.DeleteType.html" title="crate::DeleteType"><code>crate::DeleteType</code></a></p>
 <h2 id="count-1" class="section-header"><a href="#count-1"><code>count</code></a></h2>
 <p>the number of <code>type_</code> units to delete</p>
 </div><h3 id="tymethod.emit_delete_from_cursor" class="method"><code>fn <a href="#tymethod.emit_delete_from_cursor" class="fnname">emit_delete_from_cursor</a>(&amp;self, type_: <a class="enum" href="../enum.DeleteType.html" title="enum gtk::DeleteType">DeleteType</a>, count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1676" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_extend_selection" class="method"><code>fn <a href="#tymethod.connect_extend_selection" class="fnname">connect_extend_selection</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="enum" href="../enum.TextExtendSelection.html" title="enum gtk::TextExtendSelection">TextExtendSelection</a>, &amp;<a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>, &amp;<a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>, &amp;<a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1696-1702" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>The ::extend-selection signal is emitted when the selection needs to be
@@ -732,7 +732,7 @@ There are too many key combinations to list them all here.</p>
 <li>Ctrl-PageUp/PageDown keys move horizontally by pages</li>
 </ul>
 <h2 id="step" class="section-header"><a href="#step"><code>step</code></a></h2>
-<p>the granularity of the move, as a <a href="../enum.MovementStep.html"><code>MovementStep</code></a></p>
+<p>the granularity of the move, as a <a href="../enum.MovementStep.html" title="crate::MovementStep"><code>crate::MovementStep</code></a></p>
 <h2 id="count-2" class="section-header"><a href="#count-2"><code>count</code></a></h2>
 <p>the number of <code>step</code> units to move</p>
 <h2 id="extend_selection" class="section-header"><a href="#extend_selection"><code>extend_selection</code></a></h2>
@@ -744,7 +744,7 @@ to move the viewport, i.e. change what part of the text view
 is visible in a containing scrolled window.</p>
 <p>There are no default bindings for this signal.</p>
 <h2 id="step-1" class="section-header"><a href="#step-1"><code>step</code></a></h2>
-<p>the granularity of the movement, as a <a href="../enum.ScrollStep.html"><code>ScrollStep</code></a></p>
+<p>the granularity of the movement, as a <a href="../enum.ScrollStep.html" title="crate::ScrollStep"><code>crate::ScrollStep</code></a></p>
 <h2 id="count-3" class="section-header"><a href="#count-3"><code>count</code></a></h2>
 <p>the number of <code>step</code> units to move</p>
 </div><h3 id="tymethod.emit_move_viewport" class="method"><code>fn <a href="#tymethod.emit_move_viewport" class="fnname">emit_move_viewport</a>(&amp;self, step: <a class="enum" href="../enum.ScrollStep.html" title="enum gtk::ScrollStep">ScrollStep</a>, count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1781" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_paste_clipboard" class="method"><code>fn <a href="#tymethod.connect_paste_clipboard" class="fnname">connect_paste_clipboard</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1791" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::paste-clipboard signal is a
@@ -757,13 +757,13 @@ Ctrl-v and Shift-Insert.</p>
 context menu of the text view.</p>
 <p>If you need to add items to the context menu, connect
 to this signal and append your items to the <code>popup</code>, which
-will be a <a href="../struct.Menu.html"><code>Menu</code></a> in this case.</p>
-<p>If <a href="crate::TextView:populate-all"><code>TextView:populate-all</code></a> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, this signal will
+will be a <a href="../struct.Menu.html" title="crate::Menu"><code>crate::Menu</code></a> in this case.</p>
+<p>If [<code>crate::TextView:populate-all</code>] is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, this signal will
 also be emitted to populate touch popups. In this case,
-<code>popup</code> will be a different container, e.g. a <a href="../struct.Toolbar.html"><code>Toolbar</code></a>.</p>
+<code>popup</code> will be a different container, e.g. a <a href="../struct.Toolbar.html" title="crate::Toolbar"><code>crate::Toolbar</code></a>.</p>
 <p>The signal handler should not make assumptions about the
-type of <code>widget</code>, but check whether <code>popup</code> is a <a href="../struct.Menu.html"><code>Menu</code></a>
-or <a href="../struct.Toolbar.html"><code>Toolbar</code></a> or another kind of container.</p>
+type of <code>widget</code>, but check whether <code>popup</code> is a <a href="../struct.Menu.html" title="crate::Menu"><code>crate::Menu</code></a>
+or <a href="../struct.Toolbar.html" title="crate::Toolbar"><code>crate::Toolbar</code></a> or another kind of container.</p>
 <h2 id="popup" class="section-header"><a href="#popup"><code>popup</code></a></h2>
 <p>the container that is being populated</p>
 </div><h3 id="tymethod.connect_preedit_changed" class="method"><code>fn <a href="#tymethod.connect_preedit_changed" class="fnname">connect_preedit_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1823" title="goto source code">[src]</a></h3><div class="docblock"><p>If an input method is used, the typed text will not immediately
@@ -789,7 +789,7 @@ mark. The “anchor” mark gets placed at the same position as the
 <p>This signal has no default bindings.</p>
 </div><h3 id="tymethod.emit_set_anchor" class="method"><code>fn <a href="#tymethod.emit_set_anchor" class="fnname">emit_set_anchor</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1851" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_toggle_cursor_visible" class="method"><code>fn <a href="#tymethod.connect_toggle_cursor_visible" class="fnname">connect_toggle_cursor_visible</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1860" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::toggle-cursor-visible signal is a
 [keybinding signal][<code>BindingSignal</code>]
-which gets emitted to toggle the <a href="crate::TextView:cursor-visible"><code>TextView:cursor-visible</code></a>
+which gets emitted to toggle the [<code>crate::TextView:cursor-visible</code>]
 property.</p>
 <p>The default binding for this signal is F7.</p>
 </div><h3 id="tymethod.emit_toggle_cursor_visible" class="method"><code>fn <a href="#tymethod.emit_toggle_cursor_visible" class="fnname">emit_toggle_cursor_visible</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1862" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_toggle_overwrite" class="method"><code>fn <a href="#tymethod.connect_toggle_overwrite" class="fnname">connect_toggle_overwrite</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1870" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::toggle-overwrite signal is a

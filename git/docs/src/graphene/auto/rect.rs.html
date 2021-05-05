@@ -558,16 +558,16 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// The location and size of a rectangle region.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The width and height of a [`Rect`](crate::Rect) can be negative; for instance,</span>
-    <span class="doccomment">/// a [`Rect`](crate::Rect) with an origin of [ 0, 0 ] and a size of [ 10, 10 ] is</span>
-    <span class="doccomment">/// equivalent to a [`Rect`](crate::Rect) with an origin of [ 10, 10 ] and a size</span>
+    <span class="doccomment">/// The width and height of a [`crate::Rect`] can be negative; for instance,</span>
+    <span class="doccomment">/// a [`crate::Rect`] with an origin of [ 0, 0 ] and a size of [ 10, 10 ] is</span>
+    <span class="doccomment">/// equivalent to a [`crate::Rect`] with an origin of [ 10, 10 ] and a size</span>
     <span class="doccomment">/// of [ -10, -10 ].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Application code can normalize rectangles using [`normalize()`](Self::normalize());</span>
+    <span class="doccomment">/// Application code can normalize rectangles using [`Self::normalize()`];</span>
     <span class="doccomment">/// this function will ensure that the width and height of a rectangle are</span>
-    <span class="doccomment">/// positive values. All functions taking a [`Rect`](crate::Rect) as an argument</span>
+    <span class="doccomment">/// positive values. All functions taking a [`crate::Rect`] as an argument</span>
     <span class="doccomment">/// will internally operate on a normalized copy; all functions returning a</span>
-    <span class="doccomment">/// [`Rect`](crate::Rect) will always return a normalized rectangle.</span>
+    <span class="doccomment">/// [`crate::Rect`] will always return a normalized rectangle.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Rect</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::graphene_rect_t</span><span class="op">&gt;</span>);
 
@@ -581,9 +581,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Rect</span> {
-    <span class="doccomment">/// Checks whether a [`Rect`](crate::Rect) contains the given coordinates.</span>
+    <span class="doccomment">/// Checks whether a [`crate::Rect`] contains the given coordinates.</span>
     <span class="doccomment">/// ## `p`</span>
-    <span class="doccomment">/// a [`Point`](crate::Point)</span>
+    <span class="doccomment">/// a [`crate::Point`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -598,10 +598,10 @@
         }
     }
 
-    <span class="doccomment">/// Checks whether a [`Rect`](crate::Rect) fully contains the given</span>
+    <span class="doccomment">/// Checks whether a [`crate::Rect`] fully contains the given</span>
     <span class="doccomment">/// rectangle.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// a [`crate::Rect`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -618,7 +618,7 @@
 
     <span class="doccomment">/// Checks whether the two given rectangle are equal.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// a [`crate::Rect`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -633,9 +633,9 @@
         }
     }
 
-    <span class="doccomment">/// Expands a [`Rect`](crate::Rect) to contain the given [`Point`](crate::Point).</span>
+    <span class="doccomment">/// Expands a [`crate::Rect`] to contain the given [`crate::Point`].</span>
     <span class="doccomment">/// ## `p`</span>
-    <span class="doccomment">/// a [`Point`](crate::Point)</span>
+    <span class="doccomment">/// a [`crate::Point`]</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the expanded rectangle</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_rect_expand&quot;</span>)]</span>
@@ -739,9 +739,9 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_rect_get_y</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Initializes the given [`Rect`](crate::Rect) with the given values.</span>
+    <span class="doccomment">/// Initializes the given [`crate::Rect`] with the given values.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function will implicitly normalize the [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// This function will implicitly normalize the [`crate::Rect`]</span>
     <span class="doccomment">/// before returning.</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// the X coordinate of the [`crate::Rect.origin`] (XXX: @-reference does not belong to Rect!)</span>
@@ -764,10 +764,10 @@
 
     <span class="doccomment">/// Initializes `self` using the given `src` rectangle.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function will implicitly normalize the [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// This function will implicitly normalize the [`crate::Rect`]</span>
     <span class="doccomment">/// before returning.</span>
     <span class="doccomment">/// ## `src`</span>
-    <span class="doccomment">/// a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// a [`crate::Rect`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -844,7 +844,7 @@
     <span class="doccomment">/// Linearly interpolates the origin and size of the two given</span>
     <span class="doccomment">/// rectangles.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// a [`crate::Rect`]</span>
     <span class="doccomment">/// ## `factor`</span>
     <span class="doccomment">/// the linear interpolation factor</span>
     <span class="doccomment">/// ## `res`</span>
@@ -873,10 +873,10 @@
     <span class="doccomment">/// If the two rectangles do not intersect, `res` will contain</span>
     <span class="doccomment">/// a degenerate rectangle with origin in (0, 0) and a size of 0.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// a [`crate::Rect`]</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for</span>
-    <span class="doccomment">///  a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">///  a [`crate::Rect`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -974,7 +974,7 @@
     <span class="doccomment">/// their nearest integer values; the rounding is guaranteed</span>
     <span class="doccomment">/// to be large enough to have an area bigger or equal to the</span>
     <span class="doccomment">/// original rectangle, but might not fully contain its extents.</span>
-    <span class="doccomment">/// Use [`round_extents()`](Self::round_extents()) in case you need to round</span>
+    <span class="doccomment">/// Use [`Self::round_extents()`] in case you need to round</span>
     <span class="doccomment">/// to a rectangle that covers fully the original one.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is the equivalent of calling `floor` on</span>
@@ -982,7 +982,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 1.10</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`round_extents()`](Self::round_extents()) instead</span>
+    <span class="doccomment">/// Use [`Self::round_extents()`] instead</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the</span>
     <span class="doccomment">///  rounded rectangle</span>
@@ -1057,9 +1057,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The union in the image above is the blue outline.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// a [`crate::Rect`]</span>
     <span class="doccomment">/// ## `res`</span>
-    <span class="doccomment">/// return location for a [`Rect`](crate::Rect)</span>
+    <span class="doccomment">/// return location for a [`crate::Rect`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_rect_union&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">union</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">b</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Rect</span> {
         <span class="kw">unsafe</span> {

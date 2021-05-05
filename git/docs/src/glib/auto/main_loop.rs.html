@@ -107,17 +107,17 @@
 }
 
 <span class="kw">impl</span> <span class="ident">MainLoop</span> {
-    <span class="doccomment">/// Creates a new [`MainLoop`](crate::MainLoop) structure.</span>
+    <span class="doccomment">/// Creates a new [`crate::MainLoop`] structure.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// a [`MainContext`](crate::MainContext) (if [`None`], the default context will be used).</span>
+    <span class="doccomment">/// a [`crate::MainContext`] (if [`None`], the default context will be used).</span>
     <span class="doccomment">/// ## `is_running`</span>
     <span class="doccomment">/// set to [`true`] to indicate that the loop is running. This</span>
-    <span class="doccomment">/// is not very important since calling [`run()`](Self::run()) will set this to</span>
+    <span class="doccomment">/// is not very important since calling [`Self::run()`] will set this to</span>
     <span class="doccomment">/// [`true`] anyway.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`MainLoop`](crate::MainLoop).</span>
+    <span class="doccomment">/// a new [`crate::MainLoop`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_main_loop_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">context</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">MainContext</span><span class="op">&gt;</span>, <span class="ident">is_running</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MainLoop</span> {
         <span class="kw">unsafe</span> {
@@ -134,7 +134,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_main_loop_get_context</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Checks to see if the main loop is currently being run via [`run()`](Self::run()).</span>
+    <span class="doccomment">/// Checks to see if the main loop is currently being run via [`Self::run()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -144,11 +144,11 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_main_loop_is_running</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Stops a [`MainLoop`](crate::MainLoop) from running. Any calls to [`run()`](Self::run())</span>
+    <span class="doccomment">/// Stops a [`crate::MainLoop`] from running. Any calls to [`Self::run()`]</span>
     <span class="doccomment">/// for the loop will return.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that sources that have already been dispatched when</span>
-    <span class="doccomment">/// [`quit()`](Self::quit()) is called will still be executed.</span>
+    <span class="doccomment">/// [`Self::quit()`] is called will still be executed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_main_loop_quit&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -156,8 +156,8 @@
         }
     }
 
-    <span class="doccomment">/// Runs a main loop until [`quit()`](Self::quit()) is called on the loop.</span>
-    <span class="doccomment">/// If this is called for the thread of the loop&#39;s [`MainContext`](crate::MainContext),</span>
+    <span class="doccomment">/// Runs a main loop until [`Self::quit()`] is called on the loop.</span>
+    <span class="doccomment">/// If this is called for the thread of the loop&#39;s [`crate::MainContext`],</span>
     <span class="doccomment">/// it will process events from the loop, otherwise it will</span>
     <span class="doccomment">/// simply wait.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_main_loop_run&quot;</span>)]</span>

@@ -725,8 +725,8 @@
 <span class="doccomment">/// abstract type in other type systems. No value can exist that has an</span>
 <span class="doccomment">/// indefinite type as its type, but values can exist that have types</span>
 <span class="doccomment">/// that are subtypes of indefinite types. That is to say,</span>
-<span class="doccomment">/// [`Variant::get_type()`](crate::Variant::get_type()) will never return an indefinite type, but</span>
-<span class="doccomment">/// calling [`Variant::is_of_type()`](crate::Variant::is_of_type()) with an indefinite type may return</span>
+<span class="doccomment">/// [`crate::Variant::get_type()`] will never return an indefinite type, but</span>
+<span class="doccomment">/// calling [`crate::Variant::is_of_type()`] with an indefinite type may return</span>
 <span class="doccomment">/// [`true`]. For example, you cannot have a value that represents &quot;an</span>
 <span class="doccomment">/// array of no particular type&quot;, but you can have an &quot;array of integers&quot;</span>
 <span class="doccomment">/// which certainly matches the type of &quot;an array of no particular type&quot;,</span>
@@ -758,13 +758,13 @@
 <span class="doccomment">///  followed by another type string, followed by the character &#39;}&#39;</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A basic type string describes a basic type (as per</span>
-<span class="doccomment">/// [`is_basic()`](Self::is_basic())) and is always a single character in length.</span>
+<span class="doccomment">/// [`Self::is_basic()`]) and is always a single character in length.</span>
 <span class="doccomment">/// The valid basic type strings are &quot;b&quot;, &quot;y&quot;, &quot;n&quot;, &quot;q&quot;, &quot;i&quot;, &quot;u&quot;, &quot;x&quot;, &quot;t&quot;,</span>
 <span class="doccomment">/// &quot;h&quot;, &quot;d&quot;, &quot;s&quot;, &quot;o&quot;, &quot;g&quot; and &quot;?&quot;.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The above definition is recursive to arbitrary depth. &quot;aaaaai&quot; and</span>
 <span class="doccomment">/// &quot;(ui(nq((y)))s)&quot; are both valid type strings, as is</span>
-<span class="doccomment">/// &quot;a(aa(ui)(qna{ya(yd)}))&quot;. In order to not hit memory limits, [`Variant`](crate::Variant)</span>
+<span class="doccomment">/// &quot;a(aa(ui)(qna{ya(yd)}))&quot;. In order to not hit memory limits, [`crate::Variant`]</span>
 <span class="doccomment">/// imposes a limit on recursion depth of 65 nested containers. This is the</span>
 <span class="doccomment">/// limit in the D-Bus specification (64) plus one to allow a `GDBusMessage` to</span>
 <span class="doccomment">/// be nested in a top-level tuple.</span>
@@ -845,18 +845,18 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns `Ok` if the string is a valid type string, `Err` otherwise.</span>
     <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Creates a new [`VariantType`](crate::VariantType) corresponding to the type string given</span>
-    <span class="doccomment">/// by `type_string`. It is appropriate to call [`free()`](Self::free()) on</span>
+    <span class="doccomment">/// Creates a new [`crate::VariantType`] corresponding to the type string given</span>
+    <span class="doccomment">/// by `type_string`. It is appropriate to call [`Self::free()`] on</span>
     <span class="doccomment">/// the return value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is a programmer error to call this function with an invalid type</span>
-    <span class="doccomment">/// string. Use [`string_is_valid()`](Self::string_is_valid()) if you are unsure.</span>
+    <span class="doccomment">/// string. Use [`Self::string_is_valid()`] if you are unsure.</span>
     <span class="doccomment">/// ## `type_string`</span>
     <span class="doccomment">/// a valid GVariant type string</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`VariantType`](crate::VariantType)</span>
+    <span class="doccomment">/// a new [`crate::VariantType`]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">type_string</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VariantType</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="ident">VariantTy::new</span>(<span class="ident">type_string</span>).<span class="ident">map</span>(<span class="ident">ToOwned::to_owned</span>)
     }

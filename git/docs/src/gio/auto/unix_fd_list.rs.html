@@ -89,12 +89,12 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`UnixFDList`](crate::UnixFDList) contains a list of file descriptors. It owns the file</span>
+    <span class="doccomment">/// A [`crate::UnixFDList`] contains a list of file descriptors. It owns the file</span>
     <span class="doccomment">/// descriptors that it contains, closing them when finalized.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It may be wrapped in a [`UnixFDMessage`](crate::UnixFDMessage) and sent over a [`Socket`](crate::Socket) in</span>
-    <span class="doccomment">/// the [`SocketFamily::Unix`] family by using [`Socket::send_message()`](crate::Socket::send_message())</span>
-    <span class="doccomment">/// and received using [`Socket::receive_message()`](crate::Socket::receive_message()).</span>
+    <span class="doccomment">/// It may be wrapped in a [`crate::UnixFDMessage`] and sent over a [`crate::Socket`] in</span>
+    <span class="doccomment">/// the [`crate::SocketFamily::Unix`] family by using [`crate::Socket::send_message()`]</span>
+    <span class="doccomment">/// and received using [`crate::Socket::receive_message()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `&lt;gio/gunixfdlist.h&gt;` belongs to the UNIX-specific GIO</span>
     <span class="doccomment">/// interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config</span>
@@ -102,7 +102,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`UnixFDListExt`](trait@crate::prelude::UnixFDListExt), [`trait@glib::object::ObjectExt`], [`UnixFDListExtManual`](trait@crate::prelude::UnixFDListExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::UnixFDListExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::UnixFDListExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UnixFDList</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GUnixFDList</span>, <span class="ident">ffi::GUnixFDListClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -111,11 +111,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">UnixFDList</span> {
-    <span class="doccomment">/// Creates a new [`UnixFDList`](crate::UnixFDList) containing no file descriptors.</span>
+    <span class="doccomment">/// Creates a new [`crate::UnixFDList`] containing no file descriptors.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`UnixFDList`](crate::UnixFDList)</span>
+    <span class="doccomment">/// a new [`crate::UnixFDList`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_fd_list_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixFDList</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_unix_fd_list_new</span>()) }
@@ -134,7 +134,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`UnixFDList`](struct@crate::UnixFDList)</span>
+<span class="doccomment">/// [`struct@crate::UnixFDList`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">UnixFDListExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the length of `self` (ie: the number of file descriptors</span>
     <span class="doccomment">/// contained within).</span>

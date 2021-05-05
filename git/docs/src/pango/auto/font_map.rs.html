@@ -245,23 +245,23 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`FontMap`](crate::FontMap) represents the set of fonts available for a</span>
+    <span class="doccomment">/// The [`crate::FontMap`] represents the set of fonts available for a</span>
     <span class="doccomment">/// particular rendering system. This is a virtual object with</span>
     <span class="doccomment">/// implementations being specific to particular rendering systems. To</span>
-    <span class="doccomment">/// create an implementation of a [`FontMap`](crate::FontMap), the rendering-system</span>
+    <span class="doccomment">/// create an implementation of a [`crate::FontMap`], the rendering-system</span>
     <span class="doccomment">/// specific code should allocate a larger structure that contains a nested</span>
-    <span class="doccomment">/// [`FontMap`](crate::FontMap), fill in the `&lt;structfield&gt;`klass`&lt;/structfield&gt;` member of the nested [`FontMap`](crate::FontMap) with a</span>
-    <span class="doccomment">/// pointer to a appropriate [`FontMapClass`](crate::FontMapClass), then call</span>
+    <span class="doccomment">/// [`crate::FontMap`], fill in the `&lt;structfield&gt;`klass`&lt;/structfield&gt;` member of the nested [`crate::FontMap`] with a</span>
+    <span class="doccomment">/// pointer to a appropriate [`crate::FontMapClass`], then call</span>
     <span class="doccomment">/// `pango_font_map_init()` on the structure.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`FontMap`](crate::FontMap) structure contains one member which the implementation</span>
+    <span class="doccomment">/// The [`crate::FontMap`] structure contains one member which the implementation</span>
     <span class="doccomment">/// fills in.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FontMapExt`](trait@crate::prelude::FontMapExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::FontMapExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontMap</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::PangoFontMap</span>, <span class="ident">ffi::PangoFontMapClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -275,9 +275,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`FontMap`](struct@crate::FontMap)</span>
+<span class="doccomment">/// [`struct@crate::FontMap`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FontMapExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Forces a change in the context, which will cause any [`Context`](crate::Context)</span>
+    <span class="doccomment">/// Forces a change in the context, which will cause any [`crate::Context`]</span>
     <span class="doccomment">/// using this fontmap to change.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is only useful when implementing a new backend</span>
@@ -287,19 +287,19 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_map_changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Creates a [`Context`](crate::Context) connected to `self`. This is equivalent</span>
-    <span class="doccomment">/// to [`Context::new()`](crate::Context::new()) followed by [`Context::set_font_map()`](crate::Context::set_font_map()).</span>
+    <span class="doccomment">/// Creates a [`crate::Context`] connected to `self`. This is equivalent</span>
+    <span class="doccomment">/// to [`crate::Context::new()`] followed by [`crate::Context::set_font_map()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you are using Pango as part of a higher-level system,</span>
-    <span class="doccomment">/// that system may have it&#39;s own way of create a [`Context`](crate::Context).</span>
+    <span class="doccomment">/// that system may have it&#39;s own way of create a [`crate::Context`].</span>
     <span class="doccomment">/// For instance, the GTK+ toolkit has, among others,</span>
     <span class="doccomment">/// `gdk_pango_context_get_for_screen()`, and</span>
     <span class="doccomment">/// `gtk_widget_get_pango_context()`. Use those instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly allocated [`Context`](crate::Context),</span>
-    <span class="doccomment">///  which should be freed with [`glib::object::Object::unref()`](crate::glib::object::Object::unref()).</span>
+    <span class="doccomment">/// the newly allocated [`crate::Context`],</span>
+    <span class="doccomment">///  which should be freed with [`crate::glib::object::Object::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_map_create_context&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">create_context</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span>;
 
@@ -309,7 +309,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`FontFamily`](crate::FontFamily)</span>
+    <span class="doccomment">/// the [`crate::FontFamily`]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_map_get_family&quot;</span>)]</span>
@@ -325,8 +325,8 @@
     <span class="doccomment">/// The fontmap can only be changed using backend-specific API, like changing</span>
     <span class="doccomment">/// fontmap resolution.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This can be used to automatically detect changes to a [`FontMap`](crate::FontMap), like</span>
-    <span class="doccomment">/// in [`Context`](crate::Context).</span>
+    <span class="doccomment">/// This can be used to automatically detect changes to a [`crate::FontMap`], like</span>
+    <span class="doccomment">/// in [`crate::Context`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -337,7 +337,7 @@
 
     <span class="doccomment">/// List all families for a fontmap.</span>
     <span class="doccomment">/// ## `families`</span>
-    <span class="doccomment">/// location to store a pointer to an array of [`FontFamily`](crate::FontFamily) *.</span>
+    <span class="doccomment">/// location to store a pointer to an array of [`crate::FontFamily`] *.</span>
     <span class="doccomment">///  This array should be freed with `g_free()`.</span>
     <span class="doccomment">/// ## `n_families`</span>
     <span class="doccomment">/// location to store the number of elements in `families`</span>
@@ -346,13 +346,13 @@
 
     <span class="doccomment">/// Load the font in the fontmap that is the closest match for `desc`.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the [`Context`](crate::Context) the font will be used with</span>
+    <span class="doccomment">/// the [`crate::Context`] the font will be used with</span>
     <span class="doccomment">/// ## `desc`</span>
-    <span class="doccomment">/// a [`FontDescription`](crate::FontDescription) describing the font to load</span>
+    <span class="doccomment">/// a [`crate::FontDescription`] describing the font to load</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly allocated [`Font`](crate::Font)</span>
+    <span class="doccomment">/// the newly allocated [`crate::Font`]</span>
     <span class="doccomment">///  loaded, or [`None`] if no font matched.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_map_load_font&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">load_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">Context</span>, <span class="ident">desc</span>: <span class="kw-2">&amp;</span><span class="ident">FontDescription</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Font</span><span class="op">&gt;</span>;
@@ -360,16 +360,16 @@
     <span class="doccomment">/// Load a set of fonts in the fontmap that can be used to render</span>
     <span class="doccomment">/// a font matching `desc`.</span>
     <span class="doccomment">/// ## `context`</span>
-    <span class="doccomment">/// the [`Context`](crate::Context) the font will be used with</span>
+    <span class="doccomment">/// the [`crate::Context`] the font will be used with</span>
     <span class="doccomment">/// ## `desc`</span>
-    <span class="doccomment">/// a [`FontDescription`](crate::FontDescription) describing the font to load</span>
+    <span class="doccomment">/// a [`crate::FontDescription`] describing the font to load</span>
     <span class="doccomment">/// ## `language`</span>
-    <span class="doccomment">/// a [`Language`](crate::Language) the fonts will be used for</span>
+    <span class="doccomment">/// a [`crate::Language`] the fonts will be used for</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the newly allocated</span>
-    <span class="doccomment">///  [`Fontset`](crate::Fontset) loaded, or [`None`] if no font matched.</span>
+    <span class="doccomment">///  [`crate::Fontset`] loaded, or [`None`] if no font matched.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_font_map_load_fontset&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">load_fontset</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,

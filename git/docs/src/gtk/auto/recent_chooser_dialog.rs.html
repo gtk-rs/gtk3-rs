@@ -814,19 +814,19 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`RecentChooserDialog`](crate::RecentChooserDialog) is a dialog box suitable for displaying the recently</span>
-    <span class="doccomment">/// used documents. This widgets works by putting a [`RecentChooserWidget`](crate::RecentChooserWidget) inside</span>
-    <span class="doccomment">/// a [`Dialog`](crate::Dialog). It exposes the [`RecentChooserIface`](crate::RecentChooserIface) interface, so you can use</span>
-    <span class="doccomment">/// all the [`RecentChooser`](crate::RecentChooser) functions on the recent chooser dialog as well as</span>
-    <span class="doccomment">/// those for [`Dialog`](crate::Dialog).</span>
+    <span class="doccomment">/// [`crate::RecentChooserDialog`] is a dialog box suitable for displaying the recently</span>
+    <span class="doccomment">/// used documents. This widgets works by putting a [`crate::RecentChooserWidget`] inside</span>
+    <span class="doccomment">/// a [`crate::Dialog`]. It exposes the [`crate::RecentChooserIface`] interface, so you can use</span>
+    <span class="doccomment">/// all the [`crate::RecentChooser`] functions on the recent chooser dialog as well as</span>
+    <span class="doccomment">/// those for [`crate::Dialog`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that [`RecentChooserDialog`](crate::RecentChooserDialog) does not have any methods of its own.</span>
-    <span class="doccomment">/// Instead, you should use the functions that work on a [`RecentChooser`](crate::RecentChooser).</span>
+    <span class="doccomment">/// Note that [`crate::RecentChooserDialog`] does not have any methods of its own.</span>
+    <span class="doccomment">/// Instead, you should use the functions that work on a [`crate::RecentChooser`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Typical usage ## {`gtkrecentchooser`-typical-usage}</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the simplest of cases, you can use the following code to use</span>
-    <span class="doccomment">/// a [`RecentChooserDialog`](crate::RecentChooserDialog) to select a recently used file:</span>
+    <span class="doccomment">/// a [`crate::RecentChooserDialog`] to select a recently used file:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -859,7 +859,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DialogExt`](trait@crate::prelude::DialogExt), [`GtkWindowExt`](trait@crate::prelude::GtkWindowExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`RecentChooserExt`](trait@crate::prelude::RecentChooserExt), [`DialogExtManual`](trait@crate::prelude::DialogExtManual), [`GtkWindowExtManual`](trait@crate::prelude::GtkWindowExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::DialogExt`], [`trait@crate::prelude::GtkWindowExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::RecentChooserExt`], [`trait@crate::prelude::DialogExtManual`], [`trait@crate::prelude::GtkWindowExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecentChooserDialog</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkRecentChooserDialog</span>, <span class="ident">ffi::GtkRecentChooserDialogClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Dialog</span>, <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">RecentChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {

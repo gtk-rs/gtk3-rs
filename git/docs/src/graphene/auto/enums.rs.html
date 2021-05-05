@@ -325,7 +325,7 @@
 
 <span class="doccomment">/// Specify the order of the rotations on each axis.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The [`Default`](Self::Default) value is special, and is used</span>
+<span class="doccomment">/// The [`Self::Default`] value is special, and is used</span>
 <span class="doccomment">/// as an alias for one of the other orders.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -336,27 +336,27 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GRAPHENE_EULER_ORDER_DEFAULT&quot;</span>)]</span>
     <span class="ident">Default</span>,
     <span class="doccomment">/// Rotate in the X, Y, and Z order. Deprecated in</span>
-    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Sxyz`](Self::Sxyz)</span>
+    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Self::Sxyz`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GRAPHENE_EULER_ORDER_XYZ&quot;</span>)]</span>
     <span class="ident">Xyz</span>,
     <span class="doccomment">/// Rotate in the Y, Z, and X order. Deprecated in</span>
-    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Syzx`](Self::Syzx)</span>
+    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Self::Syzx`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GRAPHENE_EULER_ORDER_YZX&quot;</span>)]</span>
     <span class="ident">Yzx</span>,
     <span class="doccomment">/// Rotate in the Z, X, and Y order. Deprecated in</span>
-    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Szxy`](Self::Szxy)</span>
+    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Self::Szxy`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GRAPHENE_EULER_ORDER_ZXY&quot;</span>)]</span>
     <span class="ident">Zxy</span>,
     <span class="doccomment">/// Rotate in the X, Z, and Y order. Deprecated in</span>
-    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Sxzy`](Self::Sxzy)</span>
+    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Self::Sxzy`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GRAPHENE_EULER_ORDER_XZY&quot;</span>)]</span>
     <span class="ident">Xzy</span>,
     <span class="doccomment">/// Rotate in the Y, X, and Z order. Deprecated in</span>
-    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Syxz`](Self::Syxz)</span>
+    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Self::Syxz`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GRAPHENE_EULER_ORDER_YXZ&quot;</span>)]</span>
     <span class="ident">Yxz</span>,
     <span class="doccomment">/// Rotate in the Z, Y, and X order. Deprecated in</span>
-    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Szyx`](Self::Szyx)</span>
+    <span class="doccomment">///  Graphene 1.10, it&#39;s an alias for [`Self::Szyx`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GRAPHENE_EULER_ORDER_ZYX&quot;</span>)]</span>
     <span class="ident">Zyx</span>,
     <span class="doccomment">/// Defines a static rotation along the X, Y, and Z axes (Since: 1.10)</span>

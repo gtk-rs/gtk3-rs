@@ -17,7 +17,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.set_position" class="fnname">set_position</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>Editable</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.Editable.html"><code>Editable</code></a>, <a href="../struct.Entry.html"><code>Entry</code></a>, <a href="../struct.SearchEntry.html"><code>SearchEntry</code></a>, <a href="../struct.SpinButton.html"><code>SpinButton</code></a></p>
+<p><a href="../struct.Editable.html" title="crate::Editable"><code>crate::Editable</code></a>, <a href="../struct.Entry.html" title="crate::Entry"><code>crate::Entry</code></a>, <a href="../struct.SearchEntry.html" title="crate::SearchEntry"><code>crate::SearchEntry</code></a>, <a href="../struct.SpinButton.html" title="crate::SpinButton"><code>crate::SpinButton</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.copy_clipboard" class="method"><code>fn <a href="#tymethod.copy_clipboard" class="fnname">copy_clipboard</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/editable.rs.html#69" title="goto source code">[src]</a></h3><div class="docblock"><p>Copies the contents of the currently selected content in the editable and
 puts it on the clipboard.</p>
 </div><h3 id="tymethod.cut_clipboard" class="method"><code>fn <a href="#tymethod.cut_clipboard" class="fnname">cut_clipboard</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/editable.rs.html#74" title="goto source code">[src]</a></h3><div class="docblock"><p>Removes the contents of the currently selected content in the editable and
@@ -44,10 +44,10 @@ retrieved are those characters from <code>start_pos</code> to the end of the tex
 <p>end of text</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>a pointer to the contents of the widget as a
-string. This string is allocated by the <a href="../struct.Editable.html"><code>Editable</code></a>
+string. This string is allocated by the <a href="../struct.Editable.html" title="crate::Editable"><code>crate::Editable</code></a>
 implementation and should be freed by the caller.</p>
 </div><h3 id="tymethod.is_editable" class="method"><code>fn <a href="#tymethod.is_editable" class="fnname">is_editable</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/editable.rs.html#122" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves whether <code>self</code> is editable. See
-<a href="crate::Editable::set_editable()"><code>Editable::set_editable()</code></a>.</p>
+[<code>crate::Editable::set_editable()</code>].</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is editable.</p>
 </div><h3 id="tymethod.position" class="method"><code>fn <a href="#tymethod.position" class="fnname">position</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/editable.rs.html#134" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the current position of the cursor relative to the start

@@ -318,20 +318,20 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`GestureMultiPress`](crate::GestureMultiPress) is a [`Gesture`](crate::Gesture) implementation able to recognize</span>
+    <span class="doccomment">/// [`crate::GestureMultiPress`] is a [`crate::Gesture`] implementation able to recognize</span>
     <span class="doccomment">/// multiple clicks on a nearby zone, which can be listened for through the</span>
-    <span class="doccomment">/// [`GestureMultiPress::pressed`](crate::GestureMultiPress::pressed) signal. Whenever time or distance between</span>
-    <span class="doccomment">/// clicks exceed the GTK+ defaults, [`GestureMultiPress::stopped`](crate::GestureMultiPress::stopped) is emitted,</span>
+    <span class="doccomment">/// [`crate::GestureMultiPress::pressed`] signal. Whenever time or distance between</span>
+    <span class="doccomment">/// clicks exceed the GTK+ defaults, [`crate::GestureMultiPress::stopped`] is emitted,</span>
     <span class="doccomment">/// and the click counter is reset.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Callers may also restrict the area that is considered valid for a &gt;1</span>
-    <span class="doccomment">/// touch/button press through [`set_area()`](Self::set_area()), so any</span>
+    <span class="doccomment">/// touch/button press through [`Self::set_area()`], so any</span>
     <span class="doccomment">/// click happening outside that area is considered to be a first click of</span>
     <span class="doccomment">/// its own.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`GestureSingleExt`](trait@crate::prelude::GestureSingleExt), [`GestureExt`](trait@crate::prelude::GestureExt), [`EventControllerExt`](trait@crate::prelude::EventControllerExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::GestureSingleExt`], [`trait@crate::prelude::GestureExt`], [`trait@crate::prelude::EventControllerExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GestureMultiPress</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkGestureMultiPress</span>, <span class="ident">ffi::GtkGestureMultiPressClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">GestureSingle</span>, <span class="ident">Gesture</span>, <span class="ident">EventController</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -340,14 +340,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">GestureMultiPress</span> {
-    <span class="doccomment">/// Returns a newly created [`Gesture`](crate::Gesture) that recognizes single and multiple</span>
+    <span class="doccomment">/// Returns a newly created [`crate::Gesture`] that recognizes single and multiple</span>
     <span class="doccomment">/// presses.</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// a [`Widget`](crate::Widget)</span>
+    <span class="doccomment">/// a [`crate::Widget`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created [`GestureMultiPress`](crate::GestureMultiPress)</span>
+    <span class="doccomment">/// a newly created [`crate::GestureMultiPress`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_gesture_multi_press_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GestureMultiPress</span> {
         <span class="macro">skip_assert_initialized!</span>();
@@ -359,9 +359,9 @@
         }
     }
 
-    <span class="doccomment">/// If an area was set through [`set_area()`](Self::set_area()),</span>
+    <span class="doccomment">/// If an area was set through [`Self::set_area()`],</span>
     <span class="doccomment">/// this function will return [`true`] and fill in `rect` with the</span>
-    <span class="doccomment">/// press area. See [`set_area()`](Self::set_area()) for more</span>
+    <span class="doccomment">/// press area. See [`Self::set_area()`] for more</span>
     <span class="doccomment">/// details on what the press area represents.</span>
     <span class="doccomment">/// ## `rect`</span>
     <span class="doccomment">/// return location for the press area</span>
@@ -443,7 +443,7 @@
 
     <span class="doccomment">/// This signal is emitted when a button or touch is released. `n_press`</span>
     <span class="doccomment">/// will report the number of press that is paired to this event, note</span>
-    <span class="doccomment">/// that [`GestureMultiPress::stopped`](crate::GestureMultiPress::stopped) may have been emitted between the</span>
+    <span class="doccomment">/// that [`crate::GestureMultiPress::stopped`] may have been emitted between the</span>
     <span class="doccomment">/// press and its release, `n_press` will only start over at the next press.</span>
     <span class="doccomment">/// ## `n_press`</span>
     <span class="doccomment">/// number of press that is paired with this release</span>

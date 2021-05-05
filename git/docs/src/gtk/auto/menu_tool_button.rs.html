@@ -693,12 +693,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`MenuToolButton`](crate::MenuToolButton) is a [`ToolItem`](crate::ToolItem) that contains a button and</span>
+    <span class="doccomment">/// A [`crate::MenuToolButton`] is a [`crate::ToolItem`] that contains a button and</span>
     <span class="doccomment">/// a small additional button with an arrow. When clicked, the arrow</span>
     <span class="doccomment">/// button pops up a dropdown menu.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`new()`](Self::new()) to create a new</span>
-    <span class="doccomment">/// [`MenuToolButton`](crate::MenuToolButton).</span>
+    <span class="doccomment">/// Use [`Self::new()`] to create a new</span>
+    <span class="doccomment">/// [`crate::MenuToolButton`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # `MenuToolButton` as `Buildable`</span>
     <span class="doccomment">///</span>
@@ -718,7 +718,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`MenuToolButtonExt`](trait@crate::prelude::MenuToolButtonExt), [`ToolButtonExt`](trait@crate::prelude::ToolButtonExt), [`ToolItemExt`](trait@crate::prelude::ToolItemExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`ActionableExt`](trait@crate::prelude::ActionableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::MenuToolButtonExt`], [`trait@crate::prelude::ToolButtonExt`], [`trait@crate::prelude::ToolItemExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuToolButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkMenuToolButton</span>, <span class="ident">ffi::GtkMenuToolButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">ToolButton</span>, <span class="ident">ToolItem</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -727,7 +727,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">MenuToolButton</span> {
-    <span class="doccomment">/// Creates a new [`MenuToolButton`](crate::MenuToolButton) using `icon_widget` as icon and</span>
+    <span class="doccomment">/// Creates a new [`crate::MenuToolButton`] using `icon_widget` as icon and</span>
     <span class="doccomment">/// `label` as label.</span>
     <span class="doccomment">/// ## `icon_widget`</span>
     <span class="doccomment">/// a widget that will be used as icon widget, or [`None`]</span>
@@ -736,7 +736,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`MenuToolButton`](crate::MenuToolButton)</span>
+    <span class="doccomment">/// the new [`crate::MenuToolButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_tool_button_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">icon_widget</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>, <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MenuToolButton</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1191,48 +1191,48 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`MenuToolButton`](struct@crate::MenuToolButton)</span>
+<span class="doccomment">/// [`struct@crate::MenuToolButton`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MenuToolButtonExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the [`Menu`](crate::Menu) associated with [`MenuToolButton`](crate::MenuToolButton).</span>
+    <span class="doccomment">/// Gets the [`crate::Menu`] associated with [`crate::MenuToolButton`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Menu`](crate::Menu) associated</span>
-    <span class="doccomment">///  with [`MenuToolButton`](crate::MenuToolButton)</span>
+    <span class="doccomment">/// the [`crate::Menu`] associated</span>
+    <span class="doccomment">///  with [`crate::MenuToolButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_tool_button_get_menu&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_menu&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">menu</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Sets the tooltip markup text to be used as tooltip for the arrow button</span>
-    <span class="doccomment">/// which pops up the menu. See [`ToolItem::set_tooltip_text()`](crate::ToolItem::set_tooltip_text()) for setting</span>
-    <span class="doccomment">/// a tooltip on the whole [`MenuToolButton`](crate::MenuToolButton).</span>
+    <span class="doccomment">/// which pops up the menu. See [`crate::ToolItem::set_tooltip_text()`] for setting</span>
+    <span class="doccomment">/// a tooltip on the whole [`crate::MenuToolButton`].</span>
     <span class="doccomment">/// ## `markup`</span>
     <span class="doccomment">/// markup text to be used as tooltip text for button’s arrow button</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_tool_button_set_arrow_tooltip_markup&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_arrow_tooltip_markup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
     <span class="doccomment">/// Sets the tooltip text to be used as tooltip for the arrow button which</span>
-    <span class="doccomment">/// pops up the menu. See [`ToolItem::set_tooltip_text()`](crate::ToolItem::set_tooltip_text()) for setting a tooltip</span>
-    <span class="doccomment">/// on the whole [`MenuToolButton`](crate::MenuToolButton).</span>
+    <span class="doccomment">/// pops up the menu. See [`crate::ToolItem::set_tooltip_text()`] for setting a tooltip</span>
+    <span class="doccomment">/// on the whole [`crate::MenuToolButton`].</span>
     <span class="doccomment">/// ## `text`</span>
     <span class="doccomment">/// text to be used as tooltip text for button’s arrow button</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_tool_button_set_arrow_tooltip_text&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_arrow_tooltip_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// Sets the [`Menu`](crate::Menu) that is popped up when the user clicks on the arrow.</span>
+    <span class="doccomment">/// Sets the [`crate::Menu`] that is popped up when the user clicks on the arrow.</span>
     <span class="doccomment">/// If `menu` is NULL, the arrow button becomes insensitive.</span>
     <span class="doccomment">/// ## `menu`</span>
-    <span class="doccomment">/// the [`Menu`](crate::Menu) associated with [`MenuToolButton`](crate::MenuToolButton)</span>
+    <span class="doccomment">/// the [`crate::Menu`] associated with [`crate::MenuToolButton`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_tool_button_set_menu&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_menu</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">menu</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// The ::show-menu signal is emitted before the menu is shown.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It can be used to populate the menu on demand, using</span>
-    <span class="doccomment">/// [`set_menu()`](Self::set_menu()).</span>
+    <span class="doccomment">/// [`Self::set_menu()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that even if you populate the menu dynamically in this way,</span>
-    <span class="doccomment">/// you must set an empty menu on the [`MenuToolButton`](crate::MenuToolButton) beforehand,</span>
+    <span class="doccomment">/// you must set an empty menu on the [`crate::MenuToolButton`] beforehand,</span>
     <span class="doccomment">/// since the arrow is made insensitive if the menu is not set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;show-menu&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_show_menu</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;

@@ -97,8 +97,8 @@
 
 <span class="kw">crate</span><span class="macro">::wrapper!</span> {
     <span class="doccomment">/// An opaque structure representing a checksumming operation.</span>
-    <span class="doccomment">/// To create a new GChecksum, use [`new()`](Self::new()). To free</span>
-    <span class="doccomment">/// a GChecksum, use [`free()`](Self::free()).</span>
+    <span class="doccomment">/// To create a new GChecksum, use [`Self::new()`]. To free</span>
+    <span class="doccomment">/// a GChecksum, use [`Self::free()`].</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Checksum</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::GChecksum</span><span class="op">&gt;</span>);
 
@@ -110,26 +110,26 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Checksum</span> {
-    <span class="doccomment">/// Creates a new [`Checksum`](crate::Checksum), using the checksum algorithm `checksum_type`.</span>
+    <span class="doccomment">/// Creates a new [`crate::Checksum`], using the checksum algorithm `checksum_type`.</span>
     <span class="doccomment">/// If the `checksum_type` is not known, [`None`] is returned.</span>
-    <span class="doccomment">/// A [`Checksum`](crate::Checksum) can be used to compute the checksum, or digest, of an</span>
+    <span class="doccomment">/// A [`crate::Checksum`] can be used to compute the checksum, or digest, of an</span>
     <span class="doccomment">/// arbitrary binary blob, using different hashing algorithms.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`Checksum`](crate::Checksum) works by feeding a binary blob through [`update()`](Self::update())</span>
+    <span class="doccomment">/// A [`crate::Checksum`] works by feeding a binary blob through [`Self::update()`]</span>
     <span class="doccomment">/// until there is data to be checked; the digest can then be extracted</span>
-    <span class="doccomment">/// using [`get_string()`](Self::get_string()), which will return the checksum as a</span>
-    <span class="doccomment">/// hexadecimal string; or [`get_digest()`](Self::get_digest()), which will return a</span>
-    <span class="doccomment">/// vector of raw bytes. Once either [`get_string()`](Self::get_string()) or</span>
-    <span class="doccomment">/// [`get_digest()`](Self::get_digest()) have been called on a [`Checksum`](crate::Checksum), the checksum</span>
-    <span class="doccomment">/// will be closed and it won&#39;t be possible to call [`update()`](Self::update())</span>
+    <span class="doccomment">/// using [`Self::get_string()`], which will return the checksum as a</span>
+    <span class="doccomment">/// hexadecimal string; or [`Self::get_digest()`], which will return a</span>
+    <span class="doccomment">/// vector of raw bytes. Once either [`Self::get_string()`] or</span>
+    <span class="doccomment">/// [`Self::get_digest()`] have been called on a [`crate::Checksum`], the checksum</span>
+    <span class="doccomment">/// will be closed and it won&#39;t be possible to call [`Self::update()`]</span>
     <span class="doccomment">/// on it anymore.</span>
     <span class="doccomment">/// ## `checksum_type`</span>
     <span class="doccomment">/// the desired type of checksum</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`Checksum`](crate::Checksum), or [`None`].</span>
-    <span class="doccomment">///  Use [`free()`](Self::free()) to free the memory allocated by it.</span>
+    <span class="doccomment">/// the newly created [`crate::Checksum`], or [`None`].</span>
+    <span class="doccomment">///  Use [`Self::free()`] to free the memory allocated by it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_checksum_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">checksum_type</span>: <span class="ident">ChecksumType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Checksum</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_checksum_new</span>(<span class="ident">checksum_type</span>.<span class="ident">into_glib</span>())) }
@@ -143,8 +143,8 @@
         }
     }
 
-    <span class="doccomment">/// Feeds `data` into an existing [`Checksum`](crate::Checksum). The checksum must still be</span>
-    <span class="doccomment">/// open, that is [`get_string()`](Self::get_string()) or [`get_digest()`](Self::get_digest()) must</span>
+    <span class="doccomment">/// Feeds `data` into an existing [`crate::Checksum`]. The checksum must still be</span>
+    <span class="doccomment">/// open, that is [`Self::get_string()`] or [`Self::get_digest()`] must</span>
     <span class="doccomment">/// not have been called on `self`.</span>
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// buffer used to compute the checksum</span>
@@ -160,7 +160,7 @@
 
     <span class="doccomment">/// Gets the length in bytes of digests of type `checksum_type`</span>
     <span class="doccomment">/// ## `checksum_type`</span>
-    <span class="doccomment">/// a [`ChecksumType`](crate::ChecksumType)</span>
+    <span class="doccomment">/// a [`crate::ChecksumType`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

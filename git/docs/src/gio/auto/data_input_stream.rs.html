@@ -522,12 +522,12 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Data input stream implements [`InputStream`](crate::InputStream) and includes functions for</span>
+    <span class="doccomment">/// Data input stream implements [`crate::InputStream`] and includes functions for</span>
     <span class="doccomment">/// reading structured data directly from a binary input stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DataInputStreamExt`](trait@crate::prelude::DataInputStreamExt), [`BufferedInputStreamExt`](trait@crate::prelude::BufferedInputStreamExt), [`FilterInputStreamExt`](trait@crate::prelude::FilterInputStreamExt), [`InputStreamExt`](trait@crate::prelude::InputStreamExt), [`trait@glib::object::ObjectExt`], [`SeekableExt`](trait@crate::prelude::SeekableExt), [`DataInputStreamExtManual`](trait@crate::prelude::DataInputStreamExtManual), [`InputStreamExtManual`](trait@crate::prelude::InputStreamExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::DataInputStreamExt`], [`trait@crate::prelude::BufferedInputStreamExt`], [`trait@crate::prelude::FilterInputStreamExt`], [`trait@crate::prelude::InputStreamExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::SeekableExt`], [`trait@crate::prelude::DataInputStreamExtManual`], [`trait@crate::prelude::InputStreamExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DataInputStream</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GDataInputStream</span>, <span class="ident">ffi::GDataInputStreamClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">BufferedInputStream</span>, <span class="ident">FilterInputStream</span>, <span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="ident">Seekable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -538,11 +538,11 @@
 <span class="kw">impl</span> <span class="ident">DataInputStream</span> {
     <span class="doccomment">/// Creates a new data input stream for the `base_stream`.</span>
     <span class="doccomment">/// ## `base_stream`</span>
-    <span class="doccomment">/// a [`InputStream`](crate::InputStream).</span>
+    <span class="doccomment">/// a [`crate::InputStream`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`DataInputStream`](crate::DataInputStream).</span>
+    <span class="doccomment">/// a new [`crate::DataInputStream`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_input_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InputStream</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">base_stream</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DataInputStream</span> {
         <span class="kw">unsafe</span> {
@@ -620,13 +620,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`DataInputStream`](struct@crate::DataInputStream)</span>
+<span class="doccomment">/// [`struct@crate::DataInputStream`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">DataInputStreamExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the byte order for the data input stream.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the `self`&#39;s current [`DataStreamByteOrder`](crate::DataStreamByteOrder).</span>
+    <span class="doccomment">/// the `self`&#39;s current [`crate::DataStreamByteOrder`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_input_stream_get_byte_order&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_byte_order&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">byte_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DataStreamByteOrder</span>;
@@ -635,14 +635,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DataStreamNewlineType`](crate::DataStreamNewlineType) for the given `self`.</span>
+    <span class="doccomment">/// [`crate::DataStreamNewlineType`] for the given `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_input_stream_get_newline_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_newline_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">newline_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DataStreamNewlineType</span>;
 
     <span class="doccomment">/// Reads an unsigned 8-bit/1-byte value from `self`.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -654,9 +654,9 @@
     <span class="doccomment">/// Reads a 16-bit/2-byte value from `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to get the correct byte order for this read operation,</span>
-    <span class="doccomment">/// see [`get_byte_order()`](Self::get_byte_order()) and [`set_byte_order()`](Self::set_byte_order()).</span>
+    <span class="doccomment">/// see [`Self::get_byte_order()`] and [`Self::set_byte_order()`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -668,13 +668,13 @@
     <span class="doccomment">/// Reads a signed 32-bit/4-byte value from `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to get the correct byte order for this read operation,</span>
-    <span class="doccomment">/// see [`get_byte_order()`](Self::get_byte_order()) and [`set_byte_order()`](Self::set_byte_order()).</span>
+    <span class="doccomment">/// see [`Self::get_byte_order()`] and [`Self::set_byte_order()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -686,13 +686,13 @@
     <span class="doccomment">/// Reads a 64-bit/8-byte value from `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to get the correct byte order for this read operation,</span>
-    <span class="doccomment">/// see [`get_byte_order()`](Self::get_byte_order()) and [`set_byte_order()`](Self::set_byte_order()).</span>
+    <span class="doccomment">/// see [`Self::get_byte_order()`] and [`Self::set_byte_order()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -704,9 +704,9 @@
     <span class="doccomment">/// Reads an unsigned 16-bit/2-byte value from `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to get the correct byte order for this read operation,</span>
-    <span class="doccomment">/// see [`get_byte_order()`](Self::get_byte_order()) and [`set_byte_order()`](Self::set_byte_order()).</span>
+    <span class="doccomment">/// see [`Self::get_byte_order()`] and [`Self::set_byte_order()`].</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -719,13 +719,13 @@
     <span class="doccomment">/// Reads an unsigned 32-bit/4-byte value from `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to get the correct byte order for this read operation,</span>
-    <span class="doccomment">/// see [`get_byte_order()`](Self::get_byte_order()) and [`set_byte_order()`](Self::set_byte_order()).</span>
+    <span class="doccomment">/// see [`Self::get_byte_order()`] and [`Self::set_byte_order()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -738,13 +738,13 @@
     <span class="doccomment">/// Reads an unsigned 64-bit/8-byte value from `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to get the correct byte order for this read operation,</span>
-    <span class="doccomment">/// see [`get_byte_order()`](Self::get_byte_order()).</span>
+    <span class="doccomment">/// see [`Self::get_byte_order()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `cancellable` is not [`None`], then the operation can be cancelled by</span>
     <span class="doccomment">/// triggering the cancellable object from another thread. If the operation</span>
-    <span class="doccomment">/// was cancelled, the error [`IOErrorEnum::Cancelled`] will be returned.</span>
+    <span class="doccomment">/// was cancelled, the error [`crate::IOErrorEnum::Cancelled`] will be returned.</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// optional [`Cancellable`](crate::Cancellable) object, [`None`] to ignore.</span>
+    <span class="doccomment">/// optional [`crate::Cancellable`] object, [`None`] to ignore.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -757,7 +757,7 @@
     <span class="doccomment">/// This function sets the byte order for the given `self`. All subsequent</span>
     <span class="doccomment">/// reads from the `self` will be read in the given `order`.</span>
     <span class="doccomment">/// ## `order`</span>
-    <span class="doccomment">/// a [`DataStreamByteOrder`](crate::DataStreamByteOrder) to set.</span>
+    <span class="doccomment">/// a [`crate::DataStreamByteOrder`] to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_input_stream_set_byte_order&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_byte_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">order</span>: <span class="ident">DataStreamByteOrder</span>);
 
@@ -767,7 +767,7 @@
     <span class="doccomment">/// chunk ends in &quot;CR&quot; we must read an additional byte to know if this is &quot;CR&quot; or</span>
     <span class="doccomment">/// &quot;CR LF&quot;, and this might block if there is no more data available.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// the type of new line return as [`DataStreamNewlineType`](crate::DataStreamNewlineType).</span>
+    <span class="doccomment">/// the type of new line return as [`crate::DataStreamNewlineType`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_data_input_stream_set_newline_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_newline_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">DataStreamNewlineType</span>);
 

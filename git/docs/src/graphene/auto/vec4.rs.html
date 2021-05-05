@@ -489,7 +489,7 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A structure capable of holding a vector with four dimensions: x, y, z, and w.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The contents of the [`Vec4`](crate::Vec4) structure are private and should</span>
+    <span class="doccomment">/// The contents of the [`crate::Vec4`] structure are private and should</span>
     <span class="doccomment">/// never be accessed directly.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Vec4</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::graphene_vec4_t</span><span class="op">&gt;</span>);
@@ -506,7 +506,7 @@
 <span class="kw">impl</span> <span class="ident">Vec4</span> {
     <span class="doccomment">/// Adds each component of the two given vectors.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the resulting vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_add&quot;</span>)]</span>
@@ -526,7 +526,7 @@
     <span class="doccomment">/// component of the second operand `b`, and places the results into the</span>
     <span class="doccomment">/// vector `res`.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the resulting vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_divide&quot;</span>)]</span>
@@ -544,7 +544,7 @@
 
     <span class="doccomment">/// Computes the dot product of the two given vectors.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -554,9 +554,9 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_vec4_dot</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">b</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Checks whether the two given [`Vec4`](crate::Vec4) are equal.</span>
+    <span class="doccomment">/// Checks whether the two given [`crate::Vec4`] are equal.</span>
     <span class="doccomment">/// ## `v2`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -615,7 +615,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::graphene_vec4_get_z</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Initializes a [`Vec4`](crate::Vec4) using the given values.</span>
+    <span class="doccomment">/// Initializes a [`crate::Vec4`] using the given values.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function can be called multiple times.</span>
     <span class="doccomment">/// ## `x`</span>
@@ -643,10 +643,10 @@
     <span class="comment">//    unsafe { TODO: call ffi:graphene_vec4_init_from_float() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Initializes a [`Vec4`](crate::Vec4) using the components of a</span>
-    <span class="doccomment">/// [`Vec2`](crate::Vec2) and the values of `z` and `w`.</span>
+    <span class="doccomment">/// Initializes a [`crate::Vec4`] using the components of a</span>
+    <span class="doccomment">/// [`crate::Vec2`] and the values of `z` and `w`.</span>
     <span class="doccomment">/// ## `src`</span>
-    <span class="doccomment">/// a [`Vec2`](crate::Vec2)</span>
+    <span class="doccomment">/// a [`crate::Vec2`]</span>
     <span class="doccomment">/// ## `z`</span>
     <span class="doccomment">/// the value for the third component of `self`</span>
     <span class="doccomment">/// ## `w`</span>
@@ -667,10 +667,10 @@
         }
     }
 
-    <span class="doccomment">/// Initializes a [`Vec4`](crate::Vec4) using the components of a</span>
-    <span class="doccomment">/// [`Vec3`](crate::Vec3) and the value of `w`.</span>
+    <span class="doccomment">/// Initializes a [`crate::Vec4`] using the components of a</span>
+    <span class="doccomment">/// [`crate::Vec3`] and the value of `w`.</span>
     <span class="doccomment">/// ## `src`</span>
-    <span class="doccomment">/// a [`Vec3`](crate::Vec3)</span>
+    <span class="doccomment">/// a [`crate::Vec3`]</span>
     <span class="doccomment">/// ## `w`</span>
     <span class="doccomment">/// the value for the fourth component of `self`</span>
     <span class="doccomment">///</span>
@@ -684,10 +684,10 @@
         }
     }
 
-    <span class="doccomment">/// Initializes a [`Vec4`](crate::Vec4) using the components of</span>
-    <span class="doccomment">/// another [`Vec4`](crate::Vec4).</span>
+    <span class="doccomment">/// Initializes a [`crate::Vec4`] using the components of</span>
+    <span class="doccomment">/// another [`crate::Vec4`].</span>
     <span class="doccomment">/// ## `src`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -701,7 +701,7 @@
 
     <span class="doccomment">/// Linearly interpolates `self` and `v2` using the given `factor`.</span>
     <span class="doccomment">/// ## `v2`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">/// ## `factor`</span>
     <span class="doccomment">/// the interpolation factor</span>
     <span class="doccomment">/// ## `res`</span>
@@ -722,7 +722,7 @@
         }
     }
 
-    <span class="doccomment">/// Computes the length of the given [`Vec4`](crate::Vec4).</span>
+    <span class="doccomment">/// Computes the length of the given [`crate::Vec4`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -735,7 +735,7 @@
     <span class="doccomment">/// Compares each component of the two given vectors and creates a</span>
     <span class="doccomment">/// vector that contains the maximum values.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the result vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_max&quot;</span>)]</span>
@@ -754,7 +754,7 @@
     <span class="doccomment">/// Compares each component of the two given vectors and creates a</span>
     <span class="doccomment">/// vector that contains the minimum values.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the result vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_min&quot;</span>)]</span>
@@ -772,7 +772,7 @@
 
     <span class="doccomment">/// Multiplies each component of the two given vectors.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the resulting vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_multiply&quot;</span>)]</span>
@@ -788,10 +788,10 @@
         }
     }
 
-    <span class="doccomment">/// Compares the two given [`Vec4`](crate::Vec4) vectors and checks</span>
+    <span class="doccomment">/// Compares the two given [`crate::Vec4`] vectors and checks</span>
     <span class="doccomment">/// whether their values are within the given `epsilon`.</span>
     <span class="doccomment">/// ## `v2`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">/// ## `epsilon`</span>
     <span class="doccomment">/// the threshold between the two vectors</span>
     <span class="doccomment">///</span>
@@ -809,7 +809,7 @@
         }
     }
 
-    <span class="doccomment">/// Negates the given [`Vec4`](crate::Vec4).</span>
+    <span class="doccomment">/// Negates the given [`crate::Vec4`].</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the result vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_negate&quot;</span>)]</span>
@@ -821,7 +821,7 @@
         }
     }
 
-    <span class="doccomment">/// Normalizes the given [`Vec4`](crate::Vec4).</span>
+    <span class="doccomment">/// Normalizes the given [`crate::Vec4`].</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the normalized</span>
     <span class="doccomment">///  vector</span>
@@ -852,7 +852,7 @@
     <span class="doccomment">/// corresponding component of the second operand `b` and places</span>
     <span class="doccomment">/// each result into the components of `res`.</span>
     <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a [`Vec4`](crate::Vec4)</span>
+    <span class="doccomment">/// a [`crate::Vec4`]</span>
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the resulting vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_vec4_subtract&quot;</span>)]</span>
@@ -873,7 +873,7 @@
     <span class="comment">//    unsafe { TODO: call ffi:graphene_vec4_to_float() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Retrieves a pointer to a [`Vec4`](crate::Vec4) with all its</span>
+    <span class="doccomment">/// Retrieves a pointer to a [`crate::Vec4`] with all its</span>
     <span class="doccomment">/// components set to 1.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -885,7 +885,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_one</span>()) }
     }
 
-    <span class="doccomment">/// Retrieves a pointer to a [`Vec4`](crate::Vec4) with its</span>
+    <span class="doccomment">/// Retrieves a pointer to a [`crate::Vec4`] with its</span>
     <span class="doccomment">/// components set to (0, 0, 0, 1).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -897,7 +897,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_w_axis</span>()) }
     }
 
-    <span class="doccomment">/// Retrieves a pointer to a [`Vec4`](crate::Vec4) with its</span>
+    <span class="doccomment">/// Retrieves a pointer to a [`crate::Vec4`] with its</span>
     <span class="doccomment">/// components set to (1, 0, 0, 0).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -909,7 +909,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_x_axis</span>()) }
     }
 
-    <span class="doccomment">/// Retrieves a pointer to a [`Vec4`](crate::Vec4) with its</span>
+    <span class="doccomment">/// Retrieves a pointer to a [`crate::Vec4`] with its</span>
     <span class="doccomment">/// components set to (0, 1, 0, 0).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -921,7 +921,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_y_axis</span>()) }
     }
 
-    <span class="doccomment">/// Retrieves a pointer to a [`Vec4`](crate::Vec4) with its</span>
+    <span class="doccomment">/// Retrieves a pointer to a [`crate::Vec4`] with its</span>
     <span class="doccomment">/// components set to (0, 0, 1, 0).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -933,7 +933,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::graphene_vec4_z_axis</span>()) }
     }
 
-    <span class="doccomment">/// Retrieves a pointer to a [`Vec4`](crate::Vec4) with all its</span>
+    <span class="doccomment">/// Retrieves a pointer to a [`crate::Vec4`] with all its</span>
     <span class="doccomment">/// components set to 0.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>

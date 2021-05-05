@@ -5,7 +5,7 @@
 The <code>GError</code> structure contains information about
 an error that has occurred.</p>
 </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.Error.html" title="struct glib::error::Error">Error</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../../src/glib/error.rs.html#32-100" title="goto source code">[src]</a></h3></summary><div class="impl-items"><h4 id="method.new" class="method"><code>pub fn <a href="#method.new" class="fnname">new</a>&lt;T:&nbsp;<a class="trait" href="trait.ErrorDomain.html" title="trait glib::error::ErrorDomain">ErrorDomain</a>&gt;(error: T, message: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="struct.Error.html" title="struct glib::error::Error">Error</a></code><a href="#method.new" class="anchor"></a><a class="srclink" href="../../src/glib/error.rs.html#48-56" title="goto source code">[src]</a></h4><div class="docblock"><p>Creates an error with supplied error enum variant and message.
-Creates a new <a href="struct.Error.html"><code>Error</code></a> with the given <code>domain</code> and <code>code</code>,
+Creates a new <a href="struct.Error.html" title="crate::Error"><code>crate::Error</code></a> with the given <code>domain</code> and <code>code</code>,
 and a message formatted with <code>format</code>.</p>
 <h2 id="domain" class="section-header"><a href="#domain"><code>domain</code></a></h2>
 <p>error domain</p>
@@ -14,7 +14,7 @@ and a message formatted with <code>format</code>.</p>
 <h2 id="format" class="section-header"><a href="#format"><code>format</code></a></h2>
 <p><code>printf()</code>-style format for error message</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>a new <a href="struct.Error.html"><code>Error</code></a></p>
+<p>a new <a href="struct.Error.html" title="crate::Error"><code>crate::Error</code></a></p>
 </div><h4 id="method.is" class="method"><code>pub fn <a href="#method.is" class="fnname">is</a>&lt;T:&nbsp;<a class="trait" href="trait.ErrorDomain.html" title="trait glib::error::ErrorDomain">ErrorDomain</a>&gt;(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.is" class="anchor"></a><a class="srclink" href="../../src/glib/error.rs.html#59-61" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks if the error domain matches <code>T</code>.</p>
 </div><h4 id="method.kind" class="method"><code>pub fn <a href="#method.kind" class="fnname">kind</a>&lt;T:&nbsp;<a class="trait" href="trait.ErrorDomain.html" title="trait glib::error::ErrorDomain">ErrorDomain</a>&gt;(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;T&gt;</code><a href="#method.kind" class="anchor"></a><a class="srclink" href="../../src/glib/error.rs.html#79-85" title="goto source code">[src]</a></h4><div class="docblock"><p>Tries to convert to a specific error enum.</p>
 <p>Returns <code>Some</code> if the error belongs to the enum’s error domain and

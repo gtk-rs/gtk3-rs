@@ -9509,18 +9509,18 @@
 <span class="doccomment">/// dimension.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Alignment only matters if the widget receives a “too large” allocation,</span>
-<span class="doccomment">/// for example if you packed the widget with the [`Widget:expand`](crate::Widget:expand)</span>
-<span class="doccomment">/// flag inside a [`Box`](crate::Box), then the widget might get extra space. If</span>
+<span class="doccomment">/// for example if you packed the widget with the [`crate::Widget:expand`]</span>
+<span class="doccomment">/// flag inside a [`crate::Box`], then the widget might get extra space. If</span>
 <span class="doccomment">/// you have for example a 16x16 icon inside a 32x32 space, the icon</span>
 <span class="doccomment">/// could be scaled and stretched, it could be centered, or it could be</span>
 <span class="doccomment">/// positioned to one side of the space.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Note that in horizontal context [`Start`](Self::Start) and [`End`](Self::End)</span>
+<span class="doccomment">/// Note that in horizontal context [`Self::Start`] and [`Self::End`]</span>
 <span class="doccomment">/// are interpreted relative to text direction.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// GTK_ALIGN_BASELINE support for it is optional for containers and widgets, and</span>
 <span class="doccomment">/// it is only supported for vertical alignment. When its not supported by</span>
-<span class="doccomment">/// a child or a container it is treated as [`Fill`](Self::Fill).</span>
+<span class="doccomment">/// a child or a container it is treated as [`Self::Fill`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkAlign&quot;</span>)]</span>
@@ -9734,15 +9734,15 @@
     }
 }
 
-<span class="doccomment">/// An enum for determining the page role inside the [`Assistant`](crate::Assistant). It&#39;s</span>
+<span class="doccomment">/// An enum for determining the page role inside the [`crate::Assistant`]. It&#39;s</span>
 <span class="doccomment">/// used to handle buttons sensitivity and visibility.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Note that an assistant needs to end its page flow with a page of type</span>
-<span class="doccomment">/// [`Confirm`](Self::Confirm), [`Summary`](Self::Summary) or</span>
-<span class="doccomment">/// [`Progress`](Self::Progress) to be correct.</span>
+<span class="doccomment">/// [`Self::Confirm`], [`Self::Summary`] or</span>
+<span class="doccomment">/// [`Self::Progress`] to be correct.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The Cancel button will only be shown if the page isn’t “committed”.</span>
-<span class="doccomment">/// See [`AssistantExt::commit()`](crate::AssistantExt::commit()) for details.</span>
+<span class="doccomment">/// See [`crate::prelude::AssistantExt::commit()`] for details.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkAssistantPageType&quot;</span>)]</span>
@@ -9771,7 +9771,7 @@
     <span class="ident">Progress</span>,
     <span class="doccomment">/// Used for when other page types are not</span>
     <span class="doccomment">///  appropriate. No buttons will be shown, and the application must</span>
-    <span class="doccomment">///  add its own buttons through [`AssistantExt::add_action_widget()`](crate::AssistantExt::add_action_widget()).</span>
+    <span class="doccomment">///  add its own buttons through [`crate::prelude::AssistantExt::add_action_widget()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_ASSISTANT_PAGE_CUSTOM&quot;</span>)]</span>
     <span class="ident">Custom</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -9866,7 +9866,7 @@
 <span class="doccomment">/// children in that row along a common typographical baseline. If</span>
 <span class="doccomment">/// the amount of verical space in the row is taller than the total</span>
 <span class="doccomment">/// requested height of the baseline-aligned children then it can use a</span>
-<span class="doccomment">/// [`BaselinePosition`](crate::BaselinePosition) to select where to put the baseline inside the</span>
+<span class="doccomment">/// [`crate::BaselinePosition`] to select where to put the baseline inside the</span>
 <span class="doccomment">/// extra availible space.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -9977,7 +9977,7 @@
     <span class="doccomment">/// Looks as if the content is coming out of the canvas</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BORDER_STYLE_OUTSET&quot;</span>)]</span>
     <span class="ident">Outset</span>,
-    <span class="doccomment">/// Same as [`None`](Self::None)</span>
+    <span class="doccomment">/// Same as [`Self::None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BORDER_STYLE_HIDDEN&quot;</span>)]</span>
     <span class="ident">Hidden</span>,
     <span class="doccomment">/// A series of round dots</span>
@@ -10096,28 +10096,28 @@
 }
 
 <span class="doccomment">/// Error codes that identify various errors that can occur while using</span>
-<span class="doccomment">/// [`Builder`](crate::Builder).</span>
+<span class="doccomment">/// [`crate::Builder`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkBuilderError&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">BuilderError</span> {
     <span class="doccomment">/// A type-func attribute didn’t name</span>
-    <span class="doccomment">///  a function that returns a [`glib::Type`](crate::glib::Type).</span>
+    <span class="doccomment">///  a function that returns a [`crate::glib::Type`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BUILDER_ERROR_INVALID_TYPE_FUNCTION&quot;</span>)]</span>
     <span class="ident">InvalidTypeFunction</span>,
-    <span class="doccomment">/// The input contained a tag that [`Builder`](crate::Builder)</span>
+    <span class="doccomment">/// The input contained a tag that [`crate::Builder`]</span>
     <span class="doccomment">///  can’t handle.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BUILDER_ERROR_UNHANDLED_TAG&quot;</span>)]</span>
     <span class="ident">UnhandledTag</span>,
     <span class="doccomment">/// An attribute that is required by</span>
-    <span class="doccomment">///  [`Builder`](crate::Builder) was missing.</span>
+    <span class="doccomment">///  [`crate::Builder`] was missing.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BUILDER_ERROR_MISSING_ATTRIBUTE&quot;</span>)]</span>
     <span class="ident">MissingAttribute</span>,
-    <span class="doccomment">/// [`Builder`](crate::Builder) found an attribute that</span>
+    <span class="doccomment">/// [`crate::Builder`] found an attribute that</span>
     <span class="doccomment">///  it doesn’t understand.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BUILDER_ERROR_INVALID_ATTRIBUTE&quot;</span>)]</span>
     <span class="ident">InvalidAttribute</span>,
-    <span class="doccomment">/// [`Builder`](crate::Builder) found a tag that</span>
+    <span class="doccomment">/// [`crate::Builder`] found a tag that</span>
     <span class="doccomment">///  it doesn’t understand.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BUILDER_ERROR_INVALID_TAG&quot;</span>)]</span>
     <span class="ident">InvalidTag</span>,
@@ -10125,7 +10125,7 @@
     <span class="doccomment">///  missing.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BUILDER_ERROR_MISSING_PROPERTY_VALUE&quot;</span>)]</span>
     <span class="ident">MissingPropertyValue</span>,
-    <span class="doccomment">/// [`Builder`](crate::Builder) couldn’t parse</span>
+    <span class="doccomment">/// [`crate::Builder`] couldn’t parse</span>
     <span class="doccomment">///  some attribute value.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BUILDER_ERROR_INVALID_VALUE&quot;</span>)]</span>
     <span class="ident">InvalidValue</span>,
@@ -10297,7 +10297,7 @@
     }
 }
 
-<span class="doccomment">/// Used to dictate the style that a [`ButtonBox`](crate::ButtonBox) uses to layout the buttons it</span>
+<span class="doccomment">/// Used to dictate the style that a [`crate::ButtonBox`] uses to layout the buttons it</span>
 <span class="doccomment">/// contains.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -10322,8 +10322,8 @@
     <span class="ident">Center</span>,
     <span class="doccomment">/// Buttons expand to fill the box. This entails giving</span>
     <span class="doccomment">///  buttons a &quot;linked&quot; appearance, making button sizes homogeneous, and</span>
-    <span class="doccomment">///  setting spacing to 0 (same as calling [`BoxExt::set_homogeneous()`](crate::BoxExt::set_homogeneous()) and</span>
-    <span class="doccomment">///  [`BoxExt::set_spacing()`](crate::BoxExt::set_spacing()) manually). Since 3.12.</span>
+    <span class="doccomment">///  setting spacing to 0 (same as calling [`crate::prelude::BoxExt::set_homogeneous()`] and</span>
+    <span class="doccomment">///  [`crate::prelude::BoxExt::set_spacing()`] manually). Since 3.12.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_BUTTONBOX_EXPAND&quot;</span>)]</span>
     <span class="ident">Expand</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -10414,7 +10414,7 @@
     }
 }
 
-<span class="doccomment">/// The role specifies the desired appearance of a [`ModelButton`](crate::ModelButton).</span>
+<span class="doccomment">/// The role specifies the desired appearance of a [`crate::ModelButton`].</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
@@ -10524,11 +10524,11 @@
 }
 
 <span class="doccomment">/// Prebuilt sets of buttons for the dialog. If</span>
-<span class="doccomment">/// none of these choices are appropriate, simply use [`None`](Self::None)</span>
-<span class="doccomment">/// then call [`DialogExt::add_buttons()`](crate::DialogExt::add_buttons()).</span>
+<span class="doccomment">/// none of these choices are appropriate, simply use [`Self::None`]</span>
+<span class="doccomment">/// then call [`crate::prelude::DialogExt::add_buttons()`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// &gt; Please note that [`Ok`](Self::Ok), [`YesNo`](Self::YesNo)</span>
-<span class="doccomment">/// &gt; and [`OkCancel`](Self::OkCancel) are discouraged by the</span>
+<span class="doccomment">/// &gt; Please note that [`Self::Ok`], [`Self::YesNo`]</span>
+<span class="doccomment">/// &gt; and [`Self::OkCancel`] are discouraged by the</span>
 <span class="doccomment">/// &gt; [GNOME Human Interface Guidelines](http://library.gnome.org/devel/hig-book/stable/).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -10833,7 +10833,7 @@
 }
 
 <span class="doccomment">/// Specifies which corner a child widget should be placed in when packed into</span>
-<span class="doccomment">/// a [`ScrolledWindow`](crate::ScrolledWindow). This is effectively the opposite of where the scroll</span>
+<span class="doccomment">/// a [`crate::ScrolledWindow`]. This is effectively the opposite of where the scroll</span>
 <span class="doccomment">/// bars are placed.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -11085,7 +11085,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkCssSectionType&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">CssSectionType</span> {
     <span class="doccomment">/// The section describes a complete document.</span>
-    <span class="doccomment">///  This section time is the only one where [`CssSection::get_parent()`](crate::CssSection::get_parent())</span>
+    <span class="doccomment">///  This section time is the only one where [`crate::CssSection::get_parent()`]</span>
     <span class="doccomment">///  might return [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_CSS_SECTION_DOCUMENT&quot;</span>)]</span>
     <span class="ident">Document</span>,
@@ -11214,7 +11214,7 @@
     }
 }
 
-<span class="doccomment">/// See also: [`Entry::delete-from-cursor`](crate::Entry::delete-from-cursor).</span>
+<span class="doccomment">/// See also: [`crate::Entry::delete-from-cursor`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkDeleteType&quot;</span>)]</span>
@@ -11456,7 +11456,7 @@
 
 <span class="doccomment">/// Gives an indication why a drag operation failed.</span>
 <span class="doccomment">/// The value can by obtained by connecting to the</span>
-<span class="doccomment">/// [`Widget::drag-failed`](crate::Widget::drag-failed) signal.</span>
+<span class="doccomment">/// [`crate::Widget::drag-failed`] signal.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkDragResult&quot;</span>)]</span>
@@ -11656,7 +11656,7 @@
     }
 }
 
-<span class="doccomment">/// Describes the state of a [`gdk::EventSequence`](crate::gdk::EventSequence) in a [`Gesture`](crate::Gesture).</span>
+<span class="doccomment">/// Describes the state of a [`crate::gdk::EventSequence`] in a [`crate::Gesture`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkEventSequenceState&quot;</span>)]</span>
@@ -11749,7 +11749,7 @@
     }
 }
 
-<span class="doccomment">/// Describes whether a [`FileChooser`](crate::FileChooser) is being used to open existing files</span>
+<span class="doccomment">/// Describes whether a [`crate::FileChooser`] is being used to open existing files</span>
 <span class="doccomment">/// or to save to a possibly new file.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -11857,7 +11857,7 @@
 }
 
 <span class="doccomment">/// Used as a return value of handlers for the</span>
-<span class="doccomment">/// [`FileChooser::confirm-overwrite`](crate::FileChooser::confirm-overwrite) signal of a [`FileChooser`](crate::FileChooser). This</span>
+<span class="doccomment">/// [`crate::FileChooser::confirm-overwrite`] signal of a [`crate::FileChooser`]. This</span>
 <span class="doccomment">/// value determines whether the file chooser will present the stock</span>
 <span class="doccomment">/// confirmation dialog, accept the user’s choice of a filename, or</span>
 <span class="doccomment">/// let the user choose another filename.</span>
@@ -11957,7 +11957,7 @@
 }
 
 <span class="doccomment">/// These identify the various errors that can occur while calling</span>
-<span class="doccomment">/// [`FileChooser`](crate::FileChooser) functions.</span>
+<span class="doccomment">/// [`crate::FileChooser`] functions.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkFileChooserError&quot;</span>)]</span>
@@ -12439,11 +12439,11 @@
     }
 }
 
-<span class="doccomment">/// Describes the image data representation used by a [`Image`](crate::Image). If you</span>
+<span class="doccomment">/// Describes the image data representation used by a [`crate::Image`]. If you</span>
 <span class="doccomment">/// want to get the image from the widget, you can only get the</span>
 <span class="doccomment">/// currently-stored representation. e.g. if the</span>
-<span class="doccomment">/// [`ImageExt::get_storage_type()`](crate::ImageExt::get_storage_type()) returns [`Pixbuf`](Self::Pixbuf), then you can</span>
-<span class="doccomment">/// call [`ImageExt::get_pixbuf()`](crate::ImageExt::get_pixbuf()) but not [`Image::get_stock()`](crate::Image::get_stock()). For empty</span>
+<span class="doccomment">/// [`crate::prelude::ImageExt::get_storage_type()`] returns [`Self::Pixbuf`], then you can</span>
+<span class="doccomment">/// call [`crate::prelude::ImageExt::get_pixbuf()`] but not [`crate::Image::get_stock()`]. For empty</span>
 <span class="doccomment">/// images, you can request any storage type (call any of the &quot;get&quot;</span>
 <span class="doccomment">/// functions), but they will all return [`None`] values.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
@@ -12453,27 +12453,27 @@
     <span class="doccomment">/// there is no image displayed by the widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_IMAGE_EMPTY&quot;</span>)]</span>
     <span class="ident">Empty</span>,
-    <span class="doccomment">/// the widget contains a [`gdk_pixbuf::Pixbuf`](crate::gdk_pixbuf::Pixbuf)</span>
+    <span class="doccomment">/// the widget contains a [`crate::gdk_pixbuf::Pixbuf`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_IMAGE_PIXBUF&quot;</span>)]</span>
     <span class="ident">Pixbuf</span>,
     <span class="doccomment">/// the widget contains a [stock item name][gtkstock]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_IMAGE_STOCK&quot;</span>)]</span>
     <span class="ident">Stock</span>,
-    <span class="doccomment">/// the widget contains a [`IconSet`](crate::IconSet)</span>
+    <span class="doccomment">/// the widget contains a [`crate::IconSet`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_IMAGE_ICON_SET&quot;</span>)]</span>
     <span class="ident">IconSet</span>,
-    <span class="doccomment">/// the widget contains a [`gdk_pixbuf::PixbufAnimation`](crate::gdk_pixbuf::PixbufAnimation)</span>
+    <span class="doccomment">/// the widget contains a [`crate::gdk_pixbuf::PixbufAnimation`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_IMAGE_ANIMATION&quot;</span>)]</span>
     <span class="ident">Animation</span>,
     <span class="doccomment">/// the widget contains a named icon.</span>
     <span class="doccomment">///  This image type was added in GTK+ 2.6</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_IMAGE_ICON_NAME&quot;</span>)]</span>
     <span class="ident">IconName</span>,
-    <span class="doccomment">/// the widget contains a [`gio::Icon`](crate::gio::Icon).</span>
+    <span class="doccomment">/// the widget contains a [`crate::gio::Icon`].</span>
     <span class="doccomment">///  This image type was added in GTK+ 2.14</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_IMAGE_GICON&quot;</span>)]</span>
     <span class="ident">Gicon</span>,
-    <span class="doccomment">/// the widget contains a [`cairo::Surface`](crate::cairo::Surface).</span>
+    <span class="doccomment">/// the widget contains a [`crate::cairo::Surface`].</span>
     <span class="doccomment">///  This image type was added in GTK+ 3.10</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_IMAGE_SURFACE&quot;</span>)]</span>
     <span class="ident">Surface</span>,
@@ -12582,8 +12582,8 @@
 <span class="doccomment">/// application is expected to validate the entry contents, even if</span>
 <span class="doccomment">/// it specified a purpose.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The difference between [`Digits`](Self::Digits) and</span>
-<span class="doccomment">/// [`Number`](Self::Number) is that the former accepts only digits</span>
+<span class="doccomment">/// The difference between [`Self::Digits`] and</span>
+<span class="doccomment">/// [`Self::Number`] is that the former accepts only digits</span>
 <span class="doccomment">/// while the latter also some punctuation (like commas or points, plus,</span>
 <span class="doccomment">/// minus) and “e” or “E” as in 3.14E+000.</span>
 <span class="doccomment">///</span>
@@ -12617,10 +12617,10 @@
     <span class="doccomment">/// Edited field expects the name of a person</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_INPUT_PURPOSE_NAME&quot;</span>)]</span>
     <span class="ident">Name</span>,
-    <span class="doccomment">/// Like [`FreeForm`](Self::FreeForm), but characters are hidden</span>
+    <span class="doccomment">/// Like [`Self::FreeForm`], but characters are hidden</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_INPUT_PURPOSE_PASSWORD&quot;</span>)]</span>
     <span class="ident">Password</span>,
-    <span class="doccomment">/// Like [`Digits`](Self::Digits), but characters are hidden</span>
+    <span class="doccomment">/// Like [`Self::Digits`], but characters are hidden</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_INPUT_PURPOSE_PIN&quot;</span>)]</span>
     <span class="ident">Pin</span>,
     <span class="doccomment">/// Allow any character, in addition to control codes</span>
@@ -12729,8 +12729,8 @@
     }
 }
 
-<span class="doccomment">/// Used for justifying the text inside a [`Label`](crate::Label) widget. (See also</span>
-<span class="doccomment">/// [`Alignment`](crate::Alignment)).</span>
+<span class="doccomment">/// Used for justifying the text inside a [`crate::Label`] widget. (See also</span>
+<span class="doccomment">/// [`crate::Alignment`]).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkJustification&quot;</span>)]</span>
@@ -12829,7 +12829,7 @@
     }
 }
 
-<span class="doccomment">/// Describes how [`LevelBar`](crate::LevelBar) contents should be rendered.</span>
+<span class="doccomment">/// Describes how [`crate::LevelBar`] contents should be rendered.</span>
 <span class="doccomment">/// Note that this enumeration could be extended with additional modes</span>
 <span class="doccomment">/// in the future.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
@@ -13651,8 +13651,8 @@
 }
 
 <span class="doccomment">/// Represents the orientation of widgets and other objects which can be switched</span>
-<span class="doccomment">/// between horizontal and vertical orientation on the fly, like [`Toolbar`](crate::Toolbar) or</span>
-<span class="doccomment">/// [`GesturePan`](crate::GesturePan).</span>
+<span class="doccomment">/// between horizontal and vertical orientation on the fly, like [`crate::Toolbar`] or</span>
+<span class="doccomment">/// [`crate::GesturePan`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkOrientation&quot;</span>)]</span>
@@ -13839,8 +13839,8 @@
     }
 }
 
-<span class="doccomment">/// Represents the packing location [`Box`](crate::Box) children. (See: [`VBox`](crate::VBox),</span>
-<span class="doccomment">/// [`HBox`](crate::HBox), and [`ButtonBox`](crate::ButtonBox)).</span>
+<span class="doccomment">/// Represents the packing location [`crate::Box`] children. (See: [`crate::VBox`],</span>
+<span class="doccomment">/// [`crate::HBox`], and [`crate::ButtonBox`]).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkPackType&quot;</span>)]</span>
@@ -14036,7 +14036,7 @@
     }
 }
 
-<span class="doccomment">/// See also [`PrintSettings::set_orientation()`](crate::PrintSettings::set_orientation()).</span>
+<span class="doccomment">/// See also [`crate::PrintSettings::set_orientation()`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkPageOrientation&quot;</span>)]</span>
@@ -14228,7 +14228,7 @@
     }
 }
 
-<span class="doccomment">/// Describes the panning direction of a [`GesturePan`](crate::GesturePan)</span>
+<span class="doccomment">/// Describes the panning direction of a [`crate::GesturePan`]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkPanDirection&quot;</span>)]</span>
@@ -14338,7 +14338,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_POLICY_ALWAYS&quot;</span>)]</span>
     <span class="ident">Always</span>,
     <span class="doccomment">/// The scrollbar will appear and disappear as necessary.</span>
-    <span class="doccomment">///  For example, when all of a [`TreeView`](crate::TreeView) can not be seen.</span>
+    <span class="doccomment">///  For example, when all of a [`crate::TreeView`] can not be seen.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_POLICY_AUTOMATIC&quot;</span>)]</span>
     <span class="ident">Automatic</span>,
     <span class="doccomment">/// The scrollbar should never appear. In this mode the</span>
@@ -14539,8 +14539,8 @@
 }
 
 <span class="doccomment">/// Describes which edge of a widget a certain feature is positioned at, e.g. the</span>
-<span class="doccomment">/// tabs of a [`Notebook`](crate::Notebook), the handle of a [`HandleBox`](crate::HandleBox) or the label of a</span>
-<span class="doccomment">/// [`Scale`](crate::Scale).</span>
+<span class="doccomment">/// tabs of a [`crate::Notebook`], the handle of a [`crate::HandleBox`] or the label of a</span>
+<span class="doccomment">/// [`crate::Scale`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkPositionType&quot;</span>)]</span>
@@ -14639,7 +14639,7 @@
     }
 }
 
-<span class="doccomment">/// See also [`PrintSettings::set_duplex()`](crate::PrintSettings::set_duplex()).</span>
+<span class="doccomment">/// See also [`crate::PrintSettings::set_duplex()`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkPrintDuplex&quot;</span>)]</span>
@@ -14856,7 +14856,7 @@
     }
 }
 
-<span class="doccomment">/// The `action` parameter to [`PrintOperationExt::run()`](crate::PrintOperationExt::run())</span>
+<span class="doccomment">/// The `action` parameter to [`crate::prelude::PrintOperationExt::run()`]</span>
 <span class="doccomment">/// determines what action the print operation should perform.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -14958,7 +14958,7 @@
     }
 }
 
-<span class="doccomment">/// A value of this type is returned by [`PrintOperationExt::run()`](crate::PrintOperationExt::run()).</span>
+<span class="doccomment">/// A value of this type is returned by [`crate::prelude::PrintOperationExt::run()`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkPrintOperationResult&quot;</span>)]</span>
@@ -15158,7 +15158,7 @@
     }
 }
 
-<span class="doccomment">/// See also [`PrintSettings::set_quality()`](crate::PrintSettings::set_quality()).</span>
+<span class="doccomment">/// See also [`crate::PrintSettings::set_quality()`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkPrintQuality&quot;</span>)]</span>
@@ -15393,13 +15393,13 @@
     }
 }
 
-<span class="doccomment">/// Describes the stage at which events are fed into a [`EventController`](crate::EventController).</span>
+<span class="doccomment">/// Describes the stage at which events are fed into a [`crate::EventController`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkPropagationPhase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PropagationPhase</span> {
     <span class="doccomment">/// Events are not delivered automatically. Those can be</span>
-    <span class="doccomment">///  manually fed through [`EventControllerExt::handle_event()`](crate::EventControllerExt::handle_event()). This should</span>
+    <span class="doccomment">///  manually fed through [`crate::prelude::EventControllerExt::handle_event()`]. This should</span>
     <span class="doccomment">///  only be used when full control about when, or whether the controller</span>
     <span class="doccomment">///  handles the event is needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_PHASE_NONE&quot;</span>)]</span>
@@ -15503,7 +15503,7 @@
 }
 
 <span class="doccomment">/// These identify the various errors that can occur while calling</span>
-<span class="doccomment">/// [`RecentChooser`](crate::RecentChooser) functions.</span>
+<span class="doccomment">/// [`crate::RecentChooser`] functions.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkRecentChooserError&quot;</span>)]</span>
@@ -15611,7 +15611,7 @@
     }
 }
 
-<span class="doccomment">/// Error codes for [`RecentManager`](crate::RecentManager) operations</span>
+<span class="doccomment">/// Error codes for [`crate::RecentManager`] operations</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkRecentManagerError&quot;</span>)]</span>
@@ -15778,7 +15778,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_RECENT_SORT_LRU&quot;</span>)]</span>
     <span class="ident">Lru</span>,
     <span class="doccomment">/// Sort the returned list using a custom sorting</span>
-    <span class="doccomment">///  function passed using [`RecentChooser::set_sort_func()`](crate::RecentChooser::set_sort_func()).</span>
+    <span class="doccomment">///  function passed using [`crate::RecentChooser::set_sort_func()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_RECENT_SORT_CUSTOM&quot;</span>)]</span>
     <span class="ident">Custom</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -15863,7 +15863,7 @@
     }
 }
 
-<span class="doccomment">/// Indicated the relief to be drawn around a [`Button`](crate::Button).</span>
+<span class="doccomment">/// Indicated the relief to be drawn around a [`crate::Button`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkReliefStyle&quot;</span>)]</span>
@@ -15871,7 +15871,7 @@
     <span class="doccomment">/// Draw a normal relief.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_RELIEF_NORMAL&quot;</span>)]</span>
     <span class="ident">Normal</span>,
-    <span class="doccomment">/// A half relief. Deprecated in 3.14, does the same as [`Normal`](Self::Normal)</span>
+    <span class="doccomment">/// A half relief. Deprecated in 3.14, does the same as [`Self::Normal`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_RELIEF_HALF&quot;</span>)]</span>
     <span class="ident">Half</span>,
     <span class="doccomment">/// No relief.</span>
@@ -16049,7 +16049,7 @@
 }
 
 <span class="doccomment">/// These enumeration values describe the possible transitions</span>
-<span class="doccomment">/// when the child of a [`Revealer`](crate::Revealer) widget is shown or hidden.</span>
+<span class="doccomment">/// when the child of a [`crate::Revealer`] widget is shown or hidden.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkRevealerTransitionType&quot;</span>)]</span>
@@ -16543,7 +16543,7 @@
     <span class="doccomment">/// Exactly one element is selected.</span>
     <span class="doccomment">///  In some circumstances, such as initially or during a search</span>
     <span class="doccomment">///  operation, it’s possible for no element to be selected with</span>
-    <span class="doccomment">///  [`Browse`](Self::Browse). What is really enforced is that the user</span>
+    <span class="doccomment">///  [`Self::Browse`]. What is really enforced is that the user</span>
     <span class="doccomment">///  can’t deselect a currently selected element except by selecting</span>
     <span class="doccomment">///  another element.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_SELECTION_BROWSE&quot;</span>)]</span>
@@ -16731,10 +16731,10 @@
     }
 }
 
-<span class="doccomment">/// Used to change the appearance of an outline typically provided by a [`Frame`](crate::Frame).</span>
+<span class="doccomment">/// Used to change the appearance of an outline typically provided by a [`crate::Frame`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Note that many themes do not differentiate the appearance of the</span>
-<span class="doccomment">/// various shadow types: Either their is no visible shadow ([`None`](Self::None)),</span>
+<span class="doccomment">/// various shadow types: Either their is no visible shadow ([`Self::None`]),</span>
 <span class="doccomment">/// or there is (any other value).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -16848,7 +16848,7 @@
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkShortcutType&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ShortcutType</span> {
-    <span class="doccomment">/// The shortcut is a keyboard accelerator. The [`ShortcutsShortcut:accelerator`](crate::ShortcutsShortcut:accelerator)</span>
+    <span class="doccomment">/// The shortcut is a keyboard accelerator. The [`crate::ShortcutsShortcut:accelerator`]</span>
     <span class="doccomment">///  property will be used.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_SHORTCUT_ACCELERATOR&quot;</span>)]</span>
     <span class="ident">Accelerator</span>,
@@ -16870,7 +16870,7 @@
     <span class="doccomment">/// The shortcut is a two-finger swipe gesture. GTK+ provides an icon and subtitle.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_SHORTCUT_GESTURE_TWO_FINGER_SWIPE_RIGHT&quot;</span>)]</span>
     <span class="ident">GestureTwoFingerSwipeRight</span>,
-    <span class="doccomment">/// The shortcut is a gesture. The [`ShortcutsShortcut:icon`](crate::ShortcutsShortcut:icon) property will be</span>
+    <span class="doccomment">/// The shortcut is a gesture. The [`crate::ShortcutsShortcut:icon`] property will be</span>
     <span class="doccomment">///  used.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_SHORTCUT_GESTURE&quot;</span>)]</span>
     <span class="ident">Gesture</span>,
@@ -17267,16 +17267,16 @@
 
 <span class="doccomment">/// The spin button update policy determines whether the spin button displays</span>
 <span class="doccomment">/// values even if they are outside the bounds of its adjustment.</span>
-<span class="doccomment">/// See [`SpinButtonExt::set_update_policy()`](crate::SpinButtonExt::set_update_policy()).</span>
+<span class="doccomment">/// See [`crate::prelude::SpinButtonExt::set_update_policy()`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkSpinButtonUpdatePolicy&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">SpinButtonUpdatePolicy</span> {
-    <span class="doccomment">/// When refreshing your [`SpinButton`](crate::SpinButton), the value is</span>
+    <span class="doccomment">/// When refreshing your [`crate::SpinButton`], the value is</span>
     <span class="doccomment">///  always displayed</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_UPDATE_ALWAYS&quot;</span>)]</span>
     <span class="ident">Always</span>,
-    <span class="doccomment">/// When refreshing your [`SpinButton`](crate::SpinButton), the value is</span>
+    <span class="doccomment">/// When refreshing your [`crate::SpinButton`], the value is</span>
     <span class="doccomment">///  only displayed if it is valid within the bounds of the spin button&#39;s</span>
     <span class="doccomment">///  adjustment</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_UPDATE_IF_VALID&quot;</span>)]</span>
@@ -17358,7 +17358,7 @@
 }
 
 <span class="doccomment">/// The values of the `SpinType` enumeration are used to specify the</span>
-<span class="doccomment">/// change to make in [`SpinButtonExt::spin()`](crate::SpinButtonExt::spin()).</span>
+<span class="doccomment">/// change to make in [`crate::prelude::SpinButtonExt::spin()`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkSpinType&quot;</span>)]</span>
@@ -17476,7 +17476,7 @@
 }
 
 <span class="doccomment">/// These enumeration values describe the possible transitions</span>
-<span class="doccomment">/// between pages in a [`Stack`](crate::Stack) widget.</span>
+<span class="doccomment">/// between pages in a [`crate::Stack`] widget.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// New values may be added to this enumeration over time.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
@@ -17767,7 +17767,7 @@
 }
 
 <span class="doccomment">/// Granularity types that extend the text selection. Use the</span>
-<span class="doccomment">/// [`TextView::extend-selection`](crate::TextView::extend-selection) signal to customize the selection.</span>
+<span class="doccomment">/// [`crate::TextView::extend-selection`] signal to customize the selection.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
@@ -17872,16 +17872,16 @@
     }
 }
 
-<span class="doccomment">/// Used to reference the layers of [`TextView`](crate::TextView) for the purpose of customized</span>
+<span class="doccomment">/// Used to reference the layers of [`crate::TextView`] for the purpose of customized</span>
 <span class="doccomment">/// drawing with the ::draw_layer vfunc.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkTextViewLayer&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TextViewLayer</span> {
-    <span class="doccomment">/// Old deprecated layer, use [`BelowText`](Self::BelowText) instead</span>
+    <span class="doccomment">/// Old deprecated layer, use [`Self::BelowText`] instead</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_TEXT_VIEW_LAYER_BELOW&quot;</span>)]</span>
     <span class="ident">Below</span>,
-    <span class="doccomment">/// Old deprecated layer, use [`AboveText`](Self::AboveText) instead</span>
+    <span class="doccomment">/// Old deprecated layer, use [`Self::AboveText`] instead</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_TEXT_VIEW_LAYER_ABOVE&quot;</span>)]</span>
     <span class="ident">Above</span>,
     <span class="doccomment">/// The layer rendered below the text (but above the background). Since: 3.20</span>
@@ -17972,7 +17972,7 @@
     }
 }
 
-<span class="doccomment">/// Used to reference the parts of [`TextView`](crate::TextView).</span>
+<span class="doccomment">/// Used to reference the parts of [`crate::TextView`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkTextWindowType&quot;</span>)]</span>
@@ -18089,7 +18089,7 @@
     }
 }
 
-<span class="doccomment">/// Used to customize the appearance of a [`Toolbar`](crate::Toolbar). Note that</span>
+<span class="doccomment">/// Used to customize the appearance of a [`crate::Toolbar`]. Note that</span>
 <span class="doccomment">/// setting the toolbar style overrides the user’s preferences</span>
 <span class="doccomment">/// for the default toolbar style. Note that if the button has only</span>
 <span class="doccomment">/// a label set and GTK_TOOLBAR_ICONS is used, the label will be</span>
@@ -18194,7 +18194,7 @@
 }
 
 <span class="doccomment">/// The sizing method the column uses to determine its width. Please note</span>
-<span class="doccomment">/// that [`Autosize`](Self::Autosize) are inefficient for large views, and</span>
+<span class="doccomment">/// that [`Self::Autosize`] are inefficient for large views, and</span>
 <span class="doccomment">/// can make columns appear choppy.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -18486,7 +18486,7 @@
     }
 }
 
-<span class="doccomment">/// See also [`PrintSettings::set_paper_width()`](crate::PrintSettings::set_paper_width()).</span>
+<span class="doccomment">/// See also [`crate::PrintSettings::set_paper_width()`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkUnit&quot;</span>)]</span>
@@ -18673,7 +18673,7 @@
 }
 
 <span class="doccomment">/// Window placement can be influenced using this enumeration. Note that</span>
-<span class="doccomment">/// using [`CenterAlways`](Self::CenterAlways) is almost always a bad idea.</span>
+<span class="doccomment">/// using [`Self::CenterAlways`] is almost always a bad idea.</span>
 <span class="doccomment">/// It won’t necessarily work well with all window managers or on all windowing systems.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -18692,7 +18692,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_WIN_POS_CENTER_ALWAYS&quot;</span>)]</span>
     <span class="ident">CenterAlways</span>,
     <span class="doccomment">/// Center the window on its transient</span>
-    <span class="doccomment">///  parent (see [``GtkWindowExt`::set_transient_for()`](crate::`GtkWindowExt`::set_transient_for())).</span>
+    <span class="doccomment">///  parent (see [`crate::prelude::`GtkWindowExt`::set_transient_for()`]).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_WIN_POS_CENTER_ON_PARENT&quot;</span>)]</span>
     <span class="ident">CenterOnParent</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -18780,19 +18780,19 @@
     }
 }
 
-<span class="doccomment">/// A [`Window`](crate::Window) can be one of these types. Most things you’d consider a</span>
-<span class="doccomment">/// “window” should have type [`Toplevel`](Self::Toplevel); windows with this type</span>
+<span class="doccomment">/// A [`crate::Window`] can be one of these types. Most things you’d consider a</span>
+<span class="doccomment">/// “window” should have type [`Self::Toplevel`]; windows with this type</span>
 <span class="doccomment">/// are managed by the window manager and have a frame by default (call</span>
-<span class="doccomment">/// [``GtkWindowExt`::set_decorated()`](crate::`GtkWindowExt`::set_decorated()) to toggle the frame). Windows with type</span>
-<span class="doccomment">/// [`Popup`](Self::Popup) are ignored by the window manager; window manager</span>
+<span class="doccomment">/// [`crate::prelude::`GtkWindowExt`::set_decorated()`] to toggle the frame). Windows with type</span>
+<span class="doccomment">/// [`Self::Popup`] are ignored by the window manager; window manager</span>
 <span class="doccomment">/// keybindings won’t work on them, the window manager won’t decorate the</span>
 <span class="doccomment">/// window with a frame, many GTK+ features that rely on the window</span>
 <span class="doccomment">/// manager will not work (e.g. resize grips and</span>
-<span class="doccomment">/// maximization/minimization). [`Popup`](Self::Popup) is used to implement</span>
-<span class="doccomment">/// widgets such as [`Menu`](crate::Menu) or tooltips that you normally don’t think of</span>
-<span class="doccomment">/// as windows per se. Nearly all windows should be [`Toplevel`](Self::Toplevel).</span>
-<span class="doccomment">/// In particular, do not use [`Popup`](Self::Popup) just to turn off</span>
-<span class="doccomment">/// the window borders; use [``GtkWindowExt`::set_decorated()`](crate::`GtkWindowExt`::set_decorated()) for that.</span>
+<span class="doccomment">/// maximization/minimization). [`Self::Popup`] is used to implement</span>
+<span class="doccomment">/// widgets such as [`crate::Menu`] or tooltips that you normally don’t think of</span>
+<span class="doccomment">/// as windows per se. Nearly all windows should be [`Self::Toplevel`].</span>
+<span class="doccomment">/// In particular, do not use [`Self::Popup`] just to turn off</span>
+<span class="doccomment">/// the window borders; use [`crate::prelude::`GtkWindowExt`::set_decorated()`] for that.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GtkWindowType&quot;</span>)]</span>

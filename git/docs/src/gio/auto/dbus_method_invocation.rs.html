@@ -335,13 +335,13 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Instances of the [`DBusMethodInvocation`](crate::DBusMethodInvocation) class are used when</span>
+    <span class="doccomment">/// Instances of the [`crate::DBusMethodInvocation`] class are used when</span>
     <span class="doccomment">/// handling D-Bus method calls. It provides a way to asynchronously</span>
     <span class="doccomment">/// return results and errors.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The normal way to obtain a [`DBusMethodInvocation`](crate::DBusMethodInvocation) object is to receive</span>
+    <span class="doccomment">/// The normal way to obtain a [`crate::DBusMethodInvocation`] object is to receive</span>
     <span class="doccomment">/// it as an argument to the `handle_method_call()` function in a</span>
-    <span class="doccomment">/// [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) that was passed to [`DBusConnection::register_object()`](crate::DBusConnection::register_object()).</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceVTable`] that was passed to [`crate::DBusConnection::register_object()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
@@ -354,11 +354,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DBusMethodInvocation</span> {
-    <span class="doccomment">/// Gets the [`DBusConnection`](crate::DBusConnection) the method was invoked on.</span>
+    <span class="doccomment">/// Gets the [`crate::DBusConnection`] the method was invoked on.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DBusConnection`](crate::DBusConnection). Do not free, it is owned by `self`.</span>
+    <span class="doccomment">/// A [`crate::DBusConnection`]. Do not free, it is owned by `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_method_invocation_get_connection&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_connection&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusConnection</span> {
@@ -374,7 +374,7 @@
     <span class="doccomment">/// If this method call is a property Get, Set or GetAll call that has</span>
     <span class="doccomment">/// been redirected to the method call handler then</span>
     <span class="doccomment">/// &quot;org.freedesktop.DBus.Properties&quot; will be returned. See</span>
-    <span class="doccomment">/// [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) for more information.</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceVTable`] for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -389,10 +389,10 @@
         }
     }
 
-    <span class="doccomment">/// Gets the [`DBusMessage`](crate::DBusMessage) for the method invocation. This is useful if</span>
+    <span class="doccomment">/// Gets the [`crate::DBusMessage`] for the method invocation. This is useful if</span>
     <span class="doccomment">/// you need to use low-level protocol features, such as UNIX file</span>
     <span class="doccomment">/// descriptor passing, that cannot be properly expressed in the</span>
-    <span class="doccomment">/// [`glib::Variant`](crate::glib::Variant) API.</span>
+    <span class="doccomment">/// [`crate::glib::Variant`] API.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See this [server][gdbus-server] and [client][gdbus-unix-fd-client]</span>
     <span class="doccomment">/// for an example of how to use this low-level API to send and receive</span>
@@ -400,7 +400,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DBusMessage`](crate::DBusMessage). Do not free, it is owned by `self`.</span>
+    <span class="doccomment">/// [`crate::DBusMessage`]. Do not free, it is owned by `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_method_invocation_get_message&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_message&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusMessage</span> {
@@ -415,12 +415,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this method invocation is a property Get, Set or GetAll call that</span>
     <span class="doccomment">/// has been redirected to the method call handler then [`None`] will be</span>
-    <span class="doccomment">/// returned. See [`get_property_info()`](Self::get_property_info()) and</span>
-    <span class="doccomment">/// [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) for more information.</span>
+    <span class="doccomment">/// returned. See [`Self::get_property_info()`] and</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceVTable`] for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DBusMethodInfo`](crate::DBusMethodInfo) or [`None`]. Do not free, it is owned by `self`.</span>
+    <span class="doccomment">/// A [`crate::DBusMethodInfo`] or [`None`]. Do not free, it is owned by `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_method_invocation_get_method_info&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_method_info&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">method_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DBusMethodInfo</span><span class="op">&gt;</span> {
@@ -466,7 +466,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`glib::Variant`](crate::glib::Variant) tuple. Do not unref this because it is owned by `self`.</span>
+    <span class="doccomment">/// A [`crate::glib::Variant`] tuple. Do not unref this because it is owned by `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_method_invocation_get_parameters&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_parameters&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parameters</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Variant</span> {
@@ -485,13 +485,13 @@
     <span class="doccomment">/// handler for an object on account of its `property_get()` or</span>
     <span class="doccomment">/// `property_set()` vtable pointers being unset.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) for more information.</span>
+    <span class="doccomment">/// See [`crate::DBusInterfaceVTable`] for more information.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the call was GetAll, [`None`] will be returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`DBusPropertyInfo`](crate::DBusPropertyInfo) or [`None`]</span>
+    <span class="doccomment">/// a [`crate::DBusPropertyInfo`] or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_method_invocation_get_property_info&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_property_info&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">property_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DBusPropertyInfo</span><span class="op">&gt;</span> {
@@ -526,7 +526,7 @@
     <span class="doccomment">/// Finishes handling a D-Bus method call by returning an error.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method will take ownership of `self`. See</span>
-    <span class="doccomment">/// [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) for more information about the ownership of</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceVTable`] for more information about the ownership of</span>
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">/// ## `error_name`</span>
     <span class="doccomment">/// A valid D-Bus error name.</span>
@@ -579,7 +579,7 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method will take ownership of `self`. See</span>
-    <span class="doccomment">/// [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) for more information about the ownership of</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceVTable`] for more information about the ownership of</span>
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since 2.48, if the method call requested for a reply not to be sent</span>
@@ -587,7 +587,7 @@
     <span class="doccomment">/// otherwise do nothing (as per the recommendations of the D-Bus</span>
     <span class="doccomment">/// specification).</span>
     <span class="doccomment">/// ## `parameters`</span>
-    <span class="doccomment">/// A [`glib::Variant`](crate::glib::Variant) tuple with out parameters for the method or [`None`] if not passing any parameters.</span>
+    <span class="doccomment">/// A [`crate::glib::Variant`] tuple with out parameters for the method or [`None`] if not passing any parameters.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_method_invocation_return_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">return_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">parameters</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::Variant</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
@@ -598,17 +598,17 @@
         }
     }
 
-    <span class="doccomment">/// Like [`return_value()`](Self::return_value()) but also takes a [`UnixFDList`](crate::UnixFDList).</span>
+    <span class="doccomment">/// Like [`Self::return_value()`] but also takes a [`crate::UnixFDList`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method is only available on UNIX.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method will take ownership of `self`. See</span>
-    <span class="doccomment">/// [`DBusInterfaceVTable`](crate::DBusInterfaceVTable) for more information about the ownership of</span>
+    <span class="doccomment">/// [`crate::DBusInterfaceVTable`] for more information about the ownership of</span>
     <span class="doccomment">/// `self`.</span>
     <span class="doccomment">/// ## `parameters`</span>
-    <span class="doccomment">/// A [`glib::Variant`](crate::glib::Variant) tuple with out parameters for the method or [`None`] if not passing any parameters.</span>
+    <span class="doccomment">/// A [`crate::glib::Variant`] tuple with out parameters for the method or [`None`] if not passing any parameters.</span>
     <span class="doccomment">/// ## `fd_list`</span>
-    <span class="doccomment">/// A [`UnixFDList`](crate::UnixFDList) or [`None`].</span>
+    <span class="doccomment">/// A [`crate::UnixFDList`] or [`None`].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">unix</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_method_invocation_return_value_with_unix_fd_list&quot;</span>)]</span>

@@ -15,13 +15,13 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_value_changed" class="fnname">connect_value_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 }</pre></div><div class="docblock"><p>Trait containing all <code>Value</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.NoOpObject.html"><code>NoOpObject</code></a>, <a href="../struct.Value.html"><code>Value</code></a></p>
+<p><a href="../struct.NoOpObject.html" title="crate::NoOpObject"><code>crate::NoOpObject</code></a>, <a href="../struct.Value.html" title="crate::Value"><code>crate::Value</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.current_value" class="method"><code>fn <a href="#tymethod.current_value" class="fnname">current_value</a>(&amp;self) -&gt; <a class="struct" href="../../glib/value/struct.Value.html" title="struct glib::value::Value">Value</a></code><a class="srclink" href="../../src/atk/auto/value.rs.html#187" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value of this object.</p>
 <h1 id="deprecated" class="section-header"><a href="#deprecated">Deprecated</a></h1>
-<p>Since 2.12. Use <a href="crate::Value::get_value_and_text()"><code>Value::get_value_and_text()</code></a>
+<p>Since 2.12. Use [<code>crate::Value::get_value_and_text()</code>]
 instead.</p>
 <h2 id="value" class="section-header"><a href="#value"><code>value</code></a></h2>
-<p>a <a href="crate::glib::object::Value"><code>glib::object::Value</code></a> representing the current accessible value</p>
+<p>a [<code>crate::glib::object::Value</code>] representing the current accessible value</p>
 </div><h3 id="tymethod.increment" class="method"><code>fn <a href="#tymethod.increment" class="fnname">increment</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code><a class="srclink" href="../../src/atk/auto/value.rs.html#200" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the minimum increment by which the value of this object may be
 changed. If zero, the minimum increment is undefined, which may
 mean that it is limited only by the floating point precision of the
@@ -31,32 +31,32 @@ platform.</p>
 object may be changed. zero if undefined.</p>
 </div><h3 id="tymethod.maximum_value" class="method"><code>fn <a href="#tymethod.maximum_value" class="fnname">maximum_value</a>(&amp;self) -&gt; <a class="struct" href="../../glib/value/struct.Value.html" title="struct glib::value::Value">Value</a></code><a class="srclink" href="../../src/atk/auto/value.rs.html#211" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the maximum value of this object.</p>
 <h1 id="deprecated-1" class="section-header"><a href="#deprecated-1">Deprecated</a></h1>
-<p>Since 2.12. Use <a href="crate::Value::get_range()"><code>Value::get_range()</code></a> instead.</p>
+<p>Since 2.12. Use [<code>crate::Value::get_range()</code>] instead.</p>
 <h2 id="value-1" class="section-header"><a href="#value-1"><code>value</code></a></h2>
-<p>a <a href="crate::glib::object::Value"><code>glib::object::Value</code></a> representing the maximum accessible value</p>
+<p>a [<code>crate::glib::object::Value</code>] representing the maximum accessible value</p>
 </div><h3 id="tymethod.minimum_increment" class="method"><code>fn <a href="#tymethod.minimum_increment" class="fnname">minimum_increment</a>(&amp;self) -&gt; <a class="struct" href="../../glib/value/struct.Value.html" title="struct glib::value::Value">Value</a></code><a class="srclink" href="../../src/atk/auto/value.rs.html#224" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the minimum increment by which the value of this object may be changed. If zero,
 the minimum increment is undefined, which may mean that it is limited only by the
 floating point precision of the platform.</p>
 <h1 id="deprecated-2" class="section-header"><a href="#deprecated-2">Deprecated</a></h1>
-<p>Since 2.12. Use <a href="crate::Value::get_increment()"><code>Value::get_increment()</code></a> instead.</p>
+<p>Since 2.12. Use [<code>crate::Value::get_increment()</code>] instead.</p>
 <h2 id="value-2" class="section-header"><a href="#value-2"><code>value</code></a></h2>
-<p>a <a href="crate::glib::object::Value"><code>glib::object::Value</code></a> representing the minimum increment by which the accessible value may be changed</p>
+<p>a [<code>crate::glib::object::Value</code>] representing the minimum increment by which the accessible value may be changed</p>
 </div><h3 id="tymethod.minimum_value" class="method"><code>fn <a href="#tymethod.minimum_value" class="fnname">minimum_value</a>(&amp;self) -&gt; <a class="struct" href="../../glib/value/struct.Value.html" title="struct glib::value::Value">Value</a></code><a class="srclink" href="../../src/atk/auto/value.rs.html#235" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the minimum value of this object.</p>
 <h1 id="deprecated-3" class="section-header"><a href="#deprecated-3">Deprecated</a></h1>
-<p>Since 2.12. Use <a href="crate::Value::get_range()"><code>Value::get_range()</code></a> instead.</p>
+<p>Since 2.12. Use [<code>crate::Value::get_range()</code>] instead.</p>
 <h2 id="value-3" class="section-header"><a href="#value-3"><code>value</code></a></h2>
-<p>a <a href="crate::glib::object::Value"><code>glib::object::Value</code></a> representing the minimum accessible value</p>
+<p>a [<code>crate::glib::object::Value</code>] representing the minimum accessible value</p>
 </div><h3 id="tymethod.range" class="method"><code>fn <a href="#tymethod.range" class="fnname">range</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Range.html" title="struct atk::Range">Range</a>&gt;</code><a class="srclink" href="../../src/atk/auto/value.rs.html#246" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the range of this object.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>a newly allocated <a href="../struct.Range.html"><code>Range</code></a>
+<p>a newly allocated <a href="../struct.Range.html" title="crate::Range"><code>crate::Range</code></a>
 that represents the minimum, maximum and descriptor (if available)
 of <code>self</code>. NULL if that range is not defined.</p>
-</div><h3 id="tymethod.sub_ranges" class="method"><code>fn <a href="#tymethod.sub_ranges" class="fnname">sub_ranges</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.Range.html" title="struct atk::Range">Range</a>&gt;</code><a class="srclink" href="../../src/atk/auto/value.rs.html#258" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the list of subranges defined for this object. See <a href="../struct.Value.html"><code>Value</code></a>
+</div><h3 id="tymethod.sub_ranges" class="method"><code>fn <a href="#tymethod.sub_ranges" class="fnname">sub_ranges</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.Range.html" title="struct atk::Range">Range</a>&gt;</code><a class="srclink" href="../../src/atk/auto/value.rs.html#258" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the list of subranges defined for this object. See <a href="../struct.Value.html" title="crate::Value"><code>crate::Value</code></a>
 introduction for examples of subranges and when to expose them.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>an <a href="crate::glib::SList"><code>glib::SList</code></a> of
-<a href="../struct.Range.html"><code>Range</code></a> which each of the subranges defined for this object. Free
-the returns list with <a href="crate::glib::SList::free()"><code>glib::SList::free()</code></a>.</p>
+<p>an [<code>crate::glib::SList</code>] of
+<a href="../struct.Range.html" title="crate::Range"><code>crate::Range</code></a> which each of the subranges defined for this object. Free
+the returns list with [<code>crate::glib::SList::free()</code>].</p>
 </div><h3 id="tymethod.value_and_text" class="method"><code>fn <a href="#tymethod.value_and_text" class="fnname">value_and_text</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/atk/auto/value.rs.html#270" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the current value and the human readable text alternative of
 <code>self</code>. <code>text</code> is a newly created string, that must be freed by the
 caller. Can be NULL if no descriptor is available.</p>
@@ -67,9 +67,9 @@ caller. Can be NULL if no descriptor is available.</p>
 readable text alternative for <code>value</code></p>
 </div><h3 id="tymethod.set_current_value" class="method"><code>fn <a href="#tymethod.set_current_value" class="fnname">set_current_value</a>(&amp;self, value: &amp;<a class="struct" href="../../glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/value.rs.html#284" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the value of this object.</p>
 <h1 id="deprecated-4" class="section-header"><a href="#deprecated-4">Deprecated</a></h1>
-<p>Since 2.12. Use <a href="crate::Value::set_value()"><code>Value::set_value()</code></a> instead.</p>
+<p>Since 2.12. Use [<code>crate::Value::set_value()</code>] instead.</p>
 <h2 id="value-5" class="section-header"><a href="#value-5"><code>value</code></a></h2>
-<p>a <a href="crate::glib::object::Value"><code>glib::object::Value</code></a> which is the desired new accessible value.</p>
+<p>a [<code>crate::glib::object::Value</code>] which is the desired new accessible value.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if new value is successfully set, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div><h3 id="tymethod.set_value" class="method"><code>fn <a href="#tymethod.set_value" class="fnname">set_value</a>(&amp;self, new_value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>)</code><a class="srclink" href="../../src/atk/auto/value.rs.html#303" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the value of this object.</p>
@@ -77,8 +77,8 @@ readable text alternative for <code>value</code></p>
 object. In any case, it is possible that the value can’t be
 modified (ie: a read-only component). If the value changes due this
 call, it is possible that the text could change, and will trigger
-an <a href="crate::Value::value-changed"><code>Value::value-changed</code></a> signal emission.</p>
-<p>Note for implementors: the deprecated <a href="crate::Value::set_current_value()"><code>Value::set_current_value()</code></a>
+an [<code>crate::Value::value-changed</code>] signal emission.</p>
+<p>Note for implementors: the deprecated [<code>crate::Value::set_current_value()</code>]
 method returned TRUE or FALSE depending if the value was assigned
 or not. In the practice several implementors were not able to
 decide it, and returned TRUE in any case. For that reason it is not

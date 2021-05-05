@@ -1056,7 +1056,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`SearchEntry`](crate::SearchEntry) is a subclass of [`Entry`](crate::Entry) that has been</span>
+    <span class="doccomment">/// [`crate::SearchEntry`] is a subclass of [`crate::Entry`] that has been</span>
     <span class="doccomment">/// tailored for use as a search entry.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It will show an inactive symbolic “find” icon when the search</span>
@@ -1069,21 +1069,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// To make filtering appear more reactive, it is a good idea to</span>
     <span class="doccomment">/// not react to every change in the entry text immediately, but</span>
-    <span class="doccomment">/// only after a short delay. To support this, [`SearchEntry`](crate::SearchEntry)</span>
-    <span class="doccomment">/// emits the [`SearchEntry::search-changed`](crate::SearchEntry::search-changed) signal which can</span>
-    <span class="doccomment">/// be used instead of the [`Editable::changed`](crate::Editable::changed) signal.</span>
+    <span class="doccomment">/// only after a short delay. To support this, [`crate::SearchEntry`]</span>
+    <span class="doccomment">/// emits the [`crate::SearchEntry::search-changed`] signal which can</span>
+    <span class="doccomment">/// be used instead of the [`crate::Editable::changed`] signal.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`SearchEntry::previous-match`](crate::SearchEntry::previous-match), [`SearchEntry::next-match`](crate::SearchEntry::next-match)</span>
-    <span class="doccomment">/// and [`SearchEntry::stop-search`](crate::SearchEntry::stop-search) signals can be used to implement</span>
+    <span class="doccomment">/// The [`crate::SearchEntry::previous-match`], [`crate::SearchEntry::next-match`]</span>
+    <span class="doccomment">/// and [`crate::SearchEntry::stop-search`] signals can be used to implement</span>
     <span class="doccomment">/// moving between search results and ending the search.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Often, `SearchEntry` will be fed events by means of being</span>
-    <span class="doccomment">/// placed inside a [`SearchBar`](crate::SearchBar). If that is not the case,</span>
-    <span class="doccomment">/// you can use [`SearchEntryExt::handle_event()`](crate::SearchEntryExt::handle_event()) to pass events.</span>
+    <span class="doccomment">/// placed inside a [`crate::SearchBar`]. If that is not the case,</span>
+    <span class="doccomment">/// you can use [`crate::prelude::SearchEntryExt::handle_event()`] to pass events.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SearchEntryExt`](trait@crate::prelude::SearchEntryExt), [`EntryExt`](trait@crate::prelude::EntryExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`CellEditableExt`](trait@crate::prelude::CellEditableExt), [`EditableExt`](trait@crate::prelude::EditableExt), [`EntryExtManual`](trait@crate::prelude::EntryExtManual), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual), [`EditableSignals`](trait@crate::prelude::EditableSignals)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::SearchEntryExt`], [`trait@crate::prelude::EntryExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::CellEditableExt`], [`trait@crate::prelude::EditableExt`], [`trait@crate::prelude::EntryExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`], [`trait@crate::prelude::EditableSignals`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SearchEntry</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkSearchEntry</span>, <span class="ident">ffi::GtkSearchEntryClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Entry</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">CellEditable</span>, <span class="ident">Editable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1092,12 +1092,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SearchEntry</span> {
-    <span class="doccomment">/// Creates a [`SearchEntry`](crate::SearchEntry), with a find icon when the search field is</span>
+    <span class="doccomment">/// Creates a [`crate::SearchEntry`], with a find icon when the search field is</span>
     <span class="doccomment">/// empty, and a clear icon when it isn&#39;t.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`SearchEntry`](crate::SearchEntry)</span>
+    <span class="doccomment">/// a new [`crate::SearchEntry`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_search_entry_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SearchEntry</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1816,12 +1816,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`SearchEntry`](struct@crate::SearchEntry)</span>
+<span class="doccomment">/// [`struct@crate::SearchEntry`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SearchEntryExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// This function should be called when the top-level window</span>
     <span class="doccomment">/// which contains the search entry received a key event. If</span>
-    <span class="doccomment">/// the entry is part of a [`SearchBar`](crate::SearchBar), it is preferable</span>
-    <span class="doccomment">/// to call [`SearchBarExt::handle_event()`](crate::SearchBarExt::handle_event()) instead, which will</span>
+    <span class="doccomment">/// the entry is part of a [`crate::SearchBar`], it is preferable</span>
+    <span class="doccomment">/// to call [`crate::prelude::SearchBarExt::handle_event()`] instead, which will</span>
     <span class="doccomment">/// reveal the entry in addition to passing the event to this</span>
     <span class="doccomment">/// function.</span>
     <span class="doccomment">///</span>
@@ -1876,7 +1876,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">emit_previous_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The [`SearchEntry::search-changed`](crate::SearchEntry::search-changed) signal is emitted with a short</span>
+    <span class="doccomment">/// The [`crate::SearchEntry::search-changed`] signal is emitted with a short</span>
     <span class="doccomment">/// delay of 150 milliseconds after the last change to the entry text.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;search-changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_search_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;

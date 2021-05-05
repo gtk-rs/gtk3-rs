@@ -815,7 +815,7 @@
 
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A type for representing D-Bus messages that can be sent or received</span>
-    <span class="doccomment">/// on a [`DBusConnection`](crate::DBusConnection).</span>
+    <span class="doccomment">/// on a [`crate::DBusConnection`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
@@ -828,33 +828,33 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DBusMessage</span> {
-    <span class="doccomment">/// Creates a new empty [`DBusMessage`](crate::DBusMessage).</span>
+    <span class="doccomment">/// Creates a new empty [`crate::DBusMessage`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DBusMessage`](crate::DBusMessage). Free with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// A [`crate::DBusMessage`]. Free with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusMessage</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_dbus_message_new</span>()) }
     }
 
-    <span class="doccomment">/// Creates a new [`DBusMessage`](crate::DBusMessage) from the data stored at `blob`. The byte</span>
+    <span class="doccomment">/// Creates a new [`crate::DBusMessage`] from the data stored at `blob`. The byte</span>
     <span class="doccomment">/// order that the message was in can be retrieved using</span>
-    <span class="doccomment">/// [`get_byte_order()`](Self::get_byte_order()).</span>
+    <span class="doccomment">/// [`Self::get_byte_order()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the `blob` cannot be parsed, contains invalid fields, or contains invalid</span>
-    <span class="doccomment">/// headers, [`IOErrorEnum::InvalidArgument`] will be returned.</span>
+    <span class="doccomment">/// headers, [`crate::IOErrorEnum::InvalidArgument`] will be returned.</span>
     <span class="doccomment">/// ## `blob`</span>
     <span class="doccomment">/// A blob representing a binary D-Bus message.</span>
     <span class="doccomment">/// ## `blob_len`</span>
     <span class="doccomment">/// The length of `blob`.</span>
     <span class="doccomment">/// ## `capabilities`</span>
-    <span class="doccomment">/// A [`DBusCapabilityFlags`](crate::DBusCapabilityFlags) describing what protocol features are supported.</span>
+    <span class="doccomment">/// A [`crate::DBusCapabilityFlags`] describing what protocol features are supported.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A new [`DBusMessage`](crate::DBusMessage) or [`None`] if `error` is set. Free with</span>
-    <span class="doccomment">/// [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// A new [`crate::DBusMessage`] or [`None`] if `error` is set. Free with</span>
+    <span class="doccomment">/// [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_new_from_blob&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_blob&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_blob</span>(
@@ -878,7 +878,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`DBusMessage`](crate::DBusMessage) for a method call.</span>
+    <span class="doccomment">/// Creates a new [`crate::DBusMessage`] for a method call.</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// A valid D-Bus name or [`None`].</span>
     <span class="doccomment">/// ## `path`</span>
@@ -890,7 +890,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DBusMessage`](crate::DBusMessage). Free with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// A [`crate::DBusMessage`]. Free with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_new_method_call&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_method_call</span>(
         <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
@@ -908,7 +908,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`DBusMessage`](crate::DBusMessage) for a signal emission.</span>
+    <span class="doccomment">/// Creates a new [`crate::DBusMessage`] for a signal emission.</span>
     <span class="doccomment">/// ## `path`</span>
     <span class="doccomment">/// A valid object path.</span>
     <span class="doccomment">/// ## `interface_`</span>
@@ -918,7 +918,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DBusMessage`](crate::DBusMessage). Free with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// A [`crate::DBusMessage`]. Free with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_new_signal&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_signal</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">interface_</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">signal</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusMessage</span> {
         <span class="kw">unsafe</span> {
@@ -931,7 +931,7 @@
     }
 
     <span class="doccomment">/// Copies `self`. The copy is a deep copy and the returned</span>
-    <span class="doccomment">/// [`DBusMessage`](crate::DBusMessage) is completely identical except that it is guaranteed</span>
+    <span class="doccomment">/// [`crate::DBusMessage`] is completely identical except that it is guaranteed</span>
     <span class="doccomment">/// to not be locked.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This operation can fail if e.g. `self` contains file descriptors</span>
@@ -939,8 +939,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A new [`DBusMessage`](crate::DBusMessage) or [`None`] if `error` is set.</span>
-    <span class="doccomment">///  Free with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// A new [`crate::DBusMessage`] or [`None`] if `error` is set.</span>
+    <span class="doccomment">///  Free with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_copy&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DBusMessage</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -970,7 +970,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`glib::Variant`](crate::glib::Variant) or [`None`] if the body is</span>
+    <span class="doccomment">/// A [`crate::glib::Variant`] or [`None`] if the body is</span>
     <span class="doccomment">/// empty. Do not free, it is owned by `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_get_body&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_body&quot;</span>)]</span>
@@ -989,7 +989,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_dbus_message_get_byte_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::Destination`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::Destination`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1000,7 +1000,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_dbus_message_get_destination</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::ErrorName`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::ErrorName`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1015,7 +1015,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Flags that are set (typically values from the [`DBusMessageFlags`](crate::DBusMessageFlags) enumeration bitwise ORed together).</span>
+    <span class="doccomment">/// Flags that are set (typically values from the [`crate::DBusMessageFlags`] enumeration bitwise ORed together).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_get_flags&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_flags&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusMessageFlags</span> {
@@ -1024,14 +1024,14 @@
 
     <span class="doccomment">/// Gets a header field on `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The caller is responsible for checking the type of the returned [`glib::Variant`](crate::glib::Variant)</span>
+    <span class="doccomment">/// The caller is responsible for checking the type of the returned [`crate::glib::Variant`]</span>
     <span class="doccomment">/// matches what is expected.</span>
     <span class="doccomment">/// ## `header_field`</span>
-    <span class="doccomment">/// A 8-bit unsigned integer (typically a value from the [`DBusMessageHeaderField`](crate::DBusMessageHeaderField) enumeration)</span>
+    <span class="doccomment">/// A 8-bit unsigned integer (typically a value from the [`crate::DBusMessageHeaderField`] enumeration)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`glib::Variant`](crate::glib::Variant) with the value if the header was found, [`None`]</span>
+    <span class="doccomment">/// A [`crate::glib::Variant`] with the value if the header was found, [`None`]</span>
     <span class="doccomment">/// otherwise. Do not free, it is owned by `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_get_header&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_header&quot;</span>)]</span>
@@ -1044,7 +1044,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::Interface`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::Interface`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1056,8 +1056,8 @@
     }
 
     <span class="doccomment">/// Checks whether `self` is locked. To monitor changes to this</span>
-    <span class="doccomment">/// value, conncet to the [`glib::object::Object::notify`](crate::glib::object::Object::notify) signal to listen for changes</span>
-    <span class="doccomment">/// on the [`DBusMessage:locked`](crate::DBusMessage:locked) property.</span>
+    <span class="doccomment">/// value, conncet to the [`crate::glib::object::Object::notify`] signal to listen for changes</span>
+    <span class="doccomment">/// on the [`crate::DBusMessage:locked`] property.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1068,7 +1068,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_dbus_message_get_locked</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::Member`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::Member`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1083,14 +1083,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A 8-bit unsigned integer (typically a value from the [`DBusMessageType`](crate::DBusMessageType) enumeration).</span>
+    <span class="doccomment">/// A 8-bit unsigned integer (typically a value from the [`crate::DBusMessageType`] enumeration).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_get_message_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_message_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusMessageType</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::g_dbus_message_get_message_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::NumUnixFds`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::NumUnixFds`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1103,7 +1103,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_dbus_message_get_num_unix_fds</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::Path`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::Path`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1114,7 +1114,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_dbus_message_get_path</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::ReplySerial`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::ReplySerial`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1125,7 +1125,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_dbus_message_get_reply_serial</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::Sender`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::Sender`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1147,7 +1147,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_dbus_message_get_serial</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Convenience getter for the [`DBusMessageHeaderField::Signature`] header field.</span>
+    <span class="doccomment">/// Convenience getter for the [`crate::DBusMessageHeaderField::Signature`] header field.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1164,13 +1164,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The file descriptors normally correspond to `G_VARIANT_TYPE_HANDLE`</span>
     <span class="doccomment">/// values in the body of the message. For example,</span>
-    <span class="doccomment">/// if [`glib::Variant::get_handle()`](crate::glib::Variant::get_handle()) returns 5, that is intended to be a reference</span>
+    <span class="doccomment">/// if [`crate::glib::Variant::get_handle()`] returns 5, that is intended to be a reference</span>
     <span class="doccomment">/// to the file descriptor that can be accessed by</span>
     <span class="doccomment">/// `g_unix_fd_list_get (list, 5, ...)`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`UnixFDList`](crate::UnixFDList) or [`None`] if no file descriptors are</span>
+    <span class="doccomment">/// A [`crate::UnixFDList`] or [`None`] if no file descriptors are</span>
     <span class="doccomment">/// associated. Do not free, this object is owned by `self`.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">unix</span>)))]</span>
@@ -1193,7 +1193,7 @@
     <span class="comment">//    unsafe { TODO: call ffi:g_dbus_message_new_method_error() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Creates a new [`DBusMessage`](crate::DBusMessage) that is an error reply to `self`.</span>
+    <span class="doccomment">/// Creates a new [`crate::DBusMessage`] that is an error reply to `self`.</span>
     <span class="doccomment">/// ## `error_name`</span>
     <span class="doccomment">/// A valid D-Bus error name.</span>
     <span class="doccomment">/// ## `error_message`</span>
@@ -1201,7 +1201,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`DBusMessage`](crate::DBusMessage). Free with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// A [`crate::DBusMessage`]. Free with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_new_method_error_literal&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_method_error_literal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">error_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">error_message</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusMessage</span> {
         <span class="kw">unsafe</span> {
@@ -1218,11 +1218,11 @@
     <span class="comment">//    unsafe { TODO: call ffi:g_dbus_message_new_method_error_valist() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// Creates a new [`DBusMessage`](crate::DBusMessage) that is a reply to `self`.</span>
+    <span class="doccomment">/// Creates a new [`crate::DBusMessage`] that is a reply to `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`DBusMessage`](crate::DBusMessage). Free with [`glib::object::ObjectExt::unref()`](crate::glib::object::ObjectExt::unref()).</span>
+    <span class="doccomment">/// [`crate::DBusMessage`]. Free with [`crate::glib::object::ObjectExt::unref()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_new_method_reply&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_method_reply</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DBusMessage</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_dbus_message_new_method_reply</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
@@ -1274,12 +1274,12 @@
     }
 
     <span class="doccomment">/// Sets the body `self`. As a side-effect the</span>
-    <span class="doccomment">/// [`DBusMessageHeaderField::Signature`] header field is set to the</span>
+    <span class="doccomment">/// [`crate::DBusMessageHeaderField::Signature`] header field is set to the</span>
     <span class="doccomment">/// type string of `body` (or cleared if `body` is [`None`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `body` is floating, `self` assumes ownership of `body`.</span>
     <span class="doccomment">/// ## `body`</span>
-    <span class="doccomment">/// Either [`None`] or a [`glib::Variant`](crate::glib::Variant) that is a tuple.</span>
+    <span class="doccomment">/// Either [`None`] or a [`crate::glib::Variant`] that is a tuple.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_body&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">body</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Variant</span>) {
         <span class="kw">unsafe</span> {
@@ -1297,7 +1297,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::Destination`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::Destination`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_destination&quot;</span>)]</span>
@@ -1307,7 +1307,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::ErrorName`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::ErrorName`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_error_name&quot;</span>)]</span>
@@ -1319,7 +1319,7 @@
 
     <span class="doccomment">/// Sets the flags to set on `self`.</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// Flags for `self` that are set (typically values from the [`DBusMessageFlags`](crate::DBusMessageFlags)</span>
+    <span class="doccomment">/// Flags for `self` that are set (typically values from the [`crate::DBusMessageFlags`]</span>
     <span class="doccomment">/// enumeration bitwise ORed together).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_flags&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">flags</span>: <span class="ident">DBusMessageFlags</span>) {
@@ -1332,9 +1332,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `value` is floating, `self` assumes ownership of `value`.</span>
     <span class="doccomment">/// ## `header_field`</span>
-    <span class="doccomment">/// A 8-bit unsigned integer (typically a value from the [`DBusMessageHeaderField`](crate::DBusMessageHeaderField) enumeration)</span>
+    <span class="doccomment">/// A 8-bit unsigned integer (typically a value from the [`crate::DBusMessageHeaderField`] enumeration)</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// A [`glib::Variant`](crate::glib::Variant) to set the header field or [`None`] to clear the header field.</span>
+    <span class="doccomment">/// A [`crate::glib::Variant`] to set the header field or [`None`] to clear the header field.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_header&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_header</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">header_field</span>: <span class="ident">DBusMessageHeaderField</span>, <span class="ident">value</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::Variant</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
@@ -1346,7 +1346,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::Interface`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::Interface`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_interface&quot;</span>)]</span>
@@ -1356,7 +1356,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::Member`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::Member`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_member&quot;</span>)]</span>
@@ -1368,7 +1368,7 @@
 
     <span class="doccomment">/// Sets `self` to be of `type_`.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// A 8-bit unsigned integer (typically a value from the [`DBusMessageType`](crate::DBusMessageType) enumeration).</span>
+    <span class="doccomment">/// A 8-bit unsigned integer (typically a value from the [`crate::DBusMessageType`] enumeration).</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_message_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_message_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">DBusMessageType</span>) {
         <span class="kw">unsafe</span> {
@@ -1376,7 +1376,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::NumUnixFds`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::NumUnixFds`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -1388,7 +1388,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::Path`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::Path`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_path&quot;</span>)]</span>
@@ -1398,7 +1398,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::ReplySerial`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::ReplySerial`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_reply_serial&quot;</span>)]</span>
@@ -1408,7 +1408,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::Sender`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::Sender`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_sender&quot;</span>)]</span>
@@ -1428,7 +1428,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience setter for the [`DBusMessageHeaderField::Signature`] header field.</span>
+    <span class="doccomment">/// Convenience setter for the [`crate::DBusMessageHeaderField::Signature`] header field.</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// The value to set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_signature&quot;</span>)]</span>
@@ -1439,7 +1439,7 @@
     }
 
     <span class="doccomment">/// Sets the UNIX file descriptors associated with `self`. As a</span>
-    <span class="doccomment">/// side-effect the [`DBusMessageHeaderField::NumUnixFds`] header</span>
+    <span class="doccomment">/// side-effect the [`crate::DBusMessageHeaderField::NumUnixFds`] header</span>
     <span class="doccomment">/// field is set to the number of fds in `fd_list` (or cleared if</span>
     <span class="doccomment">/// `fd_list` is [`None`]).</span>
     <span class="doccomment">///</span>
@@ -1450,7 +1450,7 @@
     <span class="doccomment">/// access file descriptors if they are referenced by a value of type</span>
     <span class="doccomment">/// `G_VARIANT_TYPE_HANDLE` in the body of the message.</span>
     <span class="doccomment">/// ## `fd_list`</span>
-    <span class="doccomment">/// A [`UnixFDList`](crate::UnixFDList) or [`None`].</span>
+    <span class="doccomment">/// A [`crate::UnixFDList`] or [`None`].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">unix</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_message_set_unix_fd_list&quot;</span>)]</span>
@@ -1464,11 +1464,11 @@
     }
 
     <span class="doccomment">/// Serializes `self` to a blob. The byte order returned by</span>
-    <span class="doccomment">/// [`get_byte_order()`](Self::get_byte_order()) will be used.</span>
+    <span class="doccomment">/// [`Self::get_byte_order()`] will be used.</span>
     <span class="doccomment">/// ## `out_size`</span>
     <span class="doccomment">/// Return location for size of generated blob.</span>
     <span class="doccomment">/// ## `capabilities`</span>
-    <span class="doccomment">/// A [`DBusCapabilityFlags`](crate::DBusCapabilityFlags) describing what protocol features are supported.</span>
+    <span class="doccomment">/// A [`crate::DBusCapabilityFlags`] describing what protocol features are supported.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1497,12 +1497,12 @@
         }
     }
 
-    <span class="doccomment">/// If `self` is not of type [`DBusMessageType::Error`] does</span>
+    <span class="doccomment">/// If `self` is not of type [`crate::DBusMessageType::Error`] does</span>
     <span class="doccomment">/// nothing and returns [`false`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Otherwise this method encodes the error in `self` as a [`glib::Error`](crate::glib::Error)</span>
-    <span class="doccomment">/// using [`DBusError::set_dbus_error()`](crate::DBusError::set_dbus_error()) using the information in the</span>
-    <span class="doccomment">/// [`DBusMessageHeaderField::ErrorName`] header field of `self` as</span>
+    <span class="doccomment">/// Otherwise this method encodes the error in `self` as a [`crate::glib::Error`]</span>
+    <span class="doccomment">/// using [`crate::DBusError::set_dbus_error()`] using the information in the</span>
+    <span class="doccomment">/// [`crate::DBusMessageHeaderField::ErrorName`] header field of `self` as</span>
     <span class="doccomment">/// well as the first string item in `self`&#39;s body.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>

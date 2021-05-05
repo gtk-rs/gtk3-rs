@@ -972,29 +972,29 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Functionality for manipulating basic metadata for files. [`FileInfo`](crate::FileInfo)</span>
+    <span class="doccomment">/// Functionality for manipulating basic metadata for files. [`crate::FileInfo`]</span>
     <span class="doccomment">/// implements methods for getting information that all files should</span>
     <span class="doccomment">/// contain, and allows for manipulation of extended attributes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See [GFileAttribute][gio-GFileAttribute] for more information on how</span>
     <span class="doccomment">/// GIO handles file attributes.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To obtain a [`FileInfo`](crate::FileInfo) for a [`File`](crate::File), use [`File::query_info()`](crate::File::query_info()) (or its</span>
-    <span class="doccomment">/// async variant). To obtain a [`FileInfo`](crate::FileInfo) for a file input or output</span>
-    <span class="doccomment">/// stream, use [`FileInputStreamExt::query_info()`](crate::FileInputStreamExt::query_info()) or</span>
-    <span class="doccomment">/// [`FileOutputStreamExt::query_info()`](crate::FileOutputStreamExt::query_info()) (or their async variants).</span>
+    <span class="doccomment">/// To obtain a [`crate::FileInfo`] for a [`crate::File`], use [`crate::File::query_info()`] (or its</span>
+    <span class="doccomment">/// async variant). To obtain a [`crate::FileInfo`] for a file input or output</span>
+    <span class="doccomment">/// stream, use [`crate::prelude::FileInputStreamExt::query_info()`] or</span>
+    <span class="doccomment">/// [`crate::prelude::FileOutputStreamExt::query_info()`] (or their async variants).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To change the actual attributes of a file, you should then set the</span>
-    <span class="doccomment">/// attribute in the [`FileInfo`](crate::FileInfo) and call [`File::set_attributes_from_info()`](crate::File::set_attributes_from_info())</span>
-    <span class="doccomment">/// or [`File::set_attributes_async()`](crate::File::set_attributes_async()) on a GFile.</span>
+    <span class="doccomment">/// attribute in the [`crate::FileInfo`] and call [`crate::File::set_attributes_from_info()`]</span>
+    <span class="doccomment">/// or [`crate::File::set_attributes_async()`] on a GFile.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// However, not all attributes can be changed in the file. For instance,</span>
-    <span class="doccomment">/// the actual size of a file cannot be changed via [`set_size()`](Self::set_size()).</span>
-    <span class="doccomment">/// You may call [`File::query_settable_attributes()`](crate::File::query_settable_attributes()) and</span>
-    <span class="doccomment">/// [`File::query_writable_namespaces()`](crate::File::query_writable_namespaces()) to discover the settable attributes</span>
+    <span class="doccomment">/// the actual size of a file cannot be changed via [`Self::set_size()`].</span>
+    <span class="doccomment">/// You may call [`crate::File::query_settable_attributes()`] and</span>
+    <span class="doccomment">/// [`crate::File::query_writable_namespaces()`] to discover the settable attributes</span>
     <span class="doccomment">/// of a particular file at runtime.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FileAttributeMatcher`](crate::FileAttributeMatcher) allows for searching through a [`FileInfo`](crate::FileInfo) for</span>
+    <span class="doccomment">/// [`crate::FileAttributeMatcher`] allows for searching through a [`crate::FileInfo`] for</span>
     <span class="doccomment">/// attributes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
@@ -1012,7 +1012,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// a [`crate::FileInfo`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileInfo</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_file_info_new</span>()) }
@@ -1041,7 +1041,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a duplicate [`FileInfo`](crate::FileInfo) of `self`.</span>
+    <span class="doccomment">/// a duplicate [`crate::FileInfo`] of `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_dup&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileInfo</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_file_info_dup</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
@@ -1148,14 +1148,14 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of a [`glib::object::Object`](crate::glib::object::Object) attribute. If the attribute does</span>
-    <span class="doccomment">/// not contain a [`glib::object::Object`](crate::glib::object::Object), [`None`] will be returned.</span>
+    <span class="doccomment">/// Gets the value of a [`crate::glib::object::Object`] attribute. If the attribute does</span>
+    <span class="doccomment">/// not contain a [`crate::glib::object::Object`], [`None`] will be returned.</span>
     <span class="doccomment">/// ## `attribute`</span>
     <span class="doccomment">/// a file attribute key.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`glib::object::Object`](crate::glib::object::Object) associated with the given `attribute`,</span>
+    <span class="doccomment">/// a [`crate::glib::object::Object`] associated with the given `attribute`,</span>
     <span class="doccomment">/// or [`None`] otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_object&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_attribute_object&quot;</span>)]</span>
@@ -1174,8 +1174,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`FileAttributeStatus`](crate::FileAttributeStatus) for the given `attribute`, or</span>
-    <span class="doccomment">///  [`FileAttributeStatus::Unset`] if the key is invalid.</span>
+    <span class="doccomment">/// a [`crate::FileAttributeStatus`] for the given `attribute`, or</span>
+    <span class="doccomment">///  [`crate::FileAttributeStatus::Unset`] if the key is invalid.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_status&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_attribute_status&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attribute_status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileAttributeStatus</span> {
@@ -1233,8 +1233,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`FileAttributeType`](crate::FileAttributeType) for the given `attribute`, or</span>
-    <span class="doccomment">/// [`FileAttributeType::Invalid`] if the key is not set.</span>
+    <span class="doccomment">/// a [`crate::FileAttributeType`] for the given `attribute`, or</span>
+    <span class="doccomment">/// [`crate::FileAttributeType::Invalid`] if the key is not set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_attribute_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_attribute_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attribute_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileAttributeType</span> {
@@ -1292,13 +1292,13 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_content_type</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Returns the [`glib::DateTime`](crate::glib::DateTime) representing the deletion date of the file, as</span>
+    <span class="doccomment">/// Returns the [`crate::glib::DateTime`] representing the deletion date of the file, as</span>
     <span class="doccomment">/// available in G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the</span>
     <span class="doccomment">/// G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, [`None`] is returned.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`glib::DateTime`](crate::glib::DateTime), or [`None`].</span>
+    <span class="doccomment">/// a [`crate::glib::DateTime`], or [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_deletion_date&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_deletion_date&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deletion_date</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::DateTime</span><span class="op">&gt;</span> {
@@ -1328,7 +1328,7 @@
     }
 
     <span class="doccomment">/// Gets the [entity tag][gfile-etag] for a given</span>
-    <span class="doccomment">/// [`FileInfo`](crate::FileInfo). See `G_FILE_ATTRIBUTE_ETAG_VALUE`.</span>
+    <span class="doccomment">/// [`crate::FileInfo`]. See `G_FILE_ATTRIBUTE_ETAG_VALUE`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1340,11 +1340,11 @@
     }
 
     <span class="doccomment">/// Gets a file&#39;s type (whether it is a regular file, symlink, etc).</span>
-    <span class="doccomment">/// This is different from the file&#39;s content type, see [`get_content_type()`](Self::get_content_type()).</span>
+    <span class="doccomment">/// This is different from the file&#39;s content type, see [`Self::get_content_type()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`FileType`](crate::FileType) for the given file.</span>
+    <span class="doccomment">/// a [`crate::FileType`] for the given file.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_file_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_file_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">file_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileType</span> {
@@ -1355,7 +1355,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Icon`](crate::Icon) for the given `self`.</span>
+    <span class="doccomment">/// [`crate::Icon`] for the given `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_icon&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span> {
@@ -1396,10 +1396,10 @@
     }
 
     <span class="doccomment">/// Gets the modification time of the current `self` and returns it as a</span>
-    <span class="doccomment">/// [`glib::DateTime`](crate::glib::DateTime).</span>
+    <span class="doccomment">/// [`crate::glib::DateTime`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This requires the `G_FILE_ATTRIBUTE_TIME_MODIFIED` attribute. If</span>
-    <span class="doccomment">/// `G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC` is provided, the resulting [`glib::DateTime`](crate::glib::DateTime)</span>
+    <span class="doccomment">/// `G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC` is provided, the resulting [`crate::glib::DateTime`]</span>
     <span class="doccomment">/// will have microsecond precision.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1441,7 +1441,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::g_file_info_get_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the value of the sort_order attribute from the [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// Gets the value of the sort_order attribute from the [`crate::FileInfo`].</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1457,14 +1457,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Icon`](crate::Icon) for the given `self`.</span>
+    <span class="doccomment">/// [`crate::Icon`] for the given `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_get_symbolic_icon&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_symbolic_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">symbolic_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_file_info_get_symbolic_icon</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the symlink target for a given [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// Gets the symlink target for a given [`crate::FileInfo`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1617,7 +1617,7 @@
 
     <span class="doccomment">/// Sets `mask` on `self` to match specific attribute types.</span>
     <span class="doccomment">/// ## `mask`</span>
-    <span class="doccomment">/// a [`FileAttributeMatcher`](crate::FileAttributeMatcher).</span>
+    <span class="doccomment">/// a [`crate::FileAttributeMatcher`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_mask&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_mask</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mask</span>: <span class="kw-2">&amp;</span><span class="ident">FileAttributeMatcher</span>) {
         <span class="kw">unsafe</span> {
@@ -1630,7 +1630,7 @@
     <span class="doccomment">/// ## `attribute`</span>
     <span class="doccomment">/// a file attribute key.</span>
     <span class="doccomment">/// ## `attr_value`</span>
-    <span class="doccomment">/// a [`glib::object::Object`](crate::glib::object::Object).</span>
+    <span class="doccomment">/// a [`crate::glib::object::Object`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_attribute_object&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_attribute_object</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attribute</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">attr_value</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
@@ -1643,7 +1643,7 @@
     }
 
     <span class="doccomment">/// Sets the attribute status for an attribute key. This is only</span>
-    <span class="doccomment">/// needed by external code that implement [`File::set_attributes_from_info()`](crate::File::set_attributes_from_info())</span>
+    <span class="doccomment">/// needed by external code that implement [`crate::File::set_attributes_from_info()`]</span>
     <span class="doccomment">/// or similar functions.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The attribute must exist in `self` for this to work. Otherwise [`false`]</span>
@@ -1651,7 +1651,7 @@
     <span class="doccomment">/// ## `attribute`</span>
     <span class="doccomment">/// a file attribute key</span>
     <span class="doccomment">/// ## `status`</span>
-    <span class="doccomment">/// a [`FileAttributeStatus`](crate::FileAttributeStatus)</span>
+    <span class="doccomment">/// a [`crate::FileAttributeStatus`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1738,7 +1738,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the content type attribute for a given [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// Sets the content type attribute for a given [`crate::FileInfo`].</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE`.</span>
     <span class="doccomment">/// ## `content_type`</span>
     <span class="doccomment">/// a content type. See [GContentType][gio-GContentType]</span>
@@ -1749,7 +1749,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the display name for the current [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// Sets the display name for the current [`crate::FileInfo`].</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME`.</span>
     <span class="doccomment">/// ## `display_name`</span>
     <span class="doccomment">/// a string containing a display name.</span>
@@ -1771,10 +1771,10 @@
         }
     }
 
-    <span class="doccomment">/// Sets the file type in a [`FileInfo`](crate::FileInfo) to `type_`.</span>
+    <span class="doccomment">/// Sets the file type in a [`crate::FileInfo`] to `type_`.</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_TYPE`.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// a [`FileType`](crate::FileType).</span>
+    <span class="doccomment">/// a [`crate::FileType`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_file_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_file_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">FileType</span>) {
         <span class="kw">unsafe</span> {
@@ -1782,10 +1782,10 @@
         }
     }
 
-    <span class="doccomment">/// Sets the icon for a given [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// Sets the icon for a given [`crate::FileInfo`].</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_ICON`.</span>
     <span class="doccomment">/// ## `icon`</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon).</span>
+    <span class="doccomment">/// a [`crate::Icon`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_icon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
@@ -1793,7 +1793,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the &quot;is_hidden&quot; attribute in a [`FileInfo`](crate::FileInfo) according to `is_hidden`.</span>
+    <span class="doccomment">/// Sets the &quot;is_hidden&quot; attribute in a [`crate::FileInfo`] according to `is_hidden`.</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN`.</span>
     <span class="doccomment">/// ## `is_hidden`</span>
     <span class="doccomment">/// a `gboolean`.</span>
@@ -1804,7 +1804,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the &quot;is_symlink&quot; attribute in a [`FileInfo`](crate::FileInfo) according to `is_symlink`.</span>
+    <span class="doccomment">/// Sets the &quot;is_symlink&quot; attribute in a [`crate::FileInfo`] according to `is_symlink`.</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK`.</span>
     <span class="doccomment">/// ## `is_symlink`</span>
     <span class="doccomment">/// a `gboolean`.</span>
@@ -1819,7 +1819,7 @@
     <span class="doccomment">/// `G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC` attributes in the file info to the</span>
     <span class="doccomment">/// given date/time value.</span>
     <span class="doccomment">/// ## `mtime`</span>
-    <span class="doccomment">/// a [`glib::DateTime`](crate::glib::DateTime).</span>
+    <span class="doccomment">/// a [`crate::glib::DateTime`].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_62&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_62&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_modification_date_time&quot;</span>)]</span>
@@ -1832,7 +1832,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the name attribute for the current [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// Sets the name attribute for the current [`crate::FileInfo`].</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_NAME`.</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// a string containing a name.</span>
@@ -1865,10 +1865,10 @@
         }
     }
 
-    <span class="doccomment">/// Sets the symbolic icon for a given [`FileInfo`](crate::FileInfo).</span>
+    <span class="doccomment">/// Sets the symbolic icon for a given [`crate::FileInfo`].</span>
     <span class="doccomment">/// See `G_FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON`.</span>
     <span class="doccomment">/// ## `icon`</span>
-    <span class="doccomment">/// a [`Icon`](crate::Icon).</span>
+    <span class="doccomment">/// a [`crate::Icon`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_set_symbolic_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_symbolic_icon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) {
         <span class="kw">unsafe</span> {
@@ -1893,7 +1893,7 @@
         }
     }
 
-    <span class="doccomment">/// Unsets a mask set by [`set_attribute_mask()`](Self::set_attribute_mask()), if one</span>
+    <span class="doccomment">/// Unsets a mask set by [`Self::set_attribute_mask()`], if one</span>
     <span class="doccomment">/// is set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_info_unset_attribute_mask&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unset_attribute_mask</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {

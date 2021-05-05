@@ -444,7 +444,7 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`NetworkMonitor`](crate::NetworkMonitor) provides an easy-to-use cross-platform API</span>
+    <span class="doccomment">/// [`crate::NetworkMonitor`] provides an easy-to-use cross-platform API</span>
     <span class="doccomment">/// for monitoring network connectivity. On Linux, the available</span>
     <span class="doccomment">/// implementations are based on the kernel&#39;s netlink interface and</span>
     <span class="doccomment">/// on NetworkManager.</span>
@@ -453,7 +453,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`NetworkMonitorExt`](trait@crate::prelude::NetworkMonitorExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::NetworkMonitorExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NetworkMonitor</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GNetworkMonitor</span>, <span class="ident">ffi::GNetworkMonitorInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -462,11 +462,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">NetworkMonitor</span> {
-    <span class="doccomment">/// Gets the default [`NetworkMonitor`](crate::NetworkMonitor) for the system.</span>
+    <span class="doccomment">/// Gets the default [`crate::NetworkMonitor`] for the system.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`NetworkMonitor`](crate::NetworkMonitor), which will be</span>
+    <span class="doccomment">/// a [`crate::NetworkMonitor`], which will be</span>
     <span class="doccomment">///  a dummy object if no network monitor is available</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_network_monitor_get_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default&quot;</span>)]</span>
@@ -481,29 +481,29 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`NetworkMonitor`](struct@crate::NetworkMonitor)</span>
+<span class="doccomment">/// [`struct@crate::NetworkMonitor`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">NetworkMonitorExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Attempts to determine whether or not the host pointed to by</span>
     <span class="doccomment">/// `connectable` can be reached, without actually trying to connect to</span>
     <span class="doccomment">/// it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This may return [`true`] even when [`NetworkMonitor:network-available`](crate::NetworkMonitor:network-available)</span>
+    <span class="doccomment">/// This may return [`true`] even when [`crate::NetworkMonitor:network-available`]</span>
     <span class="doccomment">/// is [`false`], if, for example, `self` can determine that</span>
     <span class="doccomment">/// `connectable` refers to a host on a local network.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` believes that an attempt to connect to `connectable`</span>
     <span class="doccomment">/// will succeed, it will return [`true`]. Otherwise, it will return</span>
     <span class="doccomment">/// [`false`] and set `error` to an appropriate error (such as</span>
-    <span class="doccomment">/// [`IOErrorEnum::HostUnreachable`]).</span>
+    <span class="doccomment">/// [`crate::IOErrorEnum::HostUnreachable`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that although this does not attempt to connect to</span>
     <span class="doccomment">/// `connectable`, it may still block for a brief period of time (eg,</span>
     <span class="doccomment">/// trying to do multicast DNS on the local network), so if you do not</span>
-    <span class="doccomment">/// want to block, you should use [`NetworkMonitor::can_reach_async()`](crate::NetworkMonitor::can_reach_async()).</span>
+    <span class="doccomment">/// want to block, you should use [`crate::NetworkMonitor::can_reach_async()`].</span>
     <span class="doccomment">/// ## `connectable`</span>
-    <span class="doccomment">/// a [`SocketConnectable`](crate::SocketConnectable)</span>
+    <span class="doccomment">/// a [`crate::SocketConnectable`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -519,15 +519,15 @@
     <span class="doccomment">/// pointed to by `connectable` can be reached, without actually</span>
     <span class="doccomment">/// trying to connect to it.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For more details, see [`NetworkMonitor::can_reach()`](crate::NetworkMonitor::can_reach()).</span>
+    <span class="doccomment">/// For more details, see [`crate::NetworkMonitor::can_reach()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When the operation is finished, `callback` will be called.</span>
-    <span class="doccomment">/// You can then call [`NetworkMonitor::can_reach_finish()`](crate::NetworkMonitor::can_reach_finish())</span>
+    <span class="doccomment">/// You can then call [`crate::NetworkMonitor::can_reach_finish()`]</span>
     <span class="doccomment">/// to get the result of the operation.</span>
     <span class="doccomment">/// ## `connectable`</span>
-    <span class="doccomment">/// a [`SocketConnectable`](crate::SocketConnectable)</span>
+    <span class="doccomment">/// a [`crate::SocketConnectable`]</span>
     <span class="doccomment">/// ## `cancellable`</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::Cancellable`], or [`None`]</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a `GAsyncReadyCallback` to call when the</span>
     <span class="doccomment">///  request is satisfied</span>
@@ -551,21 +551,21 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box_</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Gets a more detailed networking state than</span>
-    <span class="doccomment">/// [`NetworkMonitor::get_network_available()`](crate::NetworkMonitor::get_network_available()).</span>
+    <span class="doccomment">/// [`crate::NetworkMonitor::get_network_available()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`NetworkMonitor:network-available`](crate::NetworkMonitor:network-available) is [`false`], then the</span>
-    <span class="doccomment">/// connectivity state will be [`NetworkConnectivity::Local`].</span>
+    <span class="doccomment">/// If [`crate::NetworkMonitor:network-available`] is [`false`], then the</span>
+    <span class="doccomment">/// connectivity state will be [`crate::NetworkConnectivity::Local`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If [`NetworkMonitor:network-available`](crate::NetworkMonitor:network-available) is [`true`], then the</span>
-    <span class="doccomment">/// connectivity state will be [`NetworkConnectivity::Full`] (if there</span>
-    <span class="doccomment">/// is full Internet connectivity), [`NetworkConnectivity::Limited`] (if</span>
+    <span class="doccomment">/// If [`crate::NetworkMonitor:network-available`] is [`true`], then the</span>
+    <span class="doccomment">/// connectivity state will be [`crate::NetworkConnectivity::Full`] (if there</span>
+    <span class="doccomment">/// is full Internet connectivity), [`crate::NetworkConnectivity::Limited`] (if</span>
     <span class="doccomment">/// the host has a default route, but appears to be unable to actually</span>
-    <span class="doccomment">/// reach the full Internet), or [`NetworkConnectivity::Portal`] (if the</span>
+    <span class="doccomment">/// reach the full Internet), or [`crate::NetworkConnectivity::Portal`] (if the</span>
     <span class="doccomment">/// host is trapped behind a &quot;captive portal&quot; that requires some sort</span>
     <span class="doccomment">/// of login or acknowledgement before allowing full Internet access).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that in the case of [`NetworkConnectivity::Limited`] and</span>
-    <span class="doccomment">/// [`NetworkConnectivity::Portal`], it is possible that some sites are</span>
+    <span class="doccomment">/// Note that in the case of [`crate::NetworkConnectivity::Limited`] and</span>
+    <span class="doccomment">/// [`crate::NetworkConnectivity::Portal`], it is possible that some sites are</span>
     <span class="doccomment">/// reachable but others are not. In this case, applications can</span>
     <span class="doccomment">/// attempt to connect to remote servers, but should gracefully fall</span>
     <span class="doccomment">/// back to their &quot;offline&quot; behavior if the connection attempt fails.</span>
@@ -582,7 +582,7 @@
     <span class="doccomment">/// Checks if the network is available. &quot;Available&quot; here means that the</span>
     <span class="doccomment">/// system has a default route available for at least one of IPv4 or</span>
     <span class="doccomment">/// IPv6. It does not necessarily imply that the public Internet is</span>
-    <span class="doccomment">/// reachable. See [`NetworkMonitor:network-available`](crate::NetworkMonitor:network-available) for more details.</span>
+    <span class="doccomment">/// reachable. See [`crate::NetworkMonitor:network-available`] for more details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -592,7 +592,7 @@
     <span class="kw">fn</span> <span class="ident">is_network_available</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Checks if the network is metered.</span>
-    <span class="doccomment">/// See [`NetworkMonitor:network-metered`](crate::NetworkMonitor:network-metered) for more details.</span>
+    <span class="doccomment">/// See [`crate::NetworkMonitor:network-metered`] for more details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -605,7 +605,7 @@
 
     <span class="doccomment">/// Emitted when the network configuration changes.</span>
     <span class="doccomment">/// ## `network_available`</span>
-    <span class="doccomment">/// the current value of [`NetworkMonitor:network-available`](crate::NetworkMonitor:network-available)</span>
+    <span class="doccomment">/// the current value of [`crate::NetworkMonitor:network-available`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;network-changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_network_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">bool</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 

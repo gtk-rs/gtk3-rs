@@ -391,7 +391,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`FrameClock`](crate::FrameClock) tells the application when to update and repaint a</span>
+    <span class="doccomment">/// A [`crate::FrameClock`] tells the application when to update and repaint a</span>
     <span class="doccomment">/// window. This may be synced to the vertical refresh rate of the</span>
     <span class="doccomment">/// monitor, for example. Even when the frame clock uses a simple timer</span>
     <span class="doccomment">/// rather than a hardware-based vertical sync, the frame clock helps</span>
@@ -400,29 +400,29 @@
     <span class="doccomment">/// stop painting when it knows the frames will not be visible, or</span>
     <span class="doccomment">/// scale back animation framerates.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`FrameClock`](crate::FrameClock) is designed to be compatible with an OpenGL-based</span>
+    <span class="doccomment">/// [`crate::FrameClock`] is designed to be compatible with an OpenGL-based</span>
     <span class="doccomment">/// implementation or with mozRequestAnimationFrame in Firefox,</span>
     <span class="doccomment">/// for example.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A frame clock is idle until someone requests a frame with</span>
-    <span class="doccomment">/// [`request_phase()`](Self::request_phase()). At some later point that makes</span>
+    <span class="doccomment">/// [`Self::request_phase()`]. At some later point that makes</span>
     <span class="doccomment">/// sense for the synchronization being implemented, the clock will</span>
     <span class="doccomment">/// process a frame and emit signals for each phase that has been</span>
-    <span class="doccomment">/// requested. (See the signals of the [`FrameClock`](crate::FrameClock) class for</span>
-    <span class="doccomment">/// documentation of the phases. [`FrameClockPhase::Update`] and the</span>
-    <span class="doccomment">/// [`FrameClock::update`](crate::FrameClock::update) signal are most interesting for application</span>
+    <span class="doccomment">/// requested. (See the signals of the [`crate::FrameClock`] class for</span>
+    <span class="doccomment">/// documentation of the phases. [`crate::FrameClockPhase::Update`] and the</span>
+    <span class="doccomment">/// [`crate::FrameClock::update`] signal are most interesting for application</span>
     <span class="doccomment">/// writers, and are used to update the animations, using the frame time</span>
-    <span class="doccomment">/// given by [`get_frame_time()`](Self::get_frame_time()).</span>
+    <span class="doccomment">/// given by [`Self::get_frame_time()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The frame time is reported in microseconds and generally in the same</span>
     <span class="doccomment">/// timescale as `g_get_monotonic_time()`, however, it is not the same</span>
     <span class="doccomment">/// as `g_get_monotonic_time()`. The frame time does not advance during</span>
     <span class="doccomment">/// the time a frame is being painted, and outside of a frame, an attempt</span>
-    <span class="doccomment">/// is made so that all calls to [`get_frame_time()`](Self::get_frame_time()) that</span>
+    <span class="doccomment">/// is made so that all calls to [`Self::get_frame_time()`] that</span>
     <span class="doccomment">/// are called at a “similar” time get the same value. This means that</span>
     <span class="doccomment">/// if different animations are timed by looking at the difference in</span>
-    <span class="doccomment">/// time between an initial value from [`get_frame_time()`](Self::get_frame_time())</span>
-    <span class="doccomment">/// and the value inside the [`FrameClock::update`](crate::FrameClock::update) signal of the clock,</span>
+    <span class="doccomment">/// time between an initial value from [`Self::get_frame_time()`]</span>
+    <span class="doccomment">/// and the value inside the [`crate::FrameClock::update`] signal of the clock,</span>
     <span class="doccomment">/// they will stay exactly synchronized.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
@@ -435,10 +435,10 @@
 
 <span class="kw">impl</span> <span class="ident">FrameClock</span> {
     <span class="doccomment">/// Starts updates for an animation. Until a matching call to</span>
-    <span class="doccomment">/// [`end_updating()`](Self::end_updating()) is made, the frame clock will continually</span>
-    <span class="doccomment">/// request a new frame with the [`FrameClockPhase::Update`] phase.</span>
+    <span class="doccomment">/// [`Self::end_updating()`] is made, the frame clock will continually</span>
+    <span class="doccomment">/// request a new frame with the [`crate::FrameClockPhase::Update`] phase.</span>
     <span class="doccomment">/// This function may be called multiple times and frames will be</span>
-    <span class="doccomment">/// requested until [`end_updating()`](Self::end_updating()) is called the same</span>
+    <span class="doccomment">/// requested until [`Self::end_updating()`] is called the same</span>
     <span class="doccomment">/// number of times.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_frame_clock_begin_updating&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">begin_updating</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -448,7 +448,7 @@
     }
 
     <span class="doccomment">/// Stops updates for an animation. See the documentation for</span>
-    <span class="doccomment">/// [`begin_updating()`](Self::begin_updating()).</span>
+    <span class="doccomment">/// [`Self::begin_updating()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_frame_clock_end_updating&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">end_updating</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -460,7 +460,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`FrameTimings`](crate::FrameTimings) for the</span>
+    <span class="doccomment">/// the [`crate::FrameTimings`] for the</span>
     <span class="doccomment">///  frame currently being processed, or even no frame is being</span>
     <span class="doccomment">///  processed, for the previous frame. Before any frames have been</span>
     <span class="doccomment">///  processed, returns [`None`].</span>
@@ -474,7 +474,7 @@
         }
     }
 
-    <span class="doccomment">/// A [`FrameClock`](crate::FrameClock) maintains a 64-bit counter that increments for</span>
+    <span class="doccomment">/// A [`crate::FrameClock`] maintains a 64-bit counter that increments for</span>
     <span class="doccomment">/// each frame drawn.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -505,36 +505,36 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_frame_clock_get_frame_time</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// [`FrameClock`](crate::FrameClock) internally keeps a history of [`FrameTimings`](crate::FrameTimings)</span>
+    <span class="doccomment">/// [`crate::FrameClock`] internally keeps a history of [`crate::FrameTimings`]</span>
     <span class="doccomment">/// objects for recent frames that can be retrieved with</span>
-    <span class="doccomment">/// [`get_timings()`](Self::get_timings()). The set of stored frames</span>
+    <span class="doccomment">/// [`Self::get_timings()`]. The set of stored frames</span>
     <span class="doccomment">/// is the set from the counter values given by</span>
-    <span class="doccomment">/// [`get_history_start()`](Self::get_history_start()) and</span>
-    <span class="doccomment">/// [`get_frame_counter()`](Self::get_frame_counter()), inclusive.</span>
+    <span class="doccomment">/// [`Self::get_history_start()`] and</span>
+    <span class="doccomment">/// [`Self::get_frame_counter()`], inclusive.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the frame counter value for the oldest frame</span>
     <span class="doccomment">///  that is available in the internal frame history of the</span>
-    <span class="doccomment">///  [`FrameClock`](crate::FrameClock).</span>
+    <span class="doccomment">///  [`crate::FrameClock`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_frame_clock_get_history_start&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_history_start&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">history_start</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_frame_clock_get_history_start</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Retrieves a [`FrameTimings`](crate::FrameTimings) object holding timing information</span>
-    <span class="doccomment">/// for the current frame or a recent frame. The [`FrameTimings`](crate::FrameTimings)</span>
-    <span class="doccomment">/// object may not yet be complete: see [`FrameTimings::get_complete()`](crate::FrameTimings::get_complete()).</span>
+    <span class="doccomment">/// Retrieves a [`crate::FrameTimings`] object holding timing information</span>
+    <span class="doccomment">/// for the current frame or a recent frame. The [`crate::FrameTimings`]</span>
+    <span class="doccomment">/// object may not yet be complete: see [`crate::FrameTimings::get_complete()`].</span>
     <span class="doccomment">/// ## `frame_counter`</span>
     <span class="doccomment">/// the frame counter value identifying the frame to</span>
     <span class="doccomment">///  be received.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`FrameTimings`](crate::FrameTimings) object for</span>
+    <span class="doccomment">/// the [`crate::FrameTimings`] object for</span>
     <span class="doccomment">///  the specified frame, or [`None`] if it is not available. See</span>
-    <span class="doccomment">///  [`get_history_start()`](Self::get_history_start()).</span>
+    <span class="doccomment">///  [`Self::get_history_start()`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_frame_clock_get_timings&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_timings&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">timings</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">frame_counter</span>: <span class="ident">i64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FrameTimings</span><span class="op">&gt;</span> {
@@ -549,11 +549,11 @@
     <span class="doccomment">/// Asks the frame clock to run a particular phase. The signal</span>
     <span class="doccomment">/// corresponding the requested phase will be emitted the next</span>
     <span class="doccomment">/// time the frame clock processes. Multiple calls to</span>
-    <span class="doccomment">/// [`request_phase()`](Self::request_phase()) will be combined together</span>
+    <span class="doccomment">/// [`Self::request_phase()`] will be combined together</span>
     <span class="doccomment">/// and only one frame processed. If you are displaying animated</span>
     <span class="doccomment">/// content and want to continually request the</span>
-    <span class="doccomment">/// [`FrameClockPhase::Update`] phase for a period of time,</span>
-    <span class="doccomment">/// you should use [`begin_updating()`](Self::begin_updating()) instead, since</span>
+    <span class="doccomment">/// [`crate::FrameClockPhase::Update`] phase for a period of time,</span>
+    <span class="doccomment">/// you should use [`Self::begin_updating()`] instead, since</span>
     <span class="doccomment">/// this allows GTK+ to adjust system parameters to get maximally</span>
     <span class="doccomment">/// smooth animations.</span>
     <span class="doccomment">/// ## `phase`</span>
@@ -718,7 +718,7 @@
 
     <span class="doccomment">/// This signal is emitted as the first step of toolkit and</span>
     <span class="doccomment">/// application processing of the frame. Animations should</span>
-    <span class="doccomment">/// be updated using [`get_frame_time()`](Self::get_frame_time()).</span>
+    <span class="doccomment">/// be updated using [`Self::get_frame_time()`].</span>
     <span class="doccomment">/// Applications can connect directly to this signal, or</span>
     <span class="doccomment">/// use `gtk_widget_add_tick_callback()` as a more convenient</span>
     <span class="doccomment">/// interface.</span>

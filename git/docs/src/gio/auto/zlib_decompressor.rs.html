@@ -131,7 +131,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`ConverterExt`](trait@crate::prelude::ConverterExt), [`ConverterExtManual`](trait@crate::prelude::ConverterExtManual)</span>
+    <span class="doccomment">/// [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::ConverterExt`], [`trait@crate::prelude::ConverterExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ZlibDecompressor</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GZlibDecompressor</span>, <span class="ident">ffi::GZlibDecompressorClass</span><span class="op">&gt;</span>) @<span class="ident">implements</span> <span class="ident">Converter</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -140,27 +140,27 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ZlibDecompressor</span> {
-    <span class="doccomment">/// Creates a new [`ZlibDecompressor`](crate::ZlibDecompressor).</span>
+    <span class="doccomment">/// Creates a new [`crate::ZlibDecompressor`].</span>
     <span class="doccomment">/// ## `format`</span>
     <span class="doccomment">/// The format to use for the compressed data</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ZlibDecompressor`](crate::ZlibDecompressor)</span>
+    <span class="doccomment">/// a new [`crate::ZlibDecompressor`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_zlib_decompressor_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">format</span>: <span class="ident">ZlibCompressorFormat</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ZlibDecompressor</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_zlib_decompressor_new</span>(<span class="ident">format</span>.<span class="ident">into_glib</span>())) }
     }
 
-    <span class="doccomment">/// Retrieves the [`FileInfo`](crate::FileInfo) constructed from the GZIP header data</span>
+    <span class="doccomment">/// Retrieves the [`crate::FileInfo`] constructed from the GZIP header data</span>
     <span class="doccomment">/// of compressed data processed by `compressor`, or [`None`] if `self`&#39;s</span>
-    <span class="doccomment">/// [`ZlibDecompressor:format`](crate::ZlibDecompressor:format) property is not [`ZlibCompressorFormat::Gzip`],</span>
+    <span class="doccomment">/// [`crate::ZlibDecompressor:format`] property is not [`crate::ZlibCompressorFormat::Gzip`],</span>
     <span class="doccomment">/// or the header data was not fully processed yet, or it not present in the</span>
     <span class="doccomment">/// data stream at all.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`FileInfo`](crate::FileInfo), or [`None`]</span>
+    <span class="doccomment">/// a [`crate::FileInfo`], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_zlib_decompressor_get_file_info&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_file_info&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">file_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FileInfo</span><span class="op">&gt;</span> {

@@ -34,22 +34,22 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_require_close_notify_notify" class="fnname">connect_require_close_notify_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>TlsConnection</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.TlsClientConnection.html"><code>TlsClientConnection</code></a>, <a href="../struct.TlsConnection.html"><code>TlsConnection</code></a>, <a href="../struct.TlsServerConnection.html"><code>TlsServerConnection</code></a></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.emit_accept_certificate" class="method"><code>fn <a href="#tymethod.emit_accept_certificate" class="fnname">emit_accept_certificate</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;peer_cert: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;errors: <a class="struct" href="../struct.TlsCertificateFlags.html" title="struct gio::TlsCertificateFlags">TlsCertificateFlags</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#65-69" title="goto source code">[src]</a></h3><div class="docblock"><p>Used by <a href="../struct.TlsConnection.html"><code>TlsConnection</code></a> implementations to emit the
-<a href="crate::TlsConnection::accept-certificate"><code>TlsConnection::accept-certificate</code></a> signal.</p>
+<p><a href="../struct.TlsClientConnection.html" title="crate::TlsClientConnection"><code>crate::TlsClientConnection</code></a>, <a href="../struct.TlsConnection.html" title="crate::TlsConnection"><code>crate::TlsConnection</code></a>, <a href="../struct.TlsServerConnection.html" title="crate::TlsServerConnection"><code>crate::TlsServerConnection</code></a></p>
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.emit_accept_certificate" class="method"><code>fn <a href="#tymethod.emit_accept_certificate" class="fnname">emit_accept_certificate</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;peer_cert: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;errors: <a class="struct" href="../struct.TlsCertificateFlags.html" title="struct gio::TlsCertificateFlags">TlsCertificateFlags</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#65-69" title="goto source code">[src]</a></h3><div class="docblock"><p>Used by <a href="../struct.TlsConnection.html" title="crate::TlsConnection"><code>crate::TlsConnection</code></a> implementations to emit the
+[<code>crate::TlsConnection::accept-certificate</code>] signal.</p>
 <h2 id="peer_cert" class="section-header"><a href="#peer_cert"><code>peer_cert</code></a></h2>
-<p>the peer’s <a href="../struct.TlsCertificate.html"><code>TlsCertificate</code></a></p>
+<p>the peer’s <a href="../struct.TlsCertificate.html" title="crate::TlsCertificate"><code>crate::TlsCertificate</code></a></p>
 <h2 id="errors" class="section-header"><a href="#errors"><code>errors</code></a></h2>
 <p>the problems with <code>peer_cert</code></p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if one of the signal handlers has returned
 <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to accept <code>peer_cert</code></p>
 </div><h3 id="tymethod.certificate" class="method"><code>fn <a href="#tymethod.certificate" class="fnname">certificate</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#79" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>’s certificate, as set by
-<a href="trait.TlsConnectionExt.html#tymethod.set_certificate"><code>set_certificate()</code></a>.</p>
+<a href="trait.TlsConnectionExt.html#tymethod.set_certificate" title="Self::set_certificate()"><code>Self::set_certificate()</code></a>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><code>self</code>’s certificate, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.database" class="method"><code>fn <a href="#tymethod.database" class="fnname">database</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TlsDatabase.html" title="struct gio::TlsDatabase">TlsDatabase</a>&gt;</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#89" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the certificate database that <code>self</code> uses to verify
-peer certificates. See <a href="trait.TlsConnectionExt.html#tymethod.set_database"><code>set_database()</code></a>.</p>
+peer certificates. See <a href="trait.TlsConnectionExt.html#tymethod.set_database" title="Self::set_database()"><code>Self::set_database()</code></a>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the certificate database that <code>self</code> uses or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.interaction" class="method"><code>fn <a href="#tymethod.interaction" class="fnname">interaction</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TlsInteraction.html" title="struct gio::TlsInteraction">TlsInteraction</a>&gt;</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#100" title="goto source code">[src]</a></h3><div class="docblock"><p>Get the object that will be used to interact with the user. It will be used
@@ -62,30 +62,30 @@ the handshake.</p>
 <p>If the peer did not use the ALPN extension, or did not advertise a
 protocol that matched one of <code>self</code>’s protocols, or the TLS backend
 does not support ALPN, then this will be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. See
-<a href="trait.TlsConnectionExt.html#tymethod.set_advertised_protocols"><code>set_advertised_protocols()</code></a>.</p>
+<a href="trait.TlsConnectionExt.html#tymethod.set_advertised_protocols" title="Self::set_advertised_protocols()"><code>Self::set_advertised_protocols()</code></a>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>the negotiated protocol, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.peer_certificate" class="method"><code>fn <a href="#tymethod.peer_certificate" class="fnname">peer_certificate</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#128" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>’s peer’s certificate after the handshake has completed
 or failed. (It is not set during the emission of
-<a href="crate::TlsConnection::accept-certificate"><code>TlsConnection::accept-certificate</code></a>.)</p>
+[<code>crate::TlsConnection::accept-certificate</code>].)</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p><code>self</code>’s peer’s certificate, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.peer_certificate_errors" class="method"><code>fn <a href="#tymethod.peer_certificate_errors" class="fnname">peer_certificate_errors</a>(&amp;self) -&gt; <a class="struct" href="../struct.TlsCertificateFlags.html" title="struct gio::TlsCertificateFlags">TlsCertificateFlags</a></code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#139" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the errors associated with validating <code>self</code>’s peer’s
 certificate, after the handshake has completed or failed. (It is
-not set during the emission of <a href="crate::TlsConnection::accept-certificate"><code>TlsConnection::accept-certificate</code></a>.)</p>
+not set during the emission of [<code>crate::TlsConnection::accept-certificate</code>].)</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p><code>self</code>’s peer’s certificate errors</p>
 </div><h3 id="tymethod.rehandshake_mode" class="method"><code>fn <a href="#tymethod.rehandshake_mode" class="fnname">rehandshake_mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.TlsRehandshakeMode.html" title="enum gio::TlsRehandshakeMode">TlsRehandshakeMode</a></code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#156" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code> rehandshaking mode. See
-<a href="trait.TlsConnectionExt.html#tymethod.set_rehandshake_mode"><code>set_rehandshake_mode()</code></a> for details.</p>
+<a href="trait.TlsConnectionExt.html#tymethod.set_rehandshake_mode" title="Self::set_rehandshake_mode()"><code>Self::set_rehandshake_mode()</code></a> for details.</p>
 <h1 id="deprecated-since-260" class="section-header"><a href="#deprecated-since-260">Deprecated since 2.60</a></h1>
 <p>Changing the rehandshake mode is no longer
 required for compatibility. Also, rehandshaking has been removed
 from the TLS protocol in TLS 1.3.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
-<p><a href="../enum.TlsRehandshakeMode.html#variant.Safely" title="TlsRehandshakeMode::Safely"><code>TlsRehandshakeMode::Safely</code></a></p>
+<p><a href="../enum.TlsRehandshakeMode.html#variant.Safely" title="crate::TlsRehandshakeMode::Safely"><code>crate::TlsRehandshakeMode::Safely</code></a></p>
 </div><h3 id="tymethod.requires_close_notify" class="method"><code>fn <a href="#tymethod.requires_close_notify" class="fnname">requires_close_notify</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#168" title="goto source code">[src]</a></h3><div class="docblock"><p>Tests whether or not <code>self</code> expects a proper TLS close notification
 when the connection is closed. See
-<a href="trait.TlsConnectionExt.html#tymethod.set_require_close_notify"><code>set_require_close_notify()</code></a> for details.</p>
+<a href="trait.TlsConnectionExt.html#tymethod.set_require_close_notify" title="Self::set_require_close_notify()"><code>Self::set_require_close_notify()</code></a> for details.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> requires a proper TLS close
 notification.</p>
@@ -93,9 +93,9 @@ notification.</p>
 <p>On the client side, it is never necessary to call this method;
 although the connection needs to perform a handshake after
 connecting (or after sending a “STARTTLS”-type command),
-<a href="../struct.TlsConnection.html"><code>TlsConnection</code></a> will handle this for you automatically when you try
+<a href="../struct.TlsConnection.html" title="crate::TlsConnection"><code>crate::TlsConnection</code></a> will handle this for you automatically when you try
 to send or receive data on the connection. You can call
-<a href="trait.TlsConnectionExt.html#tymethod.handshake"><code>handshake()</code></a> manually if you want to know whether
+<a href="trait.TlsConnectionExt.html#tymethod.handshake" title="Self::handshake()"><code>Self::handshake()</code></a> manually if you want to know whether
 the initial handshake succeeded or failed (as opposed to just
 immediately trying to use <code>self</code> to read or write, in which case,
 if it fails, it may not be possible to tell if it failed before or
@@ -105,26 +105,26 @@ successful handshake does not indicate the connection will be usable.</p>
 <p>Likewise, on the server side, although a handshake is necessary at
 the beginning of the communication, you do not need to call this
 function explicitly unless you want clearer error reporting.</p>
-<p>Previously, calling <a href="trait.TlsConnectionExt.html#tymethod.handshake"><code>handshake()</code></a> after the initial
+<p>Previously, calling <a href="trait.TlsConnectionExt.html#tymethod.handshake" title="Self::handshake()"><code>Self::handshake()</code></a> after the initial
 handshake would trigger a rehandshake; however, this usage was
 deprecated in GLib 2.60 because rehandshaking was removed from the
 TLS protocol in TLS 1.3. Since GLib 2.64, calling this function after
 the initial handshake will no longer do anything.</p>
-<p>When using a <a href="../struct.TlsConnection.html"><code>TlsConnection</code></a> created by <a href="../struct.SocketClient.html"><code>SocketClient</code></a>, the
-<a href="../struct.SocketClient.html"><code>SocketClient</code></a> performs the initial handshake, so calling this
+<p>When using a <a href="../struct.TlsConnection.html" title="crate::TlsConnection"><code>crate::TlsConnection</code></a> created by <a href="../struct.SocketClient.html" title="crate::SocketClient"><code>crate::SocketClient</code></a>, the
+<a href="../struct.SocketClient.html" title="crate::SocketClient"><code>crate::SocketClient</code></a> performs the initial handshake, so calling this
 function manually is not recommended.</p>
-<p><a href="crate::TlsConnection::accept_certificate"><code>TlsConnection::accept_certificate</code></a> may be emitted during the
+<p>[<code>crate::TlsConnection::accept_certificate</code>] may be emitted during the
 handshake.</p>
 <h2 id="cancellable" class="section-header"><a href="#cancellable"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html"><code>Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
 <p>success or failure</p>
 </div><h3 id="tymethod.handshake_async" class="method"><code>fn <a href="#tymethod.handshake_async" class="fnname">handshake_async</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;, Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(<a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;) + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;io_priority: <a class="struct" href="../../glib/source/struct.Priority.html" title="struct glib::source::Priority">Priority</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;callback: Q<br>)</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#221-226" title="goto source code">[src]</a></h3><div class="docblock"><p>Asynchronously performs a TLS handshake on <code>self</code>. See
-<a href="trait.TlsConnectionExt.html#tymethod.handshake"><code>handshake()</code></a> for more information.</p>
+<a href="trait.TlsConnectionExt.html#tymethod.handshake" title="Self::handshake()"><code>Self::handshake()</code></a> for more information.</p>
 <h2 id="io_priority" class="section-header"><a href="#io_priority"><code>io_priority</code></a></h2>
 <p>the [I/O priority][io-priority] of the request</p>
 <h2 id="cancellable-1" class="section-header"><a href="#cancellable-1"><code>cancellable</code></a></h2>
-<p>a <a href="../struct.Cancellable.html"><code>Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>a <a href="../struct.Cancellable.html" title="crate::Cancellable"><code>crate::Cancellable</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 <h2 id="callback" class="section-header"><a href="#callback"><code>callback</code></a></h2>
 <p>callback to call when the handshake is complete</p>
 <h2 id="user_data" class="section-header"><a href="#user_data"><code>user_data</code></a></h2>
@@ -133,7 +133,7 @@ handshake.</p>
 caller is willing to speak on this connection. The
 Application-Layer Protocol Negotiation (ALPN) extension will be
 used to negotiate a compatible protocol with the peer; use
-<a href="Self::get_negotiated_protocol()"><code>get_negotiated_protocol()</code></a> to find the negotiated
+[<code>Self::get_negotiated_protocol()</code>] to find the negotiated
 protocol after the handshake. Specifying <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for the the value
 of <code>protocols</code> will disable ALPN negotiation.</p>
 <p>See <a href="https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml%60alpn%60-protocol-ids">IANA TLS ALPN Protocol IDs</a>
@@ -142,37 +142,37 @@ for a list of registered protocol IDs.</p>
 <p>a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>-terminated
 array of ALPN protocol names (eg, “http/1.1”, “h2”), or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div><h3 id="tymethod.set_certificate" class="method"><code>fn <a href="#tymethod.set_certificate" class="fnname">set_certificate</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;&gt;(&amp;self, certificate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#272" title="goto source code">[src]</a></h3><div class="docblock"><p>This sets the certificate that <code>self</code> will present to its peer
-during the TLS handshake. For a <a href="../struct.TlsServerConnection.html"><code>TlsServerConnection</code></a>, it is
+during the TLS handshake. For a <a href="../struct.TlsServerConnection.html" title="crate::TlsServerConnection"><code>crate::TlsServerConnection</code></a>, it is
 mandatory to set this, and that will normally be done at construct
 time.</p>
-<p>For a <a href="../struct.TlsClientConnection.html"><code>TlsClientConnection</code></a>, this is optional. If a handshake fails
-with [<code>TlsError::CertificateRequired</code>], that means that the server
+<p>For a <a href="../struct.TlsClientConnection.html" title="crate::TlsClientConnection"><code>crate::TlsClientConnection</code></a>, this is optional. If a handshake fails
+with [<code>crate::TlsError::CertificateRequired</code>], that means that the server
 requires a certificate, and if you try connecting again, you should
 call this method first. You can call
-<a href="crate::TlsClientConnection::get_accepted_cas()"><code>TlsClientConnection::get_accepted_cas()</code></a> on the failed connection
+[<code>crate::TlsClientConnection::get_accepted_cas()</code>] on the failed connection
 to get a list of Certificate Authorities that the server will
 accept certificates from.</p>
 <p>(It is also possible that a server will allow the connection with
 or without a certificate; in that case, if you don’t provide a
 certificate, you can tell that the server requested one by the fact
-that <a href="crate::TlsClientConnection::get_accepted_cas()"><code>TlsClientConnection::get_accepted_cas()</code></a> will return
+that [<code>crate::TlsClientConnection::get_accepted_cas()</code>] will return
 non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.)</p>
 <h2 id="certificate" class="section-header"><a href="#certificate"><code>certificate</code></a></h2>
 <p>the certificate to use for <code>self</code></p>
 </div><h3 id="tymethod.set_database" class="method"><code>fn <a href="#tymethod.set_database" class="fnname">set_database</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TlsDatabase.html" title="struct gio::TlsDatabase">TlsDatabase</a>&gt;&gt;(&amp;self, database: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#285" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the certificate database that is used to verify peer certificates.
 This is set to the default database by default. See
-<a href="crate::TlsBackend::get_default_database()"><code>TlsBackend::get_default_database()</code></a>. If set to <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, then
+[<code>crate::TlsBackend::get_default_database()</code>]. If set to <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, then
 peer certificate validation will always set the
-[<code>TlsCertificateFlags::UnknownCa</code>] error (meaning
-<a href="crate::TlsConnection::accept-certificate"><code>TlsConnection::accept-certificate</code></a> will always be emitted on
+[<code>crate::TlsCertificateFlags::UnknownCa</code>] error (meaning
+[<code>crate::TlsConnection::accept-certificate</code>] will always be emitted on
 client-side connections, unless that bit is not set in
-<a href="crate::TlsClientConnection:validation-flags"><code>TlsClientConnection:validation-flags</code></a>).</p>
+[<code>crate::TlsClientConnection:validation-flags</code>]).</p>
 <h2 id="database" class="section-header"><a href="#database"><code>database</code></a></h2>
-<p>a <a href="../struct.TlsDatabase.html"><code>TlsDatabase</code></a></p>
+<p>a <a href="../struct.TlsDatabase.html" title="crate::TlsDatabase"><code>crate::TlsDatabase</code></a></p>
 </div><h3 id="tymethod.set_interaction" class="method"><code>fn <a href="#tymethod.set_interaction" class="fnname">set_interaction</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TlsInteraction.html" title="struct gio::TlsInteraction">TlsInteraction</a>&gt;&gt;(&amp;self, interaction: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;)</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#296" title="goto source code">[src]</a></h3><div class="docblock"><p>Set the object that will be used to interact with the user. It will be used
 for things like prompting the user for passwords.</p>
 <p>The <code>interaction</code> argument will normally be a derived subclass of
-<a href="../struct.TlsInteraction.html"><code>TlsInteraction</code></a>. <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> can also be provided if no user interaction
+<a href="../struct.TlsInteraction.html" title="crate::TlsInteraction"><code>crate::TlsInteraction</code></a>. <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> can also be provided if no user interaction
 should occur for this connection.</p>
 <h2 id="interaction" class="section-header"><a href="#interaction"><code>interaction</code></a></h2>
 <p>an interaction object, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
@@ -190,7 +190,7 @@ from the TLS protocol in TLS 1.3.</p>
 before the connection is closed. If this is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> (the default),
 then <code>self</code> will expect to receive a TLS close notification from its
 peer before the connection is closed, and will return a
-[<code>TlsError::Eof</code>] error if the connection is closed without proper
+[<code>crate::TlsError::Eof</code>] error if the connection is closed without proper
 notification (since this may indicate a network error, or
 man-in-the-middle attack).</p>
 <p>In some protocols, the application will know whether or not the
@@ -199,33 +199,33 @@ connection was closed cleanly based on application-level data
 somehow self-delimiting); in this case, the close notify is
 redundant and sometimes omitted. (TLS 1.1 explicitly allows this;
 in TLS 1.0 it is technically an error, but often done anyway.) You
-can use <a href="trait.TlsConnectionExt.html#tymethod.set_require_close_notify"><code>set_require_close_notify()</code></a> to tell <code>self</code>
+can use <a href="trait.TlsConnectionExt.html#tymethod.set_require_close_notify" title="Self::set_require_close_notify()"><code>Self::set_require_close_notify()</code></a> to tell <code>self</code>
 to allow an “unannounced” connection close, in which case the close
 will show up as a 0-length read, as in a non-TLS
-<a href="../struct.SocketConnection.html"><code>SocketConnection</code></a>, and it is up to the application to check that
+<a href="../struct.SocketConnection.html" title="crate::SocketConnection"><code>crate::SocketConnection</code></a>, and it is up to the application to check that
 the data has been fully received.</p>
 <p>Note that this only affects the behavior when the peer closes the
-connection; when the application calls <a href="crate::IOStreamExt::close()"><code>IOStreamExt::close()</code></a> itself
+connection; when the application calls <a href="trait.IOStreamExt.html#tymethod.close" title="crate::prelude::IOStreamExt::close()"><code>crate::prelude::IOStreamExt::close()</code></a> itself
 on <code>self</code>, this will send a close notification regardless of the
 setting of this property. If you explicitly want to do an unclean
-close, you can close <code>self</code>’s <a href="crate::TlsConnection:base-io-stream"><code>TlsConnection:base-io-stream</code></a> rather
+close, you can close <code>self</code>’s [<code>crate::TlsConnection:base-io-stream</code>] rather
 than closing <code>self</code> itself, but note that this may only be done when no other
 operations are pending on <code>self</code> or the base I/O stream.</p>
 <h2 id="require_close_notify" class="section-header"><a href="#require_close_notify"><code>require_close_notify</code></a></h2>
 <p>whether or not to require close notification</p>
 </div><h3 id="tymethod.advertised_protocols" class="method"><code>fn <a href="#tymethod.advertised_protocols" class="fnname">advertised_protocols</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#349" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v2_60</code></strong> only.</div></div><h3 id="tymethod.base_io_stream" class="method"><code>fn <a href="#tymethod.base_io_stream" class="fnname">base_io_stream</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.IOStream.html" title="struct gio::IOStream">IOStream</a>&gt;</code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#352" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_accept_certificate" class="method"><code>fn <a href="#tymethod.connect_accept_certificate" class="fnname">connect_accept_certificate</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>, <a class="struct" href="../struct.TlsCertificateFlags.html" title="struct gio::TlsCertificateFlags">TlsCertificateFlags</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gio/auto/tls_connection.rs.html#399-404" title="goto source code">[src]</a></h3><div class="docblock"><p>Emitted during the TLS handshake after the peer certificate has
 been received. You can examine <code>peer_cert</code>’s certification path by
-calling <a href="crate::TlsCertificateExt::get_issuer()"><code>TlsCertificateExt::get_issuer()</code></a> on it.</p>
+calling [<code>crate::prelude::TlsCertificateExt::get_issuer()</code>] on it.</p>
 <p>For a client-side connection, <code>peer_cert</code> is the server’s
 certificate, and the signal will only be emitted if the
 certificate was not acceptable according to <code>conn</code>’s
-<a href="crate::TlsClientConnection:validation_flags"><code>TlsClientConnection:validation_flags</code></a>. If you would like the
+[<code>crate::TlsClientConnection:validation_flags</code>]. If you would like the
 certificate to be accepted despite <code>errors</code>, return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> from the
 signal handler. Otherwise, if no handler accepts the certificate,
-the handshake will fail with [<code>TlsError::BadCertificate</code>].</p>
+the handshake will fail with [<code>crate::TlsError::BadCertificate</code>].</p>
 <p>For a server-side connection, <code>peer_cert</code> is the certificate
 presented by the client, if this was requested via the server’s
-<a href="crate::TlsServerConnection:authentication_mode"><code>TlsServerConnection:authentication_mode</code></a>. On the server side,
+[<code>crate::TlsServerConnection:authentication_mode</code>]. On the server side,
 the signal is always emitted when the client presents a
 certificate, and the certificate will only be accepted if a
 handler returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>.</p>
@@ -235,7 +235,7 @@ the user before returning from the signal handler. If you want to
 let the user decide whether or not to accept the certificate, you
 would have to return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> from the signal handler on the first
 attempt, and then after the connection attempt returns a
-[<code>TlsError::BadCertificate</code>], you can interact with the user, and
+[<code>crate::TlsError::BadCertificate</code>], you can interact with the user, and
 if the user decides to accept the certificate, remember that fact,
 create a new connection, and return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> from the signal handler
 the next time.</p>
@@ -243,7 +243,7 @@ the next time.</p>
 need to worry about this, and can simply block in the signal
 handler until the UI thread returns an answer.</p>
 <h2 id="peer_cert-1" class="section-header"><a href="#peer_cert-1"><code>peer_cert</code></a></h2>
-<p>the peer’s <a href="../struct.TlsCertificate.html"><code>TlsCertificate</code></a></p>
+<p>the peer’s <a href="../struct.TlsCertificate.html" title="crate::TlsCertificate"><code>crate::TlsCertificate</code></a></p>
 <h2 id="errors-1" class="section-header"><a href="#errors-1"><code>errors</code></a></h2>
 <p>the problems with <code>peer_cert</code>.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>

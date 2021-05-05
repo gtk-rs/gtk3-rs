@@ -577,7 +577,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`ColorChooserWidget`](crate::ColorChooserWidget) widget lets the user select a</span>
+    <span class="doccomment">/// The [`crate::ColorChooserWidget`] widget lets the user select a</span>
     <span class="doccomment">/// color. By default, the chooser presents a predefined palette</span>
     <span class="doccomment">/// of colors, plus a small number of settable custom colors.</span>
     <span class="doccomment">/// It is also possible to select a different color with the</span>
@@ -588,10 +588,10 @@
     <span class="doccomment">/// The chooser automatically remembers the last selection, as well</span>
     <span class="doccomment">/// as custom colors.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To change the initially selected color, use [`ColorChooser::set_rgba()`](crate::ColorChooser::set_rgba()).</span>
-    <span class="doccomment">/// To get the selected color use [`ColorChooser::get_rgba()`](crate::ColorChooser::get_rgba()).</span>
+    <span class="doccomment">/// To change the initially selected color, use [`crate::ColorChooser::set_rgba()`].</span>
+    <span class="doccomment">/// To get the selected color use [`crate::ColorChooser::get_rgba()`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`ColorChooserWidget`](crate::ColorChooserWidget) is used in the [`ColorChooserDialog`](crate::ColorChooserDialog)</span>
+    <span class="doccomment">/// The [`crate::ColorChooserWidget`] is used in the [`crate::ColorChooserDialog`]</span>
     <span class="doccomment">/// to provide a dialog for selecting colors.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS names</span>
@@ -600,7 +600,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ColorChooserWidgetExt`](trait@crate::prelude::ColorChooserWidgetExt), [`BoxExt`](trait@crate::prelude::BoxExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`OrientableExt`](trait@crate::prelude::OrientableExt), [`ColorChooserExt`](trait@crate::prelude::ColorChooserExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual), [`ColorChooserExtManual`](trait@crate::prelude::ColorChooserExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ColorChooserWidgetExt`], [`trait@crate::prelude::BoxExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::OrientableExt`], [`trait@crate::prelude::ColorChooserExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`], [`trait@crate::prelude::ColorChooserExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ColorChooserWidget</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkColorChooserWidget</span>, <span class="ident">ffi::GtkColorChooserWidgetClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Box</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">ColorChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -609,11 +609,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ColorChooserWidget</span> {
-    <span class="doccomment">/// Creates a new [`ColorChooserWidget`](crate::ColorChooserWidget).</span>
+    <span class="doccomment">/// Creates a new [`crate::ColorChooserWidget`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ColorChooserWidget`](crate::ColorChooserWidget)</span>
+    <span class="doccomment">/// a new [`crate::ColorChooserWidget`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_color_chooser_widget_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ColorChooserWidget</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1032,7 +1032,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ColorChooserWidget`](struct@crate::ColorChooserWidget)</span>
+<span class="doccomment">/// [`struct@crate::ColorChooserWidget`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ColorChooserWidgetExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;show-editor&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shows_editor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;

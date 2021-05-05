@@ -6,7 +6,7 @@
 }</pre></div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.path" class="method"><code>fn <a href="#tymethod.path" class="fnname">path</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="enum.UnixSocketAddressPath.html" title="enum gio::prelude::UnixSocketAddressPath">UnixSocketAddressPath</a>&lt;'_&gt;&gt;</code><a class="srclink" href="../../src/gio/unix_socket_address.rs.html#134" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>’s path, or for abstract sockets the “name”.</p>
 <p>Guaranteed to be zero-terminated, but an abstract socket
 may contain embedded zeros, and thus you should use
-<a href="crate::UnixSocketAddressExt::get_path_len()"><code>UnixSocketAddressExt::get_path_len()</code></a> to get the true length
+[<code>crate::prelude::UnixSocketAddressExt::get_path_len()</code>] to get the true length
 of this string.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the path for <code>self</code></p>

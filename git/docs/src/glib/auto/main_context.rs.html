@@ -327,11 +327,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">MainContext</span> {
-    <span class="doccomment">/// Creates a new [`MainContext`](crate::MainContext) structure.</span>
+    <span class="doccomment">/// Creates a new [`crate::MainContext`] structure.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`MainContext`](crate::MainContext)</span>
+    <span class="doccomment">/// the new [`crate::MainContext`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_main_context_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MainContext</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_main_context_new</span>()) }
@@ -341,12 +341,12 @@
     <span class="doccomment">/// If some other thread is the owner of the context,</span>
     <span class="doccomment">/// returns [`false`] immediately. Ownership is properly</span>
     <span class="doccomment">/// recursive: the owner can require ownership again</span>
-    <span class="doccomment">/// and will release ownership when [`release()`](Self::release())</span>
-    <span class="doccomment">/// is called as many times as [`acquire()`](Self::acquire()).</span>
+    <span class="doccomment">/// and will release ownership when [`Self::release()`]</span>
+    <span class="doccomment">/// is called as many times as [`Self::acquire()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You must be the owner of a context before you</span>
-    <span class="doccomment">/// can call [`prepare()`](Self::prepare()), [`query()`](Self::query()),</span>
-    <span class="doccomment">/// [`check()`](Self::check()), [`dispatch()`](Self::dispatch()).</span>
+    <span class="doccomment">/// can call [`Self::prepare()`], [`Self::query()`],</span>
+    <span class="doccomment">/// [`Self::check()`], [`Self::dispatch()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -370,7 +370,7 @@
     <span class="doccomment">/// Dispatches all pending sources.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You must have successfully acquired the context with</span>
-    <span class="doccomment">/// [`acquire()`](Self::acquire()) before you may call this function.</span>
+    <span class="doccomment">/// [`Self::acquire()`] before you may call this function.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_main_context_dispatch&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dispatch</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -395,7 +395,7 @@
     <span class="comment">//}</span>
 
     <span class="doccomment">/// Determines whether this thread holds the (recursive)</span>
-    <span class="doccomment">/// ownership of this [`MainContext`](crate::MainContext). This is useful to</span>
+    <span class="doccomment">/// ownership of this [`crate::MainContext`]. This is useful to</span>
     <span class="doccomment">/// know before waiting on another thread that may be</span>
     <span class="doccomment">/// blocking to get ownership of `self`.</span>
     <span class="doccomment">///</span>
@@ -417,7 +417,7 @@
     <span class="doccomment">/// given moment without further waiting.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that even when `may_block` is [`true`], it is still possible for</span>
-    <span class="doccomment">/// [`iteration()`](Self::iteration()) to return [`false`], since the wait may</span>
+    <span class="doccomment">/// [`Self::iteration()`] to return [`false`], since the wait may</span>
     <span class="doccomment">/// be interrupted for other reasons than an event source becoming ready.</span>
     <span class="doccomment">/// ## `may_block`</span>
     <span class="doccomment">/// whether the call may block.</span>
@@ -460,32 +460,32 @@
     <span class="doccomment">/// started in this thread to run under `self` and deliver their</span>
     <span class="doccomment">/// results to its main loop, rather than running under the global</span>
     <span class="doccomment">/// default context in the main thread. Note that calling this function</span>
-    <span class="doccomment">/// changes the context returned by [`get_thread_default()`](Self::get_thread_default()),</span>
-    <span class="doccomment">/// not the one returned by [`default()`](Self::default()), so it does not affect</span>
+    <span class="doccomment">/// changes the context returned by [`Self::get_thread_default()`],</span>
+    <span class="doccomment">/// not the one returned by [`Self::default()`], so it does not affect</span>
     <span class="doccomment">/// the context used by functions like `g_idle_add()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Normally you would call this function shortly after creating a new</span>
-    <span class="doccomment">/// thread, passing it a [`MainContext`](crate::MainContext) which will be run by a</span>
-    <span class="doccomment">/// [`MainLoop`](crate::MainLoop) in that thread, to set a new default context for all</span>
+    <span class="doccomment">/// thread, passing it a [`crate::MainContext`] which will be run by a</span>
+    <span class="doccomment">/// [`crate::MainLoop`] in that thread, to set a new default context for all</span>
     <span class="doccomment">/// async operations in that thread. In this case you may not need to</span>
-    <span class="doccomment">/// ever call [`pop_thread_default()`](Self::pop_thread_default()), assuming you want the</span>
-    <span class="doccomment">/// new [`MainContext`](crate::MainContext) to be the default for the whole lifecycle of the</span>
+    <span class="doccomment">/// ever call [`Self::pop_thread_default()`], assuming you want the</span>
+    <span class="doccomment">/// new [`crate::MainContext`] to be the default for the whole lifecycle of the</span>
     <span class="doccomment">/// thread.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you don&#39;t have control over how the new thread was created (e.g.</span>
     <span class="doccomment">/// in the new thread isn&#39;t newly created, or if the thread life</span>
-    <span class="doccomment">/// cycle is managed by a [`ThreadPool`](crate::ThreadPool)), it is always suggested to wrap</span>
-    <span class="doccomment">/// the logic that needs to use the new [`MainContext`](crate::MainContext) inside a</span>
-    <span class="doccomment">/// [`push_thread_default()`](Self::push_thread_default()) / [`pop_thread_default()`](Self::pop_thread_default())</span>
+    <span class="doccomment">/// cycle is managed by a [`crate::ThreadPool`]), it is always suggested to wrap</span>
+    <span class="doccomment">/// the logic that needs to use the new [`crate::MainContext`] inside a</span>
+    <span class="doccomment">/// [`Self::push_thread_default()`] / [`Self::pop_thread_default()`]</span>
     <span class="doccomment">/// pair, otherwise threads that are re-used will end up never explicitly</span>
-    <span class="doccomment">/// releasing the [`MainContext`](crate::MainContext) reference they hold.</span>
+    <span class="doccomment">/// releasing the [`crate::MainContext`] reference they hold.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In some cases you may want to schedule a single operation in a</span>
     <span class="doccomment">/// non-default context, or temporarily use a non-default context in</span>
     <span class="doccomment">/// the main thread. In that case, you can wrap the call to the</span>
     <span class="doccomment">/// asynchronous operation inside a</span>
-    <span class="doccomment">/// [`push_thread_default()`](Self::push_thread_default()) /</span>
-    <span class="doccomment">/// [`pop_thread_default()`](Self::pop_thread_default()) pair, but it is up to you to</span>
+    <span class="doccomment">/// [`Self::push_thread_default()`] /</span>
+    <span class="doccomment">/// [`Self::pop_thread_default()`] pair, but it is up to you to</span>
     <span class="doccomment">/// ensure that no other asynchronous operations accidentally get</span>
     <span class="doccomment">/// started while the non-default context is active.</span>
     <span class="doccomment">///</span>
@@ -505,8 +505,8 @@
     <span class="comment">//}</span>
 
     <span class="doccomment">/// Releases ownership of a context previously acquired by this thread</span>
-    <span class="doccomment">/// with [`acquire()`](Self::acquire()). If the context was acquired multiple</span>
-    <span class="doccomment">/// times, the ownership will be released only when [`release()`](Self::release())</span>
+    <span class="doccomment">/// with [`Self::acquire()`]. If the context was acquired multiple</span>
+    <span class="doccomment">/// times, the ownership will be released only when [`Self::release()`]</span>
     <span class="doccomment">/// is called as many times as it was acquired.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_main_context_release&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -531,14 +531,14 @@
     <span class="comment">//    unsafe { TODO: call ffi:g_main_context_wait() }</span>
     <span class="comment">//}</span>
 
-    <span class="doccomment">/// If `self` is currently blocking in [`iteration()`](Self::iteration())</span>
+    <span class="doccomment">/// If `self` is currently blocking in [`Self::iteration()`]</span>
     <span class="doccomment">/// waiting for a source to become ready, cause it to stop blocking</span>
     <span class="doccomment">/// and return. Otherwise, cause the next invocation of</span>
-    <span class="doccomment">/// [`iteration()`](Self::iteration()) to return without blocking.</span>
+    <span class="doccomment">/// [`Self::iteration()`] to return without blocking.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This API is useful for low-level control over [`MainContext`](crate::MainContext); for</span>
+    <span class="doccomment">/// This API is useful for low-level control over [`crate::MainContext`]; for</span>
     <span class="doccomment">/// example, integrating it with main loop implementations such as</span>
-    <span class="doccomment">/// [`MainLoop`](crate::MainLoop).</span>
+    <span class="doccomment">/// [`crate::MainLoop`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Another related use for this function is when implementing a main</span>
     <span class="doccomment">/// loop with a termination condition, computed from multiple threads:</span>
@@ -571,7 +571,7 @@
     <span class="doccomment">/// Returns the global default main context. This is the main context</span>
     <span class="doccomment">/// used for main loop functions when a main loop is not explicitly</span>
     <span class="doccomment">/// specified, and corresponds to the &quot;main&quot; main loop. See also</span>
-    <span class="doccomment">/// [`get_thread_default()`](Self::get_thread_default()).</span>
+    <span class="doccomment">/// [`Self::get_thread_default()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -587,17 +587,17 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::g_main_context_get_thread_default</span>()) }
     }
 
-    <span class="doccomment">/// Gets the thread-default [`MainContext`](crate::MainContext) for this thread, as with</span>
-    <span class="doccomment">/// [`get_thread_default()`](Self::get_thread_default()), but also adds a reference to</span>
-    <span class="doccomment">/// it with [`ref()`](Self::ref()). In addition, unlike</span>
-    <span class="doccomment">/// [`get_thread_default()`](Self::get_thread_default()), if the thread-default context</span>
-    <span class="doccomment">/// is the global default context, this will return that [`MainContext`](crate::MainContext)</span>
+    <span class="doccomment">/// Gets the thread-default [`crate::MainContext`] for this thread, as with</span>
+    <span class="doccomment">/// [`Self::get_thread_default()`], but also adds a reference to</span>
+    <span class="doccomment">/// it with [`Self::ref()`]. In addition, unlike</span>
+    <span class="doccomment">/// [`Self::get_thread_default()`], if the thread-default context</span>
+    <span class="doccomment">/// is the global default context, this will return that [`crate::MainContext`]</span>
     <span class="doccomment">/// (with a ref added to it) rather than returning [`None`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the thread-default [`MainContext`](crate::MainContext). Unref</span>
-    <span class="doccomment">///  with [`unref()`](Self::unref()) when you are done with it.</span>
+    <span class="doccomment">/// the thread-default [`crate::MainContext`]. Unref</span>
+    <span class="doccomment">///  with [`Self::unref()`] when you are done with it.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_main_context_ref_thread_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ref_thread_default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MainContext</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_main_context_ref_thread_default</span>()) }

@@ -508,7 +508,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`PixbufLoaderExt`](trait@crate::prelude::PixbufLoaderExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::PixbufLoaderExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PixbufLoader</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkPixbufLoader</span>, <span class="ident">ffi::GdkPixbufLoaderClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -538,8 +538,8 @@
     <span class="doccomment">/// are installed, but typically &quot;image/png&quot;, &quot;image/jpeg&quot;, &quot;image/gif&quot;,</span>
     <span class="doccomment">/// &quot;image/tiff&quot; and &quot;image/x-xpixmap&quot; are among the supported mime types.</span>
     <span class="doccomment">/// To obtain the full list of supported mime types, call</span>
-    <span class="doccomment">/// [`PixbufFormat::get_mime_types()`](crate::PixbufFormat::get_mime_types()) on each of the [`PixbufFormat`](crate::PixbufFormat)</span>
-    <span class="doccomment">/// structs returned by [`Pixbuf::get_formats()`](crate::Pixbuf::get_formats()).</span>
+    <span class="doccomment">/// [`crate::PixbufFormat::get_mime_types()`] on each of the [`crate::PixbufFormat`]</span>
+    <span class="doccomment">/// structs returned by [`crate::Pixbuf::get_formats()`].</span>
     <span class="doccomment">/// ## `mime_type`</span>
     <span class="doccomment">/// the mime type to be loaded</span>
     <span class="doccomment">///</span>
@@ -571,8 +571,8 @@
     <span class="doccomment">/// The list of supported image formats depends on what image loaders</span>
     <span class="doccomment">/// are installed, but typically &quot;png&quot;, &quot;jpeg&quot;, &quot;gif&quot;, &quot;tiff&quot; and</span>
     <span class="doccomment">/// &quot;xpm&quot; are among the supported formats. To obtain the full list of</span>
-    <span class="doccomment">/// supported image formats, call [`PixbufFormat::get_name()`](crate::PixbufFormat::get_name()) on each</span>
-    <span class="doccomment">/// of the [`PixbufFormat`](crate::PixbufFormat) structs returned by [`Pixbuf::get_formats()`](crate::Pixbuf::get_formats()).</span>
+    <span class="doccomment">/// supported image formats, call [`crate::PixbufFormat::get_name()`] on each</span>
+    <span class="doccomment">/// of the [`crate::PixbufFormat`] structs returned by [`crate::Pixbuf::get_formats()`].</span>
     <span class="doccomment">/// ## `image_type`</span>
     <span class="doccomment">/// name of the image format to be loaded with the image</span>
     <span class="doccomment">///</span>
@@ -606,10 +606,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`PixbufLoader`](struct@crate::PixbufLoader)</span>
+<span class="doccomment">/// [`struct@crate::PixbufLoader`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PixbufLoaderExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Informs a pixbuf loader that no further writes with</span>
-    <span class="doccomment">/// [`write()`](Self::write()) will occur, so that it can free its</span>
+    <span class="doccomment">/// [`Self::write()`] will occur, so that it can free its</span>
     <span class="doccomment">/// internal loading structures. Also, tries to parse any data that</span>
     <span class="doccomment">/// hasn&#39;t yet been parsed; if the remaining data is partial or</span>
     <span class="doccomment">/// corrupt, an error will be returned. If [`false`] is returned, `error`</span>
@@ -619,7 +619,7 @@
     <span class="doccomment">/// reasonable.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Remember that this does not unref the loader, so if you plan not to</span>
-    <span class="doccomment">/// use it anymore, please [`glib::object::Object::unref()`](crate::glib::object::Object::unref()) it.</span>
+    <span class="doccomment">/// use it anymore, please [`crate::glib::object::Object::unref()`] it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -628,7 +628,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_loader_close&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Queries the [`PixbufAnimation`](crate::PixbufAnimation) that a pixbuf loader is currently creating.</span>
+    <span class="doccomment">/// Queries the [`crate::PixbufAnimation`] that a pixbuf loader is currently creating.</span>
     <span class="doccomment">/// In general it only makes sense to call this function after the &quot;area-prepared&quot;</span>
     <span class="doccomment">/// signal has been emitted by the loader. If the loader doesn&#39;t have enough</span>
     <span class="doccomment">/// bytes yet (hasn&#39;t emitted the &quot;area-prepared&quot; signal) this function will</span>
@@ -636,7 +636,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`PixbufAnimation`](crate::PixbufAnimation) that the loader is loading, or [`None`] if</span>
+    <span class="doccomment">/// The [`crate::PixbufAnimation`] that the loader is loading, or [`None`] if</span>
     <span class="doccomment">/// not enough data has been read to determine the information.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_loader_get_animation&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_animation&quot;</span>)]</span>
@@ -647,28 +647,28 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`PixbufFormat`](crate::PixbufFormat) or</span>
+    <span class="doccomment">/// A [`crate::PixbufFormat`] or</span>
     <span class="doccomment">/// [`None`]. The return value is owned by `Pixbuf` and should not be</span>
     <span class="doccomment">/// freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_loader_get_format&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_format&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PixbufFormat</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Queries the [`Pixbuf`](crate::Pixbuf) that a pixbuf loader is currently creating.</span>
+    <span class="doccomment">/// Queries the [`crate::Pixbuf`] that a pixbuf loader is currently creating.</span>
     <span class="doccomment">/// In general it only makes sense to call this function after the</span>
     <span class="doccomment">/// &quot;area-prepared&quot; signal has been emitted by the loader; this means</span>
     <span class="doccomment">/// that enough data has been read to know the size of the image that</span>
     <span class="doccomment">/// will be allocated. If the loader has not received enough data via</span>
-    <span class="doccomment">/// [`write()`](Self::write()), then this function returns [`None`]. The</span>
+    <span class="doccomment">/// [`Self::write()`], then this function returns [`None`]. The</span>
     <span class="doccomment">/// returned pixbuf will be the same in all future calls to the loader,</span>
-    <span class="doccomment">/// so simply calling [`glib::object::Object::ref()`](crate::glib::object::Object::ref()) should be sufficient to continue</span>
+    <span class="doccomment">/// so simply calling [`crate::glib::object::Object::ref()`] should be sufficient to continue</span>
     <span class="doccomment">/// using it. Additionally, if the loader is an animation, it will</span>
     <span class="doccomment">/// return the &quot;static image&quot; of the animation</span>
-    <span class="doccomment">/// (see [`PixbufAnimationExt::get_static_image()`](crate::PixbufAnimationExt::get_static_image())).</span>
+    <span class="doccomment">/// (see [`crate::prelude::PixbufAnimationExt::get_static_image()`]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`Pixbuf`](crate::Pixbuf) that the loader is creating, or [`None`] if not</span>
+    <span class="doccomment">/// The [`crate::Pixbuf`] that the loader is creating, or [`None`] if not</span>
     <span class="doccomment">/// enough data has been read to determine how to create the image buffer.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_loader_get_pixbuf&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_pixbuf&quot;</span>)]</span>
@@ -676,7 +676,7 @@
 
     <span class="doccomment">/// Causes the image to be scaled while it is loaded. The desired</span>
     <span class="doccomment">/// image size can be determined relative to the original size of</span>
-    <span class="doccomment">/// the image by calling [`set_size()`](Self::set_size()) from a</span>
+    <span class="doccomment">/// the image by calling [`Self::set_size()`] from a</span>
     <span class="doccomment">/// signal handler for the ::size-prepared signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Attempts to set the desired image size are ignored after the</span>
@@ -706,16 +706,16 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pixbuf_loader_write&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glib::Error</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// This will cause a pixbuf loader to parse a buffer inside a [`glib::Bytes`](crate::glib::Bytes)</span>
+    <span class="doccomment">/// This will cause a pixbuf loader to parse a buffer inside a [`crate::glib::Bytes`]</span>
     <span class="doccomment">/// for an image. It will return [`true`] if the data was loaded successfully,</span>
     <span class="doccomment">/// and [`false`] if an error occurred. In the latter case, the loader</span>
     <span class="doccomment">/// will be closed, and will not accept further writes. If [`false`] is</span>
     <span class="doccomment">/// returned, `error` will be set to an error from the `GDK_PIXBUF_ERROR`</span>
     <span class="doccomment">/// or `G_FILE_ERROR` domains.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: [`write()`](Self::write())</span>
+    <span class="doccomment">/// See also: [`Self::write()`]</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// The image data as a [`glib::Bytes`](crate::glib::Bytes)</span>
+    <span class="doccomment">/// The image data as a [`crate::glib::Bytes`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -726,7 +726,7 @@
 
     <span class="doccomment">/// This signal is emitted when the pixbuf loader has allocated the</span>
     <span class="doccomment">/// pixbuf in the desired size. After this signal is emitted,</span>
-    <span class="doccomment">/// applications can call [`get_pixbuf()`](Self::get_pixbuf()) to fetch</span>
+    <span class="doccomment">/// applications can call [`Self::get_pixbuf()`] to fetch</span>
     <span class="doccomment">/// the partially-loaded pixbuf.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;area-prepared&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_area_prepared</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
@@ -750,7 +750,7 @@
         <span class="ident">f</span>: <span class="ident">F</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// This signal is emitted when [`close()`](Self::close()) is called.</span>
+    <span class="doccomment">/// This signal is emitted when [`Self::close()`] is called.</span>
     <span class="doccomment">/// It can be used by different parts of an application to receive</span>
     <span class="doccomment">/// notification when an image loader is closed by the code that</span>
     <span class="doccomment">/// drives it.</span>
@@ -760,7 +760,7 @@
     <span class="doccomment">/// This signal is emitted when the pixbuf loader has been fed the</span>
     <span class="doccomment">/// initial amount of data that is required to figure out the size</span>
     <span class="doccomment">/// of the image that it will create. Applications can call</span>
-    <span class="doccomment">/// [`set_size()`](Self::set_size()) in response to this signal to set</span>
+    <span class="doccomment">/// [`Self::set_size()`] in response to this signal to set</span>
     <span class="doccomment">/// the desired size to which the image should be scaled.</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// the original width of the image</span>

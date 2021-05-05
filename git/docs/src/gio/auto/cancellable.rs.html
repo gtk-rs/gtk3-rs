@@ -364,7 +364,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`CancellableExt`](trait@crate::prelude::CancellableExt), [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@crate::prelude::CancellableExt`], [`trait@glib::object::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Cancellable</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GCancellable</span>, <span class="ident">ffi::GCancellableClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -373,18 +373,18 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Cancellable</span> {
-    <span class="doccomment">/// Creates a new [`Cancellable`](crate::Cancellable) object.</span>
+    <span class="doccomment">/// Creates a new [`crate::Cancellable`] object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Applications that want to start one or more operations</span>
-    <span class="doccomment">/// that should be cancellable should create a [`Cancellable`](crate::Cancellable)</span>
+    <span class="doccomment">/// that should be cancellable should create a [`crate::Cancellable`]</span>
     <span class="doccomment">/// and pass it to the operations.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// One [`Cancellable`](crate::Cancellable) can be used in multiple consecutive</span>
+    <span class="doccomment">/// One [`crate::Cancellable`] can be used in multiple consecutive</span>
     <span class="doccomment">/// operations or in multiple concurrent operations.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable).</span>
+    <span class="doccomment">/// a [`crate::Cancellable`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_cancellable_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cancellable</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_cancellable_new</span>()) }
@@ -394,7 +394,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`Cancellable`](crate::Cancellable) from the top</span>
+    <span class="doccomment">/// a [`crate::Cancellable`] from the top</span>
     <span class="doccomment">/// of the stack, or [`None`] if the stack is empty.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_cancellable_get_current&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_current&quot;</span>)]</span>
@@ -418,10 +418,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Cancellable`](struct@crate::Cancellable)</span>
+<span class="doccomment">/// [`struct@crate::Cancellable`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CancellableExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Will set `self` to cancelled, and will emit the</span>
-    <span class="doccomment">/// [`Cancellable::cancelled`](crate::Cancellable::cancelled) signal. (However, see the warning about</span>
+    <span class="doccomment">/// [`crate::Cancellable::cancelled`] signal. (However, see the warning about</span>
     <span class="doccomment">/// race conditions in the documentation for that signal if you are</span>
     <span class="doccomment">/// planning to connect to it.)</span>
     <span class="doccomment">///</span>
@@ -446,12 +446,12 @@
     <span class="doccomment">/// `g_signal_handler_disconnect()`. Additionally, in the event that a</span>
     <span class="doccomment">/// signal handler is currently running, this call will block until the</span>
     <span class="doccomment">/// handler has finished. Calling this function from a</span>
-    <span class="doccomment">/// [`Cancellable::cancelled`](crate::Cancellable::cancelled) signal handler will therefore result in a</span>
+    <span class="doccomment">/// [`crate::Cancellable::cancelled`] signal handler will therefore result in a</span>
     <span class="doccomment">/// deadlock.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This avoids a race condition where a thread cancels at the</span>
     <span class="doccomment">/// same time as the cancellable operation is finished and the</span>
-    <span class="doccomment">/// signal handler is removed. See [`Cancellable::cancelled`](crate::Cancellable::cancelled) for</span>
+    <span class="doccomment">/// signal handler is removed. See [`crate::Cancellable::cancelled`] for</span>
     <span class="doccomment">/// details on how to use this.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `self` is [`None`] or `handler_id` is `0` this function does</span>
@@ -467,13 +467,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// You are not supposed to read from the fd yourself, just check for</span>
     <span class="doccomment">/// readable status. Reading to unset the readable status is done</span>
-    <span class="doccomment">/// with [`Cancellable::reset()`](crate::Cancellable::reset()).</span>
+    <span class="doccomment">/// with [`crate::Cancellable::reset()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// After a successful return from this function, you should use</span>
-    <span class="doccomment">/// [`release_fd()`](Self::release_fd()) to free up resources allocated for</span>
+    <span class="doccomment">/// [`Self::release_fd()`] to free up resources allocated for</span>
     <span class="doccomment">/// the returned file descriptor.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`make_pollfd()`](Self::make_pollfd()).</span>
+    <span class="doccomment">/// See also [`Self::make_pollfd()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -501,18 +501,18 @@
     <span class="kw">fn</span> <span class="ident">pop_current</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Pushes `self` onto the cancellable stack. The current</span>
-    <span class="doccomment">/// cancellable can then be received using [`Cancellable::get_current()`](crate::Cancellable::get_current()).</span>
+    <span class="doccomment">/// cancellable can then be received using [`crate::Cancellable::get_current()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is useful when implementing cancellable operations in</span>
     <span class="doccomment">/// code that does not allow you to pass down the cancellable object.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is typically called automatically by e.g. [`File`](crate::File) operations,</span>
+    <span class="doccomment">/// This is typically called automatically by e.g. [`crate::File`] operations,</span>
     <span class="doccomment">/// so you rarely have to call this yourself.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_cancellable_push_current&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">push_current</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Releases a resources previously allocated by [`get_fd()`](Self::get_fd())</span>
-    <span class="doccomment">/// or [`make_pollfd()`](Self::make_pollfd()).</span>
+    <span class="doccomment">/// Releases a resources previously allocated by [`Self::get_fd()`]</span>
+    <span class="doccomment">/// or [`Self::make_pollfd()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For compatibility reasons with older releases, calling this function</span>
     <span class="doccomment">/// is not strictly required, the resources will be automatically freed</span>
@@ -551,8 +551,8 @@
     <span class="doccomment">/// the signal leaves a race condition where this is still happening.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to make it safe and easy to connect handlers there</span>
-    <span class="doccomment">/// are two helper functions: [`connect()`](Self::connect()) and</span>
-    <span class="doccomment">/// [`disconnect()`](Self::disconnect()) which protect against problems</span>
+    <span class="doccomment">/// are two helper functions: [`Self::connect()`] and</span>
+    <span class="doccomment">/// [`Self::disconnect()`] which protect against problems</span>
     <span class="doccomment">/// like this.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An example of how to us this:</span>

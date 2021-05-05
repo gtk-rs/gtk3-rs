@@ -142,8 +142,8 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`GlyphItemIter`](crate::GlyphItemIter) is an iterator over the clusters in a</span>
-    <span class="doccomment">/// [`GlyphItem`](crate::GlyphItem). The `&lt;firstterm&gt;`forward direction`&lt;/firstterm&gt;` of the</span>
+    <span class="doccomment">/// A [`crate::GlyphItemIter`] is an iterator over the clusters in a</span>
+    <span class="doccomment">/// [`crate::GlyphItem`]. The `&lt;firstterm&gt;`forward direction`&lt;/firstterm&gt;` of the</span>
     <span class="doccomment">/// iterator is the logical direction of text. That is, with increasing</span>
     <span class="doccomment">/// `start_index` and `start_char` values. If `glyph_item` is right-to-left</span>
     <span class="doccomment">/// (that is, if `&lt;literal&gt;``glyph_item`-&gt;item-&gt;analysis.level`&lt;/literal&gt;` is odd),</span>
@@ -151,11 +151,11 @@
     <span class="doccomment">/// in right-to-left cases, `start_glyph` is greater than `end_glyph`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An iterator should be initialized using either of</span>
-    <span class="doccomment">/// [`init_start()`](Self::init_start()) and</span>
-    <span class="doccomment">/// [`init_end()`](Self::init_end()), for forward and backward iteration</span>
+    <span class="doccomment">/// [`Self::init_start()`] and</span>
+    <span class="doccomment">/// [`Self::init_end()`], for forward and backward iteration</span>
     <span class="doccomment">/// respectively, and walked over using any desired mixture of</span>
-    <span class="doccomment">/// [`next_cluster()`](Self::next_cluster()) and</span>
-    <span class="doccomment">/// [`prev_cluster()`](Self::prev_cluster()). A common idiom for doing a</span>
+    <span class="doccomment">/// [`Self::next_cluster()`] and</span>
+    <span class="doccomment">/// [`Self::prev_cluster()`]. A common idiom for doing a</span>
     <span class="doccomment">/// forward iteration over the clusters is:</span>
     <span class="doccomment">/// `&lt;programlisting&gt;`</span>
     <span class="doccomment">/// PangoGlyphItemIter cluster_iter;</span>
@@ -178,7 +178,7 @@
     <span class="doccomment">/// item pointed at by the start variables is included in the cluster while</span>
     <span class="doccomment">/// the one pointed at by end variables is not.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// None of the members of a [`GlyphItemIter`](crate::GlyphItemIter) should be modified manually.</span>
+    <span class="doccomment">/// None of the members of a [`crate::GlyphItemIter`] should be modified manually.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GlyphItemIter</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi::PangoGlyphItemIter</span><span class="op">&gt;</span>);
 
@@ -190,9 +190,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">GlyphItemIter</span> {
-    <span class="doccomment">/// Initializes a [`GlyphItemIter`](crate::GlyphItemIter) structure to point to the</span>
+    <span class="doccomment">/// Initializes a [`crate::GlyphItemIter`] structure to point to the</span>
     <span class="doccomment">/// last cluster in a glyph item.</span>
-    <span class="doccomment">/// See [`GlyphItemIter`](crate::GlyphItemIter) for details of cluster orders.</span>
+    <span class="doccomment">/// See [`crate::GlyphItemIter`] for details of cluster orders.</span>
     <span class="doccomment">/// ## `glyph_item`</span>
     <span class="doccomment">/// the glyph item to iterate over</span>
     <span class="doccomment">/// ## `text`</span>
@@ -212,9 +212,9 @@
         }
     }
 
-    <span class="doccomment">/// Initializes a [`GlyphItemIter`](crate::GlyphItemIter) structure to point to the</span>
+    <span class="doccomment">/// Initializes a [`crate::GlyphItemIter`] structure to point to the</span>
     <span class="doccomment">/// first cluster in a glyph item.</span>
-    <span class="doccomment">/// See [`GlyphItemIter`](crate::GlyphItemIter) for details of cluster orders.</span>
+    <span class="doccomment">/// See [`crate::GlyphItemIter`] for details of cluster orders.</span>
     <span class="doccomment">/// ## `glyph_item`</span>
     <span class="doccomment">/// the glyph item to iterate over</span>
     <span class="doccomment">/// ## `text`</span>
@@ -235,7 +235,7 @@
     }
 
     <span class="doccomment">/// Advances the iterator to the next cluster in the glyph item.</span>
-    <span class="doccomment">/// See [`GlyphItemIter`](crate::GlyphItemIter) for details of cluster orders.</span>
+    <span class="doccomment">/// See [`crate::GlyphItemIter`] for details of cluster orders.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -251,7 +251,7 @@
     }
 
     <span class="doccomment">/// Moves the iterator to the preceding cluster in the glyph item.</span>
-    <span class="doccomment">/// See [`GlyphItemIter`](crate::GlyphItemIter) for details of cluster orders.</span>
+    <span class="doccomment">/// See [`crate::GlyphItemIter`] for details of cluster orders.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

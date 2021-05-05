@@ -190,10 +190,10 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib::GString</span>;
 
-<span class="doccomment">/// The [`Language`](crate::Language) structure is used to</span>
+<span class="doccomment">/// The [`crate::Language`] structure is used to</span>
 <span class="doccomment">/// represent a language.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`Language`](crate::Language) pointers can be efficiently</span>
+<span class="doccomment">/// [`crate::Language`] pointers can be efficiently</span>
 <span class="doccomment">/// copied and compared with each other.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Language</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::PangoLanguage</span>);
 
@@ -256,7 +256,7 @@
 
 <span class="kw">impl</span> <span class="ident">Language</span> {
     <span class="doccomment">/// Take a RFC-3066 format language tag as a string and convert it to a</span>
-    <span class="doccomment">/// [`Language`](crate::Language) pointer that can be efficiently copied (copy the</span>
+    <span class="doccomment">/// [`crate::Language`] pointer that can be efficiently copied (copy the</span>
     <span class="doccomment">/// pointer) and compared with other language tags (compare the</span>
     <span class="doccomment">/// pointer.)</span>
     <span class="doccomment">///</span>
@@ -264,7 +264,7 @@
     <span class="doccomment">/// lowercase, mapping &#39;_&#39; to &#39;-&#39;, and stripping all characters other</span>
     <span class="doccomment">/// than letters and &#39;-&#39;.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`get_default()`](Self::get_default()) if you want to get the [`Language`](crate::Language) for</span>
+    <span class="doccomment">/// Use [`Self::get_default()`] if you want to get the [`crate::Language`] for</span>
     <span class="doccomment">/// the current locale of the process.</span>
     <span class="doccomment">/// ## `language`</span>
     <span class="doccomment">/// a string representing a language tag, or [`None`]</span>
@@ -272,7 +272,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// an opaque pointer to a</span>
-    <span class="doccomment">///  [`Language`](crate::Language) structure, or [`None`] if `language` was</span>
+    <span class="doccomment">///  [`crate::Language`] structure, or [`None`] if `language` was</span>
     <span class="doccomment">///  [`None`]. The returned pointer will be valid forever</span>
     <span class="doccomment">///  after, and should not be freed.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_string</span>(<span class="ident">language</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -298,7 +298,7 @@
     <span class="doccomment">/// a list of language ranges, separated by &#39;;&#39;, &#39;:&#39;,</span>
     <span class="doccomment">///  &#39;,&#39;, or space characters.</span>
     <span class="doccomment">///  Each element must either be &#39;*&#39;, or a RFC 3066 language range</span>
-    <span class="doccomment">///  canonicalized as by [`from_string()`](Self::from_string())</span>
+    <span class="doccomment">///  canonicalized as by [`Self::from_string()`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -323,9 +323,9 @@
     <span class="doccomment">/// a particular section of text. It probably is not useful for</span>
     <span class="doccomment">/// applications in most circumstances.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function uses [`get_scripts()`](Self::get_scripts()) internally.</span>
+    <span class="doccomment">/// This function uses [`Self::get_scripts()`] internally.</span>
     <span class="doccomment">/// ## `script`</span>
-    <span class="doccomment">/// a [`Script`](crate::Script)</span>
+    <span class="doccomment">/// a [`crate::Script`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

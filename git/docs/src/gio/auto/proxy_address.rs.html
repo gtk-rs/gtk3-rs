@@ -229,11 +229,11 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Support for proxied [`InetSocketAddress`](crate::InetSocketAddress).</span>
+    <span class="doccomment">/// Support for proxied [`crate::InetSocketAddress`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ProxyAddressExt`](trait@crate::prelude::ProxyAddressExt), [`InetSocketAddressExt`](trait@crate::prelude::InetSocketAddressExt), [`SocketAddressExt`](trait@crate::prelude::SocketAddressExt), [`trait@glib::object::ObjectExt`], [`SocketConnectableExt`](trait@crate::prelude::SocketConnectableExt)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::ProxyAddressExt`], [`trait@crate::prelude::InetSocketAddressExt`], [`trait@crate::prelude::SocketAddressExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::SocketConnectableExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ProxyAddress</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GProxyAddress</span>, <span class="ident">ffi::GProxyAddressClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">InetSocketAddress</span>, <span class="ident">SocketAddress</span>, @<span class="ident">implements</span> <span class="ident">SocketConnectable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -242,14 +242,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ProxyAddress</span> {
-    <span class="doccomment">/// Creates a new [`ProxyAddress`](crate::ProxyAddress) for `inetaddr` with `protocol` that should</span>
+    <span class="doccomment">/// Creates a new [`crate::ProxyAddress`] for `inetaddr` with `protocol` that should</span>
     <span class="doccomment">/// tunnel through `dest_hostname` and `dest_port`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// (Note that this method doesn&#39;t set the [`ProxyAddress:uri`](crate::ProxyAddress:uri) or</span>
-    <span class="doccomment">/// [`ProxyAddress:destination-protocol`](crate::ProxyAddress:destination-protocol) fields; use [`glib::object::Object::new()`](crate::glib::object::Object::new())</span>
+    <span class="doccomment">/// (Note that this method doesn&#39;t set the [`crate::ProxyAddress:uri`] or</span>
+    <span class="doccomment">/// [`crate::ProxyAddress:destination-protocol`] fields; use [`crate::glib::object::Object::new()`]</span>
     <span class="doccomment">/// directly if you want to set those.)</span>
     <span class="doccomment">/// ## `inetaddr`</span>
-    <span class="doccomment">/// The proxy server [`InetAddress`](crate::InetAddress).</span>
+    <span class="doccomment">/// The proxy server [`crate::InetAddress`].</span>
     <span class="doccomment">/// ## `port`</span>
     <span class="doccomment">/// The proxy server port.</span>
     <span class="doccomment">/// ## `protocol`</span>
@@ -267,7 +267,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`ProxyAddress`](crate::ProxyAddress)</span>
+    <span class="doccomment">/// a new [`crate::ProxyAddress`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_proxy_address_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">InetAddress</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">inetaddr</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
@@ -302,7 +302,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ProxyAddress`](struct@crate::ProxyAddress)</span>
+<span class="doccomment">/// [`struct@crate::ProxyAddress`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ProxyAddressExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets `self`&#39;s destination hostname; that is, the name of the host</span>
     <span class="doccomment">/// that will be connected to via the proxy, not the name of the proxy</span>

@@ -211,7 +211,7 @@
 <span class="kw">use</span> <span class="ident">socket</span>::{<span class="ident">AsRawFd</span>, <span class="ident">IntoRawFd</span>, <span class="ident">RawFd</span>};
 
 <span class="kw">impl</span> <span class="ident">UnixFDList</span> {
-    <span class="doccomment">/// Creates a new [`UnixFDList`](crate::UnixFDList) containing the file descriptors given in</span>
+    <span class="doccomment">/// Creates a new [`crate::UnixFDList`] containing the file descriptors given in</span>
     <span class="doccomment">/// `fds`. The file descriptors become the property of the new list and</span>
     <span class="doccomment">/// may no longer be used by the caller. The array itself is owned by</span>
     <span class="doccomment">/// the caller.</span>
@@ -226,7 +226,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`UnixFDList`](crate::UnixFDList)</span>
+    <span class="doccomment">/// a new [`crate::UnixFDList`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_fd_list_new_from_array&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_array</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">fds</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixFDList</span>
     <span class="kw">where</span>
@@ -254,7 +254,7 @@
     <span class="doccomment">/// system-wide file descriptor limit.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The index of the file descriptor in the list is returned. If you use</span>
-    <span class="doccomment">/// this index with [`UnixFDList::get()`](crate::UnixFDList::get()) then you will receive back a</span>
+    <span class="doccomment">/// this index with [`crate::UnixFDList::get()`] then you will receive back a</span>
     <span class="doccomment">/// duplicated copy of the same file descriptor.</span>
     <span class="doccomment">/// ## `fd`</span>
     <span class="doccomment">/// a valid open file descriptor</span>
@@ -270,7 +270,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `index_` specifies the index of the file descriptor to get. It is a</span>
     <span class="doccomment">/// programmer error for `index_` to be out of range; see</span>
-    <span class="doccomment">/// [`UnixFDListExt::get_length()`](crate::UnixFDListExt::get_length()).</span>
+    <span class="doccomment">/// [`crate::prelude::UnixFDListExt::get_length()`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The file descriptor is duplicated using `dup()` and set as</span>
     <span class="doccomment">/// close-on-exec before being returned. You must call `close()` on it</span>

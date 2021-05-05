@@ -735,14 +735,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">KeyFile</span> {
-    <span class="doccomment">/// Creates a new empty [`KeyFile`](crate::KeyFile) object. Use</span>
-    <span class="doccomment">/// [`load_from_file()`](Self::load_from_file()), [`load_from_data()`](Self::load_from_data()),</span>
-    <span class="doccomment">/// [`load_from_dirs()`](Self::load_from_dirs()) or [`load_from_data_dirs()`](Self::load_from_data_dirs()) to</span>
+    <span class="doccomment">/// Creates a new empty [`crate::KeyFile`] object. Use</span>
+    <span class="doccomment">/// [`Self::load_from_file()`], [`Self::load_from_data()`],</span>
+    <span class="doccomment">/// [`Self::load_from_dirs()`] or [`Self::load_from_data_dirs()`] to</span>
     <span class="doccomment">/// read an existing key file.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an empty [`KeyFile`](crate::KeyFile).</span>
+    <span class="doccomment">/// an empty [`crate::KeyFile`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_key_file_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">KeyFile</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::g_key_file_new</span>()) }
@@ -993,12 +993,12 @@
         }
     }
 
-    <span class="doccomment">/// Loads a key file from the data in `bytes` into an empty [`KeyFile`](crate::KeyFile) structure.</span>
-    <span class="doccomment">/// If the object cannot be created then `error` is set to a [`KeyFileError`](crate::KeyFileError).</span>
+    <span class="doccomment">/// Loads a key file from the data in `bytes` into an empty [`crate::KeyFile`] structure.</span>
+    <span class="doccomment">/// If the object cannot be created then `error` is set to a [`crate::KeyFileError`].</span>
     <span class="doccomment">/// ## `bytes`</span>
-    <span class="doccomment">/// a [`Bytes`](crate::Bytes)</span>
+    <span class="doccomment">/// a [`crate::Bytes`]</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags from [`KeyFileFlags`](crate::KeyFileFlags)</span>
+    <span class="doccomment">/// flags from [`crate::KeyFileFlags`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1023,14 +1023,14 @@
         }
     }
 
-    <span class="doccomment">/// Loads a key file from memory into an empty [`KeyFile`](crate::KeyFile) structure.</span>
-    <span class="doccomment">/// If the object cannot be created then `error` is set to a [`KeyFileError`](crate::KeyFileError).</span>
+    <span class="doccomment">/// Loads a key file from memory into an empty [`crate::KeyFile`] structure.</span>
+    <span class="doccomment">/// If the object cannot be created then `error` is set to a [`crate::KeyFileError`].</span>
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// key file loaded in memory</span>
     <span class="doccomment">/// ## `length`</span>
     <span class="doccomment">/// the length of `data` in bytes (or (gsize)-1 if data is nul-terminated)</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags from [`KeyFileFlags`](crate::KeyFileFlags)</span>
+    <span class="doccomment">/// flags from [`crate::KeyFileFlags`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1055,18 +1055,18 @@
         }
     }
 
-    <span class="doccomment">/// Loads a key file into an empty [`KeyFile`](crate::KeyFile) structure.</span>
+    <span class="doccomment">/// Loads a key file into an empty [`crate::KeyFile`] structure.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the OS returns an error when opening or reading the file, a</span>
     <span class="doccomment">/// `G_FILE_ERROR` is returned. If there is a problem parsing the file, a</span>
     <span class="doccomment">/// `G_KEY_FILE_ERROR` is returned.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function will never return a [`KeyFileError::NotFound`] error. If the</span>
-    <span class="doccomment">/// `file` is not found, [`FileError::Noent`] is returned.</span>
+    <span class="doccomment">/// This function will never return a [`crate::KeyFileError::NotFound`] error. If the</span>
+    <span class="doccomment">/// `file` is not found, [`crate::FileError::Noent`] is returned.</span>
     <span class="doccomment">/// ## `file`</span>
     <span class="doccomment">/// the path of a filename to load, in the GLib filename encoding</span>
     <span class="doccomment">/// ## `flags`</span>
-    <span class="doccomment">/// flags from [`KeyFileFlags`](crate::KeyFileFlags)</span>
+    <span class="doccomment">/// flags from [`crate::KeyFileFlags`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1344,7 +1344,7 @@
     <span class="doccomment">/// Associates a new string value with `key` under `group_name`.</span>
     <span class="doccomment">/// If `key` cannot be found then it is created.</span>
     <span class="doccomment">/// If `group_name` cannot be found then it is created.</span>
-    <span class="doccomment">/// Unlike [`set_value()`](Self::set_value()), this function handles characters</span>
+    <span class="doccomment">/// Unlike [`Self::set_value()`], this function handles characters</span>
     <span class="doccomment">/// that need escaping, such as newlines.</span>
     <span class="doccomment">/// ## `group_name`</span>
     <span class="doccomment">/// a group name</span>
@@ -1389,7 +1389,7 @@
     <span class="doccomment">/// If `key` cannot be found then it is created. If `group_name` cannot</span>
     <span class="doccomment">/// be found then it is created. To set an UTF-8 string which may contain</span>
     <span class="doccomment">/// characters that need escaping (such as newlines or spaces), use</span>
-    <span class="doccomment">/// [`set_string()`](Self::set_string()).</span>
+    <span class="doccomment">/// [`Self::set_string()`].</span>
     <span class="doccomment">/// ## `group_name`</span>
     <span class="doccomment">/// a group name</span>
     <span class="doccomment">/// ## `key`</span>

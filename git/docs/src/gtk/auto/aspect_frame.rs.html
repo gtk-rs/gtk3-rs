@@ -803,11 +803,11 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`AspectFrame`](crate::AspectFrame) is useful when you want</span>
+    <span class="doccomment">/// The [`crate::AspectFrame`] is useful when you want</span>
     <span class="doccomment">/// pack a widget so that it can resize but always retains</span>
     <span class="doccomment">/// the same aspect ratio. For instance, one might be</span>
-    <span class="doccomment">/// drawing a small preview of a larger image. [`AspectFrame`](crate::AspectFrame)</span>
-    <span class="doccomment">/// derives from [`Frame`](crate::Frame), so it can draw a label and</span>
+    <span class="doccomment">/// drawing a small preview of a larger image. [`crate::AspectFrame`]</span>
+    <span class="doccomment">/// derives from [`crate::Frame`], so it can draw a label and</span>
     <span class="doccomment">/// a frame around the child. The frame will be</span>
     <span class="doccomment">/// “shrink-wrapped” to the size of the child.</span>
     <span class="doccomment">///</span>
@@ -817,7 +817,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`AspectFrameExt`](trait@crate::prelude::AspectFrameExt), [`FrameExt`](trait@crate::prelude::FrameExt), [`BinExt`](trait@crate::prelude::BinExt), [`ContainerExt`](trait@crate::prelude::ContainerExt), [`WidgetExt`](trait@crate::prelude::WidgetExt), [`trait@glib::object::ObjectExt`], [`BuildableExt`](trait@crate::prelude::BuildableExt), [`WidgetExtManual`](trait@crate::prelude::WidgetExtManual), [`BuildableExtManual`](trait@crate::prelude::BuildableExtManual)</span>
+    <span class="doccomment">/// [`trait@crate::prelude::AspectFrameExt`], [`trait@crate::prelude::FrameExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AspectFrame</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkAspectFrame</span>, <span class="ident">ffi::GtkAspectFrameClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Frame</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -826,16 +826,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">AspectFrame</span> {
-    <span class="doccomment">/// Create a new [`AspectFrame`](crate::AspectFrame).</span>
+    <span class="doccomment">/// Create a new [`crate::AspectFrame`].</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// Label text.</span>
     <span class="doccomment">/// ## `xalign`</span>
     <span class="doccomment">/// Horizontal alignment of the child within the allocation of</span>
-    <span class="doccomment">///  the [`AspectFrame`](crate::AspectFrame). This ranges from 0.0 (left aligned)</span>
+    <span class="doccomment">///  the [`crate::AspectFrame`]. This ranges from 0.0 (left aligned)</span>
     <span class="doccomment">///  to 1.0 (right aligned)</span>
     <span class="doccomment">/// ## `yalign`</span>
     <span class="doccomment">/// Vertical alignment of the child within the allocation of</span>
-    <span class="doccomment">///  the [`AspectFrame`](crate::AspectFrame). This ranges from 0.0 (top aligned)</span>
+    <span class="doccomment">///  the [`crate::AspectFrame`]. This ranges from 0.0 (top aligned)</span>
     <span class="doccomment">///  to 1.0 (bottom aligned)</span>
     <span class="doccomment">/// ## `ratio`</span>
     <span class="doccomment">/// The desired aspect ratio.</span>
@@ -845,7 +845,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`AspectFrame`](crate::AspectFrame).</span>
+    <span class="doccomment">/// the new [`crate::AspectFrame`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_aspect_frame_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
@@ -1291,16 +1291,16 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`AspectFrame`](struct@crate::AspectFrame)</span>
+<span class="doccomment">/// [`struct@crate::AspectFrame`]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AspectFrameExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Set parameters for an existing [`AspectFrame`](crate::AspectFrame).</span>
+    <span class="doccomment">/// Set parameters for an existing [`crate::AspectFrame`].</span>
     <span class="doccomment">/// ## `xalign`</span>
     <span class="doccomment">/// Horizontal alignment of the child within the allocation of</span>
-    <span class="doccomment">///  the [`AspectFrame`](crate::AspectFrame). This ranges from 0.0 (left aligned)</span>
+    <span class="doccomment">///  the [`crate::AspectFrame`]. This ranges from 0.0 (left aligned)</span>
     <span class="doccomment">///  to 1.0 (right aligned)</span>
     <span class="doccomment">/// ## `yalign`</span>
     <span class="doccomment">/// Vertical alignment of the child within the allocation of</span>
-    <span class="doccomment">///  the [`AspectFrame`](crate::AspectFrame). This ranges from 0.0 (top aligned)</span>
+    <span class="doccomment">///  the [`crate::AspectFrame`]. This ranges from 0.0 (top aligned)</span>
     <span class="doccomment">///  to 1.0 (bottom aligned)</span>
     <span class="doccomment">/// ## `ratio`</span>
     <span class="doccomment">/// The desired aspect ratio.</span>

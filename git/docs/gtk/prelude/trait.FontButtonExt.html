@@ -23,15 +23,15 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_use_size_notify" class="fnname">connect_use_size_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</pre></div><div class="docblock"><p>Trait containing all <code>FontButton</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.FontButton.html"><code>FontButton</code></a></p>
+<p><a href="../struct.FontButton.html" title="crate::FontButton"><code>crate::FontButton</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.font_name" class="method"><code>fn <a href="#tymethod.font_name" class="fnname">font_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#638" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the name of the currently selected font. This name includes
 style and size information as well. If you want to render something
-with the font, use this string with <a href="../../pango/auto/font_description/struct.FontDescription.html#method.from_string"><code>pango::FontDescription::from_string()</code></a> .
+with the font, use this string with <a href="../../pango/auto/font_description/struct.FontDescription.html#method.from_string" title="crate::pango::FontDescription::from_string()"><code>crate::pango::FontDescription::from_string()</code></a> .
 If you’re interested in peeking certain values (family name,
 style, size, weight) just query these properties from the
-<a href="../../pango/auto/font_description/struct.FontDescription.html"><code>pango::FontDescription</code></a> object.</p>
+<a href="../../pango/auto/font_description/struct.FontDescription.html" title="crate::pango::FontDescription"><code>crate::pango::FontDescription</code></a> object.</p>
 <h1 id="deprecated-since-322" class="section-header"><a href="#deprecated-since-322">Deprecated since 3.22</a></h1>
-<p>Use <a href="crate::FontChooser::get_font()"><code>FontChooser::get_font()</code></a> instead</p>
+<p>Use [<code>crate::FontChooser::get_font()</code>] instead</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>an internal copy of the font name which must not be freed.</p>
 </div><h3 id="tymethod.shows_size" class="method"><code>fn <a href="#tymethod.shows_size" class="fnname">shows_size</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#647" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns whether the font size will be shown in the label.</p>
@@ -51,7 +51,7 @@ style, size, weight) just query these properties from the
 <p>whether the selected size is used in the label.</p>
 </div><h3 id="tymethod.set_font_name" class="method"><code>fn <a href="#tymethod.set_font_name" class="fnname">set_font_name</a>(&amp;self, fontname: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#698" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets or updates the currently-displayed font in font picker dialog.</p>
 <h1 id="deprecated-since-322-1" class="section-header"><a href="#deprecated-since-322-1">Deprecated since 3.22</a></h1>
-<p>Use <a href="crate::FontChooser::set_font()"><code>FontChooser::set_font()</code></a> instead</p>
+<p>Use [<code>crate::FontChooser::set_font()</code>] instead</p>
 <h2 id="fontname" class="section-header"><a href="#fontname"><code>fontname</code></a></h2>
 <p>Name of font to display in font chooser dialog</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
@@ -72,7 +72,7 @@ style, size, weight) just query these properties from the
 <h2 id="use_size" class="section-header"><a href="#use_size"><code>use_size</code></a></h2>
 <p>If <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, font name will be written using the selected size.</p>
 </div><h3 id="tymethod.connect_font_set" class="method"><code>fn <a href="#tymethod.connect_font_set" class="fnname">connect_font_set</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/font_button.rs.html#738" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::font-set signal is emitted when the user selects a font.
-When handling this signal, use <a href="crate::FontChooser::get_font()"><code>FontChooser::get_font()</code></a>
+When handling this signal, use [<code>crate::FontChooser::get_font()</code>]
 to find out which font was just selected.</p>
 <p>Note that this signal is only emitted when the user
 changes the font. If you need to react to programmatic font changes
