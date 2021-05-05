@@ -215,6 +215,8 @@ mod list_box;
 mod list_store;
 mod menu;
 mod message_dialog;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+mod native_dialog;
 mod notebook;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod pad_action_entry;
