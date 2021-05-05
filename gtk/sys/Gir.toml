@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "Gtk"
 version = "3.0"
-min_cfg_version = "3.14"
+min_cfg_version = "3.18"
 single_version_file = "."
 girs_directories = ["../../gir-files"]
 
@@ -30,29 +30,14 @@ ignore = [
 ]
 
 [[object]]
-name = "Gtk.ButtonRole"
-status = "generate"
-version = "3.16"
-
-[[object]]
 name = "Gtk.FileChooserNative"
 status = "generate"
 version = "3.20"
 
 [[object]]
-name = "Gtk.ModelButton"
-status = "generate"
-version = "3.16"
-
-[[object]]
 name = "Gtk.NativeDialog"
 status = "generate"
 version = "3.20"
-
-[[object]]
-name = "Gtk.PopoverMenu"
-status = "generate"
-version = "3.16"
 
 [[object]]
 name = "Gtk.ShortcutsGroup"

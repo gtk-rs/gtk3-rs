@@ -6,14 +6,10 @@ use glib::translate::*;
 use std::ptr;
 
 pub trait FlowBoxExtManual: 'static {
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn unbind_model(&self);
 }
 
 impl<O: IsA<FlowBox>> FlowBoxExtManual for O {
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn unbind_model(&self) {
         unsafe {
             ffi::gtk_flow_box_bind_model(

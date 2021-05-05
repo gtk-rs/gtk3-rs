@@ -53,9 +53,7 @@ mod event_scroll;
 mod event_selection;
 mod event_setting;
 mod event_touch;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
 mod event_touchpad_pinch;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
 mod event_touchpad_swipe;
 mod event_visibility;
 mod event_window_state;
@@ -128,9 +126,7 @@ pub use event_pad_axis::EventPadAxis;
 pub use event_pad_button::EventPadButton;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use event_pad_group_mode::EventPadGroupMode;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
 pub use event_touchpad_pinch::EventTouchpadPinch;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
 pub use event_touchpad_swipe::EventTouchpadSwipe;
 
 #[allow(non_camel_case_types)]

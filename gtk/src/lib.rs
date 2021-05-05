@@ -123,15 +123,15 @@
 //!
 //! ## Library versions
 //!
-//! By default this crate provides only GTK 3.14 APIs. You can access additional
-//! functionality by selecting one of the `v3_16`, `v3_18`, etc. features.
+//! By default this crate provides only GTK 3.18 APIs. You can access additional
+//! functionality by selecting one of the `v3_20`, `v3_24`, etc. features.
 //!
 //! `Cargo.toml` example:
 //!
 //! ```toml
 //! [dependencies.gtk]
 //! version = "0.x.y"
-//! features = ["v3_16"]
+//! features = ["v3_20"]
 //! ```
 //!
 //! Take care when choosing the version to target: some of your users might
@@ -197,13 +197,11 @@ mod entry_completion;
 mod enums;
 mod file_chooser_dialog;
 mod fixed;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
 mod flow_box;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 mod gesture_stylus;
 mod im_context_simple;
 mod invisible;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
 mod list_box;
 mod list_store;
 mod menu;

@@ -8,8 +8,6 @@ pub trait DragContextExtManual: 'static {
     #[doc(alias = "gtk_drag_finish")]
     fn drag_finish(&self, success: bool, del: bool, time_: u32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_drag_cancel")]
     fn drag_cancel(&self);
 
@@ -50,8 +48,6 @@ impl<O: IsA<gdk::DragContext>> DragContextExtManual for O {
         };
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn drag_cancel(&self) {
         assert_initialized_main_thread!();
         unsafe {

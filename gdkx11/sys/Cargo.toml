@@ -13,10 +13,7 @@ edition = "2018"
 features = ["dox"]
 [package.metadata.system-deps.gdk_x11_3_0]
 name = "gdk-x11-3.0"
-version = "3.14"
-
-[package.metadata.system-deps.gdk_x11_3_0.v3_16]
-version = "3.16"
+version = "3.18"
 
 [package.metadata.system-deps.gdk_x11_3_0.v3_24]
 version = "3.24"
@@ -50,8 +47,7 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-v3_16 = []
-v3_22 = ["v3_16"]
-v3_24 = ["v3_16"]
+v3_22 = []
+v3_24 = ["v3_22"]
 v3_24_2 = ["v3_24", "cairo"]
 dox = ["cairo"]
