@@ -41,8 +41,6 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[doc(alias = "gdk_pixbuf_new_from_bytes")]
     #[doc(alias = "new_from_bytes")]
     pub fn from_bytes(
@@ -72,27 +70,6 @@ impl Pixbuf {
     //pub fn from_data(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Option<Box_<dyn FnOnce(&Vec<u8>) + 'static>>) -> Pixbuf {
     //    unsafe { TODO: call ffi:gdk_pixbuf_new_from_data() }
     //}
-
-    #[cfg_attr(feature = "v2_32", deprecated = "Since 2.32")]
-    #[doc(alias = "gdk_pixbuf_new_from_inline")]
-    #[doc(alias = "new_from_inline")]
-    pub fn from_inline(data: &[u8], copy_pixels: bool) -> Result<Pixbuf, glib::Error> {
-        let data_length = data.len() as i32;
-        unsafe {
-            let mut error = ptr::null_mut();
-            let ret = ffi::gdk_pixbuf_new_from_inline(
-                data_length,
-                data.to_glib_none().0,
-                copy_pixels.into_glib(),
-                &mut error,
-            );
-            if error.is_null() {
-                Ok(from_glib_full(ret))
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
-    }
 
     #[doc(alias = "gdk_pixbuf_new_from_resource")]
     #[doc(alias = "new_from_resource")]
@@ -416,8 +393,6 @@ impl Pixbuf {
         }
     }
 
-    //#[cfg(any(feature = "v2_32", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     //#[doc(alias = "gdk_pixbuf_get_options")]
     //#[doc(alias = "get_options")]
     //pub fn options(&self) -> /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 } {
@@ -449,8 +424,6 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[doc(alias = "gdk_pixbuf_read_pixel_bytes")]
     pub fn read_pixel_bytes(&self) -> Option<glib::Bytes> {
         unsafe { from_glib_full(ffi::gdk_pixbuf_read_pixel_bytes(self.to_glib_none().0)) }

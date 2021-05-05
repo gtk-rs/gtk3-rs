@@ -457,8 +457,6 @@ impl FlowBoxBuilder {
 pub const NONE_FLOW_BOX: Option<&FlowBox> = None;
 
 pub trait FlowBoxExt: 'static {
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_flow_box_bind_model")]
     fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
         &self,
@@ -633,8 +631,6 @@ pub trait FlowBoxExt: 'static {
 }
 
 impl<O: IsA<FlowBox>> FlowBoxExt for O {
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
         &self,
         model: Option<&P>,

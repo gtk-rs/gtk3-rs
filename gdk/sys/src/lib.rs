@@ -218,11 +218,7 @@ pub const GDK_TOUCH_BEGIN: GdkEventType = 37;
 pub const GDK_TOUCH_UPDATE: GdkEventType = 38;
 pub const GDK_TOUCH_END: GdkEventType = 39;
 pub const GDK_TOUCH_CANCEL: GdkEventType = 40;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
 pub const GDK_TOUCHPAD_SWIPE: GdkEventType = 41;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
 pub const GDK_TOUCHPAD_PINCH: GdkEventType = 42;
 pub const GDK_PAD_BUTTON_PRESS: GdkEventType = 43;
 pub const GDK_PAD_BUTTON_RELEASE: GdkEventType = 44;
@@ -4159,11 +4155,7 @@ extern "C" {
     //=========================================================================
     // GdkGLError
     //=========================================================================
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_error_get_type() -> GType;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_error_quark() -> glib::GQuark;
 
     //=========================================================================
@@ -4241,8 +4233,6 @@ extern "C" {
     //=========================================================================
     // GdkTouchpadGesturePhase
     //=========================================================================
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gdk_touchpad_gesture_phase_get_type() -> GType;
 
     //=========================================================================
@@ -4599,8 +4589,6 @@ extern "C" {
         x: *mut c_double,
         y: *mut c_double,
     );
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_device_get_product_id(device: *mut GdkDevice) -> *const c_char;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -4612,8 +4600,6 @@ extern "C" {
         axes: *mut c_double,
         mask: *mut GdkModifierType,
     );
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_device_get_vendor_id(device: *mut GdkDevice) -> *const c_char;
     pub fn gdk_device_get_window_at_position(
         device: *mut GdkDevice,
@@ -4882,67 +4868,37 @@ extern "C" {
     //=========================================================================
     // GdkGLContext
     //=========================================================================
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_type() -> GType;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_clear_current();
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_current() -> *mut GdkGLContext;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_debug_enabled(context: *mut GdkGLContext) -> gboolean;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_display(context: *mut GdkGLContext) -> *mut GdkDisplay;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_forward_compatible(context: *mut GdkGLContext) -> gboolean;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_required_version(
         context: *mut GdkGLContext,
         major: *mut c_int,
         minor: *mut c_int,
     );
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_shared_context(context: *mut GdkGLContext) -> *mut GdkGLContext;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_gl_context_get_use_es(context: *mut GdkGLContext) -> gboolean;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_version(
         context: *mut GdkGLContext,
         major: *mut c_int,
         minor: *mut c_int,
     );
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_get_window(context: *mut GdkGLContext) -> *mut GdkWindow;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gdk_gl_context_is_legacy(context: *mut GdkGLContext) -> gboolean;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_make_current(context: *mut GdkGLContext);
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_realize(
         context: *mut GdkGLContext,
         error: *mut *mut glib::GError,
     ) -> gboolean;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_set_debug_enabled(context: *mut GdkGLContext, enabled: gboolean);
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_set_forward_compatible(context: *mut GdkGLContext, compatible: gboolean);
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_gl_context_set_required_version(
         context: *mut GdkGLContext,
         major: c_int,
@@ -4980,8 +4936,6 @@ extern "C" {
     ) -> GdkModifierType;
     pub fn gdk_keymap_get_modifier_state(keymap: *mut GdkKeymap) -> c_uint;
     pub fn gdk_keymap_get_num_lock_state(keymap: *mut GdkKeymap) -> gboolean;
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gdk_keymap_get_scroll_lock_state(keymap: *mut GdkKeymap) -> gboolean;
     pub fn gdk_keymap_have_bidi_layouts(keymap: *mut GdkKeymap) -> gboolean;
     pub fn gdk_keymap_lookup_key(keymap: *mut GdkKeymap, key: *const GdkKeymapKey) -> c_uint;
@@ -5263,8 +5217,6 @@ extern "C" {
         parent_x: *mut c_double,
         parent_y: *mut c_double,
     );
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_window_create_gl_context(
         window: *mut GdkWindow,
         error: *mut *mut glib::GError,
@@ -5360,8 +5312,6 @@ extern "C" {
     pub fn gdk_window_get_modal_hint(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_get_origin(window: *mut GdkWindow, x: *mut c_int, y: *mut c_int) -> c_int;
     pub fn gdk_window_get_parent(window: *mut GdkWindow) -> *mut GdkWindow;
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gdk_window_get_pass_through(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_get_pointer(
         window: *mut GdkWindow,
@@ -5425,8 +5375,6 @@ extern "C" {
     pub fn gdk_window_is_viewable(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_is_visible(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_lower(window: *mut GdkWindow);
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_window_mark_paint_from_clip(window: *mut GdkWindow, cr: *mut cairo::cairo_t);
     pub fn gdk_window_maximize(window: *mut GdkWindow);
     pub fn gdk_window_merge_child_input_shapes(window: *mut GdkWindow);
@@ -5519,8 +5467,6 @@ extern "C" {
     pub fn gdk_window_set_opacity(window: *mut GdkWindow, opacity: c_double);
     pub fn gdk_window_set_opaque_region(window: *mut GdkWindow, region: *mut cairo::cairo_region_t);
     pub fn gdk_window_set_override_redirect(window: *mut GdkWindow, override_redirect: gboolean);
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gdk_window_set_pass_through(window: *mut GdkWindow, pass_through: gboolean);
     pub fn gdk_window_set_role(window: *mut GdkWindow, role: *const c_char);
     pub fn gdk_window_set_shadow_width(
@@ -5600,8 +5546,6 @@ extern "C" {
     pub fn gdk_add_option_entries_libgtk_only(group: *mut glib::GOptionGroup);
     pub fn gdk_beep();
     pub fn gdk_cairo_create(window: *mut GdkWindow) -> *mut cairo::cairo_t;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_cairo_draw_from_gl(
         cr: *mut cairo::cairo_t,
         window: *mut GdkWindow,

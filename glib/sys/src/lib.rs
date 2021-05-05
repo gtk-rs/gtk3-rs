@@ -2372,11 +2372,7 @@ extern "C" {
     pub fn g_async_queue_pop(queue: *mut GAsyncQueue) -> gpointer;
     pub fn g_async_queue_pop_unlocked(queue: *mut GAsyncQueue) -> gpointer;
     pub fn g_async_queue_push(queue: *mut GAsyncQueue, data: gpointer);
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_async_queue_push_front(queue: *mut GAsyncQueue, item: gpointer);
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_async_queue_push_front_unlocked(queue: *mut GAsyncQueue, item: gpointer);
     pub fn g_async_queue_push_sorted(
         queue: *mut GAsyncQueue,
@@ -2393,11 +2389,7 @@ extern "C" {
     pub fn g_async_queue_push_unlocked(queue: *mut GAsyncQueue, data: gpointer);
     pub fn g_async_queue_ref(queue: *mut GAsyncQueue) -> *mut GAsyncQueue;
     pub fn g_async_queue_ref_unlocked(queue: *mut GAsyncQueue);
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_async_queue_remove(queue: *mut GAsyncQueue, item: gpointer) -> gboolean;
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_async_queue_remove_unlocked(queue: *mut GAsyncQueue, item: gpointer) -> gboolean;
     pub fn g_async_queue_sort(queue: *mut GAsyncQueue, func: GCompareDataFunc, user_data: gpointer);
     pub fn g_async_queue_sort_unlocked(
@@ -3862,8 +3854,6 @@ extern "C" {
     pub fn g_option_context_get_help_enabled(context: *mut GOptionContext) -> gboolean;
     pub fn g_option_context_get_ignore_unknown_options(context: *mut GOptionContext) -> gboolean;
     pub fn g_option_context_get_main_group(context: *mut GOptionContext) -> *mut GOptionGroup;
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_option_context_get_strict_posix(context: *mut GOptionContext) -> gboolean;
     pub fn g_option_context_get_summary(context: *mut GOptionContext) -> *const c_char;
     pub fn g_option_context_parse(
@@ -3887,8 +3877,6 @@ extern "C" {
         ignore_unknown: gboolean,
     );
     pub fn g_option_context_set_main_group(context: *mut GOptionContext, group: *mut GOptionGroup);
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_option_context_set_strict_posix(context: *mut GOptionContext, strict_posix: gboolean);
     pub fn g_option_context_set_summary(context: *mut GOptionContext, summary: *const c_char);
     pub fn g_option_context_set_translate_func(
@@ -3906,8 +3894,6 @@ extern "C" {
     //=========================================================================
     // GOptionGroup
     //=========================================================================
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_option_group_get_type() -> GType;
     pub fn g_option_group_new(
         name: *const c_char,
@@ -3918,8 +3904,6 @@ extern "C" {
     ) -> *mut GOptionGroup;
     pub fn g_option_group_add_entries(group: *mut GOptionGroup, entries: *const GOptionEntry);
     pub fn g_option_group_free(group: *mut GOptionGroup);
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_option_group_ref(group: *mut GOptionGroup) -> *mut GOptionGroup;
     pub fn g_option_group_set_error_hook(group: *mut GOptionGroup, error_func: GOptionErrorFunc);
     pub fn g_option_group_set_parse_hooks(
@@ -3934,8 +3918,6 @@ extern "C" {
         destroy_notify: GDestroyNotify,
     );
     pub fn g_option_group_set_translation_domain(group: *mut GOptionGroup, domain: *const c_char);
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_option_group_unref(group: *mut GOptionGroup);
 
     //=========================================================================
@@ -4376,8 +4358,6 @@ extern "C" {
         iter_cmp: GSequenceIterCompareFunc,
         cmp_data: gpointer,
     ) -> *mut GSequenceIter;
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_sequence_is_empty(seq: *mut GSequence) -> gboolean;
     pub fn g_sequence_lookup(
         seq: *mut GSequence,
@@ -4634,8 +4614,6 @@ extern "C" {
     pub fn g_thread_pool_free(pool: *mut GThreadPool, immediate: gboolean, wait_: gboolean);
     pub fn g_thread_pool_get_max_threads(pool: *mut GThreadPool) -> c_int;
     pub fn g_thread_pool_get_num_threads(pool: *mut GThreadPool) -> c_uint;
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_thread_pool_move_to_front(pool: *mut GThreadPool, data: gpointer) -> gboolean;
     pub fn g_thread_pool_push(
         pool: *mut GThreadPool,
@@ -5892,8 +5870,6 @@ extern "C" {
         log_func: GLogFunc,
         user_data: gpointer,
     ) -> c_uint;
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_log_set_handler_full(
         log_domain: *const c_char,
         log_levels: GLogLevelFlags,
@@ -6387,8 +6363,6 @@ extern "C" {
     ) -> *mut c_char;
     pub fn g_strtod(nptr: *const c_char, endptr: *mut *mut c_char) -> c_double;
     pub fn g_strup(string: *mut c_char) -> *mut c_char;
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_strv_contains(strv: *const *const c_char, str: *const c_char) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]

@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
@@ -154,8 +152,6 @@ impl X11Display {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_x11_display_get_glx_version")]
     #[doc(alias = "get_glx_version")]
     pub fn glx_version<P: IsA<gdk::Display>>(display: &P) -> Option<(i32, i32)> {

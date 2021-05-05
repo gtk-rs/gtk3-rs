@@ -37,8 +37,6 @@ pub trait ListModelExt: 'static {
     #[doc(alias = "g_list_model_items_changed")]
     fn items_changed(&self, position: u32, removed: u32, added: u32);
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "items-changed")]
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F)
         -> SignalHandlerId;
@@ -77,8 +75,6 @@ impl<O: IsA<ListModel>> ListModelExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "items-changed")]
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(
         &self,

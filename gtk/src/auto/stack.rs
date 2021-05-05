@@ -43,15 +43,11 @@ impl Default for Stack {
 
 #[derive(Clone, Default)]
 pub struct StackBuilder {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     hhomogeneous: Option<bool>,
     homogeneous: Option<bool>,
     interpolate_size: Option<bool>,
     transition_duration: Option<u32>,
     transition_type: Option<StackTransitionType>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     vhomogeneous: Option<bool>,
     visible_child: Option<Widget>,
     visible_child_name: Option<String>,
@@ -101,7 +97,6 @@ impl StackBuilder {
 
     pub fn build(self) -> Stack {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref hhomogeneous) = self.hhomogeneous {
             properties.push(("hhomogeneous", hhomogeneous));
         }
@@ -117,7 +112,6 @@ impl StackBuilder {
         if let Some(ref transition_type) = self.transition_type {
             properties.push(("transition-type", transition_type));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref vhomogeneous) = self.vhomogeneous {
             properties.push(("vhomogeneous", vhomogeneous));
         }
@@ -236,8 +230,6 @@ impl StackBuilder {
         glib::Object::new::<Stack>(&properties).expect("Failed to create an instance of Stack")
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn hhomogeneous(mut self, hhomogeneous: bool) -> Self {
         self.hhomogeneous = Some(hhomogeneous);
         self
@@ -263,8 +255,6 @@ impl StackBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn vhomogeneous(mut self, vhomogeneous: bool) -> Self {
         self.vhomogeneous = Some(vhomogeneous);
         self
@@ -471,8 +461,6 @@ pub trait StackExt: 'static {
     #[doc(alias = "get_child_by_name")]
     fn child_by_name(&self, name: &str) -> Option<Widget>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_stack_get_hhomogeneous")]
     #[doc(alias = "get_hhomogeneous")]
     fn is_hhomogeneous(&self) -> bool;
@@ -481,8 +469,6 @@ pub trait StackExt: 'static {
     #[doc(alias = "get_homogeneous")]
     fn is_homogeneous(&self) -> bool;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_stack_get_interpolate_size")]
     #[doc(alias = "get_interpolate_size")]
     fn interpolates_size(&self) -> bool;
@@ -499,8 +485,6 @@ pub trait StackExt: 'static {
     #[doc(alias = "get_transition_type")]
     fn transition_type(&self) -> StackTransitionType;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_stack_get_vhomogeneous")]
     #[doc(alias = "get_vhomogeneous")]
     fn is_vhomogeneous(&self) -> bool;
@@ -513,16 +497,12 @@ pub trait StackExt: 'static {
     #[doc(alias = "get_visible_child_name")]
     fn visible_child_name(&self) -> Option<glib::GString>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_stack_set_hhomogeneous")]
     fn set_hhomogeneous(&self, hhomogeneous: bool);
 
     #[doc(alias = "gtk_stack_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_stack_set_interpolate_size")]
     fn set_interpolate_size(&self, interpolate_size: bool);
 
@@ -532,8 +512,6 @@ pub trait StackExt: 'static {
     #[doc(alias = "gtk_stack_set_transition_type")]
     fn set_transition_type(&self, transition: StackTransitionType);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_stack_set_vhomogeneous")]
     fn set_vhomogeneous(&self, vhomogeneous: bool);
 
@@ -545,12 +523,6 @@ pub trait StackExt: 'static {
 
     #[doc(alias = "gtk_stack_set_visible_child_name")]
     fn set_visible_child_name(&self, name: &str);
-
-    #[doc(alias = "interpolate-size")]
-    fn get_property_interpolate_size(&self) -> bool;
-
-    #[doc(alias = "interpolate-size")]
-    fn set_property_interpolate_size(&self, interpolate_size: bool);
 
     #[doc(alias = "child.icon-name")]
     fn child_icon_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
@@ -576,8 +548,6 @@ pub trait StackExt: 'static {
 
     fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "hhomogeneous")]
     fn connect_hhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -596,8 +566,6 @@ pub trait StackExt: 'static {
     #[doc(alias = "transition-type")]
     fn connect_transition_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "vhomogeneous")]
     fn connect_vhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -639,8 +607,6 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn is_hhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_hhomogeneous(
@@ -657,8 +623,6 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn interpolates_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_interpolate_size(
@@ -687,8 +651,6 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn is_vhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_vhomogeneous(
@@ -713,8 +675,6 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_hhomogeneous(&self, hhomogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_hhomogeneous(
@@ -730,8 +690,6 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_interpolate_size(&self, interpolate_size: bool) {
         unsafe {
             ffi::gtk_stack_set_interpolate_size(
@@ -756,8 +714,6 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_vhomogeneous(&self, vhomogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_vhomogeneous(
@@ -791,30 +747,6 @@ impl<O: IsA<Stack>> StackExt for O {
             ffi::gtk_stack_set_visible_child_name(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
-            );
-        }
-    }
-
-    fn get_property_interpolate_size(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"interpolate-size\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `interpolate-size` getter")
-        }
-    }
-
-    fn set_property_interpolate_size(&self, interpolate_size: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"interpolate-size\0".as_ptr() as *const _,
-                interpolate_size.to_value().to_glib_none().0,
             );
         }
     }
@@ -949,8 +881,6 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "hhomogeneous")]
     fn connect_hhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hhomogeneous_trampoline<P, F: Fn(&P) + 'static>(
@@ -1101,8 +1031,6 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "vhomogeneous")]
     fn connect_vhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vhomogeneous_trampoline<P, F: Fn(&P) + 'static>(

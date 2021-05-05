@@ -50,8 +50,6 @@ impl SettingsSchema {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_settings_schema_list_children")]
     pub fn list_children(&self) -> Vec<glib::GString> {
         unsafe {
@@ -61,8 +59,6 @@ impl SettingsSchema {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_settings_schema_list_keys")]
     pub fn list_keys(&self) -> Vec<glib::GString> {
         unsafe {

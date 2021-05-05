@@ -378,19 +378,13 @@ pub trait OverlayExt: 'static {
     #[doc(alias = "gtk_overlay_add_overlay")]
     fn add_overlay<P: IsA<Widget>>(&self, widget: &P);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_overlay_get_overlay_pass_through")]
     #[doc(alias = "get_overlay_pass_through")]
     fn is_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_overlay_reorder_overlay")]
     fn reorder_overlay<P: IsA<Widget>>(&self, child: &P, index_: i32);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_overlay_set_overlay_pass_through")]
     fn set_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P, pass_through: bool);
 
@@ -412,8 +406,6 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn is_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_overlay_get_overlay_pass_through(
@@ -423,8 +415,6 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn reorder_overlay<P: IsA<Widget>>(&self, child: &P, index_: i32) {
         unsafe {
             ffi::gtk_overlay_reorder_overlay(
@@ -435,8 +425,6 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P, pass_through: bool) {
         unsafe {
             ffi::gtk_overlay_set_overlay_pass_through(

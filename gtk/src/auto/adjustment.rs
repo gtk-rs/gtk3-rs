@@ -118,10 +118,6 @@ impl AdjustmentBuilder {
 pub const NONE_ADJUSTMENT: Option<&Adjustment> = None;
 
 pub trait AdjustmentExt: 'static {
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "gtk_adjustment_changed")]
-    fn changed(&self);
-
     #[doc(alias = "gtk_adjustment_clamp_page")]
     fn clamp_page(&self, lower: f64, upper: f64);
 
@@ -182,10 +178,6 @@ pub trait AdjustmentExt: 'static {
     #[doc(alias = "gtk_adjustment_set_value")]
     fn set_value(&self, value: f64);
 
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "gtk_adjustment_value_changed")]
-    fn value_changed(&self);
-
     #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -212,12 +204,6 @@ pub trait AdjustmentExt: 'static {
 }
 
 impl<O: IsA<Adjustment>> AdjustmentExt for O {
-    fn changed(&self) {
-        unsafe {
-            ffi::gtk_adjustment_changed(self.as_ref().to_glib_none().0);
-        }
-    }
-
     fn clamp_page(&self, lower: f64, upper: f64) {
         unsafe {
             ffi::gtk_adjustment_clamp_page(self.as_ref().to_glib_none().0, lower, upper);
@@ -307,12 +293,6 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
     fn set_value(&self, value: f64) {
         unsafe {
             ffi::gtk_adjustment_set_value(self.as_ref().to_glib_none().0, value);
-        }
-    }
-
-    fn value_changed(&self) {
-        unsafe {
-            ffi::gtk_adjustment_value_changed(self.as_ref().to_glib_none().0);
         }
     }
 

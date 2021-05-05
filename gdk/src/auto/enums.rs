@@ -2,14 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::error::ErrorDomain;
 use glib::translate::*;
 use glib::value::FromValue;
 use glib::value::ToValue;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::Quark;
 use glib::StaticType;
 use glib::Type;
@@ -1450,12 +1446,8 @@ pub enum EventType {
     TouchEnd,
     #[doc(alias = "GDK_TOUCH_CANCEL")]
     TouchCancel,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "GDK_TOUCHPAD_SWIPE")]
     TouchpadSwipe,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "GDK_TOUCHPAD_PINCH")]
     TouchpadPinch,
     #[doc(alias = "GDK_PAD_BUTTON_PRESS")]
@@ -1519,9 +1511,7 @@ impl fmt::Display for EventType {
                 Self::TouchUpdate => "TouchUpdate",
                 Self::TouchEnd => "TouchEnd",
                 Self::TouchCancel => "TouchCancel",
-                #[cfg(any(feature = "v3_18", feature = "dox"))]
                 Self::TouchpadSwipe => "TouchpadSwipe",
-                #[cfg(any(feature = "v3_18", feature = "dox"))]
                 Self::TouchpadPinch => "TouchpadPinch",
                 Self::PadButtonPress => "PadButtonPress",
                 Self::PadButtonRelease => "PadButtonRelease",
@@ -1581,9 +1571,7 @@ impl IntoGlib for EventType {
             Self::TouchUpdate => ffi::GDK_TOUCH_UPDATE,
             Self::TouchEnd => ffi::GDK_TOUCH_END,
             Self::TouchCancel => ffi::GDK_TOUCH_CANCEL,
-            #[cfg(any(feature = "v3_18", feature = "dox"))]
             Self::TouchpadSwipe => ffi::GDK_TOUCHPAD_SWIPE,
-            #[cfg(any(feature = "v3_18", feature = "dox"))]
             Self::TouchpadPinch => ffi::GDK_TOUCHPAD_PINCH,
             Self::PadButtonPress => ffi::GDK_PAD_BUTTON_PRESS,
             Self::PadButtonRelease => ffi::GDK_PAD_BUTTON_RELEASE,
@@ -1641,9 +1629,7 @@ impl FromGlib<ffi::GdkEventType> for EventType {
             38 => Self::TouchUpdate,
             39 => Self::TouchEnd,
             40 => Self::TouchCancel,
-            #[cfg(any(feature = "v3_18", feature = "dox"))]
             41 => Self::TouchpadSwipe,
-            #[cfg(any(feature = "v3_18", feature = "dox"))]
             42 => Self::TouchpadPinch,
             43 => Self::PadButtonPress,
             44 => Self::PadButtonRelease,
@@ -1772,8 +1758,6 @@ impl ToValue for FullscreenMode {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GdkGLError")]
@@ -1788,8 +1772,6 @@ pub enum GLError {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl fmt::Display for GLError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1805,8 +1787,6 @@ impl fmt::Display for GLError {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl IntoGlib for GLError {
     type GlibType = ffi::GdkGLError;
@@ -1821,8 +1801,6 @@ impl IntoGlib for GLError {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkGLError> for GLError {
     unsafe fn from_glib(value: ffi::GdkGLError) -> Self {
@@ -1836,8 +1814,6 @@ impl FromGlib<ffi::GdkGLError> for GLError {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl ErrorDomain for GLError {
     fn domain() -> Quark {
         skip_assert_initialized!();
@@ -1860,22 +1836,16 @@ impl ErrorDomain for GLError {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl StaticType for GLError {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_gl_error_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl glib::value::ValueType for GLError {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 unsafe impl<'a> FromValue<'a> for GLError {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -1885,8 +1855,6 @@ unsafe impl<'a> FromValue<'a> for GLError {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl ToValue for GLError {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();

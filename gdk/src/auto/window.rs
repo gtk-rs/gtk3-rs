@@ -16,8 +16,6 @@ use crate::Event;
 use crate::EventMask;
 use crate::FrameClock;
 use crate::FullscreenMode;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::GLContext;
 use crate::Geometry;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
@@ -209,8 +207,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_window_create_gl_context")]
     pub fn create_gl_context(&self) -> Result<GLContext, glib::Error> {
         unsafe {
@@ -273,14 +269,6 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_freeze_toplevel_updates_libgtk_only")]
-    pub fn freeze_toplevel_updates_libgtk_only(&self) {
-        unsafe {
-            ffi::gdk_window_freeze_toplevel_updates_libgtk_only(self.to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "gdk_window_freeze_updates")]
     pub fn freeze_updates(&self) {
         unsafe {
@@ -295,8 +283,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gdk_window_fullscreen_on_monitor")]
     pub fn fullscreen_on_monitor(&self, monitor: i32) {
         unsafe {
@@ -337,13 +323,6 @@ impl Window {
     #[doc(alias = "get_clip_region")]
     pub fn clip_region(&self) -> Option<cairo::Region> {
         unsafe { from_glib_full(ffi::gdk_window_get_clip_region(self.to_glib_none().0)) }
-    }
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_get_composited")]
-    #[doc(alias = "get_composited")]
-    pub fn is_composited(&self) -> bool {
-        unsafe { from_glib(ffi::gdk_window_get_composited(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_cursor")]
@@ -573,8 +552,6 @@ impl Window {
         unsafe { from_glib_none(ffi::gdk_window_get_parent(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gdk_window_get_pass_through")]
     #[doc(alias = "get_pass_through")]
     pub fn is_pass_through(&self) -> bool {
@@ -834,8 +811,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_window_mark_paint_from_clip")]
     pub fn mark_paint_from_clip(&self, cr: &cairo::Context) {
         unsafe {
@@ -1011,14 +986,6 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_set_composited")]
-    pub fn set_composited(&self, composited: bool) {
-        unsafe {
-            ffi::gdk_window_set_composited(self.to_glib_none().0, composited.into_glib());
-        }
-    }
-
     #[doc(alias = "gdk_window_set_cursor")]
     pub fn set_cursor(&self, cursor: Option<&Cursor>) {
         unsafe {
@@ -1178,8 +1145,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gdk_window_set_pass_through")]
     pub fn set_pass_through(&self, pass_through: bool) {
         unsafe {
@@ -1230,17 +1195,6 @@ impl Window {
     pub fn set_startup_id(&self, startup_id: &str) {
         unsafe {
             ffi::gdk_window_set_startup_id(self.to_glib_none().0, startup_id.to_glib_none().0);
-        }
-    }
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_set_static_gravities")]
-    pub fn set_static_gravities(&self, use_static: bool) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_window_set_static_gravities(
-                self.to_glib_none().0,
-                use_static.into_glib(),
-            ))
         }
     }
 
@@ -1327,14 +1281,6 @@ impl Window {
     pub fn stick(&self) {
         unsafe {
             ffi::gdk_window_stick(self.to_glib_none().0);
-        }
-    }
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_thaw_toplevel_updates_libgtk_only")]
-    pub fn thaw_toplevel_updates_libgtk_only(&self) {
-        unsafe {
-            ffi::gdk_window_thaw_toplevel_updates_libgtk_only(self.to_glib_none().0);
         }
     }
 

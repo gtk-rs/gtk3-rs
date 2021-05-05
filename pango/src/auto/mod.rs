@@ -5,14 +5,14 @@
 mod context;
 pub use self::context::Context;
 
-#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
+#[deprecated = "Since 1.38"]
 mod engine_lang;
-#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
+#[deprecated = "Since 1.38"]
 pub use self::engine_lang::{EngineLang, NONE_ENGINE_LANG};
 
-#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
+#[deprecated = "Since 1.38"]
 mod engine_shape;
-#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
+#[deprecated = "Since 1.38"]
 pub use self::engine_shape::{EngineShape, NONE_ENGINE_SHAPE};
 
 mod font;
@@ -118,11 +118,6 @@ pub use self::alias::GlyphUnit;
 pub use self::alias::LayoutRun;
 
 pub mod functions;
-
-mod constants;
-pub use self::constants::ENGINE_TYPE_LANG;
-pub use self::constants::ENGINE_TYPE_SHAPE;
-pub use self::constants::RENDER_TYPE_NONE;
 
 #[doc(hidden)]
 pub mod traits {

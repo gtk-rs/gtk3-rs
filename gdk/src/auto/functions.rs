@@ -15,12 +15,6 @@ use glib::translate::*;
 use std::mem;
 use std::ptr;
 
-//#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-//#[doc(alias = "gdk_add_option_entries_libgtk_only")]
-//pub fn add_option_entries_libgtk_only(group: /*Ignored*/&glib::OptionGroup) {
-//    unsafe { TODO: call ffi:gdk_add_option_entries_libgtk_only() }
-//}
-
 #[doc(alias = "gdk_beep")]
 pub fn beep() {
     assert_initialized_main_thread!();
@@ -272,15 +266,6 @@ pub fn pixbuf_get_from_surface(
             width,
             height,
         ))
-    }
-}
-
-#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-#[doc(alias = "gdk_pre_parse_libgtk_only")]
-pub fn pre_parse_libgtk_only() {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_pre_parse_libgtk_only();
     }
 }
 

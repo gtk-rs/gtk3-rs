@@ -376,8 +376,6 @@ pub static FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL: once_cell::sync::Lazy<&'static st
             .to_str()
             .unwrap()
     });
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[doc(alias = "G_FILE_ATTRIBUTE_STANDARD_IS_VOLATILE")]
 pub static FILE_ATTRIBUTE_STANDARD_IS_VOLATILE: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {

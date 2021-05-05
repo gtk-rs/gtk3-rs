@@ -3,8 +3,6 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::fmt;
 
 glib::wrapper! {
@@ -39,8 +37,6 @@ impl SettingsSchemaKey {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_settings_schema_key_get_name")]
     #[doc(alias = "get_name")]
     pub fn name(&self) -> glib::GString {
@@ -84,8 +80,6 @@ impl SettingsSchemaKey {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl fmt::Display for SettingsSchemaKey {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

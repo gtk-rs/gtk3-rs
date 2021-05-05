@@ -68,11 +68,7 @@ pub struct LabelBuilder {
     width_chars: Option<i32>,
     wrap: Option<bool>,
     wrap_mode: Option<pango::WrapMode>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     xalign: Option<f32>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     yalign: Option<f32>,
     app_paintable: Option<bool>,
     can_default: Option<bool>,
@@ -168,11 +164,9 @@ impl LabelBuilder {
         if let Some(ref wrap_mode) = self.wrap_mode {
             properties.push(("wrap-mode", wrap_mode));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref xalign) = self.xalign {
             properties.push(("xalign", xalign));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref yalign) = self.yalign {
             properties.push(("yalign", yalign));
         }
@@ -361,15 +355,11 @@ impl LabelBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn xalign(mut self, xalign: f32) -> Self {
         self.xalign = Some(xalign);
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn yalign(mut self, yalign: f32) -> Self {
         self.yalign = Some(yalign);
         self
@@ -629,14 +619,10 @@ pub trait LabelExt: 'static {
     #[doc(alias = "get_width_chars")]
     fn width_chars(&self) -> i32;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_label_get_xalign")]
     #[doc(alias = "get_xalign")]
     fn xalign(&self) -> f32;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_label_get_yalign")]
     #[doc(alias = "get_yalign")]
     fn yalign(&self) -> f32;
@@ -707,13 +693,9 @@ pub trait LabelExt: 'static {
     #[doc(alias = "gtk_label_set_width_chars")]
     fn set_width_chars(&self, n_chars: i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_label_set_xalign")]
     fn set_xalign(&self, xalign: f32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_label_set_yalign")]
     fn set_yalign(&self, yalign: f32);
 
@@ -820,13 +802,9 @@ pub trait LabelExt: 'static {
     #[doc(alias = "wrap-mode")]
     fn connect_wrap_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "xalign")]
     fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "yalign")]
     fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -982,14 +960,10 @@ impl<O: IsA<Label>> LabelExt for O {
         unsafe { ffi::gtk_label_get_width_chars(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn xalign(&self) -> f32 {
         unsafe { ffi::gtk_label_get_xalign(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn yalign(&self) -> f32 {
         unsafe { ffi::gtk_label_get_yalign(self.as_ref().to_glib_none().0) }
     }
@@ -1144,16 +1118,12 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_xalign(&self, xalign: f32) {
         unsafe {
             ffi::gtk_label_set_xalign(self.as_ref().to_glib_none().0, xalign);
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_yalign(&self, yalign: f32) {
         unsafe {
             ffi::gtk_label_set_yalign(self.as_ref().to_glib_none().0, yalign);
@@ -1910,8 +1880,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "xalign")]
     fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_xalign_trampoline<P, F: Fn(&P) + 'static>(
@@ -1937,8 +1905,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "yalign")]
     fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_yalign_trampoline<P, F: Fn(&P) + 'static>(

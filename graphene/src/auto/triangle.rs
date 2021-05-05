@@ -127,8 +127,6 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_triangle_get_uv")]
     #[doc(alias = "get_uv")]
     pub fn uv(&self, p: Option<&Point3D>, uv_a: &Vec2, uv_b: &Vec2, uv_c: &Vec2) -> Option<Vec2> {
@@ -167,8 +165,6 @@ impl Triangle {
         }
     }
 
-    //#[cfg(any(feature = "v1_10", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     //#[doc(alias = "graphene_triangle_init_from_float")]
     //pub fn init_from_float(&mut self, a: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3, b: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3, c: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3) -> Option<Triangle> {
     //    unsafe { TODO: call ffi:graphene_triangle_init_from_float() }

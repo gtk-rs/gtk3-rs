@@ -48,6 +48,6 @@ tempfile = "3"
 
 [features]
 v3_22 = []
-v3_24 = ["v3_22"]
+v3_24 = []
 v3_24_2 = ["v3_24", "cairo"]
 dox = ["cairo"]

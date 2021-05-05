@@ -8,8 +8,6 @@ use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 use glib::StaticType;
 use std::boxed::Box as Box_;
 use std::fmt;
@@ -39,8 +37,6 @@ impl PropertyAction {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "invert-boolean")]
     pub fn inverts_boolean(&self) -> bool {
         unsafe {

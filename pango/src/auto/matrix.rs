@@ -3,8 +3,6 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-#[cfg(any(feature = "v1_38", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
 use std::mem;
 
 glib::wrapper! {
@@ -32,8 +30,6 @@ impl Matrix {
         unsafe { ffi::pango_matrix_get_font_scale_factor(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_matrix_get_font_scale_factors")]
     #[doc(alias = "get_font_scale_factors")]
     pub fn font_scale_factors(&self) -> (f64, f64) {

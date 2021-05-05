@@ -49,8 +49,6 @@ impl TlsClientConnection {
 pub const NONE_TLS_CLIENT_CONNECTION: Option<&TlsClientConnection> = None;
 
 pub trait TlsClientConnectionExt: 'static {
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_tls_client_connection_copy_session_state")]
     fn copy_session_state<P: IsA<TlsClientConnection>>(&self, source: &P);
 
@@ -96,8 +94,6 @@ pub trait TlsClientConnectionExt: 'static {
 }
 
 impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn copy_session_state<P: IsA<TlsClientConnection>>(&self, source: &P) {
         unsafe {
             ffi::g_tls_client_connection_copy_session_state(

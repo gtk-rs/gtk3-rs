@@ -22,8 +22,6 @@ impl NetworkAddress {
         unsafe { from_glib_full(ffi::g_network_address_new(hostname.to_glib_none().0, port)) }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_network_address_new_loopback")]
     pub fn new_loopback(port: u16) -> NetworkAddress {
         unsafe { from_glib_full(ffi::g_network_address_new_loopback(port)) }

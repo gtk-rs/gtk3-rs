@@ -40,8 +40,6 @@ impl ModelButton {
         unsafe { Widget::from_glib_none(ffi::gtk_model_button_new()).unsafe_cast() }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn is_active(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -56,8 +54,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn set_active(&self, active: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -68,8 +64,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn is_centered(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -84,8 +78,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn set_centered(&self, centered: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -96,8 +88,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn icon(&self) -> Option<gio::Icon> {
         unsafe {
             let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
@@ -112,8 +102,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -124,8 +112,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn is_iconic(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -140,8 +126,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn set_iconic(&self, iconic: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -152,8 +136,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn is_inverted(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -168,8 +150,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn set_inverted(&self, inverted: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -180,8 +160,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "menu-name")]
     pub fn menu_name(&self) -> Option<glib::GString> {
         unsafe {
@@ -197,8 +175,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "menu-name")]
     pub fn set_menu_name(&self, menu_name: Option<&str>) {
         unsafe {
@@ -210,8 +186,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn role(&self) -> ButtonRole {
         unsafe {
             let mut value = glib::Value::from_type(<ButtonRole as StaticType>::static_type());
@@ -226,8 +200,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn set_role(&self, role: ButtonRole) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -238,8 +210,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn text(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -254,8 +224,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn set_text(&self, text: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -296,8 +264,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "active")]
     pub fn connect_active_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<F: Fn(&ModelButton) + 'static>(
@@ -321,8 +287,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "centered")]
     pub fn connect_centered_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_centered_trampoline<F: Fn(&ModelButton) + 'static>(
@@ -346,8 +310,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "icon")]
     pub fn connect_icon_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_trampoline<F: Fn(&ModelButton) + 'static>(
@@ -371,8 +333,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "iconic")]
     pub fn connect_iconic_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_iconic_trampoline<F: Fn(&ModelButton) + 'static>(
@@ -396,8 +356,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "inverted")]
     pub fn connect_inverted_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<F: Fn(&ModelButton) + 'static>(
@@ -421,8 +379,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "menu-name")]
     pub fn connect_menu_name_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_name_trampoline<F: Fn(&ModelButton) + 'static>(
@@ -446,8 +402,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "role")]
     pub fn connect_role_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_role_trampoline<F: Fn(&ModelButton) + 'static>(
@@ -471,8 +425,6 @@ impl ModelButton {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "text")]
     pub fn connect_text_notify<F: Fn(&ModelButton) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<F: Fn(&ModelButton) + 'static>(
@@ -525,8 +477,6 @@ impl ModelButton {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl Default for ModelButton {
     fn default() -> Self {
         Self::new()
@@ -535,29 +485,13 @@ impl Default for ModelButton {
 
 #[derive(Clone, Default)]
 pub struct ModelButtonBuilder {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     active: Option<bool>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     centered: Option<bool>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     icon: Option<gio::Icon>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     iconic: Option<bool>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     inverted: Option<bool>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     menu_name: Option<String>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     role: Option<ButtonRole>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     text: Option<String>,
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
@@ -616,35 +550,27 @@ impl ModelButtonBuilder {
 
     pub fn build(self) -> ModelButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref active) = self.active {
             properties.push(("active", active));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref centered) = self.centered {
             properties.push(("centered", centered));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref icon) = self.icon {
             properties.push(("icon", icon));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref iconic) = self.iconic {
             properties.push(("iconic", iconic));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref inverted) = self.inverted {
             properties.push(("inverted", inverted));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref menu_name) = self.menu_name {
             properties.push(("menu-name", menu_name));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref role) = self.role {
             properties.push(("role", role));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref text) = self.text {
             properties.push(("text", text));
         }
@@ -786,57 +712,41 @@ impl ModelButtonBuilder {
             .expect("Failed to create an instance of ModelButton")
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn active(mut self, active: bool) -> Self {
         self.active = Some(active);
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn centered(mut self, centered: bool) -> Self {
         self.centered = Some(centered);
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn icon<P: IsA<gio::Icon>>(mut self, icon: &P) -> Self {
         self.icon = Some(icon.clone().upcast());
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn iconic(mut self, iconic: bool) -> Self {
         self.iconic = Some(iconic);
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn inverted(mut self, inverted: bool) -> Self {
         self.inverted = Some(inverted);
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn menu_name(mut self, menu_name: &str) -> Self {
         self.menu_name = Some(menu_name.to_string());
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn role(mut self, role: ButtonRole) -> Self {
         self.role = Some(role);
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn text(mut self, text: &str) -> Self {
         self.text = Some(text.to_string());
         self

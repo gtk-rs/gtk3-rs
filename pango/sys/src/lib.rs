@@ -1607,8 +1607,6 @@ extern "C" {
     //=========================================================================
     // PangoAttrFontFeatures
     //=========================================================================
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     pub fn pango_attr_font_features_new(features: *const c_char) -> *mut PangoAttribute;
 
     //=========================================================================
@@ -2083,8 +2081,6 @@ extern "C" {
     pub fn pango_matrix_copy(matrix: *const PangoMatrix) -> *mut PangoMatrix;
     pub fn pango_matrix_free(matrix: *mut PangoMatrix);
     pub fn pango_matrix_get_font_scale_factor(matrix: *const PangoMatrix) -> c_double;
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     pub fn pango_matrix_get_font_scale_factors(
         matrix: *const PangoMatrix,
         xscale: *mut c_double,
@@ -2589,8 +2585,6 @@ extern "C" {
         x12: c_double,
         x22: c_double,
     );
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     pub fn pango_renderer_get_alpha(renderer: *mut PangoRenderer, part: PangoRenderPart) -> u16;
     pub fn pango_renderer_get_color(
         renderer: *mut PangoRenderer,
@@ -2600,8 +2594,6 @@ extern "C" {
     pub fn pango_renderer_get_layout_line(renderer: *mut PangoRenderer) -> *mut PangoLayoutLine;
     pub fn pango_renderer_get_matrix(renderer: *mut PangoRenderer) -> *const PangoMatrix;
     pub fn pango_renderer_part_changed(renderer: *mut PangoRenderer, part: PangoRenderPart);
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     pub fn pango_renderer_set_alpha(
         renderer: *mut PangoRenderer,
         part: PangoRenderPart,
@@ -2620,14 +2612,10 @@ extern "C" {
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     pub fn pango_attr_allow_breaks_new(allow_breaks: gboolean) -> *mut PangoAttribute;
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     pub fn pango_attr_background_alpha_new(alpha: u16) -> *mut PangoAttribute;
     pub fn pango_attr_background_new(red: u16, green: u16, blue: u16) -> *mut PangoAttribute;
     pub fn pango_attr_fallback_new(enable_fallback: gboolean) -> *mut PangoAttribute;
     pub fn pango_attr_family_new(family: *const c_char) -> *mut PangoAttribute;
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     pub fn pango_attr_foreground_alpha_new(alpha: u16) -> *mut PangoAttribute;
     pub fn pango_attr_foreground_new(red: u16, green: u16, blue: u16) -> *mut PangoAttribute;
     pub fn pango_attr_gravity_hint_new(hint: PangoGravityHint) -> *mut PangoAttribute;

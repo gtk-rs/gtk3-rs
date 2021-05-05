@@ -38,14 +38,10 @@ pub trait TlsBackendExt: 'static {
     #[doc(alias = "get_default_database")]
     fn default_database(&self) -> TlsDatabase;
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     #[doc(alias = "g_tls_backend_get_dtls_client_connection_type")]
     #[doc(alias = "get_dtls_client_connection_type")]
     fn dtls_client_connection_type(&self) -> glib::types::Type;
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     #[doc(alias = "g_tls_backend_get_dtls_server_connection_type")]
     #[doc(alias = "get_dtls_server_connection_type")]
     fn dtls_server_connection_type(&self) -> glib::types::Type;
@@ -63,8 +59,6 @@ pub trait TlsBackendExt: 'static {
     #[doc(alias = "g_tls_backend_set_default_database")]
     fn set_default_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>);
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     #[doc(alias = "g_tls_backend_supports_dtls")]
     fn supports_dtls(&self) -> bool;
 
@@ -97,8 +91,6 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn dtls_client_connection_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_dtls_client_connection_type(
@@ -107,8 +99,6 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn dtls_server_connection_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_dtls_server_connection_type(
@@ -144,8 +134,6 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn supports_dtls(&self) -> bool {
         unsafe {
             from_glib(ffi::g_tls_backend_supports_dtls(

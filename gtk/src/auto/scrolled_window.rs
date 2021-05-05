@@ -10,8 +10,6 @@ use crate::Container;
 use crate::CornerType;
 use crate::DirectionType;
 use crate::PolicyType;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::PositionType;
 use crate::ResizeMode;
 use crate::ScrollType;
@@ -68,8 +66,6 @@ pub struct ScrolledWindowBuilder {
     max_content_width: Option<i32>,
     min_content_height: Option<i32>,
     min_content_width: Option<i32>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     overlay_scrolling: Option<bool>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -150,7 +146,6 @@ impl ScrolledWindowBuilder {
         if let Some(ref min_content_width) = self.min_content_width {
             properties.push(("min-content-width", min_content_width));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref overlay_scrolling) = self.overlay_scrolling {
             properties.push(("overlay-scrolling", overlay_scrolling));
         }
@@ -323,8 +318,6 @@ impl ScrolledWindowBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn overlay_scrolling(mut self, overlay_scrolling: bool) -> Self {
         self.overlay_scrolling = Some(overlay_scrolling);
         self
@@ -581,8 +574,6 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "get_min_content_width")]
     fn min_content_width(&self) -> i32;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_scrolled_window_get_overlay_scrolling")]
     #[doc(alias = "get_overlay_scrolling")]
     fn is_overlay_scrolling(&self) -> bool;
@@ -644,8 +635,6 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "gtk_scrolled_window_set_min_content_width")]
     fn set_min_content_width(&self, width: i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_scrolled_window_set_overlay_scrolling")]
     fn set_overlay_scrolling(&self, overlay_scrolling: bool);
 
@@ -692,13 +681,9 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "window-placement")]
     fn set_window_placement(&self, window_placement: CornerType);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "edge-overshot")]
     fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "edge-reached")]
     fn connect_edge_reached<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -743,8 +728,6 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "min-content-width")]
     fn connect_min_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "overlay-scrolling")]
     fn connect_overlay_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -830,8 +813,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe { ffi::gtk_scrolled_window_get_min_content_width(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn is_overlay_scrolling(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_overlay_scrolling(
@@ -962,8 +943,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_overlay_scrolling(&self, overlay_scrolling: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_overlay_scrolling(
@@ -1110,8 +1089,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "edge-overshot")]
     fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn edge_overshot_trampoline<P, F: Fn(&P, PositionType) + 'static>(
@@ -1140,8 +1117,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "edge-reached")]
     fn connect_edge_reached<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn edge_reached_trampoline<P, F: Fn(&P, PositionType) + 'static>(
@@ -1437,8 +1412,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "overlay-scrolling")]
     fn connect_overlay_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_overlay_scrolling_trampoline<P, F: Fn(&P) + 'static>(

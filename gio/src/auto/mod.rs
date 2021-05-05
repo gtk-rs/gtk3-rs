@@ -170,21 +170,11 @@ pub use self::inet_socket_address::{InetSocketAddress, NONE_INET_SOCKET_ADDRESS}
 mod input_stream;
 pub use self::input_stream::{InputStream, NONE_INPUT_STREAM};
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 mod list_model;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_model::{ListModel, NONE_LIST_MODEL};
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 mod list_store;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_store::ListStore;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_store::ListStoreBuilder;
 
 mod loadable_icon;
@@ -281,11 +271,7 @@ pub use self::simple_action::SimpleAction;
 mod simple_action_group;
 pub use self::simple_action_group::{SimpleActionGroup, NONE_SIMPLE_ACTION_GROUP};
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 mod simple_io_stream;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::simple_io_stream::SimpleIOStream;
 
 mod simple_permission;
@@ -483,8 +469,6 @@ pub use self::enums::IOErrorEnum;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 pub use self::enums::MemoryMonitorWarningLevel;
 pub use self::enums::MountOperationResult;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::enums::NetworkConnectivity;
 pub use self::enums::NotificationPriority;
 pub use self::enums::PasswordSave;
@@ -492,8 +476,6 @@ pub use self::enums::ResolverRecordType;
 pub use self::enums::ResourceError;
 pub use self::enums::SocketClientEvent;
 pub use self::enums::SocketFamily;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 pub use self::enums::SocketListenerEvent;
 pub use self::enums::SocketProtocol;
 pub use self::enums::SocketType;
@@ -607,8 +589,6 @@ pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_BACKUP;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_HIDDEN;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_SYMLINK;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_NAME;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_SIZE;
@@ -706,8 +686,6 @@ pub mod traits {
     pub use super::inet_socket_address::InetSocketAddressExt;
     pub use super::input_stream::InputStreamExt;
     pub use super::io_stream::IOStreamExt;
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub use super::list_model::ListModelExt;
     pub use super::loadable_icon::LoadableIconExt;
     pub use super::memory_input_stream::MemoryInputStreamExt;

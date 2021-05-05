@@ -231,8 +231,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "get_accessible")]
     fn accessible(&self) -> Option<atk::Object>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_widget_get_action_group")]
     #[doc(alias = "get_action_group")]
     fn action_group(&self, prefix: &str) -> Option<gio::ActionGroup>;
@@ -313,14 +311,10 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "get_focus_on_click")]
     fn gets_focus_on_click(&self) -> bool;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_widget_get_font_map")]
     #[doc(alias = "get_font_map")]
     fn font_map(&self) -> Option<pango::FontMap>;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_widget_get_font_options")]
     #[doc(alias = "get_font_options")]
     fn font_options(&self) -> Option<cairo::FontOptions>;
@@ -585,8 +579,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_list_accel_closures")]
     fn list_accel_closures(&self) -> Vec<glib::Closure>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_widget_list_action_prefixes")]
     fn list_action_prefixes(&self) -> Vec<glib::GString>;
 
@@ -598,26 +590,6 @@ pub trait WidgetExt: 'static {
 
     #[doc(alias = "gtk_widget_mnemonic_activate")]
     fn mnemonic_activate(&self, group_cycling: bool) -> bool;
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_widget_override_background_color")]
-    fn override_background_color(&self, state: StateFlags, color: Option<&gdk::RGBA>);
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_widget_override_color")]
-    fn override_color(&self, state: StateFlags, color: Option<&gdk::RGBA>);
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_widget_override_cursor")]
-    fn override_cursor(&self, cursor: Option<&gdk::RGBA>, secondary_cursor: Option<&gdk::RGBA>);
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_widget_override_font")]
-    fn override_font(&self, font_desc: &pango::FontDescription);
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_widget_override_symbolic_color")]
-    fn override_symbolic_color(&self, name: &str, color: Option<&gdk::RGBA>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -704,13 +676,9 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_set_focus_on_click")]
     fn set_focus_on_click(&self, focus_on_click: bool);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_widget_set_font_map")]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, font_map: Option<&P>);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_widget_set_font_options")]
     fn set_font_options(&self, options: Option<&cairo::FontOptions>);
 
@@ -1744,8 +1712,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn action_group(&self, prefix: &str) -> Option<gio::ActionGroup> {
         unsafe {
             from_glib_none(ffi::gtk_widget_get_action_group(
@@ -1900,14 +1866,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn font_map(&self) -> Option<pango::FontMap> {
         unsafe { from_glib_none(ffi::gtk_widget_get_font_map(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn font_options(&self) -> Option<cairo::FontOptions> {
         unsafe {
             from_glib_none(ffi::gtk_widget_get_font_options(
@@ -2421,8 +2383,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn list_action_prefixes(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_widget_list_action_prefixes(
@@ -2451,55 +2411,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
                 self.as_ref().to_glib_none().0,
                 group_cycling.into_glib(),
             ))
-        }
-    }
-
-    fn override_background_color(&self, state: StateFlags, color: Option<&gdk::RGBA>) {
-        unsafe {
-            ffi::gtk_widget_override_background_color(
-                self.as_ref().to_glib_none().0,
-                state.into_glib(),
-                color.to_glib_none().0,
-            );
-        }
-    }
-
-    fn override_color(&self, state: StateFlags, color: Option<&gdk::RGBA>) {
-        unsafe {
-            ffi::gtk_widget_override_color(
-                self.as_ref().to_glib_none().0,
-                state.into_glib(),
-                color.to_glib_none().0,
-            );
-        }
-    }
-
-    fn override_cursor(&self, cursor: Option<&gdk::RGBA>, secondary_cursor: Option<&gdk::RGBA>) {
-        unsafe {
-            ffi::gtk_widget_override_cursor(
-                self.as_ref().to_glib_none().0,
-                cursor.to_glib_none().0,
-                secondary_cursor.to_glib_none().0,
-            );
-        }
-    }
-
-    fn override_font(&self, font_desc: &pango::FontDescription) {
-        unsafe {
-            ffi::gtk_widget_override_font(
-                self.as_ref().to_glib_none().0,
-                font_desc.to_glib_none().0,
-            );
-        }
-    }
-
-    fn override_symbolic_color(&self, name: &str, color: Option<&gdk::RGBA>) {
-        unsafe {
-            ffi::gtk_widget_override_symbolic_color(
-                self.as_ref().to_glib_none().0,
-                name.to_glib_none().0,
-                color.to_glib_none().0,
-            );
         }
     }
 
@@ -2713,8 +2624,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, font_map: Option<&P>) {
         unsafe {
             ffi::gtk_widget_set_font_map(
@@ -2724,8 +2633,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_options(&self, options: Option<&cairo::FontOptions>) {
         unsafe {
             ffi::gtk_widget_set_font_options(

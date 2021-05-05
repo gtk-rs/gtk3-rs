@@ -47,8 +47,6 @@ pub trait FontChooserExt: 'static {
     #[doc(alias = "get_font_features")]
     fn font_features(&self) -> Option<glib::GString>;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_font_chooser_get_font_map")]
     #[doc(alias = "get_font_map")]
     fn font_map(&self) -> Option<pango::FontMap>;
@@ -89,8 +87,6 @@ pub trait FontChooserExt: 'static {
     #[doc(alias = "gtk_font_chooser_set_font_desc")]
     fn set_font_desc(&self, font_desc: &pango::FontDescription);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_font_chooser_set_font_map")]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, fontmap: Option<&P>);
 
@@ -184,8 +180,6 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn font_map(&self) -> Option<pango::FontMap> {
         unsafe {
             from_glib_full(ffi::gtk_font_chooser_get_font_map(
@@ -300,8 +294,6 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, fontmap: Option<&P>) {
         unsafe {
             ffi::gtk_font_chooser_set_font_map(

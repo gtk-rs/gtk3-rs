@@ -18,8 +18,6 @@ use crate::ScrollablePolicy;
 use crate::TextAttributes;
 use crate::TextBuffer;
 use crate::TextChildAnchor;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::TextExtendSelection;
 use crate::TextIter;
 use crate::TextMark;
@@ -76,8 +74,6 @@ impl Default for TextView {
 #[derive(Clone, Default)]
 pub struct TextViewBuilder {
     accepts_tab: Option<bool>,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     bottom_margin: Option<i32>,
     buffer: Option<TextBuffer>,
     cursor_visible: Option<bool>,
@@ -96,8 +92,6 @@ pub struct TextViewBuilder {
     populate_all: Option<bool>,
     right_margin: Option<i32>,
     tabs: Option<pango::TabArray>,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     top_margin: Option<i32>,
     wrap_mode: Option<WrapMode>,
     border_width: Option<u32>,
@@ -153,7 +147,6 @@ impl TextViewBuilder {
         if let Some(ref accepts_tab) = self.accepts_tab {
             properties.push(("accepts-tab", accepts_tab));
         }
-        #[cfg(any(feature = "v3_18", feature = "dox"))]
         if let Some(ref bottom_margin) = self.bottom_margin {
             properties.push(("bottom-margin", bottom_margin));
         }
@@ -208,7 +201,6 @@ impl TextViewBuilder {
         if let Some(ref tabs) = self.tabs {
             properties.push(("tabs", tabs));
         }
-        #[cfg(any(feature = "v3_18", feature = "dox"))]
         if let Some(ref top_margin) = self.top_margin {
             properties.push(("top-margin", top_margin));
         }
@@ -342,8 +334,6 @@ impl TextViewBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn bottom_margin(mut self, bottom_margin: i32) -> Self {
         self.bottom_margin = Some(bottom_margin);
         self
@@ -434,8 +424,6 @@ impl TextViewBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn top_margin(mut self, top_margin: i32) -> Self {
         self.top_margin = Some(top_margin);
         self
@@ -687,8 +675,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "get_border_window_size")]
     fn border_window_size(&self, type_: TextWindowType) -> i32;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_text_view_get_bottom_margin")]
     #[doc(alias = "get_bottom_margin")]
     fn bottom_margin(&self) -> i32;
@@ -753,8 +739,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "get_line_yrange")]
     fn line_yrange(&self, iter: &TextIter) -> (i32, i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_text_view_get_monospace")]
     #[doc(alias = "get_monospace")]
     fn is_monospace(&self) -> bool;
@@ -783,8 +767,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "get_tabs")]
     fn tabs(&self) -> Option<pango::TabArray>;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_text_view_get_top_margin")]
     #[doc(alias = "get_top_margin")]
     fn top_margin(&self) -> i32;
@@ -857,8 +839,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "gtk_text_view_set_border_window_size")]
     fn set_border_window_size(&self, type_: TextWindowType, size: i32);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_text_view_set_bottom_margin")]
     fn set_bottom_margin(&self, bottom_margin: i32);
 
@@ -886,8 +866,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "gtk_text_view_set_left_margin")]
     fn set_left_margin(&self, left_margin: i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_text_view_set_monospace")]
     fn set_monospace(&self, monospace: bool);
 
@@ -909,8 +887,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "gtk_text_view_set_tabs")]
     fn set_tabs(&self, tabs: &pango::TabArray);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_text_view_set_top_margin")]
     fn set_top_margin(&self, top_margin: i32);
 
@@ -933,10 +909,6 @@ pub trait TextViewExt: 'static {
 
     #[doc(alias = "im-module")]
     fn set_im_module(&self, im_module: Option<&str>);
-
-    fn get_property_monospace(&self) -> bool;
-
-    fn set_property_monospace(&self, monospace: bool);
 
     #[doc(alias = "populate-all")]
     fn populates_all(&self) -> bool;
@@ -967,8 +939,6 @@ pub trait TextViewExt: 'static {
 
     fn emit_delete_from_cursor(&self, type_: DeleteType, count: i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "extend-selection")]
     fn connect_extend_selection<
         F: Fn(&Self, TextExtendSelection, &TextIter, &TextIter, &TextIter) -> glib::signal::Inhibit
@@ -1044,8 +1014,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "accepts-tab")]
     fn connect_accepts_tab_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "bottom-margin")]
     fn connect_bottom_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -1100,8 +1068,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "tabs")]
     fn connect_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "top-margin")]
     fn connect_top_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -1214,8 +1180,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn bottom_margin(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_bottom_margin(self.as_ref().to_glib_none().0) }
     }
@@ -1378,8 +1342,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn is_monospace(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_view_get_monospace(
@@ -1416,8 +1378,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         unsafe { from_glib_full(ffi::gtk_text_view_get_tabs(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn top_margin(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_top_margin(self.as_ref().to_glib_none().0) }
     }
@@ -1588,8 +1548,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_bottom_margin(&self, bottom_margin: i32) {
         unsafe {
             ffi::gtk_text_view_set_bottom_margin(self.as_ref().to_glib_none().0, bottom_margin);
@@ -1656,8 +1614,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_monospace(&self, monospace: bool) {
         unsafe {
             ffi::gtk_text_view_set_monospace(self.as_ref().to_glib_none().0, monospace.into_glib());
@@ -1712,8 +1668,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_top_margin(&self, top_margin: i32) {
         unsafe {
             ffi::gtk_text_view_set_top_margin(self.as_ref().to_glib_none().0, top_margin);
@@ -1778,30 +1732,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"im-module\0".as_ptr() as *const _,
                 im_module.to_value().to_glib_none().0,
-            );
-        }
-    }
-
-    fn get_property_monospace(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"monospace\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `monospace` getter")
-        }
-    }
-
-    fn set_property_monospace(&self, monospace: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"monospace\0".as_ptr() as *const _,
-                monospace.to_value().to_glib_none().0,
             );
         }
     }
@@ -1970,8 +1900,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         };
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "extend-selection")]
     fn connect_extend_selection<
         F: Fn(&Self, TextExtendSelection, &TextIter, &TextIter, &TextIter) -> glib::signal::Inhibit
@@ -2436,8 +2364,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "bottom-margin")]
     fn connect_bottom_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_bottom_margin_trampoline<P, F: Fn(&P) + 'static>(
@@ -2888,8 +2814,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "top-margin")]
     fn connect_top_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_top_margin_trampoline<P, F: Fn(&P) + 'static>(
