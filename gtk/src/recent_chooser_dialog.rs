@@ -23,7 +23,8 @@ impl RecentChooserDialog {
     }
 
     #[doc(alias = "gtk_recent_chooser_dialog_new_for_manager")]
-    pub fn new_for_manager<T: IsA<Window>>(
+    #[doc(alias = "new_for_manager")]
+    pub fn for_manager<T: IsA<Window>>(
         title: Option<&str>,
         parent: Option<&T>,
         manager: &RecentManager,

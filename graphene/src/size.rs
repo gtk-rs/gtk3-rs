@@ -15,7 +15,8 @@ impl Size {
     }
 
     #[doc(alias = "graphene_size_init_from_size")]
-    pub fn new_from_size(src: &Size) -> Size {
+    #[doc(alias = "new_from_size")]
+    pub fn from_size(src: &Size) -> Size {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_size_alloc();

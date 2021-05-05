@@ -74,7 +74,6 @@ generate = [
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
     "Gio.FilterInputStream",
-    "Gio.Icon",
     "Gio.IOErrorEnum",
     "Gio.IOStreamSpliceFlags",
     "Gio.LoadableIcon",
@@ -423,6 +422,9 @@ name = "Gio.DBusConnection"
 concurrency = "send+sync"
 status = "generate"
     [[object.function]]
+    name = "new_for_address"
+    constructor = true
+    [[object.function]]
     pattern = ".+_unix_fd.+"
     cfg_condition = "unix"
     [[object.function]]
@@ -516,6 +518,9 @@ concurrency = "send+sync"
     [[object.function]]
     pattern = ".+_unix_fd.+"
     cfg_condition = "unix"
+    [[object.function]]
+    name = "new_for_bus"
+    constructor = true
 
 [[object]]
 name = "Gio.DesktopAppInfo"
@@ -541,14 +546,30 @@ concurrency = "send+sync"
 manual_traits = ["FileExtManual"]
     [[object.function]]
     name = "new_for_commandline_arg"
+    # Not annotated as constructor in Gir => force it to apply naming convention
+    constructor = true
         [[object.function.parameter]]
         name = "arg"
         string_type = "os_string"
     [[object.function]]
     name = "new_for_commandline_arg_and_cwd"
+    # Not annotated as constructor in Gir => force it to apply naming convention
+    constructor = true
         [[object.function.parameter]]
         name = "arg"
         string_type = "os_string"
+    [[object.function]]
+    name = "new_for_path"
+    # Not annotated as constructor in Gir => force it to apply naming convention
+    constructor = true
+    [[object.function]]
+    name = "new_for_uri"
+    # Not annotated as constructor in Gir => force it to apply naming convention
+    constructor = true
+    [[object.function]]
+    name = "parse_name"
+    # Constructor based on a String that can be obtained from method `parse_name`
+    rename = "for_parse_name"
     [[object.function]]
     name = "hash"
     ignore = true
@@ -605,6 +626,13 @@ status = "generate"
     name = "close-base-stream"
     #has get/set function, ConstructOnly
     generate = ["notify"]
+
+[[object]]
+name =  "Gio.Icon"
+status = "generate"
+    [[object.function]]
+    name = "new_for_string"
+    constructor = true
 
 [[object]]
 name =  "Gio.InetAddressMask"

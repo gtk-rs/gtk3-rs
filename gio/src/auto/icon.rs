@@ -31,7 +31,8 @@ impl Icon {
     }
 
     #[doc(alias = "g_icon_new_for_string")]
-    pub fn new_for_string(str: &str) -> Result<Icon, glib::Error> {
+    #[doc(alias = "new_for_string")]
+    pub fn for_string(str: &str) -> Result<Icon, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_icon_new_for_string(str.to_glib_none().0, &mut error);

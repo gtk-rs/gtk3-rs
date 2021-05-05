@@ -47,7 +47,7 @@ fn build_ui(application: &gtk::Application) {
         // Since we only accept `text/uri-list`s here, we don't need to check first, we can simply
         // iterate through all of the accepted URIs.
         for file in d.uris() {
-            let file = gio::File::new_for_uri(&file);
+            let file = gio::File::for_uri(&file);
             let display_name = if file.is_native() {
                 file.path().unwrap().display().to_string()
             } else {

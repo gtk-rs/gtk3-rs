@@ -12,7 +12,7 @@ fn main() {
 
     c.push_thread_default();
 
-    let file = gio::File::new_for_path("Cargo.toml");
+    let file = gio::File::for_path("Cargo.toml");
 
     let future = clone!(@strong l => async move {
         match read_file(file).await {

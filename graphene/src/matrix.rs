@@ -15,7 +15,8 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_init_from_2d")]
-    pub fn new_from_2d(xx: f64, yx: f64, xy: f64, yy: f64, x_0: f64, y_0: f64) -> Matrix {
+    #[doc(alias = "new_from_2d")]
+    pub fn from_2d(xx: f64, yx: f64, xy: f64, yy: f64, x_0: f64, y_0: f64) -> Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_matrix_alloc();
@@ -25,7 +26,8 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_init_from_float")]
-    pub fn new_from_float(v: &[f32; 16]) -> Matrix {
+    #[doc(alias = "new_from_float")]
+    pub fn from_float(v: &[f32; 16]) -> Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_matrix_alloc();
@@ -35,7 +37,8 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_init_from_matrix")]
-    pub fn new_from_matrix(src: &Matrix) -> Matrix {
+    #[doc(alias = "new_from_matrix")]
+    pub fn from_matrix(src: &Matrix) -> Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_matrix_alloc();
@@ -45,7 +48,8 @@ impl Matrix {
     }
 
     #[doc(alias = "graphene_matrix_init_from_vec4")]
-    pub fn new_from_vec4(v0: &Vec4, v1: &Vec4, v2: &Vec4, v3: &Vec4) -> Matrix {
+    #[doc(alias = "new_from_vec4")]
+    pub fn from_vec4(v0: &Vec4, v1: &Vec4, v2: &Vec4, v3: &Vec4) -> Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_matrix_alloc();

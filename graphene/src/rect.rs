@@ -31,7 +31,8 @@ impl Rect {
     }
 
     #[doc(alias = "graphene_rect_init_from_rect")]
-    pub fn new_from_rect(src: &Rect) -> Rect {
+    #[doc(alias = "new_from_rect")]
+    pub fn from_rect(src: &Rect) -> Rect {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_rect_alloc();

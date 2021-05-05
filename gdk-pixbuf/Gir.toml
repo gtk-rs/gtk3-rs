@@ -101,6 +101,9 @@ status = "generate"
     name = "get_iter"
     # TimeVal misses memory management functions
     manual = true
+    [[object.function]]
+    name = "new_from_stream_async"
+    constructor = true
 
 [[object]]
 name = "GdkPixbuf.PixbufFormat"
