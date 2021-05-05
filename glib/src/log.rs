@@ -199,10 +199,12 @@ static PRINT_HANDLER: Lazy<Mutex<Option<Arc<PrintCallback>>>> = Lazy::new(|| Mut
 #[doc(alias = "g_set_print_handler")]
 pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
-        if let Some(callback) = match *PRINT_HANDLER.lock().expect("Failed to lock PRINT_HANDLER") {
-            Some(ref handler) => Some(Arc::clone(handler)),
-            None => None,
-        } {
+        if let Some(callback) = PRINT_HANDLER
+            .lock()
+            .expect("Failed to lock PRINT_HANDLER")
+            .as_ref()
+            .map(Arc::clone)
+        {
             let string: Borrowed<GString> = from_glib_borrow(string);
             (*callback)(string.as_str())
         }
@@ -227,13 +229,12 @@ static PRINTERR_HANDLER: Lazy<Mutex<Option<Arc<PrintCallback>>>> = Lazy::new(|| 
 #[doc(alias = "g_set_printerr_handler")]
 pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
-        if let Some(callback) = match *PRINTERR_HANDLER
+        if let Some(callback) = PRINTERR_HANDLER
             .lock()
             .expect("Failed to lock PRINTERR_HANDLER")
+            .as_ref()
+            .map(Arc::clone)
         {
-            Some(ref handler) => Some(Arc::clone(handler)),
-            None => None,
-        } {
             let string: Borrowed<GString> = from_glib_borrow(string);
             (*callback)(string.as_str())
         }
@@ -267,13 +268,12 @@ pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync
         message: *const libc::c_char,
         _user_data: ffi::gpointer,
     ) {
-        if let Some(callback) = match *DEFAULT_HANDLER
+        if let Some(callback) = DEFAULT_HANDLER
             .lock()
             .expect("Failed to lock DEFAULT_HANDLER")
+            .as_ref()
+            .map(Arc::clone)
         {
-            Some(ref handler) => Some(Arc::clone(handler)),
-            None => None,
-        } {
             let log_domain: Borrowed<Option<GString>> = from_glib_borrow(log_domain);
             let message: Borrowed<GString> = from_glib_borrow(message);
             (*callback)(
