@@ -148,7 +148,6 @@ path = "icon_view/main.rs"
 [[bin]]
 name = "list_box_model"
 path = "list_box_model/main.rs"
-required-features = ["gtk/v3_16"]
 
 [[bin]]
 name = "list_store"

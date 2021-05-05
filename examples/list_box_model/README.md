@@ -14,7 +14,7 @@ In addition, it is possible to add new rows and delete old ones.
 Run it by executing:
 
 ```bash
-cargo run --bin list_box_model --features="gtk/v3_16"
+cargo run --bin list_box_model
 ```
 
 ![screenshot](screenshot.png)
