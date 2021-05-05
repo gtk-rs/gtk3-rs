@@ -151,8 +151,6 @@ impl ParamSpec {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_param_spec_get_name_quark")]
     #[doc(alias = "get_name_quark")]
     pub fn name_quark(&self) -> crate::Quark {

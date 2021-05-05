@@ -9,10 +9,7 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-v2_44 = []
-v2_46 = ["v2_44"]
-v2_48 = ["v2_46"]
-v2_50 = ["v2_48"]
+v2_50 = []
 v2_52 = ["v2_50"]
 v2_54 = ["v2_52"]
 v2_56 = ["v2_54"]
@@ -43,15 +40,6 @@ edition = "2018"
 features = ["dox"]
 [package.metadata.system-deps.glib_2_0]
 name = "glib-2.0"
-version = "2.42"
-
-[package.metadata.system-deps.glib_2_0.v2_44]
-version = "2.44"
-
-[package.metadata.system-deps.glib_2_0.v2_46]
-version = "2.46"
-
-[package.metadata.system-deps.glib_2_0.v2_48]
 version = "2.48"
 
 [package.metadata.system-deps.glib_2_0.v2_50]
@@ -86,13 +74,7 @@ version = "2.68"
 
 [package.metadata.system-deps.gobject_2_0]
 name = "gobject-2.0"
-version = "2.42"
-
-[package.metadata.system-deps.gobject_2_0.v2_44]
-version = "2.44"
-
-[package.metadata.system-deps.gobject_2_0.v2_46]
-version = "2.46"
+version = "2.48"
 
 [package.metadata.system-deps.gobject_2_0.v2_54]
 version = "2.54"

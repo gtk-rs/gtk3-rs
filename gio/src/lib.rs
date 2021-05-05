@@ -39,7 +39,6 @@ mod io_stream;
 pub use crate::io_stream::IOStreamAsyncReadWrite;
 mod input_stream;
 pub use crate::input_stream::{InputStreamAsyncBufRead, InputStreamRead};
-#[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_store;
 mod memory_input_stream;
 mod memory_output_stream;

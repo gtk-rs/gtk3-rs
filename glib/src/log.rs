@@ -3,7 +3,6 @@
 use crate::translate::*;
 use crate::GString;
 use once_cell::sync::Lazy;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::sync::{Arc, Mutex};
 
@@ -100,7 +99,6 @@ impl FromGlib<ffi::GLogLevelFlags> for LogLevels {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
     (if fatal { ffi::G_LOG_FLAG_FATAL } else { 0 })
         | if recursion {
@@ -110,7 +108,6 @@ fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
         }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 #[doc(alias = "g_log_set_handler_full")]
 pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
     log_domain: Option<&str>,

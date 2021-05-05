@@ -67,43 +67,40 @@ fn check_log_handlers() {
     //
     // log_set_handler check part
     //
-    #[cfg(feature = "v2_46")]
-    {
-        let count = Arc::new(Mutex::new(Counters::default()));
-        // We set the handler for both warning and debug.
-        let handler_id = log_set_handler(
-            Some("domain"),
-            LogLevels::LEVEL_WARNING | LogLevels::LEVEL_DEBUG,
-            false,
-            false,
-            clone!(@weak count => move |_, level, _| {
-                match level {
-                    LogLevel::Warning => { (*count.lock().expect("failed to lock 4")).warnings += 1; }
-                    LogLevel::Debug => { (*count.lock().expect("failed to lock 7")).debugs += 1; }
-                    _ => unreachable!(),
-                }
-            }),
-        );
-        assert_counts(&count, 0, 0, 0, 0, 0);
-        g_warning!(Some("domain"), "hello");
-        assert_counts(&count, 0, 1, 0, 0, 0);
-        g_critical!(Some("domain"), "hello");
-        g_message!(Some("domain"), "hello");
-        g_info!(Some("domain"), "hello");
-        assert_counts(&count, 0, 1, 0, 0, 0);
-        g_debug!(Some("domain"), "hello");
-        assert_counts(&count, 0, 1, 0, 0, 1);
-        // We check that only "domain" messages are calling our callback.
-        g_debug!(Some("not-domain"), "hello");
-        g_warning!(Some("not-domain"), "hello");
-        assert_counts(&count, 0, 1, 0, 0, 1);
+    let count = Arc::new(Mutex::new(Counters::default()));
+    // We set the handler for both warning and debug.
+    let handler_id = log_set_handler(
+        Some("domain"),
+        LogLevels::LEVEL_WARNING | LogLevels::LEVEL_DEBUG,
+        false,
+        false,
+        clone!(@weak count => move |_, level, _| {
+            match level {
+                LogLevel::Warning => { (*count.lock().expect("failed to lock 4")).warnings += 1; }
+                LogLevel::Debug => { (*count.lock().expect("failed to lock 7")).debugs += 1; }
+                _ => unreachable!(),
+            }
+        }),
+    );
+    assert_counts(&count, 0, 0, 0, 0, 0);
+    g_warning!(Some("domain"), "hello");
+    assert_counts(&count, 0, 1, 0, 0, 0);
+    g_critical!(Some("domain"), "hello");
+    g_message!(Some("domain"), "hello");
+    g_info!(Some("domain"), "hello");
+    assert_counts(&count, 0, 1, 0, 0, 0);
+    g_debug!(Some("domain"), "hello");
+    assert_counts(&count, 0, 1, 0, 0, 1);
+    // We check that only "domain" messages are calling our callback.
+    g_debug!(Some("not-domain"), "hello");
+    g_warning!(Some("not-domain"), "hello");
+    assert_counts(&count, 0, 1, 0, 0, 1);
 
-        log_remove_handler(Some("domain"), handler_id);
-        g_critical!(Some("domain"), "hello");
-        g_message!(Some("domain"), "hello");
-        g_info!(Some("domain"), "hello");
-        g_debug!(Some("domain"), "hello");
-        g_warning!(Some("domain"), "hello");
-        assert_counts(&count, 0, 1, 0, 0, 1);
-    }
+    log_remove_handler(Some("domain"), handler_id);
+    g_critical!(Some("domain"), "hello");
+    g_message!(Some("domain"), "hello");
+    g_info!(Some("domain"), "hello");
+    g_debug!(Some("domain"), "hello");
+    g_warning!(Some("domain"), "hello");
+    assert_counts(&count, 0, 1, 0, 0, 1);
 }
