@@ -707,6 +707,14 @@
 <span id="704">704</span>
 <span id="705">705</span>
 <span id="706">706</span>
+<span id="707">707</span>
+<span id="708">708</span>
+<span id="709">709</span>
+<span id="710">710</span>
+<span id="711">711</span>
+<span id="712">712</span>
+<span id="713">713</span>
+<span id="714">714</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -716,6 +724,13 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Type</span>;
 <span class="kw">use</span> <span class="ident">std::cmp</span>;
 
+<span class="doccomment">/// These are logical ids for special directories which are defined</span>
+<span class="doccomment">/// depending on the platform used. You should use `g_get_user_special_dir()`</span>
+<span class="doccomment">/// to retrieve the full path associated to the logical id.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The [`UserDirectory`](crate::UserDirectory) enumeration can be extended at later date. Not</span>
+<span class="doccomment">/// every platform has a directory for every logical id in this</span>
+<span class="doccomment">/// enumeration.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UserDirectory</span> {
     <span class="ident">Desktop</span>,
@@ -726,6 +741,7 @@
     <span class="ident">PublicShare</span>,
     <span class="ident">Templates</span>,
     <span class="ident">Videos</span>,
+    <span class="doccomment">/// the number of enum values</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">NDirectories</span>,
 }
