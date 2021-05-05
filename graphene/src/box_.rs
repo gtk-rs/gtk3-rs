@@ -62,7 +62,8 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_init_from_box")]
-    pub fn new_from_box(src: &Box) -> Box {
+    #[doc(alias = "new_from_box")]
+    pub fn from_box(src: &Box) -> Box {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_box_alloc();
@@ -72,7 +73,8 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_init_from_points")]
-    pub fn new_from_points(&mut self, points: &[&Point3D]) -> Box {
+    #[doc(alias = "new_from_points")]
+    pub fn from_points(&mut self, points: &[&Point3D]) -> Box {
         assert_initialized_main_thread!();
 
         let vec: Vec<_> = points
@@ -89,7 +91,8 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_init_from_vec3")]
-    pub fn new_from_vec3(min: Option<&Vec3>, max: Option<&Vec3>) -> Box {
+    #[doc(alias = "new_from_vec3")]
+    pub fn from_vec3(min: Option<&Vec3>, max: Option<&Vec3>) -> Box {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_box_alloc();
@@ -99,7 +102,8 @@ impl Box {
     }
 
     #[doc(alias = "graphene_box_init_from_vectors")]
-    pub fn new_from_vectors(vectors: &[&Vec3]) -> Box {
+    #[doc(alias = "new_from_vectors")]
+    pub fn from_vectors(vectors: &[&Vec3]) -> Box {
         assert_initialized_main_thread!();
 
         let vec: Vec<_> = vectors

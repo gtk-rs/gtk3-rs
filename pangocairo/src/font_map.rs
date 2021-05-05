@@ -18,7 +18,8 @@ impl<O: IsA<FontMap>> FontMapExtManual for O {
 
 impl FontMap {
     #[doc(alias = "pango_cairo_font_map_new_for_font_type")]
-    pub fn new_for_font_type(fonttype: cairo::FontType) -> Option<pango::FontMap> {
+    #[doc(alias = "new_for_font_type")]
+    pub fn for_font_type(fonttype: cairo::FontType) -> Option<pango::FontMap> {
         unsafe { from_glib_full(ffi::pango_cairo_font_map_new_for_font_type(fonttype.into())) }
     }
 

@@ -24,7 +24,8 @@ impl Vec4 {
     }
 
     #[doc(alias = "graphene_vec4_init_from_vec2")]
-    pub fn new_from_vec2(src: &Vec2, z: f32, w: f32) -> Vec4 {
+    #[doc(alias = "new_from_vec2")]
+    pub fn from_vec2(src: &Vec2, z: f32, w: f32) -> Vec4 {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_vec4_alloc();
@@ -34,7 +35,8 @@ impl Vec4 {
     }
 
     #[doc(alias = "graphene_vec4_init_from_vec3")]
-    pub fn new_from_vec3(src: &Vec3, w: f32) -> Vec4 {
+    #[doc(alias = "new_from_vec3")]
+    pub fn from_vec3(src: &Vec3, w: f32) -> Vec4 {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_vec4_alloc();
@@ -44,7 +46,8 @@ impl Vec4 {
     }
 
     #[doc(alias = "graphene_vec4_init_from_vec4")]
-    pub fn new_from_vec4(src: &Vec4) -> Vec4 {
+    #[doc(alias = "new_from_vec4")]
+    pub fn from_vec4(src: &Vec4) -> Vec4 {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_vec4_alloc();
@@ -54,7 +57,8 @@ impl Vec4 {
     }
 
     #[doc(alias = "graphene_vec4_init_from_float")]
-    pub fn new_from_float(src: &[f32; 4]) -> Vec4 {
+    #[doc(alias = "new_from_float")]
+    pub fn from_float(src: &[f32; 4]) -> Vec4 {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_vec4_alloc();

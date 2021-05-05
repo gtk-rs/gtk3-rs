@@ -53,7 +53,8 @@ impl Sphere {
     }
 
     #[doc(alias = "graphene_sphere_init_from_points")]
-    pub fn new_from_points(points: &[&Point3D], center: Option<&Point3D>) -> Sphere {
+    #[doc(alias = "new_from_points")]
+    pub fn from_points(points: &[&Point3D], center: Option<&Point3D>) -> Sphere {
         assert_initialized_main_thread!();
 
         let vec: Vec<_> = points
@@ -70,7 +71,8 @@ impl Sphere {
     }
 
     #[doc(alias = "graphene_sphere_init_from_vectors")]
-    pub fn new_from_vectors(vectors: &[&Vec3], center: Option<&Point3D>) -> Sphere {
+    #[doc(alias = "new_from_vectors")]
+    pub fn from_vectors(vectors: &[&Vec3], center: Option<&Point3D>) -> Sphere {
         assert_initialized_main_thread!();
 
         let vec: Vec<_> = vectors

@@ -16,7 +16,8 @@ impl Point3D {
     }
 
     #[doc(alias = "graphene_point3d_init_from_point")]
-    pub fn new_from_point(src: &Point3D) -> Point3D {
+    #[doc(alias = "new_from_point")]
+    pub fn from_point(src: &Point3D) -> Point3D {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_point3d_alloc();
@@ -26,7 +27,8 @@ impl Point3D {
     }
 
     #[doc(alias = "graphene_point3d_init_from_vec3")]
-    pub fn new_from_vec3(v: &Vec3) -> Point3D {
+    #[doc(alias = "new_from_vec3")]
+    pub fn from_vec3(v: &Vec3) -> Point3D {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_point3d_alloc();

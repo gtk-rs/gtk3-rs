@@ -19,7 +19,8 @@ impl Quaternion {
     }
 
     #[doc(alias = "graphene_quaternion_init_from_angle_vec3")]
-    pub fn new_from_angle_vec3(angle: f32, axis: &Vec3) -> Quaternion {
+    #[doc(alias = "new_from_angle_vec3")]
+    pub fn from_angle_vec3(angle: f32, axis: &Vec3) -> Quaternion {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_quaternion_alloc();
@@ -29,7 +30,8 @@ impl Quaternion {
     }
 
     #[doc(alias = "graphene_quaternion_init_from_angles")]
-    pub fn new_from_angles(deg_x: f32, deg_y: f32, deg_z: f32) -> Quaternion {
+    #[doc(alias = "new_from_angles")]
+    pub fn from_angles(deg_x: f32, deg_y: f32, deg_z: f32) -> Quaternion {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_quaternion_alloc();
@@ -39,7 +41,8 @@ impl Quaternion {
     }
 
     #[doc(alias = "graphene_quaternion_init_from_euler")]
-    pub fn new_from_euler(e: &Euler) -> Quaternion {
+    #[doc(alias = "new_from_euler")]
+    pub fn from_euler(e: &Euler) -> Quaternion {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_quaternion_alloc();
@@ -49,7 +52,8 @@ impl Quaternion {
     }
 
     #[doc(alias = "graphene_quaternion_init_from_matrix")]
-    pub fn new_from_matrix(m: &Matrix) -> Quaternion {
+    #[doc(alias = "new_from_matrix")]
+    pub fn from_matrix(m: &Matrix) -> Quaternion {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_quaternion_alloc();
@@ -59,7 +63,8 @@ impl Quaternion {
     }
 
     #[doc(alias = "graphene_quaternion_init_from_quaternion")]
-    pub fn new_from_quaternion(src: &Quaternion) -> Quaternion {
+    #[doc(alias = "new_from_quaternion")]
+    pub fn from_quaternion(src: &Quaternion) -> Quaternion {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_quaternion_alloc();
@@ -69,7 +74,8 @@ impl Quaternion {
     }
 
     #[doc(alias = "graphene_quaternion_init_from_radians")]
-    pub fn new_from_radians(rad_x: f32, rad_y: f32, rad_z: f32) -> Quaternion {
+    #[doc(alias = "new_from_radians")]
+    pub fn from_radians(rad_x: f32, rad_y: f32, rad_z: f32) -> Quaternion {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_quaternion_alloc();
@@ -79,7 +85,8 @@ impl Quaternion {
     }
 
     #[doc(alias = "graphene_quaternion_init_from_vec4")]
-    pub fn new_from_vec4(src: &Vec4) -> Quaternion {
+    #[doc(alias = "new_from_vec4")]
+    pub fn from_vec4(src: &Vec4) -> Quaternion {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_quaternion_alloc();

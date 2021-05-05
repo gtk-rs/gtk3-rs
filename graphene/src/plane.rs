@@ -18,7 +18,8 @@ impl Plane {
     }
 
     #[doc(alias = "graphene_plane_init_from_plane")]
-    pub fn new_from_plane(src: &Plane) -> Plane {
+    #[doc(alias = "new_from_plane")]
+    pub fn from_plane(src: &Plane) -> Plane {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_plane_alloc();
@@ -28,7 +29,8 @@ impl Plane {
     }
 
     #[doc(alias = "graphene_plane_init_from_point")]
-    pub fn new_from_point(normal: &Vec3, point: &Point3D) -> Plane {
+    #[doc(alias = "new_from_point")]
+    pub fn from_point(normal: &Vec3, point: &Point3D) -> Plane {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_plane_alloc();
@@ -42,7 +44,8 @@ impl Plane {
     }
 
     #[doc(alias = "graphene_plane_init_from_points")]
-    pub fn new_from_points(a: &Point3D, b: &Point3D, c: &Point3D) -> Plane {
+    #[doc(alias = "new_from_points")]
+    pub fn from_points(a: &Point3D, b: &Point3D, c: &Point3D) -> Plane {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_plane_alloc();
@@ -57,7 +60,8 @@ impl Plane {
     }
 
     #[doc(alias = "graphene_plane_init_from_vec4")]
-    pub fn new_from_vec4(src: &Vec4) -> Plane {
+    #[doc(alias = "new_from_vec4")]
+    pub fn from_vec4(src: &Vec4) -> Plane {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_plane_alloc();
