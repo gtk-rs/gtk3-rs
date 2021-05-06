@@ -5,16 +5,6 @@
 mod context;
 pub use self::context::Context;
 
-#[deprecated = "Since 1.38"]
-mod engine_lang;
-#[deprecated = "Since 1.38"]
-pub use self::engine_lang::{EngineLang, NONE_ENGINE_LANG};
-
-#[deprecated = "Since 1.38"]
-mod engine_shape;
-#[deprecated = "Since 1.38"]
-pub use self::engine_shape::{EngineShape, NONE_ENGINE_SHAPE};
-
 mod font;
 pub use self::font::{Font, NONE_FONT};
 

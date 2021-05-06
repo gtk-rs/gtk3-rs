@@ -33,8 +33,6 @@ generate = [
     "Pango.CoverageLevel",
     "Pango.Direction",
     "Pango.EllipsizeMode",
-    "Pango.EngineLang",
-    "Pango.EngineShape",
     "Pango.FontFace",
     "Pango.FontFamily",
     "Pango.FontMask",
@@ -73,6 +71,11 @@ manual = [
     "Pango.Coverage",
     "Pango.Language",
     "Pango.Rectangle",
+]
+
+ignore = [
+    "Pango.EngineLang",
+    "Pango.EngineShape",
 ]
 
 [[object]]
