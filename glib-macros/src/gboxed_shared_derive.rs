@@ -1,9 +1,11 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::utils::{crate_ident_new, find_attribute_meta, find_nested_meta, parse_type_name};
+use heck::SnakeCase;
 use proc_macro2::{Ident, TokenStream};
 use proc_macro_error::abort_call_site;
-use quote::quote;
+use quote::{format_ident, quote};
+
+use crate::utils::{crate_ident_new, find_attribute_meta, find_nested_meta, parse_type_name};
 
 fn gen_impl_to_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     let refcounted_type_prefix = refcounted_type_prefix(name, crate_ident);
@@ -101,6 +103,7 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
             e
         ),
     };
+    let get_type = format_ident!("{}_type", name.to_string().to_snake_case());
 
     let meta = find_attribute_meta(&input.attrs, "gshared_boxed")
         .unwrap()
@@ -127,20 +130,6 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
 
             type RefCountedType = #refcounted_type;
 
-            fn type_() -> #crate_ident::Type {
-                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
-                static ONCE: ::std::sync::Once = ::std::sync::Once::new();
-
-                ONCE.call_once(|| {
-                    let type_ = #crate_ident::subclass::shared::register_shared_type::<Self>();
-                    unsafe {
-                        TYPE_ = type_;
-                    }
-                });
-
-                unsafe { TYPE_ }
-            }
-
             fn from_refcounted(this: Self::RefCountedType) -> Self {
                 Self(this)
             }
@@ -152,7 +141,7 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                <#name as #crate_ident::subclass::shared::SharedType>::type_()
+                #get_type()
             }
         }
 
@@ -176,6 +165,20 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
             fn value_type(&self) -> #crate_ident::Type {
                 <#name as #crate_ident::StaticType>::static_type()
             }
+        }
+
+        fn #get_type() -> #crate_ident::Type {
+            static ONCE: ::std::sync::Once = ::std::sync::Once::new();
+            static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
+
+            ONCE.call_once(|| {
+                let type_ = #crate_ident::subclass::shared::register_shared_type::<#name>();
+                unsafe {
+                    TYPE_ = type_;
+                }
+            });
+
+            unsafe { TYPE_ }
         }
 
         #impl_to_value_optional

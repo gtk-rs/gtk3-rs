@@ -1,8 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use heck::SnakeCase;
 use proc_macro2::{Ident, TokenStream};
 use proc_macro_error::abort_call_site;
-use quote::quote;
+use quote::{format_ident, quote};
 
 use crate::utils::{crate_ident_new, find_attribute_meta, find_nested_meta, parse_type_name};
 
@@ -94,6 +95,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
             e
         ),
     };
+    let get_type = format_ident!("{}_type", name.to_string().to_snake_case());
 
     let crate_ident = crate_ident_new();
 
@@ -116,28 +118,11 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
     quote! {
         impl #crate_ident::subclass::boxed::BoxedType for #name {
             const NAME: &'static str = #gtype_name;
-
-            fn type_() -> #crate_ident::Type {
-                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
-                static ONCE: ::std::sync::Once = ::std::sync::Once::new();
-
-                ONCE.call_once(|| {
-                    let type_ = #crate_ident::subclass::register_boxed_type::<Self>();
-                    unsafe {
-                        TYPE_ = type_;
-                    }
-                });
-
-                unsafe {
-                    assert!(TYPE_.is_valid());
-                    TYPE_
-                }
-            }
         }
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                <#name as #crate_ident::subclass::boxed::BoxedType>::type_()
+                #get_type()
             }
         }
 
@@ -160,6 +145,23 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
 
             fn value_type(&self) -> #crate_ident::Type {
                 <#name as #crate_ident::StaticType>::static_type()
+            }
+        }
+
+        fn #get_type() -> #crate_ident::Type {
+            static ONCE: ::std::sync::Once = ::std::sync::Once::new();
+            static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
+
+            ONCE.call_once(|| {
+                let type_ = #crate_ident::subclass::register_boxed_type::<#name>();
+                unsafe {
+                    TYPE_ = type_;
+                }
+            });
+
+            unsafe {
+                assert!(TYPE_.is_valid());
+                TYPE_
             }
         }
 
