@@ -266,8 +266,6 @@
 <span id="263">263</span>
 <span id="264">264</span>
 <span id="265">265</span>
-<span id="266">266</span>
-<span id="267">267</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -394,15 +392,15 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Library versions</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! By default this crate provides only GTK 3.14 APIs. You can access additional</span>
-<span class="doccomment">//! functionality by selecting one of the `v3_16`, `v3_18`, etc. features.</span>
+<span class="doccomment">//! By default this crate provides only GTK 3.18 APIs. You can access additional</span>
+<span class="doccomment">//! functionality by selecting one of the `v3_20`, `v3_24`, etc. features.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! `Cargo.toml` example:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```toml</span>
 <span class="doccomment">//! [dependencies.gtk]</span>
 <span class="doccomment">//! version = &quot;0.x.y&quot;</span>
-<span class="doccomment">//! features = [&quot;v3_16&quot;]</span>
+<span class="doccomment">//! features = [&quot;v3_20&quot;]</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Take care when choosing the version to target: some of your users might</span>
@@ -468,13 +466,11 @@
 <span class="kw">mod</span> <span class="ident">enums</span>;
 <span class="kw">mod</span> <span class="ident">file_chooser_dialog</span>;
 <span class="kw">mod</span> <span class="ident">fixed</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_18&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">flow_box</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">gesture_stylus</span>;
 <span class="kw">mod</span> <span class="ident">im_context_simple</span>;
 <span class="kw">mod</span> <span class="ident">invisible</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">list_box</span>;
 <span class="kw">mod</span> <span class="ident">list_store</span>;
 <span class="kw">mod</span> <span class="ident">menu</span>;

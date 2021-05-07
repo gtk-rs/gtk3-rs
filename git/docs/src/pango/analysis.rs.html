@@ -80,22 +80,10 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
-<span id="80">80</span>
-<span id="81">81</span>
-<span id="82">82</span>
-<span id="83">83</span>
-<span id="84">84</span>
-<span id="85">85</span>
-<span id="86">86</span>
-<span id="87">87</span>
-<span id="88">88</span>
-<span id="89">89</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Attribute</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::EngineLang</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::EngineShape</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Font</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Gravity</span>;
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Language</span>;
@@ -108,14 +96,6 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Analysis</span>(<span class="ident">ffi::PangoAnalysis</span>);
 
 <span class="kw">impl</span> <span class="ident">Analysis</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shape_engine</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EngineShape</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">shape_engine</span>) }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lang_engine</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EngineLang</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">lang_engine</span>) }
-    }
-
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Font</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">font</span>) }
     }

@@ -66,7 +66,6 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
-<span id="66">66</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -90,7 +89,6 @@
         <span class="kw">unsafe</span> { <span class="self">Self</span><span class="ident">::from_raw_full</span>(<span class="ident">ffi::cairo_win32_surface_create</span>(<span class="ident">hdc</span>)) }
     }
 
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_14&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_win32_surface_create_with_format&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_with_format</span>(<span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>, <span class="ident">format</span>: <span class="ident">Format</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Win32Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {

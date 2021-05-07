@@ -144,10 +144,6 @@
 <span id="141">141</span>
 <span id="142">142</span>
 <span id="143">143</span>
-<span id="144">144</span>
-<span id="145">145</span>
-<span id="146">146</span>
-<span id="147">147</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -159,8 +155,6 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_finish&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_finish</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">success</span>: <span class="ident">bool</span>, <span class="ident">del</span>: <span class="ident">bool</span>, <span class="ident">time_</span>: <span class="ident">u32</span>);
 
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_cancel&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_cancel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
@@ -201,8 +195,6 @@
         };
     }
 
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">drag_cancel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> {

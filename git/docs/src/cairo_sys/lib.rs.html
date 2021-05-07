@@ -1672,11 +1672,6 @@
 <span id="1669">1669</span>
 <span id="1670">1670</span>
 <span id="1671">1671</span>
-<span id="1672">1672</span>
-<span id="1673">1673</span>
-<span id="1674">1674</span>
-<span id="1675">1675</span>
-<span id="1676">1676</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -2709,13 +2704,11 @@
         <span class="ident">x_offset</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_double</span>,
         <span class="ident">y_offset</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_double</span>,
     );
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_14&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_surface_get_device_scale</span>(
         <span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>,
         <span class="ident">x_scale</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_double</span>,
         <span class="ident">y_scale</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_double</span>,
     );
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_14&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_surface_set_device_scale</span>(
         <span class="ident">surface</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>,
         <span class="ident">x_scale</span>: <span class="ident">c_double</span>,
@@ -3027,10 +3020,7 @@
     <span class="comment">// CAIRO WINDOWS SURFACE</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_create</span>(<span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_surface_t</span>;
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
-        <span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_14&quot;</span>),
-        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>
-    ))]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;win32-surface&quot;</span>), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_win32_surface_create_with_format</span>(
         <span class="ident">hdc</span>: <span class="ident">winapi::HDC</span>,
         <span class="ident">format</span>: <span class="ident">cairo_format_t</span>,
