@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use heck::{CamelCase, KebabCase, SnakeCase};
+use heck::{CamelCase, KebabCase};
 use proc_macro2::TokenStream;
 use proc_macro_error::abort_call_site;
-use quote::{format_ident, quote, quote_spanned};
+use quote::{quote, quote_spanned};
 use syn::{punctuated::Punctuated, spanned::Spanned, token::Comma, Data, Ident, Variant};
 
 use crate::utils::{
@@ -82,7 +82,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             e
         ),
     };
-    let get_type = format_ident!("{}_type", name.to_string().to_snake_case());
+
     let from_glib = gen_enum_from_glib(name, enum_variants);
     let (genum_values, nb_genum_values) = gen_genum_values(name, enum_variants);
 
@@ -148,34 +148,30 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                #get_type()
-            }
-        }
+                static ONCE: std::sync::Once = std::sync::Once::new();
+                static mut TYPE: #crate_ident::Type = #crate_ident::Type::INVALID;
 
-        fn #get_type() -> #crate_ident::Type {
-            static ONCE: std::sync::Once = std::sync::Once::new();
-            static mut TYPE: #crate_ident::Type = #crate_ident::Type::INVALID;
+                ONCE.call_once(|| {
+                    static mut VALUES: [#crate_ident::gobject_ffi::GEnumValue; #nb_genum_values] = [
+                        #genum_values
+                        #crate_ident::gobject_ffi::GEnumValue {
+                            value: 0,
+                            value_name: std::ptr::null(),
+                            value_nick: std::ptr::null(),
+                        },
+                    ];
 
-            ONCE.call_once(|| {
-                static mut VALUES: [#crate_ident::gobject_ffi::GEnumValue; #nb_genum_values] = [
-                    #genum_values
-                    #crate_ident::gobject_ffi::GEnumValue {
-                        value: 0,
-                        value_name: std::ptr::null(),
-                        value_nick: std::ptr::null(),
-                    },
-                ];
+                    let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
+                    unsafe {
+                        let type_ = #crate_ident::gobject_ffi::g_enum_register_static(name.as_ptr(), VALUES.as_ptr());
+                        TYPE = #crate_ident::translate::from_glib(type_);
+                    }
+                });
 
-                let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
                 unsafe {
-                    let type_ = #crate_ident::gobject_ffi::g_enum_register_static(name.as_ptr(), VALUES.as_ptr());
-                    TYPE = #crate_ident::translate::from_glib(type_);
+                    assert!(TYPE.is_valid());
+                    TYPE
                 }
-            });
-
-            unsafe {
-                assert!(TYPE.is_valid());
-                TYPE
             }
         }
     }
