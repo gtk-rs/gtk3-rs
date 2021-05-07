@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use heck::{CamelCase, KebabCase, SnakeCase};
+use heck::{CamelCase, KebabCase};
 use proc_macro2::TokenStream;
 use proc_macro_error::abort_call_site;
-use quote::{format_ident, quote, quote_spanned};
+use quote::{quote, quote_spanned};
 use syn::{
     punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, Data, DeriveInput, Ident,
     LitStr, Variant, Visibility,
@@ -114,8 +114,6 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
     };
 
     let bitflags = gen_bitflags(name, visibility, enum_variants, &crate_ident);
-
-    let get_type = format_ident!("{}_type", name.to_string().to_snake_case());
     let (gflags_values, nb_gflags_values) = gen_gflags_values(name, enum_variants);
 
     quote! {
@@ -168,34 +166,30 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                #get_type()
-            }
-        }
+                static ONCE: std::sync::Once = std::sync::Once::new();
+                static mut TYPE: #crate_ident::Type = #crate_ident::Type::INVALID;
 
-        fn #get_type() -> #crate_ident::Type {
-            static ONCE: std::sync::Once = std::sync::Once::new();
-            static mut TYPE: #crate_ident::Type = #crate_ident::Type::INVALID;
+                ONCE.call_once(|| {
+                    static mut VALUES: [#crate_ident::gobject_ffi::GFlagsValue; #nb_gflags_values] = [
+                        #gflags_values
+                        #crate_ident::gobject_ffi::GFlagsValue {
+                            value: 0,
+                            value_name: std::ptr::null(),
+                            value_nick: std::ptr::null(),
+                        },
+                    ];
 
-            ONCE.call_once(|| {
-                static mut VALUES: [#crate_ident::gobject_ffi::GFlagsValue; #nb_gflags_values] = [
-                    #gflags_values
-                    #crate_ident::gobject_ffi::GFlagsValue {
-                        value: 0,
-                        value_name: std::ptr::null(),
-                        value_nick: std::ptr::null(),
-                    },
-                ];
+                    let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
+                    unsafe {
+                        let type_ = #crate_ident::gobject_ffi::g_flags_register_static(name.as_ptr(), VALUES.as_ptr());
+                        TYPE = #crate_ident::translate::from_glib(type_);
+                    }
+                });
 
-                let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
                 unsafe {
-                    let type_ = #crate_ident::gobject_ffi::g_flags_register_static(name.as_ptr(), VALUES.as_ptr());
-                    TYPE = #crate_ident::translate::from_glib(type_);
+                    assert!(TYPE.is_valid());
+                    TYPE
                 }
-            });
-
-            unsafe {
-                assert!(TYPE.is_valid());
-                TYPE
             }
         }
     }

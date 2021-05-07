@@ -227,7 +227,7 @@
 //! struct MyBoxed(String);
 //!
 //! pub fn main() {
-//!     assert!(MyBoxed::type_().is_valid());
+//!     assert!(MyBoxed::static_type().is_valid());
 //!
 //!     let b = MyBoxed(String::from("abc"));
 //!     let v = b.to_value();

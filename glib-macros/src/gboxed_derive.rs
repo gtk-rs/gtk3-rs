@@ -116,13 +116,15 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
     quote! {
         impl #crate_ident::subclass::boxed::BoxedType for #name {
             const NAME: &'static str = #gtype_name;
+        }
 
-            fn type_() -> #crate_ident::Type {
-                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
+        impl #crate_ident::StaticType for #name {
+            fn static_type() -> #crate_ident::Type {
                 static ONCE: ::std::sync::Once = ::std::sync::Once::new();
+                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
 
                 ONCE.call_once(|| {
-                    let type_ = #crate_ident::subclass::register_boxed_type::<Self>();
+                    let type_ = #crate_ident::subclass::register_boxed_type::<#name>();
                     unsafe {
                         TYPE_ = type_;
                     }
@@ -132,12 +134,6 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
                     assert!(TYPE_.is_valid());
                     TYPE_
                 }
-            }
-        }
-
-        impl #crate_ident::StaticType for #name {
-            fn static_type() -> #crate_ident::Type {
-                <#name as #crate_ident::subclass::boxed::BoxedType>::type_()
             }
         }
 

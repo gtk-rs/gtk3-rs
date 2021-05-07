@@ -1,9 +1,10 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::utils::{crate_ident_new, find_attribute_meta, find_nested_meta, parse_type_name};
 use proc_macro2::{Ident, TokenStream};
 use proc_macro_error::abort_call_site;
 use quote::quote;
+
+use crate::utils::{crate_ident_new, find_attribute_meta, find_nested_meta, parse_type_name};
 
 fn gen_impl_to_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenStream {
     let refcounted_type_prefix = refcounted_type_prefix(name, crate_ident);
@@ -127,20 +128,6 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
 
             type RefCountedType = #refcounted_type;
 
-            fn type_() -> #crate_ident::Type {
-                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
-                static ONCE: ::std::sync::Once = ::std::sync::Once::new();
-
-                ONCE.call_once(|| {
-                    let type_ = #crate_ident::subclass::shared::register_shared_type::<Self>();
-                    unsafe {
-                        TYPE_ = type_;
-                    }
-                });
-
-                unsafe { TYPE_ }
-            }
-
             fn from_refcounted(this: Self::RefCountedType) -> Self {
                 Self(this)
             }
@@ -152,7 +139,17 @@ pub fn impl_gshared_boxed(input: &syn::DeriveInput) -> proc_macro2::TokenStream 
 
         impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
-                <#name as #crate_ident::subclass::shared::SharedType>::type_()
+                static ONCE: ::std::sync::Once = ::std::sync::Once::new();
+                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
+
+                ONCE.call_once(|| {
+                    let type_ = #crate_ident::subclass::shared::register_shared_type::<#name>();
+                    unsafe {
+                        TYPE_ = type_;
+                    }
+                });
+
+                unsafe { TYPE_ }
             }
         }
 

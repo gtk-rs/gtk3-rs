@@ -3,7 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use glib::prelude::*;
-use glib::subclass::prelude::*;
 use glib::translate::{FromGlib, IntoGlib};
 use glib::{gflags, GBoxed, GEnum, GErrorDomain, GSharedBoxed};
 
@@ -29,10 +28,12 @@ fn derive_shared_arc() {
         foo: String,
     }
     #[derive(Debug, Eq, PartialEq, Clone, GSharedBoxed)]
-    #[gshared_boxed(type_name = "MySharedType")]
+    #[gshared_boxed(type_name = "MyShared")]
     struct MyShared(std::sync::Arc<MyInnerShared>);
 
-    assert_eq!(MyShared::type_().name(), "MySharedType");
+    let t = MyShared::static_type();
+    assert!(t.is_a(glib::Type::BOXED));
+    assert_eq!(t.name(), "MyShared");
 
     let p = MyShared(std::sync::Arc::new(MyInnerShared {
         foo: String::from("bar"),
@@ -56,10 +57,12 @@ fn derive_shared_arc_nullable() {
         foo: String,
     }
     #[derive(Clone, Debug, PartialEq, Eq, GSharedBoxed)]
-    #[gshared_boxed(type_name = "MyNullableSharedType", nullable)]
+    #[gshared_boxed(type_name = "MyNullableShared", nullable)]
     struct MyNullableShared(std::sync::Arc<MyInnerNullableShared>);
 
-    assert_eq!(MyNullableShared::type_().name(), "MyNullableSharedType");
+    let t = MyNullableShared::static_type();
+    assert!(t.is_a(glib::Type::BOXED));
+    assert_eq!(t.name(), "MyNullableShared");
 
     let p = MyNullableShared(std::sync::Arc::new(MyInnerNullableShared {
         foo: String::from("bar"),
@@ -137,7 +140,9 @@ fn derive_gboxed() {
     #[gboxed(type_name = "MyBoxed")]
     struct MyBoxed(String);
 
-    assert_eq!(MyBoxed::type_().name(), "MyBoxed");
+    let t = MyBoxed::static_type();
+    assert!(t.is_a(glib::Type::BOXED));
+    assert_eq!(t.name(), "MyBoxed");
 
     let b = MyBoxed(String::from("abc"));
     let v = b.to_value();
@@ -151,7 +156,9 @@ fn derive_gboxed_nullable() {
     #[gboxed(type_name = "MyNullableBoxed", nullable)]
     struct MyNullableBoxed(String);
 
-    assert_eq!(MyNullableBoxed::type_().name(), "MyNullableBoxed");
+    let t = MyNullableBoxed::static_type();
+    assert!(t.is_a(glib::Type::BOXED));
+    assert_eq!(t.name(), "MyNullableBoxed");
 
     let b = MyNullableBoxed(String::from("abc"));
     let v = b.to_value();

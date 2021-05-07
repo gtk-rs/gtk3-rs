@@ -3,6 +3,7 @@
 //! Module for registering boxed types for Rust types.
 
 use crate::translate::*;
+use crate::StaticType;
 
 /// Trait for defining boxed types.
 ///
@@ -12,19 +13,11 @@ use crate::translate::*;
 /// with the type system.
 ///
 /// [`register_boxed_type`]: fn.register_boxed_type.html
-pub trait BoxedType: Clone + Sized + 'static {
+pub trait BoxedType: StaticType + Clone + Sized + 'static {
     /// Boxed type name.
     ///
     /// This must be unique in the whole process.
     const NAME: &'static str;
-
-    /// Returns the type ID.
-    ///
-    /// This is usually defined via the [`GBoxed!`] derive macro.
-    ///
-    /// [`GBoxed!`]: ../../derive.GBoxed.html
-    #[doc(alias = "get_type")]
-    fn type_() -> crate::Type;
 }
 
 /// Register a boxed `glib::Type` ID for `T`.
@@ -67,12 +60,12 @@ pub fn register_boxed_type<T: BoxedType>() -> crate::Type {
 
 #[cfg(test)]
 mod test {
-    use super::*;
     // We rename the current crate as glib, since the macros in glib-macros
     // generate the glib namespace through the crate_ident_new utility,
     // and that returns `glib` (and not `crate`) when called inside the glib crate
     use crate as glib;
     use crate::value::ToValue;
+    use crate::StaticType;
 
     #[derive(Clone, Debug, PartialEq, Eq, glib::GBoxed)]
     #[gboxed(type_name = "MyBoxed")]
@@ -80,12 +73,12 @@ mod test {
 
     #[test]
     fn test_register() {
-        assert!(MyBoxed::type_().is_valid());
+        assert!(MyBoxed::static_type().is_valid());
     }
 
     #[test]
     fn test_value() {
-        assert!(MyBoxed::type_().is_valid());
+        assert!(MyBoxed::static_type().is_valid());
 
         let b = MyBoxed(String::from("abc"));
         let v = b.to_value();
