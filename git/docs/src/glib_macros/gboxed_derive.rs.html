@@ -167,10 +167,6 @@
 <span id="164">164</span>
 <span id="165">165</span>
 <span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -290,13 +286,15 @@
     <span class="macro">quote!</span> {
         <span class="kw">impl</span> #<span class="ident">crate_ident::subclass::boxed::BoxedType</span> <span class="kw">for</span> #<span class="ident">name</span> {
             <span class="kw">const</span> <span class="ident">NAME</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> #<span class="ident">gtype_name</span>;
+        }
 
-            <span class="kw">fn</span> <span class="ident">type_</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
-                <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TYPE_</span>: #<span class="ident">crate_ident::Type</span> <span class="op">=</span> #<span class="ident">crate_ident::Type::INVALID</span>;
+        <span class="kw">impl</span> #<span class="ident">crate_ident::StaticType</span> <span class="kw">for</span> #<span class="ident">name</span> {
+            <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
                 <span class="kw">static</span> <span class="ident">ONCE</span>: <span class="ident">::std::sync::Once</span> <span class="op">=</span> <span class="ident">::std::sync::Once::new</span>();
+                <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TYPE_</span>: #<span class="ident">crate_ident::Type</span> <span class="op">=</span> #<span class="ident">crate_ident::Type::INVALID</span>;
 
                 <span class="ident">ONCE</span>.<span class="ident">call_once</span>(<span class="op">|</span><span class="op">|</span> {
-                    <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> #<span class="ident">crate_ident::subclass::register_boxed_type</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>();
+                    <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> #<span class="ident">crate_ident::subclass::register_boxed_type</span>::<span class="op">&lt;</span>#<span class="ident">name</span><span class="op">&gt;</span>();
                     <span class="kw">unsafe</span> {
                         <span class="ident">TYPE_</span> <span class="op">=</span> <span class="ident">type_</span>;
                     }
@@ -306,12 +304,6 @@
                     <span class="macro">assert!</span>(<span class="ident">TYPE_</span>.<span class="ident">is_valid</span>());
                     <span class="ident">TYPE_</span>
                 }
-            }
-        }
-
-        <span class="kw">impl</span> #<span class="ident">crate_ident::StaticType</span> <span class="kw">for</span> #<span class="ident">name</span> {
-            <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
-                <span class="op">&lt;</span>#<span class="ident">name</span> <span class="kw">as</span> #<span class="ident">crate_ident::subclass::boxed::BoxedType</span><span class="op">&gt;</span><span class="ident">::type_</span>()
             }
         }
 

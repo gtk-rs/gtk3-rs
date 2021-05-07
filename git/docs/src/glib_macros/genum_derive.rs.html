@@ -179,17 +179,13 @@
 <span id="176">176</span>
 <span id="177">177</span>
 <span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="ident">heck</span>::{<span class="ident">CamelCase</span>, <span class="ident">KebabCase</span>, <span class="ident">SnakeCase</span>};
+<span class="kw">use</span> <span class="ident">heck</span>::{<span class="ident">CamelCase</span>, <span class="ident">KebabCase</span>};
 <span class="kw">use</span> <span class="ident">proc_macro2::TokenStream</span>;
 <span class="kw">use</span> <span class="ident">proc_macro_error::abort_call_site</span>;
-<span class="kw">use</span> <span class="ident">quote</span>::{<span class="ident">format_ident</span>, <span class="ident">quote</span>, <span class="ident">quote_spanned</span>};
+<span class="kw">use</span> <span class="ident">quote</span>::{<span class="ident">quote</span>, <span class="ident">quote_spanned</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">punctuated::Punctuated</span>, <span class="ident">spanned::Spanned</span>, <span class="ident">token::Comma</span>, <span class="ident">Data</span>, <span class="ident">Ident</span>, <span class="ident">Variant</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::utils</span>::{
@@ -268,7 +264,7 @@
             <span class="ident">e</span>
         ),
     };
-    <span class="kw">let</span> <span class="ident">get_type</span> <span class="op">=</span> <span class="macro">format_ident!</span>(<span class="string">&quot;{}_type&quot;</span>, <span class="ident">name</span>.<span class="ident">to_string</span>().<span class="ident">to_snake_case</span>());
+
     <span class="kw">let</span> <span class="ident">from_glib</span> <span class="op">=</span> <span class="ident">gen_enum_from_glib</span>(<span class="ident">name</span>, <span class="ident">enum_variants</span>);
     <span class="kw">let</span> (<span class="ident">genum_values</span>, <span class="ident">nb_genum_values</span>) <span class="op">=</span> <span class="ident">gen_genum_values</span>(<span class="ident">name</span>, <span class="ident">enum_variants</span>);
 
@@ -334,34 +330,30 @@
 
         <span class="kw">impl</span> #<span class="ident">crate_ident::StaticType</span> <span class="kw">for</span> #<span class="ident">name</span> {
             <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
-                #<span class="ident">get_type</span>()
-            }
-        }
+                <span class="kw">static</span> <span class="ident">ONCE</span>: <span class="ident">std::sync::Once</span> <span class="op">=</span> <span class="ident">std::sync::Once::new</span>();
+                <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TYPE</span>: #<span class="ident">crate_ident::Type</span> <span class="op">=</span> #<span class="ident">crate_ident::Type::INVALID</span>;
 
-        <span class="kw">fn</span> #<span class="ident">get_type</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident::Type</span> {
-            <span class="kw">static</span> <span class="ident">ONCE</span>: <span class="ident">std::sync::Once</span> <span class="op">=</span> <span class="ident">std::sync::Once::new</span>();
-            <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TYPE</span>: #<span class="ident">crate_ident::Type</span> <span class="op">=</span> #<span class="ident">crate_ident::Type::INVALID</span>;
+                <span class="ident">ONCE</span>.<span class="ident">call_once</span>(<span class="op">|</span><span class="op">|</span> {
+                    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">VALUES</span>: [#<span class="ident">crate_ident::gobject_ffi::GEnumValue</span>; #<span class="ident">nb_genum_values</span>] <span class="op">=</span> [
+                        #<span class="ident">genum_values</span>
+                        #<span class="ident">crate_ident::gobject_ffi::GEnumValue</span> {
+                            <span class="ident">value</span>: <span class="number">0</span>,
+                            <span class="ident">value_name</span>: <span class="ident">std::ptr::null</span>(),
+                            <span class="ident">value_nick</span>: <span class="ident">std::ptr::null</span>(),
+                        },
+                    ];
 
-            <span class="ident">ONCE</span>.<span class="ident">call_once</span>(<span class="op">|</span><span class="op">|</span> {
-                <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">VALUES</span>: [#<span class="ident">crate_ident::gobject_ffi::GEnumValue</span>; #<span class="ident">nb_genum_values</span>] <span class="op">=</span> [
-                    #<span class="ident">genum_values</span>
-                    #<span class="ident">crate_ident::gobject_ffi::GEnumValue</span> {
-                        <span class="ident">value</span>: <span class="number">0</span>,
-                        <span class="ident">value_name</span>: <span class="ident">std::ptr::null</span>(),
-                        <span class="ident">value_nick</span>: <span class="ident">std::ptr::null</span>(),
-                    },
-                ];
+                    <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">std::ffi::CString::new</span>(#<span class="ident">gtype_name</span>).<span class="ident">expect</span>(<span class="string">&quot;CString::new failed&quot;</span>);
+                    <span class="kw">unsafe</span> {
+                        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> #<span class="ident">crate_ident::gobject_ffi::g_enum_register_static</span>(<span class="ident">name</span>.<span class="ident">as_ptr</span>(), <span class="ident">VALUES</span>.<span class="ident">as_ptr</span>());
+                        <span class="ident">TYPE</span> <span class="op">=</span> #<span class="ident">crate_ident::translate::from_glib</span>(<span class="ident">type_</span>);
+                    }
+                });
 
-                <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">std::ffi::CString::new</span>(#<span class="ident">gtype_name</span>).<span class="ident">expect</span>(<span class="string">&quot;CString::new failed&quot;</span>);
                 <span class="kw">unsafe</span> {
-                    <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> #<span class="ident">crate_ident::gobject_ffi::g_enum_register_static</span>(<span class="ident">name</span>.<span class="ident">as_ptr</span>(), <span class="ident">VALUES</span>.<span class="ident">as_ptr</span>());
-                    <span class="ident">TYPE</span> <span class="op">=</span> #<span class="ident">crate_ident::translate::from_glib</span>(<span class="ident">type_</span>);
+                    <span class="macro">assert!</span>(<span class="ident">TYPE</span>.<span class="ident">is_valid</span>());
+                    <span class="ident">TYPE</span>
                 }
-            });
-
-            <span class="kw">unsafe</span> {
-                <span class="macro">assert!</span>(<span class="ident">TYPE</span>.<span class="ident">is_valid</span>());
-                <span class="ident">TYPE</span>
             }
         }
     }
