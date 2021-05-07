@@ -903,8 +903,6 @@ pub trait EntryExt: 'static {
     #[doc(alias = "get_width_chars")]
     fn width_chars(&self) -> i32;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_entry_grab_focus_without_selecting")]
     fn grab_focus_without_selecting(&self);
 
@@ -1671,8 +1669,6 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe { ffi::gtk_entry_get_width_chars(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn grab_focus_without_selecting(&self) {
         unsafe {
             ffi::gtk_entry_grab_focus_without_selecting(self.as_ref().to_glib_none().0);

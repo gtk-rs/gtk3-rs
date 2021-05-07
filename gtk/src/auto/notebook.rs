@@ -447,8 +447,6 @@ impl NotebookBuilder {
 pub const NONE_NOTEBOOK: Option<&Notebook> = None;
 
 pub trait NotebookExt: 'static {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_notebook_detach_tab")]
     fn detach_tab<P: IsA<Widget>>(&self, child: &P);
 
@@ -687,8 +685,6 @@ pub trait NotebookExt: 'static {
 }
 
 impl<O: IsA<Notebook>> NotebookExt for O {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn detach_tab<P: IsA<Widget>>(&self, child: &P) {
         unsafe {
             ffi::gtk_notebook_detach_tab(

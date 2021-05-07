@@ -47,11 +47,7 @@ pub use self::drawing_context::DrawingContext;
 mod frame_clock;
 pub use self::frame_clock::FrameClock;
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 mod gl_context;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::gl_context::GLContext;
 
 mod keymap;
@@ -104,8 +100,6 @@ pub use self::enums::DragCancelReason;
 pub use self::enums::DragProtocol;
 pub use self::enums::EventType;
 pub use self::enums::FullscreenMode;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::enums::GLError;
 pub use self::enums::GrabOwnership;
 pub use self::enums::GrabStatus;

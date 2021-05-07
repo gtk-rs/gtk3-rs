@@ -18,9 +18,7 @@ edition = "2018"
 name = "gdk"
 
 [features]
-v3_16 = ["ffi/v3_16"]
-v3_18 = ["v3_16", "ffi/v3_18"]
-v3_20 = ["v3_18", "ffi/v3_20"]
+v3_20 = ["ffi/v3_20"]
 v3_22 = ["v3_20", "ffi/v3_22"]
 v3_24 = ["v3_22", "ffi/v3_24"]
 dox = ["ffi/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox"]

@@ -47,8 +47,6 @@ impl GdkPixbufExt for Pixbuf {
 pub trait GdkContextExt {
     fn create_from_window<W: IsA<Window>>(window: &W) -> Context;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[allow(clippy::too_many_arguments)]
     unsafe fn draw_from_gl<W: IsA<Window>>(
         &self,
@@ -82,8 +80,6 @@ impl GdkContextExt for Context {
         unsafe { from_glib_full(ffi::gdk_cairo_create(window.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     unsafe fn draw_from_gl<W: IsA<Window>>(
         &self,
         window: &W,

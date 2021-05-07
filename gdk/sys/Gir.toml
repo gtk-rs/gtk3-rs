@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "Gdk"
 version = "3.0"
-min_cfg_version = "3.14"
+min_cfg_version = "3.18"
 single_version_file = "."
 split_build_rs = true
 girs_directories = ["../../gir-files"]
@@ -26,29 +26,13 @@ status = "generate"
     name = "3button_press"
     alias = true
     [[object.member]]
-    name = "touchpad_swipe"
-    version = "3.18"
-    [[object.member]]
-    name = "touchpad_pinch"
-    version = "3.18"
-    [[object.member]]
     name = "event_last"
     alias = true
-
-[[object]]
-name = "Gdk.GLContext"
-status = "generate"
-version = "3.16"
 
 [[object]]
 name = "Gdk.Seat"
 status = "generate"
 version = "3.20"
-
-[[object]]
-name = "Gdk.TouchpadGesturePhase"
-status = "generate"
-version = "3.18"
 
 [[object]]
 name = "Gdk.Monitor"

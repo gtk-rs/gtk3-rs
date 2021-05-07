@@ -65,8 +65,6 @@ pub trait RendererExt: 'static {
         x22: f64,
     );
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_renderer_get_alpha")]
     #[doc(alias = "get_alpha")]
     fn alpha(&self, part: RenderPart) -> u16;
@@ -90,8 +88,6 @@ pub trait RendererExt: 'static {
     #[doc(alias = "pango_renderer_part_changed")]
     fn part_changed(&self, part: RenderPart);
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_renderer_set_alpha")]
     fn set_alpha(&self, part: RenderPart, alpha: u16);
 
@@ -222,8 +218,6 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     fn alpha(&self, part: RenderPart) -> u16 {
         unsafe { ffi::pango_renderer_get_alpha(self.as_ref().to_glib_none().0, part.into_glib()) }
     }
@@ -267,8 +261,6 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     fn set_alpha(&self, part: RenderPart, alpha: u16) {
         unsafe {
             ffi::pango_renderer_set_alpha(self.as_ref().to_glib_none().0, part.into_glib(), alpha);

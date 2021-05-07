@@ -7,8 +7,6 @@ use crate::Cancellable;
 use crate::Socket;
 use crate::SocketAddress;
 use crate::SocketConnection;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 use crate::SocketListenerEvent;
 use crate::SocketProtocol;
 use crate::SocketType;
@@ -141,8 +139,6 @@ pub trait SocketListenerExt: 'static {
     #[doc(alias = "listen-backlog")]
     fn set_listen_backlog(&self, listen_backlog: i32);
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "event")]
     fn connect_event<F: Fn(&Self, SocketListenerEvent, &Socket) + 'static>(
         &self,
@@ -443,8 +439,6 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "event")]
     fn connect_event<F: Fn(&Self, SocketListenerEvent, &Socket) + 'static>(
         &self,

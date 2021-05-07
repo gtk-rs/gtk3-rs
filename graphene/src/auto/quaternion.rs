@@ -23,8 +23,6 @@ glib::wrapper! {
 }
 
 impl Quaternion {
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_quaternion_add")]
     pub fn add(&self, b: &Quaternion) -> Quaternion {
         unsafe {
@@ -148,8 +146,6 @@ impl Quaternion {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_quaternion_multiply")]
     pub fn multiply(&self, b: &Quaternion) -> Quaternion {
         unsafe {
@@ -172,8 +168,6 @@ impl Quaternion {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_quaternion_scale")]
     pub fn scale(&self, factor: f32) -> Quaternion {
         unsafe {

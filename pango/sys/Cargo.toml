@@ -15,12 +15,10 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-v1_36_7 = []
-v1_38 = ["v1_36_7"]
-v1_42 = ["v1_38"]
+v1_42 = []
 v1_44 = ["v1_42"]
-dox = []
 v1_46 = ["v1_44"]
+dox = []
 
 [lib]
 name = "pango_sys"
@@ -41,12 +39,6 @@ edition = "2018"
 features = ["dox"]
 [package.metadata.system-deps.pango]
 name = "pango"
-version = "1.36"
-
-[package.metadata.system-deps.pango.v1_36_7]
-version = "1.36.7"
-
-[package.metadata.system-deps.pango.v1_38]
 version = "1.38"
 
 [package.metadata.system-deps.pango.v1_42]

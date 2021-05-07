@@ -195,10 +195,6 @@ pub trait SettingsExt: 'static {
     #[doc(alias = "g_settings_list_children")]
     fn list_children(&self) -> Vec<glib::GString>;
 
-    #[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
-    #[doc(alias = "g_settings_list_keys")]
-    fn list_keys(&self) -> Vec<glib::GString>;
-
     #[doc(alias = "g_settings_reset")]
     fn reset(&self, key: &str);
 
@@ -451,14 +447,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
     fn list_children(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_list_children(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn list_keys(&self) -> Vec<glib::GString> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_settings_list_keys(
                 self.as_ref().to_glib_none().0,
             ))
         }

@@ -144,19 +144,9 @@ pub trait StyleContextExt: 'static {
     //#[doc(alias = "gtk_style_context_get")]
     //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_style_context_get_background_color")]
-    #[doc(alias = "get_background_color")]
-    fn background_color(&self, state: StateFlags) -> gdk::RGBA;
-
     #[doc(alias = "gtk_style_context_get_border")]
     #[doc(alias = "get_border")]
     fn border(&self, state: StateFlags) -> Border;
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_style_context_get_border_color")]
-    #[doc(alias = "get_border_color")]
-    fn border_color(&self, state: StateFlags) -> gdk::RGBA;
 
     #[doc(alias = "gtk_style_context_get_color")]
     #[doc(alias = "get_color")]
@@ -243,10 +233,6 @@ pub trait StyleContextExt: 'static {
     #[doc(alias = "gtk_style_context_save")]
     fn save(&self);
 
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "gtk_style_context_set_background")]
-    fn set_background(&self, window: &gdk::Window);
-
     #[doc(alias = "gtk_style_context_set_frame_clock")]
     fn set_frame_clock(&self, frame_clock: &gdk::FrameClock);
 
@@ -323,18 +309,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
     //    unsafe { TODO: call ffi:gtk_style_context_get() }
     //}
 
-    fn background_color(&self, state: StateFlags) -> gdk::RGBA {
-        unsafe {
-            let mut color = gdk::RGBA::uninitialized();
-            ffi::gtk_style_context_get_background_color(
-                self.as_ref().to_glib_none().0,
-                state.into_glib(),
-                color.to_glib_none_mut().0,
-            );
-            color
-        }
-    }
-
     fn border(&self, state: StateFlags) -> Border {
         unsafe {
             let mut border = Border::uninitialized();
@@ -344,18 +318,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
                 border.to_glib_none_mut().0,
             );
             border
-        }
-    }
-
-    fn border_color(&self, state: StateFlags) -> gdk::RGBA {
-        unsafe {
-            let mut color = gdk::RGBA::uninitialized();
-            ffi::gtk_style_context_get_border_color(
-                self.as_ref().to_glib_none().0,
-                state.into_glib(),
-                color.to_glib_none_mut().0,
-            );
-            color
         }
     }
 
@@ -553,15 +515,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
     fn save(&self) {
         unsafe {
             ffi::gtk_style_context_save(self.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn set_background(&self, window: &gdk::Window) {
-        unsafe {
-            ffi::gtk_style_context_set_background(
-                self.as_ref().to_glib_none().0,
-                window.to_glib_none().0,
-            );
         }
     }
 

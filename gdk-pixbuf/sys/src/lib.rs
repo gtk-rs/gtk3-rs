@@ -428,8 +428,6 @@ extern "C" {
         width: c_int,
         height: c_int,
     ) -> *mut GdkPixbuf;
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_new_from_bytes(
         data: *mut glib::GBytes,
         colorspace: GdkColorspace,
@@ -539,16 +537,12 @@ extern "C" {
         width: *mut c_int,
         height: *mut c_int,
     ) -> *mut GdkPixbufFormat;
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_get_file_info_async(
         filename: *const c_char,
         cancellable: *mut gio::GCancellable,
         callback: gio::GAsyncReadyCallback,
         user_data: gpointer,
     );
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_get_file_info_finish(
         async_result: *mut gio::GAsyncResult,
         width: *mut c_int,
@@ -655,8 +649,6 @@ extern "C" {
     pub fn gdk_pixbuf_get_height(pixbuf: *const GdkPixbuf) -> c_int;
     pub fn gdk_pixbuf_get_n_channels(pixbuf: *const GdkPixbuf) -> c_int;
     pub fn gdk_pixbuf_get_option(pixbuf: *mut GdkPixbuf, key: *const c_char) -> *const c_char;
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_get_options(pixbuf: *mut GdkPixbuf) -> *mut glib::GHashTable;
     pub fn gdk_pixbuf_get_pixels(pixbuf: *const GdkPixbuf) -> *mut u8;
     pub fn gdk_pixbuf_get_pixels_with_length(
@@ -672,11 +664,7 @@ extern "C" {
         width: c_int,
         height: c_int,
     ) -> *mut GdkPixbuf;
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_read_pixel_bytes(pixbuf: *const GdkPixbuf) -> *mut glib::GBytes;
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_read_pixels(pixbuf: *const GdkPixbuf) -> *const u8;
     pub fn gdk_pixbuf_ref(pixbuf: *mut GdkPixbuf) -> *mut GdkPixbuf;
     #[cfg(any(feature = "v2_36", feature = "dox"))]

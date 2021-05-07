@@ -401,8 +401,6 @@ impl ListBoxBuilder {
 pub const NONE_LIST_BOX: Option<&ListBox> = None;
 
 pub trait ListBoxExt: 'static {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_list_box_bind_model")]
     fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
         &self,
@@ -552,8 +550,6 @@ pub trait ListBoxExt: 'static {
 }
 
 impl<O: IsA<ListBox>> ListBoxExt for O {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
         &self,
         model: Option<&P>,

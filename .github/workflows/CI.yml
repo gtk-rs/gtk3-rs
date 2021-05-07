@@ -26,7 +26,7 @@ jobs:
           - { name: "gdkx11", features: "v3_24", nightly: "--all-features", test_sys: true }
           - { name: "gio", features: "v2_66", nightly: "--all-features", test_sys: false }
           - { name: "glib", features: "v2_66", nightly: "--all-features", test_sys: false }
-          - { name: "graphene", features: "v1_10", nightly: "", test_sys: false }
+          - { name: "graphene", features: "", nightly: "", test_sys: false }
           - { name: "gtk", features: "v3_24_9", nightly: "--all-features", test_sys: false }
           - { name: "pango", features: "v1_46", nightly: "--all-features", test_sys: false }
           - { name: "pangocairo", features: "", nightly: "--all-features", test_sys: true }

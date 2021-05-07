@@ -2,7 +2,7 @@
 girs_directories = ["../gir-files"]
 library = "Gtk"
 version = "3.0"
-min_cfg_version = "3.14"
+min_cfg_version = "3.18"
 target_path = "."
 work_mode = "normal"
 generate_safety_asserts = true
@@ -20,6 +20,7 @@ generate = [
     "Gtk.BorderStyle",
     "Gtk.BuilderError",
     "Gtk.ButtonBoxStyle",
+    "Gtk.ButtonRole",
     "Gtk.ButtonsType",
     "Gtk.CalendarDisplayOptions",
     "Gtk.CellAreaContext",
@@ -117,6 +118,7 @@ generate = [
     "Gtk.TextExtendSelection",
     "Gtk.TextSearchFlags",
     "Gtk.TextTagTable",
+    "Gtk.TextViewLayer",
     "Gtk.TextWindowType",
     "Gtk.ToolbarStyle",
     "Gtk.ToolPaletteDragTargets",
@@ -471,9 +473,6 @@ generate_builder = true
     [[object.child_prop]]
     name = "position"
     type = "gint"
-    [[object.property]]
-    name = "baseline-position"
-    version = "3.10"
     [[object.function]]
     name = "get_child_non_homogeneous"
     rename = "child_is_non_homogeneous"
@@ -524,11 +523,6 @@ generate_builder = true
     [[object.function]]
     name = "get_child_secondary"
     rename = "child_is_secondary"
-
-[[object]]
-name = "Gtk.ButtonRole"
-status = "generate"
-version = "3.16"
 
 [[object]]
 name = "Gtk.Calendar"
@@ -1067,7 +1061,6 @@ generate_builder = true
 [[object]]
 name = "Gtk.Gesture"
 status = "generate"
-version = "3.14"
     [[object.function]]
     pattern = ".+"
         [[object.function.parameter]]
@@ -1268,12 +1261,6 @@ status = "generate"
         [[object.function.parameter]]
         name = "event"
         const = true
-    [[object.property]]
-    name = "input-hints"
-    version = "3.6"
-    [[object.property]]
-    name = "input-purpose"
-    version = "3.6"
 
 [[object]]
 name = "Gtk.IMContextSimple"
@@ -1683,9 +1670,6 @@ status = "generate"
         [[object.function.parameter]]
         name = "size2"
         const = true
-    [[object.function]]
-    name = "is_ipp"
-    version = "3.16"
 
 [[object]]
 name = "Gtk.PlacesSidebar"
@@ -1713,7 +1697,6 @@ cfg_condition = "gdk_backend = \"x11\""
 name = "Gtk.Popover"
 status = "generate"
 generate_builder = true
-version = "3.12"
 
 [[object]]
 name = "Gtk.PopoverMenu"
@@ -2103,9 +2086,6 @@ name = "Gtk.StyleContext"
 status = "generate"
 generate_builder = true
 manual_traits = ["StyleContextExtManual"]
-    [[object.property]]
-    name = "paint-clock"
-    version = "3.8"
     [[object.function]]
     name = "get_property"
     rename = "style_property_for_state" # avoid collision with ObjectExt::property
@@ -2250,11 +2230,6 @@ generate_builder = true
     name = "insert-emoji"
     #actually Since 3.22.27
     version = "3.22.26"
-
-[[object]]
-name = "Gtk.TextViewLayer"
-status = "generate"
-version = "3.14"
 
 [[object]]
 name = "Gtk.ToggleButton"

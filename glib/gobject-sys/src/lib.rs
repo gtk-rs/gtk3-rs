@@ -2029,8 +2029,6 @@ extern "C" {
     pub fn g_param_spec_get_blurb(pspec: *mut GParamSpec) -> *const c_char;
     pub fn g_param_spec_get_default_value(pspec: *mut GParamSpec) -> *const GValue;
     pub fn g_param_spec_get_name(pspec: *mut GParamSpec) -> *const c_char;
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_param_spec_get_name_quark(pspec: *mut GParamSpec) -> glib::GQuark;
     pub fn g_param_spec_get_nick(pspec: *mut GParamSpec) -> *const c_char;
     pub fn g_param_spec_get_qdata(pspec: *mut GParamSpec, quark: glib::GQuark) -> gpointer;
@@ -2575,8 +2573,6 @@ extern "C" {
     pub fn g_type_from_name(name: *const c_char) -> GType;
     pub fn g_type_fundamental(type_id: GType) -> GType;
     pub fn g_type_fundamental_next() -> GType;
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_type_get_instance_count(type_: GType) -> c_int;
     pub fn g_type_get_plugin(type_: GType) -> *mut GTypePlugin;
     pub fn g_type_get_qdata(type_: GType, quark: glib::GQuark) -> gpointer;

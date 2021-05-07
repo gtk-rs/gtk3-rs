@@ -808,8 +808,6 @@ impl ToValue for ButtonBoxStyle {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GtkButtonRole")]
@@ -824,8 +822,6 @@ pub enum ButtonRole {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl fmt::Display for ButtonRole {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -841,8 +837,6 @@ impl fmt::Display for ButtonRole {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl IntoGlib for ButtonRole {
     type GlibType = ffi::GtkButtonRole;
@@ -857,8 +851,6 @@ impl IntoGlib for ButtonRole {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkButtonRole> for ButtonRole {
     unsafe fn from_glib(value: ffi::GtkButtonRole) -> Self {
@@ -872,22 +864,16 @@ impl FromGlib<ffi::GtkButtonRole> for ButtonRole {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl StaticType for ButtonRole {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_button_role_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl glib::value::ValueType for ButtonRole {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 unsafe impl<'a> FromValue<'a> for ButtonRole {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -897,8 +883,6 @@ unsafe impl<'a> FromValue<'a> for ButtonRole {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl ToValue for ButtonRole {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -7595,8 +7579,6 @@ impl ToValue for TextDirection {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GtkTextExtendSelection")]
@@ -7609,8 +7591,6 @@ pub enum TextExtendSelection {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl fmt::Display for TextExtendSelection {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -7625,8 +7605,6 @@ impl fmt::Display for TextExtendSelection {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl IntoGlib for TextExtendSelection {
     type GlibType = ffi::GtkTextExtendSelection;
@@ -7640,8 +7618,6 @@ impl IntoGlib for TextExtendSelection {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkTextExtendSelection> for TextExtendSelection {
     unsafe fn from_glib(value: ffi::GtkTextExtendSelection) -> Self {
@@ -7654,22 +7630,16 @@ impl FromGlib<ffi::GtkTextExtendSelection> for TextExtendSelection {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl StaticType for TextExtendSelection {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_text_extend_selection_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl glib::value::ValueType for TextExtendSelection {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 unsafe impl<'a> FromValue<'a> for TextExtendSelection {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -7679,8 +7649,6 @@ unsafe impl<'a> FromValue<'a> for TextExtendSelection {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl ToValue for TextExtendSelection {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();

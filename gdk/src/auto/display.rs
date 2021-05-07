@@ -294,12 +294,6 @@ impl Display {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_display_supports_composite")]
-    pub fn supports_composite(&self) -> bool {
-        unsafe { from_glib(ffi::gdk_display_supports_composite(self.to_glib_none().0)) }
-    }
-
     #[doc(alias = "gdk_display_supports_cursor_alpha")]
     pub fn supports_cursor_alpha(&self) -> bool {
         unsafe {
@@ -359,13 +353,6 @@ impl Display {
     pub fn open(display_name: &str) -> Option<Display> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_display_open(display_name.to_glib_none().0)) }
-    }
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_display_open_default_libgtk_only")]
-    pub fn open_default_libgtk_only() -> Option<Display> {
-        assert_initialized_main_thread!();
-        unsafe { from_glib_none(ffi::gdk_display_open_default_libgtk_only()) }
     }
 
     #[doc(alias = "closed")]

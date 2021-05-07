@@ -187,13 +187,11 @@ impl Surface {
         (x_offset, y_offset)
     }
 
-    #[cfg(any(feature = "v1_14", feature = "dox"))]
     #[doc(alias = "cairo_surface_set_device_scale")]
     pub fn set_device_scale(&self, x_scale: f64, y_scale: f64) {
         unsafe { ffi::cairo_surface_set_device_scale(self.to_raw_none(), x_scale, y_scale) }
     }
 
-    #[cfg(any(feature = "v1_14", feature = "dox"))]
     #[doc(alias = "cairo_surface_get_device_scale")]
     #[doc(alias = "get_device_scale")]
     pub fn device_scale(&self) -> (f64, f64) {

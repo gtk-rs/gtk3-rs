@@ -57,8 +57,6 @@ impl PaperSize {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_paper_size_new_from_ipp")]
     #[doc(alias = "new_from_ipp")]
     pub fn from_ipp(ipp_name: &str, width: f64, height: f64) -> PaperSize {
@@ -217,8 +215,6 @@ impl PaperSize {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_paper_size_is_ipp")]
     pub fn is_ipp(&self) -> bool {
         unsafe {

@@ -32,24 +32,18 @@ impl Euler {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_euler_get_alpha")]
     #[doc(alias = "get_alpha")]
     pub fn alpha(&self) -> f32 {
         unsafe { ffi::graphene_euler_get_alpha(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_euler_get_beta")]
     #[doc(alias = "get_beta")]
     pub fn beta(&self) -> f32 {
         unsafe { ffi::graphene_euler_get_beta(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_euler_get_gamma")]
     #[doc(alias = "get_gamma")]
     pub fn gamma(&self) -> f32 {
@@ -116,8 +110,6 @@ impl Euler {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_euler_init_from_radians")]
     pub fn init_from_radians(
         &mut self,
@@ -183,8 +175,6 @@ impl Euler {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_euler_to_quaternion")]
     pub fn to_quaternion(&self) -> Quaternion {
         unsafe {

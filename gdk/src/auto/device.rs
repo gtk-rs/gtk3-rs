@@ -186,8 +186,6 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_device_get_product_id")]
     #[doc(alias = "get_product_id")]
     pub fn product_id(&self) -> Option<glib::GString> {
@@ -214,8 +212,6 @@ impl Device {
     //    unsafe { TODO: call ffi:gdk_device_get_state() }
     //}
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_device_get_vendor_id")]
     #[doc(alias = "get_vendor_id")]
     pub fn vendor_id(&self) -> Option<glib::GString> {
@@ -450,28 +446,6 @@ impl Device {
             value
                 .get()
                 .expect("Return Value for property `type` getter")
-        }
-    }
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_device_grab_info_libgtk_only")]
-    pub fn grab_info_libgtk_only(display: &Display, device: &Device) -> Option<(Window, bool)> {
-        skip_assert_initialized!();
-        unsafe {
-            let mut grab_window = ptr::null_mut();
-            let mut owner_events = mem::MaybeUninit::uninit();
-            let ret = from_glib(ffi::gdk_device_grab_info_libgtk_only(
-                display.to_glib_none().0,
-                device.to_glib_none().0,
-                &mut grab_window,
-                owner_events.as_mut_ptr(),
-            ));
-            let owner_events = owner_events.assume_init();
-            if ret {
-                Some((from_glib_none(grab_window), from_glib(owner_events)))
-            } else {
-                None
-            }
         }
     }
 

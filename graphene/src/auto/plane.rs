@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use crate::Matrix;
 use crate::Point3D;
 use crate::Vec3;
@@ -117,8 +115,6 @@ impl Plane {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_plane_transform")]
     pub fn transform(&self, matrix: &Matrix, normal_matrix: Option<&Matrix>) -> Plane {
         unsafe {

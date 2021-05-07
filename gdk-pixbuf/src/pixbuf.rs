@@ -347,8 +347,6 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[doc(alias = "gdk_pixbuf_get_file_info_async")]
     #[doc(alias = "get_file_info_async")]
     pub fn file_info_async<
@@ -403,8 +401,6 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[allow(clippy::type_complexity)]
     #[doc(alias = "get_file_info_async_future")]
     pub fn file_info_async_future<T: AsRef<Path> + Clone + 'static>(

@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::Coverage;
-use crate::EngineShape;
 use crate::FontDescription;
 #[cfg(any(feature = "v1_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
@@ -34,8 +33,8 @@ pub trait FontExt: 'static {
     #[doc(alias = "pango_font_describe_with_absolute_size")]
     fn describe_with_absolute_size(&self) -> Option<FontDescription>;
 
-    #[doc(alias = "pango_font_find_shaper")]
-    fn find_shaper(&self, language: &Language, ch: u32) -> Option<EngineShape>;
+    //#[doc(alias = "pango_font_find_shaper")]
+    //fn find_shaper(&self, language: &Language, ch: u32) -> /*Ignored*/Option<EngineShape>;
 
     #[doc(alias = "pango_font_get_coverage")]
     #[doc(alias = "get_coverage")]
@@ -90,15 +89,9 @@ impl<O: IsA<Font>> FontExt for O {
         }
     }
 
-    fn find_shaper(&self, language: &Language, ch: u32) -> Option<EngineShape> {
-        unsafe {
-            from_glib_none(ffi::pango_font_find_shaper(
-                self.as_ref().to_glib_none().0,
-                mut_override(language.to_glib_none().0),
-                ch,
-            ))
-        }
-    }
+    //fn find_shaper(&self, language: &Language, ch: u32) -> /*Ignored*/Option<EngineShape> {
+    //    unsafe { TODO: call ffi:pango_font_find_shaper() }
+    //}
 
     fn coverage(&self, language: &Language) -> Option<Coverage> {
         unsafe {

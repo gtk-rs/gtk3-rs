@@ -39,4 +39,4 @@ edition = "2018"
 features = ["dox"]
 [package.metadata.system-deps.pangocairo]
 name = "pangocairo"
-version = "1.36"
+version = "1.38"

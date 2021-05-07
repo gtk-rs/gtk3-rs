@@ -141,8 +141,6 @@ pub trait ApplicationExt: 'static {
     //#[doc(alias = "g_application_add_option_group")]
     //fn add_option_group(&self, group: /*Ignored*/&glib::OptionGroup);
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_application_bind_busy_property")]
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
@@ -166,8 +164,6 @@ pub trait ApplicationExt: 'static {
     #[doc(alias = "get_inactivity_timeout")]
     fn inactivity_timeout(&self) -> u32;
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_application_get_is_busy")]
     #[doc(alias = "get_is_busy")]
     fn is_busy(&self) -> bool;
@@ -235,8 +231,6 @@ pub trait ApplicationExt: 'static {
     #[doc(alias = "g_application_set_resource_base_path")]
     fn set_resource_base_path(&self, resource_path: Option<&str>);
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_application_unbind_busy_property")]
     fn unbind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
@@ -287,8 +281,6 @@ pub trait ApplicationExt: 'static {
     #[doc(alias = "inactivity-timeout")]
     fn connect_inactivity_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "is-busy")]
     fn connect_is_busy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -339,8 +331,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
     //    unsafe { TODO: call ffi:g_application_add_option_group() }
     //}
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str) {
         unsafe {
             ffi::g_application_bind_busy_property(
@@ -383,8 +373,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
         unsafe { ffi::g_application_get_inactivity_timeout(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn is_busy(&self) -> bool {
         unsafe {
             from_glib(ffi::g_application_get_is_busy(
@@ -551,8 +539,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn unbind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str) {
         unsafe {
             ffi::g_application_unbind_busy_property(
@@ -857,8 +843,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "is-busy")]
     fn connect_is_busy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_busy_trampoline<P, F: Fn(&P) + 'static>(

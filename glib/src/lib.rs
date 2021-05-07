@@ -169,7 +169,6 @@ mod quark;
 pub use self::quark::Quark;
 #[macro_use]
 mod log;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 pub use self::log::log_set_handler;
 
 // #[cfg(any(feature = "v2_50", feature = "dox"))]

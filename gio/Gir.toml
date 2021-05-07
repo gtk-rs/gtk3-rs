@@ -2,7 +2,7 @@
 girs_directories = ["../gir-files"]
 library = "Gio"
 version = "2.0"
-min_cfg_version = "2.42"
+min_cfg_version = "2.48"
 target_path = "."
 work_mode = "normal"
 single_version_file = true
@@ -20,6 +20,7 @@ generate = [
     "Gio.BusNameOwnerFlags",
     "Gio.BusNameWatcherFlags",
     "Gio.BusType",
+    "Gio.BytesIcon",
     "Gio.ConverterFlags",
     "Gio.ConverterResult",
     "Gio.CredentialsType",
@@ -110,6 +111,7 @@ generate = [
     "Gio.SettingsBindSetMapping",
     "Gio.SettingsGetMapping",
     "Gio.SettingsSchema",
+    "Gio.SettingsSchemaKey",
     "Gio.SettingsSchemaSource",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
@@ -302,13 +304,6 @@ generate_builder = true
     [[object.function]]
     name = "get_auto_grow"
     rename = "auto_grows"
-
-[[object]]
-name = "Gio.BytesIcon"
-status = "generate"
-    [[object.property]]
-    name = "bytes"
-    version = "2.38"
 
 [[object]]
 name = "Gio.Cancellable"
@@ -688,7 +683,6 @@ manual_traits = ["IOStreamExtManual"]
 [[object]]
 name = "Gio.ListModel"
 status = "generate"
-version = "2.44"
     # Can get removed when gir shadow annotations are implemented (gtk-rs/gir#1112)
     [[object.function]]
     name = "get_item"
@@ -700,7 +694,6 @@ version = "2.44"
 [[object]]
 name = "Gio.ListStore"
 status = "generate"
-version = "2.44"
 generate_builder = true
 manual_traits = ["ListStoreExtManual"]
     [[object.function]]
@@ -884,11 +877,6 @@ status = "generate"
     name = "get_boolean"
     # Retrieves the boolean value of a setting
     rename = "boolean"
-
-[[object]]
-name = "Gio.SettingsSchemaKey"
-status = "generate"
-version = "2.40"
 
 [[object]]
 name = "Gio.SimpleAction"

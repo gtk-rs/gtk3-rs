@@ -46,12 +46,6 @@ pub fn find_base_dir(text: &str) -> Direction {
     unsafe { from_glib(ffi::pango_find_base_dir(text.to_glib_none().0, length)) }
 }
 
-//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-//#[doc(alias = "pango_find_map")]
-//pub fn find_map(language: &mut Language, engine_type_id: u32, render_type_id: u32) -> /*Ignored*/Option<Map> {
-//    unsafe { TODO: call ffi:pango_find_map() }
-//}
-
 #[doc(alias = "pango_find_paragraph_boundary")]
 pub fn find_paragraph_boundary(text: &str) -> (i32, i32) {
     let length = text.len() as i32;
@@ -134,38 +128,6 @@ pub fn itemize_with_base_dir(
 //pub fn markup_parser_new(accel_marker: char) -> /*Ignored*/Option<glib::MarkupParseContext> {
 //    unsafe { TODO: call ffi:pango_markup_parser_new() }
 //}
-
-//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-//#[doc(alias = "pango_module_register")]
-//pub fn module_register(module: /*Ignored*/&mut IncludedModule) {
-//    unsafe { TODO: call ffi:pango_module_register() }
-//}
-
-#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-#[doc(alias = "pango_parse_enum")]
-pub fn parse_enum(
-    type_: glib::types::Type,
-    str: Option<&str>,
-    warn: bool,
-) -> Option<(i32, glib::GString)> {
-    unsafe {
-        let mut value = mem::MaybeUninit::uninit();
-        let mut possible_values = ptr::null_mut();
-        let ret = from_glib(ffi::pango_parse_enum(
-            type_.into_glib(),
-            str.to_glib_none().0,
-            value.as_mut_ptr(),
-            warn.into_glib(),
-            &mut possible_values,
-        ));
-        let value = value.assume_init();
-        if ret {
-            Some((value, from_glib_full(possible_values)))
-        } else {
-            None
-        }
-    }
-}
 
 #[doc(alias = "pango_parse_markup")]
 pub fn parse_markup(
@@ -280,30 +242,6 @@ pub fn quantize_line_geometry(thickness: &mut i32, position: &mut i32) {
     }
 }
 
-//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-//#[doc(alias = "pango_read_line")]
-//pub fn read_line(stream: /*Unimplemented*/Option<Fundamental: Pointer>, str: /*Ignored*/&mut glib::String) -> i32 {
-//    unsafe { TODO: call ffi:pango_read_line() }
-//}
-
-//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-//#[doc(alias = "pango_scan_int")]
-//pub fn scan_int(pos: /*Unimplemented*/glib::GString) -> Option<i32> {
-//    unsafe { TODO: call ffi:pango_scan_int() }
-//}
-
-//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-//#[doc(alias = "pango_scan_string")]
-//pub fn scan_string(pos: /*Unimplemented*/glib::GString, out: /*Ignored*/&mut glib::String) -> bool {
-//    unsafe { TODO: call ffi:pango_scan_string() }
-//}
-
-//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-//#[doc(alias = "pango_scan_word")]
-//pub fn scan_word(pos: /*Unimplemented*/glib::GString, out: /*Ignored*/&mut glib::String) -> bool {
-//    unsafe { TODO: call ffi:pango_scan_word() }
-//}
-
 #[doc(alias = "pango_shape")]
 pub fn shape(text: &str, analysis: &Analysis, glyphs: &mut GlyphString) {
     let length = text.len() as i32;
@@ -317,32 +255,12 @@ pub fn shape(text: &str, analysis: &Analysis, glyphs: &mut GlyphString) {
     }
 }
 
-//#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-//#[doc(alias = "pango_skip_space")]
-//pub fn skip_space(pos: /*Unimplemented*/glib::GString) -> bool {
-//    unsafe { TODO: call ffi:pango_skip_space() }
-//}
-
-#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-#[doc(alias = "pango_split_file_list")]
-pub fn split_file_list(str: &str) -> Vec<glib::GString> {
-    unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::pango_split_file_list(str.to_glib_none().0))
-    }
-}
-
 //#[cfg(any(feature = "v1_44", feature = "dox"))]
 //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 //#[doc(alias = "pango_tailor_break")]
 //pub fn tailor_break(text: &str, analysis: &mut Analysis, offset: i32, log_attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call ffi:pango_tailor_break() }
 //}
-
-#[cfg_attr(feature = "v1_38", deprecated = "Since 1.38")]
-#[doc(alias = "pango_trim_string")]
-pub fn trim_string(str: &str) -> Option<glib::GString> {
-    unsafe { from_glib_full(ffi::pango_trim_string(str.to_glib_none().0)) }
-}
 
 #[doc(alias = "pango_unichar_direction")]
 pub fn unichar_direction(ch: char) -> Direction {

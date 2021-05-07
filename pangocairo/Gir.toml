@@ -5,7 +5,7 @@ version = "1.0"
 target_path = "."
 work_mode = "normal"
 generate_safety_asserts = false
-min_cfg_version = "1.36"
+min_cfg_version = "1.38"
 single_version_file = true
 deprecate_by_min_version = true
 

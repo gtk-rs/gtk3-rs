@@ -672,8 +672,6 @@ pub trait AssistantExt: 'static {
     #[doc(alias = "get_page_complete")]
     fn page_is_complete<P: IsA<Widget>>(&self, page: &P) -> bool;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_assistant_get_page_has_padding")]
     #[doc(alias = "get_page_has_padding")]
     fn page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool;
@@ -713,8 +711,6 @@ pub trait AssistantExt: 'static {
     #[doc(alias = "gtk_assistant_set_page_complete")]
     fn set_page_complete<P: IsA<Widget>>(&self, page: &P, complete: bool);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_assistant_set_page_has_padding")]
     fn set_page_has_padding<P: IsA<Widget>>(&self, page: &P, has_padding: bool);
 
@@ -819,8 +815,6 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_assistant_get_page_has_padding(
@@ -945,8 +939,6 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_page_has_padding<P: IsA<Widget>>(&self, page: &P, has_padding: bool) {
         unsafe {
             ffi::gtk_assistant_set_page_has_padding(

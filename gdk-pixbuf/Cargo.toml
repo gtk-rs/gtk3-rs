@@ -18,8 +18,7 @@ edition = "2018"
 name = "gdk_pixbuf"
 
 [features]
-v2_32 = ["ffi/v2_32"]
-v2_36 = ["v2_32", "ffi/v2_36"]
+v2_36 = ["ffi/v2_36"]
 v2_36_8 = ["v2_36", "ffi/v2_36_8"]
 v2_40 = ["v2_36_8", "ffi/v2_40"]
 dox = ["glib/dox", "ffi/dox"]

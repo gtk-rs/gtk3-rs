@@ -1,5 +1,3 @@
-#![cfg_attr(not(feature = "gtk_3_10"), allow(unused_variables, unused_mut))]
-
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Builder, Button, Grid};

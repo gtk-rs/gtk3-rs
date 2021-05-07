@@ -275,8 +275,6 @@ pub trait TextBufferExt: 'static {
     #[doc(alias = "gtk_text_buffer_insert_interactive_at_cursor")]
     fn insert_interactive_at_cursor(&self, text: &str, default_editable: bool) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_text_buffer_insert_markup")]
     fn insert_markup(&self, iter: &mut TextIter, markup: &str);
 
@@ -936,8 +934,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn insert_markup(&self, iter: &mut TextIter, markup: &str) {
         let len = markup.len() as i32;
         unsafe {

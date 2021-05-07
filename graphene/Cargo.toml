@@ -18,8 +18,6 @@ edition = "2018"
 name = "graphene"
 
 [features]
-default = ["v1_10"]
-v1_10 = ["ffi/v1_10"]
 dox = ["ffi/dox", "glib/dox"]
 
 [package.metadata.docs.rs]

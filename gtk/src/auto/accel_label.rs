@@ -60,11 +60,7 @@ pub struct AccelLabelBuilder {
     width_chars: Option<i32>,
     wrap: Option<bool>,
     wrap_mode: Option<pango::WrapMode>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     xalign: Option<f32>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     yalign: Option<f32>,
     app_paintable: Option<bool>,
     can_default: Option<bool>,
@@ -166,11 +162,9 @@ impl AccelLabelBuilder {
         if let Some(ref wrap_mode) = self.wrap_mode {
             properties.push(("wrap-mode", wrap_mode));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref xalign) = self.xalign {
             properties.push(("xalign", xalign));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref yalign) = self.yalign {
             properties.push(("yalign", yalign));
         }
@@ -370,15 +364,11 @@ impl AccelLabelBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn xalign(mut self, xalign: f32) -> Self {
         self.xalign = Some(xalign);
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn yalign(mut self, yalign: f32) -> Self {
         self.yalign = Some(yalign);
         self

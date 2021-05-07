@@ -20,7 +20,6 @@
 //!
 //! ### Cairo API version features
 //!
-//! * **v1_14** - Use Cairo 1.14 APIs
 //! * **v1_16** - Use Cairo 1.16 APIs
 //!
 //! ### Documentation features

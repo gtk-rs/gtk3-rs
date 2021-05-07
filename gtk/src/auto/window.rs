@@ -751,8 +751,6 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_fullscreen")]
     fn fullscreen(&self);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_window_fullscreen_on_monitor")]
     fn fullscreen_on_monitor(&self, screen: &gdk::Screen, monitor: i32);
 
@@ -864,8 +862,6 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_window_get_titlebar")]
     #[doc(alias = "get_titlebar")]
     fn titlebar(&self) -> Option<Widget>;
@@ -1302,8 +1298,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn fullscreen_on_monitor(&self, screen: &gdk::Screen, monitor: i32) {
         unsafe {
             ffi::gtk_window_fullscreen_on_monitor(
@@ -1523,8 +1517,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         unsafe { from_glib_none(ffi::gtk_window_get_title(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn titlebar(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_window_get_titlebar(self.as_ref().to_glib_none().0)) }
     }

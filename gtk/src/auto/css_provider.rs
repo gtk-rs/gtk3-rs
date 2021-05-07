@@ -75,8 +75,6 @@ pub trait CssProviderExt: 'static {
     #[doc(alias = "gtk_css_provider_load_from_path")]
     fn load_from_path(&self, path: &str) -> Result<(), glib::Error>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_css_provider_load_from_resource")]
     fn load_from_resource(&self, resource_path: &str);
 
@@ -142,8 +140,6 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn load_from_resource(&self, resource_path: &str) {
         unsafe {
             ffi::gtk_css_provider_load_from_resource(

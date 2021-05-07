@@ -201,8 +201,6 @@ impl FromGlib<ffi::graphene_euler_order_t> for EulerOrder {
     }
 }
 
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "graphene_ray_intersection_kind_t")]
@@ -217,8 +215,6 @@ pub enum RayIntersectionKind {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 impl fmt::Display for RayIntersectionKind {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -234,8 +230,6 @@ impl fmt::Display for RayIntersectionKind {
     }
 }
 
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 #[doc(hidden)]
 impl IntoGlib for RayIntersectionKind {
     type GlibType = ffi::graphene_ray_intersection_kind_t;
@@ -250,8 +244,6 @@ impl IntoGlib for RayIntersectionKind {
     }
 }
 
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 #[doc(hidden)]
 impl FromGlib<ffi::graphene_ray_intersection_kind_t> for RayIntersectionKind {
     unsafe fn from_glib(value: ffi::graphene_ray_intersection_kind_t) -> Self {

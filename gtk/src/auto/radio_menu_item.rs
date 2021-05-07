@@ -510,8 +510,6 @@ pub trait RadioMenuItemExt: 'static {
     #[doc(alias = "get_group")]
     fn group(&self) -> Vec<RadioMenuItem>;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_radio_menu_item_join_group")]
     fn join_group<P: IsA<RadioMenuItem>>(&self, group_source: Option<&P>);
 
@@ -528,8 +526,6 @@ impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn join_group<P: IsA<RadioMenuItem>>(&self, group_source: Option<&P>) {
         unsafe {
             ffi::gtk_radio_menu_item_join_group(

@@ -47,8 +47,6 @@ pub trait ContainerExt: 'static {
     #[doc(alias = "gtk_container_child_notify")]
     fn child_notify<P: IsA<Widget>>(&self, child: &P, child_property: &str);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_container_child_notify_by_pspec")]
     fn child_notify_by_pspec<P: IsA<Widget>>(&self, child: &P, pspec: &glib::ParamSpec);
 
@@ -190,8 +188,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn child_notify_by_pspec<P: IsA<Widget>>(&self, child: &P, pspec: &glib::ParamSpec) {
         unsafe {
             ffi::gtk_container_child_notify_by_pspec(

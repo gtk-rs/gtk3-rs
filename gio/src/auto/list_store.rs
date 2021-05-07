@@ -103,8 +103,6 @@ impl ListStore {
 
 #[derive(Clone, Default)]
 pub struct ListStoreBuilder {
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     item_type: Option<glib::types::Type>,
 }
 
@@ -115,7 +113,6 @@ impl ListStoreBuilder {
 
     pub fn build(self) -> ListStore {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        #[cfg(any(feature = "v2_44", feature = "dox"))]
         if let Some(ref item_type) = self.item_type {
             properties.push(("item-type", item_type));
         }
@@ -123,8 +120,6 @@ impl ListStoreBuilder {
             .expect("Failed to create an instance of ListStore")
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn item_type(mut self, item_type: glib::types::Type) -> Self {
         self.item_type = Some(item_type);
         self

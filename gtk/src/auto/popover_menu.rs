@@ -152,8 +152,6 @@ impl PopoverMenu {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl Default for PopoverMenu {
     fn default() -> Self {
         Self::new()
@@ -170,8 +168,6 @@ pub struct PopoverMenuBuilder {
     pointing_to: Option<gdk::Rectangle>,
     position: Option<PositionType>,
     relative_to: Option<Widget>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     transitions_enabled: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -238,7 +234,6 @@ impl PopoverMenuBuilder {
         if let Some(ref relative_to) = self.relative_to {
             properties.push(("relative-to", relative_to));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref transitions_enabled) = self.transitions_enabled {
             properties.push(("transitions-enabled", transitions_enabled));
         }
@@ -384,8 +379,6 @@ impl PopoverMenuBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn transitions_enabled(mut self, transitions_enabled: bool) -> Self {
         self.transitions_enabled = Some(transitions_enabled);
         self

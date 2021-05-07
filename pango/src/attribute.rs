@@ -25,8 +25,6 @@ impl Attribute {
         unsafe { from_glib_full(ffi::pango_attr_allow_breaks_new(allow_breaks.into_glib())) }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_attr_background_alpha_new")]
     pub fn new_background_alpha(alpha: u16) -> Attribute {
         unsafe { from_glib_full(ffi::pango_attr_background_alpha_new(alpha)) }
@@ -47,15 +45,11 @@ impl Attribute {
         unsafe { from_glib_full(ffi::pango_attr_family_new(family.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_attr_font_features_new")]
     pub fn new_font_features(features: &str) -> Attribute {
         unsafe { from_glib_full(ffi::pango_attr_font_features_new(features.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_attr_foreground_alpha_new")]
     pub fn new_foreground_alpha(alpha: u16) -> Attribute {
         unsafe { from_glib_full(ffi::pango_attr_foreground_alpha_new(alpha)) }

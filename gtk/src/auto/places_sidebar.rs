@@ -88,17 +88,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "gtk_places_sidebar_get_show_connect_to_server")]
-    #[doc(alias = "get_show_connect_to_server")]
-    pub fn shows_connect_to_server(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_places_sidebar_get_show_connect_to_server(
-                self.to_glib_none().0,
-            ))
-        }
-    }
-
     #[doc(alias = "gtk_places_sidebar_get_show_desktop")]
     #[doc(alias = "get_show_desktop")]
     pub fn shows_desktop(&self) -> bool {
@@ -119,8 +108,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_get_show_other_locations")]
     #[doc(alias = "get_show_other_locations")]
     pub fn shows_other_locations(&self) -> bool {
@@ -131,8 +118,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_get_show_recent")]
     #[doc(alias = "get_show_recent")]
     pub fn shows_recent(&self) -> bool {
@@ -155,8 +140,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_get_show_trash")]
     #[doc(alias = "get_show_trash")]
     pub fn shows_trash(&self) -> bool {
@@ -186,8 +169,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_set_drop_targets_visible")]
     pub fn set_drop_targets_visible(&self, visible: bool, context: &gdk::DragContext) {
         unsafe {
@@ -223,17 +204,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "gtk_places_sidebar_set_show_connect_to_server")]
-    pub fn set_show_connect_to_server(&self, show_connect_to_server: bool) {
-        unsafe {
-            ffi::gtk_places_sidebar_set_show_connect_to_server(
-                self.to_glib_none().0,
-                show_connect_to_server.into_glib(),
-            );
-        }
-    }
-
     #[doc(alias = "gtk_places_sidebar_set_show_desktop")]
     pub fn set_show_desktop(&self, show_desktop: bool) {
         unsafe {
@@ -254,8 +224,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_set_show_other_locations")]
     pub fn set_show_other_locations(&self, show_other_locations: bool) {
         unsafe {
@@ -266,8 +234,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_set_show_recent")]
     pub fn set_show_recent(&self, show_recent: bool) {
         unsafe {
@@ -287,8 +253,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_places_sidebar_set_show_trash")]
     pub fn set_show_trash(&self, show_trash: bool) {
         unsafe {
@@ -296,8 +260,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "populate-all")]
     pub fn populates_all(&self) -> bool {
         unsafe {
@@ -313,8 +275,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "populate-all")]
     pub fn set_populate_all(&self, populate_all: bool) {
         unsafe {
@@ -326,80 +286,28 @@ impl PlacesSidebar {
         }
     }
 
-    #[doc(alias = "show-other-locations")]
-    pub fn get_property_show_other_locations(&self) -> bool {
+    #[doc(alias = "show-connect-to-server")]
+    pub fn shows_connect_to_server(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"show-other-locations\0".as_ptr() as *const _,
+                b"show-connect-to-server\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
             value
                 .get()
-                .expect("Return Value for property `show-other-locations` getter")
+                .expect("Return Value for property `show-connect-to-server` getter")
         }
     }
 
-    #[doc(alias = "show-other-locations")]
-    pub fn set_property_show_other_locations(&self, show_other_locations: bool) {
+    #[doc(alias = "show-connect-to-server")]
+    pub fn set_show_connect_to_server(&self, show_connect_to_server: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"show-other-locations\0".as_ptr() as *const _,
-                show_other_locations.to_value().to_glib_none().0,
-            );
-        }
-    }
-
-    #[doc(alias = "show-recent")]
-    pub fn get_property_show_recent(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"show-recent\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `show-recent` getter")
-        }
-    }
-
-    #[doc(alias = "show-recent")]
-    pub fn set_property_show_recent(&self, show_recent: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"show-recent\0".as_ptr() as *const _,
-                show_recent.to_value().to_glib_none().0,
-            );
-        }
-    }
-
-    #[doc(alias = "show-trash")]
-    pub fn get_property_show_trash(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"show-trash\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `show-trash` getter")
-        }
-    }
-
-    #[doc(alias = "show-trash")]
-    pub fn set_property_show_trash(&self, show_trash: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"show-trash\0".as_ptr() as *const _,
-                show_trash.to_value().to_glib_none().0,
+                b"show-connect-to-server\0".as_ptr() as *const _,
+                show_connect_to_server.to_value().to_glib_none().0,
             );
         }
     }
@@ -500,32 +408,6 @@ impl PlacesSidebar {
     //    Ignored selected_volume: Gio.Volume
     //}
 
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "show-connect-to-server")]
-    pub fn connect_show_connect_to_server<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn show_connect_to_server_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut ffi::GtkPlacesSidebar,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"show-connect-to-server\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    show_connect_to_server_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
     #[doc(alias = "show-enter-location")]
     pub fn connect_show_enter_location<F: Fn(&PlacesSidebar) + 'static>(
         &self,
@@ -585,8 +467,6 @@ impl PlacesSidebar {
     }
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "show-other-locations")]
     pub fn connect_show_other_locations<F: Fn(&PlacesSidebar) + 'static>(
         &self,
@@ -782,8 +662,6 @@ impl PlacesSidebar {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "populate-all")]
     pub fn connect_populate_all_notify<F: Fn(&PlacesSidebar) + 'static>(
         &self,
@@ -1014,8 +892,6 @@ pub struct PlacesSidebarBuilder {
     local_only: Option<bool>,
     location: Option<gio::File>,
     open_flags: Option<PlacesOpenFlags>,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     populate_all: Option<bool>,
     show_connect_to_server: Option<bool>,
     show_desktop: Option<bool>,
@@ -1037,8 +913,6 @@ pub struct PlacesSidebarBuilder {
     max_content_width: Option<i32>,
     min_content_height: Option<i32>,
     min_content_width: Option<i32>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     overlay_scrolling: Option<bool>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -1105,7 +979,6 @@ impl PlacesSidebarBuilder {
         if let Some(ref open_flags) = self.open_flags {
             properties.push(("open-flags", open_flags));
         }
-        #[cfg(any(feature = "v3_18", feature = "dox"))]
         if let Some(ref populate_all) = self.populate_all {
             properties.push(("populate-all", populate_all));
         }
@@ -1154,7 +1027,6 @@ impl PlacesSidebarBuilder {
         if let Some(ref min_content_width) = self.min_content_width {
             properties.push(("min-content-width", min_content_width));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref overlay_scrolling) = self.overlay_scrolling {
             properties.push(("overlay-scrolling", overlay_scrolling));
         }
@@ -1303,8 +1175,6 @@ impl PlacesSidebarBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn populate_all(mut self, populate_all: bool) -> Self {
         self.populate_all = Some(populate_all);
         self
@@ -1386,8 +1256,6 @@ impl PlacesSidebarBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn overlay_scrolling(mut self, overlay_scrolling: bool) -> Self {
         self.overlay_scrolling = Some(overlay_scrolling);
         self

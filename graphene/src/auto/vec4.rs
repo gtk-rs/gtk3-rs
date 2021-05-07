@@ -143,8 +143,6 @@ impl Vec4 {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_vec4_interpolate")]
     pub fn interpolate(&self, v2: &Vec4, factor: f64) -> Vec4 {
         unsafe {

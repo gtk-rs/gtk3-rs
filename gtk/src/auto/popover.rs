@@ -69,8 +69,6 @@ pub struct PopoverBuilder {
     pointing_to: Option<gdk::Rectangle>,
     position: Option<PositionType>,
     relative_to: Option<Widget>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     transitions_enabled: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -134,7 +132,6 @@ impl PopoverBuilder {
         if let Some(ref relative_to) = self.relative_to {
             properties.push(("relative-to", relative_to));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref transitions_enabled) = self.transitions_enabled {
             properties.push(("transitions-enabled", transitions_enabled));
         }
@@ -274,8 +271,6 @@ impl PopoverBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn transitions_enabled(mut self, transitions_enabled: bool) -> Self {
         self.transitions_enabled = Some(transitions_enabled);
         self
@@ -471,8 +466,6 @@ pub trait PopoverExt: 'static {
     #[doc(alias = "get_constrain_to")]
     fn constrain_to(&self) -> PopoverConstraint;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_popover_get_default_widget")]
     #[doc(alias = "get_default_widget")]
     fn default_widget(&self) -> Option<Widget>;
@@ -494,8 +487,6 @@ pub trait PopoverExt: 'static {
     fn relative_to(&self) -> Option<Widget>;
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_popover_get_transitions_enabled")]
     #[doc(alias = "get_transitions_enabled")]
     fn is_transitions_enabled(&self) -> bool;
@@ -515,8 +506,6 @@ pub trait PopoverExt: 'static {
     #[doc(alias = "gtk_popover_set_constrain_to")]
     fn set_constrain_to(&self, constraint: PopoverConstraint);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_popover_set_default_widget")]
     fn set_default_widget<P: IsA<Widget>>(&self, widget: Option<&P>);
 
@@ -533,8 +522,6 @@ pub trait PopoverExt: 'static {
     fn set_relative_to<P: IsA<Widget>>(&self, relative_to: Option<&P>);
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_popover_set_transitions_enabled")]
     fn set_transitions_enabled(&self, transitions_enabled: bool);
 
@@ -559,8 +546,6 @@ pub trait PopoverExt: 'static {
     fn connect_relative_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "transitions-enabled")]
     fn connect_transitions_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -590,8 +575,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn default_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_popover_get_default_widget(
@@ -635,8 +618,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn is_transitions_enabled(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_popover_get_transitions_enabled(
@@ -672,8 +653,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_default_widget<P: IsA<Widget>>(&self, widget: Option<&P>) {
         unsafe {
             ffi::gtk_popover_set_default_widget(
@@ -710,8 +689,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_transitions_enabled(&self, transitions_enabled: bool) {
         unsafe {
             ffi::gtk_popover_set_transitions_enabled(
@@ -872,8 +849,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "transitions-enabled")]
     fn connect_transitions_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transitions_enabled_trampoline<P, F: Fn(&P) + 'static>(

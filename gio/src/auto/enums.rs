@@ -1974,8 +1974,6 @@ impl ToValue for MountOperationResult {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GNetworkConnectivity")]
@@ -1992,8 +1990,6 @@ pub enum NetworkConnectivity {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl fmt::Display for NetworkConnectivity {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2010,8 +2006,6 @@ impl fmt::Display for NetworkConnectivity {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
 impl IntoGlib for NetworkConnectivity {
     type GlibType = ffi::GNetworkConnectivity;
@@ -2027,8 +2021,6 @@ impl IntoGlib for NetworkConnectivity {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GNetworkConnectivity> for NetworkConnectivity {
     unsafe fn from_glib(value: ffi::GNetworkConnectivity) -> Self {
@@ -2042,22 +2034,16 @@ impl FromGlib<ffi::GNetworkConnectivity> for NetworkConnectivity {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl StaticType for NetworkConnectivity {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_network_connectivity_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl glib::value::ValueType for NetworkConnectivity {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 unsafe impl<'a> FromValue<'a> for NetworkConnectivity {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -2066,8 +2052,6 @@ unsafe impl<'a> FromValue<'a> for NetworkConnectivity {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl ToValue for NetworkConnectivity {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -2667,8 +2651,6 @@ impl ToValue for SocketFamily {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GSocketListenerEvent")]
@@ -2685,8 +2667,6 @@ pub enum SocketListenerEvent {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl fmt::Display for SocketListenerEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2703,8 +2683,6 @@ impl fmt::Display for SocketListenerEvent {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
 impl IntoGlib for SocketListenerEvent {
     type GlibType = ffi::GSocketListenerEvent;
@@ -2720,8 +2698,6 @@ impl IntoGlib for SocketListenerEvent {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GSocketListenerEvent> for SocketListenerEvent {
     unsafe fn from_glib(value: ffi::GSocketListenerEvent) -> Self {
@@ -2735,22 +2711,16 @@ impl FromGlib<ffi::GSocketListenerEvent> for SocketListenerEvent {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl StaticType for SocketListenerEvent {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_socket_listener_event_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl glib::value::ValueType for SocketListenerEvent {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 unsafe impl<'a> FromValue<'a> for SocketListenerEvent {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -2759,8 +2729,6 @@ unsafe impl<'a> FromValue<'a> for SocketListenerEvent {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl ToValue for SocketListenerEvent {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();

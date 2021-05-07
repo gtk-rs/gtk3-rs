@@ -24,8 +24,6 @@ pub trait SocketConnectableExt: 'static {
     #[doc(alias = "g_socket_connectable_proxy_enumerate")]
     fn proxy_enumerate(&self) -> SocketAddressEnumerator;
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     #[doc(alias = "g_socket_connectable_to_string")]
     fn to_string(&self) -> glib::GString;
 }
@@ -47,8 +45,6 @@ impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn to_string(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_socket_connectable_to_string(

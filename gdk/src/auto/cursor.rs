@@ -17,13 +17,6 @@ glib::wrapper! {
 }
 
 impl Cursor {
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_cursor_new")]
-    pub fn new(cursor_type: CursorType) -> Cursor {
-        assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::gdk_cursor_new(cursor_type.into_glib())) }
-    }
-
     #[doc(alias = "gdk_cursor_new_for_display")]
     #[doc(alias = "new_for_display")]
     pub fn for_display(display: &Display, cursor_type: CursorType) -> Cursor {

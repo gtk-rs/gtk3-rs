@@ -20,7 +20,6 @@ impl Win32Surface {
         unsafe { Self::from_raw_full(ffi::cairo_win32_surface_create(hdc)) }
     }
 
-    #[cfg(any(all(windows, feature = "v1_14"), feature = "dox"))]
     #[doc(alias = "cairo_win32_surface_create_with_format")]
     pub fn create_with_format(hdc: winapi::HDC, format: Format) -> Result<Win32Surface, Error> {
         unsafe {
