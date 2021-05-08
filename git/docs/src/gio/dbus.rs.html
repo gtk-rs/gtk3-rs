@@ -153,6 +153,18 @@
 <span id="150">150</span>
 <span id="151">151</span>
 <span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -180,7 +192,7 @@
     })
 }
 
-<span class="kw">fn</span> <span class="ident">watch_closure</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Closure</span>
+<span class="kw">fn</span> <span class="ident">appeared_closure</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Closure</span>
 <span class="kw">where</span>
     <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
@@ -189,6 +201,18 @@
         <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">args</span>[<span class="number">1</span>].<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">name_owner</span> <span class="op">=</span> <span class="ident">args</span>[<span class="number">2</span>].<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
         <span class="ident">f</span>(<span class="ident">conn</span>, <span class="ident">name</span>, <span class="ident">name_owner</span>);
+        <span class="prelude-val">None</span>
+    })
+}
+
+<span class="kw">fn</span> <span class="ident">vanished_closure</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Closure</span>
+<span class="kw">where</span>
+    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+{
+    <span class="ident">glib::Closure::new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">args</span><span class="op">|</span> {
+        <span class="kw">let</span> <span class="ident">conn</span> <span class="op">=</span> <span class="ident">args</span>[<span class="number">0</span>].<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">DBusConnection</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">args</span>[<span class="number">1</span>].<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
+        <span class="ident">f</span>(<span class="ident">conn</span>, <span class="ident">name</span>);
         <span class="prelude-val">None</span>
     })
 }
@@ -264,15 +288,15 @@
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WatcherId</span>
 <span class="kw">where</span>
     <span class="ident">NameAppeared</span>: <span class="ident">Fn</span>(<span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-    <span class="ident">NameVanished</span>: <span class="ident">Fn</span>(<span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+    <span class="ident">NameVanished</span>: <span class="ident">Fn</span>(<span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">ffi::g_bus_watch_name_on_connection_with_closures</span>(
             <span class="ident">connection</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
-            <span class="ident">watch_closure</span>(<span class="ident">name_appeared</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">watch_closure</span>(<span class="ident">name_vanished</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+            <span class="ident">appeared_closure</span>(<span class="ident">name_appeared</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+            <span class="ident">vanished_closure</span>(<span class="ident">name_vanished</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
         );
         <span class="ident">WatcherId</span>(<span class="ident">NonZeroU32::new_unchecked</span>(<span class="ident">id</span>))
     }
@@ -287,15 +311,15 @@
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WatcherId</span>
 <span class="kw">where</span>
     <span class="ident">NameAppeared</span>: <span class="ident">Fn</span>(<span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-    <span class="ident">NameVanished</span>: <span class="ident">Fn</span>(<span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+    <span class="ident">NameVanished</span>: <span class="ident">Fn</span>(<span class="ident">DBusConnection</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">ffi::g_bus_watch_name_with_closures</span>(
             <span class="ident">bus_type</span>.<span class="ident">into_glib</span>(),
             <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">flags</span>.<span class="ident">into_glib</span>(),
-            <span class="ident">watch_closure</span>(<span class="ident">name_appeared</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            <span class="ident">watch_closure</span>(<span class="ident">name_vanished</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+            <span class="ident">appeared_closure</span>(<span class="ident">name_appeared</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+            <span class="ident">vanished_closure</span>(<span class="ident">name_vanished</span>).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
         );
         <span class="ident">WatcherId</span>(<span class="ident">NonZeroU32::new_unchecked</span>(<span class="ident">id</span>))
     }
