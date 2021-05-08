@@ -89,7 +89,7 @@ pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option
 
 #[doc(alias = "g_get_user_name")]
 #[doc(alias = "get_user_name")]
-pub fn user_name() -> Option<OsString> {
+pub fn user_name() -> OsString {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_user_name;
     #[cfg(all(windows, target_arch = "x86"))]
@@ -100,7 +100,7 @@ pub fn user_name() -> Option<OsString> {
 
 #[doc(alias = "g_get_real_name")]
 #[doc(alias = "get_real_name")]
-pub fn real_name() -> Option<OsString> {
+pub fn real_name() -> OsString {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_real_name;
     #[cfg(all(windows, target_arch = "x86"))]
@@ -173,7 +173,7 @@ pub fn find_program_in_path<P: AsRef<Path>>(program: P) -> Option<PathBuf> {
 
 #[doc(alias = "g_get_home_dir")]
 #[doc(alias = "get_home_dir")]
-pub fn home_dir() -> Option<std::path::PathBuf> {
+pub fn home_dir() -> std::path::PathBuf {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_home_dir;
     #[cfg(all(windows, target_arch = "x86"))]
