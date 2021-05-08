@@ -19,7 +19,7 @@ glib::wrapper! {
 }
 
 impl X11DeviceXI2 {
-    #[doc(alias = "get_property_device_id")]
+    #[doc(alias = "device-id")]
     pub fn device_id(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
@@ -47,13 +47,9 @@ pub struct X11DeviceXI2Builder {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     num_touches: Option<u32>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     product_id: Option<String>,
     //seat: /*Unknown type*/,
     //type: /*Unknown type*/,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     vendor_id: Option<String>,
 }
 
@@ -83,16 +79,14 @@ impl X11DeviceXI2Builder {
         if let Some(ref num_touches) = self.num_touches {
             properties.push(("num-touches", num_touches));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref product_id) = self.product_id {
             properties.push(("product-id", product_id));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref vendor_id) = self.vendor_id {
             properties.push(("vendor-id", vendor_id));
         }
-        let ret = glib::Object::new::<X11DeviceXI2>(&properties).expect("object new");
-        ret
+        glib::Object::new::<X11DeviceXI2>(&properties)
+            .expect("Failed to create an instance of X11DeviceXI2")
     }
 
     pub fn device_id(mut self, device_id: i32) -> Self {
@@ -127,15 +121,11 @@ impl X11DeviceXI2Builder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn product_id(mut self, product_id: &str) -> Self {
         self.product_id = Some(product_id.to_string());
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn vendor_id(mut self, vendor_id: &str) -> Self {
         self.vendor_id = Some(vendor_id.to_string());
         self

@@ -29,27 +29,35 @@ pub trait ApplicationCommandLineExt: 'static {
     fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> File;
 
     #[doc(alias = "g_application_command_line_get_arguments")]
+    #[doc(alias = "get_arguments")]
     fn arguments(&self) -> Vec<std::ffi::OsString>;
 
     #[doc(alias = "g_application_command_line_get_cwd")]
+    #[doc(alias = "get_cwd")]
     fn cwd(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_application_command_line_get_environ")]
+    #[doc(alias = "get_environ")]
     fn environ(&self) -> Vec<std::ffi::OsString>;
 
     #[doc(alias = "g_application_command_line_get_exit_status")]
+    #[doc(alias = "get_exit_status")]
     fn exit_status(&self) -> i32;
 
     #[doc(alias = "g_application_command_line_get_is_remote")]
+    #[doc(alias = "get_is_remote")]
     fn is_remote(&self) -> bool;
 
     #[doc(alias = "g_application_command_line_get_options_dict")]
+    #[doc(alias = "get_options_dict")]
     fn options_dict(&self) -> glib::VariantDict;
 
     #[doc(alias = "g_application_command_line_get_platform_data")]
+    #[doc(alias = "get_platform_data")]
     fn platform_data(&self) -> Option<glib::Variant>;
 
     #[doc(alias = "g_application_command_line_get_stdin")]
+    #[doc(alias = "get_stdin")]
     fn stdin(&self) -> Option<InputStream>;
 
     #[doc(alias = "g_application_command_line_getenv")]
@@ -64,7 +72,8 @@ pub trait ApplicationCommandLineExt: 'static {
     #[doc(alias = "g_application_command_line_set_exit_status")]
     fn set_exit_status(&self, exit_status: i32);
 
-    fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "is-remote")]
+    fn connect_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
@@ -169,7 +178,8 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "is-remote")]
+    fn connect_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_remote_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GApplicationCommandLine,
             _param_spec: glib::ffi::gpointer,

@@ -123,26 +123,24 @@
 //!
 //! ## Library versions
 //!
-//! By default this crate provides only GTK 3.14 APIs. You can access additional
-//! functionality by selecting one of the `v3_16`, `v3_18`, etc. features.
+//! By default this crate provides only GTK 3.18 APIs. You can access additional
+//! functionality by selecting one of the `v3_20`, `v3_24`, etc. features.
 //!
 //! `Cargo.toml` example:
 //!
 //! ```toml
 //! [dependencies.gtk]
 //! version = "0.x.y"
-//! features = ["v3_16"]
+//! features = ["v3_20"]
 //! ```
 //!
 //! Take care when choosing the version to target: some of your users might
 //! not have easy access to the latest ones. The higher the version, the fewer
 //! users will have it installed.
 
-#![allow(clippy::new_without_default)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::derive_hash_xor_eq)]
 #![allow(clippy::too_many_arguments)]
-#![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use ffi;
@@ -172,15 +170,10 @@ pub const STYLE_PROVIDER_PRIORITY_USER: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_U
 #[macro_use]
 mod rt;
 
-#[allow(clippy::match_same_arms)]
 #[allow(clippy::let_and_return)]
 #[allow(clippy::many_single_char_names)]
 #[allow(clippy::wrong_self_convention)]
-#[allow(clippy::cognitive_complexity)]
 #[allow(clippy::clone_on_copy)]
-#[allow(clippy::many_single_char_names)]
-#[allow(clippy::cast_ptr_alignment)]
-#[allow(unused_doc_comments)]
 #[allow(unused_imports)]
 mod auto;
 
@@ -204,17 +197,17 @@ mod entry_completion;
 mod enums;
 mod file_chooser_dialog;
 mod fixed;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
 mod flow_box;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 mod gesture_stylus;
 mod im_context_simple;
 mod invisible;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
 mod list_box;
 mod list_store;
 mod menu;
 mod message_dialog;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+mod native_dialog;
 mod notebook;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod pad_action_entry;

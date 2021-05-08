@@ -32,6 +32,7 @@ pub const NONE_MEMORY_MONITOR: Option<&MemoryMonitor> = None;
 pub trait MemoryMonitorExt: 'static {
     #[cfg(any(feature = "v2_64", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+    #[doc(alias = "low-memory-warning")]
     fn connect_low_memory_warning<F: Fn(&Self, MemoryMonitorWarningLevel) + 'static>(
         &self,
         f: F,
@@ -41,6 +42,7 @@ pub trait MemoryMonitorExt: 'static {
 impl<O: IsA<MemoryMonitor>> MemoryMonitorExt for O {
     #[cfg(any(feature = "v2_64", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+    #[doc(alias = "low-memory-warning")]
     fn connect_low_memory_warning<F: Fn(&Self, MemoryMonitorWarningLevel) + 'static>(
         &self,
         f: F,

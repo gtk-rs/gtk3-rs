@@ -75,8 +75,8 @@ impl BufferedInputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        let ret = glib::Object::new::<BufferedInputStream>(&properties).expect("object new");
-        ret
+        glib::Object::new::<BufferedInputStream>(&properties)
+            .expect("Failed to create an instance of BufferedInputStream")
     }
 
     pub fn buffer_size(mut self, buffer_size: u32) -> Self {
@@ -121,9 +121,11 @@ pub trait BufferedInputStreamExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>>;
 
     #[doc(alias = "g_buffered_input_stream_get_available")]
+    #[doc(alias = "get_available")]
     fn available(&self) -> usize;
 
     #[doc(alias = "g_buffered_input_stream_get_buffer_size")]
+    #[doc(alias = "get_buffer_size")]
     fn buffer_size(&self) -> usize;
 
     #[doc(alias = "g_buffered_input_stream_peek_buffer")]
@@ -135,7 +137,8 @@ pub trait BufferedInputStreamExt: 'static {
     #[doc(alias = "g_buffered_input_stream_set_buffer_size")]
     fn set_buffer_size(&self, size: usize);
 
-    fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "buffer-size")]
+    fn connect_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
@@ -191,7 +194,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
             ffi::g_buffered_input_stream_fill_async(
                 self.as_ref().to_glib_none().0,
                 count,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -258,7 +261,8 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         }
     }
 
-    fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "buffer-size")]
+    fn connect_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_buffer_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GBufferedInputStream,
             _param_spec: glib::ffi::gpointer,

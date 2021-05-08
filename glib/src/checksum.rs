@@ -7,6 +7,7 @@ use std::vec::Vec;
 
 impl Checksum {
     #[doc(alias = "g_checksum_get_digest")]
+    #[doc(alias = "get_digest")]
     pub fn digest(self) -> Vec<u8> {
         unsafe {
             //Don't forget update when `ChecksumType` contains type bigger that Sha512.
@@ -25,6 +26,7 @@ impl Checksum {
     }
 
     #[doc(alias = "g_checksum_get_string")]
+    #[doc(alias = "get_string")]
     pub fn string(self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::g_checksum_get_string(mut_override(
@@ -61,6 +63,7 @@ mod tests {
     }
 
     #[test]
+    #[doc(alias = "get_digest")]
     fn digest() {
         let mut cs = Checksum::new(CS_TYPE).unwrap();
         cs.update(b"hello world!");

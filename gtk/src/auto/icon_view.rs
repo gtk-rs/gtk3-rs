@@ -51,6 +51,7 @@ impl IconView {
     }
 
     #[doc(alias = "gtk_icon_view_new_with_area")]
+    #[doc(alias = "new_with_area")]
     pub fn with_area<P: IsA<CellArea>>(area: &P) -> IconView {
         skip_assert_initialized!();
         unsafe {
@@ -62,6 +63,7 @@ impl IconView {
     }
 
     #[doc(alias = "gtk_icon_view_new_with_model")]
+    #[doc(alias = "new_with_model")]
     pub fn with_model<P: IsA<TreeModel>>(model: &P) -> IconView {
         skip_assert_initialized!();
         unsafe {
@@ -313,8 +315,8 @@ impl IconViewBuilder {
         if let Some(ref vscroll_policy) = self.vscroll_policy {
             properties.push(("vscroll-policy", vscroll_policy));
         }
-        let ret = glib::Object::new::<IconView>(&properties).expect("object new");
-        ret
+        glib::Object::new::<IconView>(&properties)
+            .expect("Failed to create an instance of IconView")
     }
 
     pub fn activate_on_single_click(mut self, activate_on_single_click: bool) -> Self {
@@ -605,9 +607,11 @@ pub trait IconViewExt: 'static {
     fn create_drag_icon(&self, path: &TreePath) -> Option<cairo::Surface>;
 
     #[doc(alias = "gtk_icon_view_get_activate_on_single_click")]
+    #[doc(alias = "get_activate_on_single_click")]
     fn activates_on_single_click(&self) -> bool;
 
     #[doc(alias = "gtk_icon_view_get_cell_rect")]
+    #[doc(alias = "get_cell_rect")]
     fn cell_rect<P: IsA<CellRenderer>>(
         &self,
         path: &TreePath,
@@ -615,15 +619,19 @@ pub trait IconViewExt: 'static {
     ) -> Option<gdk::Rectangle>;
 
     #[doc(alias = "gtk_icon_view_get_column_spacing")]
+    #[doc(alias = "get_column_spacing")]
     fn column_spacing(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_columns")]
+    #[doc(alias = "get_columns")]
     fn columns(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_cursor")]
+    #[doc(alias = "get_cursor")]
     fn cursor(&self) -> Option<(TreePath, CellRenderer)>;
 
     #[doc(alias = "gtk_icon_view_get_dest_item_at_pos")]
+    #[doc(alias = "get_dest_item_at_pos")]
     fn dest_item_at_pos(
         &self,
         drag_x: i32,
@@ -631,63 +639,83 @@ pub trait IconViewExt: 'static {
     ) -> Option<(TreePath, IconViewDropPosition)>;
 
     #[doc(alias = "gtk_icon_view_get_drag_dest_item")]
+    #[doc(alias = "get_drag_dest_item")]
     fn drag_dest_item(&self) -> (TreePath, IconViewDropPosition);
 
     #[doc(alias = "gtk_icon_view_get_item_at_pos")]
+    #[doc(alias = "get_item_at_pos")]
     fn item_at_pos(&self, x: i32, y: i32) -> Option<(TreePath, CellRenderer)>;
 
     #[doc(alias = "gtk_icon_view_get_item_column")]
+    #[doc(alias = "get_item_column")]
     fn item_column(&self, path: &TreePath) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_orientation")]
+    #[doc(alias = "get_item_orientation")]
     fn item_orientation(&self) -> Orientation;
 
     #[doc(alias = "gtk_icon_view_get_item_padding")]
+    #[doc(alias = "get_item_padding")]
     fn item_padding(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_row")]
+    #[doc(alias = "get_item_row")]
     fn item_row(&self, path: &TreePath) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_item_width")]
+    #[doc(alias = "get_item_width")]
     fn item_width(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_margin")]
+    #[doc(alias = "get_margin")]
     fn margin(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_markup_column")]
+    #[doc(alias = "get_markup_column")]
     fn markup_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_model")]
+    #[doc(alias = "get_model")]
     fn model(&self) -> Option<TreeModel>;
 
     #[doc(alias = "gtk_icon_view_get_path_at_pos")]
+    #[doc(alias = "get_path_at_pos")]
     fn path_at_pos(&self, x: i32, y: i32) -> Option<TreePath>;
 
     #[doc(alias = "gtk_icon_view_get_pixbuf_column")]
+    #[doc(alias = "get_pixbuf_column")]
     fn pixbuf_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_reorderable")]
+    #[doc(alias = "get_reorderable")]
     fn is_reorderable(&self) -> bool;
 
     #[doc(alias = "gtk_icon_view_get_row_spacing")]
+    #[doc(alias = "get_row_spacing")]
     fn row_spacing(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_selected_items")]
+    #[doc(alias = "get_selected_items")]
     fn selected_items(&self) -> Vec<TreePath>;
 
     #[doc(alias = "gtk_icon_view_get_selection_mode")]
+    #[doc(alias = "get_selection_mode")]
     fn selection_mode(&self) -> SelectionMode;
 
     #[doc(alias = "gtk_icon_view_get_spacing")]
+    #[doc(alias = "get_spacing")]
     fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_text_column")]
+    #[doc(alias = "get_text_column")]
     fn text_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_tooltip_column")]
+    #[doc(alias = "get_tooltip_column")]
     fn tooltip_column(&self) -> i32;
 
     #[doc(alias = "gtk_icon_view_get_tooltip_context")]
+    #[doc(alias = "get_tooltip_context")]
     fn tooltip_context(
         &self,
         x: &mut i32,
@@ -696,6 +724,7 @@ pub trait IconViewExt: 'static {
     ) -> Option<(TreeModel, TreePath, TreeIter)>;
 
     #[doc(alias = "gtk_icon_view_get_visible_range")]
+    #[doc(alias = "get_visible_range")]
     fn visible_range(&self) -> Option<(TreePath, TreePath)>;
 
     #[doc(alias = "gtk_icon_view_item_activated")]
@@ -798,16 +827,19 @@ pub trait IconViewExt: 'static {
     #[doc(alias = "gtk_icon_view_unset_model_drag_source")]
     fn unset_model_drag_source(&self);
 
-    #[doc(alias = "get_property_cell_area")]
+    #[doc(alias = "cell-area")]
     fn cell_area(&self) -> Option<CellArea>;
 
+    #[doc(alias = "activate-cursor-item")]
     fn connect_activate_cursor_item<F: Fn(&Self) -> bool + 'static>(&self, f: F)
         -> SignalHandlerId;
 
     fn emit_activate_cursor_item(&self) -> bool;
 
+    #[doc(alias = "item-activated")]
     fn connect_item_activated<F: Fn(&Self, &TreePath) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) -> bool + 'static>(
         &self,
         f: F,
@@ -815,77 +847,79 @@ pub trait IconViewExt: 'static {
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32) -> bool;
 
+    #[doc(alias = "select-all")]
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_select_all(&self);
 
+    #[doc(alias = "select-cursor-item")]
     fn connect_select_cursor_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_select_cursor_item(&self);
 
+    #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "toggle-cursor-item")]
     fn connect_toggle_cursor_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_toggle_cursor_item(&self);
 
+    #[doc(alias = "unselect-all")]
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_unselect_all(&self);
 
-    fn connect_property_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "activate-on-single-click")]
+    fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_column_spacing_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "column-spacing")]
+    fn connect_column_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_columns_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "columns")]
+    fn connect_columns_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_item_orientation_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "item-orientation")]
+    fn connect_item_orientation_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_item_padding_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "item-padding")]
+    fn connect_item_padding_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_item_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "item-width")]
+    fn connect_item_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "margin")]
+    fn connect_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_markup_column_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "markup-column")]
+    fn connect_markup_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "model")]
+    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_pixbuf_column_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "pixbuf-column")]
+    fn connect_pixbuf_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_reorderable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "reorderable")]
+    fn connect_reorderable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "row-spacing")]
+    fn connect_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_selection_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "selection-mode")]
+    fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "text-column")]
+    fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_tooltip_column_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "tooltip-column")]
+    fn connect_tooltip_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<IconView>> IconViewExt for O {
@@ -1140,7 +1174,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
-                keyboard_tip.to_glib(),
+                keyboard_tip.into_glib(),
                 &mut model,
                 &mut path,
                 iter.to_glib_none_mut().0,
@@ -1193,7 +1227,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             ffi::gtk_icon_view_scroll_to_path(
                 self.as_ref().to_glib_none().0,
                 mut_override(path.to_glib_none().0),
-                use_align.to_glib(),
+                use_align.into_glib(),
                 row_align,
                 col_align,
             );
@@ -1242,7 +1276,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe {
             ffi::gtk_icon_view_set_activate_on_single_click(
                 self.as_ref().to_glib_none().0,
-                single.to_glib(),
+                single.into_glib(),
             );
         }
     }
@@ -1270,7 +1304,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
                 self.as_ref().to_glib_none().0,
                 mut_override(path.to_glib_none().0),
                 cell.map(|p| p.as_ref()).to_glib_none().0,
-                start_editing.to_glib(),
+                start_editing.into_glib(),
             );
         }
     }
@@ -1280,7 +1314,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             ffi::gtk_icon_view_set_drag_dest_item(
                 self.as_ref().to_glib_none().0,
                 mut_override(path.to_glib_none().0),
-                pos.to_glib(),
+                pos.into_glib(),
             );
         }
     }
@@ -1289,7 +1323,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe {
             ffi::gtk_icon_view_set_item_orientation(
                 self.as_ref().to_glib_none().0,
-                orientation.to_glib(),
+                orientation.into_glib(),
             );
         }
     }
@@ -1337,7 +1371,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe {
             ffi::gtk_icon_view_set_reorderable(
                 self.as_ref().to_glib_none().0,
-                reorderable.to_glib(),
+                reorderable.into_glib(),
             );
         }
     }
@@ -1350,7 +1384,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
 
     fn set_selection_mode(&self, mode: SelectionMode) {
         unsafe {
-            ffi::gtk_icon_view_set_selection_mode(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_icon_view_set_selection_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
@@ -1439,6 +1473,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
+    #[doc(alias = "activate-cursor-item")]
     fn connect_activate_cursor_item<F: Fn(&Self) -> bool + 'static>(
         &self,
         f: F,
@@ -1451,7 +1486,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             P: IsA<IconView>,
         {
             let f: &F = &*(f as *const F);
-            f(&IconView::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+            f(&IconView::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1477,6 +1512,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             .expect("Return Value for `emit_activate_cursor_item`")
     }
 
+    #[doc(alias = "item-activated")]
     fn connect_item_activated<F: Fn(&Self, &TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn item_activated_trampoline<P, F: Fn(&P, &TreePath) + 'static>(
             this: *mut ffi::GtkIconView,
@@ -1504,6 +1540,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
+    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) -> bool + 'static>(
         &self,
         f: F,
@@ -1526,7 +1563,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
                 from_glib(step),
                 count,
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1552,6 +1589,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             .expect("Return Value for `emit_move_cursor`")
     }
 
+    #[doc(alias = "select-all")]
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_all_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
@@ -1583,6 +1621,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         };
     }
 
+    #[doc(alias = "select-cursor-item")]
     fn connect_select_cursor_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_cursor_item_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
@@ -1614,6 +1653,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         };
     }
 
+    #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
@@ -1637,6 +1677,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
+    #[doc(alias = "toggle-cursor-item")]
     fn connect_toggle_cursor_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggle_cursor_item_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
@@ -1668,6 +1709,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         };
     }
 
+    #[doc(alias = "unselect-all")]
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unselect_all_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
@@ -1699,7 +1741,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         };
     }
 
-    fn connect_property_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "activate-on-single-click")]
+    fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1726,10 +1769,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_column_spacing_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "column-spacing")]
+    fn connect_column_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_column_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1753,7 +1794,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_columns_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "columns")]
+    fn connect_columns_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_columns_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1777,10 +1819,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_item_orientation_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "item-orientation")]
+    fn connect_item_orientation_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_item_orientation_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1804,10 +1844,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_item_padding_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "item-padding")]
+    fn connect_item_padding_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_item_padding_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1831,7 +1869,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_item_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "item-width")]
+    fn connect_item_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_item_width_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1855,7 +1894,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "margin")]
+    fn connect_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1879,10 +1919,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_markup_column_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "markup-column")]
+    fn connect_markup_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_markup_column_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1906,7 +1944,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "model")]
+    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_model_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1930,10 +1969,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_pixbuf_column_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "pixbuf-column")]
+    fn connect_pixbuf_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_column_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1957,7 +1994,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_reorderable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "reorderable")]
+    fn connect_reorderable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_reorderable_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -1981,7 +2019,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "row-spacing")]
+    fn connect_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_row_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -2005,10 +2044,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_selection_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "selection-mode")]
+    fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -2032,7 +2069,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -2056,7 +2094,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "text-column")]
+    fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_column_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -2080,10 +2119,8 @@ impl<O: IsA<IconView>> IconViewExt for O {
         }
     }
 
-    fn connect_property_tooltip_column_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "tooltip-column")]
+    fn connect_tooltip_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_column_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,

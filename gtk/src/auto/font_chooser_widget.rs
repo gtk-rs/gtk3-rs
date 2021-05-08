@@ -248,8 +248,8 @@ impl FontChooserWidgetBuilder {
         if let Some(ref show_preview_entry) = self.show_preview_entry {
             properties.push(("show-preview-entry", show_preview_entry));
         }
-        let ret = glib::Object::new::<FontChooserWidget>(&properties).expect("object new");
-        ret
+        glib::Object::new::<FontChooserWidget>(&properties)
+            .expect("Failed to create an instance of FontChooserWidget")
     }
 
     pub fn baseline_position(mut self, baseline_position: BaselinePosition) -> Self {
@@ -487,11 +487,11 @@ impl FontChooserWidgetBuilder {
 pub const NONE_FONT_CHOOSER_WIDGET: Option<&FontChooserWidget> = None;
 
 pub trait FontChooserWidgetExt: 'static {
-    //#[doc(alias = "get_property_tweak_action")]
+    //#[doc(alias = "tweak-action")]
     //fn tweak_action(&self) -> /*Ignored*/Option<gio::Action>;
 
-    fn connect_property_tweak_action_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "tweak-action")]
+    fn connect_tweak_action_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {
@@ -503,10 +503,8 @@ impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {
     //    }
     //}
 
-    fn connect_property_tweak_action_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "tweak-action")]
+    fn connect_tweak_action_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tweak_action_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontChooserWidget,
             _param_spec: glib::ffi::gpointer,

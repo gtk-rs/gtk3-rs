@@ -74,8 +74,8 @@ impl BufferedOutputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        let ret = glib::Object::new::<BufferedOutputStream>(&properties).expect("object new");
-        ret
+        glib::Object::new::<BufferedOutputStream>(&properties)
+            .expect("Failed to create an instance of BufferedOutputStream")
     }
 
     pub fn auto_grow(mut self, auto_grow: bool) -> Self {
@@ -103,9 +103,11 @@ pub const NONE_BUFFERED_OUTPUT_STREAM: Option<&BufferedOutputStream> = None;
 
 pub trait BufferedOutputStreamExt: 'static {
     #[doc(alias = "g_buffered_output_stream_get_auto_grow")]
+    #[doc(alias = "get_auto_grow")]
     fn auto_grows(&self) -> bool;
 
     #[doc(alias = "g_buffered_output_stream_get_buffer_size")]
+    #[doc(alias = "get_buffer_size")]
     fn buffer_size(&self) -> usize;
 
     #[doc(alias = "g_buffered_output_stream_set_auto_grow")]
@@ -114,9 +116,11 @@ pub trait BufferedOutputStreamExt: 'static {
     #[doc(alias = "g_buffered_output_stream_set_buffer_size")]
     fn set_buffer_size(&self, size: usize);
 
-    fn connect_property_auto_grow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "auto-grow")]
+    fn connect_auto_grow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "buffer-size")]
+    fn connect_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
@@ -136,7 +140,7 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
         unsafe {
             ffi::g_buffered_output_stream_set_auto_grow(
                 self.as_ref().to_glib_none().0,
-                auto_grow.to_glib(),
+                auto_grow.into_glib(),
             );
         }
     }
@@ -147,7 +151,8 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
         }
     }
 
-    fn connect_property_auto_grow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "auto-grow")]
+    fn connect_auto_grow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_auto_grow_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GBufferedOutputStream,
             _param_spec: glib::ffi::gpointer,
@@ -171,7 +176,8 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
         }
     }
 
-    fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "buffer-size")]
+    fn connect_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_buffer_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GBufferedOutputStream,
             _param_spec: glib::ffi::gpointer,

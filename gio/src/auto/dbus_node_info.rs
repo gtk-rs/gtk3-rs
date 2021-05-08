@@ -19,6 +19,7 @@ glib::wrapper! {
 
 impl DBusNodeInfo {
     #[doc(alias = "g_dbus_node_info_new_for_xml")]
+    #[doc(alias = "new_for_xml")]
     pub fn for_xml(xml_data: &str) -> Result<DBusNodeInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();

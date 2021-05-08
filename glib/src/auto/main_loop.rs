@@ -22,12 +22,13 @@ impl MainLoop {
         unsafe {
             from_glib_full(ffi::g_main_loop_new(
                 context.to_glib_none().0,
-                is_running.to_glib(),
+                is_running.into_glib(),
             ))
         }
     }
 
     #[doc(alias = "g_main_loop_get_context")]
+    #[doc(alias = "get_context")]
     pub fn context(&self) -> MainContext {
         unsafe { from_glib_none(ffi::g_main_loop_get_context(self.to_glib_none().0)) }
     }

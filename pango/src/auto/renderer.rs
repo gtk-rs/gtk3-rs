@@ -65,28 +65,29 @@ pub trait RendererExt: 'static {
         x22: f64,
     );
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_renderer_get_alpha")]
+    #[doc(alias = "get_alpha")]
     fn alpha(&self, part: RenderPart) -> u16;
 
     #[doc(alias = "pango_renderer_get_color")]
+    #[doc(alias = "get_color")]
     fn color(&self, part: RenderPart) -> Option<Color>;
 
     #[doc(alias = "pango_renderer_get_layout")]
+    #[doc(alias = "get_layout")]
     fn layout(&self) -> Option<Layout>;
 
     #[doc(alias = "pango_renderer_get_layout_line")]
+    #[doc(alias = "get_layout_line")]
     fn layout_line(&self) -> Option<LayoutLine>;
 
     #[doc(alias = "pango_renderer_get_matrix")]
+    #[doc(alias = "get_matrix")]
     fn matrix(&self) -> Option<Matrix>;
 
     #[doc(alias = "pango_renderer_part_changed")]
     fn part_changed(&self, part: RenderPart);
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     #[doc(alias = "pango_renderer_set_alpha")]
     fn set_alpha(&self, part: RenderPart, alpha: u16);
 
@@ -184,7 +185,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
         unsafe {
             ffi::pango_renderer_draw_rectangle(
                 self.as_ref().to_glib_none().0,
-                part.to_glib(),
+                part.into_glib(),
                 x,
                 y,
                 width,
@@ -206,7 +207,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
         unsafe {
             ffi::pango_renderer_draw_trapezoid(
                 self.as_ref().to_glib_none().0,
-                part.to_glib(),
+                part.into_glib(),
                 y1_,
                 x11,
                 x21,
@@ -217,17 +218,15 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     fn alpha(&self, part: RenderPart) -> u16 {
-        unsafe { ffi::pango_renderer_get_alpha(self.as_ref().to_glib_none().0, part.to_glib()) }
+        unsafe { ffi::pango_renderer_get_alpha(self.as_ref().to_glib_none().0, part.into_glib()) }
     }
 
     fn color(&self, part: RenderPart) -> Option<Color> {
         unsafe {
             from_glib_none(ffi::pango_renderer_get_color(
                 self.as_ref().to_glib_none().0,
-                part.to_glib(),
+                part.into_glib(),
             ))
         }
     }
@@ -258,15 +257,13 @@ impl<O: IsA<Renderer>> RendererExt for O {
 
     fn part_changed(&self, part: RenderPart) {
         unsafe {
-            ffi::pango_renderer_part_changed(self.as_ref().to_glib_none().0, part.to_glib());
+            ffi::pango_renderer_part_changed(self.as_ref().to_glib_none().0, part.into_glib());
         }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     fn set_alpha(&self, part: RenderPart, alpha: u16) {
         unsafe {
-            ffi::pango_renderer_set_alpha(self.as_ref().to_glib_none().0, part.to_glib(), alpha);
+            ffi::pango_renderer_set_alpha(self.as_ref().to_glib_none().0, part.into_glib(), alpha);
         }
     }
 
@@ -274,7 +271,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
         unsafe {
             ffi::pango_renderer_set_color(
                 self.as_ref().to_glib_none().0,
-                part.to_glib(),
+                part.into_glib(),
                 color.to_glib_none().0,
             );
         }

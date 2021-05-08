@@ -10,8 +10,6 @@ use crate::Container;
 use crate::CornerType;
 use crate::DirectionType;
 use crate::PolicyType;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::PositionType;
 use crate::ResizeMode;
 use crate::ScrollType;
@@ -68,8 +66,6 @@ pub struct ScrolledWindowBuilder {
     max_content_width: Option<i32>,
     min_content_height: Option<i32>,
     min_content_width: Option<i32>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     overlay_scrolling: Option<bool>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -150,7 +146,6 @@ impl ScrolledWindowBuilder {
         if let Some(ref min_content_width) = self.min_content_width {
             properties.push(("min-content-width", min_content_width));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref overlay_scrolling) = self.overlay_scrolling {
             properties.push(("overlay-scrolling", overlay_scrolling));
         }
@@ -280,8 +275,8 @@ impl ScrolledWindowBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<ScrolledWindow>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ScrolledWindow>(&properties)
+            .expect("Failed to create an instance of ScrolledWindow")
     }
 
     pub fn hadjustment<P: IsA<Adjustment>>(mut self, hadjustment: &P) -> Self {
@@ -323,8 +318,6 @@ impl ScrolledWindowBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn overlay_scrolling(mut self, overlay_scrolling: bool) -> Self {
         self.overlay_scrolling = Some(overlay_scrolling);
         self
@@ -546,61 +539,75 @@ pub const NONE_SCROLLED_WINDOW: Option<&ScrolledWindow> = None;
 
 pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "gtk_scrolled_window_get_capture_button_press")]
+    #[doc(alias = "get_capture_button_press")]
     fn is_capture_button_press(&self) -> bool;
 
     #[doc(alias = "gtk_scrolled_window_get_hadjustment")]
+    #[doc(alias = "get_hadjustment")]
     fn hadjustment(&self) -> Adjustment;
 
     #[doc(alias = "gtk_scrolled_window_get_hscrollbar")]
+    #[doc(alias = "get_hscrollbar")]
     fn hscrollbar(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_scrolled_window_get_kinetic_scrolling")]
+    #[doc(alias = "get_kinetic_scrolling")]
     fn is_kinetic_scrolling(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_get_max_content_height")]
+    #[doc(alias = "get_max_content_height")]
     fn max_content_height(&self) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_get_max_content_width")]
+    #[doc(alias = "get_max_content_width")]
     fn max_content_width(&self) -> i32;
 
     #[doc(alias = "gtk_scrolled_window_get_min_content_height")]
+    #[doc(alias = "get_min_content_height")]
     fn min_content_height(&self) -> i32;
 
     #[doc(alias = "gtk_scrolled_window_get_min_content_width")]
+    #[doc(alias = "get_min_content_width")]
     fn min_content_width(&self) -> i32;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_scrolled_window_get_overlay_scrolling")]
+    #[doc(alias = "get_overlay_scrolling")]
     fn is_overlay_scrolling(&self) -> bool;
 
     #[doc(alias = "gtk_scrolled_window_get_placement")]
+    #[doc(alias = "get_placement")]
     fn placement(&self) -> CornerType;
 
     #[doc(alias = "gtk_scrolled_window_get_policy")]
+    #[doc(alias = "get_policy")]
     fn policy(&self) -> (PolicyType, PolicyType);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_get_propagate_natural_height")]
+    #[doc(alias = "get_propagate_natural_height")]
     fn propagates_natural_height(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_get_propagate_natural_width")]
+    #[doc(alias = "get_propagate_natural_width")]
     fn propagates_natural_width(&self) -> bool;
 
     #[doc(alias = "gtk_scrolled_window_get_shadow_type")]
+    #[doc(alias = "get_shadow_type")]
     fn shadow_type(&self) -> ShadowType;
 
     #[doc(alias = "gtk_scrolled_window_get_vadjustment")]
+    #[doc(alias = "get_vadjustment")]
     fn vadjustment(&self) -> Adjustment;
 
     #[doc(alias = "gtk_scrolled_window_get_vscrollbar")]
+    #[doc(alias = "get_vscrollbar")]
     fn vscrollbar(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_scrolled_window_set_capture_button_press")]
@@ -628,8 +635,6 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "gtk_scrolled_window_set_min_content_width")]
     fn set_min_content_width(&self, width: i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_scrolled_window_set_overlay_scrolling")]
     fn set_overlay_scrolling(&self, overlay_scrolling: bool);
 
@@ -658,32 +663,31 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "gtk_scrolled_window_unset_placement")]
     fn unset_placement(&self);
 
-    #[doc(alias = "get_property_hscrollbar_policy")]
+    #[doc(alias = "hscrollbar-policy")]
     fn hscrollbar_policy(&self) -> PolicyType;
 
-    #[doc(alias = "set_property_hscrollbar_policy")]
+    #[doc(alias = "hscrollbar-policy")]
     fn set_hscrollbar_policy(&self, hscrollbar_policy: PolicyType);
 
-    #[doc(alias = "get_property_vscrollbar_policy")]
+    #[doc(alias = "vscrollbar-policy")]
     fn vscrollbar_policy(&self) -> PolicyType;
 
-    #[doc(alias = "set_property_vscrollbar_policy")]
+    #[doc(alias = "vscrollbar-policy")]
     fn set_vscrollbar_policy(&self, vscrollbar_policy: PolicyType);
 
-    #[doc(alias = "get_property_window_placement")]
+    #[doc(alias = "window-placement")]
     fn window_placement(&self) -> CornerType;
 
-    #[doc(alias = "set_property_window_placement")]
+    #[doc(alias = "window-placement")]
     fn set_window_placement(&self, window_placement: CornerType);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "edge-overshot")]
     fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "edge-reached")]
     fn connect_edge_reached<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "move-focus-out")]
     fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
         &self,
         f: F,
@@ -691,6 +695,7 @@ pub trait ScrolledWindowExt: 'static {
 
     fn emit_move_focus_out(&self, direction_type: DirectionType);
 
+    #[doc(alias = "scroll-child")]
     fn connect_scroll_child<F: Fn(&Self, ScrollType, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -698,76 +703,61 @@ pub trait ScrolledWindowExt: 'static {
 
     fn emit_scroll_child(&self, scroll: ScrollType, horizontal: bool) -> bool;
 
-    fn connect_property_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "hadjustment")]
+    fn connect_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_hscrollbar_policy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "hscrollbar-policy")]
+    fn connect_hscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_kinetic_scrolling_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "kinetic-scrolling")]
+    fn connect_kinetic_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "max-content-height")]
+    fn connect_max_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "max-content-width")]
+    fn connect_max_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "min-content-height")]
+    fn connect_min_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "min-content-width")]
+    fn connect_min_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "overlay-scrolling")]
+    fn connect_overlay_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "propagate-natural-height")]
+    fn connect_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_max_content_height_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "propagate-natural-width")]
+    fn connect_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_max_content_width_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "shadow-type")]
+    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_min_content_height_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "vadjustment")]
+    fn connect_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_min_content_width_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "vscrollbar-policy")]
+    fn connect_vscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn connect_property_overlay_scrolling_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_vscrollbar_policy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_property_window_placement_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "window-placement")]
+    fn connect_window_placement_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
@@ -823,8 +813,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe { ffi::gtk_scrolled_window_get_min_content_width(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn is_overlay_scrolling(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_overlay_scrolling(
@@ -904,7 +892,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe {
             ffi::gtk_scrolled_window_set_capture_button_press(
                 self.as_ref().to_glib_none().0,
-                capture_button_press.to_glib(),
+                capture_button_press.into_glib(),
             );
         }
     }
@@ -922,7 +910,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe {
             ffi::gtk_scrolled_window_set_kinetic_scrolling(
                 self.as_ref().to_glib_none().0,
-                kinetic_scrolling.to_glib(),
+                kinetic_scrolling.into_glib(),
             );
         }
     }
@@ -955,13 +943,11 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_overlay_scrolling(&self, overlay_scrolling: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_overlay_scrolling(
                 self.as_ref().to_glib_none().0,
-                overlay_scrolling.to_glib(),
+                overlay_scrolling.into_glib(),
             );
         }
     }
@@ -970,7 +956,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe {
             ffi::gtk_scrolled_window_set_placement(
                 self.as_ref().to_glib_none().0,
-                window_placement.to_glib(),
+                window_placement.into_glib(),
             );
         }
     }
@@ -979,8 +965,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe {
             ffi::gtk_scrolled_window_set_policy(
                 self.as_ref().to_glib_none().0,
-                hscrollbar_policy.to_glib(),
-                vscrollbar_policy.to_glib(),
+                hscrollbar_policy.into_glib(),
+                vscrollbar_policy.into_glib(),
             );
         }
     }
@@ -991,7 +977,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe {
             ffi::gtk_scrolled_window_set_propagate_natural_height(
                 self.as_ref().to_glib_none().0,
-                propagate.to_glib(),
+                propagate.into_glib(),
             );
         }
     }
@@ -1002,7 +988,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe {
             ffi::gtk_scrolled_window_set_propagate_natural_width(
                 self.as_ref().to_glib_none().0,
-                propagate.to_glib(),
+                propagate.into_glib(),
             );
         }
     }
@@ -1011,7 +997,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         unsafe {
             ffi::gtk_scrolled_window_set_shadow_type(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             );
         }
     }
@@ -1103,8 +1089,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "edge-overshot")]
     fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn edge_overshot_trampoline<P, F: Fn(&P, PositionType) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
@@ -1132,8 +1117,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "edge-reached")]
     fn connect_edge_reached<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn edge_reached_trampoline<P, F: Fn(&P, PositionType) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
@@ -1161,6 +1145,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "move-focus-out")]
     fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
         &self,
         f: F,
@@ -1199,6 +1184,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         };
     }
 
+    #[doc(alias = "scroll-child")]
     fn connect_scroll_child<F: Fn(&Self, ScrollType, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -1221,7 +1207,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
                 from_glib(scroll),
                 from_glib(horizontal),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1247,7 +1233,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
             .expect("Return Value for `emit_scroll_child`")
     }
 
-    fn connect_property_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "hadjustment")]
+    fn connect_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hadjustment_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1271,10 +1258,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn connect_property_hscrollbar_policy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "hscrollbar-policy")]
+    fn connect_hscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hscrollbar_policy_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1298,10 +1283,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn connect_property_kinetic_scrolling_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "kinetic-scrolling")]
+    fn connect_kinetic_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_kinetic_scrolling_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1327,10 +1310,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_max_content_height_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "max-content-height")]
+    fn connect_max_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_content_height_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1356,10 +1337,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_max_content_width_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "max-content-width")]
+    fn connect_max_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_content_width_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1383,10 +1362,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn connect_property_min_content_height_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "min-content-height")]
+    fn connect_min_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_content_height_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1410,10 +1387,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn connect_property_min_content_width_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "min-content-width")]
+    fn connect_min_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_content_width_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1437,12 +1412,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn connect_property_overlay_scrolling_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "overlay-scrolling")]
+    fn connect_overlay_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_overlay_scrolling_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1468,7 +1439,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "propagate-natural-height")]
+    fn connect_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1497,7 +1469,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn connect_property_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "propagate-natural-width")]
+    fn connect_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1524,7 +1497,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "shadow-type")]
+    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1548,7 +1522,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn connect_property_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "vadjustment")]
+    fn connect_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vadjustment_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1572,10 +1547,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn connect_property_vscrollbar_policy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "vscrollbar-policy")]
+    fn connect_vscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vscrollbar_policy_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,
@@ -1599,10 +1572,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn connect_property_window_placement_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "window-placement")]
+    fn connect_window_placement_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_window_placement_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrolledWindow,
             _param_spec: glib::ffi::gpointer,

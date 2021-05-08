@@ -288,7 +288,7 @@ mod spin_button {
     where
         T: IsA<SpinButton>,
     {
-        f(&SpinButton::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
+        f(&SpinButton::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
     }
 
     unsafe extern "C" fn trampoline<T, F: Fn(&T) + 'static>(this: *mut GtkSpinButton, f: &F)
@@ -338,6 +338,7 @@ mod overlay {
         }
     }
 
+    #[doc(alias = "get_child_position_trampoline")]
     unsafe extern "C" fn child_position_trampoline<
         T,
         F: Fn(&T, &Widget) -> Option<Rectangle> + 'static,
@@ -361,6 +362,6 @@ mod overlay {
             }
             None => false,
         }
-        .to_glib()
+        .into_glib()
     }
 }

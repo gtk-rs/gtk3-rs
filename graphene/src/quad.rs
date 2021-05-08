@@ -36,7 +36,8 @@ impl Quad {
     }
 
     #[doc(alias = "graphene_quad_init_from_rect")]
-    pub fn new_from_rect(r: &Rect) -> Quad {
+    #[doc(alias = "new_from_rect")]
+    pub fn from_rect(r: &Rect) -> Quad {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_quad_alloc();
@@ -46,7 +47,8 @@ impl Quad {
     }
 
     #[doc(alias = "graphene_quad_init_from_points")]
-    pub fn new_from_points(points: &[&Point; 4]) -> Quad {
+    #[doc(alias = "new_from_points")]
+    pub fn from_points(points: &[&Point; 4]) -> Quad {
         assert_initialized_main_thread!();
         unsafe {
             let points = [

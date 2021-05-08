@@ -70,6 +70,7 @@ impl FileAttributeMatcher {
     }
 
     #[doc(alias = "g_file_attribute_matcher_to_string")]
+    #[doc(alias = "to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_file_attribute_matcher_to_string(

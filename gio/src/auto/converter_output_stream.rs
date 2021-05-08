@@ -60,8 +60,8 @@ impl ConverterOutputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        let ret = glib::Object::new::<ConverterOutputStream>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ConverterOutputStream>(&properties)
+            .expect("Failed to create an instance of ConverterOutputStream")
     }
 
     pub fn converter<P: IsA<Converter>>(mut self, converter: &P) -> Self {
@@ -84,6 +84,7 @@ pub const NONE_CONVERTER_OUTPUT_STREAM: Option<&ConverterOutputStream> = None;
 
 pub trait ConverterOutputStreamExt: 'static {
     #[doc(alias = "g_converter_output_stream_get_converter")]
+    #[doc(alias = "get_converter")]
     fn converter(&self) -> Converter;
 }
 

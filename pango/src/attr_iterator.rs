@@ -10,6 +10,7 @@ use std::ptr;
 
 impl AttrIterator {
     #[doc(alias = "pango_attr_iterator_get_font")]
+    #[doc(alias = "get_font")]
     pub fn font(
         &mut self,
         desc: &mut FontDescription,

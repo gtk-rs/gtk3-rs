@@ -59,30 +59,39 @@ pub trait MountExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_mount_get_default_location")]
+    #[doc(alias = "get_default_location")]
     fn default_location(&self) -> File;
 
     #[doc(alias = "g_mount_get_drive")]
+    #[doc(alias = "get_drive")]
     fn drive(&self) -> Option<Drive>;
 
     #[doc(alias = "g_mount_get_icon")]
+    #[doc(alias = "get_icon")]
     fn icon(&self) -> Icon;
 
     #[doc(alias = "g_mount_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_mount_get_root")]
+    #[doc(alias = "get_root")]
     fn root(&self) -> File;
 
     #[doc(alias = "g_mount_get_sort_key")]
+    #[doc(alias = "get_sort_key")]
     fn sort_key(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_mount_get_symbolic_icon")]
+    #[doc(alias = "get_symbolic_icon")]
     fn symbolic_icon(&self) -> Icon;
 
     #[doc(alias = "g_mount_get_uuid")]
+    #[doc(alias = "get_uuid")]
     fn uuid(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_mount_get_volume")]
+    #[doc(alias = "get_volume")]
     fn volume(&self) -> Option<Volume>;
 
     #[doc(alias = "g_mount_guess_content_type")]
@@ -157,10 +166,13 @@ pub trait MountExt: 'static {
     #[doc(alias = "g_mount_unshadow")]
     fn unshadow(&self);
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "pre-unmount")]
     fn connect_pre_unmount<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "unmounted")]
     fn connect_unmounted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -207,7 +219,7 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe {
             ffi::g_mount_eject_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -313,7 +325,7 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe {
             ffi::g_mount_guess_content_type(
                 self.as_ref().to_glib_none().0,
-                force_rescan.to_glib(),
+                force_rescan.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -346,7 +358,7 @@ impl<O: IsA<Mount>> MountExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_mount_guess_content_type_sync(
                 self.as_ref().to_glib_none().0,
-                force_rescan.to_glib(),
+                force_rescan.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -395,7 +407,7 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe {
             ffi::g_mount_remount(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -468,7 +480,7 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe {
             ffi::g_mount_unmount_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -504,6 +516,7 @@ impl<O: IsA<Mount>> MountExt for O {
         }
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMount,
@@ -527,6 +540,7 @@ impl<O: IsA<Mount>> MountExt for O {
         }
     }
 
+    #[doc(alias = "pre-unmount")]
     fn connect_pre_unmount<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn pre_unmount_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMount,
@@ -550,6 +564,7 @@ impl<O: IsA<Mount>> MountExt for O {
         }
     }
 
+    #[doc(alias = "unmounted")]
     fn connect_unmounted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unmounted_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMount,

@@ -81,12 +81,13 @@ impl ImageSurface {
         if let Ok(surface) = &result {
             static IMAGE_SURFACE_DATA: crate::UserDataKey<Box<dyn AsMut<[u8]>>> =
                 crate::UserDataKey::new();
-            surface.set_user_data(&IMAGE_SURFACE_DATA, Rc::new(data))
+            surface.set_user_data(&IMAGE_SURFACE_DATA, Rc::new(data))?;
         }
         result
     }
 
     #[doc(alias = "cairo_image_surface_get_data")]
+    #[doc(alias = "get_data")]
     pub fn data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
         unsafe {
             if ffi::cairo_surface_get_reference_count(self.to_raw_none()) > 1 {
@@ -124,21 +125,25 @@ impl ImageSurface {
     }
 
     #[doc(alias = "cairo_image_surface_get_format")]
+    #[doc(alias = "get_format")]
     pub fn format(&self) -> Format {
         unsafe { Format::from(ffi::cairo_image_surface_get_format(self.to_raw_none())) }
     }
 
     #[doc(alias = "cairo_image_surface_get_height")]
+    #[doc(alias = "get_height")]
     pub fn height(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_height(self.to_raw_none()) }
     }
 
     #[doc(alias = "cairo_image_surface_get_stride")]
+    #[doc(alias = "get_stride")]
     pub fn stride(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_stride(self.to_raw_none()) }
     }
 
     #[doc(alias = "cairo_image_surface_get_width")]
+    #[doc(alias = "get_width")]
     pub fn width(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_width(self.to_raw_none()) }
     }
@@ -199,8 +204,7 @@ impl<'a> fmt::Display for ImageSurfaceData<'a> {
 // See: https://gitlab.freedesktop.org/cairo/cairo/-/issues/406
 fn is_finished(surface: &ImageSurface) -> bool {
     use super::Context;
-    let ctxt = Context::new(surface);
-    ctxt.status().is_err()
+    Context::new(surface).is_err()
 }
 
 #[cfg(test)]

@@ -51,7 +51,7 @@ pub fn bus_get<
     let callback = bus_get_trampoline::<Q>;
     unsafe {
         ffi::g_bus_get(
-            bus_type.to_glib(),
+            bus_type.into_glib(),
             cancellable.map(|p| p.as_ref()).to_glib_none().0,
             Some(callback),
             Box_::into_raw(user_data) as *mut _,
@@ -80,7 +80,7 @@ pub fn bus_get_sync<P: IsA<Cancellable>>(
     unsafe {
         let mut error = ptr::null_mut();
         let ret = ffi::g_bus_get_sync(
-            bus_type.to_glib(),
+            bus_type.into_glib(),
             cancellable.map(|p| p.as_ref()).to_glib_none().0,
             &mut error,
         );
@@ -259,7 +259,7 @@ pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(
     unsafe {
         let mut error = ptr::null_mut();
         let ret = ffi::g_dbus_address_get_for_bus_sync(
-            bus_type.to_glib(),
+            bus_type.into_glib(),
             cancellable.map(|p| p.as_ref()).to_glib_none().0,
             &mut error,
         );
@@ -498,7 +498,7 @@ pub fn resources_enumerate_children(
         let mut error = ptr::null_mut();
         let ret = ffi::g_resources_enumerate_children(
             path.to_glib_none().0,
-            lookup_flags.to_glib(),
+            lookup_flags.into_glib(),
             &mut error,
         );
         if error.is_null() {
@@ -520,7 +520,7 @@ pub fn resources_get_info(
         let mut error = ptr::null_mut();
         let _ = ffi::g_resources_get_info(
             path.to_glib_none().0,
-            lookup_flags.to_glib(),
+            lookup_flags.into_glib(),
             size.as_mut_ptr(),
             flags.as_mut_ptr(),
             &mut error,
@@ -542,8 +542,11 @@ pub fn resources_lookup_data(
 ) -> Result<glib::Bytes, glib::Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let ret =
-            ffi::g_resources_lookup_data(path.to_glib_none().0, lookup_flags.to_glib(), &mut error);
+        let ret = ffi::g_resources_lookup_data(
+            path.to_glib_none().0,
+            lookup_flags.into_glib(),
+            &mut error,
+        );
         if error.is_null() {
             Ok(from_glib_full(ret))
         } else {
@@ -559,8 +562,11 @@ pub fn resources_open_stream(
 ) -> Result<InputStream, glib::Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let ret =
-            ffi::g_resources_open_stream(path.to_glib_none().0, lookup_flags.to_glib(), &mut error);
+        let ret = ffi::g_resources_open_stream(
+            path.to_glib_none().0,
+            lookup_flags.into_glib(),
+            &mut error,
+        );
         if error.is_null() {
             Ok(from_glib_full(ret))
         } else {
@@ -582,24 +588,6 @@ pub fn resources_unregister(resource: &Resource) {
         ffi::g_resources_unregister(resource.to_glib_none().0);
     }
 }
-
-//#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
-//#[doc(alias = "g_simple_async_report_error_in_idle")]
-//pub fn simple_async_report_error_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, domain: glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi:g_simple_async_report_error_in_idle() }
-//}
-
-//#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
-//#[doc(alias = "g_simple_async_report_gerror_in_idle")]
-//pub fn simple_async_report_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, error: &glib::Error) {
-//    unsafe { TODO: call ffi:g_simple_async_report_gerror_in_idle() }
-//}
-
-//#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
-//#[doc(alias = "g_simple_async_report_take_gerror_in_idle")]
-//pub fn simple_async_report_take_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, error: &mut glib::Error) {
-//    unsafe { TODO: call ffi:g_simple_async_report_take_gerror_in_idle() }
-//}
 
 #[cfg(any(unix, feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(unix)))]

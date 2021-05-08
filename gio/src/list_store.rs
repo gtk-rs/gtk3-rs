@@ -13,8 +13,6 @@ pub trait ListStoreExtManual {
         compare_func: F,
     ) -> u32;
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_list_store_sort")]
     fn sort<F: FnMut(&Object, &Object) -> Ordering>(&self, compare_func: F);
 }
@@ -40,8 +38,6 @@ impl<O: IsA<ListStore>> ListStoreExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn sort<F: FnMut(&Object, &Object) -> Ordering>(&self, compare_func: F) {
         unsafe {
             let mut func = compare_func;

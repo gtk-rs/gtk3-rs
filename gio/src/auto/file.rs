@@ -47,7 +47,8 @@ impl File {
     //}
 
     #[doc(alias = "g_file_new_for_commandline_arg")]
-    pub fn new_for_commandline_arg<P: AsRef<std::ffi::OsStr>>(arg: P) -> File {
+    #[doc(alias = "new_for_commandline_arg")]
+    pub fn for_commandline_arg<P: AsRef<std::ffi::OsStr>>(arg: P) -> File {
         unsafe {
             from_glib_full(ffi::g_file_new_for_commandline_arg(
                 arg.as_ref().to_glib_none().0,
@@ -56,7 +57,8 @@ impl File {
     }
 
     #[doc(alias = "g_file_new_for_commandline_arg_and_cwd")]
-    pub fn new_for_commandline_arg_and_cwd<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::path::Path>>(
+    #[doc(alias = "new_for_commandline_arg_and_cwd")]
+    pub fn for_commandline_arg_and_cwd<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::path::Path>>(
         arg: P,
         cwd: Q,
     ) -> File {
@@ -69,12 +71,14 @@ impl File {
     }
 
     #[doc(alias = "g_file_new_for_path")]
-    pub fn new_for_path<P: AsRef<std::path::Path>>(path: P) -> File {
+    #[doc(alias = "new_for_path")]
+    pub fn for_path<P: AsRef<std::path::Path>>(path: P) -> File {
         unsafe { from_glib_full(ffi::g_file_new_for_path(path.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_new_for_uri")]
-    pub fn new_for_uri(uri: &str) -> File {
+    #[doc(alias = "new_for_uri")]
+    pub fn for_uri(uri: &str) -> File {
         unsafe { from_glib_full(ffi::g_file_new_for_uri(uri.to_glib_none().0)) }
     }
 
@@ -96,7 +100,8 @@ impl File {
     }
 
     #[doc(alias = "g_file_parse_name")]
-    pub fn parse_name(parse_name: &str) -> File {
+    #[doc(alias = "parse_name")]
+    pub fn for_parse_name(parse_name: &str) -> File {
         unsafe { from_glib_full(ffi::g_file_parse_name(parse_name.to_glib_none().0)) }
     }
 }
@@ -261,30 +266,39 @@ pub trait FileExt: 'static {
     ) -> Result<Mount, glib::Error>;
 
     #[doc(alias = "g_file_get_basename")]
+    #[doc(alias = "get_basename")]
     fn basename(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_child")]
+    #[doc(alias = "get_child")]
     fn child<P: AsRef<std::path::Path>>(&self, name: P) -> File;
 
     #[doc(alias = "g_file_get_child_for_display_name")]
+    #[doc(alias = "get_child_for_display_name")]
     fn child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error>;
 
     #[doc(alias = "g_file_get_parent")]
+    #[doc(alias = "get_parent")]
     fn parent(&self) -> Option<File>;
 
     #[doc(alias = "g_file_get_parse_name")]
+    #[doc(alias = "get_parse_name")]
     fn parse_name(&self) -> glib::GString;
 
     #[doc(alias = "g_file_get_path")]
+    #[doc(alias = "get_path")]
     fn path(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_relative_path")]
+    #[doc(alias = "get_relative_path")]
     fn relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_uri")]
+    #[doc(alias = "get_uri")]
     fn uri(&self) -> glib::GString;
 
     #[doc(alias = "g_file_get_uri_scheme")]
+    #[doc(alias = "get_uri_scheme")]
     fn uri_scheme(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_file_has_parent")]
@@ -471,6 +485,7 @@ pub trait FileExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<File, glib::Error>> + 'static>>;
 
     #[doc(alias = "g_file_move")]
+    #[doc(alias = "move")]
     fn move_<P: IsA<File>, Q: IsA<Cancellable>>(
         &self,
         destination: &P,
@@ -909,7 +924,7 @@ impl<O: IsA<File>> FileExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_append_to(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -953,8 +968,8 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_append_to_async(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
-                io_priority.to_glib(),
+                flags.into_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -1010,7 +1025,7 @@ impl<O: IsA<File>> FileExt for O {
             let _ = ffi::g_file_copy(
                 self.as_ref().to_glib_none().0,
                 destination.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 progress_callback,
                 super_callback0 as *const _ as usize as *mut _,
@@ -1061,7 +1076,7 @@ impl<O: IsA<File>> FileExt for O {
             let _ = ffi::g_file_copy_attributes(
                 self.as_ref().to_glib_none().0,
                 destination.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -1082,7 +1097,7 @@ impl<O: IsA<File>> FileExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_create(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -1126,8 +1141,8 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_create_async(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
-                io_priority.to_glib(),
+                flags.into_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -1160,7 +1175,7 @@ impl<O: IsA<File>> FileExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_create_readwrite(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -1205,8 +1220,8 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_create_readwrite_async(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
-                io_priority.to_glib(),
+                flags.into_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -1274,7 +1289,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_delete_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -1337,7 +1352,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_eject_mountable_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -1378,7 +1393,7 @@ impl<O: IsA<File>> FileExt for O {
             let ret = ffi::g_file_enumerate_children(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -1763,7 +1778,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_make_directory_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -1863,7 +1878,7 @@ impl<O: IsA<File>> FileExt for O {
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_measure_disk_usage(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 progress_callback,
                 Box_::into_raw(super_callback0) as *mut _,
@@ -1916,7 +1931,7 @@ impl<O: IsA<File>> FileExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_monitor(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -1937,7 +1952,7 @@ impl<O: IsA<File>> FileExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_monitor_directory(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -1958,7 +1973,7 @@ impl<O: IsA<File>> FileExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_monitor_file(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -2007,7 +2022,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_mount_enclosing_volume(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -2070,7 +2085,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_mount_mountable(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -2132,7 +2147,7 @@ impl<O: IsA<File>> FileExt for O {
             let _ = ffi::g_file_move(
                 self.as_ref().to_glib_none().0,
                 destination.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 progress_callback,
                 super_callback0 as *const _ as usize as *mut _,
@@ -2196,7 +2211,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_open_readwrite_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -2325,7 +2340,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_query_default_handler_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -2366,7 +2381,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             from_glib(ffi::g_file_query_file_type(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
             ))
         }
@@ -2427,7 +2442,7 @@ impl<O: IsA<File>> FileExt for O {
             ffi::g_file_query_filesystem_info_async(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -2467,7 +2482,7 @@ impl<O: IsA<File>> FileExt for O {
             let ret = ffi::g_file_query_info(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -2513,8 +2528,8 @@ impl<O: IsA<File>> FileExt for O {
             ffi::g_file_query_info_async(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
-                flags.to_glib(),
-                io_priority.to_glib(),
+                flags.into_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -2603,7 +2618,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_read_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -2638,8 +2653,8 @@ impl<O: IsA<File>> FileExt for O {
             let ret = ffi::g_file_replace(
                 self.as_ref().to_glib_none().0,
                 etag.to_glib_none().0,
-                make_backup.to_glib(),
-                flags.to_glib(),
+                make_backup.into_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -2686,9 +2701,9 @@ impl<O: IsA<File>> FileExt for O {
             ffi::g_file_replace_async(
                 self.as_ref().to_glib_none().0,
                 etag.to_glib_none().0,
-                make_backup.to_glib(),
-                flags.to_glib(),
-                io_priority.to_glib(),
+                make_backup.into_glib(),
+                flags.into_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -2739,8 +2754,8 @@ impl<O: IsA<File>> FileExt for O {
                 contents.to_glib_none().0,
                 length,
                 etag.to_glib_none().0,
-                make_backup.to_glib(),
-                flags.to_glib(),
+                make_backup.into_glib(),
+                flags.into_glib(),
                 &mut new_etag,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -2769,8 +2784,8 @@ impl<O: IsA<File>> FileExt for O {
             let ret = ffi::g_file_replace_readwrite(
                 self.as_ref().to_glib_none().0,
                 etag.to_glib_none().0,
-                make_backup.to_glib(),
-                flags.to_glib(),
+                make_backup.into_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -2818,9 +2833,9 @@ impl<O: IsA<File>> FileExt for O {
             ffi::g_file_replace_readwrite_async(
                 self.as_ref().to_glib_none().0,
                 etag.to_glib_none().0,
-                make_backup.to_glib(),
-                flags.to_glib(),
-                io_priority.to_glib(),
+                make_backup.into_glib(),
+                flags.into_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -2880,7 +2895,7 @@ impl<O: IsA<File>> FileExt for O {
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -2905,7 +2920,7 @@ impl<O: IsA<File>> FileExt for O {
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -2930,7 +2945,7 @@ impl<O: IsA<File>> FileExt for O {
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -2955,7 +2970,7 @@ impl<O: IsA<File>> FileExt for O {
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -2980,7 +2995,7 @@ impl<O: IsA<File>> FileExt for O {
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -3005,7 +3020,7 @@ impl<O: IsA<File>> FileExt for O {
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -3057,8 +3072,8 @@ impl<O: IsA<File>> FileExt for O {
             ffi::g_file_set_attributes_async(
                 self.as_ref().to_glib_none().0,
                 info.to_glib_none().0,
-                flags.to_glib(),
-                io_priority.to_glib(),
+                flags.into_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -3094,7 +3109,7 @@ impl<O: IsA<File>> FileExt for O {
             let _ = ffi::g_file_set_attributes_from_info(
                 self.as_ref().to_glib_none().0,
                 info.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
@@ -3161,7 +3176,7 @@ impl<O: IsA<File>> FileExt for O {
             ffi::g_file_set_display_name_async(
                 self.as_ref().to_glib_none().0,
                 display_name.to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -3223,7 +3238,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_start_mountable(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 start_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -3286,7 +3301,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_stop_mountable(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -3368,7 +3383,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_trash_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -3427,7 +3442,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe {
             ffi::g_file_unmount_mountable_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),

@@ -19,6 +19,7 @@ pub const NONE_MENU_ATTRIBUTE_ITER: Option<&MenuAttributeIter> = None;
 
 pub trait MenuAttributeIterExt: 'static {
     #[doc(alias = "g_menu_attribute_iter_get_next")]
+    #[doc(alias = "get_next")]
     fn next(&self) -> Option<(glib::GString, glib::Variant)>;
 }
 

@@ -40,7 +40,7 @@ impl GString {
     /// length, underneath the `GString` instance.
     unsafe fn new(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());
-        GString(Inner::Foreign(
+        Self(Inner::Foreign(
             ptr::NonNull::new_unchecked(ptr),
             libc::strlen(ptr),
         ))
@@ -244,7 +244,7 @@ impl From<GString> for String {
                 return s;
             }
         }
-        String::from(s.as_str())
+        Self::from(s.as_str())
     }
 }
 
@@ -288,7 +288,7 @@ impl From<Vec<u8>> for GString {
 impl From<CString> for GString {
     #[inline]
     fn from(s: CString) -> Self {
-        GString(Inner::Native(Some(s)))
+        Self(Inner::Native(Some(s)))
     }
 }
 
@@ -303,7 +303,7 @@ impl<'a> From<&'a CStr> for GString {
 impl FromGlibPtrFull<*const c_char> for GString {
     #[inline]
     unsafe fn from_glib_full(ptr: *const c_char) -> Self {
-        GString::new(ptr as *mut _)
+        Self::new(ptr as *mut _)
     }
 }
 
@@ -311,7 +311,7 @@ impl FromGlibPtrFull<*const c_char> for GString {
 impl FromGlibPtrFull<*mut u8> for GString {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut u8) -> Self {
-        GString::new(ptr as *mut _)
+        Self::new(ptr as *mut _)
     }
 }
 
@@ -319,7 +319,7 @@ impl FromGlibPtrFull<*mut u8> for GString {
 impl FromGlibPtrFull<*mut i8> for GString {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut i8) -> Self {
-        GString::new(ptr as *mut _)
+        Self::new(ptr as *mut _)
     }
 }
 
@@ -357,7 +357,7 @@ impl FromGlibPtrNone<*mut i8> for GString {
 impl FromGlibPtrBorrow<*const c_char> for GString {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *const c_char) -> Borrowed<Self> {
-        GString::new_borrowed(ptr)
+        Self::new_borrowed(ptr)
     }
 }
 
@@ -365,7 +365,7 @@ impl FromGlibPtrBorrow<*const c_char> for GString {
 impl FromGlibPtrBorrow<*mut u8> for GString {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut u8) -> Borrowed<Self> {
-        GString::new_borrowed(ptr as *const c_char)
+        Self::new_borrowed(ptr as *const c_char)
     }
 }
 
@@ -373,7 +373,7 @@ impl FromGlibPtrBorrow<*mut u8> for GString {
 impl FromGlibPtrBorrow<*mut i8> for GString {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut i8) -> Borrowed<Self> {
-        GString::new_borrowed(ptr as *const c_char)
+        Self::new_borrowed(ptr as *const c_char)
     }
 }
 
@@ -511,7 +511,7 @@ unsafe impl<'a> crate::value::FromValue<'a> for GString {
     type Checker = crate::value::GenericValueTypeOrNoneChecker<Self>;
 
     unsafe fn from_value(value: &'a crate::Value) -> Self {
-        GString::from(<&str>::from_value(value))
+        Self::from(<&str>::from_value(value))
     }
 }
 
@@ -553,7 +553,7 @@ unsafe impl<'a> crate::value::FromValue<'a> for Vec<GString> {
 impl crate::value::ToValue for Vec<GString> {
     fn to_value(&self) -> crate::value::Value {
         unsafe {
-            let mut value = crate::value::Value::for_value_type::<Vec<GString>>();
+            let mut value = crate::value::Value::for_value_type::<Self>();
             let ptr: *mut *mut c_char = self.to_glib_full();
             gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *const c_void);
             value

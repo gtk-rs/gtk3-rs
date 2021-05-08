@@ -25,27 +25,35 @@ pub const NONE_TOOL_SHELL: Option<&ToolShell> = None;
 
 pub trait ToolShellExt: 'static {
     #[doc(alias = "gtk_tool_shell_get_ellipsize_mode")]
+    #[doc(alias = "get_ellipsize_mode")]
     fn ellipsize_mode(&self) -> pango::EllipsizeMode;
 
     #[doc(alias = "gtk_tool_shell_get_icon_size")]
+    #[doc(alias = "get_icon_size")]
     fn icon_size(&self) -> IconSize;
 
     #[doc(alias = "gtk_tool_shell_get_orientation")]
+    #[doc(alias = "get_orientation")]
     fn orientation(&self) -> Orientation;
 
     #[doc(alias = "gtk_tool_shell_get_relief_style")]
+    #[doc(alias = "get_relief_style")]
     fn relief_style(&self) -> ReliefStyle;
 
     #[doc(alias = "gtk_tool_shell_get_style")]
+    #[doc(alias = "get_style")]
     fn style(&self) -> ToolbarStyle;
 
     #[doc(alias = "gtk_tool_shell_get_text_alignment")]
+    #[doc(alias = "get_text_alignment")]
     fn text_alignment(&self) -> f32;
 
     #[doc(alias = "gtk_tool_shell_get_text_orientation")]
+    #[doc(alias = "get_text_orientation")]
     fn text_orientation(&self) -> Orientation;
 
     #[doc(alias = "gtk_tool_shell_get_text_size_group")]
+    #[doc(alias = "get_text_size_group")]
     fn text_size_group(&self) -> Option<SizeGroup>;
 
     #[doc(alias = "gtk_tool_shell_rebuild_menu")]

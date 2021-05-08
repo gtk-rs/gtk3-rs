@@ -252,7 +252,7 @@ pub fn compute_checksum_for_bytes(
 ) -> Option<crate::GString> {
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_bytes(
-            checksum_type.to_glib(),
+            checksum_type.into_glib(),
             data.to_glib_none().0,
         ))
     }
@@ -266,7 +266,7 @@ pub fn compute_checksum_for_data(
     let length = data.len() as usize;
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_data(
-            checksum_type.to_glib(),
+            checksum_type.into_glib(),
             data.to_glib_none().0,
             length,
         ))
@@ -281,7 +281,7 @@ pub fn compute_checksum_for_string(
     let length = str.len() as isize;
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_string(
-            checksum_type.to_glib(),
+            checksum_type.into_glib(),
             str.to_glib_none().0,
             length,
         ))
@@ -298,7 +298,7 @@ pub fn compute_hmac_for_bytes(
 ) -> crate::GString {
     unsafe {
         from_glib_full(ffi::g_compute_hmac_for_bytes(
-            digest_type.to_glib(),
+            digest_type.into_glib(),
             key.to_glib_none().0,
             data.to_glib_none().0,
         ))
@@ -311,7 +311,7 @@ pub fn compute_hmac_for_data(digest_type: ChecksumType, key: &[u8], data: &[u8])
     let length = data.len() as usize;
     unsafe {
         from_glib_full(ffi::g_compute_hmac_for_data(
-            digest_type.to_glib(),
+            digest_type.into_glib(),
             key.to_glib_none().0,
             key_len,
             data.to_glib_none().0,
@@ -326,7 +326,7 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
     let length = str.len() as isize;
     unsafe {
         from_glib_full(ffi::g_compute_hmac_for_string(
-            digest_type.to_glib(),
+            digest_type.into_glib(),
             key.to_glib_none().0,
             key_len,
             str.to_glib_none().0,
@@ -602,7 +602,7 @@ pub fn file_set_contents_full<P: AsRef<std::path::Path>>(
             filename.as_ref().to_glib_none().0,
             contents.to_glib_none().0,
             length,
-            flags.to_glib(),
+            flags.into_glib(),
             mode,
             &mut error,
         );
@@ -619,7 +619,7 @@ pub fn file_test<P: AsRef<std::path::Path>>(filename: P, test: FileTest) -> bool
     unsafe {
         from_glib(ffi::g_file_test(
             filename.as_ref().to_glib_none().0,
-            test.to_glib(),
+            test.into_glib(),
         ))
     }
 }
@@ -649,7 +649,7 @@ pub fn format_size(size: u64) -> crate::GString {
 
 #[doc(alias = "g_format_size_full")]
 pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> crate::GString {
-    unsafe { from_glib_full(ffi::g_format_size_full(size, flags.to_glib())) }
+    unsafe { from_glib_full(ffi::g_format_size_full(size, flags.into_glib())) }
 }
 
 //#[doc(alias = "g_fprintf")]
@@ -663,11 +663,13 @@ pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> crate::GString {
 //}
 
 #[doc(alias = "g_get_application_name")]
+#[doc(alias = "get_application_name")]
 pub fn application_name() -> Option<crate::GString> {
     unsafe { from_glib_none(ffi::g_get_application_name()) }
 }
 
 #[doc(alias = "g_get_codeset")]
+#[doc(alias = "get_codeset")]
 pub fn codeset() -> crate::GString {
     unsafe { from_glib_full(ffi::g_get_codeset()) }
 }
@@ -675,6 +677,7 @@ pub fn codeset() -> crate::GString {
 #[cfg(any(feature = "v2_62", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
 #[doc(alias = "g_get_console_charset")]
+#[doc(alias = "get_console_charset")]
 pub fn console_charset() -> Option<crate::GString> {
     unsafe {
         let mut charset = ptr::null();
@@ -689,21 +692,25 @@ pub fn console_charset() -> Option<crate::GString> {
 
 //#[cfg_attr(feature = "v2_62", deprecated = "Since 2.62")]
 //#[doc(alias = "g_get_current_time")]
+//#[doc(alias = "get_current_time")]
 //pub fn current_time(result: /*Ignored*/&mut TimeVal) {
 //    unsafe { TODO: call ffi:g_get_current_time() }
 //}
 
 #[doc(alias = "g_get_environ")]
+#[doc(alias = "get_environ")]
 pub fn environ() -> Vec<std::ffi::OsString> {
     unsafe { FromGlibPtrContainer::from_glib_full(ffi::g_get_environ()) }
 }
 
 #[doc(alias = "g_get_host_name")]
+#[doc(alias = "get_host_name")]
 pub fn host_name() -> crate::GString {
     unsafe { from_glib_none(ffi::g_get_host_name()) }
 }
 
 #[doc(alias = "g_get_language_names")]
+#[doc(alias = "get_language_names")]
 pub fn language_names() -> Vec<crate::GString> {
     unsafe { FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names()) }
 }
@@ -711,6 +718,7 @@ pub fn language_names() -> Vec<crate::GString> {
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
 #[doc(alias = "g_get_language_names_with_category")]
+#[doc(alias = "get_language_names_with_category")]
 pub fn language_names_with_category(category_name: &str) -> Vec<crate::GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names_with_category(
@@ -720,6 +728,7 @@ pub fn language_names_with_category(category_name: &str) -> Vec<crate::GString> 
 }
 
 #[doc(alias = "g_get_locale_variants")]
+#[doc(alias = "get_locale_variants")]
 pub fn locale_variants(locale: &str) -> Vec<crate::GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_get_locale_variants(locale.to_glib_none().0))
@@ -727,11 +736,13 @@ pub fn locale_variants(locale: &str) -> Vec<crate::GString> {
 }
 
 #[doc(alias = "g_get_monotonic_time")]
+#[doc(alias = "get_monotonic_time")]
 pub fn monotonic_time() -> i64 {
     unsafe { ffi::g_get_monotonic_time() }
 }
 
 #[doc(alias = "g_get_num_processors")]
+#[doc(alias = "get_num_processors")]
 pub fn num_processors() -> u32 {
     unsafe { ffi::g_get_num_processors() }
 }
@@ -739,48 +750,57 @@ pub fn num_processors() -> u32 {
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[doc(alias = "g_get_os_info")]
+#[doc(alias = "get_os_info")]
 pub fn os_info(key_name: &str) -> Option<crate::GString> {
     unsafe { from_glib_full(ffi::g_get_os_info(key_name.to_glib_none().0)) }
 }
 
 #[doc(alias = "g_get_real_time")]
+#[doc(alias = "get_real_time")]
 pub fn real_time() -> i64 {
     unsafe { ffi::g_get_real_time() }
 }
 
 #[doc(alias = "g_get_system_config_dirs")]
+#[doc(alias = "get_system_config_dirs")]
 pub fn system_config_dirs() -> Vec<std::path::PathBuf> {
     unsafe { FromGlibPtrContainer::from_glib_none(ffi::g_get_system_config_dirs()) }
 }
 
 #[doc(alias = "g_get_system_data_dirs")]
+#[doc(alias = "get_system_data_dirs")]
 pub fn system_data_dirs() -> Vec<std::path::PathBuf> {
     unsafe { FromGlibPtrContainer::from_glib_none(ffi::g_get_system_data_dirs()) }
 }
 
 #[doc(alias = "g_get_user_cache_dir")]
+#[doc(alias = "get_user_cache_dir")]
 pub fn user_cache_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_cache_dir()) }
 }
 
 #[doc(alias = "g_get_user_config_dir")]
+#[doc(alias = "get_user_config_dir")]
 pub fn user_config_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_config_dir()) }
 }
 
 #[doc(alias = "g_get_user_data_dir")]
+#[doc(alias = "get_user_data_dir")]
 pub fn user_data_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_data_dir()) }
 }
 
 #[doc(alias = "g_get_user_runtime_dir")]
+#[doc(alias = "get_user_runtime_dir")]
 pub fn user_runtime_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(ffi::g_get_user_runtime_dir()) }
 }
 
 #[doc(alias = "g_get_user_special_dir")]
+#[doc(alias = "get_user_special_dir")]
 pub fn user_special_dir(directory: UserDirectory) -> std::path::PathBuf {
-    unsafe { from_glib_none(ffi::g_get_user_special_dir(directory.to_glib())) }
+    unsafe { from_glib_none(ffi::g_get_user_special_dir(directory.into_glib())) }
 }
 
 #[doc(alias = "g_hostname_is_ascii_encoded")]
@@ -952,26 +972,6 @@ pub fn markup_escape_text(text: &str) -> crate::GString {
 //#[doc(alias = "g_markup_vprintf_escaped")]
 //pub fn markup_vprintf_escaped(format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> crate::GString {
 //    unsafe { TODO: call ffi:g_markup_vprintf_escaped() }
-//}
-
-#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
-#[doc(alias = "g_mem_is_system_malloc")]
-pub fn mem_is_system_malloc() -> bool {
-    unsafe { from_glib(ffi::g_mem_is_system_malloc()) }
-}
-
-#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
-#[doc(alias = "g_mem_profile")]
-pub fn mem_profile() {
-    unsafe {
-        ffi::g_mem_profile();
-    }
-}
-
-//#[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
-//#[doc(alias = "g_mem_set_vtable")]
-//pub fn mem_set_vtable(vtable: /*Ignored*/&mut MemVTable) {
-//    unsafe { TODO: call ffi:g_mem_set_vtable() }
 //}
 
 //#[cfg_attr(feature = "v2_68", deprecated = "Since 2.68")]
@@ -1336,7 +1336,7 @@ pub fn spawn_async<P: AsRef<std::path::Path>>(
             working_directory.as_ref().to_glib_none().0,
             argv.to_glib_none().0,
             envp.to_glib_none().0,
-            flags.to_glib(),
+            flags.into_glib(),
             child_setup,
             Box_::into_raw(super_callback0) as *mut _,
             child_pid.as_mut_ptr(),

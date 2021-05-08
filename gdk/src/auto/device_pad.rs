@@ -20,15 +20,19 @@ pub const NONE_DEVICE_PAD: Option<&DevicePad> = None;
 
 pub trait DevicePadExt: 'static {
     #[doc(alias = "gdk_device_pad_get_feature_group")]
+    #[doc(alias = "get_feature_group")]
     fn feature_group(&self, feature: DevicePadFeature, feature_idx: i32) -> i32;
 
     #[doc(alias = "gdk_device_pad_get_group_n_modes")]
+    #[doc(alias = "get_group_n_modes")]
     fn group_n_modes(&self, group_idx: i32) -> i32;
 
     #[doc(alias = "gdk_device_pad_get_n_features")]
+    #[doc(alias = "get_n_features")]
     fn n_features(&self, feature: DevicePadFeature) -> i32;
 
     #[doc(alias = "gdk_device_pad_get_n_groups")]
+    #[doc(alias = "get_n_groups")]
     fn n_groups(&self) -> i32;
 }
 
@@ -37,7 +41,7 @@ impl<O: IsA<DevicePad>> DevicePadExt for O {
         unsafe {
             ffi::gdk_device_pad_get_feature_group(
                 self.as_ref().to_glib_none().0,
-                feature.to_glib(),
+                feature.into_glib(),
                 feature_idx,
             )
         }
@@ -49,7 +53,7 @@ impl<O: IsA<DevicePad>> DevicePadExt for O {
 
     fn n_features(&self, feature: DevicePadFeature) -> i32 {
         unsafe {
-            ffi::gdk_device_pad_get_n_features(self.as_ref().to_glib_none().0, feature.to_glib())
+            ffi::gdk_device_pad_get_n_features(self.as_ref().to_glib_none().0, feature.into_glib())
         }
     }
 

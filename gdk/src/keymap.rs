@@ -9,6 +9,7 @@ use std::ptr;
 
 impl Keymap {
     #[doc(alias = "gdk_keymap_get_entries_for_keycode")]
+    #[doc(alias = "get_entries_for_keycode")]
     pub fn entries_for_keycode(&self, hardware_keycode: u32) -> Vec<(KeymapKey, u32)> {
         unsafe {
             let mut keys = ptr::null_mut();
@@ -37,6 +38,7 @@ impl Keymap {
     }
 
     #[doc(alias = "gdk_keymap_get_entries_for_keyval")]
+    #[doc(alias = "get_entries_for_keyval")]
     pub fn entries_for_keyval(&self, keyval: u32) -> Vec<KeymapKey> {
         unsafe {
             let mut keys = ptr::null_mut();
@@ -64,7 +66,7 @@ impl Keymap {
     #[doc(alias = "gdk_keymap_add_virtual_modifiers")]
     pub fn add_virtual_modifiers(&self, state: &mut ModifierType) {
         unsafe {
-            let mut s = state.to_glib();
+            let mut s = state.into_glib();
             ffi::gdk_keymap_add_virtual_modifiers(self.to_glib_none().0, &mut s);
             *state = from_glib(s);
         }
@@ -73,7 +75,7 @@ impl Keymap {
     #[doc(alias = "gdk_keymap_map_virtual_modifiers")]
     pub fn map_virtual_modifiers(&self, state: &mut ModifierType) -> bool {
         unsafe {
-            let mut s = state.to_glib();
+            let mut s = state.into_glib();
             let ret = from_glib(ffi::gdk_keymap_map_virtual_modifiers(
                 self.to_glib_none().0,
                 &mut s,

@@ -9,8 +9,6 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
@@ -49,19 +47,16 @@ pub trait SocketServiceExt: 'static {
     #[doc(alias = "g_socket_service_stop")]
     fn stop(&self);
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    #[doc(alias = "set_property_active")]
     fn set_active(&self, active: bool);
 
+    #[doc(alias = "incoming")]
     fn connect_incoming<F: Fn(&Self, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<SocketService>> SocketServiceExt for O {
@@ -85,8 +80,6 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn set_active(&self, active: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -97,6 +90,7 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
         }
     }
 
+    #[doc(alias = "incoming")]
     fn connect_incoming<
         F: Fn(&Self, &SocketConnection, Option<&glib::Object>) -> bool + 'static,
     >(
@@ -123,7 +117,7 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
                     .as_ref()
                     .as_ref(),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -138,9 +132,8 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketService,
             _param_spec: glib::ffi::gpointer,

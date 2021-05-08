@@ -32,8 +32,6 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
         cancellable: Option<&C>,
     ) -> Result<(usize, Option<glib::Error>), glib::Error>;
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn write_all_async<
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
@@ -52,8 +50,6 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
         io_priority: Priority,
     ) -> Pin<Box<dyn std::future::Future<Output = Result<(B, usize), (B, glib::Error)>> + 'static>>;
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn write_all_async_future<B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
@@ -121,7 +117,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
                 self.as_ref().to_glib_none().0,
                 mut_override(buffer_ptr),
                 count,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
@@ -160,8 +156,6 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn write_all_async<
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
@@ -217,7 +211,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
                 self.as_ref().to_glib_none().0,
                 mut_override(buffer_ptr),
                 count,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
@@ -241,8 +235,6 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         }))
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
@@ -364,7 +356,6 @@ mod tests {
     }
 
     #[test]
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async() {
         let ret = run_async(|tx, l| {
             let strm = MemoryOutputStream::new_resizable();

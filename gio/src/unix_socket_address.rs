@@ -60,7 +60,7 @@ impl UnixSocketAddress {
             SocketAddress::from_glib_full(ffi::g_unix_socket_address_new_with_type(
                 path,
                 len as i32,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
             .unsafe_cast()
         }
@@ -69,6 +69,7 @@ impl UnixSocketAddress {
 
 pub trait UnixSocketAddressExtManual {
     #[doc(alias = "g_unix_socket_address_get_path")]
+    #[doc(alias = "get_path")]
     fn path(&self) -> Option<UnixSocketAddressPath>;
 }
 

@@ -14,12 +14,6 @@ edition = "2018"
 features = ["dox"]
 [package.metadata.system-deps."gtk+_3_0"]
 name = "gtk+-3.0"
-version = "3.14"
-
-[package.metadata.system-deps."gtk+_3_0".v3_16]
-version = "3.16"
-
-[package.metadata.system-deps."gtk+_3_0".v3_18]
 version = "3.18"
 
 [package.metadata.system-deps."gtk+_3_0".v3_20]
@@ -91,9 +85,7 @@ tempfile = "3"
 
 [features]
 v3_24_11 = ["v3_24_9"]
-v3_16 = []
-v3_18 = ["v3_16"]
-v3_20 = ["v3_18"]
+v3_20 = []
 v3_22 = ["v3_20"]
 v3_22_6 = ["v3_22"]
 v3_22_26 = ["v3_22_6"]

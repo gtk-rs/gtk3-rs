@@ -121,7 +121,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             if let Some(f) = (*parent_class).move_cursor {
                 from_glib(f(
                     icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0,
-                    step.to_glib(),
+                    step.into_glib(),
                     count,
                 ))
             } else {
@@ -225,7 +225,7 @@ unsafe extern "C" fn icon_view_move_cursor<T: IconViewImpl>(
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
 
     imp.move_cursor(wrap.unsafe_cast_ref(), from_glib(step), count)
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn icon_view_activate_cursor_item<T: IconViewImpl>(
@@ -235,5 +235,5 @@ unsafe extern "C" fn icon_view_activate_cursor_item<T: IconViewImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
 
-    imp.activate_cursor_item(wrap.unsafe_cast_ref()).to_glib()
+    imp.activate_cursor_item(wrap.unsafe_cast_ref()).into_glib()
 }

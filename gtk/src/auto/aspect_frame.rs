@@ -45,7 +45,7 @@ impl AspectFrame {
                 xalign,
                 yalign,
                 ratio,
-                obey_child.to_glib(),
+                obey_child.into_glib(),
             ))
             .unsafe_cast()
         }
@@ -242,8 +242,8 @@ impl AspectFrameBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<AspectFrame>(&properties).expect("object new");
-        ret
+        glib::Object::new::<AspectFrame>(&properties)
+            .expect("Failed to create an instance of AspectFrame")
     }
 
     pub fn obey_child(mut self, obey_child: bool) -> Self {
@@ -475,37 +475,35 @@ pub trait AspectFrameExt: 'static {
     #[doc(alias = "gtk_aspect_frame_set")]
     fn set(&self, xalign: f32, yalign: f32, ratio: f32, obey_child: bool);
 
-    #[doc(alias = "get_property_obey_child")]
+    #[doc(alias = "obey-child")]
     fn is_obey_child(&self) -> bool;
 
-    #[doc(alias = "set_property_obey_child")]
+    #[doc(alias = "obey-child")]
     fn set_obey_child(&self, obey_child: bool);
 
-    #[doc(alias = "get_property_ratio")]
     fn ratio(&self) -> f32;
 
-    #[doc(alias = "set_property_ratio")]
     fn set_ratio(&self, ratio: f32);
 
-    #[doc(alias = "get_property_xalign")]
     fn xalign(&self) -> f32;
 
-    #[doc(alias = "set_property_xalign")]
     fn set_xalign(&self, xalign: f32);
 
-    #[doc(alias = "get_property_yalign")]
     fn yalign(&self) -> f32;
 
-    #[doc(alias = "set_property_yalign")]
     fn set_yalign(&self, yalign: f32);
 
-    fn connect_property_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "obey-child")]
+    fn connect_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_ratio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "ratio")]
+    fn connect_ratio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "xalign")]
+    fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "yalign")]
+    fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<AspectFrame>> AspectFrameExt for O {
@@ -516,7 +514,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
                 xalign,
                 yalign,
                 ratio,
-                obey_child.to_glib(),
+                obey_child.into_glib(),
             );
         }
     }
@@ -617,7 +615,8 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn connect_property_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "obey-child")]
+    fn connect_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_obey_child_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
             _param_spec: glib::ffi::gpointer,
@@ -641,7 +640,8 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn connect_property_ratio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "ratio")]
+    fn connect_ratio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ratio_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
             _param_spec: glib::ffi::gpointer,
@@ -665,7 +665,8 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn connect_property_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "xalign")]
+    fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_xalign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
             _param_spec: glib::ffi::gpointer,
@@ -689,7 +690,8 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
-    fn connect_property_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "yalign")]
+    fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_yalign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
             _param_spec: glib::ffi::gpointer,

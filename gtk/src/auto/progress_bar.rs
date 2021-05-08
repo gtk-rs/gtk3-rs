@@ -211,8 +211,8 @@ impl ProgressBarBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<ProgressBar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ProgressBar>(&properties)
+            .expect("Failed to create an instance of ProgressBar")
     }
 
     pub fn ellipsize(mut self, ellipsize: pango::EllipsizeMode) -> Self {
@@ -417,21 +417,27 @@ pub const NONE_PROGRESS_BAR: Option<&ProgressBar> = None;
 
 pub trait ProgressBarExt: 'static {
     #[doc(alias = "gtk_progress_bar_get_ellipsize")]
+    #[doc(alias = "get_ellipsize")]
     fn ellipsize(&self) -> pango::EllipsizeMode;
 
     #[doc(alias = "gtk_progress_bar_get_fraction")]
+    #[doc(alias = "get_fraction")]
     fn fraction(&self) -> f64;
 
     #[doc(alias = "gtk_progress_bar_get_inverted")]
+    #[doc(alias = "get_inverted")]
     fn is_inverted(&self) -> bool;
 
     #[doc(alias = "gtk_progress_bar_get_pulse_step")]
+    #[doc(alias = "get_pulse_step")]
     fn pulse_step(&self) -> f64;
 
     #[doc(alias = "gtk_progress_bar_get_show_text")]
+    #[doc(alias = "get_show_text")]
     fn shows_text(&self) -> bool;
 
     #[doc(alias = "gtk_progress_bar_get_text")]
+    #[doc(alias = "get_text")]
     fn text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_progress_bar_pulse")]
@@ -455,17 +461,23 @@ pub trait ProgressBarExt: 'static {
     #[doc(alias = "gtk_progress_bar_set_text")]
     fn set_text(&self, text: Option<&str>);
 
-    fn connect_property_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "ellipsize")]
+    fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "fraction")]
+    fn connect_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "inverted")]
+    fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_pulse_step_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "pulse-step")]
+    fn connect_pulse_step_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "show-text")]
+    fn connect_show_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "text")]
+    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ProgressBar>> ProgressBarExt for O {
@@ -517,7 +529,7 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
 
     fn set_ellipsize(&self, mode: pango::EllipsizeMode) {
         unsafe {
-            ffi::gtk_progress_bar_set_ellipsize(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_progress_bar_set_ellipsize(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
@@ -529,7 +541,10 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
 
     fn set_inverted(&self, inverted: bool) {
         unsafe {
-            ffi::gtk_progress_bar_set_inverted(self.as_ref().to_glib_none().0, inverted.to_glib());
+            ffi::gtk_progress_bar_set_inverted(
+                self.as_ref().to_glib_none().0,
+                inverted.into_glib(),
+            );
         }
     }
 
@@ -543,7 +558,7 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         unsafe {
             ffi::gtk_progress_bar_set_show_text(
                 self.as_ref().to_glib_none().0,
-                show_text.to_glib(),
+                show_text.into_glib(),
             );
         }
     }
@@ -554,7 +569,8 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn connect_property_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "ellipsize")]
+    fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ellipsize_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkProgressBar,
             _param_spec: glib::ffi::gpointer,
@@ -578,7 +594,8 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn connect_property_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "fraction")]
+    fn connect_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_fraction_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkProgressBar,
             _param_spec: glib::ffi::gpointer,
@@ -602,7 +619,8 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "inverted")]
+    fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkProgressBar,
             _param_spec: glib::ffi::gpointer,
@@ -626,7 +644,8 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn connect_property_pulse_step_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "pulse-step")]
+    fn connect_pulse_step_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pulse_step_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkProgressBar,
             _param_spec: glib::ffi::gpointer,
@@ -650,7 +669,8 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn connect_property_show_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "show-text")]
+    fn connect_show_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_text_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkProgressBar,
             _param_spec: glib::ffi::gpointer,
@@ -674,7 +694,8 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    fn connect_property_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "text")]
+    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkProgressBar,
             _param_spec: glib::ffi::gpointer,

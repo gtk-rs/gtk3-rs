@@ -134,8 +134,8 @@ impl CellRendererProgressBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<CellRendererProgress>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CellRendererProgress>(&properties)
+            .expect("Failed to create an instance of CellRendererProgress")
     }
 
     pub fn inverted(mut self, inverted: bool) -> Self {
@@ -247,53 +247,51 @@ impl CellRendererProgressBuilder {
 pub const NONE_CELL_RENDERER_PROGRESS: Option<&CellRendererProgress> = None;
 
 pub trait CellRendererProgressExt: 'static {
-    #[doc(alias = "get_property_inverted")]
     fn is_inverted(&self) -> bool;
 
-    #[doc(alias = "set_property_inverted")]
     fn set_inverted(&self, inverted: bool);
 
-    #[doc(alias = "get_property_pulse")]
     fn pulse(&self) -> i32;
 
-    #[doc(alias = "set_property_pulse")]
     fn set_pulse(&self, pulse: i32);
 
-    #[doc(alias = "get_property_text")]
     fn text(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_text")]
     fn set_text(&self, text: Option<&str>);
 
-    #[doc(alias = "get_property_text_xalign")]
+    #[doc(alias = "text-xalign")]
     fn text_xalign(&self) -> f32;
 
-    #[doc(alias = "set_property_text_xalign")]
+    #[doc(alias = "text-xalign")]
     fn set_text_xalign(&self, text_xalign: f32);
 
-    #[doc(alias = "get_property_text_yalign")]
+    #[doc(alias = "text-yalign")]
     fn text_yalign(&self) -> f32;
 
-    #[doc(alias = "set_property_text_yalign")]
+    #[doc(alias = "text-yalign")]
     fn set_text_yalign(&self, text_yalign: f32);
 
-    #[doc(alias = "get_property_value")]
     fn value(&self) -> i32;
 
-    #[doc(alias = "set_property_value")]
     fn set_value(&self, value: i32);
 
-    fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "inverted")]
+    fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "pulse")]
+    fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "text")]
+    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_text_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "text-xalign")]
+    fn connect_text_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_text_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "text-yalign")]
+    fn connect_text_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "value")]
+    fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
@@ -441,7 +439,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "inverted")]
+    fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
@@ -465,7 +464,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn connect_property_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "pulse")]
+    fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pulse_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
@@ -489,7 +489,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn connect_property_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "text")]
+    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
@@ -513,7 +514,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn connect_property_text_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "text-xalign")]
+    fn connect_text_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_xalign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
@@ -537,7 +539,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn connect_property_text_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "text-yalign")]
+    fn connect_text_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_yalign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
@@ -561,7 +564,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
-    fn connect_property_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "value")]
+    fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,

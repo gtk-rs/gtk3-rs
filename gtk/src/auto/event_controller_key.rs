@@ -46,11 +46,13 @@ impl EventControllerKey {
     }
 
     #[doc(alias = "gtk_event_controller_key_get_group")]
+    #[doc(alias = "get_group")]
     pub fn group(&self) -> u32 {
         unsafe { ffi::gtk_event_controller_key_get_group(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_event_controller_key_get_im_context")]
+    #[doc(alias = "get_im_context")]
     pub fn im_context(&self) -> Option<IMContext> {
         unsafe {
             from_glib_none(ffi::gtk_event_controller_key_get_im_context(
@@ -69,6 +71,7 @@ impl EventControllerKey {
         }
     }
 
+    #[doc(alias = "focus-in")]
     pub fn connect_focus_in<F: Fn(&EventControllerKey) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn focus_in_trampoline<F: Fn(&EventControllerKey) + 'static>(
             this: *mut ffi::GtkEventControllerKey,
@@ -90,6 +93,7 @@ impl EventControllerKey {
         }
     }
 
+    #[doc(alias = "focus-out")]
     pub fn connect_focus_out<F: Fn(&EventControllerKey) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn focus_out_trampoline<F: Fn(&EventControllerKey) + 'static>(
             this: *mut ffi::GtkEventControllerKey,
@@ -111,6 +115,7 @@ impl EventControllerKey {
         }
     }
 
+    #[doc(alias = "im-update")]
     pub fn connect_im_update<F: Fn(&EventControllerKey) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn im_update_trampoline<F: Fn(&EventControllerKey) + 'static>(
             this: *mut ffi::GtkEventControllerKey,
@@ -134,6 +139,7 @@ impl EventControllerKey {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[doc(alias = "key-pressed")]
     pub fn connect_key_pressed<
         F: Fn(&EventControllerKey, u32, u32, gdk::ModifierType) -> bool + 'static,
     >(
@@ -150,7 +156,7 @@ impl EventControllerKey {
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), keyval, keycode, from_glib(state)).to_glib()
+            f(&from_glib_borrow(this), keyval, keycode, from_glib(state)).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -167,6 +173,7 @@ impl EventControllerKey {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[doc(alias = "key-released")]
     pub fn connect_key_released<
         F: Fn(&EventControllerKey, u32, u32, gdk::ModifierType) + 'static,
     >(
@@ -198,6 +205,7 @@ impl EventControllerKey {
         }
     }
 
+    #[doc(alias = "modifiers")]
     pub fn connect_modifiers<F: Fn(&EventControllerKey, gdk::ModifierType) -> bool + 'static>(
         &self,
         f: F,
@@ -210,7 +218,7 @@ impl EventControllerKey {
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), from_glib(object)).to_glib()
+            f(&from_glib_borrow(this), from_glib(object)).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "GdkX11"
 version = "3.0"
-min_cfg_version = "3.14"
+min_cfg_version = "3.18"
 single_version_file = "."
 dox_feature_dependencies = ["cairo"]
 girs_directories = ["../../gir-files"]
@@ -20,11 +20,6 @@ version = "3.24.2"
 dependencies = [
     "cairo"
 ]
-
-[[object]]
-name = "GdkX11.X11GLContext"
-status = "generate"
-version = "3.16"
 
 [[object]]
 name = "GdkX11.X11Monitor"

@@ -26,44 +26,53 @@ pub const NONE_FONT_CHOOSER: Option<&FontChooser> = None;
 
 pub trait FontChooserExt: 'static {
     #[doc(alias = "gtk_font_chooser_get_font")]
+    #[doc(alias = "get_font")]
     fn font(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_font_chooser_get_font_desc")]
+    #[doc(alias = "get_font_desc")]
     fn font_desc(&self) -> Option<pango::FontDescription>;
 
     #[doc(alias = "gtk_font_chooser_get_font_face")]
+    #[doc(alias = "get_font_face")]
     fn font_face(&self) -> Option<pango::FontFace>;
 
     #[doc(alias = "gtk_font_chooser_get_font_family")]
+    #[doc(alias = "get_font_family")]
     fn font_family(&self) -> Option<pango::FontFamily>;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_font_chooser_get_font_features")]
+    #[doc(alias = "get_font_features")]
     fn font_features(&self) -> Option<glib::GString>;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_font_chooser_get_font_map")]
+    #[doc(alias = "get_font_map")]
     fn font_map(&self) -> Option<pango::FontMap>;
 
     #[doc(alias = "gtk_font_chooser_get_font_size")]
+    #[doc(alias = "get_font_size")]
     fn font_size(&self) -> i32;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_font_chooser_get_language")]
+    #[doc(alias = "get_language")]
     fn language(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_font_chooser_get_level")]
+    #[doc(alias = "get_level")]
     fn level(&self) -> FontChooserLevel;
 
     #[doc(alias = "gtk_font_chooser_get_preview_text")]
+    #[doc(alias = "get_preview_text")]
     fn preview_text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_font_chooser_get_show_preview_entry")]
+    #[doc(alias = "get_show_preview_entry")]
     fn shows_preview_entry(&self) -> bool;
 
     #[doc(alias = "gtk_font_chooser_set_filter_func")]
@@ -78,8 +87,6 @@ pub trait FontChooserExt: 'static {
     #[doc(alias = "gtk_font_chooser_set_font_desc")]
     fn set_font_desc(&self, font_desc: &pango::FontDescription);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_font_chooser_set_font_map")]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, fontmap: Option<&P>);
 
@@ -99,34 +106,35 @@ pub trait FontChooserExt: 'static {
     #[doc(alias = "gtk_font_chooser_set_show_preview_entry")]
     fn set_show_preview_entry(&self, show_preview_entry: bool);
 
+    #[doc(alias = "font-activated")]
     fn connect_font_activated<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_font_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "font")]
+    fn connect_font_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_font_desc_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn connect_property_font_features_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "font-desc")]
+    fn connect_font_desc_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn connect_property_language_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "font-features")]
+    fn connect_font_features_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn connect_property_level_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "language")]
+    fn connect_language_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_preview_text_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[doc(alias = "level")]
+    fn connect_level_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_preview_entry_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "preview-text")]
+    fn connect_preview_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "show-preview-entry")]
+    fn connect_show_preview_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<FontChooser>> FontChooserExt for O {
@@ -172,8 +180,6 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn font_map(&self) -> Option<pango::FontMap> {
         unsafe {
             from_glib_full(ffi::gtk_font_chooser_get_font_map(
@@ -244,7 +250,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
             } else {
                 panic!("cannot get closure...")
             };
-            res.to_glib()
+            res.into_glib()
         }
         let filter = if filter_data.is_some() {
             Some(filter_func as _)
@@ -288,8 +294,6 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, fontmap: Option<&P>) {
         unsafe {
             ffi::gtk_font_chooser_set_font_map(
@@ -314,7 +318,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn set_level(&self, level: FontChooserLevel) {
         unsafe {
-            ffi::gtk_font_chooser_set_level(self.as_ref().to_glib_none().0, level.to_glib());
+            ffi::gtk_font_chooser_set_level(self.as_ref().to_glib_none().0, level.into_glib());
         }
     }
 
@@ -331,11 +335,12 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         unsafe {
             ffi::gtk_font_chooser_set_show_preview_entry(
                 self.as_ref().to_glib_none().0,
-                show_preview_entry.to_glib(),
+                show_preview_entry.into_glib(),
             );
         }
     }
 
+    #[doc(alias = "font-activated")]
     fn connect_font_activated<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn font_activated_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GtkFontChooser,
@@ -363,7 +368,8 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    fn connect_property_font_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "font")]
+    fn connect_font_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontChooser,
             _param_spec: glib::ffi::gpointer,
@@ -387,7 +393,8 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    fn connect_property_font_desc_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "font-desc")]
+    fn connect_font_desc_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_desc_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontChooser,
             _param_spec: glib::ffi::gpointer,
@@ -413,10 +420,8 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn connect_property_font_features_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "font-features")]
+    fn connect_font_features_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_features_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontChooser,
             _param_spec: glib::ffi::gpointer,
@@ -442,7 +447,8 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn connect_property_language_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "language")]
+    fn connect_language_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_language_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontChooser,
             _param_spec: glib::ffi::gpointer,
@@ -468,7 +474,8 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    fn connect_property_level_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "level")]
+    fn connect_level_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_level_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontChooser,
             _param_spec: glib::ffi::gpointer,
@@ -492,10 +499,8 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    fn connect_property_preview_text_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "preview-text")]
+    fn connect_preview_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_preview_text_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontChooser,
             _param_spec: glib::ffi::gpointer,
@@ -519,10 +524,8 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    fn connect_property_show_preview_entry_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-preview-entry")]
+    fn connect_show_preview_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_preview_entry_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontChooser,
             _param_spec: glib::ffi::gpointer,

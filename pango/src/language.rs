@@ -29,7 +29,7 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::PangoLanguage> for Language {
 impl FromGlibPtrNone<*mut ffi::PangoLanguage> for Language {
     unsafe fn from_glib_none(ptr: *mut ffi::PangoLanguage) -> Self {
         assert!(!ptr.is_null());
-        Language(ptr)
+        Self(ptr)
     }
 }
 
@@ -37,7 +37,7 @@ impl FromGlibPtrNone<*mut ffi::PangoLanguage> for Language {
 impl FromGlibPtrFull<*mut ffi::PangoLanguage> for Language {
     unsafe fn from_glib_full(ptr: *mut ffi::PangoLanguage) -> Self {
         assert!(!ptr.is_null());
-        Language(ptr)
+        Self(ptr)
     }
 }
 
@@ -45,7 +45,7 @@ impl FromGlibPtrFull<*mut ffi::PangoLanguage> for Language {
 impl FromGlibPtrNone<*const ffi::PangoLanguage> for Language {
     unsafe fn from_glib_none(ptr: *const ffi::PangoLanguage) -> Self {
         assert!(!ptr.is_null());
-        Language(ptr as *mut _)
+        Self(ptr as *mut _)
     }
 }
 
@@ -53,18 +53,18 @@ impl FromGlibPtrNone<*const ffi::PangoLanguage> for Language {
 impl FromGlibPtrFull<*const ffi::PangoLanguage> for Language {
     unsafe fn from_glib_full(ptr: *const ffi::PangoLanguage) -> Self {
         assert!(!ptr.is_null());
-        Language(ptr as *mut _)
+        Self(ptr as *mut _)
     }
 }
 
 impl Default for Language {
-    fn default() -> Language {
+    fn default() -> Self {
         unsafe { from_glib_full(ffi::pango_language_get_default()) }
     }
 }
 
 impl Language {
-    pub fn from_string(language: &str) -> Language {
+    pub fn from_string(language: &str) -> Self {
         unsafe { from_glib_full(ffi::pango_language_from_string(language.to_glib_none().0)) }
     }
 
@@ -85,11 +85,12 @@ impl Language {
         unsafe {
             from_glib(ffi::pango_language_includes_script(
                 self.to_glib_none().0,
-                script.to_glib(),
+                script.into_glib(),
             ))
         }
     }
 
+    #[doc(alias = "get_scripts")]
     pub fn scripts(&self) -> Vec<Script> {
         let mut num_scripts = 0;
         let mut ret = Vec::new();
@@ -108,6 +109,7 @@ impl Language {
         }
     }
 
+    #[doc(alias = "get_sample_string")]
     pub fn sample_string(&self) -> GString {
         unsafe { from_glib_none(ffi::pango_language_get_sample_string(self.to_glib_none().0)) }
     }

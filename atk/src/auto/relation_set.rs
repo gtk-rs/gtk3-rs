@@ -47,12 +47,15 @@ pub trait RelationSetExt: 'static {
     fn contains_target<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
     #[doc(alias = "atk_relation_set_get_n_relations")]
+    #[doc(alias = "get_n_relations")]
     fn n_relations(&self) -> i32;
 
     #[doc(alias = "atk_relation_set_get_relation")]
+    #[doc(alias = "get_relation")]
     fn relation(&self, i: i32) -> Option<Relation>;
 
     #[doc(alias = "atk_relation_set_get_relation_by_type")]
+    #[doc(alias = "get_relation_by_type")]
     fn relation_by_type(&self, relationship: RelationType) -> Option<Relation>;
 
     #[doc(alias = "atk_relation_set_remove")]
@@ -73,7 +76,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         unsafe {
             ffi::atk_relation_set_add_relation_by_type(
                 self.as_ref().to_glib_none().0,
-                relationship.to_glib(),
+                relationship.into_glib(),
                 target.as_ref().to_glib_none().0,
             );
         }
@@ -83,7 +86,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         unsafe {
             from_glib(ffi::atk_relation_set_contains(
                 self.as_ref().to_glib_none().0,
-                relationship.to_glib(),
+                relationship.into_glib(),
             ))
         }
     }
@@ -92,7 +95,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         unsafe {
             from_glib(ffi::atk_relation_set_contains_target(
                 self.as_ref().to_glib_none().0,
-                relationship.to_glib(),
+                relationship.into_glib(),
                 target.as_ref().to_glib_none().0,
             ))
         }
@@ -115,7 +118,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         unsafe {
             from_glib_none(ffi::atk_relation_set_get_relation_by_type(
                 self.as_ref().to_glib_none().0,
-                relationship.to_glib(),
+                relationship.into_glib(),
             ))
         }
     }

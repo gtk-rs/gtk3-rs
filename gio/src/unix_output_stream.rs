@@ -15,14 +15,14 @@ impl UnixOutputStream {
     #[doc(alias = "g_unix_output_stream_new")]
     pub unsafe fn take_fd<T: IntoRawFd>(fd: T) -> UnixOutputStream {
         let fd = fd.into_raw_fd();
-        let close_fd = true.to_glib();
+        let close_fd = true.into_glib();
         OutputStream::from_glib_full(ffi::g_unix_output_stream_new(fd, close_fd)).unsafe_cast()
     }
 
     #[doc(alias = "g_unix_output_stream_new")]
     pub unsafe fn with_fd<T: AsRawFd>(fd: T) -> UnixOutputStream {
         let fd = fd.as_raw_fd();
-        let close_fd = false.to_glib();
+        let close_fd = false.into_glib();
         OutputStream::from_glib_full(ffi::g_unix_output_stream_new(fd, close_fd)).unsafe_cast()
     }
 }
@@ -35,6 +35,7 @@ impl AsRawFd for UnixOutputStream {
 
 pub trait UnixOutputStreamExtManual: Sized {
     #[doc(alias = "g_unix_output_stream_get_fd")]
+    #[doc(alias = "get_fd")]
     fn fd<T: FromRawFd>(&self) -> T;
 
     #[doc(alias = "g_unix_output_stream_set_close_fd")]
@@ -51,6 +52,9 @@ impl<O: IsA<UnixOutputStream>> UnixOutputStreamExtManual for O {
     }
 
     unsafe fn set_close_fd(&self, close_fd: bool) {
-        ffi::g_unix_output_stream_set_close_fd(self.as_ref().to_glib_none().0, close_fd.to_glib());
+        ffi::g_unix_output_stream_set_close_fd(
+            self.as_ref().to_glib_none().0,
+            close_fd.into_glib(),
+        );
     }
 }

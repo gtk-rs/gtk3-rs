@@ -62,8 +62,6 @@
 //! conversions between high level Rust types (including the aforementioned
 //! wrappers) and their FFI counterparts.
 
-#![allow(clippy::doc_markdown)]
-#![allow(clippy::unreadable_literal)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 
@@ -120,12 +118,9 @@ pub mod object;
 
 pub use self::auto::functions::*;
 pub use self::auto::*;
-#[allow(clippy::let_and_return)]
-#[allow(clippy::let_unit_value)]
+#[allow(non_upper_case_globals)]
 #[allow(clippy::too_many_arguments)]
 #[allow(clippy::type_complexity)]
-#[allow(unused_doc_comments)]
-#[allow(non_upper_case_globals)]
 #[allow(unused_imports)]
 mod auto;
 
@@ -174,7 +169,6 @@ mod quark;
 pub use self::quark::Quark;
 #[macro_use]
 mod log;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 pub use self::log::log_set_handler;
 
 // #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -224,6 +218,7 @@ fn next_thread_id() -> usize {
     unsafe { COUNTER.fetch_add(1, Ordering::SeqCst) }
 }
 
+#[doc(alias = "get_thread_id")]
 pub(crate) fn thread_id() -> usize {
     thread_local!(static THREAD_ID: usize = next_thread_id());
     THREAD_ID.with(|&x| x)

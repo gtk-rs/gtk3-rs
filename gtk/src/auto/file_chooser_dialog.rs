@@ -351,8 +351,8 @@ impl FileChooserDialogBuilder {
         if let Some(ref use_preview_label) = self.use_preview_label {
             properties.push(("use-preview-label", use_preview_label));
         }
-        let ret = glib::Object::new::<FileChooserDialog>(&properties).expect("object new");
-        ret
+        glib::Object::new::<FileChooserDialog>(&properties)
+            .expect("Failed to create an instance of FileChooserDialog")
     }
 
     pub fn use_header_bar(mut self, use_header_bar: i32) -> Self {

@@ -197,6 +197,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_preferred_width(widget)
     }
 
+    #[doc(alias = "get_preferred_width_for_height")]
     fn preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32) {
         self.parent_preferred_width_for_height(widget, height)
     }
@@ -205,6 +206,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_preferred_height(widget)
     }
 
+    #[doc(alias = "get_preferred_height_for_width")]
     fn preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
         self.parent_preferred_height_for_width(widget, width)
     }
@@ -402,7 +404,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
                 .expect("No parent class impl for \"adjust_size_allocation\"");
             f(
                 widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
-                orientation.to_glib(),
+                orientation.into_glib(),
                 minimum_size,
                 natural_size,
                 allocated_pos,
@@ -426,7 +428,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
                 .expect("No parent class impl for \"adjust_size_request\"");
             f(
                 widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
-                orientation.to_glib(),
+                orientation.into_glib(),
                 minimum_size as *mut i32,
                 natural_size as *mut i32,
             )
@@ -511,8 +513,8 @@ impl<T: WidgetImpl> WidgetImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             let widget = widget.unsafe_cast_ref::<Widget>();
             if let Some(f) = (*parent_class).compute_expand {
-                let mut hexpand_glib = hexpand.to_glib();
-                let mut vexpand_glib = vexpand.to_glib();
+                let mut hexpand_glib = hexpand.into_glib();
+                let mut vexpand_glib = vexpand.into_glib();
                 f(
                     widget.to_glib_none().0,
                     &mut hexpand_glib,
@@ -605,7 +607,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
             if let Some(f) = (*parent_class).direction_changed {
                 f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
-                    previous_direction.to_glib(),
+                    previous_direction.into_glib(),
                 )
             }
         }
@@ -763,7 +765,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
                     context.to_glib_none().0,
-                    result.to_glib(),
+                    result.into_glib(),
                 )))
             } else {
                 Inhibit(false)
@@ -1152,7 +1154,7 @@ unsafe extern "C" fn widget_button_press_event<T: WidgetImpl>(
     let evwrap: Borrowed<gdk::EventButton> = from_glib_borrow(btnptr);
 
     imp.button_press_event(wrap.unsafe_cast_ref(), &evwrap)
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_button_release_event<T: WidgetImpl>(
@@ -1165,7 +1167,7 @@ unsafe extern "C" fn widget_button_release_event<T: WidgetImpl>(
     let evwrap: Borrowed<gdk::EventButton> = from_glib_borrow(btnptr);
 
     imp.button_release_event(wrap.unsafe_cast_ref(), &evwrap)
-        .to_glib()
+        .into_glib()
 }
 
 // unsafe extern "C" fn widget_can_activate_accel<T: WidgetImpl>(
@@ -1222,8 +1224,8 @@ unsafe extern "C" fn widget_compute_expand<T: WidgetImpl>(
     };
 
     imp.compute_expand(wrap.unsafe_cast_ref(), &mut hexpand, &mut vexpand);
-    *hexpand_ptr = hexpand.to_glib();
-    *vexpand_ptr = vexpand.to_glib();
+    *hexpand_ptr = hexpand.into_glib();
+    *vexpand_ptr = vexpand.into_glib();
 }
 
 unsafe extern "C" fn widget_configure_event<T: WidgetImpl>(
@@ -1236,7 +1238,7 @@ unsafe extern "C" fn widget_configure_event<T: WidgetImpl>(
     let evwrap: Borrowed<gdk::EventConfigure> = from_glib_borrow(confptr);
 
     imp.configure_event(wrap.unsafe_cast_ref(), &evwrap)
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_damage_event<T: WidgetImpl>(
@@ -1248,7 +1250,8 @@ unsafe extern "C" fn widget_damage_event<T: WidgetImpl>(
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
     let evwrap: Borrowed<gdk::EventExpose> = from_glib_borrow(exposeptr);
 
-    imp.damage_event(wrap.unsafe_cast_ref(), &evwrap).to_glib()
+    imp.damage_event(wrap.unsafe_cast_ref(), &evwrap)
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_delete_event<T: WidgetImpl>(
@@ -1260,7 +1263,8 @@ unsafe extern "C" fn widget_delete_event<T: WidgetImpl>(
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
     let evwrap: Borrowed<gdk::Event> = from_glib_borrow(anyptr);
 
-    imp.delete_event(wrap.unsafe_cast_ref(), &evwrap).to_glib()
+    imp.delete_event(wrap.unsafe_cast_ref(), &evwrap)
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_destroy<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
@@ -1280,7 +1284,8 @@ unsafe extern "C" fn widget_destroy_event<T: WidgetImpl>(
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
     let evwrap: Borrowed<gdk::Event> = from_glib_borrow(anyptr);
 
-    imp.destroy_event(wrap.unsafe_cast_ref(), &evwrap).to_glib()
+    imp.destroy_event(wrap.unsafe_cast_ref(), &evwrap)
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_direction_changed<T: WidgetImpl>(
@@ -1394,7 +1399,7 @@ unsafe extern "C" fn widget_drag_drop<T: WidgetImpl>(
     let context: Borrowed<gdk::DragContext> = from_glib_borrow(ctxptr);
 
     imp.drag_drop(wrap.unsafe_cast_ref(), &context, x, y, time)
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_drag_end<T: WidgetImpl>(
@@ -1421,7 +1426,7 @@ unsafe extern "C" fn widget_drag_failed<T: WidgetImpl>(
     let result: DragResult = from_glib(resultptr);
 
     imp.drag_failed(wrap.unsafe_cast_ref(), &context, result)
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_drag_leave<T: WidgetImpl>(
@@ -1450,7 +1455,7 @@ unsafe extern "C" fn widget_drag_motion<T: WidgetImpl>(
     let context: Borrowed<gdk::DragContext> = from_glib_borrow(ctxptr);
 
     imp.drag_motion(wrap.unsafe_cast_ref(), &context, x, y, time)
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_draw<T: WidgetImpl>(
@@ -1462,7 +1467,7 @@ unsafe extern "C" fn widget_draw<T: WidgetImpl>(
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
     let cr: Borrowed<cairo::Context> = from_glib_borrow(cr_ptr);
 
-    imp.draw(wrap.unsafe_cast_ref(), &cr).to_glib()
+    imp.draw(wrap.unsafe_cast_ref(), &cr).into_glib()
 }
 
 unsafe extern "C" fn widget_get_request_mode<T: WidgetImpl>(
@@ -1472,7 +1477,7 @@ unsafe extern "C" fn widget_get_request_mode<T: WidgetImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
 
-    imp.request_mode(wrap.unsafe_cast_ref()).to_glib()
+    imp.request_mode(wrap.unsafe_cast_ref()).into_glib()
 }
 
 unsafe extern "C" fn widget_get_preferred_height<T: WidgetImpl>(
@@ -1600,7 +1605,7 @@ unsafe extern "C" fn widget_motion_notify_event<T: WidgetImpl>(
     let event: Borrowed<gdk::EventMotion> = from_glib_borrow(mptr);
 
     imp.motion_notify_event(wrap.unsafe_cast_ref(), &event)
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_scroll_event<T: WidgetImpl>(
@@ -1612,7 +1617,7 @@ unsafe extern "C" fn widget_scroll_event<T: WidgetImpl>(
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
     let event: Borrowed<gdk::EventScroll> = from_glib_borrow(mptr);
 
-    imp.scroll_event(wrap.unsafe_cast_ref(), &event).to_glib()
+    imp.scroll_event(wrap.unsafe_cast_ref(), &event).into_glib()
 }
 
 unsafe extern "C" fn widget_enter_notify_event<T: WidgetImpl>(
@@ -1625,7 +1630,7 @@ unsafe extern "C" fn widget_enter_notify_event<T: WidgetImpl>(
     let event: Borrowed<gdk::EventCrossing> = from_glib_borrow(mptr);
 
     imp.enter_notify_event(wrap.unsafe_cast_ref(), &event)
-        .to_glib()
+        .into_glib()
 }
 
 unsafe extern "C" fn widget_leave_notify_event<T: WidgetImpl>(
@@ -1638,16 +1643,13 @@ unsafe extern "C" fn widget_leave_notify_event<T: WidgetImpl>(
     let event: Borrowed<gdk::EventCrossing> = from_glib_borrow(mptr);
 
     imp.leave_notify_event(wrap.unsafe_cast_ref(), &event)
-        .to_glib()
+        .into_glib()
 }
 
 pub unsafe trait WidgetClassSubclassExt: ClassStruct {
     fn set_template_bytes(&mut self, template: &glib::Bytes) {
         unsafe {
-            let type_class = self as *mut _ as *mut glib::gobject_ffi::GTypeClass;
-            let widget_class =
-                glib::gobject_ffi::g_type_check_class_cast(type_class, ffi::gtk_widget_get_type())
-                    as *mut ffi::GtkWidgetClass;
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
             ffi::gtk_widget_class_set_template(widget_class, template.to_glib_none().0);
         }
     }
@@ -1664,10 +1666,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
 
     fn set_template_from_resource(&mut self, resource_name: &str) {
         unsafe {
-            let type_class = self as *mut _ as *mut glib::gobject_ffi::GTypeClass;
-            let widget_class =
-                glib::gobject_ffi::g_type_check_class_cast(type_class, ffi::gtk_widget_get_type())
-                    as *mut ffi::GtkWidgetClass;
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
             ffi::gtk_widget_class_set_template_from_resource(
                 widget_class,
                 resource_name.to_glib_none().0,
@@ -1677,10 +1676,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
 
     fn bind_template_child(&mut self, name: &str) {
         unsafe {
-            let type_class = self as *mut _ as *mut glib::gobject_ffi::GTypeClass;
-            let widget_class =
-                glib::gobject_ffi::g_type_check_class_cast(type_class, ffi::gtk_widget_get_type())
-                    as *mut ffi::GtkWidgetClass;
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
             ffi::gtk_widget_class_bind_template_child_full(
                 widget_class,
                 name.to_glib_none().0,
@@ -1698,10 +1694,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
     ) where
         T: ObjectType + FromGlibPtrNone<*mut <T as ObjectType>::GlibType>,
     {
-        let type_class = self as *mut _ as *mut glib::gobject_ffi::GTypeClass;
-        let widget_class =
-            glib::gobject_ffi::g_type_check_class_cast(type_class, ffi::gtk_widget_get_type())
-                as *mut ffi::GtkWidgetClass;
+        let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
         let private_offset = <Self::Type as ObjectSubclassType>::type_data()
             .as_ref()
             .impl_offset();

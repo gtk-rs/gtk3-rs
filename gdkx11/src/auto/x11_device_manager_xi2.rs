@@ -20,7 +20,6 @@ glib::wrapper! {
 }
 
 impl X11DeviceManagerXI2 {
-    #[doc(alias = "get_property_major")]
     pub fn major(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
@@ -35,7 +34,6 @@ impl X11DeviceManagerXI2 {
         }
     }
 
-    #[doc(alias = "get_property_minor")]
     pub fn minor(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
@@ -50,7 +48,6 @@ impl X11DeviceManagerXI2 {
         }
     }
 
-    #[doc(alias = "get_property_opcode")]
     pub fn opcode(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
@@ -93,8 +90,8 @@ impl X11DeviceManagerXI2Builder {
         if let Some(ref display) = self.display {
             properties.push(("display", display));
         }
-        let ret = glib::Object::new::<X11DeviceManagerXI2>(&properties).expect("object new");
-        ret
+        glib::Object::new::<X11DeviceManagerXI2>(&properties)
+            .expect("Failed to create an instance of X11DeviceManagerXI2")
     }
 
     pub fn major(mut self, major: i32) -> Self {

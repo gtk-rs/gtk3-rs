@@ -41,7 +41,7 @@ impl KeyFile {
                 self.to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 &mut full_path,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -70,7 +70,7 @@ impl KeyFile {
                 file.as_ref().to_glib_none().0,
                 search_dirs.to_glib_none().0,
                 &mut full_path,
-                flags.to_glib(),
+                flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -92,6 +92,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_boolean")]
+    #[doc(alias = "get_boolean")]
     pub fn boolean(&self, group_name: &str, key: &str) -> Result<bool, Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -128,6 +129,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_boolean_list")]
+    #[doc(alias = "get_boolean_list")]
     pub fn boolean_list(&self, group_name: &str, key: &str) -> Result<Vec<bool>, Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
@@ -150,6 +152,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_string")]
+    #[doc(alias = "get_string")]
     pub fn string(&self, group_name: &str, key: &str) -> Result<GString, Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -171,6 +174,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_string_list")]
+    #[doc(alias = "get_string_list")]
     pub fn string_list(&self, group_name: &str, key: &str) -> Result<Vec<GString>, Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
@@ -197,6 +201,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_locale_string")]
+    #[doc(alias = "get_locale_string")]
     pub fn locale_string(
         &self,
         group_name: &str,
@@ -224,6 +229,7 @@ impl KeyFile {
     }
 
     #[doc(alias = "g_key_file_get_locale_string_list")]
+    #[doc(alias = "get_locale_string_list")]
     pub fn locale_string_list(
         &self,
         group_name: &str,

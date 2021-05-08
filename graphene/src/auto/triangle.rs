@@ -44,11 +44,13 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_area")]
+    #[doc(alias = "get_area")]
     pub fn area(&self) -> f32 {
         unsafe { ffi::graphene_triangle_get_area(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_triangle_get_barycoords")]
+    #[doc(alias = "get_barycoords")]
     pub fn barycoords(&self, p: Option<&Point3D>) -> Option<Vec2> {
         unsafe {
             let mut res = Vec2::uninitialized();
@@ -66,6 +68,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_bounding_box")]
+    #[doc(alias = "get_bounding_box")]
     pub fn bounding_box(&self) -> Box {
         unsafe {
             let mut res = Box::uninitialized();
@@ -78,6 +81,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_midpoint")]
+    #[doc(alias = "get_midpoint")]
     pub fn midpoint(&self) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
@@ -87,6 +91,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_normal")]
+    #[doc(alias = "get_normal")]
     pub fn normal(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
@@ -96,6 +101,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_plane")]
+    #[doc(alias = "get_plane")]
     pub fn plane(&self) -> Plane {
         unsafe {
             let mut res = Plane::uninitialized();
@@ -105,6 +111,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_points")]
+    #[doc(alias = "get_points")]
     pub fn points(&self) -> (Point3D, Point3D, Point3D) {
         unsafe {
             let mut a = Point3D::uninitialized();
@@ -120,9 +127,8 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_triangle_get_uv")]
+    #[doc(alias = "get_uv")]
     pub fn uv(&self, p: Option<&Point3D>, uv_a: &Vec2, uv_b: &Vec2, uv_c: &Vec2) -> Option<Vec2> {
         unsafe {
             let mut res = Vec2::uninitialized();
@@ -143,6 +149,7 @@ impl Triangle {
     }
 
     #[doc(alias = "graphene_triangle_get_vertices")]
+    #[doc(alias = "get_vertices")]
     pub fn vertices(&self) -> (Vec3, Vec3, Vec3) {
         unsafe {
             let mut a = Vec3::uninitialized();
@@ -158,8 +165,6 @@ impl Triangle {
         }
     }
 
-    //#[cfg(any(feature = "v1_10", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     //#[doc(alias = "graphene_triangle_init_from_float")]
     //pub fn init_from_float(&mut self, a: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3, b: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3, c: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3) -> Option<Triangle> {
     //    unsafe { TODO: call ffi:graphene_triangle_init_from_float() }

@@ -18,11 +18,11 @@ use super::SignalId;
 #[derive(Debug, PartialEq, Eq)]
 pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<*const T>);
 
-impl<T> ToGlib for InitializingType<T> {
+impl<T> IntoGlib for InitializingType<T> {
     type GlibType = ffi::GType;
 
-    fn to_glib(&self) -> ffi::GType {
-        self.0.to_glib()
+    fn into_glib(self) -> ffi::GType {
+        self.0.into_glib()
     }
 }
 
@@ -50,6 +50,7 @@ pub unsafe trait InstanceStruct: Sized + 'static {
     /// is the implementor of [`ObjectImpl`] or subtraits.
     ///
     /// [`ObjectImpl`]: ../object/trait.ObjectImpl.html
+    #[doc(alias = "get_impl")]
     fn impl_(&self) -> &Self::Type {
         unsafe {
             let data = Self::Type::type_data();
@@ -63,6 +64,7 @@ pub unsafe trait InstanceStruct: Sized + 'static {
     }
 
     /// Returns the class struct for this specific instance.
+    #[doc(alias = "get_class")]
     fn class(&self) -> &<Self::Type as ObjectSubclass>::Class {
         unsafe { &**(self as *const _ as *const *const <Self::Type as ObjectSubclass>::Class) }
     }
@@ -192,7 +194,7 @@ where
 {
     fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
         vec![(
-            A::static_type().to_glib(),
+            A::static_type().into_glib(),
             gobject_ffi::GInterfaceInfo {
                 interface_init: Some(interface_init::<T, A>),
                 interface_finalize: None,
@@ -235,7 +237,7 @@ macro_rules! interface_list_trait_impl(
                 vec![
                     $(
                         (
-                            $name::static_type().to_glib(),
+                            $name::static_type().into_glib(),
                             gobject_ffi::GInterfaceInfo {
                                 interface_init: Some(interface_init::<T, $name>),
                                 interface_finalize: None,
@@ -281,6 +283,7 @@ unsafe impl Sync for TypeData {}
 
 impl TypeData {
     /// Returns the type ID.
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> Type {
         self.type_
     }
@@ -289,6 +292,7 @@ impl TypeData {
     ///
     /// This is used for chaining up to the parent class' implementation
     /// of virtual methods.
+    #[doc(alias = "get_parent_class")]
     pub fn parent_class(&self) -> ffi::gpointer {
         debug_assert!(!self.parent_class.is_null());
         self.parent_class
@@ -303,6 +307,7 @@ impl TypeData {
     ///
     /// This function panics if the type to which the `TypeData` belongs does not implement the
     /// given interface or was not registered yet.
+    #[doc(alias = "get_parent_interface")]
     pub fn parent_interface<I: crate::object::IsInterface>(&self) -> ffi::gpointer {
         match self.parent_ifaces {
             None => unreachable!("No parent interfaces"),
@@ -315,6 +320,7 @@ impl TypeData {
     /// Returns a pointer to the class implementation specific data.
     ///
     /// This is used for class implementations to store additional data.
+    #[doc(alias = "get_class_data")]
     pub fn class_data<T: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&T> {
         match self.class_data {
             None => None,
@@ -327,6 +333,7 @@ impl TypeData {
     /// # Safety
     ///
     /// This can only be used while the type is being initialized.
+    #[doc(alias = "get_class_data_mut")]
     pub unsafe fn class_data_mut<T: Any + Send + Sync + 'static>(
         &mut self,
         type_: Type,
@@ -362,6 +369,7 @@ impl TypeData {
 
     /// Returns the offset of the private implementation struct in bytes relative to the beginning
     /// of the instance struct.
+    #[doc(alias = "get_impl_offset")]
     pub fn impl_offset(&self) -> isize {
         self.private_offset + self.private_imp_offset
     }
@@ -377,6 +385,7 @@ pub unsafe trait ObjectSubclassType {
     /// Returns the `glib::Type` ID of the subclass.
     ///
     /// This will register the type with the type system on the first call.
+    #[doc(alias = "get_type")]
     fn type_() -> Type;
 }
 
@@ -496,6 +505,7 @@ pub trait ObjectSubclass: ObjectSubclassType + Sized + 'static {
 /// Extension methods for all `ObjectSubclass` impls.
 pub trait ObjectSubclassExt: ObjectSubclass {
     /// Returns the corresponding object instance.
+    #[doc(alias = "get_instance")]
     fn instance(&self) -> Self::Type;
 
     /// Returns the implementation from an instance.
@@ -504,6 +514,7 @@ pub trait ObjectSubclassExt: ObjectSubclass {
     /// Returns a pointer to the instance implementation specific data.
     ///
     /// This is used for the subclassing infrastructure to store additional instance data.
+    #[doc(alias = "get_instance_data")]
     fn instance_data<U: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&U>;
 }
 
@@ -744,7 +755,7 @@ pub fn register_type<T: ObjectSubclass>() -> Type {
         }
 
         let type_ = from_glib(gobject_ffi::g_type_register_static_simple(
-            <T::ParentType as StaticType>::static_type().to_glib(),
+            <T::ParentType as StaticType>::static_type().into_glib(),
             type_name.as_ptr(),
             mem::size_of::<T::Class>() as u32,
             Some(class_init::<T>),
@@ -761,7 +772,7 @@ pub fn register_type<T: ObjectSubclass>() -> Type {
         (*data.as_mut()).type_ = type_;
 
         let private_offset = gobject_ffi::g_type_add_instance_private(
-            type_.to_glib(),
+            type_.into_glib(),
             mem::size_of::<PrivateStruct<T>>(),
         );
         (*data.as_mut()).private_offset = private_offset as isize;
@@ -780,7 +791,7 @@ pub fn register_type<T: ObjectSubclass>() -> Type {
 
         let iface_types = T::Interfaces::iface_infos();
         for (iface_type, iface_info) in iface_types {
-            gobject_ffi::g_type_add_interface_static(type_.to_glib(), iface_type, &iface_info);
+            gobject_ffi::g_type_add_interface_static(type_.into_glib(), iface_type, &iface_info);
         }
 
         T::type_init(&mut InitializingType::<T>(type_, marker::PhantomData));
@@ -803,7 +814,7 @@ pub(crate) unsafe fn signal_override_class_handler<F>(
 
     if let Some((signal_id, _)) = SignalId::parse_name(name, from_glib(type_), false) {
         gobject_ffi::g_signal_override_class_closure(
-            signal_id.to_glib(),
+            signal_id.into_glib(),
             type_,
             class_handler.to_glib_none().0,
         );

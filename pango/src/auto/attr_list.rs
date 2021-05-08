@@ -38,7 +38,7 @@ impl AttrList {
             let attribute = from_glib_borrow(attribute);
             let callback: *mut P = user_data as *const _ as usize as *mut P;
             let res = (*callback)(&attribute);
-            res.to_glib()
+            res.into_glib()
         }
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;
@@ -54,6 +54,7 @@ impl AttrList {
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     #[doc(alias = "pango_attr_list_get_attributes")]
+    #[doc(alias = "get_attributes")]
     pub fn attributes(&self) -> Vec<Attribute> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::pango_attr_list_get_attributes(
@@ -63,6 +64,7 @@ impl AttrList {
     }
 
     #[doc(alias = "pango_attr_list_get_iterator")]
+    #[doc(alias = "get_iterator")]
     pub fn iterator(&self) -> Option<AttrIterator> {
         unsafe { from_glib_full(ffi::pango_attr_list_get_iterator(self.to_glib_none().0)) }
     }

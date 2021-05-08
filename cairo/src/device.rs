@@ -83,6 +83,7 @@ impl Device {
 
     #[cfg(any(feature = "script", feature = "dox"))]
     #[doc(alias = "cairo_script_get_mode")]
+    #[doc(alias = "get_mode")]
     pub fn mode(&self) -> ScriptMode {
         unsafe { ScriptMode::from(ffi::cairo_script_get_mode(self.to_raw_none())) }
     }
@@ -114,6 +115,7 @@ impl Device {
     #[cfg(any(feature = "script", feature = "dox"))]
     #[doc(alias = "cairo_script_surface_create_for_target")]
     pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Error> {
+        target.status()?;
         unsafe {
             Ok(Surface::from_raw_full(
                 ffi::cairo_script_surface_create_for_target(
@@ -145,6 +147,7 @@ impl Device {
     }
 
     #[doc(alias = "cairo_device_get_type")]
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> DeviceType {
         unsafe { DeviceType::from(ffi::cairo_device_get_type(self.to_raw_none())) }
     }
@@ -288,6 +291,12 @@ impl Device {
                 d => panic!("invalid device type: {}", d),
             }
         }
+    }
+
+    #[doc(alias = "cairo_device_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_device_status(self.to_raw_none()) };
+        status_to_result(status)
     }
 
     user_data_methods! {

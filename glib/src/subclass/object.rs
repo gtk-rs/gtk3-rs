@@ -36,6 +36,7 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     ///
     /// This is called whenever the property value of the specific subclass with the
     /// given index should be returned.
+    #[doc(alias = "get_property")]
     fn property(&self, _obj: &Self::Type, _id: usize, _pspec: &ParamSpec) -> Value {
         unimplemented!()
     }
@@ -58,6 +59,7 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     fn dispose(&self, _obj: &Self::Type) {}
 }
 
+#[doc(alias = "get_property")]
 unsafe extern "C" fn property<T: ObjectImpl>(
     obj: *mut gobject_ffi::GObject,
     id: u32,

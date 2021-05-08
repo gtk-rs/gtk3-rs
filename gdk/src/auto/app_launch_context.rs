@@ -8,7 +8,6 @@ use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
@@ -61,7 +60,6 @@ impl AppLaunchContext {
         }
     }
 
-    #[doc(alias = "get_property_display")]
     pub fn display(&self) -> Option<Display> {
         unsafe {
             let mut value = glib::Value::from_type(<Display as StaticType>::static_type());

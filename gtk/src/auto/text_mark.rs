@@ -25,7 +25,7 @@ impl TextMark {
         unsafe {
             from_glib_full(ffi::gtk_text_mark_new(
                 name.to_glib_none().0,
-                left_gravity.to_glib(),
+                left_gravity.into_glib(),
             ))
         }
     }
@@ -50,8 +50,8 @@ impl TextMarkBuilder {
         if let Some(ref name) = self.name {
             properties.push(("name", name));
         }
-        let ret = glib::Object::new::<TextMark>(&properties).expect("object new");
-        ret
+        glib::Object::new::<TextMark>(&properties)
+            .expect("Failed to create an instance of TextMark")
     }
 
     pub fn left_gravity(mut self, left_gravity: bool) -> Self {
@@ -69,18 +69,23 @@ pub const NONE_TEXT_MARK: Option<&TextMark> = None;
 
 pub trait TextMarkExt: 'static {
     #[doc(alias = "gtk_text_mark_get_buffer")]
+    #[doc(alias = "get_buffer")]
     fn buffer(&self) -> Option<TextBuffer>;
 
     #[doc(alias = "gtk_text_mark_get_deleted")]
+    #[doc(alias = "get_deleted")]
     fn is_deleted(&self) -> bool;
 
     #[doc(alias = "gtk_text_mark_get_left_gravity")]
+    #[doc(alias = "get_left_gravity")]
     fn is_left_gravity(&self) -> bool;
 
     #[doc(alias = "gtk_text_mark_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_text_mark_get_visible")]
+    #[doc(alias = "get_visible")]
     fn is_visible(&self) -> bool;
 
     #[doc(alias = "gtk_text_mark_set_visible")]
@@ -126,7 +131,7 @@ impl<O: IsA<TextMark>> TextMarkExt for O {
 
     fn set_visible(&self, setting: bool) {
         unsafe {
-            ffi::gtk_text_mark_set_visible(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_text_mark_set_visible(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 }

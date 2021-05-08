@@ -16,8 +16,6 @@ use crate::Event;
 use crate::EventMask;
 use crate::FrameClock;
 use crate::FullscreenMode;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::GLContext;
 use crate::Geometry;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
@@ -141,7 +139,7 @@ impl Window {
         unsafe {
             ffi::gdk_window_begin_resize_drag(
                 self.to_glib_none().0,
-                edge.to_glib(),
+                edge.into_glib(),
                 button,
                 root_x,
                 root_y,
@@ -163,7 +161,7 @@ impl Window {
         unsafe {
             ffi::gdk_window_begin_resize_drag_for_device(
                 self.to_glib_none().0,
-                edge.to_glib(),
+                edge.into_glib(),
                 device.to_glib_none().0,
                 button,
                 root_x,
@@ -209,8 +207,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_window_create_gl_context")]
     pub fn create_gl_context(&self) -> Result<GLContext, glib::Error> {
         unsafe {
@@ -273,14 +269,6 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_freeze_toplevel_updates_libgtk_only")]
-    pub fn freeze_toplevel_updates_libgtk_only(&self) {
-        unsafe {
-            ffi::gdk_window_freeze_toplevel_updates_libgtk_only(self.to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "gdk_window_freeze_updates")]
     pub fn freeze_updates(&self) {
         unsafe {
@@ -295,8 +283,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gdk_window_fullscreen_on_monitor")]
     pub fn fullscreen_on_monitor(&self, monitor: i32) {
         unsafe {
@@ -312,11 +298,13 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_accept_focus")]
+    #[doc(alias = "get_accept_focus")]
     pub fn accepts_focus(&self) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_accept_focus(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_children")]
+    #[doc(alias = "get_children")]
     pub fn children(&self) -> Vec<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_window_get_children(
@@ -326,27 +314,25 @@ impl Window {
     }
 
     //#[doc(alias = "gdk_window_get_children_with_user_data")]
+    //#[doc(alias = "get_children_with_user_data")]
     //pub fn children_with_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Vec<Window> {
     //    unsafe { TODO: call ffi:gdk_window_get_children_with_user_data() }
     //}
 
     #[doc(alias = "gdk_window_get_clip_region")]
+    #[doc(alias = "get_clip_region")]
     pub fn clip_region(&self) -> Option<cairo::Region> {
         unsafe { from_glib_full(ffi::gdk_window_get_clip_region(self.to_glib_none().0)) }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_get_composited")]
-    pub fn is_composited(&self) -> bool {
-        unsafe { from_glib(ffi::gdk_window_get_composited(self.to_glib_none().0)) }
-    }
-
     #[doc(alias = "gdk_window_get_cursor")]
+    #[doc(alias = "get_cursor")]
     pub fn cursor(&self) -> Option<Cursor> {
         unsafe { from_glib_none(ffi::gdk_window_get_cursor(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_decorations")]
+    #[doc(alias = "get_decorations")]
     pub fn decorations(&self) -> Option<WMDecoration> {
         unsafe {
             let mut decorations = mem::MaybeUninit::uninit();
@@ -364,6 +350,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_device_cursor")]
+    #[doc(alias = "get_device_cursor")]
     pub fn device_cursor(&self, device: &Device) -> Option<Cursor> {
         unsafe {
             from_glib_none(ffi::gdk_window_get_device_cursor(
@@ -374,6 +361,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_device_events")]
+    #[doc(alias = "get_device_events")]
     pub fn device_events(&self, device: &Device) -> EventMask {
         unsafe {
             from_glib(ffi::gdk_window_get_device_events(
@@ -384,6 +372,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_device_position")]
+    #[doc(alias = "get_device_position")]
     pub fn device_position(&self, device: &Device) -> (Option<Window>, i32, i32, ModifierType) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -404,6 +393,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_device_position_double")]
+    #[doc(alias = "get_device_position_double")]
     pub fn device_position_double(
         &self,
         device: &Device,
@@ -427,11 +417,13 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_display")]
+    #[doc(alias = "get_display")]
     pub fn display(&self) -> Display {
         unsafe { from_glib_none(ffi::gdk_window_get_display(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_drag_protocol")]
+    #[doc(alias = "get_drag_protocol")]
     pub fn drag_protocol(&self) -> (DragProtocol, Window) {
         unsafe {
             let mut target = ptr::null_mut();
@@ -444,11 +436,13 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_effective_parent")]
+    #[doc(alias = "get_effective_parent")]
     pub fn effective_parent(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_window_get_effective_parent(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_effective_toplevel")]
+    #[doc(alias = "get_effective_toplevel")]
     pub fn effective_toplevel(&self) -> Window {
         unsafe {
             from_glib_none(ffi::gdk_window_get_effective_toplevel(
@@ -458,26 +452,31 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_event_compression")]
+    #[doc(alias = "get_event_compression")]
     pub fn does_event_compression(&self) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_event_compression(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_events")]
+    #[doc(alias = "get_events")]
     pub fn events(&self) -> EventMask {
         unsafe { from_glib(ffi::gdk_window_get_events(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_focus_on_map")]
+    #[doc(alias = "get_focus_on_map")]
     pub fn gets_focus_on_map(&self) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_focus_on_map(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_frame_clock")]
+    #[doc(alias = "get_frame_clock")]
     pub fn frame_clock(&self) -> Option<FrameClock> {
         unsafe { from_glib_none(ffi::gdk_window_get_frame_clock(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_frame_extents")]
+    #[doc(alias = "get_frame_extents")]
     pub fn frame_extents(&self) -> Rectangle {
         unsafe {
             let mut rect = Rectangle::uninitialized();
@@ -487,11 +486,13 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_fullscreen_mode")]
+    #[doc(alias = "get_fullscreen_mode")]
     pub fn fullscreen_mode(&self) -> FullscreenMode {
         unsafe { from_glib(ffi::gdk_window_get_fullscreen_mode(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_geometry")]
+    #[doc(alias = "get_geometry")]
     pub fn geometry(&self) -> (i32, i32, i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -514,21 +515,25 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_group")]
+    #[doc(alias = "get_group")]
     pub fn group(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_window_get_group(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_height")]
+    #[doc(alias = "get_height")]
     pub fn height(&self) -> i32 {
         unsafe { ffi::gdk_window_get_height(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_window_get_modal_hint")]
+    #[doc(alias = "get_modal_hint")]
     pub fn is_modal_hint(&self) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_modal_hint(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_origin")]
+    #[doc(alias = "get_origin")]
     pub fn origin(&self) -> (i32, i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -542,18 +547,19 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_parent")]
+    #[doc(alias = "get_parent")]
     pub fn parent(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_window_get_parent(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gdk_window_get_pass_through")]
+    #[doc(alias = "get_pass_through")]
     pub fn is_pass_through(&self) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_pass_through(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_position")]
+    #[doc(alias = "get_position")]
     pub fn position(&self) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -566,6 +572,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_root_coords")]
+    #[doc(alias = "get_root_coords")]
     pub fn root_coords(&self, x: i32, y: i32) -> (i32, i32) {
         unsafe {
             let mut root_x = mem::MaybeUninit::uninit();
@@ -584,6 +591,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_root_origin")]
+    #[doc(alias = "get_root_origin")]
     pub fn root_origin(&self) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -596,31 +604,36 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_scale_factor")]
+    #[doc(alias = "get_scale_factor")]
     pub fn scale_factor(&self) -> i32 {
         unsafe { ffi::gdk_window_get_scale_factor(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_window_get_screen")]
+    #[doc(alias = "get_screen")]
     pub fn screen(&self) -> Screen {
         unsafe { from_glib_none(ffi::gdk_window_get_screen(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_source_events")]
+    #[doc(alias = "get_source_events")]
     pub fn source_events(&self, source: InputSource) -> EventMask {
         unsafe {
             from_glib(ffi::gdk_window_get_source_events(
                 self.to_glib_none().0,
-                source.to_glib(),
+                source.into_glib(),
             ))
         }
     }
 
     #[doc(alias = "gdk_window_get_state")]
+    #[doc(alias = "get_state")]
     pub fn state(&self) -> WindowState {
         unsafe { from_glib(ffi::gdk_window_get_state(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_support_multidevice")]
+    #[doc(alias = "get_support_multidevice")]
     pub fn supports_multidevice(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_window_get_support_multidevice(
@@ -630,36 +643,43 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_get_toplevel")]
+    #[doc(alias = "get_toplevel")]
     pub fn toplevel(&self) -> Window {
         unsafe { from_glib_none(ffi::gdk_window_get_toplevel(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_type_hint")]
+    #[doc(alias = "get_type_hint")]
     pub fn type_hint(&self) -> WindowTypeHint {
         unsafe { from_glib(ffi::gdk_window_get_type_hint(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_update_area")]
+    #[doc(alias = "get_update_area")]
     pub fn update_area(&self) -> Option<cairo::Region> {
         unsafe { from_glib_full(ffi::gdk_window_get_update_area(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_visible_region")]
+    #[doc(alias = "get_visible_region")]
     pub fn visible_region(&self) -> Option<cairo::Region> {
         unsafe { from_glib_full(ffi::gdk_window_get_visible_region(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_visual")]
+    #[doc(alias = "get_visual")]
     pub fn visual(&self) -> Visual {
         unsafe { from_glib_none(ffi::gdk_window_get_visual(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_width")]
+    #[doc(alias = "get_width")]
     pub fn width(&self) -> i32 {
         unsafe { ffi::gdk_window_get_width(self.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_window_get_window_type")]
+    #[doc(alias = "get_window_type")]
     pub fn window_type(&self) -> WindowType {
         unsafe { from_glib(ffi::gdk_window_get_window_type(self.to_glib_none().0)) }
     }
@@ -719,7 +739,7 @@ impl Window {
             } else {
                 panic!("cannot get closure...")
             };
-            res.to_glib()
+            res.into_glib()
         }
         let child_func = if child_func_data.is_some() {
             Some(child_func_func as _)
@@ -743,7 +763,7 @@ impl Window {
             ffi::gdk_window_invalidate_rect(
                 self.to_glib_none().0,
                 rect.to_glib_none().0,
-                invalidate_children.to_glib(),
+                invalidate_children.into_glib(),
             );
         }
     }
@@ -754,7 +774,7 @@ impl Window {
             ffi::gdk_window_invalidate_region(
                 self.to_glib_none().0,
                 region.to_glib_none().0,
-                invalidate_children.to_glib(),
+                invalidate_children.into_glib(),
             );
         }
     }
@@ -791,8 +811,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_window_mark_paint_from_clip")]
     pub fn mark_paint_from_clip(&self, cr: &cairo::Context) {
         unsafe {
@@ -825,6 +843,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_move")]
+    #[doc(alias = "move")]
     pub fn move_(&self, x: i32, y: i32) {
         unsafe {
             ffi::gdk_window_move(self.to_glib_none().0, x, y);
@@ -861,9 +880,9 @@ impl Window {
             ffi::gdk_window_move_to_rect(
                 self.to_glib_none().0,
                 rect.to_glib_none().0,
-                rect_anchor.to_glib(),
-                window_anchor.to_glib(),
-                anchor_hints.to_glib(),
+                rect_anchor.into_glib(),
+                window_anchor.into_glib(),
+                anchor_hints.into_glib(),
                 rect_anchor_dx,
                 rect_anchor_dy,
             );
@@ -883,7 +902,7 @@ impl Window {
     #[doc(alias = "gdk_window_process_updates")]
     pub fn process_updates(&self, update_children: bool) {
         unsafe {
-            ffi::gdk_window_process_updates(self.to_glib_none().0, update_children.to_glib());
+            ffi::gdk_window_process_updates(self.to_glib_none().0, update_children.into_glib());
         }
     }
 
@@ -926,7 +945,7 @@ impl Window {
             ffi::gdk_window_restack(
                 self.to_glib_none().0,
                 sibling.to_glib_none().0,
-                above.to_glib(),
+                above.into_glib(),
             );
         }
     }
@@ -941,7 +960,7 @@ impl Window {
     #[doc(alias = "gdk_window_set_accept_focus")]
     pub fn set_accept_focus(&self, accept_focus: bool) {
         unsafe {
-            ffi::gdk_window_set_accept_focus(self.to_glib_none().0, accept_focus.to_glib());
+            ffi::gdk_window_set_accept_focus(self.to_glib_none().0, accept_focus.into_glib());
         }
     }
 
@@ -967,14 +986,6 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_set_composited")]
-    pub fn set_composited(&self, composited: bool) {
-        unsafe {
-            ffi::gdk_window_set_composited(self.to_glib_none().0, composited.to_glib());
-        }
-    }
-
     #[doc(alias = "gdk_window_set_cursor")]
     pub fn set_cursor(&self, cursor: Option<&Cursor>) {
         unsafe {
@@ -985,7 +996,7 @@ impl Window {
     #[doc(alias = "gdk_window_set_decorations")]
     pub fn set_decorations(&self, decorations: WMDecoration) {
         unsafe {
-            ffi::gdk_window_set_decorations(self.to_glib_none().0, decorations.to_glib());
+            ffi::gdk_window_set_decorations(self.to_glib_none().0, decorations.into_glib());
         }
     }
 
@@ -1006,7 +1017,7 @@ impl Window {
             ffi::gdk_window_set_device_events(
                 self.to_glib_none().0,
                 device.to_glib_none().0,
-                event_mask.to_glib(),
+                event_mask.into_glib(),
             );
         }
     }
@@ -1016,7 +1027,7 @@ impl Window {
         unsafe {
             ffi::gdk_window_set_event_compression(
                 self.to_glib_none().0,
-                event_compression.to_glib(),
+                event_compression.into_glib(),
             );
         }
     }
@@ -1024,28 +1035,28 @@ impl Window {
     #[doc(alias = "gdk_window_set_events")]
     pub fn set_events(&self, event_mask: EventMask) {
         unsafe {
-            ffi::gdk_window_set_events(self.to_glib_none().0, event_mask.to_glib());
+            ffi::gdk_window_set_events(self.to_glib_none().0, event_mask.into_glib());
         }
     }
 
     #[doc(alias = "gdk_window_set_focus_on_map")]
     pub fn set_focus_on_map(&self, focus_on_map: bool) {
         unsafe {
-            ffi::gdk_window_set_focus_on_map(self.to_glib_none().0, focus_on_map.to_glib());
+            ffi::gdk_window_set_focus_on_map(self.to_glib_none().0, focus_on_map.into_glib());
         }
     }
 
     #[doc(alias = "gdk_window_set_fullscreen_mode")]
     pub fn set_fullscreen_mode(&self, mode: FullscreenMode) {
         unsafe {
-            ffi::gdk_window_set_fullscreen_mode(self.to_glib_none().0, mode.to_glib());
+            ffi::gdk_window_set_fullscreen_mode(self.to_glib_none().0, mode.into_glib());
         }
     }
 
     #[doc(alias = "gdk_window_set_functions")]
     pub fn set_functions(&self, functions: WMFunction) {
         unsafe {
-            ffi::gdk_window_set_functions(self.to_glib_none().0, functions.to_glib());
+            ffi::gdk_window_set_functions(self.to_glib_none().0, functions.into_glib());
         }
     }
 
@@ -1055,7 +1066,7 @@ impl Window {
             ffi::gdk_window_set_geometry_hints(
                 self.to_glib_none().0,
                 geometry.to_glib_none().0,
-                geom_mask.to_glib(),
+                geom_mask.into_glib(),
             );
         }
     }
@@ -1089,21 +1100,21 @@ impl Window {
     #[doc(alias = "gdk_window_set_keep_above")]
     pub fn set_keep_above(&self, setting: bool) {
         unsafe {
-            ffi::gdk_window_set_keep_above(self.to_glib_none().0, setting.to_glib());
+            ffi::gdk_window_set_keep_above(self.to_glib_none().0, setting.into_glib());
         }
     }
 
     #[doc(alias = "gdk_window_set_keep_below")]
     pub fn set_keep_below(&self, setting: bool) {
         unsafe {
-            ffi::gdk_window_set_keep_below(self.to_glib_none().0, setting.to_glib());
+            ffi::gdk_window_set_keep_below(self.to_glib_none().0, setting.into_glib());
         }
     }
 
     #[doc(alias = "gdk_window_set_modal_hint")]
     pub fn set_modal_hint(&self, modal: bool) {
         unsafe {
-            ffi::gdk_window_set_modal_hint(self.to_glib_none().0, modal.to_glib());
+            ffi::gdk_window_set_modal_hint(self.to_glib_none().0, modal.into_glib());
         }
     }
 
@@ -1129,17 +1140,15 @@ impl Window {
         unsafe {
             ffi::gdk_window_set_override_redirect(
                 self.to_glib_none().0,
-                override_redirect.to_glib(),
+                override_redirect.into_glib(),
             );
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gdk_window_set_pass_through")]
     pub fn set_pass_through(&self, pass_through: bool) {
         unsafe {
-            ffi::gdk_window_set_pass_through(self.to_glib_none().0, pass_through.to_glib());
+            ffi::gdk_window_set_pass_through(self.to_glib_none().0, pass_through.into_glib());
         }
     }
 
@@ -1160,14 +1169,14 @@ impl Window {
     #[doc(alias = "gdk_window_set_skip_pager_hint")]
     pub fn set_skip_pager_hint(&self, skips_pager: bool) {
         unsafe {
-            ffi::gdk_window_set_skip_pager_hint(self.to_glib_none().0, skips_pager.to_glib());
+            ffi::gdk_window_set_skip_pager_hint(self.to_glib_none().0, skips_pager.into_glib());
         }
     }
 
     #[doc(alias = "gdk_window_set_skip_taskbar_hint")]
     pub fn set_skip_taskbar_hint(&self, skips_taskbar: bool) {
         unsafe {
-            ffi::gdk_window_set_skip_taskbar_hint(self.to_glib_none().0, skips_taskbar.to_glib());
+            ffi::gdk_window_set_skip_taskbar_hint(self.to_glib_none().0, skips_taskbar.into_glib());
         }
     }
 
@@ -1176,8 +1185,8 @@ impl Window {
         unsafe {
             ffi::gdk_window_set_source_events(
                 self.to_glib_none().0,
-                source.to_glib(),
-                event_mask.to_glib(),
+                source.into_glib(),
+                event_mask.into_glib(),
             );
         }
     }
@@ -1189,23 +1198,12 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_set_static_gravities")]
-    pub fn set_static_gravities(&self, use_static: bool) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_window_set_static_gravities(
-                self.to_glib_none().0,
-                use_static.to_glib(),
-            ))
-        }
-    }
-
     #[doc(alias = "gdk_window_set_support_multidevice")]
     pub fn set_support_multidevice(&self, support_multidevice: bool) {
         unsafe {
             ffi::gdk_window_set_support_multidevice(
                 self.to_glib_none().0,
-                support_multidevice.to_glib(),
+                support_multidevice.into_glib(),
             );
         }
     }
@@ -1227,14 +1225,14 @@ impl Window {
     #[doc(alias = "gdk_window_set_type_hint")]
     pub fn set_type_hint(&self, hint: WindowTypeHint) {
         unsafe {
-            ffi::gdk_window_set_type_hint(self.to_glib_none().0, hint.to_glib());
+            ffi::gdk_window_set_type_hint(self.to_glib_none().0, hint.into_glib());
         }
     }
 
     #[doc(alias = "gdk_window_set_urgency_hint")]
     pub fn set_urgency_hint(&self, urgent: bool) {
         unsafe {
-            ffi::gdk_window_set_urgency_hint(self.to_glib_none().0, urgent.to_glib());
+            ffi::gdk_window_set_urgency_hint(self.to_glib_none().0, urgent.into_glib());
         }
     }
 
@@ -1286,14 +1284,6 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gdk_window_thaw_toplevel_updates_libgtk_only")]
-    pub fn thaw_toplevel_updates_libgtk_only(&self) {
-        unsafe {
-            ffi::gdk_window_thaw_toplevel_updates_libgtk_only(self.to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "gdk_window_thaw_updates")]
     pub fn thaw_updates(&self) {
         unsafe {
@@ -1342,7 +1332,7 @@ impl Window {
             let mut new_height = mem::MaybeUninit::uninit();
             ffi::gdk_window_constrain_size(
                 geometry.to_glib_none_mut().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 width,
                 height,
                 new_width.as_mut_ptr(),
@@ -1368,10 +1358,11 @@ impl Window {
     pub fn set_debug_updates(setting: bool) {
         assert_initialized_main_thread!();
         unsafe {
-            ffi::gdk_window_set_debug_updates(setting.to_glib());
+            ffi::gdk_window_set_debug_updates(setting.into_glib());
         }
     }
 
+    #[doc(alias = "create-surface")]
     pub fn connect_create_surface<F: Fn(&Window, i32, i32) -> cairo::Surface + 'static>(
         &self,
         f: F,
@@ -1400,6 +1391,7 @@ impl Window {
         }
     }
 
+    //#[doc(alias = "from-embedder")]
     //pub fn connect_from_embedder<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Out offscreen_x: *.Double
     //    Out offscreen_y: *.Double
@@ -1407,11 +1399,13 @@ impl Window {
 
     //#[cfg(any(feature = "v3_22", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    //#[doc(alias = "moved-to-rect")]
     //pub fn connect_moved_to_rect<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented flipped_rect: *.Pointer
     //    Unimplemented final_rect: *.Pointer
     //}
 
+    #[doc(alias = "pick-embedded-child")]
     pub fn connect_pick_embedded_child<F: Fn(&Window, f64, f64) -> Option<Window> + 'static>(
         &self,
         f: F,
@@ -1442,15 +1436,14 @@ impl Window {
         }
     }
 
+    //#[doc(alias = "to-embedder")]
     //pub fn connect_to_embedder<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Out embedder_x: *.Double
     //    Out embedder_y: *.Double
     //}
 
-    pub fn connect_property_cursor_notify<F: Fn(&Window) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "cursor")]
+    pub fn connect_cursor_notify<F: Fn(&Window) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cursor_trampoline<F: Fn(&Window) + 'static>(
             this: *mut ffi::GdkWindow,
             _param_spec: glib::ffi::gpointer,

@@ -40,6 +40,7 @@ impl PsSurface {
     for_stream_constructors!(cairo_ps_surface_create_for_stream);
 
     #[doc(alias = "cairo_ps_get_levels")]
+    #[doc(alias = "get_levels")]
     pub fn levels() -> impl Iterator<Item = PsLevel> {
         let lvls_slice = unsafe {
             let mut vers_ptr = ptr::null_mut();
@@ -60,6 +61,7 @@ impl PsSurface {
     }
 
     #[doc(alias = "cairo_ps_surface_get_eps")]
+    #[doc(alias = "get_eps")]
     pub fn is_eps(&self) -> bool {
         unsafe { ffi::cairo_ps_surface_get_eps(self.0.to_raw_none()).as_bool() }
     }
@@ -108,7 +110,7 @@ mod test {
     use tempfile::tempfile;
 
     fn draw(surface: &Surface) {
-        let cr = Context::new(surface);
+        let cr = Context::new(surface).expect("Can't create a Cairo context");
 
         // Note: Not using RGBA here as PS doesn't natively support
         // semi-transparency and Cairo would then embed a rasterized bitmap
@@ -118,12 +120,12 @@ mod test {
         cr.set_source_rgb(1.0, 0.0, 0.0);
         cr.line_to(0., 0.);
         cr.line_to(100., 100.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
 
         cr.set_source_rgb(0.0, 0.0, 1.0);
         cr.line_to(0., 100.);
         cr.line_to(100., 0.);
-        cr.stroke();
+        cr.stroke().expect("Surface on an invalid state");
     }
 
     fn draw_in_buffer() -> Vec<u8> {

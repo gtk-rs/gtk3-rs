@@ -65,9 +65,11 @@ pub trait AccelGroupExt: 'static {
     //fn find(&self, find_func: /*Unimplemented*/FnMut(/*Ignored*/AccelKey, &glib::Closure) -> bool, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/Option<AccelKey>;
 
     #[doc(alias = "gtk_accel_group_get_is_locked")]
+    #[doc(alias = "get_is_locked")]
     fn is_locked(&self) -> bool;
 
     #[doc(alias = "gtk_accel_group_get_modifier_mask")]
+    #[doc(alias = "get_modifier_mask")]
     fn modifier_mask(&self) -> gdk::ModifierType;
 
     #[doc(alias = "gtk_accel_group_lock")]
@@ -76,6 +78,7 @@ pub trait AccelGroupExt: 'static {
     #[doc(alias = "gtk_accel_group_unlock")]
     fn unlock(&self);
 
+    #[doc(alias = "accel-activate")]
     fn connect_accel_activate<
         F: Fn(&Self, &glib::Object, u32, gdk::ModifierType) -> bool + 'static,
     >(
@@ -84,18 +87,18 @@ pub trait AccelGroupExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "accel-changed")]
     fn connect_accel_changed<F: Fn(&Self, u32, gdk::ModifierType, &glib::Closure) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_is_locked_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "is-locked")]
+    fn connect_is_locked_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_modifier_mask_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "modifier-mask")]
+    fn connect_modifier_mask_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<AccelGroup>> AccelGroupExt for O {
@@ -109,10 +112,10 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         unsafe {
             from_glib(ffi::gtk_accel_group_activate(
                 self.as_ref().to_glib_none().0,
-                accel_quark.to_glib(),
+                accel_quark.into_glib(),
                 acceleratable.as_ref().to_glib_none().0,
                 accel_key,
-                accel_mods.to_glib(),
+                accel_mods.into_glib(),
             ))
         }
     }
@@ -131,7 +134,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
             from_glib(ffi::gtk_accel_group_disconnect_key(
                 self.as_ref().to_glib_none().0,
                 accel_key,
-                accel_mods.to_glib(),
+                accel_mods.into_glib(),
             ))
         }
     }
@@ -168,6 +171,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
+    #[doc(alias = "accel-activate")]
     fn connect_accel_activate<
         F: Fn(&Self, &glib::Object, u32, gdk::ModifierType) -> bool + 'static,
     >(
@@ -195,7 +199,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
                 keyval,
                 from_glib(modifier),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -214,6 +218,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
+    #[doc(alias = "accel-changed")]
     fn connect_accel_changed<F: Fn(&Self, u32, gdk::ModifierType, &glib::Closure) + 'static>(
         &self,
         detail: Option<&str>,
@@ -256,7 +261,8 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
-    fn connect_property_is_locked_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "is-locked")]
+    fn connect_is_locked_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_locked_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAccelGroup,
             _param_spec: glib::ffi::gpointer,
@@ -280,10 +286,8 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
-    fn connect_property_modifier_mask_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "modifier-mask")]
+    fn connect_modifier_mask_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_modifier_mask_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAccelGroup,
             _param_spec: glib::ffi::gpointer,

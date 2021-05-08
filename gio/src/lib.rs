@@ -5,7 +5,6 @@
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::missing_safety_doc)]
 #![allow(clippy::upper_case_acronyms)]
-#![allow(deprecated)]
 
 pub use ffi;
 pub use glib;
@@ -40,7 +39,6 @@ mod io_stream;
 pub use crate::io_stream::IOStreamAsyncReadWrite;
 mod input_stream;
 pub use crate::input_stream::{InputStreamAsyncBufRead, InputStreamRead};
-#[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_store;
 mod memory_input_stream;
 mod memory_output_stream;
@@ -81,11 +79,9 @@ pub use crate::auto::*;
 
 pub mod prelude;
 
-#[allow(clippy::cast_ptr_alignment)]
 #[allow(clippy::wrong_self_convention)]
 #[allow(clippy::new_ret_no_self)]
 #[allow(clippy::let_and_return)]
-#[allow(unused_doc_comments)]
 #[allow(unused_imports)]
 mod auto;
 

@@ -34,21 +34,27 @@ pub trait ComponentExt: 'static {
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool;
 
     #[doc(alias = "atk_component_get_alpha")]
+    #[doc(alias = "get_alpha")]
     fn alpha(&self) -> f64;
 
     #[doc(alias = "atk_component_get_extents")]
+    #[doc(alias = "get_extents")]
     fn extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32);
 
     #[doc(alias = "atk_component_get_layer")]
+    #[doc(alias = "get_layer")]
     fn layer(&self) -> Layer;
 
     #[doc(alias = "atk_component_get_mdi_zorder")]
+    #[doc(alias = "get_mdi_zorder")]
     fn mdi_zorder(&self) -> i32;
 
     #[doc(alias = "atk_component_get_position")]
+    #[doc(alias = "get_position")]
     fn position(&self, coord_type: CoordType) -> (i32, i32);
 
     #[doc(alias = "atk_component_get_size")]
+    #[doc(alias = "get_size")]
     fn size(&self) -> (i32, i32);
 
     #[doc(alias = "atk_component_grab_focus")]
@@ -76,6 +82,7 @@ pub trait ComponentExt: 'static {
     #[doc(alias = "atk_component_set_size")]
     fn set_size(&self, width: i32, height: i32) -> bool;
 
+    #[doc(alias = "bounds-changed")]
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -86,7 +93,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             ))
         }
     }
@@ -107,7 +114,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 y.as_mut_ptr(),
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             );
             let x = x.assume_init();
             let y = y.assume_init();
@@ -133,7 +140,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             );
             let x = x.assume_init();
             let y = y.assume_init();
@@ -170,7 +177,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             ))
         }
     }
@@ -181,7 +188,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe {
             from_glib(ffi::atk_component_scroll_to(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
@@ -192,7 +199,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe {
             from_glib(ffi::atk_component_scroll_to_point(
                 self.as_ref().to_glib_none().0,
-                coords.to_glib(),
+                coords.into_glib(),
                 x,
                 y,
             ))
@@ -207,7 +214,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 y,
                 width,
                 height,
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             ))
         }
     }
@@ -218,7 +225,7 @@ impl<O: IsA<Component>> ComponentExt for O {
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             ))
         }
     }
@@ -233,6 +240,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "bounds-changed")]
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(
             this: *mut ffi::AtkComponent,

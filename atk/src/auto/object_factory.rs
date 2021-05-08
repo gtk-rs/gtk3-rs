@@ -22,6 +22,7 @@ pub trait ObjectFactoryExt: 'static {
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object>;
 
     #[doc(alias = "atk_object_factory_get_accessible_type")]
+    #[doc(alias = "get_accessible_type")]
     fn accessible_type(&self) -> glib::types::Type;
 
     #[doc(alias = "atk_object_factory_invalidate")]

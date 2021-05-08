@@ -16,21 +16,24 @@ pub struct TargetEntry {
 impl TargetEntry {
     pub fn new(target: &str, flags: TargetFlags, info: u32) -> TargetEntry {
         assert_initialized_main_thread!();
-        TargetEntry {
+        Self {
             target: target.to_owned(),
             flags,
             info,
         }
     }
 
+    #[doc(alias = "get_target")]
     pub fn target(&self) -> &str {
         &self.target
     }
 
+    #[doc(alias = "get_flags")]
     pub fn flags(&self) -> TargetFlags {
         self.flags
     }
 
+    #[doc(alias = "get_info")]
     pub fn info(&self) -> u32 {
         self.info
     }
@@ -73,7 +76,7 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::GtkTargetEntry> for TargetEntry {
 #[doc(hidden)]
 impl FromGlibPtrNone<*const ffi::GtkTargetEntry> for TargetEntry {
     unsafe fn from_glib_none(ptr: *const ffi::GtkTargetEntry) -> Self {
-        TargetEntry {
+        Self {
             target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
             flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
             info: (*ptr).info,
@@ -84,7 +87,7 @@ impl FromGlibPtrNone<*const ffi::GtkTargetEntry> for TargetEntry {
 #[doc(hidden)]
 impl FromGlibPtrNone<*mut ffi::GtkTargetEntry> for TargetEntry {
     unsafe fn from_glib_none(ptr: *mut ffi::GtkTargetEntry) -> Self {
-        TargetEntry {
+        Self {
             target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
             flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
             info: (*ptr).info,
@@ -96,7 +99,7 @@ impl FromGlibPtrNone<*mut ffi::GtkTargetEntry> for TargetEntry {
 impl FromGlibPtrFull<*mut ffi::GtkTargetEntry> for TargetEntry {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::GtkTargetEntry) -> Self {
-        let target_entry = TargetEntry {
+        let target_entry = Self {
             target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
             flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
             info: (*ptr).info,

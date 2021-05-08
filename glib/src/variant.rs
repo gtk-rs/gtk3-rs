@@ -154,7 +154,7 @@ impl crate::value::ToValue for Variant {
 #[doc(hidden)]
 impl crate::value::ToValueOptional for Variant {
     fn to_value_optional(s: Option<&Self>) -> crate::Value {
-        let mut value = crate::Value::for_value_type::<Variant>();
+        let mut value = crate::Value::for_value_type::<Self>();
         unsafe {
             gobject_ffi::g_value_take_variant(
                 value.to_glib_none_mut().0,
@@ -196,6 +196,7 @@ impl Variant {
     ///
     /// Returns `Some` if self contains a `Variant`.
     #[inline]
+    #[doc(alias = "get_variant")]
     pub fn as_variant(&self) -> Option<Variant> {
         unsafe { from_glib_none(ffi::g_variant_get_variant(self.to_glib_none().0)) }
     }
@@ -206,6 +207,7 @@ impl Variant {
     ///
     /// * if `self` is not a container type.
     /// * if given `index` is larger than number of children.
+    #[doc(alias = "get_child_value")]
     pub fn child_value(&self, index: usize) -> Variant {
         assert!(index < self.n_children());
         assert!(self.is_container());
@@ -217,6 +219,7 @@ impl Variant {
     ///
     /// Returns `Some` if the variant has a string type (`s`, `o` or `g` type
     /// strings).
+    #[doc(alias = "get_str")]
     pub fn str(&self) -> Option<&str> {
         unsafe {
             match self.type_().to_str() {
@@ -287,7 +290,7 @@ impl Variant {
             from_glib_none(ffi::g_variant_new_from_bytes(
                 T::static_variant_type().as_ptr() as *const _,
                 bytes.to_glib_none().0,
-                false.to_glib(),
+                false.into_glib(),
             ))
         }
     }
@@ -308,11 +311,12 @@ impl Variant {
         from_glib_none(ffi::g_variant_new_from_bytes(
             T::static_variant_type().as_ptr() as *const _,
             bytes.to_glib_none().0,
-            true.to_glib(),
+            true.into_glib(),
         ))
     }
 
     /// Returns the serialised form of a GVariant instance.
+    #[doc(alias = "get_data_as_bytes")]
     pub fn data_as_bytes(&self) -> Bytes {
         unsafe { from_glib_full(ffi::g_variant_get_data_as_bytes(self.to_glib_none().0)) }
     }
@@ -352,8 +356,12 @@ impl fmt::Debug for Variant {
 
 impl fmt::Display for Variant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let serialized: GString =
-            unsafe { from_glib_full(ffi::g_variant_print(self.to_glib_none().0, false.to_glib())) };
+        let serialized: GString = unsafe {
+            from_glib_full(ffi::g_variant_print(
+                self.to_glib_none().0,
+                false.into_glib(),
+            ))
+        };
         f.write_str(&serialized)
     }
 }
@@ -483,7 +491,7 @@ impl StaticVariantType for bool {
 
 impl ToVariant for bool {
     fn to_variant(&self) -> Variant {
-        unsafe { from_glib_none(ffi::g_variant_new_boolean(self.to_glib())) }
+        unsafe { from_glib_none(ffi::g_variant_new_boolean(self.into_glib())) }
     }
 }
 
@@ -681,7 +689,7 @@ where
     V: StaticVariantType + ToVariant,
 {
     pub fn new(key: K, value: V) -> Self {
-        DictEntry { key, value }
+        Self { key, value }
     }
 
     pub fn key(&self) -> &K {
@@ -708,7 +716,7 @@ where
             None => return None,
         };
 
-        Some(DictEntry { key, value })
+        Some(Self { key, value })
     }
 }
 

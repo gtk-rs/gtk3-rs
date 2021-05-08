@@ -40,6 +40,7 @@ impl ColorButton {
     }
 
     #[doc(alias = "gtk_color_button_new_with_rgba")]
+    #[doc(alias = "new_with_rgba")]
     pub fn with_rgba(rgba: &gdk::RGBA) -> ColorButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -264,8 +265,8 @@ impl ColorButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<ColorButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ColorButton>(&properties)
+            .expect("Failed to create an instance of ColorButton")
     }
 
     pub fn alpha(mut self, alpha: u32) -> Self {
@@ -517,40 +518,45 @@ pub const NONE_COLOR_BUTTON: Option<&ColorButton> = None;
 
 pub trait ColorButtonExt: 'static {
     #[doc(alias = "gtk_color_button_get_title")]
+    #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_color_button_set_title")]
     fn set_title(&self, title: &str);
 
-    #[doc(alias = "get_property_alpha")]
     fn alpha(&self) -> u32;
 
-    #[doc(alias = "set_property_alpha")]
     fn set_alpha(&self, alpha: u32);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    #[doc(alias = "get_property_show_editor")]
+    #[doc(alias = "show-editor")]
     fn shows_editor(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    #[doc(alias = "set_property_show_editor")]
+    #[doc(alias = "show-editor")]
     fn set_show_editor(&self, show_editor: bool);
 
+    #[doc(alias = "color-set")]
     fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "alpha")]
+    fn connect_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "rgba")]
+    fn connect_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn connect_property_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "show-editor")]
+    fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "title")]
+    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_use_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "use-alpha")]
+    fn connect_use_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ColorButton>> ColorButtonExt for O {
@@ -620,6 +626,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
+    #[doc(alias = "color-set")]
     fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn color_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
@@ -643,7 +650,8 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    fn connect_property_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "alpha")]
+    fn connect_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_alpha_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
@@ -667,7 +675,8 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    fn connect_property_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "rgba")]
+    fn connect_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rgba_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
@@ -693,7 +702,8 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn connect_property_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "show-editor")]
+    fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_editor_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
@@ -717,7 +727,8 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "title")]
+    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
@@ -741,7 +752,8 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    fn connect_property_use_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "use-alpha")]
+    fn connect_use_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_alpha_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,

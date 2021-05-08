@@ -87,8 +87,8 @@ impl MountOperationBuilder {
         if let Some(ref username) = self.username {
             properties.push(("username", username));
         }
-        let ret = glib::Object::new::<MountOperation>(&properties).expect("object new");
-        ret
+        glib::Object::new::<MountOperation>(&properties)
+            .expect("Failed to create an instance of MountOperation")
     }
 
     pub fn parent<P: IsA<Window>>(mut self, parent: &P) -> Self {
@@ -146,9 +146,11 @@ pub const NONE_MOUNT_OPERATION: Option<&MountOperation> = None;
 
 pub trait MountOperationExt: 'static {
     #[doc(alias = "gtk_mount_operation_get_parent")]
+    #[doc(alias = "get_parent")]
     fn parent(&self) -> Option<Window>;
 
     #[doc(alias = "gtk_mount_operation_get_screen")]
+    #[doc(alias = "get_screen")]
     fn screen(&self) -> Option<gdk::Screen>;
 
     #[doc(alias = "gtk_mount_operation_is_showing")]
@@ -160,11 +162,14 @@ pub trait MountOperationExt: 'static {
     #[doc(alias = "gtk_mount_operation_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen);
 
-    fn connect_property_is_showing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "is-showing")]
+    fn connect_is_showing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "parent")]
+    fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "screen")]
+    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<MountOperation>> MountOperationExt for O {
@@ -210,7 +215,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_is_showing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "is-showing")]
+    fn connect_is_showing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_showing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMountOperation,
             _param_spec: glib::ffi::gpointer,
@@ -234,7 +240,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "parent")]
+    fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_parent_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMountOperation,
             _param_spec: glib::ffi::gpointer,
@@ -258,7 +265,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "screen")]
+    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screen_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMountOperation,
             _param_spec: glib::ffi::gpointer,

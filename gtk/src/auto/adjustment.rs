@@ -80,8 +80,8 @@ impl AdjustmentBuilder {
         if let Some(ref value) = self.value {
             properties.push(("value", value));
         }
-        let ret = glib::Object::new::<Adjustment>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Adjustment>(&properties)
+            .expect("Failed to create an instance of Adjustment")
     }
 
     pub fn lower(mut self, lower: f64) -> Self {
@@ -118,10 +118,6 @@ impl AdjustmentBuilder {
 pub const NONE_ADJUSTMENT: Option<&Adjustment> = None;
 
 pub trait AdjustmentExt: 'static {
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "gtk_adjustment_changed")]
-    fn changed(&self);
-
     #[doc(alias = "gtk_adjustment_clamp_page")]
     fn clamp_page(&self, lower: f64, upper: f64);
 
@@ -137,24 +133,31 @@ pub trait AdjustmentExt: 'static {
     );
 
     #[doc(alias = "gtk_adjustment_get_lower")]
+    #[doc(alias = "get_lower")]
     fn lower(&self) -> f64;
 
     #[doc(alias = "gtk_adjustment_get_minimum_increment")]
+    #[doc(alias = "get_minimum_increment")]
     fn minimum_increment(&self) -> f64;
 
     #[doc(alias = "gtk_adjustment_get_page_increment")]
+    #[doc(alias = "get_page_increment")]
     fn page_increment(&self) -> f64;
 
     #[doc(alias = "gtk_adjustment_get_page_size")]
+    #[doc(alias = "get_page_size")]
     fn page_size(&self) -> f64;
 
     #[doc(alias = "gtk_adjustment_get_step_increment")]
+    #[doc(alias = "get_step_increment")]
     fn step_increment(&self) -> f64;
 
     #[doc(alias = "gtk_adjustment_get_upper")]
+    #[doc(alias = "get_upper")]
     fn upper(&self) -> f64;
 
     #[doc(alias = "gtk_adjustment_get_value")]
+    #[doc(alias = "get_value")]
     fn value(&self) -> f64;
 
     #[doc(alias = "gtk_adjustment_set_lower")]
@@ -175,40 +178,32 @@ pub trait AdjustmentExt: 'static {
     #[doc(alias = "gtk_adjustment_set_value")]
     fn set_value(&self, value: f64);
 
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "gtk_adjustment_value_changed")]
-    fn value_changed(&self);
-
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "value-changed")]
     fn connect_value_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_lower_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "lower")]
+    fn connect_lower_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_page_increment_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "page-increment")]
+    fn connect_page_increment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_page_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "page-size")]
+    fn connect_page_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_step_increment_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "step-increment")]
+    fn connect_step_increment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_upper_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "upper")]
+    fn connect_upper_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "value")]
+    fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Adjustment>> AdjustmentExt for O {
-    fn changed(&self) {
-        unsafe {
-            ffi::gtk_adjustment_changed(self.as_ref().to_glib_none().0);
-        }
-    }
-
     fn clamp_page(&self, lower: f64, upper: f64) {
         unsafe {
             ffi::gtk_adjustment_clamp_page(self.as_ref().to_glib_none().0, lower, upper);
@@ -301,12 +296,7 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
         }
     }
 
-    fn value_changed(&self) {
-        unsafe {
-            ffi::gtk_adjustment_value_changed(self.as_ref().to_glib_none().0);
-        }
-    }
-
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAdjustment,
@@ -330,6 +320,7 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
         }
     }
 
+    #[doc(alias = "value-changed")]
     fn connect_value_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAdjustment,
@@ -353,7 +344,8 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
         }
     }
 
-    fn connect_property_lower_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "lower")]
+    fn connect_lower_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_lower_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAdjustment,
             _param_spec: glib::ffi::gpointer,
@@ -377,10 +369,8 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
         }
     }
 
-    fn connect_property_page_increment_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "page-increment")]
+    fn connect_page_increment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_page_increment_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAdjustment,
             _param_spec: glib::ffi::gpointer,
@@ -404,7 +394,8 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
         }
     }
 
-    fn connect_property_page_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "page-size")]
+    fn connect_page_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_page_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAdjustment,
             _param_spec: glib::ffi::gpointer,
@@ -428,10 +419,8 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
         }
     }
 
-    fn connect_property_step_increment_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "step-increment")]
+    fn connect_step_increment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_step_increment_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAdjustment,
             _param_spec: glib::ffi::gpointer,
@@ -455,7 +444,8 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
         }
     }
 
-    fn connect_property_upper_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "upper")]
+    fn connect_upper_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_upper_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAdjustment,
             _param_spec: glib::ffi::gpointer,
@@ -479,7 +469,8 @@ impl<O: IsA<Adjustment>> AdjustmentExt for O {
         }
     }
 
-    fn connect_property_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "value")]
+    fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAdjustment,
             _param_spec: glib::ffi::gpointer,

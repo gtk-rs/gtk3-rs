@@ -13,6 +13,7 @@ pub trait TlsConnectionExtManual {
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     #[doc(alias = "g_tls_connection_get_channel_binding_data")]
+    #[doc(alias = "get_channel_binding_data")]
     fn channel_binding_data(
         &self,
         type_: TlsChannelBindingType,
@@ -31,7 +32,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExtManual for O {
             let mut error = ptr::null_mut();
             let _ = ffi::g_tls_connection_get_channel_binding_data(
                 self.as_ptr() as *mut _,
-                type_.to_glib(),
+                type_.into_glib(),
                 data,
                 &mut error,
             );

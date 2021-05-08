@@ -33,7 +33,7 @@ pub fn accel_groups_activate<P: IsA<glib::Object>>(
         from_glib(ffi::gtk_accel_groups_activate(
             object.as_ref().to_glib_none().0,
             accel_key,
-            accel_mods.to_glib(),
+            accel_mods.into_glib(),
         ))
     }
 }
@@ -63,7 +63,7 @@ pub fn accelerator_get_label(
     unsafe {
         from_glib_full(ffi::gtk_accelerator_get_label(
             accelerator_key,
-            accelerator_mods.to_glib(),
+            accelerator_mods.into_glib(),
         ))
     }
 }
@@ -81,7 +81,7 @@ pub fn accelerator_get_label_with_keycode(
             display.to_glib_none().0,
             accelerator_key,
             keycode,
-            accelerator_mods.to_glib(),
+            accelerator_mods.into_glib(),
         ))
     }
 }
@@ -95,7 +95,7 @@ pub fn accelerator_name(
     unsafe {
         from_glib_full(ffi::gtk_accelerator_name(
             accelerator_key,
-            accelerator_mods.to_glib(),
+            accelerator_mods.into_glib(),
         ))
     }
 }
@@ -113,7 +113,7 @@ pub fn accelerator_name_with_keycode(
             display.to_glib_none().0,
             accelerator_key,
             keycode,
-            accelerator_mods.to_glib(),
+            accelerator_mods.into_glib(),
         ))
     }
 }
@@ -144,14 +144,14 @@ pub fn accelerator_parse(accelerator: &str) -> (u32, gdk::ModifierType) {
 pub fn accelerator_set_default_mod_mask(default_mod_mask: gdk::ModifierType) {
     assert_initialized_main_thread!();
     unsafe {
-        ffi::gtk_accelerator_set_default_mod_mask(default_mod_mask.to_glib());
+        ffi::gtk_accelerator_set_default_mod_mask(default_mod_mask.into_glib());
     }
 }
 
 #[doc(alias = "gtk_accelerator_valid")]
 pub fn accelerator_valid(keyval: u32, modifiers: gdk::ModifierType) -> bool {
     assert_initialized_main_thread!();
-    unsafe { from_glib(ffi::gtk_accelerator_valid(keyval, modifiers.to_glib())) }
+    unsafe { from_glib(ffi::gtk_accelerator_valid(keyval, modifiers.into_glib())) }
 }
 
 #[doc(alias = "gtk_bindings_activate")]
@@ -165,7 +165,7 @@ pub fn bindings_activate<P: IsA<glib::Object>>(
         from_glib(ffi::gtk_bindings_activate(
             object.as_ref().to_glib_none().0,
             keyval,
-            modifiers.to_glib(),
+            modifiers.into_glib(),
         ))
     }
 }
@@ -234,7 +234,7 @@ pub fn device_grab_add<P: IsA<Widget>>(widget: &P, device: &gdk::Device, block_o
         ffi::gtk_device_grab_add(
             widget.as_ref().to_glib_none().0,
             device.to_glib_none().0,
-            block_others.to_glib(),
+            block_others.into_glib(),
         );
     }
 }
@@ -267,30 +267,35 @@ pub fn events_pending() -> bool {
 }
 
 #[doc(alias = "gtk_false")]
+#[doc(alias = "false")]
 pub fn false_() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_false()) }
 }
 
 #[doc(alias = "gtk_get_binary_age")]
+#[doc(alias = "get_binary_age")]
 pub fn binary_age() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_binary_age() }
 }
 
 #[doc(alias = "gtk_get_current_event")]
+#[doc(alias = "get_current_event")]
 pub fn current_event() -> Option<gdk::Event> {
     assert_initialized_main_thread!();
     unsafe { from_glib_full(ffi::gtk_get_current_event()) }
 }
 
 #[doc(alias = "gtk_get_current_event_device")]
+#[doc(alias = "get_current_event_device")]
 pub fn current_event_device() -> Option<gdk::Device> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_current_event_device()) }
 }
 
 #[doc(alias = "gtk_get_current_event_state")]
+#[doc(alias = "get_current_event_state")]
 pub fn current_event_state() -> Option<gdk::ModifierType> {
     assert_initialized_main_thread!();
     unsafe {
@@ -306,60 +311,70 @@ pub fn current_event_state() -> Option<gdk::ModifierType> {
 }
 
 #[doc(alias = "gtk_get_current_event_time")]
+#[doc(alias = "get_current_event_time")]
 pub fn current_event_time() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_get_current_event_time() }
 }
 
 #[doc(alias = "gtk_get_debug_flags")]
+#[doc(alias = "get_debug_flags")]
 pub fn debug_flags() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_get_debug_flags() }
 }
 
 #[doc(alias = "gtk_get_default_language")]
+#[doc(alias = "get_default_language")]
 pub fn default_language() -> Option<pango::Language> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_default_language()) }
 }
 
 #[doc(alias = "gtk_get_event_widget")]
+#[doc(alias = "get_event_widget")]
 pub fn event_widget(event: &mut gdk::Event) -> Option<Widget> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_event_widget(event.to_glib_none_mut().0)) }
 }
 
 #[doc(alias = "gtk_get_interface_age")]
+#[doc(alias = "get_interface_age")]
 pub fn interface_age() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_interface_age() }
 }
 
 #[doc(alias = "gtk_get_locale_direction")]
+#[doc(alias = "get_locale_direction")]
 pub fn locale_direction() -> TextDirection {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_get_locale_direction()) }
 }
 
 #[doc(alias = "gtk_get_major_version")]
+#[doc(alias = "get_major_version")]
 pub fn major_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_major_version() }
 }
 
 #[doc(alias = "gtk_get_micro_version")]
+#[doc(alias = "get_micro_version")]
 pub fn micro_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_micro_version() }
 }
 
 #[doc(alias = "gtk_get_minor_version")]
+#[doc(alias = "get_minor_version")]
 pub fn minor_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_minor_version() }
 }
 
 //#[doc(alias = "gtk_get_option_group")]
+//#[doc(alias = "get_option_group")]
 //pub fn option_group(open_default_display: bool) -> /*Ignored*/Option<glib::OptionGroup> {
 //    unsafe { TODO: call ffi:gtk_get_option_group() }
 //}
@@ -405,7 +420,7 @@ pub fn main_iteration() -> bool {
 #[doc(alias = "gtk_main_iteration_do")]
 pub fn main_iteration_do(blocking: bool) -> bool {
     assert_initialized_main_thread!();
-    unsafe { from_glib(ffi::gtk_main_iteration_do(blocking.to_glib())) }
+    unsafe { from_glib(ffi::gtk_main_iteration_do(blocking.into_glib())) }
 }
 
 #[doc(alias = "gtk_main_level")]
@@ -633,7 +648,7 @@ pub fn render_extension<P: IsA<StyleContext>>(
             y,
             width,
             height,
-            gap_side.to_glib(),
+            gap_side.into_glib(),
         );
     }
 }
@@ -704,7 +719,7 @@ pub fn render_frame_gap<P: IsA<StyleContext>>(
             y,
             width,
             height,
-            gap_side.to_glib(),
+            gap_side.into_glib(),
             xy0_gap,
             xy1_gap,
         );
@@ -792,7 +807,7 @@ pub fn render_insertion_cursor<P: IsA<StyleContext>>(
             y,
             layout.to_glib_none().0,
             index,
-            direction.to_glib(),
+            direction.into_glib(),
         );
     }
 }
@@ -880,7 +895,7 @@ pub fn render_slider<P: IsA<StyleContext>>(
             y,
             width,
             height,
-            orientation.to_glib(),
+            orientation.into_glib(),
         );
     }
 }
@@ -1058,7 +1073,7 @@ pub fn targets_include_image(targets: &[&gdk::Atom], writable: bool) -> bool {
         from_glib(ffi::gtk_targets_include_image(
             targets.to_glib_none().0,
             n_targets,
-            writable.to_glib(),
+            writable.into_glib(),
         ))
     }
 }
@@ -1144,7 +1159,7 @@ pub fn test_find_sibling<P: IsA<Widget>>(
     unsafe {
         from_glib_none(ffi::gtk_test_find_sibling(
             base_widget.as_ref().to_glib_none().0,
-            widget_type.to_glib(),
+            widget_type.into_glib(),
         ))
     }
 }
@@ -1160,7 +1175,7 @@ pub fn test_find_widget<P: IsA<Widget>>(
         from_glib_none(ffi::gtk_test_find_widget(
             widget.as_ref().to_glib_none().0,
             label_pattern.to_glib_none().0,
-            widget_type.to_glib(),
+            widget_type.into_glib(),
         ))
     }
 }
@@ -1207,7 +1222,7 @@ pub fn test_spin_button_click<P: IsA<SpinButton>>(spinner: &P, button: u32, upwa
         from_glib(ffi::gtk_test_spin_button_click(
             spinner.as_ref().to_glib_none().0,
             button,
-            upwards.to_glib(),
+            upwards.into_glib(),
         ))
     }
 }
@@ -1240,7 +1255,7 @@ pub fn test_widget_click<P: IsA<Widget>>(
         from_glib(ffi::gtk_test_widget_click(
             widget.as_ref().to_glib_none().0,
             button,
-            modifiers.to_glib(),
+            modifiers.into_glib(),
         ))
     }
 }
@@ -1256,7 +1271,7 @@ pub fn test_widget_send_key<P: IsA<Widget>>(
         from_glib(ffi::gtk_test_widget_send_key(
             widget.as_ref().to_glib_none().0,
             keyval,
-            modifiers.to_glib(),
+            modifiers.into_glib(),
         ))
     }
 }
@@ -1307,6 +1322,7 @@ pub fn tree_set_row_drag_data<P: IsA<TreeModel>>(
 }
 
 #[doc(alias = "gtk_true")]
+#[doc(alias = "true")]
 pub fn true_() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_true()) }

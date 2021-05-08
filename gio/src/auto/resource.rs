@@ -31,7 +31,7 @@ impl Resource {
             let ret = ffi::g_resource_enumerate_children(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
-                lookup_flags.to_glib(),
+                lookup_flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -43,6 +43,7 @@ impl Resource {
     }
 
     #[doc(alias = "g_resource_get_info")]
+    #[doc(alias = "get_info")]
     pub fn info(
         &self,
         path: &str,
@@ -55,7 +56,7 @@ impl Resource {
             let _ = ffi::g_resource_get_info(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
-                lookup_flags.to_glib(),
+                lookup_flags.into_glib(),
                 size.as_mut_ptr(),
                 flags.as_mut_ptr(),
                 &mut error,
@@ -81,7 +82,7 @@ impl Resource {
             let ret = ffi::g_resource_lookup_data(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
-                lookup_flags.to_glib(),
+                lookup_flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -103,7 +104,7 @@ impl Resource {
             let ret = ffi::g_resource_open_stream(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
-                lookup_flags.to_glib(),
+                lookup_flags.into_glib(),
                 &mut error,
             );
             if error.is_null() {

@@ -29,8 +29,6 @@ pub trait InputStreamExtManual: Sized {
         cancellable: Option<&C>,
     ) -> Result<(usize, Option<glib::Error>), glib::Error>;
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn read_all_async<
         B: AsMut<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
@@ -55,8 +53,6 @@ pub trait InputStreamExtManual: Sized {
         callback: Q,
     );
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn read_all_async_future<B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
@@ -151,8 +147,6 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn read_all_async<
         B: AsMut<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
@@ -210,7 +204,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
@@ -266,7 +260,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
@@ -274,8 +268,6 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
@@ -377,6 +369,7 @@ impl State {
         }
     }
 
+    #[doc(alias = "get_pending")]
     fn pending(
         &mut self,
     ) -> &mut Pin<
@@ -437,6 +430,7 @@ impl<T: IsA<InputStream>> InputStreamAsyncBufRead<T> {
         self.state.pending()
     }
 
+    #[doc(alias = "get_data")]
     fn data(&self) -> Poll<io::Result<&[u8]>> {
         if let State::HasData {
             ref buffer,
@@ -579,7 +573,6 @@ mod tests {
     use std::io::Read;
 
     #[test]
-    #[cfg(feature = "v2_44")]
     fn read_all_async() {
         let ret = run_async(|tx, l| {
             let b = Bytes::from_owned(vec![1, 2, 3]);

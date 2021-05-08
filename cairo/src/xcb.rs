@@ -10,7 +10,6 @@ use std::ptr;
 
 use crate::error::Error;
 use crate::surface::Surface;
-use crate::utils::status_to_result;
 
 #[derive(Debug)]
 pub struct XCBDrawable(pub u32);
@@ -324,11 +323,6 @@ impl XCBSurface {
         }
     }
 
-    fn status(&self) -> Result<(), Error> {
-        let status = unsafe { ffi::cairo_surface_status(self.to_raw_none()) };
-        status_to_result(status)
-    }
-
     #[doc(alias = "cairo_xcb_surface_set_size")]
     pub fn set_size(&self, width: i32, height: i32) -> Result<(), Error> {
         unsafe { ffi::cairo_xcb_surface_set_size(self.to_raw_none(), width, height) }
@@ -426,6 +420,7 @@ impl fmt::Display for XCBVisualType {
 
 impl crate::device::Device {
     #[doc(alias = "cairo_xcb_device_get_connection")]
+    #[doc(alias = "get_connection")]
     pub fn connection(&self) -> XCBConnection {
         unsafe {
             XCBConnection::from_raw_full(ffi::cairo_xcb_device_get_connection(self.to_raw_none()))

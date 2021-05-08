@@ -282,14 +282,8 @@ mod frame;
 pub use self::frame::FrameBuilder;
 pub use self::frame::{Frame, NONE_FRAME};
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 mod gl_area;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::gl_area::GLAreaBuilder;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::gl_area::{GLArea, NONE_GL_AREA};
 
 mod gesture;
@@ -435,14 +429,8 @@ pub use self::message_dialog::{MessageDialog, NONE_MESSAGE_DIALOG};
 mod misc;
 pub use self::misc::{Misc, NONE_MISC};
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 mod model_button;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::model_button::ModelButton;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::model_button::ModelButtonBuilder;
 
 mod mount_operation;
@@ -506,14 +494,8 @@ mod popover;
 pub use self::popover::PopoverBuilder;
 pub use self::popover::{Popover, NONE_POPOVER};
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 mod popover_menu;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::popover_menu::PopoverMenu;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::popover_menu::PopoverMenuBuilder;
 
 mod print_context;
@@ -692,14 +674,8 @@ mod stack;
 pub use self::stack::StackBuilder;
 pub use self::stack::{Stack, NONE_STACK};
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 mod stack_sidebar;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::stack_sidebar::StackSidebarBuilder;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::stack_sidebar::{StackSidebar, NONE_STACK_SIDEBAR};
 
 mod stack_switcher;
@@ -714,9 +690,7 @@ mod style_context;
 pub use self::style_context::StyleContextBuilder;
 pub use self::style_context::{StyleContext, NONE_STYLE_CONTEXT};
 
-#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
 mod style_properties;
-#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
 pub use self::style_properties::{StyleProperties, NONE_STYLE_PROPERTIES};
 
 mod style_provider;
@@ -873,8 +847,6 @@ pub use self::enums::BaselinePosition;
 pub use self::enums::BorderStyle;
 pub use self::enums::BuilderError;
 pub use self::enums::ButtonBoxStyle;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::enums::ButtonRole;
 pub use self::enums::ButtonsType;
 pub use self::enums::CellRendererAccelMode;
@@ -890,8 +862,6 @@ pub use self::enums::EventSequenceState;
 pub use self::enums::FileChooserAction;
 pub use self::enums::FileChooserConfirmation;
 pub use self::enums::FileChooserError;
-pub use self::enums::IMPreeditStyle;
-pub use self::enums::IMStatusStyle;
 pub use self::enums::IconSize;
 pub use self::enums::IconThemeError;
 pub use self::enums::IconViewDropPosition;
@@ -948,10 +918,7 @@ pub use self::enums::SortType;
 pub use self::enums::SpinButtonUpdatePolicy;
 pub use self::enums::SpinType;
 pub use self::enums::StackTransitionType;
-pub use self::enums::StateType;
 pub use self::enums::TextDirection;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::enums::TextExtendSelection;
 pub use self::enums::TextViewLayer;
 pub use self::enums::TextWindowType;
@@ -1071,8 +1038,6 @@ pub use self::constants::STYLE_CLASS_IMAGE;
 pub use self::constants::STYLE_CLASS_INFO;
 pub use self::constants::STYLE_CLASS_INLINE_TOOLBAR;
 pub use self::constants::STYLE_CLASS_INSERTION_CURSOR;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::constants::STYLE_CLASS_LABEL;
 pub use self::constants::STYLE_CLASS_LEFT;
 pub use self::constants::STYLE_CLASS_LEVEL_BAR;
@@ -1084,16 +1049,12 @@ pub use self::constants::STYLE_CLASS_MENU;
 pub use self::constants::STYLE_CLASS_MENUBAR;
 pub use self::constants::STYLE_CLASS_MENUITEM;
 pub use self::constants::STYLE_CLASS_MESSAGE_DIALOG;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::constants::STYLE_CLASS_MONOSPACE;
 pub use self::constants::STYLE_CLASS_NEEDS_ATTENTION;
 pub use self::constants::STYLE_CLASS_NOTEBOOK;
 pub use self::constants::STYLE_CLASS_OSD;
 pub use self::constants::STYLE_CLASS_OVERSHOOT;
 pub use self::constants::STYLE_CLASS_PANE_SEPARATOR;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::constants::STYLE_CLASS_PAPER;
 pub use self::constants::STYLE_CLASS_POPOVER;
 pub use self::constants::STYLE_CLASS_POPUP;
@@ -1116,8 +1077,6 @@ pub use self::constants::STYLE_CLASS_SIDEBAR;
 pub use self::constants::STYLE_CLASS_SLIDER;
 pub use self::constants::STYLE_CLASS_SPINBUTTON;
 pub use self::constants::STYLE_CLASS_SPINNER;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::constants::STYLE_CLASS_STATUSBAR;
 pub use self::constants::STYLE_CLASS_SUBTITLE;
 pub use self::constants::STYLE_CLASS_SUGGESTED_ACTION;
@@ -1126,18 +1085,12 @@ pub use self::constants::STYLE_CLASS_TITLEBAR;
 pub use self::constants::STYLE_CLASS_TOOLBAR;
 pub use self::constants::STYLE_CLASS_TOOLTIP;
 pub use self::constants::STYLE_CLASS_TOP;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::constants::STYLE_CLASS_TOUCH_SELECTION;
 pub use self::constants::STYLE_CLASS_TROUGH;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::constants::STYLE_CLASS_UNDERSHOOT;
 pub use self::constants::STYLE_CLASS_VERTICAL;
 pub use self::constants::STYLE_CLASS_VIEW;
 pub use self::constants::STYLE_CLASS_WARNING;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::constants::STYLE_CLASS_WIDE;
 pub use self::constants::STYLE_PROPERTY_BACKGROUND_COLOR;
 pub use self::constants::STYLE_PROPERTY_BACKGROUND_IMAGE;
@@ -1220,8 +1173,6 @@ pub mod traits {
     pub use super::gesture::GestureExt;
     pub use super::gesture_drag::GestureDragExt;
     pub use super::gesture_single::GestureSingleExt;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub use super::gl_area::GLAreaExt;
     pub use super::grid::GridExt;
     pub use super::header_bar::HeaderBarExt;
@@ -1289,14 +1240,10 @@ pub mod traits {
     pub use super::spin_button::SpinButtonExt;
     pub use super::spinner::SpinnerExt;
     pub use super::stack::StackExt;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub use super::stack_sidebar::StackSidebarExt;
     pub use super::stack_switcher::StackSwitcherExt;
     pub use super::statusbar::StatusbarExt;
     pub use super::style_context::StyleContextExt;
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    pub use super::style_properties::StylePropertiesExt;
     pub use super::style_provider::StyleProviderExt;
     pub use super::switch::SwitchExt;
     pub use super::text_buffer::TextBufferExt;

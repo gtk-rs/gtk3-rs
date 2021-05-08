@@ -9,7 +9,7 @@ impl DBusMethodInvocation {
         unsafe {
             ffi::g_dbus_method_invocation_return_error_literal(
                 self.to_glib_full(),
-                T::domain().to_glib(),
+                T::domain().into_glib(),
                 error.code(),
                 message.to_glib_none().0,
             );

@@ -53,8 +53,8 @@ impl IMMulticontextBuilder {
         if let Some(ref input_purpose) = self.input_purpose {
             properties.push(("input-purpose", input_purpose));
         }
-        let ret = glib::Object::new::<IMMulticontext>(&properties).expect("object new");
-        ret
+        glib::Object::new::<IMMulticontext>(&properties)
+            .expect("Failed to create an instance of IMMulticontext")
     }
 
     pub fn input_hints(mut self, input_hints: InputHints) -> Self {
@@ -72,6 +72,7 @@ pub const NONE_IM_MULTICONTEXT: Option<&IMMulticontext> = None;
 
 pub trait IMMulticontextExt: 'static {
     #[doc(alias = "gtk_im_multicontext_get_context_id")]
+    #[doc(alias = "get_context_id")]
     fn context_id(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_im_multicontext_set_context_id")]

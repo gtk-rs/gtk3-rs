@@ -17,7 +17,8 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_init_from_ray")]
-    pub fn new_from_ray(src: &Ray) -> Ray {
+    #[doc(alias = "new_from_ray")]
+    pub fn from_ray(src: &Ray) -> Ray {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_ray_alloc();
@@ -27,7 +28,8 @@ impl Ray {
     }
 
     #[doc(alias = "graphene_ray_init_from_vec3")]
-    pub fn new_from_vec3(origin: Option<&Vec3>, direction: Option<&Vec3>) -> Ray {
+    #[doc(alias = "new_from_vec3")]
+    pub fn from_vec3(origin: Option<&Vec3>, direction: Option<&Vec3>) -> Ray {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_ray_alloc();

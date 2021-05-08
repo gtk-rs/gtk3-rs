@@ -38,6 +38,7 @@ impl RecentChooserWidget {
     }
 
     #[doc(alias = "gtk_recent_chooser_widget_new_for_manager")]
+    #[doc(alias = "new_for_manager")]
     pub fn for_manager<P: IsA<RecentManager>>(manager: &P) -> RecentChooserWidget {
         skip_assert_initialized!();
         unsafe {
@@ -265,8 +266,8 @@ impl RecentChooserWidgetBuilder {
         if let Some(ref sort_type) = self.sort_type {
             properties.push(("sort-type", sort_type));
         }
-        let ret = glib::Object::new::<RecentChooserWidget>(&properties).expect("object new");
-        ret
+        glib::Object::new::<RecentChooserWidget>(&properties)
+            .expect("Failed to create an instance of RecentChooserWidget")
     }
 
     pub fn baseline_position(mut self, baseline_position: BaselinePosition) -> Self {

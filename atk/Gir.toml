@@ -2,7 +2,7 @@
 girs_directories = ["../gir-files"]
 library = "Atk"
 version = "1.0"
-min_cfg_version = "2.14"
+min_cfg_version = "2.18"
 target_path = "."
 work_mode = "normal"
 generate_safety_asserts = true
@@ -24,6 +24,7 @@ generate = [
     # "Atk.Implementor",
     # "Atk.KeyEventStruct",
     "Atk.Layer",
+    "Atk.NoOpObject",
     "Atk.NoOpObjectFactory",
     "Atk.ObjectFactory",
     "Atk.PropertyChangeHandler",
@@ -84,11 +85,6 @@ trait_name = "AtkImageExt" # duplicate with gtk
 name = "Atk.Misc"
 status = "generate"
 trait_name = "AtkMiscExt" # duplicate with gtk
-
-[[object]]
-name = "Atk.NoOpObject"
-status = "generate"
-version = "2.12"
 
 [[object]]
 name = "Atk.Object"

@@ -22,7 +22,8 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_init_from_vec3")]
-    pub fn new_from_vec3(src: &Vec3) -> Vec3 {
+    #[doc(alias = "new_from_vec3")]
+    pub fn from_vec3(src: &Vec3) -> Vec3 {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_vec3_alloc();
@@ -32,7 +33,8 @@ impl Vec3 {
     }
 
     #[doc(alias = "graphene_vec3_init_from_float")]
-    pub fn new_from_float(src: &[f32; 3]) -> Vec3 {
+    #[doc(alias = "new_from_float")]
+    pub fn from_float(src: &[f32; 3]) -> Vec3 {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_vec3_alloc();
@@ -44,9 +46,9 @@ impl Vec3 {
     #[doc(alias = "graphene_vec3_to_float")]
     pub fn to_float(&self) -> [f32; 3] {
         unsafe {
-            let mut out = std::mem::uninitialized();
-            ffi::graphene_vec3_to_float(self.to_glib_none().0, &mut out as *mut _);
-            out
+            let mut out = std::mem::MaybeUninit::uninit();
+            ffi::graphene_vec3_to_float(self.to_glib_none().0, out.as_mut_ptr());
+            out.assume_init()
         }
     }
 }

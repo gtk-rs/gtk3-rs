@@ -2,14 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::error::ErrorDomain;
 use glib::translate::*;
 use glib::value::FromValue;
 use glib::value::ToValue;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::Quark;
 use glib::StaticType;
 use glib::Type;
@@ -51,17 +47,17 @@ impl fmt::Display for AxisUse {
             f,
             "AxisUse::{}",
             match *self {
-                AxisUse::Ignore => "Ignore",
-                AxisUse::X => "X",
-                AxisUse::Y => "Y",
-                AxisUse::Pressure => "Pressure",
-                AxisUse::Xtilt => "Xtilt",
-                AxisUse::Ytilt => "Ytilt",
-                AxisUse::Wheel => "Wheel",
-                AxisUse::Distance => "Distance",
-                AxisUse::Rotation => "Rotation",
-                AxisUse::Slider => "Slider",
-                AxisUse::Last => "Last",
+                Self::Ignore => "Ignore",
+                Self::X => "X",
+                Self::Y => "Y",
+                Self::Pressure => "Pressure",
+                Self::Xtilt => "Xtilt",
+                Self::Ytilt => "Ytilt",
+                Self::Wheel => "Wheel",
+                Self::Distance => "Distance",
+                Self::Rotation => "Rotation",
+                Self::Slider => "Slider",
+                Self::Last => "Last",
                 _ => "Unknown",
             }
         )
@@ -69,23 +65,23 @@ impl fmt::Display for AxisUse {
 }
 
 #[doc(hidden)]
-impl ToGlib for AxisUse {
+impl IntoGlib for AxisUse {
     type GlibType = ffi::GdkAxisUse;
 
-    fn to_glib(&self) -> ffi::GdkAxisUse {
-        match *self {
-            AxisUse::Ignore => ffi::GDK_AXIS_IGNORE,
-            AxisUse::X => ffi::GDK_AXIS_X,
-            AxisUse::Y => ffi::GDK_AXIS_Y,
-            AxisUse::Pressure => ffi::GDK_AXIS_PRESSURE,
-            AxisUse::Xtilt => ffi::GDK_AXIS_XTILT,
-            AxisUse::Ytilt => ffi::GDK_AXIS_YTILT,
-            AxisUse::Wheel => ffi::GDK_AXIS_WHEEL,
-            AxisUse::Distance => ffi::GDK_AXIS_DISTANCE,
-            AxisUse::Rotation => ffi::GDK_AXIS_ROTATION,
-            AxisUse::Slider => ffi::GDK_AXIS_SLIDER,
-            AxisUse::Last => ffi::GDK_AXIS_LAST,
-            AxisUse::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkAxisUse {
+        match self {
+            Self::Ignore => ffi::GDK_AXIS_IGNORE,
+            Self::X => ffi::GDK_AXIS_X,
+            Self::Y => ffi::GDK_AXIS_Y,
+            Self::Pressure => ffi::GDK_AXIS_PRESSURE,
+            Self::Xtilt => ffi::GDK_AXIS_XTILT,
+            Self::Ytilt => ffi::GDK_AXIS_YTILT,
+            Self::Wheel => ffi::GDK_AXIS_WHEEL,
+            Self::Distance => ffi::GDK_AXIS_DISTANCE,
+            Self::Rotation => ffi::GDK_AXIS_ROTATION,
+            Self::Slider => ffi::GDK_AXIS_SLIDER,
+            Self::Last => ffi::GDK_AXIS_LAST,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -95,18 +91,18 @@ impl FromGlib<ffi::GdkAxisUse> for AxisUse {
     unsafe fn from_glib(value: ffi::GdkAxisUse) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => AxisUse::Ignore,
-            1 => AxisUse::X,
-            2 => AxisUse::Y,
-            3 => AxisUse::Pressure,
-            4 => AxisUse::Xtilt,
-            5 => AxisUse::Ytilt,
-            6 => AxisUse::Wheel,
-            7 => AxisUse::Distance,
-            8 => AxisUse::Rotation,
-            9 => AxisUse::Slider,
-            10 => AxisUse::Last,
-            value => AxisUse::__Unknown(value),
+            0 => Self::Ignore,
+            1 => Self::X,
+            2 => Self::Y,
+            3 => Self::Pressure,
+            4 => Self::Xtilt,
+            5 => Self::Ytilt,
+            6 => Self::Wheel,
+            7 => Self::Distance,
+            8 => Self::Rotation,
+            9 => Self::Slider,
+            10 => Self::Last,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -132,9 +128,9 @@ unsafe impl<'a> FromValue<'a> for AxisUse {
 
 impl ToValue for AxisUse {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<AxisUse>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -162,8 +158,8 @@ impl fmt::Display for ByteOrder {
             f,
             "ByteOrder::{}",
             match *self {
-                ByteOrder::LsbFirst => "LsbFirst",
-                ByteOrder::MsbFirst => "MsbFirst",
+                Self::LsbFirst => "LsbFirst",
+                Self::MsbFirst => "MsbFirst",
                 _ => "Unknown",
             }
         )
@@ -171,14 +167,14 @@ impl fmt::Display for ByteOrder {
 }
 
 #[doc(hidden)]
-impl ToGlib for ByteOrder {
+impl IntoGlib for ByteOrder {
     type GlibType = ffi::GdkByteOrder;
 
-    fn to_glib(&self) -> ffi::GdkByteOrder {
-        match *self {
-            ByteOrder::LsbFirst => ffi::GDK_LSB_FIRST,
-            ByteOrder::MsbFirst => ffi::GDK_MSB_FIRST,
-            ByteOrder::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkByteOrder {
+        match self {
+            Self::LsbFirst => ffi::GDK_LSB_FIRST,
+            Self::MsbFirst => ffi::GDK_MSB_FIRST,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -188,9 +184,9 @@ impl FromGlib<ffi::GdkByteOrder> for ByteOrder {
     unsafe fn from_glib(value: ffi::GdkByteOrder) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => ByteOrder::LsbFirst,
-            1 => ByteOrder::MsbFirst,
-            value => ByteOrder::__Unknown(value),
+            0 => Self::LsbFirst,
+            1 => Self::MsbFirst,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -216,9 +212,9 @@ unsafe impl<'a> FromValue<'a> for ByteOrder {
 
 impl ToValue for ByteOrder {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<ByteOrder>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -260,15 +256,15 @@ impl fmt::Display for CrossingMode {
             f,
             "CrossingMode::{}",
             match *self {
-                CrossingMode::Normal => "Normal",
-                CrossingMode::Grab => "Grab",
-                CrossingMode::Ungrab => "Ungrab",
-                CrossingMode::GtkGrab => "GtkGrab",
-                CrossingMode::GtkUngrab => "GtkUngrab",
-                CrossingMode::StateChanged => "StateChanged",
-                CrossingMode::TouchBegin => "TouchBegin",
-                CrossingMode::TouchEnd => "TouchEnd",
-                CrossingMode::DeviceSwitch => "DeviceSwitch",
+                Self::Normal => "Normal",
+                Self::Grab => "Grab",
+                Self::Ungrab => "Ungrab",
+                Self::GtkGrab => "GtkGrab",
+                Self::GtkUngrab => "GtkUngrab",
+                Self::StateChanged => "StateChanged",
+                Self::TouchBegin => "TouchBegin",
+                Self::TouchEnd => "TouchEnd",
+                Self::DeviceSwitch => "DeviceSwitch",
                 _ => "Unknown",
             }
         )
@@ -276,21 +272,21 @@ impl fmt::Display for CrossingMode {
 }
 
 #[doc(hidden)]
-impl ToGlib for CrossingMode {
+impl IntoGlib for CrossingMode {
     type GlibType = ffi::GdkCrossingMode;
 
-    fn to_glib(&self) -> ffi::GdkCrossingMode {
-        match *self {
-            CrossingMode::Normal => ffi::GDK_CROSSING_NORMAL,
-            CrossingMode::Grab => ffi::GDK_CROSSING_GRAB,
-            CrossingMode::Ungrab => ffi::GDK_CROSSING_UNGRAB,
-            CrossingMode::GtkGrab => ffi::GDK_CROSSING_GTK_GRAB,
-            CrossingMode::GtkUngrab => ffi::GDK_CROSSING_GTK_UNGRAB,
-            CrossingMode::StateChanged => ffi::GDK_CROSSING_STATE_CHANGED,
-            CrossingMode::TouchBegin => ffi::GDK_CROSSING_TOUCH_BEGIN,
-            CrossingMode::TouchEnd => ffi::GDK_CROSSING_TOUCH_END,
-            CrossingMode::DeviceSwitch => ffi::GDK_CROSSING_DEVICE_SWITCH,
-            CrossingMode::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkCrossingMode {
+        match self {
+            Self::Normal => ffi::GDK_CROSSING_NORMAL,
+            Self::Grab => ffi::GDK_CROSSING_GRAB,
+            Self::Ungrab => ffi::GDK_CROSSING_UNGRAB,
+            Self::GtkGrab => ffi::GDK_CROSSING_GTK_GRAB,
+            Self::GtkUngrab => ffi::GDK_CROSSING_GTK_UNGRAB,
+            Self::StateChanged => ffi::GDK_CROSSING_STATE_CHANGED,
+            Self::TouchBegin => ffi::GDK_CROSSING_TOUCH_BEGIN,
+            Self::TouchEnd => ffi::GDK_CROSSING_TOUCH_END,
+            Self::DeviceSwitch => ffi::GDK_CROSSING_DEVICE_SWITCH,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -300,16 +296,16 @@ impl FromGlib<ffi::GdkCrossingMode> for CrossingMode {
     unsafe fn from_glib(value: ffi::GdkCrossingMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => CrossingMode::Normal,
-            1 => CrossingMode::Grab,
-            2 => CrossingMode::Ungrab,
-            3 => CrossingMode::GtkGrab,
-            4 => CrossingMode::GtkUngrab,
-            5 => CrossingMode::StateChanged,
-            6 => CrossingMode::TouchBegin,
-            7 => CrossingMode::TouchEnd,
-            8 => CrossingMode::DeviceSwitch,
-            value => CrossingMode::__Unknown(value),
+            0 => Self::Normal,
+            1 => Self::Grab,
+            2 => Self::Ungrab,
+            3 => Self::GtkGrab,
+            4 => Self::GtkUngrab,
+            5 => Self::StateChanged,
+            6 => Self::TouchBegin,
+            7 => Self::TouchEnd,
+            8 => Self::DeviceSwitch,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -335,9 +331,9 @@ unsafe impl<'a> FromValue<'a> for CrossingMode {
 
 impl ToValue for CrossingMode {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<CrossingMode>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -521,86 +517,86 @@ impl fmt::Display for CursorType {
             f,
             "CursorType::{}",
             match *self {
-                CursorType::XCursor => "XCursor",
-                CursorType::Arrow => "Arrow",
-                CursorType::BasedArrowDown => "BasedArrowDown",
-                CursorType::BasedArrowUp => "BasedArrowUp",
-                CursorType::Boat => "Boat",
-                CursorType::Bogosity => "Bogosity",
-                CursorType::BottomLeftCorner => "BottomLeftCorner",
-                CursorType::BottomRightCorner => "BottomRightCorner",
-                CursorType::BottomSide => "BottomSide",
-                CursorType::BottomTee => "BottomTee",
-                CursorType::BoxSpiral => "BoxSpiral",
-                CursorType::CenterPtr => "CenterPtr",
-                CursorType::Circle => "Circle",
-                CursorType::Clock => "Clock",
-                CursorType::CoffeeMug => "CoffeeMug",
-                CursorType::Cross => "Cross",
-                CursorType::CrossReverse => "CrossReverse",
-                CursorType::Crosshair => "Crosshair",
-                CursorType::DiamondCross => "DiamondCross",
-                CursorType::Dot => "Dot",
-                CursorType::Dotbox => "Dotbox",
-                CursorType::DoubleArrow => "DoubleArrow",
-                CursorType::DraftLarge => "DraftLarge",
-                CursorType::DraftSmall => "DraftSmall",
-                CursorType::DrapedBox => "DrapedBox",
-                CursorType::Exchange => "Exchange",
-                CursorType::Fleur => "Fleur",
-                CursorType::Gobbler => "Gobbler",
-                CursorType::Gumby => "Gumby",
-                CursorType::Hand1 => "Hand1",
-                CursorType::Hand2 => "Hand2",
-                CursorType::Heart => "Heart",
-                CursorType::Icon => "Icon",
-                CursorType::IronCross => "IronCross",
-                CursorType::LeftPtr => "LeftPtr",
-                CursorType::LeftSide => "LeftSide",
-                CursorType::LeftTee => "LeftTee",
-                CursorType::Leftbutton => "Leftbutton",
-                CursorType::LlAngle => "LlAngle",
-                CursorType::LrAngle => "LrAngle",
-                CursorType::Man => "Man",
-                CursorType::Middlebutton => "Middlebutton",
-                CursorType::Mouse => "Mouse",
-                CursorType::Pencil => "Pencil",
-                CursorType::Pirate => "Pirate",
-                CursorType::Plus => "Plus",
-                CursorType::QuestionArrow => "QuestionArrow",
-                CursorType::RightPtr => "RightPtr",
-                CursorType::RightSide => "RightSide",
-                CursorType::RightTee => "RightTee",
-                CursorType::Rightbutton => "Rightbutton",
-                CursorType::RtlLogo => "RtlLogo",
-                CursorType::Sailboat => "Sailboat",
-                CursorType::SbDownArrow => "SbDownArrow",
-                CursorType::SbHDoubleArrow => "SbHDoubleArrow",
-                CursorType::SbLeftArrow => "SbLeftArrow",
-                CursorType::SbRightArrow => "SbRightArrow",
-                CursorType::SbUpArrow => "SbUpArrow",
-                CursorType::SbVDoubleArrow => "SbVDoubleArrow",
-                CursorType::Shuttle => "Shuttle",
-                CursorType::Sizing => "Sizing",
-                CursorType::Spider => "Spider",
-                CursorType::Spraycan => "Spraycan",
-                CursorType::Star => "Star",
-                CursorType::Target => "Target",
-                CursorType::Tcross => "Tcross",
-                CursorType::TopLeftArrow => "TopLeftArrow",
-                CursorType::TopLeftCorner => "TopLeftCorner",
-                CursorType::TopRightCorner => "TopRightCorner",
-                CursorType::TopSide => "TopSide",
-                CursorType::TopTee => "TopTee",
-                CursorType::Trek => "Trek",
-                CursorType::UlAngle => "UlAngle",
-                CursorType::Umbrella => "Umbrella",
-                CursorType::UrAngle => "UrAngle",
-                CursorType::Watch => "Watch",
-                CursorType::Xterm => "Xterm",
-                CursorType::LastCursor => "LastCursor",
-                CursorType::BlankCursor => "BlankCursor",
-                CursorType::CursorIsPixmap => "CursorIsPixmap",
+                Self::XCursor => "XCursor",
+                Self::Arrow => "Arrow",
+                Self::BasedArrowDown => "BasedArrowDown",
+                Self::BasedArrowUp => "BasedArrowUp",
+                Self::Boat => "Boat",
+                Self::Bogosity => "Bogosity",
+                Self::BottomLeftCorner => "BottomLeftCorner",
+                Self::BottomRightCorner => "BottomRightCorner",
+                Self::BottomSide => "BottomSide",
+                Self::BottomTee => "BottomTee",
+                Self::BoxSpiral => "BoxSpiral",
+                Self::CenterPtr => "CenterPtr",
+                Self::Circle => "Circle",
+                Self::Clock => "Clock",
+                Self::CoffeeMug => "CoffeeMug",
+                Self::Cross => "Cross",
+                Self::CrossReverse => "CrossReverse",
+                Self::Crosshair => "Crosshair",
+                Self::DiamondCross => "DiamondCross",
+                Self::Dot => "Dot",
+                Self::Dotbox => "Dotbox",
+                Self::DoubleArrow => "DoubleArrow",
+                Self::DraftLarge => "DraftLarge",
+                Self::DraftSmall => "DraftSmall",
+                Self::DrapedBox => "DrapedBox",
+                Self::Exchange => "Exchange",
+                Self::Fleur => "Fleur",
+                Self::Gobbler => "Gobbler",
+                Self::Gumby => "Gumby",
+                Self::Hand1 => "Hand1",
+                Self::Hand2 => "Hand2",
+                Self::Heart => "Heart",
+                Self::Icon => "Icon",
+                Self::IronCross => "IronCross",
+                Self::LeftPtr => "LeftPtr",
+                Self::LeftSide => "LeftSide",
+                Self::LeftTee => "LeftTee",
+                Self::Leftbutton => "Leftbutton",
+                Self::LlAngle => "LlAngle",
+                Self::LrAngle => "LrAngle",
+                Self::Man => "Man",
+                Self::Middlebutton => "Middlebutton",
+                Self::Mouse => "Mouse",
+                Self::Pencil => "Pencil",
+                Self::Pirate => "Pirate",
+                Self::Plus => "Plus",
+                Self::QuestionArrow => "QuestionArrow",
+                Self::RightPtr => "RightPtr",
+                Self::RightSide => "RightSide",
+                Self::RightTee => "RightTee",
+                Self::Rightbutton => "Rightbutton",
+                Self::RtlLogo => "RtlLogo",
+                Self::Sailboat => "Sailboat",
+                Self::SbDownArrow => "SbDownArrow",
+                Self::SbHDoubleArrow => "SbHDoubleArrow",
+                Self::SbLeftArrow => "SbLeftArrow",
+                Self::SbRightArrow => "SbRightArrow",
+                Self::SbUpArrow => "SbUpArrow",
+                Self::SbVDoubleArrow => "SbVDoubleArrow",
+                Self::Shuttle => "Shuttle",
+                Self::Sizing => "Sizing",
+                Self::Spider => "Spider",
+                Self::Spraycan => "Spraycan",
+                Self::Star => "Star",
+                Self::Target => "Target",
+                Self::Tcross => "Tcross",
+                Self::TopLeftArrow => "TopLeftArrow",
+                Self::TopLeftCorner => "TopLeftCorner",
+                Self::TopRightCorner => "TopRightCorner",
+                Self::TopSide => "TopSide",
+                Self::TopTee => "TopTee",
+                Self::Trek => "Trek",
+                Self::UlAngle => "UlAngle",
+                Self::Umbrella => "Umbrella",
+                Self::UrAngle => "UrAngle",
+                Self::Watch => "Watch",
+                Self::Xterm => "Xterm",
+                Self::LastCursor => "LastCursor",
+                Self::BlankCursor => "BlankCursor",
+                Self::CursorIsPixmap => "CursorIsPixmap",
                 _ => "Unknown",
             }
         )
@@ -608,92 +604,92 @@ impl fmt::Display for CursorType {
 }
 
 #[doc(hidden)]
-impl ToGlib for CursorType {
+impl IntoGlib for CursorType {
     type GlibType = ffi::GdkCursorType;
 
-    fn to_glib(&self) -> ffi::GdkCursorType {
-        match *self {
-            CursorType::XCursor => ffi::GDK_X_CURSOR,
-            CursorType::Arrow => ffi::GDK_ARROW,
-            CursorType::BasedArrowDown => ffi::GDK_BASED_ARROW_DOWN,
-            CursorType::BasedArrowUp => ffi::GDK_BASED_ARROW_UP,
-            CursorType::Boat => ffi::GDK_BOAT,
-            CursorType::Bogosity => ffi::GDK_BOGOSITY,
-            CursorType::BottomLeftCorner => ffi::GDK_BOTTOM_LEFT_CORNER,
-            CursorType::BottomRightCorner => ffi::GDK_BOTTOM_RIGHT_CORNER,
-            CursorType::BottomSide => ffi::GDK_BOTTOM_SIDE,
-            CursorType::BottomTee => ffi::GDK_BOTTOM_TEE,
-            CursorType::BoxSpiral => ffi::GDK_BOX_SPIRAL,
-            CursorType::CenterPtr => ffi::GDK_CENTER_PTR,
-            CursorType::Circle => ffi::GDK_CIRCLE,
-            CursorType::Clock => ffi::GDK_CLOCK,
-            CursorType::CoffeeMug => ffi::GDK_COFFEE_MUG,
-            CursorType::Cross => ffi::GDK_CROSS,
-            CursorType::CrossReverse => ffi::GDK_CROSS_REVERSE,
-            CursorType::Crosshair => ffi::GDK_CROSSHAIR,
-            CursorType::DiamondCross => ffi::GDK_DIAMOND_CROSS,
-            CursorType::Dot => ffi::GDK_DOT,
-            CursorType::Dotbox => ffi::GDK_DOTBOX,
-            CursorType::DoubleArrow => ffi::GDK_DOUBLE_ARROW,
-            CursorType::DraftLarge => ffi::GDK_DRAFT_LARGE,
-            CursorType::DraftSmall => ffi::GDK_DRAFT_SMALL,
-            CursorType::DrapedBox => ffi::GDK_DRAPED_BOX,
-            CursorType::Exchange => ffi::GDK_EXCHANGE,
-            CursorType::Fleur => ffi::GDK_FLEUR,
-            CursorType::Gobbler => ffi::GDK_GOBBLER,
-            CursorType::Gumby => ffi::GDK_GUMBY,
-            CursorType::Hand1 => ffi::GDK_HAND1,
-            CursorType::Hand2 => ffi::GDK_HAND2,
-            CursorType::Heart => ffi::GDK_HEART,
-            CursorType::Icon => ffi::GDK_ICON,
-            CursorType::IronCross => ffi::GDK_IRON_CROSS,
-            CursorType::LeftPtr => ffi::GDK_LEFT_PTR,
-            CursorType::LeftSide => ffi::GDK_LEFT_SIDE,
-            CursorType::LeftTee => ffi::GDK_LEFT_TEE,
-            CursorType::Leftbutton => ffi::GDK_LEFTBUTTON,
-            CursorType::LlAngle => ffi::GDK_LL_ANGLE,
-            CursorType::LrAngle => ffi::GDK_LR_ANGLE,
-            CursorType::Man => ffi::GDK_MAN,
-            CursorType::Middlebutton => ffi::GDK_MIDDLEBUTTON,
-            CursorType::Mouse => ffi::GDK_MOUSE,
-            CursorType::Pencil => ffi::GDK_PENCIL,
-            CursorType::Pirate => ffi::GDK_PIRATE,
-            CursorType::Plus => ffi::GDK_PLUS,
-            CursorType::QuestionArrow => ffi::GDK_QUESTION_ARROW,
-            CursorType::RightPtr => ffi::GDK_RIGHT_PTR,
-            CursorType::RightSide => ffi::GDK_RIGHT_SIDE,
-            CursorType::RightTee => ffi::GDK_RIGHT_TEE,
-            CursorType::Rightbutton => ffi::GDK_RIGHTBUTTON,
-            CursorType::RtlLogo => ffi::GDK_RTL_LOGO,
-            CursorType::Sailboat => ffi::GDK_SAILBOAT,
-            CursorType::SbDownArrow => ffi::GDK_SB_DOWN_ARROW,
-            CursorType::SbHDoubleArrow => ffi::GDK_SB_H_DOUBLE_ARROW,
-            CursorType::SbLeftArrow => ffi::GDK_SB_LEFT_ARROW,
-            CursorType::SbRightArrow => ffi::GDK_SB_RIGHT_ARROW,
-            CursorType::SbUpArrow => ffi::GDK_SB_UP_ARROW,
-            CursorType::SbVDoubleArrow => ffi::GDK_SB_V_DOUBLE_ARROW,
-            CursorType::Shuttle => ffi::GDK_SHUTTLE,
-            CursorType::Sizing => ffi::GDK_SIZING,
-            CursorType::Spider => ffi::GDK_SPIDER,
-            CursorType::Spraycan => ffi::GDK_SPRAYCAN,
-            CursorType::Star => ffi::GDK_STAR,
-            CursorType::Target => ffi::GDK_TARGET,
-            CursorType::Tcross => ffi::GDK_TCROSS,
-            CursorType::TopLeftArrow => ffi::GDK_TOP_LEFT_ARROW,
-            CursorType::TopLeftCorner => ffi::GDK_TOP_LEFT_CORNER,
-            CursorType::TopRightCorner => ffi::GDK_TOP_RIGHT_CORNER,
-            CursorType::TopSide => ffi::GDK_TOP_SIDE,
-            CursorType::TopTee => ffi::GDK_TOP_TEE,
-            CursorType::Trek => ffi::GDK_TREK,
-            CursorType::UlAngle => ffi::GDK_UL_ANGLE,
-            CursorType::Umbrella => ffi::GDK_UMBRELLA,
-            CursorType::UrAngle => ffi::GDK_UR_ANGLE,
-            CursorType::Watch => ffi::GDK_WATCH,
-            CursorType::Xterm => ffi::GDK_XTERM,
-            CursorType::LastCursor => ffi::GDK_LAST_CURSOR,
-            CursorType::BlankCursor => ffi::GDK_BLANK_CURSOR,
-            CursorType::CursorIsPixmap => ffi::GDK_CURSOR_IS_PIXMAP,
-            CursorType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkCursorType {
+        match self {
+            Self::XCursor => ffi::GDK_X_CURSOR,
+            Self::Arrow => ffi::GDK_ARROW,
+            Self::BasedArrowDown => ffi::GDK_BASED_ARROW_DOWN,
+            Self::BasedArrowUp => ffi::GDK_BASED_ARROW_UP,
+            Self::Boat => ffi::GDK_BOAT,
+            Self::Bogosity => ffi::GDK_BOGOSITY,
+            Self::BottomLeftCorner => ffi::GDK_BOTTOM_LEFT_CORNER,
+            Self::BottomRightCorner => ffi::GDK_BOTTOM_RIGHT_CORNER,
+            Self::BottomSide => ffi::GDK_BOTTOM_SIDE,
+            Self::BottomTee => ffi::GDK_BOTTOM_TEE,
+            Self::BoxSpiral => ffi::GDK_BOX_SPIRAL,
+            Self::CenterPtr => ffi::GDK_CENTER_PTR,
+            Self::Circle => ffi::GDK_CIRCLE,
+            Self::Clock => ffi::GDK_CLOCK,
+            Self::CoffeeMug => ffi::GDK_COFFEE_MUG,
+            Self::Cross => ffi::GDK_CROSS,
+            Self::CrossReverse => ffi::GDK_CROSS_REVERSE,
+            Self::Crosshair => ffi::GDK_CROSSHAIR,
+            Self::DiamondCross => ffi::GDK_DIAMOND_CROSS,
+            Self::Dot => ffi::GDK_DOT,
+            Self::Dotbox => ffi::GDK_DOTBOX,
+            Self::DoubleArrow => ffi::GDK_DOUBLE_ARROW,
+            Self::DraftLarge => ffi::GDK_DRAFT_LARGE,
+            Self::DraftSmall => ffi::GDK_DRAFT_SMALL,
+            Self::DrapedBox => ffi::GDK_DRAPED_BOX,
+            Self::Exchange => ffi::GDK_EXCHANGE,
+            Self::Fleur => ffi::GDK_FLEUR,
+            Self::Gobbler => ffi::GDK_GOBBLER,
+            Self::Gumby => ffi::GDK_GUMBY,
+            Self::Hand1 => ffi::GDK_HAND1,
+            Self::Hand2 => ffi::GDK_HAND2,
+            Self::Heart => ffi::GDK_HEART,
+            Self::Icon => ffi::GDK_ICON,
+            Self::IronCross => ffi::GDK_IRON_CROSS,
+            Self::LeftPtr => ffi::GDK_LEFT_PTR,
+            Self::LeftSide => ffi::GDK_LEFT_SIDE,
+            Self::LeftTee => ffi::GDK_LEFT_TEE,
+            Self::Leftbutton => ffi::GDK_LEFTBUTTON,
+            Self::LlAngle => ffi::GDK_LL_ANGLE,
+            Self::LrAngle => ffi::GDK_LR_ANGLE,
+            Self::Man => ffi::GDK_MAN,
+            Self::Middlebutton => ffi::GDK_MIDDLEBUTTON,
+            Self::Mouse => ffi::GDK_MOUSE,
+            Self::Pencil => ffi::GDK_PENCIL,
+            Self::Pirate => ffi::GDK_PIRATE,
+            Self::Plus => ffi::GDK_PLUS,
+            Self::QuestionArrow => ffi::GDK_QUESTION_ARROW,
+            Self::RightPtr => ffi::GDK_RIGHT_PTR,
+            Self::RightSide => ffi::GDK_RIGHT_SIDE,
+            Self::RightTee => ffi::GDK_RIGHT_TEE,
+            Self::Rightbutton => ffi::GDK_RIGHTBUTTON,
+            Self::RtlLogo => ffi::GDK_RTL_LOGO,
+            Self::Sailboat => ffi::GDK_SAILBOAT,
+            Self::SbDownArrow => ffi::GDK_SB_DOWN_ARROW,
+            Self::SbHDoubleArrow => ffi::GDK_SB_H_DOUBLE_ARROW,
+            Self::SbLeftArrow => ffi::GDK_SB_LEFT_ARROW,
+            Self::SbRightArrow => ffi::GDK_SB_RIGHT_ARROW,
+            Self::SbUpArrow => ffi::GDK_SB_UP_ARROW,
+            Self::SbVDoubleArrow => ffi::GDK_SB_V_DOUBLE_ARROW,
+            Self::Shuttle => ffi::GDK_SHUTTLE,
+            Self::Sizing => ffi::GDK_SIZING,
+            Self::Spider => ffi::GDK_SPIDER,
+            Self::Spraycan => ffi::GDK_SPRAYCAN,
+            Self::Star => ffi::GDK_STAR,
+            Self::Target => ffi::GDK_TARGET,
+            Self::Tcross => ffi::GDK_TCROSS,
+            Self::TopLeftArrow => ffi::GDK_TOP_LEFT_ARROW,
+            Self::TopLeftCorner => ffi::GDK_TOP_LEFT_CORNER,
+            Self::TopRightCorner => ffi::GDK_TOP_RIGHT_CORNER,
+            Self::TopSide => ffi::GDK_TOP_SIDE,
+            Self::TopTee => ffi::GDK_TOP_TEE,
+            Self::Trek => ffi::GDK_TREK,
+            Self::UlAngle => ffi::GDK_UL_ANGLE,
+            Self::Umbrella => ffi::GDK_UMBRELLA,
+            Self::UrAngle => ffi::GDK_UR_ANGLE,
+            Self::Watch => ffi::GDK_WATCH,
+            Self::Xterm => ffi::GDK_XTERM,
+            Self::LastCursor => ffi::GDK_LAST_CURSOR,
+            Self::BlankCursor => ffi::GDK_BLANK_CURSOR,
+            Self::CursorIsPixmap => ffi::GDK_CURSOR_IS_PIXMAP,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -703,87 +699,87 @@ impl FromGlib<ffi::GdkCursorType> for CursorType {
     unsafe fn from_glib(value: ffi::GdkCursorType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => CursorType::XCursor,
-            2 => CursorType::Arrow,
-            4 => CursorType::BasedArrowDown,
-            6 => CursorType::BasedArrowUp,
-            8 => CursorType::Boat,
-            10 => CursorType::Bogosity,
-            12 => CursorType::BottomLeftCorner,
-            14 => CursorType::BottomRightCorner,
-            16 => CursorType::BottomSide,
-            18 => CursorType::BottomTee,
-            20 => CursorType::BoxSpiral,
-            22 => CursorType::CenterPtr,
-            24 => CursorType::Circle,
-            26 => CursorType::Clock,
-            28 => CursorType::CoffeeMug,
-            30 => CursorType::Cross,
-            32 => CursorType::CrossReverse,
-            34 => CursorType::Crosshair,
-            36 => CursorType::DiamondCross,
-            38 => CursorType::Dot,
-            40 => CursorType::Dotbox,
-            42 => CursorType::DoubleArrow,
-            44 => CursorType::DraftLarge,
-            46 => CursorType::DraftSmall,
-            48 => CursorType::DrapedBox,
-            50 => CursorType::Exchange,
-            52 => CursorType::Fleur,
-            54 => CursorType::Gobbler,
-            56 => CursorType::Gumby,
-            58 => CursorType::Hand1,
-            60 => CursorType::Hand2,
-            62 => CursorType::Heart,
-            64 => CursorType::Icon,
-            66 => CursorType::IronCross,
-            68 => CursorType::LeftPtr,
-            70 => CursorType::LeftSide,
-            72 => CursorType::LeftTee,
-            74 => CursorType::Leftbutton,
-            76 => CursorType::LlAngle,
-            78 => CursorType::LrAngle,
-            80 => CursorType::Man,
-            82 => CursorType::Middlebutton,
-            84 => CursorType::Mouse,
-            86 => CursorType::Pencil,
-            88 => CursorType::Pirate,
-            90 => CursorType::Plus,
-            92 => CursorType::QuestionArrow,
-            94 => CursorType::RightPtr,
-            96 => CursorType::RightSide,
-            98 => CursorType::RightTee,
-            100 => CursorType::Rightbutton,
-            102 => CursorType::RtlLogo,
-            104 => CursorType::Sailboat,
-            106 => CursorType::SbDownArrow,
-            108 => CursorType::SbHDoubleArrow,
-            110 => CursorType::SbLeftArrow,
-            112 => CursorType::SbRightArrow,
-            114 => CursorType::SbUpArrow,
-            116 => CursorType::SbVDoubleArrow,
-            118 => CursorType::Shuttle,
-            120 => CursorType::Sizing,
-            122 => CursorType::Spider,
-            124 => CursorType::Spraycan,
-            126 => CursorType::Star,
-            128 => CursorType::Target,
-            130 => CursorType::Tcross,
-            132 => CursorType::TopLeftArrow,
-            134 => CursorType::TopLeftCorner,
-            136 => CursorType::TopRightCorner,
-            138 => CursorType::TopSide,
-            140 => CursorType::TopTee,
-            142 => CursorType::Trek,
-            144 => CursorType::UlAngle,
-            146 => CursorType::Umbrella,
-            148 => CursorType::UrAngle,
-            150 => CursorType::Watch,
-            152 => CursorType::Xterm,
-            153 => CursorType::LastCursor,
-            -2 => CursorType::BlankCursor,
-            -1 => CursorType::CursorIsPixmap,
-            value => CursorType::__Unknown(value),
+            0 => Self::XCursor,
+            2 => Self::Arrow,
+            4 => Self::BasedArrowDown,
+            6 => Self::BasedArrowUp,
+            8 => Self::Boat,
+            10 => Self::Bogosity,
+            12 => Self::BottomLeftCorner,
+            14 => Self::BottomRightCorner,
+            16 => Self::BottomSide,
+            18 => Self::BottomTee,
+            20 => Self::BoxSpiral,
+            22 => Self::CenterPtr,
+            24 => Self::Circle,
+            26 => Self::Clock,
+            28 => Self::CoffeeMug,
+            30 => Self::Cross,
+            32 => Self::CrossReverse,
+            34 => Self::Crosshair,
+            36 => Self::DiamondCross,
+            38 => Self::Dot,
+            40 => Self::Dotbox,
+            42 => Self::DoubleArrow,
+            44 => Self::DraftLarge,
+            46 => Self::DraftSmall,
+            48 => Self::DrapedBox,
+            50 => Self::Exchange,
+            52 => Self::Fleur,
+            54 => Self::Gobbler,
+            56 => Self::Gumby,
+            58 => Self::Hand1,
+            60 => Self::Hand2,
+            62 => Self::Heart,
+            64 => Self::Icon,
+            66 => Self::IronCross,
+            68 => Self::LeftPtr,
+            70 => Self::LeftSide,
+            72 => Self::LeftTee,
+            74 => Self::Leftbutton,
+            76 => Self::LlAngle,
+            78 => Self::LrAngle,
+            80 => Self::Man,
+            82 => Self::Middlebutton,
+            84 => Self::Mouse,
+            86 => Self::Pencil,
+            88 => Self::Pirate,
+            90 => Self::Plus,
+            92 => Self::QuestionArrow,
+            94 => Self::RightPtr,
+            96 => Self::RightSide,
+            98 => Self::RightTee,
+            100 => Self::Rightbutton,
+            102 => Self::RtlLogo,
+            104 => Self::Sailboat,
+            106 => Self::SbDownArrow,
+            108 => Self::SbHDoubleArrow,
+            110 => Self::SbLeftArrow,
+            112 => Self::SbRightArrow,
+            114 => Self::SbUpArrow,
+            116 => Self::SbVDoubleArrow,
+            118 => Self::Shuttle,
+            120 => Self::Sizing,
+            122 => Self::Spider,
+            124 => Self::Spraycan,
+            126 => Self::Star,
+            128 => Self::Target,
+            130 => Self::Tcross,
+            132 => Self::TopLeftArrow,
+            134 => Self::TopLeftCorner,
+            136 => Self::TopRightCorner,
+            138 => Self::TopSide,
+            140 => Self::TopTee,
+            142 => Self::Trek,
+            144 => Self::UlAngle,
+            146 => Self::Umbrella,
+            148 => Self::UrAngle,
+            150 => Self::Watch,
+            152 => Self::Xterm,
+            153 => Self::LastCursor,
+            -2 => Self::BlankCursor,
+            -1 => Self::CursorIsPixmap,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -809,9 +805,9 @@ unsafe impl<'a> FromValue<'a> for CursorType {
 
 impl ToValue for CursorType {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<CursorType>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -845,9 +841,9 @@ impl fmt::Display for DevicePadFeature {
             f,
             "DevicePadFeature::{}",
             match *self {
-                DevicePadFeature::Button => "Button",
-                DevicePadFeature::Ring => "Ring",
-                DevicePadFeature::Strip => "Strip",
+                Self::Button => "Button",
+                Self::Ring => "Ring",
+                Self::Strip => "Strip",
                 _ => "Unknown",
             }
         )
@@ -857,15 +853,15 @@ impl fmt::Display for DevicePadFeature {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
-impl ToGlib for DevicePadFeature {
+impl IntoGlib for DevicePadFeature {
     type GlibType = ffi::GdkDevicePadFeature;
 
-    fn to_glib(&self) -> ffi::GdkDevicePadFeature {
-        match *self {
-            DevicePadFeature::Button => ffi::GDK_DEVICE_PAD_FEATURE_BUTTON,
-            DevicePadFeature::Ring => ffi::GDK_DEVICE_PAD_FEATURE_RING,
-            DevicePadFeature::Strip => ffi::GDK_DEVICE_PAD_FEATURE_STRIP,
-            DevicePadFeature::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkDevicePadFeature {
+        match self {
+            Self::Button => ffi::GDK_DEVICE_PAD_FEATURE_BUTTON,
+            Self::Ring => ffi::GDK_DEVICE_PAD_FEATURE_RING,
+            Self::Strip => ffi::GDK_DEVICE_PAD_FEATURE_STRIP,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -877,10 +873,10 @@ impl FromGlib<ffi::GdkDevicePadFeature> for DevicePadFeature {
     unsafe fn from_glib(value: ffi::GdkDevicePadFeature) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => DevicePadFeature::Button,
-            1 => DevicePadFeature::Ring,
-            2 => DevicePadFeature::Strip,
-            value => DevicePadFeature::__Unknown(value),
+            0 => Self::Button,
+            1 => Self::Ring,
+            2 => Self::Strip,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -914,9 +910,9 @@ unsafe impl<'a> FromValue<'a> for DevicePadFeature {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for DevicePadFeature {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<DevicePadFeature>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -960,14 +956,14 @@ impl fmt::Display for DeviceToolType {
             f,
             "DeviceToolType::{}",
             match *self {
-                DeviceToolType::Unknown => "Unknown",
-                DeviceToolType::Pen => "Pen",
-                DeviceToolType::Eraser => "Eraser",
-                DeviceToolType::Brush => "Brush",
-                DeviceToolType::Pencil => "Pencil",
-                DeviceToolType::Airbrush => "Airbrush",
-                DeviceToolType::Mouse => "Mouse",
-                DeviceToolType::Lens => "Lens",
+                Self::Unknown => "Unknown",
+                Self::Pen => "Pen",
+                Self::Eraser => "Eraser",
+                Self::Brush => "Brush",
+                Self::Pencil => "Pencil",
+                Self::Airbrush => "Airbrush",
+                Self::Mouse => "Mouse",
+                Self::Lens => "Lens",
                 _ => "Unknown",
             }
         )
@@ -977,20 +973,20 @@ impl fmt::Display for DeviceToolType {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
-impl ToGlib for DeviceToolType {
+impl IntoGlib for DeviceToolType {
     type GlibType = ffi::GdkDeviceToolType;
 
-    fn to_glib(&self) -> ffi::GdkDeviceToolType {
-        match *self {
-            DeviceToolType::Unknown => ffi::GDK_DEVICE_TOOL_TYPE_UNKNOWN,
-            DeviceToolType::Pen => ffi::GDK_DEVICE_TOOL_TYPE_PEN,
-            DeviceToolType::Eraser => ffi::GDK_DEVICE_TOOL_TYPE_ERASER,
-            DeviceToolType::Brush => ffi::GDK_DEVICE_TOOL_TYPE_BRUSH,
-            DeviceToolType::Pencil => ffi::GDK_DEVICE_TOOL_TYPE_PENCIL,
-            DeviceToolType::Airbrush => ffi::GDK_DEVICE_TOOL_TYPE_AIRBRUSH,
-            DeviceToolType::Mouse => ffi::GDK_DEVICE_TOOL_TYPE_MOUSE,
-            DeviceToolType::Lens => ffi::GDK_DEVICE_TOOL_TYPE_LENS,
-            DeviceToolType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkDeviceToolType {
+        match self {
+            Self::Unknown => ffi::GDK_DEVICE_TOOL_TYPE_UNKNOWN,
+            Self::Pen => ffi::GDK_DEVICE_TOOL_TYPE_PEN,
+            Self::Eraser => ffi::GDK_DEVICE_TOOL_TYPE_ERASER,
+            Self::Brush => ffi::GDK_DEVICE_TOOL_TYPE_BRUSH,
+            Self::Pencil => ffi::GDK_DEVICE_TOOL_TYPE_PENCIL,
+            Self::Airbrush => ffi::GDK_DEVICE_TOOL_TYPE_AIRBRUSH,
+            Self::Mouse => ffi::GDK_DEVICE_TOOL_TYPE_MOUSE,
+            Self::Lens => ffi::GDK_DEVICE_TOOL_TYPE_LENS,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -1002,15 +998,15 @@ impl FromGlib<ffi::GdkDeviceToolType> for DeviceToolType {
     unsafe fn from_glib(value: ffi::GdkDeviceToolType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => DeviceToolType::Unknown,
-            1 => DeviceToolType::Pen,
-            2 => DeviceToolType::Eraser,
-            3 => DeviceToolType::Brush,
-            4 => DeviceToolType::Pencil,
-            5 => DeviceToolType::Airbrush,
-            6 => DeviceToolType::Mouse,
-            7 => DeviceToolType::Lens,
-            value => DeviceToolType::__Unknown(value),
+            0 => Self::Unknown,
+            1 => Self::Pen,
+            2 => Self::Eraser,
+            3 => Self::Brush,
+            4 => Self::Pencil,
+            5 => Self::Airbrush,
+            6 => Self::Mouse,
+            7 => Self::Lens,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1044,9 +1040,9 @@ unsafe impl<'a> FromValue<'a> for DeviceToolType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for DeviceToolType {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<DeviceToolType>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1076,9 +1072,9 @@ impl fmt::Display for DeviceType {
             f,
             "DeviceType::{}",
             match *self {
-                DeviceType::Master => "Master",
-                DeviceType::Slave => "Slave",
-                DeviceType::Floating => "Floating",
+                Self::Master => "Master",
+                Self::Slave => "Slave",
+                Self::Floating => "Floating",
                 _ => "Unknown",
             }
         )
@@ -1086,15 +1082,15 @@ impl fmt::Display for DeviceType {
 }
 
 #[doc(hidden)]
-impl ToGlib for DeviceType {
+impl IntoGlib for DeviceType {
     type GlibType = ffi::GdkDeviceType;
 
-    fn to_glib(&self) -> ffi::GdkDeviceType {
-        match *self {
-            DeviceType::Master => ffi::GDK_DEVICE_TYPE_MASTER,
-            DeviceType::Slave => ffi::GDK_DEVICE_TYPE_SLAVE,
-            DeviceType::Floating => ffi::GDK_DEVICE_TYPE_FLOATING,
-            DeviceType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkDeviceType {
+        match self {
+            Self::Master => ffi::GDK_DEVICE_TYPE_MASTER,
+            Self::Slave => ffi::GDK_DEVICE_TYPE_SLAVE,
+            Self::Floating => ffi::GDK_DEVICE_TYPE_FLOATING,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -1104,10 +1100,10 @@ impl FromGlib<ffi::GdkDeviceType> for DeviceType {
     unsafe fn from_glib(value: ffi::GdkDeviceType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => DeviceType::Master,
-            1 => DeviceType::Slave,
-            2 => DeviceType::Floating,
-            value => DeviceType::__Unknown(value),
+            0 => Self::Master,
+            1 => Self::Slave,
+            2 => Self::Floating,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1133,9 +1129,9 @@ unsafe impl<'a> FromValue<'a> for DeviceType {
 
 impl ToValue for DeviceType {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<DeviceType>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1169,9 +1165,9 @@ impl fmt::Display for DragCancelReason {
             f,
             "DragCancelReason::{}",
             match *self {
-                DragCancelReason::NoTarget => "NoTarget",
-                DragCancelReason::UserCancelled => "UserCancelled",
-                DragCancelReason::Error => "Error",
+                Self::NoTarget => "NoTarget",
+                Self::UserCancelled => "UserCancelled",
+                Self::Error => "Error",
                 _ => "Unknown",
             }
         )
@@ -1181,15 +1177,15 @@ impl fmt::Display for DragCancelReason {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
-impl ToGlib for DragCancelReason {
+impl IntoGlib for DragCancelReason {
     type GlibType = ffi::GdkDragCancelReason;
 
-    fn to_glib(&self) -> ffi::GdkDragCancelReason {
-        match *self {
-            DragCancelReason::NoTarget => ffi::GDK_DRAG_CANCEL_NO_TARGET,
-            DragCancelReason::UserCancelled => ffi::GDK_DRAG_CANCEL_USER_CANCELLED,
-            DragCancelReason::Error => ffi::GDK_DRAG_CANCEL_ERROR,
-            DragCancelReason::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkDragCancelReason {
+        match self {
+            Self::NoTarget => ffi::GDK_DRAG_CANCEL_NO_TARGET,
+            Self::UserCancelled => ffi::GDK_DRAG_CANCEL_USER_CANCELLED,
+            Self::Error => ffi::GDK_DRAG_CANCEL_ERROR,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -1201,10 +1197,10 @@ impl FromGlib<ffi::GdkDragCancelReason> for DragCancelReason {
     unsafe fn from_glib(value: ffi::GdkDragCancelReason) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => DragCancelReason::NoTarget,
-            1 => DragCancelReason::UserCancelled,
-            2 => DragCancelReason::Error,
-            value => DragCancelReason::__Unknown(value),
+            0 => Self::NoTarget,
+            1 => Self::UserCancelled,
+            2 => Self::Error,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1238,9 +1234,9 @@ unsafe impl<'a> FromValue<'a> for DragCancelReason {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl ToValue for DragCancelReason {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<DragCancelReason>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1280,14 +1276,14 @@ impl fmt::Display for DragProtocol {
             f,
             "DragProtocol::{}",
             match *self {
-                DragProtocol::None => "None",
-                DragProtocol::Motif => "Motif",
-                DragProtocol::Xdnd => "Xdnd",
-                DragProtocol::Rootwin => "Rootwin",
-                DragProtocol::Win32Dropfiles => "Win32Dropfiles",
-                DragProtocol::Ole2 => "Ole2",
-                DragProtocol::Local => "Local",
-                DragProtocol::Wayland => "Wayland",
+                Self::None => "None",
+                Self::Motif => "Motif",
+                Self::Xdnd => "Xdnd",
+                Self::Rootwin => "Rootwin",
+                Self::Win32Dropfiles => "Win32Dropfiles",
+                Self::Ole2 => "Ole2",
+                Self::Local => "Local",
+                Self::Wayland => "Wayland",
                 _ => "Unknown",
             }
         )
@@ -1295,20 +1291,20 @@ impl fmt::Display for DragProtocol {
 }
 
 #[doc(hidden)]
-impl ToGlib for DragProtocol {
+impl IntoGlib for DragProtocol {
     type GlibType = ffi::GdkDragProtocol;
 
-    fn to_glib(&self) -> ffi::GdkDragProtocol {
-        match *self {
-            DragProtocol::None => ffi::GDK_DRAG_PROTO_NONE,
-            DragProtocol::Motif => ffi::GDK_DRAG_PROTO_MOTIF,
-            DragProtocol::Xdnd => ffi::GDK_DRAG_PROTO_XDND,
-            DragProtocol::Rootwin => ffi::GDK_DRAG_PROTO_ROOTWIN,
-            DragProtocol::Win32Dropfiles => ffi::GDK_DRAG_PROTO_WIN32_DROPFILES,
-            DragProtocol::Ole2 => ffi::GDK_DRAG_PROTO_OLE2,
-            DragProtocol::Local => ffi::GDK_DRAG_PROTO_LOCAL,
-            DragProtocol::Wayland => ffi::GDK_DRAG_PROTO_WAYLAND,
-            DragProtocol::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkDragProtocol {
+        match self {
+            Self::None => ffi::GDK_DRAG_PROTO_NONE,
+            Self::Motif => ffi::GDK_DRAG_PROTO_MOTIF,
+            Self::Xdnd => ffi::GDK_DRAG_PROTO_XDND,
+            Self::Rootwin => ffi::GDK_DRAG_PROTO_ROOTWIN,
+            Self::Win32Dropfiles => ffi::GDK_DRAG_PROTO_WIN32_DROPFILES,
+            Self::Ole2 => ffi::GDK_DRAG_PROTO_OLE2,
+            Self::Local => ffi::GDK_DRAG_PROTO_LOCAL,
+            Self::Wayland => ffi::GDK_DRAG_PROTO_WAYLAND,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -1318,15 +1314,15 @@ impl FromGlib<ffi::GdkDragProtocol> for DragProtocol {
     unsafe fn from_glib(value: ffi::GdkDragProtocol) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => DragProtocol::None,
-            1 => DragProtocol::Motif,
-            2 => DragProtocol::Xdnd,
-            3 => DragProtocol::Rootwin,
-            4 => DragProtocol::Win32Dropfiles,
-            5 => DragProtocol::Ole2,
-            6 => DragProtocol::Local,
-            7 => DragProtocol::Wayland,
-            value => DragProtocol::__Unknown(value),
+            0 => Self::None,
+            1 => Self::Motif,
+            2 => Self::Xdnd,
+            3 => Self::Rootwin,
+            4 => Self::Win32Dropfiles,
+            5 => Self::Ole2,
+            6 => Self::Local,
+            7 => Self::Wayland,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1352,9 +1348,9 @@ unsafe impl<'a> FromValue<'a> for DragProtocol {
 
 impl ToValue for DragProtocol {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<DragProtocol>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1450,12 +1446,8 @@ pub enum EventType {
     TouchEnd,
     #[doc(alias = "GDK_TOUCH_CANCEL")]
     TouchCancel,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "GDK_TOUCHPAD_SWIPE")]
     TouchpadSwipe,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "GDK_TOUCHPAD_PINCH")]
     TouchpadPinch,
     #[doc(alias = "GDK_PAD_BUTTON_PRESS")]
@@ -1478,56 +1470,54 @@ impl fmt::Display for EventType {
             f,
             "EventType::{}",
             match *self {
-                EventType::Nothing => "Nothing",
-                EventType::Delete => "Delete",
-                EventType::Destroy => "Destroy",
-                EventType::Expose => "Expose",
-                EventType::MotionNotify => "MotionNotify",
-                EventType::ButtonPress => "ButtonPress",
-                EventType::DoubleButtonPress => "DoubleButtonPress",
-                EventType::TripleButtonPress => "TripleButtonPress",
-                EventType::ButtonRelease => "ButtonRelease",
-                EventType::KeyPress => "KeyPress",
-                EventType::KeyRelease => "KeyRelease",
-                EventType::EnterNotify => "EnterNotify",
-                EventType::LeaveNotify => "LeaveNotify",
-                EventType::FocusChange => "FocusChange",
-                EventType::Configure => "Configure",
-                EventType::Map => "Map",
-                EventType::Unmap => "Unmap",
-                EventType::PropertyNotify => "PropertyNotify",
-                EventType::SelectionClear => "SelectionClear",
-                EventType::SelectionRequest => "SelectionRequest",
-                EventType::SelectionNotify => "SelectionNotify",
-                EventType::ProximityIn => "ProximityIn",
-                EventType::ProximityOut => "ProximityOut",
-                EventType::DragEnter => "DragEnter",
-                EventType::DragLeave => "DragLeave",
-                EventType::DragMotion => "DragMotion",
-                EventType::DragStatus => "DragStatus",
-                EventType::DropStart => "DropStart",
-                EventType::DropFinished => "DropFinished",
-                EventType::ClientEvent => "ClientEvent",
-                EventType::VisibilityNotify => "VisibilityNotify",
-                EventType::Scroll => "Scroll",
-                EventType::WindowState => "WindowState",
-                EventType::Setting => "Setting",
-                EventType::OwnerChange => "OwnerChange",
-                EventType::GrabBroken => "GrabBroken",
-                EventType::Damage => "Damage",
-                EventType::TouchBegin => "TouchBegin",
-                EventType::TouchUpdate => "TouchUpdate",
-                EventType::TouchEnd => "TouchEnd",
-                EventType::TouchCancel => "TouchCancel",
-                #[cfg(any(feature = "v3_18", feature = "dox"))]
-                EventType::TouchpadSwipe => "TouchpadSwipe",
-                #[cfg(any(feature = "v3_18", feature = "dox"))]
-                EventType::TouchpadPinch => "TouchpadPinch",
-                EventType::PadButtonPress => "PadButtonPress",
-                EventType::PadButtonRelease => "PadButtonRelease",
-                EventType::PadRing => "PadRing",
-                EventType::PadStrip => "PadStrip",
-                EventType::PadGroupMode => "PadGroupMode",
+                Self::Nothing => "Nothing",
+                Self::Delete => "Delete",
+                Self::Destroy => "Destroy",
+                Self::Expose => "Expose",
+                Self::MotionNotify => "MotionNotify",
+                Self::ButtonPress => "ButtonPress",
+                Self::DoubleButtonPress => "DoubleButtonPress",
+                Self::TripleButtonPress => "TripleButtonPress",
+                Self::ButtonRelease => "ButtonRelease",
+                Self::KeyPress => "KeyPress",
+                Self::KeyRelease => "KeyRelease",
+                Self::EnterNotify => "EnterNotify",
+                Self::LeaveNotify => "LeaveNotify",
+                Self::FocusChange => "FocusChange",
+                Self::Configure => "Configure",
+                Self::Map => "Map",
+                Self::Unmap => "Unmap",
+                Self::PropertyNotify => "PropertyNotify",
+                Self::SelectionClear => "SelectionClear",
+                Self::SelectionRequest => "SelectionRequest",
+                Self::SelectionNotify => "SelectionNotify",
+                Self::ProximityIn => "ProximityIn",
+                Self::ProximityOut => "ProximityOut",
+                Self::DragEnter => "DragEnter",
+                Self::DragLeave => "DragLeave",
+                Self::DragMotion => "DragMotion",
+                Self::DragStatus => "DragStatus",
+                Self::DropStart => "DropStart",
+                Self::DropFinished => "DropFinished",
+                Self::ClientEvent => "ClientEvent",
+                Self::VisibilityNotify => "VisibilityNotify",
+                Self::Scroll => "Scroll",
+                Self::WindowState => "WindowState",
+                Self::Setting => "Setting",
+                Self::OwnerChange => "OwnerChange",
+                Self::GrabBroken => "GrabBroken",
+                Self::Damage => "Damage",
+                Self::TouchBegin => "TouchBegin",
+                Self::TouchUpdate => "TouchUpdate",
+                Self::TouchEnd => "TouchEnd",
+                Self::TouchCancel => "TouchCancel",
+                Self::TouchpadSwipe => "TouchpadSwipe",
+                Self::TouchpadPinch => "TouchpadPinch",
+                Self::PadButtonPress => "PadButtonPress",
+                Self::PadButtonRelease => "PadButtonRelease",
+                Self::PadRing => "PadRing",
+                Self::PadStrip => "PadStrip",
+                Self::PadGroupMode => "PadGroupMode",
                 _ => "Unknown",
             }
         )
@@ -1535,62 +1525,60 @@ impl fmt::Display for EventType {
 }
 
 #[doc(hidden)]
-impl ToGlib for EventType {
+impl IntoGlib for EventType {
     type GlibType = ffi::GdkEventType;
 
-    fn to_glib(&self) -> ffi::GdkEventType {
-        match *self {
-            EventType::Nothing => ffi::GDK_NOTHING,
-            EventType::Delete => ffi::GDK_DELETE,
-            EventType::Destroy => ffi::GDK_DESTROY,
-            EventType::Expose => ffi::GDK_EXPOSE,
-            EventType::MotionNotify => ffi::GDK_MOTION_NOTIFY,
-            EventType::ButtonPress => ffi::GDK_BUTTON_PRESS,
-            EventType::DoubleButtonPress => ffi::GDK_DOUBLE_BUTTON_PRESS,
-            EventType::TripleButtonPress => ffi::GDK_TRIPLE_BUTTON_PRESS,
-            EventType::ButtonRelease => ffi::GDK_BUTTON_RELEASE,
-            EventType::KeyPress => ffi::GDK_KEY_PRESS,
-            EventType::KeyRelease => ffi::GDK_KEY_RELEASE,
-            EventType::EnterNotify => ffi::GDK_ENTER_NOTIFY,
-            EventType::LeaveNotify => ffi::GDK_LEAVE_NOTIFY,
-            EventType::FocusChange => ffi::GDK_FOCUS_CHANGE,
-            EventType::Configure => ffi::GDK_CONFIGURE,
-            EventType::Map => ffi::GDK_MAP,
-            EventType::Unmap => ffi::GDK_UNMAP,
-            EventType::PropertyNotify => ffi::GDK_PROPERTY_NOTIFY,
-            EventType::SelectionClear => ffi::GDK_SELECTION_CLEAR,
-            EventType::SelectionRequest => ffi::GDK_SELECTION_REQUEST,
-            EventType::SelectionNotify => ffi::GDK_SELECTION_NOTIFY,
-            EventType::ProximityIn => ffi::GDK_PROXIMITY_IN,
-            EventType::ProximityOut => ffi::GDK_PROXIMITY_OUT,
-            EventType::DragEnter => ffi::GDK_DRAG_ENTER,
-            EventType::DragLeave => ffi::GDK_DRAG_LEAVE,
-            EventType::DragMotion => ffi::GDK_DRAG_MOTION,
-            EventType::DragStatus => ffi::GDK_DRAG_STATUS,
-            EventType::DropStart => ffi::GDK_DROP_START,
-            EventType::DropFinished => ffi::GDK_DROP_FINISHED,
-            EventType::ClientEvent => ffi::GDK_CLIENT_EVENT,
-            EventType::VisibilityNotify => ffi::GDK_VISIBILITY_NOTIFY,
-            EventType::Scroll => ffi::GDK_SCROLL,
-            EventType::WindowState => ffi::GDK_WINDOW_STATE,
-            EventType::Setting => ffi::GDK_SETTING,
-            EventType::OwnerChange => ffi::GDK_OWNER_CHANGE,
-            EventType::GrabBroken => ffi::GDK_GRAB_BROKEN,
-            EventType::Damage => ffi::GDK_DAMAGE,
-            EventType::TouchBegin => ffi::GDK_TOUCH_BEGIN,
-            EventType::TouchUpdate => ffi::GDK_TOUCH_UPDATE,
-            EventType::TouchEnd => ffi::GDK_TOUCH_END,
-            EventType::TouchCancel => ffi::GDK_TOUCH_CANCEL,
-            #[cfg(any(feature = "v3_18", feature = "dox"))]
-            EventType::TouchpadSwipe => ffi::GDK_TOUCHPAD_SWIPE,
-            #[cfg(any(feature = "v3_18", feature = "dox"))]
-            EventType::TouchpadPinch => ffi::GDK_TOUCHPAD_PINCH,
-            EventType::PadButtonPress => ffi::GDK_PAD_BUTTON_PRESS,
-            EventType::PadButtonRelease => ffi::GDK_PAD_BUTTON_RELEASE,
-            EventType::PadRing => ffi::GDK_PAD_RING,
-            EventType::PadStrip => ffi::GDK_PAD_STRIP,
-            EventType::PadGroupMode => ffi::GDK_PAD_GROUP_MODE,
-            EventType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkEventType {
+        match self {
+            Self::Nothing => ffi::GDK_NOTHING,
+            Self::Delete => ffi::GDK_DELETE,
+            Self::Destroy => ffi::GDK_DESTROY,
+            Self::Expose => ffi::GDK_EXPOSE,
+            Self::MotionNotify => ffi::GDK_MOTION_NOTIFY,
+            Self::ButtonPress => ffi::GDK_BUTTON_PRESS,
+            Self::DoubleButtonPress => ffi::GDK_DOUBLE_BUTTON_PRESS,
+            Self::TripleButtonPress => ffi::GDK_TRIPLE_BUTTON_PRESS,
+            Self::ButtonRelease => ffi::GDK_BUTTON_RELEASE,
+            Self::KeyPress => ffi::GDK_KEY_PRESS,
+            Self::KeyRelease => ffi::GDK_KEY_RELEASE,
+            Self::EnterNotify => ffi::GDK_ENTER_NOTIFY,
+            Self::LeaveNotify => ffi::GDK_LEAVE_NOTIFY,
+            Self::FocusChange => ffi::GDK_FOCUS_CHANGE,
+            Self::Configure => ffi::GDK_CONFIGURE,
+            Self::Map => ffi::GDK_MAP,
+            Self::Unmap => ffi::GDK_UNMAP,
+            Self::PropertyNotify => ffi::GDK_PROPERTY_NOTIFY,
+            Self::SelectionClear => ffi::GDK_SELECTION_CLEAR,
+            Self::SelectionRequest => ffi::GDK_SELECTION_REQUEST,
+            Self::SelectionNotify => ffi::GDK_SELECTION_NOTIFY,
+            Self::ProximityIn => ffi::GDK_PROXIMITY_IN,
+            Self::ProximityOut => ffi::GDK_PROXIMITY_OUT,
+            Self::DragEnter => ffi::GDK_DRAG_ENTER,
+            Self::DragLeave => ffi::GDK_DRAG_LEAVE,
+            Self::DragMotion => ffi::GDK_DRAG_MOTION,
+            Self::DragStatus => ffi::GDK_DRAG_STATUS,
+            Self::DropStart => ffi::GDK_DROP_START,
+            Self::DropFinished => ffi::GDK_DROP_FINISHED,
+            Self::ClientEvent => ffi::GDK_CLIENT_EVENT,
+            Self::VisibilityNotify => ffi::GDK_VISIBILITY_NOTIFY,
+            Self::Scroll => ffi::GDK_SCROLL,
+            Self::WindowState => ffi::GDK_WINDOW_STATE,
+            Self::Setting => ffi::GDK_SETTING,
+            Self::OwnerChange => ffi::GDK_OWNER_CHANGE,
+            Self::GrabBroken => ffi::GDK_GRAB_BROKEN,
+            Self::Damage => ffi::GDK_DAMAGE,
+            Self::TouchBegin => ffi::GDK_TOUCH_BEGIN,
+            Self::TouchUpdate => ffi::GDK_TOUCH_UPDATE,
+            Self::TouchEnd => ffi::GDK_TOUCH_END,
+            Self::TouchCancel => ffi::GDK_TOUCH_CANCEL,
+            Self::TouchpadSwipe => ffi::GDK_TOUCHPAD_SWIPE,
+            Self::TouchpadPinch => ffi::GDK_TOUCHPAD_PINCH,
+            Self::PadButtonPress => ffi::GDK_PAD_BUTTON_PRESS,
+            Self::PadButtonRelease => ffi::GDK_PAD_BUTTON_RELEASE,
+            Self::PadRing => ffi::GDK_PAD_RING,
+            Self::PadStrip => ffi::GDK_PAD_STRIP,
+            Self::PadGroupMode => ffi::GDK_PAD_GROUP_MODE,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -1600,57 +1588,55 @@ impl FromGlib<ffi::GdkEventType> for EventType {
     unsafe fn from_glib(value: ffi::GdkEventType) -> Self {
         skip_assert_initialized!();
         match value {
-            -1 => EventType::Nothing,
-            0 => EventType::Delete,
-            1 => EventType::Destroy,
-            2 => EventType::Expose,
-            3 => EventType::MotionNotify,
-            4 => EventType::ButtonPress,
-            5 => EventType::DoubleButtonPress,
-            6 => EventType::TripleButtonPress,
-            7 => EventType::ButtonRelease,
-            8 => EventType::KeyPress,
-            9 => EventType::KeyRelease,
-            10 => EventType::EnterNotify,
-            11 => EventType::LeaveNotify,
-            12 => EventType::FocusChange,
-            13 => EventType::Configure,
-            14 => EventType::Map,
-            15 => EventType::Unmap,
-            16 => EventType::PropertyNotify,
-            17 => EventType::SelectionClear,
-            18 => EventType::SelectionRequest,
-            19 => EventType::SelectionNotify,
-            20 => EventType::ProximityIn,
-            21 => EventType::ProximityOut,
-            22 => EventType::DragEnter,
-            23 => EventType::DragLeave,
-            24 => EventType::DragMotion,
-            25 => EventType::DragStatus,
-            26 => EventType::DropStart,
-            27 => EventType::DropFinished,
-            28 => EventType::ClientEvent,
-            29 => EventType::VisibilityNotify,
-            31 => EventType::Scroll,
-            32 => EventType::WindowState,
-            33 => EventType::Setting,
-            34 => EventType::OwnerChange,
-            35 => EventType::GrabBroken,
-            36 => EventType::Damage,
-            37 => EventType::TouchBegin,
-            38 => EventType::TouchUpdate,
-            39 => EventType::TouchEnd,
-            40 => EventType::TouchCancel,
-            #[cfg(any(feature = "v3_18", feature = "dox"))]
-            41 => EventType::TouchpadSwipe,
-            #[cfg(any(feature = "v3_18", feature = "dox"))]
-            42 => EventType::TouchpadPinch,
-            43 => EventType::PadButtonPress,
-            44 => EventType::PadButtonRelease,
-            45 => EventType::PadRing,
-            46 => EventType::PadStrip,
-            47 => EventType::PadGroupMode,
-            value => EventType::__Unknown(value),
+            -1 => Self::Nothing,
+            0 => Self::Delete,
+            1 => Self::Destroy,
+            2 => Self::Expose,
+            3 => Self::MotionNotify,
+            4 => Self::ButtonPress,
+            5 => Self::DoubleButtonPress,
+            6 => Self::TripleButtonPress,
+            7 => Self::ButtonRelease,
+            8 => Self::KeyPress,
+            9 => Self::KeyRelease,
+            10 => Self::EnterNotify,
+            11 => Self::LeaveNotify,
+            12 => Self::FocusChange,
+            13 => Self::Configure,
+            14 => Self::Map,
+            15 => Self::Unmap,
+            16 => Self::PropertyNotify,
+            17 => Self::SelectionClear,
+            18 => Self::SelectionRequest,
+            19 => Self::SelectionNotify,
+            20 => Self::ProximityIn,
+            21 => Self::ProximityOut,
+            22 => Self::DragEnter,
+            23 => Self::DragLeave,
+            24 => Self::DragMotion,
+            25 => Self::DragStatus,
+            26 => Self::DropStart,
+            27 => Self::DropFinished,
+            28 => Self::ClientEvent,
+            29 => Self::VisibilityNotify,
+            31 => Self::Scroll,
+            32 => Self::WindowState,
+            33 => Self::Setting,
+            34 => Self::OwnerChange,
+            35 => Self::GrabBroken,
+            36 => Self::Damage,
+            37 => Self::TouchBegin,
+            38 => Self::TouchUpdate,
+            39 => Self::TouchEnd,
+            40 => Self::TouchCancel,
+            41 => Self::TouchpadSwipe,
+            42 => Self::TouchpadPinch,
+            43 => Self::PadButtonPress,
+            44 => Self::PadButtonRelease,
+            45 => Self::PadRing,
+            46 => Self::PadStrip,
+            47 => Self::PadGroupMode,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1676,9 +1662,9 @@ unsafe impl<'a> FromValue<'a> for EventType {
 
 impl ToValue for EventType {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<EventType>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1706,8 +1692,8 @@ impl fmt::Display for FullscreenMode {
             f,
             "FullscreenMode::{}",
             match *self {
-                FullscreenMode::CurrentMonitor => "CurrentMonitor",
-                FullscreenMode::AllMonitors => "AllMonitors",
+                Self::CurrentMonitor => "CurrentMonitor",
+                Self::AllMonitors => "AllMonitors",
                 _ => "Unknown",
             }
         )
@@ -1715,14 +1701,14 @@ impl fmt::Display for FullscreenMode {
 }
 
 #[doc(hidden)]
-impl ToGlib for FullscreenMode {
+impl IntoGlib for FullscreenMode {
     type GlibType = ffi::GdkFullscreenMode;
 
-    fn to_glib(&self) -> ffi::GdkFullscreenMode {
-        match *self {
-            FullscreenMode::CurrentMonitor => ffi::GDK_FULLSCREEN_ON_CURRENT_MONITOR,
-            FullscreenMode::AllMonitors => ffi::GDK_FULLSCREEN_ON_ALL_MONITORS,
-            FullscreenMode::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkFullscreenMode {
+        match self {
+            Self::CurrentMonitor => ffi::GDK_FULLSCREEN_ON_CURRENT_MONITOR,
+            Self::AllMonitors => ffi::GDK_FULLSCREEN_ON_ALL_MONITORS,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -1732,9 +1718,9 @@ impl FromGlib<ffi::GdkFullscreenMode> for FullscreenMode {
     unsafe fn from_glib(value: ffi::GdkFullscreenMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => FullscreenMode::CurrentMonitor,
-            1 => FullscreenMode::AllMonitors,
-            value => FullscreenMode::__Unknown(value),
+            0 => Self::CurrentMonitor,
+            1 => Self::AllMonitors,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1760,9 +1746,9 @@ unsafe impl<'a> FromValue<'a> for FullscreenMode {
 
 impl ToValue for FullscreenMode {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<FullscreenMode>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1772,8 +1758,6 @@ impl ToValue for FullscreenMode {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GdkGLError")]
@@ -1788,56 +1772,48 @@ pub enum GLError {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl fmt::Display for GLError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
             "GLError::{}",
             match *self {
-                GLError::NotAvailable => "NotAvailable",
-                GLError::UnsupportedFormat => "UnsupportedFormat",
-                GLError::UnsupportedProfile => "UnsupportedProfile",
+                Self::NotAvailable => "NotAvailable",
+                Self::UnsupportedFormat => "UnsupportedFormat",
+                Self::UnsupportedProfile => "UnsupportedProfile",
                 _ => "Unknown",
             }
         )
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
-impl ToGlib for GLError {
+impl IntoGlib for GLError {
     type GlibType = ffi::GdkGLError;
 
-    fn to_glib(&self) -> ffi::GdkGLError {
-        match *self {
-            GLError::NotAvailable => ffi::GDK_GL_ERROR_NOT_AVAILABLE,
-            GLError::UnsupportedFormat => ffi::GDK_GL_ERROR_UNSUPPORTED_FORMAT,
-            GLError::UnsupportedProfile => ffi::GDK_GL_ERROR_UNSUPPORTED_PROFILE,
-            GLError::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkGLError {
+        match self {
+            Self::NotAvailable => ffi::GDK_GL_ERROR_NOT_AVAILABLE,
+            Self::UnsupportedFormat => ffi::GDK_GL_ERROR_UNSUPPORTED_FORMAT,
+            Self::UnsupportedProfile => ffi::GDK_GL_ERROR_UNSUPPORTED_PROFILE,
+            Self::__Unknown(value) => value,
         }
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkGLError> for GLError {
     unsafe fn from_glib(value: ffi::GdkGLError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => GLError::NotAvailable,
-            1 => GLError::UnsupportedFormat,
-            2 => GLError::UnsupportedProfile,
-            value => GLError::__Unknown(value),
+            0 => Self::NotAvailable,
+            1 => Self::UnsupportedFormat,
+            2 => Self::UnsupportedProfile,
+            value => Self::__Unknown(value),
         }
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl ErrorDomain for GLError {
     fn domain() -> Quark {
         skip_assert_initialized!();
@@ -1846,36 +1822,30 @@ impl ErrorDomain for GLError {
     }
 
     fn code(self) -> i32 {
-        self.to_glib()
+        self.into_glib()
     }
 
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(GLError::NotAvailable),
-            1 => Some(GLError::UnsupportedFormat),
-            2 => Some(GLError::UnsupportedProfile),
-            value => Some(GLError::__Unknown(value)),
+            0 => Some(Self::NotAvailable),
+            1 => Some(Self::UnsupportedFormat),
+            2 => Some(Self::UnsupportedProfile),
+            value => Some(Self::__Unknown(value)),
         }
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl StaticType for GLError {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_gl_error_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl glib::value::ValueType for GLError {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 unsafe impl<'a> FromValue<'a> for GLError {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -1885,13 +1855,11 @@ unsafe impl<'a> FromValue<'a> for GLError {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl ToValue for GLError {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<GLError>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -1921,9 +1889,9 @@ impl fmt::Display for GrabOwnership {
             f,
             "GrabOwnership::{}",
             match *self {
-                GrabOwnership::None => "None",
-                GrabOwnership::Window => "Window",
-                GrabOwnership::Application => "Application",
+                Self::None => "None",
+                Self::Window => "Window",
+                Self::Application => "Application",
                 _ => "Unknown",
             }
         )
@@ -1931,15 +1899,15 @@ impl fmt::Display for GrabOwnership {
 }
 
 #[doc(hidden)]
-impl ToGlib for GrabOwnership {
+impl IntoGlib for GrabOwnership {
     type GlibType = ffi::GdkGrabOwnership;
 
-    fn to_glib(&self) -> ffi::GdkGrabOwnership {
-        match *self {
-            GrabOwnership::None => ffi::GDK_OWNERSHIP_NONE,
-            GrabOwnership::Window => ffi::GDK_OWNERSHIP_WINDOW,
-            GrabOwnership::Application => ffi::GDK_OWNERSHIP_APPLICATION,
-            GrabOwnership::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkGrabOwnership {
+        match self {
+            Self::None => ffi::GDK_OWNERSHIP_NONE,
+            Self::Window => ffi::GDK_OWNERSHIP_WINDOW,
+            Self::Application => ffi::GDK_OWNERSHIP_APPLICATION,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -1949,10 +1917,10 @@ impl FromGlib<ffi::GdkGrabOwnership> for GrabOwnership {
     unsafe fn from_glib(value: ffi::GdkGrabOwnership) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => GrabOwnership::None,
-            1 => GrabOwnership::Window,
-            2 => GrabOwnership::Application,
-            value => GrabOwnership::__Unknown(value),
+            0 => Self::None,
+            1 => Self::Window,
+            2 => Self::Application,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -1978,9 +1946,9 @@ unsafe impl<'a> FromValue<'a> for GrabOwnership {
 
 impl ToValue for GrabOwnership {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<GrabOwnership>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2016,12 +1984,12 @@ impl fmt::Display for GrabStatus {
             f,
             "GrabStatus::{}",
             match *self {
-                GrabStatus::Success => "Success",
-                GrabStatus::AlreadyGrabbed => "AlreadyGrabbed",
-                GrabStatus::InvalidTime => "InvalidTime",
-                GrabStatus::NotViewable => "NotViewable",
-                GrabStatus::Frozen => "Frozen",
-                GrabStatus::Failed => "Failed",
+                Self::Success => "Success",
+                Self::AlreadyGrabbed => "AlreadyGrabbed",
+                Self::InvalidTime => "InvalidTime",
+                Self::NotViewable => "NotViewable",
+                Self::Frozen => "Frozen",
+                Self::Failed => "Failed",
                 _ => "Unknown",
             }
         )
@@ -2029,18 +1997,18 @@ impl fmt::Display for GrabStatus {
 }
 
 #[doc(hidden)]
-impl ToGlib for GrabStatus {
+impl IntoGlib for GrabStatus {
     type GlibType = ffi::GdkGrabStatus;
 
-    fn to_glib(&self) -> ffi::GdkGrabStatus {
-        match *self {
-            GrabStatus::Success => ffi::GDK_GRAB_SUCCESS,
-            GrabStatus::AlreadyGrabbed => ffi::GDK_GRAB_ALREADY_GRABBED,
-            GrabStatus::InvalidTime => ffi::GDK_GRAB_INVALID_TIME,
-            GrabStatus::NotViewable => ffi::GDK_GRAB_NOT_VIEWABLE,
-            GrabStatus::Frozen => ffi::GDK_GRAB_FROZEN,
-            GrabStatus::Failed => ffi::GDK_GRAB_FAILED,
-            GrabStatus::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkGrabStatus {
+        match self {
+            Self::Success => ffi::GDK_GRAB_SUCCESS,
+            Self::AlreadyGrabbed => ffi::GDK_GRAB_ALREADY_GRABBED,
+            Self::InvalidTime => ffi::GDK_GRAB_INVALID_TIME,
+            Self::NotViewable => ffi::GDK_GRAB_NOT_VIEWABLE,
+            Self::Frozen => ffi::GDK_GRAB_FROZEN,
+            Self::Failed => ffi::GDK_GRAB_FAILED,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2050,13 +2018,13 @@ impl FromGlib<ffi::GdkGrabStatus> for GrabStatus {
     unsafe fn from_glib(value: ffi::GdkGrabStatus) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => GrabStatus::Success,
-            1 => GrabStatus::AlreadyGrabbed,
-            2 => GrabStatus::InvalidTime,
-            3 => GrabStatus::NotViewable,
-            4 => GrabStatus::Frozen,
-            5 => GrabStatus::Failed,
-            value => GrabStatus::__Unknown(value),
+            0 => Self::Success,
+            1 => Self::AlreadyGrabbed,
+            2 => Self::InvalidTime,
+            3 => Self::NotViewable,
+            4 => Self::Frozen,
+            5 => Self::Failed,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2082,9 +2050,9 @@ unsafe impl<'a> FromValue<'a> for GrabStatus {
 
 impl ToValue for GrabStatus {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<GrabStatus>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2128,16 +2096,16 @@ impl fmt::Display for Gravity {
             f,
             "Gravity::{}",
             match *self {
-                Gravity::NorthWest => "NorthWest",
-                Gravity::North => "North",
-                Gravity::NorthEast => "NorthEast",
-                Gravity::West => "West",
-                Gravity::Center => "Center",
-                Gravity::East => "East",
-                Gravity::SouthWest => "SouthWest",
-                Gravity::South => "South",
-                Gravity::SouthEast => "SouthEast",
-                Gravity::Static => "Static",
+                Self::NorthWest => "NorthWest",
+                Self::North => "North",
+                Self::NorthEast => "NorthEast",
+                Self::West => "West",
+                Self::Center => "Center",
+                Self::East => "East",
+                Self::SouthWest => "SouthWest",
+                Self::South => "South",
+                Self::SouthEast => "SouthEast",
+                Self::Static => "Static",
                 _ => "Unknown",
             }
         )
@@ -2145,22 +2113,22 @@ impl fmt::Display for Gravity {
 }
 
 #[doc(hidden)]
-impl ToGlib for Gravity {
+impl IntoGlib for Gravity {
     type GlibType = ffi::GdkGravity;
 
-    fn to_glib(&self) -> ffi::GdkGravity {
-        match *self {
-            Gravity::NorthWest => ffi::GDK_GRAVITY_NORTH_WEST,
-            Gravity::North => ffi::GDK_GRAVITY_NORTH,
-            Gravity::NorthEast => ffi::GDK_GRAVITY_NORTH_EAST,
-            Gravity::West => ffi::GDK_GRAVITY_WEST,
-            Gravity::Center => ffi::GDK_GRAVITY_CENTER,
-            Gravity::East => ffi::GDK_GRAVITY_EAST,
-            Gravity::SouthWest => ffi::GDK_GRAVITY_SOUTH_WEST,
-            Gravity::South => ffi::GDK_GRAVITY_SOUTH,
-            Gravity::SouthEast => ffi::GDK_GRAVITY_SOUTH_EAST,
-            Gravity::Static => ffi::GDK_GRAVITY_STATIC,
-            Gravity::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkGravity {
+        match self {
+            Self::NorthWest => ffi::GDK_GRAVITY_NORTH_WEST,
+            Self::North => ffi::GDK_GRAVITY_NORTH,
+            Self::NorthEast => ffi::GDK_GRAVITY_NORTH_EAST,
+            Self::West => ffi::GDK_GRAVITY_WEST,
+            Self::Center => ffi::GDK_GRAVITY_CENTER,
+            Self::East => ffi::GDK_GRAVITY_EAST,
+            Self::SouthWest => ffi::GDK_GRAVITY_SOUTH_WEST,
+            Self::South => ffi::GDK_GRAVITY_SOUTH,
+            Self::SouthEast => ffi::GDK_GRAVITY_SOUTH_EAST,
+            Self::Static => ffi::GDK_GRAVITY_STATIC,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2170,17 +2138,17 @@ impl FromGlib<ffi::GdkGravity> for Gravity {
     unsafe fn from_glib(value: ffi::GdkGravity) -> Self {
         skip_assert_initialized!();
         match value {
-            1 => Gravity::NorthWest,
-            2 => Gravity::North,
-            3 => Gravity::NorthEast,
-            4 => Gravity::West,
-            5 => Gravity::Center,
-            6 => Gravity::East,
-            7 => Gravity::SouthWest,
-            8 => Gravity::South,
-            9 => Gravity::SouthEast,
-            10 => Gravity::Static,
-            value => Gravity::__Unknown(value),
+            1 => Self::NorthWest,
+            2 => Self::North,
+            3 => Self::NorthEast,
+            4 => Self::West,
+            5 => Self::Center,
+            6 => Self::East,
+            7 => Self::SouthWest,
+            8 => Self::South,
+            9 => Self::SouthEast,
+            10 => Self::Static,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2206,9 +2174,9 @@ unsafe impl<'a> FromValue<'a> for Gravity {
 
 impl ToValue for Gravity {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<Gravity>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2238,9 +2206,9 @@ impl fmt::Display for InputMode {
             f,
             "InputMode::{}",
             match *self {
-                InputMode::Disabled => "Disabled",
-                InputMode::Screen => "Screen",
-                InputMode::Window => "Window",
+                Self::Disabled => "Disabled",
+                Self::Screen => "Screen",
+                Self::Window => "Window",
                 _ => "Unknown",
             }
         )
@@ -2248,15 +2216,15 @@ impl fmt::Display for InputMode {
 }
 
 #[doc(hidden)]
-impl ToGlib for InputMode {
+impl IntoGlib for InputMode {
     type GlibType = ffi::GdkInputMode;
 
-    fn to_glib(&self) -> ffi::GdkInputMode {
-        match *self {
-            InputMode::Disabled => ffi::GDK_MODE_DISABLED,
-            InputMode::Screen => ffi::GDK_MODE_SCREEN,
-            InputMode::Window => ffi::GDK_MODE_WINDOW,
-            InputMode::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkInputMode {
+        match self {
+            Self::Disabled => ffi::GDK_MODE_DISABLED,
+            Self::Screen => ffi::GDK_MODE_SCREEN,
+            Self::Window => ffi::GDK_MODE_WINDOW,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2266,10 +2234,10 @@ impl FromGlib<ffi::GdkInputMode> for InputMode {
     unsafe fn from_glib(value: ffi::GdkInputMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => InputMode::Disabled,
-            1 => InputMode::Screen,
-            2 => InputMode::Window,
-            value => InputMode::__Unknown(value),
+            0 => Self::Disabled,
+            1 => Self::Screen,
+            2 => Self::Window,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2295,9 +2263,9 @@ unsafe impl<'a> FromValue<'a> for InputMode {
 
 impl ToValue for InputMode {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<InputMode>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2339,15 +2307,15 @@ impl fmt::Display for InputSource {
             f,
             "InputSource::{}",
             match *self {
-                InputSource::Mouse => "Mouse",
-                InputSource::Pen => "Pen",
-                InputSource::Eraser => "Eraser",
-                InputSource::Cursor => "Cursor",
-                InputSource::Keyboard => "Keyboard",
-                InputSource::Touchscreen => "Touchscreen",
-                InputSource::Touchpad => "Touchpad",
-                InputSource::Trackpoint => "Trackpoint",
-                InputSource::TabletPad => "TabletPad",
+                Self::Mouse => "Mouse",
+                Self::Pen => "Pen",
+                Self::Eraser => "Eraser",
+                Self::Cursor => "Cursor",
+                Self::Keyboard => "Keyboard",
+                Self::Touchscreen => "Touchscreen",
+                Self::Touchpad => "Touchpad",
+                Self::Trackpoint => "Trackpoint",
+                Self::TabletPad => "TabletPad",
                 _ => "Unknown",
             }
         )
@@ -2355,21 +2323,21 @@ impl fmt::Display for InputSource {
 }
 
 #[doc(hidden)]
-impl ToGlib for InputSource {
+impl IntoGlib for InputSource {
     type GlibType = ffi::GdkInputSource;
 
-    fn to_glib(&self) -> ffi::GdkInputSource {
-        match *self {
-            InputSource::Mouse => ffi::GDK_SOURCE_MOUSE,
-            InputSource::Pen => ffi::GDK_SOURCE_PEN,
-            InputSource::Eraser => ffi::GDK_SOURCE_ERASER,
-            InputSource::Cursor => ffi::GDK_SOURCE_CURSOR,
-            InputSource::Keyboard => ffi::GDK_SOURCE_KEYBOARD,
-            InputSource::Touchscreen => ffi::GDK_SOURCE_TOUCHSCREEN,
-            InputSource::Touchpad => ffi::GDK_SOURCE_TOUCHPAD,
-            InputSource::Trackpoint => ffi::GDK_SOURCE_TRACKPOINT,
-            InputSource::TabletPad => ffi::GDK_SOURCE_TABLET_PAD,
-            InputSource::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkInputSource {
+        match self {
+            Self::Mouse => ffi::GDK_SOURCE_MOUSE,
+            Self::Pen => ffi::GDK_SOURCE_PEN,
+            Self::Eraser => ffi::GDK_SOURCE_ERASER,
+            Self::Cursor => ffi::GDK_SOURCE_CURSOR,
+            Self::Keyboard => ffi::GDK_SOURCE_KEYBOARD,
+            Self::Touchscreen => ffi::GDK_SOURCE_TOUCHSCREEN,
+            Self::Touchpad => ffi::GDK_SOURCE_TOUCHPAD,
+            Self::Trackpoint => ffi::GDK_SOURCE_TRACKPOINT,
+            Self::TabletPad => ffi::GDK_SOURCE_TABLET_PAD,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2379,16 +2347,16 @@ impl FromGlib<ffi::GdkInputSource> for InputSource {
     unsafe fn from_glib(value: ffi::GdkInputSource) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => InputSource::Mouse,
-            1 => InputSource::Pen,
-            2 => InputSource::Eraser,
-            3 => InputSource::Cursor,
-            4 => InputSource::Keyboard,
-            5 => InputSource::Touchscreen,
-            6 => InputSource::Touchpad,
-            7 => InputSource::Trackpoint,
-            8 => InputSource::TabletPad,
-            value => InputSource::__Unknown(value),
+            0 => Self::Mouse,
+            1 => Self::Pen,
+            2 => Self::Eraser,
+            3 => Self::Cursor,
+            4 => Self::Keyboard,
+            5 => Self::Touchscreen,
+            6 => Self::Touchpad,
+            7 => Self::Trackpoint,
+            8 => Self::TabletPad,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2414,9 +2382,9 @@ unsafe impl<'a> FromValue<'a> for InputSource {
 
 impl ToValue for InputSource {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<InputSource>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2454,13 +2422,13 @@ impl fmt::Display for ModifierIntent {
             f,
             "ModifierIntent::{}",
             match *self {
-                ModifierIntent::PrimaryAccelerator => "PrimaryAccelerator",
-                ModifierIntent::ContextMenu => "ContextMenu",
-                ModifierIntent::ExtendSelection => "ExtendSelection",
-                ModifierIntent::ModifySelection => "ModifySelection",
-                ModifierIntent::NoTextInput => "NoTextInput",
-                ModifierIntent::ShiftGroup => "ShiftGroup",
-                ModifierIntent::DefaultModMask => "DefaultModMask",
+                Self::PrimaryAccelerator => "PrimaryAccelerator",
+                Self::ContextMenu => "ContextMenu",
+                Self::ExtendSelection => "ExtendSelection",
+                Self::ModifySelection => "ModifySelection",
+                Self::NoTextInput => "NoTextInput",
+                Self::ShiftGroup => "ShiftGroup",
+                Self::DefaultModMask => "DefaultModMask",
                 _ => "Unknown",
             }
         )
@@ -2468,19 +2436,19 @@ impl fmt::Display for ModifierIntent {
 }
 
 #[doc(hidden)]
-impl ToGlib for ModifierIntent {
+impl IntoGlib for ModifierIntent {
     type GlibType = ffi::GdkModifierIntent;
 
-    fn to_glib(&self) -> ffi::GdkModifierIntent {
-        match *self {
-            ModifierIntent::PrimaryAccelerator => ffi::GDK_MODIFIER_INTENT_PRIMARY_ACCELERATOR,
-            ModifierIntent::ContextMenu => ffi::GDK_MODIFIER_INTENT_CONTEXT_MENU,
-            ModifierIntent::ExtendSelection => ffi::GDK_MODIFIER_INTENT_EXTEND_SELECTION,
-            ModifierIntent::ModifySelection => ffi::GDK_MODIFIER_INTENT_MODIFY_SELECTION,
-            ModifierIntent::NoTextInput => ffi::GDK_MODIFIER_INTENT_NO_TEXT_INPUT,
-            ModifierIntent::ShiftGroup => ffi::GDK_MODIFIER_INTENT_SHIFT_GROUP,
-            ModifierIntent::DefaultModMask => ffi::GDK_MODIFIER_INTENT_DEFAULT_MOD_MASK,
-            ModifierIntent::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkModifierIntent {
+        match self {
+            Self::PrimaryAccelerator => ffi::GDK_MODIFIER_INTENT_PRIMARY_ACCELERATOR,
+            Self::ContextMenu => ffi::GDK_MODIFIER_INTENT_CONTEXT_MENU,
+            Self::ExtendSelection => ffi::GDK_MODIFIER_INTENT_EXTEND_SELECTION,
+            Self::ModifySelection => ffi::GDK_MODIFIER_INTENT_MODIFY_SELECTION,
+            Self::NoTextInput => ffi::GDK_MODIFIER_INTENT_NO_TEXT_INPUT,
+            Self::ShiftGroup => ffi::GDK_MODIFIER_INTENT_SHIFT_GROUP,
+            Self::DefaultModMask => ffi::GDK_MODIFIER_INTENT_DEFAULT_MOD_MASK,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2490,14 +2458,14 @@ impl FromGlib<ffi::GdkModifierIntent> for ModifierIntent {
     unsafe fn from_glib(value: ffi::GdkModifierIntent) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => ModifierIntent::PrimaryAccelerator,
-            1 => ModifierIntent::ContextMenu,
-            2 => ModifierIntent::ExtendSelection,
-            3 => ModifierIntent::ModifySelection,
-            4 => ModifierIntent::NoTextInput,
-            5 => ModifierIntent::ShiftGroup,
-            6 => ModifierIntent::DefaultModMask,
-            value => ModifierIntent::__Unknown(value),
+            0 => Self::PrimaryAccelerator,
+            1 => Self::ContextMenu,
+            2 => Self::ExtendSelection,
+            3 => Self::ModifySelection,
+            4 => Self::NoTextInput,
+            5 => Self::ShiftGroup,
+            6 => Self::DefaultModMask,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2523,9 +2491,9 @@ unsafe impl<'a> FromValue<'a> for ModifierIntent {
 
 impl ToValue for ModifierIntent {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<ModifierIntent>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2561,12 +2529,12 @@ impl fmt::Display for NotifyType {
             f,
             "NotifyType::{}",
             match *self {
-                NotifyType::Ancestor => "Ancestor",
-                NotifyType::Virtual => "Virtual",
-                NotifyType::Inferior => "Inferior",
-                NotifyType::Nonlinear => "Nonlinear",
-                NotifyType::NonlinearVirtual => "NonlinearVirtual",
-                NotifyType::Unknown => "Unknown",
+                Self::Ancestor => "Ancestor",
+                Self::Virtual => "Virtual",
+                Self::Inferior => "Inferior",
+                Self::Nonlinear => "Nonlinear",
+                Self::NonlinearVirtual => "NonlinearVirtual",
+                Self::Unknown => "Unknown",
                 _ => "Unknown",
             }
         )
@@ -2574,18 +2542,18 @@ impl fmt::Display for NotifyType {
 }
 
 #[doc(hidden)]
-impl ToGlib for NotifyType {
+impl IntoGlib for NotifyType {
     type GlibType = ffi::GdkNotifyType;
 
-    fn to_glib(&self) -> ffi::GdkNotifyType {
-        match *self {
-            NotifyType::Ancestor => ffi::GDK_NOTIFY_ANCESTOR,
-            NotifyType::Virtual => ffi::GDK_NOTIFY_VIRTUAL,
-            NotifyType::Inferior => ffi::GDK_NOTIFY_INFERIOR,
-            NotifyType::Nonlinear => ffi::GDK_NOTIFY_NONLINEAR,
-            NotifyType::NonlinearVirtual => ffi::GDK_NOTIFY_NONLINEAR_VIRTUAL,
-            NotifyType::Unknown => ffi::GDK_NOTIFY_UNKNOWN,
-            NotifyType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkNotifyType {
+        match self {
+            Self::Ancestor => ffi::GDK_NOTIFY_ANCESTOR,
+            Self::Virtual => ffi::GDK_NOTIFY_VIRTUAL,
+            Self::Inferior => ffi::GDK_NOTIFY_INFERIOR,
+            Self::Nonlinear => ffi::GDK_NOTIFY_NONLINEAR,
+            Self::NonlinearVirtual => ffi::GDK_NOTIFY_NONLINEAR_VIRTUAL,
+            Self::Unknown => ffi::GDK_NOTIFY_UNKNOWN,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2595,13 +2563,13 @@ impl FromGlib<ffi::GdkNotifyType> for NotifyType {
     unsafe fn from_glib(value: ffi::GdkNotifyType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => NotifyType::Ancestor,
-            1 => NotifyType::Virtual,
-            2 => NotifyType::Inferior,
-            3 => NotifyType::Nonlinear,
-            4 => NotifyType::NonlinearVirtual,
-            5 => NotifyType::Unknown,
-            value => NotifyType::__Unknown(value),
+            0 => Self::Ancestor,
+            1 => Self::Virtual,
+            2 => Self::Inferior,
+            3 => Self::Nonlinear,
+            4 => Self::NonlinearVirtual,
+            5 => Self::Unknown,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2627,9 +2595,9 @@ unsafe impl<'a> FromValue<'a> for NotifyType {
 
 impl ToValue for NotifyType {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<NotifyType>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2659,9 +2627,9 @@ impl fmt::Display for OwnerChange {
             f,
             "OwnerChange::{}",
             match *self {
-                OwnerChange::NewOwner => "NewOwner",
-                OwnerChange::Destroy => "Destroy",
-                OwnerChange::Close => "Close",
+                Self::NewOwner => "NewOwner",
+                Self::Destroy => "Destroy",
+                Self::Close => "Close",
                 _ => "Unknown",
             }
         )
@@ -2669,15 +2637,15 @@ impl fmt::Display for OwnerChange {
 }
 
 #[doc(hidden)]
-impl ToGlib for OwnerChange {
+impl IntoGlib for OwnerChange {
     type GlibType = ffi::GdkOwnerChange;
 
-    fn to_glib(&self) -> ffi::GdkOwnerChange {
-        match *self {
-            OwnerChange::NewOwner => ffi::GDK_OWNER_CHANGE_NEW_OWNER,
-            OwnerChange::Destroy => ffi::GDK_OWNER_CHANGE_DESTROY,
-            OwnerChange::Close => ffi::GDK_OWNER_CHANGE_CLOSE,
-            OwnerChange::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkOwnerChange {
+        match self {
+            Self::NewOwner => ffi::GDK_OWNER_CHANGE_NEW_OWNER,
+            Self::Destroy => ffi::GDK_OWNER_CHANGE_DESTROY,
+            Self::Close => ffi::GDK_OWNER_CHANGE_CLOSE,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2687,10 +2655,10 @@ impl FromGlib<ffi::GdkOwnerChange> for OwnerChange {
     unsafe fn from_glib(value: ffi::GdkOwnerChange) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => OwnerChange::NewOwner,
-            1 => OwnerChange::Destroy,
-            2 => OwnerChange::Close,
-            value => OwnerChange::__Unknown(value),
+            0 => Self::NewOwner,
+            1 => Self::Destroy,
+            2 => Self::Close,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2716,9 +2684,9 @@ unsafe impl<'a> FromValue<'a> for OwnerChange {
 
 impl ToValue for OwnerChange {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<OwnerChange>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2748,9 +2716,9 @@ impl fmt::Display for PropMode {
             f,
             "PropMode::{}",
             match *self {
-                PropMode::Replace => "Replace",
-                PropMode::Prepend => "Prepend",
-                PropMode::Append => "Append",
+                Self::Replace => "Replace",
+                Self::Prepend => "Prepend",
+                Self::Append => "Append",
                 _ => "Unknown",
             }
         )
@@ -2758,15 +2726,15 @@ impl fmt::Display for PropMode {
 }
 
 #[doc(hidden)]
-impl ToGlib for PropMode {
+impl IntoGlib for PropMode {
     type GlibType = ffi::GdkPropMode;
 
-    fn to_glib(&self) -> ffi::GdkPropMode {
-        match *self {
-            PropMode::Replace => ffi::GDK_PROP_MODE_REPLACE,
-            PropMode::Prepend => ffi::GDK_PROP_MODE_PREPEND,
-            PropMode::Append => ffi::GDK_PROP_MODE_APPEND,
-            PropMode::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkPropMode {
+        match self {
+            Self::Replace => ffi::GDK_PROP_MODE_REPLACE,
+            Self::Prepend => ffi::GDK_PROP_MODE_PREPEND,
+            Self::Append => ffi::GDK_PROP_MODE_APPEND,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2776,10 +2744,10 @@ impl FromGlib<ffi::GdkPropMode> for PropMode {
     unsafe fn from_glib(value: ffi::GdkPropMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => PropMode::Replace,
-            1 => PropMode::Prepend,
-            2 => PropMode::Append,
-            value => PropMode::__Unknown(value),
+            0 => Self::Replace,
+            1 => Self::Prepend,
+            2 => Self::Append,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2805,9 +2773,9 @@ unsafe impl<'a> FromValue<'a> for PropMode {
 
 impl ToValue for PropMode {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<PropMode>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2835,8 +2803,8 @@ impl fmt::Display for PropertyState {
             f,
             "PropertyState::{}",
             match *self {
-                PropertyState::NewValue => "NewValue",
-                PropertyState::Delete => "Delete",
+                Self::NewValue => "NewValue",
+                Self::Delete => "Delete",
                 _ => "Unknown",
             }
         )
@@ -2844,14 +2812,14 @@ impl fmt::Display for PropertyState {
 }
 
 #[doc(hidden)]
-impl ToGlib for PropertyState {
+impl IntoGlib for PropertyState {
     type GlibType = ffi::GdkPropertyState;
 
-    fn to_glib(&self) -> ffi::GdkPropertyState {
-        match *self {
-            PropertyState::NewValue => ffi::GDK_PROPERTY_NEW_VALUE,
-            PropertyState::Delete => ffi::GDK_PROPERTY_DELETE,
-            PropertyState::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkPropertyState {
+        match self {
+            Self::NewValue => ffi::GDK_PROPERTY_NEW_VALUE,
+            Self::Delete => ffi::GDK_PROPERTY_DELETE,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2861,9 +2829,9 @@ impl FromGlib<ffi::GdkPropertyState> for PropertyState {
     unsafe fn from_glib(value: ffi::GdkPropertyState) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => PropertyState::NewValue,
-            1 => PropertyState::Delete,
-            value => PropertyState::__Unknown(value),
+            0 => Self::NewValue,
+            1 => Self::Delete,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2889,9 +2857,9 @@ unsafe impl<'a> FromValue<'a> for PropertyState {
 
 impl ToValue for PropertyState {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<PropertyState>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -2925,11 +2893,11 @@ impl fmt::Display for ScrollDirection {
             f,
             "ScrollDirection::{}",
             match *self {
-                ScrollDirection::Up => "Up",
-                ScrollDirection::Down => "Down",
-                ScrollDirection::Left => "Left",
-                ScrollDirection::Right => "Right",
-                ScrollDirection::Smooth => "Smooth",
+                Self::Up => "Up",
+                Self::Down => "Down",
+                Self::Left => "Left",
+                Self::Right => "Right",
+                Self::Smooth => "Smooth",
                 _ => "Unknown",
             }
         )
@@ -2937,17 +2905,17 @@ impl fmt::Display for ScrollDirection {
 }
 
 #[doc(hidden)]
-impl ToGlib for ScrollDirection {
+impl IntoGlib for ScrollDirection {
     type GlibType = ffi::GdkScrollDirection;
 
-    fn to_glib(&self) -> ffi::GdkScrollDirection {
-        match *self {
-            ScrollDirection::Up => ffi::GDK_SCROLL_UP,
-            ScrollDirection::Down => ffi::GDK_SCROLL_DOWN,
-            ScrollDirection::Left => ffi::GDK_SCROLL_LEFT,
-            ScrollDirection::Right => ffi::GDK_SCROLL_RIGHT,
-            ScrollDirection::Smooth => ffi::GDK_SCROLL_SMOOTH,
-            ScrollDirection::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkScrollDirection {
+        match self {
+            Self::Up => ffi::GDK_SCROLL_UP,
+            Self::Down => ffi::GDK_SCROLL_DOWN,
+            Self::Left => ffi::GDK_SCROLL_LEFT,
+            Self::Right => ffi::GDK_SCROLL_RIGHT,
+            Self::Smooth => ffi::GDK_SCROLL_SMOOTH,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -2957,12 +2925,12 @@ impl FromGlib<ffi::GdkScrollDirection> for ScrollDirection {
     unsafe fn from_glib(value: ffi::GdkScrollDirection) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => ScrollDirection::Up,
-            1 => ScrollDirection::Down,
-            2 => ScrollDirection::Left,
-            3 => ScrollDirection::Right,
-            4 => ScrollDirection::Smooth,
-            value => ScrollDirection::__Unknown(value),
+            0 => Self::Up,
+            1 => Self::Down,
+            2 => Self::Left,
+            3 => Self::Right,
+            4 => Self::Smooth,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -2988,9 +2956,9 @@ unsafe impl<'a> FromValue<'a> for ScrollDirection {
 
 impl ToValue for ScrollDirection {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<ScrollDirection>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -3020,9 +2988,9 @@ impl fmt::Display for SettingAction {
             f,
             "SettingAction::{}",
             match *self {
-                SettingAction::New => "New",
-                SettingAction::Changed => "Changed",
-                SettingAction::Deleted => "Deleted",
+                Self::New => "New",
+                Self::Changed => "Changed",
+                Self::Deleted => "Deleted",
                 _ => "Unknown",
             }
         )
@@ -3030,15 +2998,15 @@ impl fmt::Display for SettingAction {
 }
 
 #[doc(hidden)]
-impl ToGlib for SettingAction {
+impl IntoGlib for SettingAction {
     type GlibType = ffi::GdkSettingAction;
 
-    fn to_glib(&self) -> ffi::GdkSettingAction {
-        match *self {
-            SettingAction::New => ffi::GDK_SETTING_ACTION_NEW,
-            SettingAction::Changed => ffi::GDK_SETTING_ACTION_CHANGED,
-            SettingAction::Deleted => ffi::GDK_SETTING_ACTION_DELETED,
-            SettingAction::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkSettingAction {
+        match self {
+            Self::New => ffi::GDK_SETTING_ACTION_NEW,
+            Self::Changed => ffi::GDK_SETTING_ACTION_CHANGED,
+            Self::Deleted => ffi::GDK_SETTING_ACTION_DELETED,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -3048,10 +3016,10 @@ impl FromGlib<ffi::GdkSettingAction> for SettingAction {
     unsafe fn from_glib(value: ffi::GdkSettingAction) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => SettingAction::New,
-            1 => SettingAction::Changed,
-            2 => SettingAction::Deleted,
-            value => SettingAction::__Unknown(value),
+            0 => Self::New,
+            1 => Self::Changed,
+            2 => Self::Deleted,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -3077,9 +3045,9 @@ unsafe impl<'a> FromValue<'a> for SettingAction {
 
 impl ToValue for SettingAction {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<SettingAction>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -3119,12 +3087,12 @@ impl fmt::Display for SubpixelLayout {
             f,
             "SubpixelLayout::{}",
             match *self {
-                SubpixelLayout::Unknown => "Unknown",
-                SubpixelLayout::None => "None",
-                SubpixelLayout::HorizontalRgb => "HorizontalRgb",
-                SubpixelLayout::HorizontalBgr => "HorizontalBgr",
-                SubpixelLayout::VerticalRgb => "VerticalRgb",
-                SubpixelLayout::VerticalBgr => "VerticalBgr",
+                Self::Unknown => "Unknown",
+                Self::None => "None",
+                Self::HorizontalRgb => "HorizontalRgb",
+                Self::HorizontalBgr => "HorizontalBgr",
+                Self::VerticalRgb => "VerticalRgb",
+                Self::VerticalBgr => "VerticalBgr",
                 _ => "Unknown",
             }
         )
@@ -3134,18 +3102,18 @@ impl fmt::Display for SubpixelLayout {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
-impl ToGlib for SubpixelLayout {
+impl IntoGlib for SubpixelLayout {
     type GlibType = ffi::GdkSubpixelLayout;
 
-    fn to_glib(&self) -> ffi::GdkSubpixelLayout {
-        match *self {
-            SubpixelLayout::Unknown => ffi::GDK_SUBPIXEL_LAYOUT_UNKNOWN,
-            SubpixelLayout::None => ffi::GDK_SUBPIXEL_LAYOUT_NONE,
-            SubpixelLayout::HorizontalRgb => ffi::GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB,
-            SubpixelLayout::HorizontalBgr => ffi::GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR,
-            SubpixelLayout::VerticalRgb => ffi::GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB,
-            SubpixelLayout::VerticalBgr => ffi::GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR,
-            SubpixelLayout::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkSubpixelLayout {
+        match self {
+            Self::Unknown => ffi::GDK_SUBPIXEL_LAYOUT_UNKNOWN,
+            Self::None => ffi::GDK_SUBPIXEL_LAYOUT_NONE,
+            Self::HorizontalRgb => ffi::GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB,
+            Self::HorizontalBgr => ffi::GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR,
+            Self::VerticalRgb => ffi::GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB,
+            Self::VerticalBgr => ffi::GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -3157,13 +3125,13 @@ impl FromGlib<ffi::GdkSubpixelLayout> for SubpixelLayout {
     unsafe fn from_glib(value: ffi::GdkSubpixelLayout) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => SubpixelLayout::Unknown,
-            1 => SubpixelLayout::None,
-            2 => SubpixelLayout::HorizontalRgb,
-            3 => SubpixelLayout::HorizontalBgr,
-            4 => SubpixelLayout::VerticalRgb,
-            5 => SubpixelLayout::VerticalBgr,
-            value => SubpixelLayout::__Unknown(value),
+            0 => Self::Unknown,
+            1 => Self::None,
+            2 => Self::HorizontalRgb,
+            3 => Self::HorizontalBgr,
+            4 => Self::VerticalRgb,
+            5 => Self::VerticalBgr,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -3197,9 +3165,9 @@ unsafe impl<'a> FromValue<'a> for SubpixelLayout {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for SubpixelLayout {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<SubpixelLayout>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -3229,9 +3197,9 @@ impl fmt::Display for VisibilityState {
             f,
             "VisibilityState::{}",
             match *self {
-                VisibilityState::Unobscured => "Unobscured",
-                VisibilityState::Partial => "Partial",
-                VisibilityState::FullyObscured => "FullyObscured",
+                Self::Unobscured => "Unobscured",
+                Self::Partial => "Partial",
+                Self::FullyObscured => "FullyObscured",
                 _ => "Unknown",
             }
         )
@@ -3239,15 +3207,15 @@ impl fmt::Display for VisibilityState {
 }
 
 #[doc(hidden)]
-impl ToGlib for VisibilityState {
+impl IntoGlib for VisibilityState {
     type GlibType = ffi::GdkVisibilityState;
 
-    fn to_glib(&self) -> ffi::GdkVisibilityState {
-        match *self {
-            VisibilityState::Unobscured => ffi::GDK_VISIBILITY_UNOBSCURED,
-            VisibilityState::Partial => ffi::GDK_VISIBILITY_PARTIAL,
-            VisibilityState::FullyObscured => ffi::GDK_VISIBILITY_FULLY_OBSCURED,
-            VisibilityState::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkVisibilityState {
+        match self {
+            Self::Unobscured => ffi::GDK_VISIBILITY_UNOBSCURED,
+            Self::Partial => ffi::GDK_VISIBILITY_PARTIAL,
+            Self::FullyObscured => ffi::GDK_VISIBILITY_FULLY_OBSCURED,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -3257,10 +3225,10 @@ impl FromGlib<ffi::GdkVisibilityState> for VisibilityState {
     unsafe fn from_glib(value: ffi::GdkVisibilityState) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => VisibilityState::Unobscured,
-            1 => VisibilityState::Partial,
-            2 => VisibilityState::FullyObscured,
-            value => VisibilityState::__Unknown(value),
+            0 => Self::Unobscured,
+            1 => Self::Partial,
+            2 => Self::FullyObscured,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -3286,9 +3254,9 @@ unsafe impl<'a> FromValue<'a> for VisibilityState {
 
 impl ToValue for VisibilityState {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<VisibilityState>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -3324,12 +3292,12 @@ impl fmt::Display for VisualType {
             f,
             "VisualType::{}",
             match *self {
-                VisualType::StaticGray => "StaticGray",
-                VisualType::Grayscale => "Grayscale",
-                VisualType::StaticColor => "StaticColor",
-                VisualType::PseudoColor => "PseudoColor",
-                VisualType::TrueColor => "TrueColor",
-                VisualType::DirectColor => "DirectColor",
+                Self::StaticGray => "StaticGray",
+                Self::Grayscale => "Grayscale",
+                Self::StaticColor => "StaticColor",
+                Self::PseudoColor => "PseudoColor",
+                Self::TrueColor => "TrueColor",
+                Self::DirectColor => "DirectColor",
                 _ => "Unknown",
             }
         )
@@ -3337,18 +3305,18 @@ impl fmt::Display for VisualType {
 }
 
 #[doc(hidden)]
-impl ToGlib for VisualType {
+impl IntoGlib for VisualType {
     type GlibType = ffi::GdkVisualType;
 
-    fn to_glib(&self) -> ffi::GdkVisualType {
-        match *self {
-            VisualType::StaticGray => ffi::GDK_VISUAL_STATIC_GRAY,
-            VisualType::Grayscale => ffi::GDK_VISUAL_GRAYSCALE,
-            VisualType::StaticColor => ffi::GDK_VISUAL_STATIC_COLOR,
-            VisualType::PseudoColor => ffi::GDK_VISUAL_PSEUDO_COLOR,
-            VisualType::TrueColor => ffi::GDK_VISUAL_TRUE_COLOR,
-            VisualType::DirectColor => ffi::GDK_VISUAL_DIRECT_COLOR,
-            VisualType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkVisualType {
+        match self {
+            Self::StaticGray => ffi::GDK_VISUAL_STATIC_GRAY,
+            Self::Grayscale => ffi::GDK_VISUAL_GRAYSCALE,
+            Self::StaticColor => ffi::GDK_VISUAL_STATIC_COLOR,
+            Self::PseudoColor => ffi::GDK_VISUAL_PSEUDO_COLOR,
+            Self::TrueColor => ffi::GDK_VISUAL_TRUE_COLOR,
+            Self::DirectColor => ffi::GDK_VISUAL_DIRECT_COLOR,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -3358,13 +3326,13 @@ impl FromGlib<ffi::GdkVisualType> for VisualType {
     unsafe fn from_glib(value: ffi::GdkVisualType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => VisualType::StaticGray,
-            1 => VisualType::Grayscale,
-            2 => VisualType::StaticColor,
-            3 => VisualType::PseudoColor,
-            4 => VisualType::TrueColor,
-            5 => VisualType::DirectColor,
-            value => VisualType::__Unknown(value),
+            0 => Self::StaticGray,
+            1 => Self::Grayscale,
+            2 => Self::StaticColor,
+            3 => Self::PseudoColor,
+            4 => Self::TrueColor,
+            5 => Self::DirectColor,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -3390,9 +3358,9 @@ unsafe impl<'a> FromValue<'a> for VisualType {
 
 impl ToValue for VisualType {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<VisualType>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -3432,14 +3400,14 @@ impl fmt::Display for WindowEdge {
             f,
             "WindowEdge::{}",
             match *self {
-                WindowEdge::NorthWest => "NorthWest",
-                WindowEdge::North => "North",
-                WindowEdge::NorthEast => "NorthEast",
-                WindowEdge::West => "West",
-                WindowEdge::East => "East",
-                WindowEdge::SouthWest => "SouthWest",
-                WindowEdge::South => "South",
-                WindowEdge::SouthEast => "SouthEast",
+                Self::NorthWest => "NorthWest",
+                Self::North => "North",
+                Self::NorthEast => "NorthEast",
+                Self::West => "West",
+                Self::East => "East",
+                Self::SouthWest => "SouthWest",
+                Self::South => "South",
+                Self::SouthEast => "SouthEast",
                 _ => "Unknown",
             }
         )
@@ -3447,20 +3415,20 @@ impl fmt::Display for WindowEdge {
 }
 
 #[doc(hidden)]
-impl ToGlib for WindowEdge {
+impl IntoGlib for WindowEdge {
     type GlibType = ffi::GdkWindowEdge;
 
-    fn to_glib(&self) -> ffi::GdkWindowEdge {
-        match *self {
-            WindowEdge::NorthWest => ffi::GDK_WINDOW_EDGE_NORTH_WEST,
-            WindowEdge::North => ffi::GDK_WINDOW_EDGE_NORTH,
-            WindowEdge::NorthEast => ffi::GDK_WINDOW_EDGE_NORTH_EAST,
-            WindowEdge::West => ffi::GDK_WINDOW_EDGE_WEST,
-            WindowEdge::East => ffi::GDK_WINDOW_EDGE_EAST,
-            WindowEdge::SouthWest => ffi::GDK_WINDOW_EDGE_SOUTH_WEST,
-            WindowEdge::South => ffi::GDK_WINDOW_EDGE_SOUTH,
-            WindowEdge::SouthEast => ffi::GDK_WINDOW_EDGE_SOUTH_EAST,
-            WindowEdge::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkWindowEdge {
+        match self {
+            Self::NorthWest => ffi::GDK_WINDOW_EDGE_NORTH_WEST,
+            Self::North => ffi::GDK_WINDOW_EDGE_NORTH,
+            Self::NorthEast => ffi::GDK_WINDOW_EDGE_NORTH_EAST,
+            Self::West => ffi::GDK_WINDOW_EDGE_WEST,
+            Self::East => ffi::GDK_WINDOW_EDGE_EAST,
+            Self::SouthWest => ffi::GDK_WINDOW_EDGE_SOUTH_WEST,
+            Self::South => ffi::GDK_WINDOW_EDGE_SOUTH,
+            Self::SouthEast => ffi::GDK_WINDOW_EDGE_SOUTH_EAST,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -3470,15 +3438,15 @@ impl FromGlib<ffi::GdkWindowEdge> for WindowEdge {
     unsafe fn from_glib(value: ffi::GdkWindowEdge) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => WindowEdge::NorthWest,
-            1 => WindowEdge::North,
-            2 => WindowEdge::NorthEast,
-            3 => WindowEdge::West,
-            4 => WindowEdge::East,
-            5 => WindowEdge::SouthWest,
-            6 => WindowEdge::South,
-            7 => WindowEdge::SouthEast,
-            value => WindowEdge::__Unknown(value),
+            0 => Self::NorthWest,
+            1 => Self::North,
+            2 => Self::NorthEast,
+            3 => Self::West,
+            4 => Self::East,
+            5 => Self::SouthWest,
+            6 => Self::South,
+            7 => Self::SouthEast,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -3504,9 +3472,9 @@ unsafe impl<'a> FromValue<'a> for WindowEdge {
 
 impl ToValue for WindowEdge {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<WindowEdge>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -3544,13 +3512,13 @@ impl fmt::Display for WindowType {
             f,
             "WindowType::{}",
             match *self {
-                WindowType::Root => "Root",
-                WindowType::Toplevel => "Toplevel",
-                WindowType::Child => "Child",
-                WindowType::Temp => "Temp",
-                WindowType::Foreign => "Foreign",
-                WindowType::Offscreen => "Offscreen",
-                WindowType::Subsurface => "Subsurface",
+                Self::Root => "Root",
+                Self::Toplevel => "Toplevel",
+                Self::Child => "Child",
+                Self::Temp => "Temp",
+                Self::Foreign => "Foreign",
+                Self::Offscreen => "Offscreen",
+                Self::Subsurface => "Subsurface",
                 _ => "Unknown",
             }
         )
@@ -3558,19 +3526,19 @@ impl fmt::Display for WindowType {
 }
 
 #[doc(hidden)]
-impl ToGlib for WindowType {
+impl IntoGlib for WindowType {
     type GlibType = ffi::GdkWindowType;
 
-    fn to_glib(&self) -> ffi::GdkWindowType {
-        match *self {
-            WindowType::Root => ffi::GDK_WINDOW_ROOT,
-            WindowType::Toplevel => ffi::GDK_WINDOW_TOPLEVEL,
-            WindowType::Child => ffi::GDK_WINDOW_CHILD,
-            WindowType::Temp => ffi::GDK_WINDOW_TEMP,
-            WindowType::Foreign => ffi::GDK_WINDOW_FOREIGN,
-            WindowType::Offscreen => ffi::GDK_WINDOW_OFFSCREEN,
-            WindowType::Subsurface => ffi::GDK_WINDOW_SUBSURFACE,
-            WindowType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkWindowType {
+        match self {
+            Self::Root => ffi::GDK_WINDOW_ROOT,
+            Self::Toplevel => ffi::GDK_WINDOW_TOPLEVEL,
+            Self::Child => ffi::GDK_WINDOW_CHILD,
+            Self::Temp => ffi::GDK_WINDOW_TEMP,
+            Self::Foreign => ffi::GDK_WINDOW_FOREIGN,
+            Self::Offscreen => ffi::GDK_WINDOW_OFFSCREEN,
+            Self::Subsurface => ffi::GDK_WINDOW_SUBSURFACE,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -3580,14 +3548,14 @@ impl FromGlib<ffi::GdkWindowType> for WindowType {
     unsafe fn from_glib(value: ffi::GdkWindowType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => WindowType::Root,
-            1 => WindowType::Toplevel,
-            2 => WindowType::Child,
-            3 => WindowType::Temp,
-            4 => WindowType::Foreign,
-            5 => WindowType::Offscreen,
-            6 => WindowType::Subsurface,
-            value => WindowType::__Unknown(value),
+            0 => Self::Root,
+            1 => Self::Toplevel,
+            2 => Self::Child,
+            3 => Self::Temp,
+            4 => Self::Foreign,
+            5 => Self::Offscreen,
+            6 => Self::Subsurface,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -3613,9 +3581,9 @@ unsafe impl<'a> FromValue<'a> for WindowType {
 
 impl ToValue for WindowType {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<WindowType>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -3667,20 +3635,20 @@ impl fmt::Display for WindowTypeHint {
             f,
             "WindowTypeHint::{}",
             match *self {
-                WindowTypeHint::Normal => "Normal",
-                WindowTypeHint::Dialog => "Dialog",
-                WindowTypeHint::Menu => "Menu",
-                WindowTypeHint::Toolbar => "Toolbar",
-                WindowTypeHint::Splashscreen => "Splashscreen",
-                WindowTypeHint::Utility => "Utility",
-                WindowTypeHint::Dock => "Dock",
-                WindowTypeHint::Desktop => "Desktop",
-                WindowTypeHint::DropdownMenu => "DropdownMenu",
-                WindowTypeHint::PopupMenu => "PopupMenu",
-                WindowTypeHint::Tooltip => "Tooltip",
-                WindowTypeHint::Notification => "Notification",
-                WindowTypeHint::Combo => "Combo",
-                WindowTypeHint::Dnd => "Dnd",
+                Self::Normal => "Normal",
+                Self::Dialog => "Dialog",
+                Self::Menu => "Menu",
+                Self::Toolbar => "Toolbar",
+                Self::Splashscreen => "Splashscreen",
+                Self::Utility => "Utility",
+                Self::Dock => "Dock",
+                Self::Desktop => "Desktop",
+                Self::DropdownMenu => "DropdownMenu",
+                Self::PopupMenu => "PopupMenu",
+                Self::Tooltip => "Tooltip",
+                Self::Notification => "Notification",
+                Self::Combo => "Combo",
+                Self::Dnd => "Dnd",
                 _ => "Unknown",
             }
         )
@@ -3688,26 +3656,26 @@ impl fmt::Display for WindowTypeHint {
 }
 
 #[doc(hidden)]
-impl ToGlib for WindowTypeHint {
+impl IntoGlib for WindowTypeHint {
     type GlibType = ffi::GdkWindowTypeHint;
 
-    fn to_glib(&self) -> ffi::GdkWindowTypeHint {
-        match *self {
-            WindowTypeHint::Normal => ffi::GDK_WINDOW_TYPE_HINT_NORMAL,
-            WindowTypeHint::Dialog => ffi::GDK_WINDOW_TYPE_HINT_DIALOG,
-            WindowTypeHint::Menu => ffi::GDK_WINDOW_TYPE_HINT_MENU,
-            WindowTypeHint::Toolbar => ffi::GDK_WINDOW_TYPE_HINT_TOOLBAR,
-            WindowTypeHint::Splashscreen => ffi::GDK_WINDOW_TYPE_HINT_SPLASHSCREEN,
-            WindowTypeHint::Utility => ffi::GDK_WINDOW_TYPE_HINT_UTILITY,
-            WindowTypeHint::Dock => ffi::GDK_WINDOW_TYPE_HINT_DOCK,
-            WindowTypeHint::Desktop => ffi::GDK_WINDOW_TYPE_HINT_DESKTOP,
-            WindowTypeHint::DropdownMenu => ffi::GDK_WINDOW_TYPE_HINT_DROPDOWN_MENU,
-            WindowTypeHint::PopupMenu => ffi::GDK_WINDOW_TYPE_HINT_POPUP_MENU,
-            WindowTypeHint::Tooltip => ffi::GDK_WINDOW_TYPE_HINT_TOOLTIP,
-            WindowTypeHint::Notification => ffi::GDK_WINDOW_TYPE_HINT_NOTIFICATION,
-            WindowTypeHint::Combo => ffi::GDK_WINDOW_TYPE_HINT_COMBO,
-            WindowTypeHint::Dnd => ffi::GDK_WINDOW_TYPE_HINT_DND,
-            WindowTypeHint::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkWindowTypeHint {
+        match self {
+            Self::Normal => ffi::GDK_WINDOW_TYPE_HINT_NORMAL,
+            Self::Dialog => ffi::GDK_WINDOW_TYPE_HINT_DIALOG,
+            Self::Menu => ffi::GDK_WINDOW_TYPE_HINT_MENU,
+            Self::Toolbar => ffi::GDK_WINDOW_TYPE_HINT_TOOLBAR,
+            Self::Splashscreen => ffi::GDK_WINDOW_TYPE_HINT_SPLASHSCREEN,
+            Self::Utility => ffi::GDK_WINDOW_TYPE_HINT_UTILITY,
+            Self::Dock => ffi::GDK_WINDOW_TYPE_HINT_DOCK,
+            Self::Desktop => ffi::GDK_WINDOW_TYPE_HINT_DESKTOP,
+            Self::DropdownMenu => ffi::GDK_WINDOW_TYPE_HINT_DROPDOWN_MENU,
+            Self::PopupMenu => ffi::GDK_WINDOW_TYPE_HINT_POPUP_MENU,
+            Self::Tooltip => ffi::GDK_WINDOW_TYPE_HINT_TOOLTIP,
+            Self::Notification => ffi::GDK_WINDOW_TYPE_HINT_NOTIFICATION,
+            Self::Combo => ffi::GDK_WINDOW_TYPE_HINT_COMBO,
+            Self::Dnd => ffi::GDK_WINDOW_TYPE_HINT_DND,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -3717,21 +3685,21 @@ impl FromGlib<ffi::GdkWindowTypeHint> for WindowTypeHint {
     unsafe fn from_glib(value: ffi::GdkWindowTypeHint) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => WindowTypeHint::Normal,
-            1 => WindowTypeHint::Dialog,
-            2 => WindowTypeHint::Menu,
-            3 => WindowTypeHint::Toolbar,
-            4 => WindowTypeHint::Splashscreen,
-            5 => WindowTypeHint::Utility,
-            6 => WindowTypeHint::Dock,
-            7 => WindowTypeHint::Desktop,
-            8 => WindowTypeHint::DropdownMenu,
-            9 => WindowTypeHint::PopupMenu,
-            10 => WindowTypeHint::Tooltip,
-            11 => WindowTypeHint::Notification,
-            12 => WindowTypeHint::Combo,
-            13 => WindowTypeHint::Dnd,
-            value => WindowTypeHint::__Unknown(value),
+            0 => Self::Normal,
+            1 => Self::Dialog,
+            2 => Self::Menu,
+            3 => Self::Toolbar,
+            4 => Self::Splashscreen,
+            5 => Self::Utility,
+            6 => Self::Dock,
+            7 => Self::Desktop,
+            8 => Self::DropdownMenu,
+            9 => Self::PopupMenu,
+            10 => Self::Tooltip,
+            11 => Self::Notification,
+            12 => Self::Combo,
+            13 => Self::Dnd,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -3757,9 +3725,9 @@ unsafe impl<'a> FromValue<'a> for WindowTypeHint {
 
 impl ToValue for WindowTypeHint {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<WindowTypeHint>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }
@@ -3787,8 +3755,8 @@ impl fmt::Display for WindowWindowClass {
             f,
             "WindowWindowClass::{}",
             match *self {
-                WindowWindowClass::InputOutput => "InputOutput",
-                WindowWindowClass::InputOnly => "InputOnly",
+                Self::InputOutput => "InputOutput",
+                Self::InputOnly => "InputOnly",
                 _ => "Unknown",
             }
         )
@@ -3796,14 +3764,14 @@ impl fmt::Display for WindowWindowClass {
 }
 
 #[doc(hidden)]
-impl ToGlib for WindowWindowClass {
+impl IntoGlib for WindowWindowClass {
     type GlibType = ffi::GdkWindowWindowClass;
 
-    fn to_glib(&self) -> ffi::GdkWindowWindowClass {
-        match *self {
-            WindowWindowClass::InputOutput => ffi::GDK_INPUT_OUTPUT,
-            WindowWindowClass::InputOnly => ffi::GDK_INPUT_ONLY,
-            WindowWindowClass::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GdkWindowWindowClass {
+        match self {
+            Self::InputOutput => ffi::GDK_INPUT_OUTPUT,
+            Self::InputOnly => ffi::GDK_INPUT_ONLY,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -3813,9 +3781,9 @@ impl FromGlib<ffi::GdkWindowWindowClass> for WindowWindowClass {
     unsafe fn from_glib(value: ffi::GdkWindowWindowClass) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => WindowWindowClass::InputOutput,
-            1 => WindowWindowClass::InputOnly,
-            value => WindowWindowClass::__Unknown(value),
+            0 => Self::InputOutput,
+            1 => Self::InputOnly,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -3841,9 +3809,9 @@ unsafe impl<'a> FromValue<'a> for WindowWindowClass {
 
 impl ToValue for WindowWindowClass {
     fn to_value(&self) -> glib::Value {
-        let mut value = glib::Value::for_value_type::<WindowWindowClass>();
+        let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
-            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.to_glib());
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
         }
         value
     }

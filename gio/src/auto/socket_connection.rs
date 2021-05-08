@@ -33,8 +33,8 @@ impl SocketConnection {
     ) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_socket_connection_factory_lookup_type(
-                family.to_glib(),
-                type_.to_glib(),
+                family.into_glib(),
+                type_.into_glib(),
                 protocol_id,
             ))
         }
@@ -49,9 +49,9 @@ impl SocketConnection {
     ) {
         unsafe {
             ffi::g_socket_connection_factory_register_type(
-                g_type.to_glib(),
-                family.to_glib(),
-                type_.to_glib(),
+                g_type.into_glib(),
+                family.into_glib(),
+                type_.into_glib(),
                 protocol,
             );
         }
@@ -86,12 +86,15 @@ pub trait SocketConnectionExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_socket_connection_get_local_address")]
+    #[doc(alias = "get_local_address")]
     fn local_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_connection_get_remote_address")]
+    #[doc(alias = "get_remote_address")]
     fn remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_connection_get_socket")]
+    #[doc(alias = "get_socket")]
     fn socket(&self) -> Socket;
 
     #[doc(alias = "g_socket_connection_is_connected")]

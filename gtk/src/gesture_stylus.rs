@@ -10,6 +10,7 @@ pub trait GestureStylusExtManual: 'static {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_gesture_stylus_get_axes")]
+    #[doc(alias = "get_axes")]
     fn axes(&self, axes: Vec<AxisUse>) -> Option<Vec<f64>>;
 }
 
@@ -19,7 +20,7 @@ impl<O: IsA<GestureStylus>> GestureStylusExtManual for O {
     fn axes(&self, axes: Vec<AxisUse>) -> Option<Vec<f64>> {
         let mut values: Vec<f64> = Vec::new();
         unsafe {
-            let mut axes1: Vec<gdk::ffi::GdkAxisUse> = axes.iter().map(|a| a.to_glib()).collect();
+            let mut axes1: Vec<gdk::ffi::GdkAxisUse> = axes.iter().map(|a| a.into_glib()).collect();
             axes1.push(gdk::ffi::GDK_AXIS_IGNORE);
             if from_glib(ffi::gtk_gesture_stylus_get_axes(
                 self.as_ref().to_glib_none().0,

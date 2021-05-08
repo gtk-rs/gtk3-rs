@@ -107,8 +107,8 @@ impl StyleContextBuilder {
         if let Some(ref screen) = self.screen {
             properties.push(("screen", screen));
         }
-        let ret = glib::Object::new::<StyleContext>(&properties).expect("object new");
-        ret
+        glib::Object::new::<StyleContext>(&properties)
+            .expect("Failed to create an instance of StyleContext")
     }
 
     pub fn direction(mut self, direction: TextDirection) -> Self {
@@ -144,63 +144,72 @@ pub trait StyleContextExt: 'static {
     //#[doc(alias = "gtk_style_context_get")]
     //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_style_context_get_background_color")]
-    fn background_color(&self, state: StateFlags) -> gdk::RGBA;
-
     #[doc(alias = "gtk_style_context_get_border")]
+    #[doc(alias = "get_border")]
     fn border(&self, state: StateFlags) -> Border;
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "gtk_style_context_get_border_color")]
-    fn border_color(&self, state: StateFlags) -> gdk::RGBA;
-
     #[doc(alias = "gtk_style_context_get_color")]
+    #[doc(alias = "get_color")]
     fn color(&self, state: StateFlags) -> gdk::RGBA;
 
     #[doc(alias = "gtk_style_context_get_frame_clock")]
+    #[doc(alias = "get_frame_clock")]
     fn frame_clock(&self) -> Option<gdk::FrameClock>;
 
     #[doc(alias = "gtk_style_context_get_junction_sides")]
+    #[doc(alias = "get_junction_sides")]
     fn junction_sides(&self) -> JunctionSides;
 
     #[doc(alias = "gtk_style_context_get_margin")]
+    #[doc(alias = "get_margin")]
     fn margin(&self, state: StateFlags) -> Border;
 
     #[doc(alias = "gtk_style_context_get_padding")]
+    #[doc(alias = "get_padding")]
     fn padding(&self, state: StateFlags) -> Border;
 
     #[doc(alias = "gtk_style_context_get_parent")]
+    #[doc(alias = "get_parent")]
     fn parent(&self) -> Option<StyleContext>;
 
     #[doc(alias = "gtk_style_context_get_path")]
+    #[doc(alias = "get_path")]
     fn path(&self) -> Option<WidgetPath>;
 
     #[doc(alias = "gtk_style_context_get_property")]
-    fn property(&self, property: &str, state: StateFlags) -> glib::Value;
+    #[doc(alias = "get_property")]
+    fn style_property_for_state(&self, property: &str, state: StateFlags) -> glib::Value;
 
     #[doc(alias = "gtk_style_context_get_scale")]
+    #[doc(alias = "get_scale")]
     fn scale(&self) -> i32;
 
     #[doc(alias = "gtk_style_context_get_screen")]
+    #[doc(alias = "get_screen")]
     fn screen(&self) -> Option<gdk::Screen>;
 
     #[doc(alias = "gtk_style_context_get_section")]
+    #[doc(alias = "get_section")]
     fn section(&self, property: &str) -> Option<CssSection>;
 
     #[doc(alias = "gtk_style_context_get_state")]
+    #[doc(alias = "get_state")]
     fn state(&self) -> StateFlags;
 
     //#[doc(alias = "gtk_style_context_get_style")]
+    //#[doc(alias = "get_style")]
     //fn style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_style_context_get_style_property")]
+    #[doc(alias = "get_style_property")]
     fn style_property(&self, property_name: &str) -> glib::Value;
 
     //#[doc(alias = "gtk_style_context_get_style_valist")]
+    //#[doc(alias = "get_style_valist")]
     //fn style_valist(&self, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     //#[doc(alias = "gtk_style_context_get_valist")]
+    //#[doc(alias = "get_valist")]
     //fn valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     #[doc(alias = "gtk_style_context_has_class")]
@@ -223,10 +232,6 @@ pub trait StyleContextExt: 'static {
 
     #[doc(alias = "gtk_style_context_save")]
     fn save(&self);
-
-    #[cfg_attr(feature = "v3_18", deprecated = "Since 3.18")]
-    #[doc(alias = "gtk_style_context_set_background")]
-    fn set_background(&self, window: &gdk::Window);
 
     #[doc(alias = "gtk_style_context_set_frame_clock")]
     fn set_frame_clock(&self, frame_clock: &gdk::FrameClock);
@@ -254,27 +259,30 @@ pub trait StyleContextExt: 'static {
     #[doc(alias = "gtk_style_context_to_string")]
     fn to_string(&self, flags: StyleContextPrintFlags) -> Option<glib::GString>;
 
-    #[doc(alias = "get_property_direction")]
     fn direction(&self) -> TextDirection;
 
-    #[doc(alias = "set_property_direction")]
     fn set_direction(&self, direction: TextDirection);
 
-    #[doc(alias = "get_property_paint_clock")]
+    #[doc(alias = "paint-clock")]
     fn paint_clock(&self) -> Option<gdk::FrameClock>;
 
-    #[doc(alias = "set_property_paint_clock")]
+    #[doc(alias = "paint-clock")]
     fn set_paint_clock(&self, paint_clock: Option<&gdk::FrameClock>);
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "direction")]
+    fn connect_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_paint_clock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "paint-clock")]
+    fn connect_paint_clock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "parent")]
+    fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "screen")]
+    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<StyleContext>> StyleContextExt for O {
@@ -301,39 +309,15 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
     //    unsafe { TODO: call ffi:gtk_style_context_get() }
     //}
 
-    fn background_color(&self, state: StateFlags) -> gdk::RGBA {
-        unsafe {
-            let mut color = gdk::RGBA::uninitialized();
-            ffi::gtk_style_context_get_background_color(
-                self.as_ref().to_glib_none().0,
-                state.to_glib(),
-                color.to_glib_none_mut().0,
-            );
-            color
-        }
-    }
-
     fn border(&self, state: StateFlags) -> Border {
         unsafe {
             let mut border = Border::uninitialized();
             ffi::gtk_style_context_get_border(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 border.to_glib_none_mut().0,
             );
             border
-        }
-    }
-
-    fn border_color(&self, state: StateFlags) -> gdk::RGBA {
-        unsafe {
-            let mut color = gdk::RGBA::uninitialized();
-            ffi::gtk_style_context_get_border_color(
-                self.as_ref().to_glib_none().0,
-                state.to_glib(),
-                color.to_glib_none_mut().0,
-            );
-            color
         }
     }
 
@@ -342,7 +326,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut color = gdk::RGBA::uninitialized();
             ffi::gtk_style_context_get_color(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 color.to_glib_none_mut().0,
             );
             color
@@ -370,7 +354,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut margin = Border::uninitialized();
             ffi::gtk_style_context_get_margin(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 margin.to_glib_none_mut().0,
             );
             margin
@@ -382,7 +366,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             let mut padding = Border::uninitialized();
             ffi::gtk_style_context_get_padding(
                 self.as_ref().to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 padding.to_glib_none_mut().0,
             );
             padding
@@ -405,13 +389,13 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn property(&self, property: &str, state: StateFlags) -> glib::Value {
+    fn style_property_for_state(&self, property: &str, state: StateFlags) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
             ffi::gtk_style_context_get_property(
                 self.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
-                state.to_glib(),
+                state.into_glib(),
                 value.to_glib_none_mut().0,
             );
             value
@@ -534,15 +518,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn set_background(&self, window: &gdk::Window) {
-        unsafe {
-            ffi::gtk_style_context_set_background(
-                self.as_ref().to_glib_none().0,
-                window.to_glib_none().0,
-            );
-        }
-    }
-
     fn set_frame_clock(&self, frame_clock: &gdk::FrameClock) {
         unsafe {
             ffi::gtk_style_context_set_frame_clock(
@@ -556,7 +531,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         unsafe {
             ffi::gtk_style_context_set_junction_sides(
                 self.as_ref().to_glib_none().0,
-                sides.to_glib(),
+                sides.into_glib(),
             );
         }
     }
@@ -593,7 +568,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     fn set_state(&self, flags: StateFlags) {
         unsafe {
-            ffi::gtk_style_context_set_state(self.as_ref().to_glib_none().0, flags.to_glib());
+            ffi::gtk_style_context_set_state(self.as_ref().to_glib_none().0, flags.into_glib());
         }
     }
 
@@ -603,7 +578,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         unsafe {
             from_glib_full(ffi::gtk_style_context_to_string(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
@@ -656,6 +631,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStyleContext,
@@ -679,7 +655,8 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn connect_property_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "direction")]
+    fn connect_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_direction_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
@@ -703,7 +680,8 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn connect_property_paint_clock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "paint-clock")]
+    fn connect_paint_clock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_paint_clock_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
@@ -727,7 +705,8 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn connect_property_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "parent")]
+    fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_parent_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
@@ -751,7 +730,8 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn connect_property_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "screen")]
+    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screen_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,

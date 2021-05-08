@@ -20,15 +20,19 @@ pub const NONE_IMAGE: Option<&Image> = None;
 
 pub trait AtkImageExt: 'static {
     #[doc(alias = "atk_image_get_image_description")]
+    #[doc(alias = "get_image_description")]
     fn image_description(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_image_get_image_locale")]
+    #[doc(alias = "get_image_locale")]
     fn image_locale(&self) -> Option<glib::GString>;
 
     #[doc(alias = "atk_image_get_image_position")]
+    #[doc(alias = "get_image_position")]
     fn image_position(&self, coord_type: CoordType) -> (i32, i32);
 
     #[doc(alias = "atk_image_get_image_size")]
+    #[doc(alias = "get_image_size")]
     fn image_size(&self) -> (i32, i32);
 
     #[doc(alias = "atk_image_set_image_description")]
@@ -60,7 +64,7 @@ impl<O: IsA<Image>> AtkImageExt for O {
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
-                coord_type.to_glib(),
+                coord_type.into_glib(),
             );
             let x = x.assume_init();
             let y = y.assume_init();

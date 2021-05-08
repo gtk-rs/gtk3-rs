@@ -214,8 +214,8 @@ impl StatusbarBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<Statusbar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Statusbar>(&properties)
+            .expect("Failed to create an instance of Statusbar")
     }
 
     pub fn baseline_position(mut self, baseline_position: BaselinePosition) -> Self {
@@ -420,9 +420,11 @@ pub const NONE_STATUSBAR: Option<&Statusbar> = None;
 
 pub trait StatusbarExt: 'static {
     #[doc(alias = "gtk_statusbar_get_context_id")]
+    #[doc(alias = "get_context_id")]
     fn context_id(&self, context_description: &str) -> u32;
 
     #[doc(alias = "gtk_statusbar_get_message_area")]
+    #[doc(alias = "get_message_area")]
     fn message_area(&self) -> Option<Box>;
 
     #[doc(alias = "gtk_statusbar_pop")]
@@ -437,8 +439,10 @@ pub trait StatusbarExt: 'static {
     #[doc(alias = "gtk_statusbar_remove_all")]
     fn remove_all(&self, context_id: u32);
 
+    #[doc(alias = "text-popped")]
     fn connect_text_popped<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "text-pushed")]
     fn connect_text_pushed<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -488,6 +492,7 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
         }
     }
 
+    #[doc(alias = "text-popped")]
     fn connect_text_popped<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_popped_trampoline<P, F: Fn(&P, u32, &str) + 'static>(
             this: *mut ffi::GtkStatusbar,
@@ -517,6 +522,7 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
         }
     }
 
+    #[doc(alias = "text-pushed")]
     fn connect_text_pushed<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_pushed_trampoline<P, F: Fn(&P, u32, &str) + 'static>(
             this: *mut ffi::GtkStatusbar,

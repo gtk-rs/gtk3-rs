@@ -157,30 +157,39 @@ pub trait SocketClientExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
     #[doc(alias = "g_socket_client_get_enable_proxy")]
+    #[doc(alias = "get_enable_proxy")]
     fn enables_proxy(&self) -> bool;
 
     #[doc(alias = "g_socket_client_get_family")]
+    #[doc(alias = "get_family")]
     fn family(&self) -> SocketFamily;
 
     #[doc(alias = "g_socket_client_get_local_address")]
+    #[doc(alias = "get_local_address")]
     fn local_address(&self) -> Option<SocketAddress>;
 
     #[doc(alias = "g_socket_client_get_protocol")]
+    #[doc(alias = "get_protocol")]
     fn protocol(&self) -> SocketProtocol;
 
     #[doc(alias = "g_socket_client_get_proxy_resolver")]
+    #[doc(alias = "get_proxy_resolver")]
     fn proxy_resolver(&self) -> ProxyResolver;
 
     #[doc(alias = "g_socket_client_get_socket_type")]
+    #[doc(alias = "get_socket_type")]
     fn socket_type(&self) -> SocketType;
 
     #[doc(alias = "g_socket_client_get_timeout")]
+    #[doc(alias = "get_timeout")]
     fn timeout(&self) -> u32;
 
     #[doc(alias = "g_socket_client_get_tls")]
+    #[doc(alias = "get_tls")]
     fn is_tls(&self) -> bool;
 
     #[doc(alias = "g_socket_client_get_tls_validation_flags")]
+    #[doc(alias = "get_tls_validation_flags")]
     fn tls_validation_flags(&self) -> TlsCertificateFlags;
 
     #[doc(alias = "g_socket_client_set_enable_proxy")]
@@ -210,12 +219,13 @@ pub trait SocketClientExt: 'static {
     #[doc(alias = "g_socket_client_set_tls_validation_flags")]
     fn set_tls_validation_flags(&self, flags: TlsCertificateFlags);
 
-    #[doc(alias = "get_property_type")]
+    #[doc(alias = "type")]
     fn type_(&self) -> SocketType;
 
-    #[doc(alias = "set_property_type")]
+    #[doc(alias = "type")]
     fn set_type(&self, type_: SocketType);
 
+    #[doc(alias = "event")]
     fn connect_event<
         F: Fn(&Self, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static,
     >(
@@ -223,33 +233,32 @@ pub trait SocketClientExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_enable_proxy_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "enable-proxy")]
+    fn connect_enable_proxy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_family_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "family")]
+    fn connect_family_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_local_address_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "local-address")]
+    fn connect_local_address_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "protocol")]
+    fn connect_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_proxy_resolver_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "proxy-resolver")]
+    fn connect_proxy_resolver_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "timeout")]
+    fn connect_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_tls_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "tls")]
+    fn connect_tls_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_tls_validation_flags_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "tls-validation-flags")]
+    fn connect_tls_validation_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "type")]
+    fn connect_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<SocketClient>> SocketClientExt for O {
@@ -667,13 +676,16 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
 
     fn set_enable_proxy(&self, enable: bool) {
         unsafe {
-            ffi::g_socket_client_set_enable_proxy(self.as_ref().to_glib_none().0, enable.to_glib());
+            ffi::g_socket_client_set_enable_proxy(
+                self.as_ref().to_glib_none().0,
+                enable.into_glib(),
+            );
         }
     }
 
     fn set_family(&self, family: SocketFamily) {
         unsafe {
-            ffi::g_socket_client_set_family(self.as_ref().to_glib_none().0, family.to_glib());
+            ffi::g_socket_client_set_family(self.as_ref().to_glib_none().0, family.into_glib());
         }
     }
 
@@ -688,7 +700,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
 
     fn set_protocol(&self, protocol: SocketProtocol) {
         unsafe {
-            ffi::g_socket_client_set_protocol(self.as_ref().to_glib_none().0, protocol.to_glib());
+            ffi::g_socket_client_set_protocol(self.as_ref().to_glib_none().0, protocol.into_glib());
         }
     }
 
@@ -703,7 +715,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
 
     fn set_socket_type(&self, type_: SocketType) {
         unsafe {
-            ffi::g_socket_client_set_socket_type(self.as_ref().to_glib_none().0, type_.to_glib());
+            ffi::g_socket_client_set_socket_type(self.as_ref().to_glib_none().0, type_.into_glib());
         }
     }
 
@@ -715,7 +727,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
 
     fn set_tls(&self, tls: bool) {
         unsafe {
-            ffi::g_socket_client_set_tls(self.as_ref().to_glib_none().0, tls.to_glib());
+            ffi::g_socket_client_set_tls(self.as_ref().to_glib_none().0, tls.into_glib());
         }
     }
 
@@ -723,7 +735,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         unsafe {
             ffi::g_socket_client_set_tls_validation_flags(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             );
         }
     }
@@ -752,6 +764,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
+    #[doc(alias = "event")]
     fn connect_event<
         F: Fn(&Self, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static,
     >(
@@ -793,10 +806,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_enable_proxy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "enable-proxy")]
+    fn connect_enable_proxy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_enable_proxy_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,
@@ -820,7 +831,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_family_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "family")]
+    fn connect_family_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,
@@ -844,10 +856,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_local_address_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "local-address")]
+    fn connect_local_address_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_local_address_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,
@@ -871,7 +881,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "protocol")]
+    fn connect_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_protocol_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,
@@ -895,10 +906,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_proxy_resolver_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "proxy-resolver")]
+    fn connect_proxy_resolver_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_proxy_resolver_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,
@@ -922,7 +931,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "timeout")]
+    fn connect_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_timeout_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,
@@ -946,7 +956,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_tls_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "tls")]
+    fn connect_tls_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tls_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,
@@ -970,10 +981,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_tls_validation_flags_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "tls-validation-flags")]
+    fn connect_tls_validation_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tls_validation_flags_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,
@@ -997,7 +1006,8 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "type")]
+    fn connect_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketClient,
             _param_spec: glib::ffi::gpointer,

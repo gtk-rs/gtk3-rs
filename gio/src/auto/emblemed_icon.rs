@@ -7,7 +7,6 @@ use crate::Icon;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
@@ -40,12 +39,13 @@ pub trait EmblemedIconExt: 'static {
     fn clear_emblems(&self);
 
     #[doc(alias = "g_emblemed_icon_get_emblems")]
+    #[doc(alias = "get_emblems")]
     fn emblems(&self) -> Vec<Emblem>;
 
     #[doc(alias = "g_emblemed_icon_get_icon")]
+    #[doc(alias = "get_icon")]
     fn icon(&self) -> Icon;
 
-    #[doc(alias = "get_property_gicon")]
     fn gicon(&self) -> Option<Icon>;
 }
 

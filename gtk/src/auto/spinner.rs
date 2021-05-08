@@ -185,8 +185,7 @@ impl SpinnerBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Spinner>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Spinner>(&properties).expect("Failed to create an instance of Spinner")
     }
 
     pub fn active(mut self, active: bool) -> Self {
@@ -366,13 +365,12 @@ pub trait SpinnerExt: 'static {
     #[doc(alias = "gtk_spinner_stop")]
     fn stop(&self);
 
-    #[doc(alias = "get_property_active")]
     fn is_active(&self) -> bool;
 
-    #[doc(alias = "set_property_active")]
     fn set_active(&self, active: bool);
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Spinner>> SpinnerExt for O {
@@ -412,7 +410,8 @@ impl<O: IsA<Spinner>> SpinnerExt for O {
         }
     }
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinner,
             _param_spec: glib::ffi::gpointer,

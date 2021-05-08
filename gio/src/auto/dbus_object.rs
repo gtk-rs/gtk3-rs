@@ -24,19 +24,24 @@ pub const NONE_DBUS_OBJECT: Option<&DBusObject> = None;
 
 pub trait DBusObjectExt: 'static {
     #[doc(alias = "g_dbus_object_get_interface")]
+    #[doc(alias = "get_interface")]
     fn interface(&self, interface_name: &str) -> Option<DBusInterface>;
 
     #[doc(alias = "g_dbus_object_get_interfaces")]
+    #[doc(alias = "get_interfaces")]
     fn interfaces(&self) -> Vec<DBusInterface>;
 
     #[doc(alias = "g_dbus_object_get_object_path")]
+    #[doc(alias = "get_object_path")]
     fn object_path(&self) -> glib::GString;
 
+    #[doc(alias = "interface-added")]
     fn connect_interface_added<F: Fn(&Self, &DBusInterface) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "interface-removed")]
     fn connect_interface_removed<F: Fn(&Self, &DBusInterface) + 'static>(
         &self,
         f: F,
@@ -69,6 +74,7 @@ impl<O: IsA<DBusObject>> DBusObjectExt for O {
         }
     }
 
+    #[doc(alias = "interface-added")]
     fn connect_interface_added<F: Fn(&Self, &DBusInterface) + 'static>(
         &self,
         f: F,
@@ -99,6 +105,7 @@ impl<O: IsA<DBusObject>> DBusObjectExt for O {
         }
     }
 
+    #[doc(alias = "interface-removed")]
     fn connect_interface_removed<F: Fn(&Self, &DBusInterface) + 'static>(
         &self,
         f: F,

@@ -15,12 +15,6 @@ use glib::translate::*;
 use std::mem;
 use std::ptr;
 
-//#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-//#[doc(alias = "gdk_add_option_entries_libgtk_only")]
-//pub fn add_option_entries_libgtk_only(group: /*Ignored*/&glib::OptionGroup) {
-//    unsafe { TODO: call ffi:gdk_add_option_entries_libgtk_only() }
-//}
-
 #[doc(alias = "gdk_beep")]
 pub fn beep() {
     assert_initialized_main_thread!();
@@ -126,18 +120,21 @@ pub fn flush() {
 }
 
 #[doc(alias = "gdk_get_display_arg_name")]
+#[doc(alias = "get_display_arg_name")]
 pub fn display_arg_name() -> Option<glib::GString> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gdk_get_display_arg_name()) }
 }
 
 #[doc(alias = "gdk_get_program_class")]
+#[doc(alias = "get_program_class")]
 pub fn program_class() -> Option<glib::GString> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gdk_get_program_class()) }
 }
 
 #[doc(alias = "gdk_get_show_events")]
+#[doc(alias = "get_show_events")]
 pub fn shows_events() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gdk_get_show_events()) }
@@ -272,15 +269,6 @@ pub fn pixbuf_get_from_surface(
     }
 }
 
-#[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-#[doc(alias = "gdk_pre_parse_libgtk_only")]
-pub fn pre_parse_libgtk_only() {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_pre_parse_libgtk_only();
-    }
-}
-
 #[doc(alias = "gdk_property_delete")]
 pub fn property_delete(window: &Window, property: &Atom) {
     skip_assert_initialized!();
@@ -390,7 +378,7 @@ pub fn selection_owner_set(
             owner.to_glib_none().0,
             selection.to_glib_none().0,
             time_,
-            send_event.to_glib(),
+            send_event.into_glib(),
         ))
     }
 }
@@ -410,7 +398,7 @@ pub fn selection_owner_set_for_display(
             owner.to_glib_none().0,
             selection.to_glib_none().0,
             time_,
-            send_event.to_glib(),
+            send_event.into_glib(),
         ))
     }
 }
@@ -485,7 +473,7 @@ pub fn set_program_class(program_class: &str) {
 pub fn set_show_events(show_events: bool) {
     assert_initialized_main_thread!();
     unsafe {
-        ffi::gdk_set_show_events(show_events.to_glib());
+        ffi::gdk_set_show_events(show_events.into_glib());
     }
 }
 
@@ -495,8 +483,8 @@ pub fn synthesize_window_state(window: &Window, unset_flags: WindowState, set_fl
     unsafe {
         ffi::gdk_synthesize_window_state(
             window.to_glib_none().0,
-            unset_flags.to_glib(),
-            set_flags.to_glib(),
+            unset_flags.into_glib(),
+            set_flags.into_glib(),
         );
     }
 }
@@ -525,8 +513,8 @@ pub fn test_simulate_button(
             x,
             y,
             button,
-            modifiers.to_glib(),
-            button_pressrelease.to_glib(),
+            modifiers.into_glib(),
+            button_pressrelease.into_glib(),
         ))
     }
 }
@@ -547,8 +535,8 @@ pub fn test_simulate_key(
             x,
             y,
             keyval,
-            modifiers.to_glib(),
-            key_pressrelease.to_glib(),
+            modifiers.into_glib(),
+            key_pressrelease.into_glib(),
         ))
     }
 }

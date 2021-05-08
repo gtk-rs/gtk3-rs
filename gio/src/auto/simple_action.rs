@@ -48,7 +48,7 @@ impl SimpleAction {
     #[doc(alias = "g_simple_action_set_enabled")]
     pub fn set_enabled(&self, enabled: bool) {
         unsafe {
-            ffi::g_simple_action_set_enabled(self.to_glib_none().0, enabled.to_glib());
+            ffi::g_simple_action_set_enabled(self.to_glib_none().0, enabled.into_glib());
         }
     }
 
@@ -59,8 +59,6 @@ impl SimpleAction {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_simple_action_set_state_hint")]
     pub fn set_state_hint(&self, state_hint: Option<&glib::Variant>) {
         unsafe {
@@ -68,6 +66,7 @@ impl SimpleAction {
         }
     }
 
+    #[doc(alias = "activate")]
     pub fn connect_activate<F: Fn(&SimpleAction, Option<&glib::Variant>) + 'static>(
         &self,
         f: F,
@@ -100,6 +99,7 @@ impl SimpleAction {
         }
     }
 
+    #[doc(alias = "change-state")]
     pub fn connect_change_state<F: Fn(&SimpleAction, Option<&glib::Variant>) + 'static>(
         &self,
         f: F,
@@ -132,10 +132,8 @@ impl SimpleAction {
         }
     }
 
-    pub fn connect_property_enabled_notify<F: Fn(&SimpleAction) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "enabled")]
+    pub fn connect_enabled_notify<F: Fn(&SimpleAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&SimpleAction) + 'static>(
             this: *mut ffi::GSimpleAction,
             _param_spec: glib::ffi::gpointer,
@@ -157,7 +155,8 @@ impl SimpleAction {
         }
     }
 
-    pub fn connect_property_state_type_notify<F: Fn(&SimpleAction) + 'static>(
+    #[doc(alias = "state-type")]
+    pub fn connect_state_type_notify<F: Fn(&SimpleAction) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

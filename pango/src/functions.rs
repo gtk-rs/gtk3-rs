@@ -70,7 +70,7 @@ pub fn shape_with_flags(
             paragraph_length,
             analysis.to_glib_none().0,
             glyphs.to_glib_none_mut().0,
-            flags.to_glib(),
+            flags.into_glib(),
         );
     }
 }

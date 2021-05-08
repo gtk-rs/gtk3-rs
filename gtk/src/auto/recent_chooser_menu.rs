@@ -41,6 +41,7 @@ impl RecentChooserMenu {
     }
 
     #[doc(alias = "gtk_recent_chooser_menu_new_for_manager")]
+    #[doc(alias = "new_for_manager")]
     pub fn for_manager<P: IsA<RecentManager>>(manager: &P) -> RecentChooserMenu {
         skip_assert_initialized!();
         unsafe {
@@ -312,8 +313,8 @@ impl RecentChooserMenuBuilder {
         if let Some(ref sort_type) = self.sort_type {
             properties.push(("sort-type", sort_type));
         }
-        let ret = glib::Object::new::<RecentChooserMenu>(&properties).expect("object new");
-        ret
+        glib::Object::new::<RecentChooserMenu>(&properties)
+            .expect("Failed to create an instance of RecentChooserMenu")
     }
 
     pub fn show_numbers(mut self, show_numbers: bool) -> Self {
@@ -616,13 +617,14 @@ pub const NONE_RECENT_CHOOSER_MENU: Option<&RecentChooserMenu> = None;
 
 pub trait RecentChooserMenuExt: 'static {
     #[doc(alias = "gtk_recent_chooser_menu_get_show_numbers")]
+    #[doc(alias = "get_show_numbers")]
     fn shows_numbers(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_menu_set_show_numbers")]
     fn set_show_numbers(&self, show_numbers: bool);
 
-    fn connect_property_show_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "show-numbers")]
+    fn connect_show_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
@@ -638,15 +640,13 @@ impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
         unsafe {
             ffi::gtk_recent_chooser_menu_set_show_numbers(
                 self.as_ref().to_glib_none().0,
-                show_numbers.to_glib(),
+                show_numbers.into_glib(),
             );
         }
     }
 
-    fn connect_property_show_numbers_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-numbers")]
+    fn connect_show_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_numbers_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooserMenu,
             _param_spec: glib::ffi::gpointer,

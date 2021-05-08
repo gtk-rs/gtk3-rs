@@ -192,8 +192,8 @@ impl ActionBarBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<ActionBar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ActionBar>(&properties)
+            .expect("Failed to create an instance of ActionBar")
     }
 
     pub fn border_width(mut self, border_width: u32) -> Self {
@@ -378,6 +378,7 @@ pub const NONE_ACTION_BAR: Option<&ActionBar> = None;
 
 pub trait ActionBarExt: 'static {
     #[doc(alias = "gtk_action_bar_get_center_widget")]
+    #[doc(alias = "get_center_widget")]
     fn center_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_action_bar_pack_end")]
@@ -389,8 +390,10 @@ pub trait ActionBarExt: 'static {
     #[doc(alias = "gtk_action_bar_set_center_widget")]
     fn set_center_widget<P: IsA<Widget>>(&self, center_widget: Option<&P>);
 
+    #[doc(alias = "child.pack-type")]
     fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
 
+    #[doc(alias = "child.pack-type")]
     fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType);
 
     fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32;

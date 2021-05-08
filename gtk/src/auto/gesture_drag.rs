@@ -77,8 +77,8 @@ impl GestureDragBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new::<GestureDrag>(&properties).expect("object new");
-        ret
+        glib::Object::new::<GestureDrag>(&properties)
+            .expect("Failed to create an instance of GestureDrag")
     }
 
     pub fn button(mut self, button: u32) -> Self {
@@ -121,15 +121,20 @@ pub const NONE_GESTURE_DRAG: Option<&GestureDrag> = None;
 
 pub trait GestureDragExt: 'static {
     #[doc(alias = "gtk_gesture_drag_get_offset")]
+    #[doc(alias = "get_offset")]
     fn offset(&self) -> Option<(f64, f64)>;
 
     #[doc(alias = "gtk_gesture_drag_get_start_point")]
+    #[doc(alias = "get_start_point")]
     fn start_point(&self) -> Option<(f64, f64)>;
 
+    #[doc(alias = "drag-begin")]
     fn connect_drag_begin<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "drag-end")]
     fn connect_drag_end<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "drag-update")]
     fn connect_drag_update<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -172,6 +177,7 @@ impl<O: IsA<GestureDrag>> GestureDragExt for O {
         }
     }
 
+    #[doc(alias = "drag-begin")]
     fn connect_drag_begin<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drag_begin_trampoline<P, F: Fn(&P, f64, f64) + 'static>(
             this: *mut ffi::GtkGestureDrag,
@@ -201,6 +207,7 @@ impl<O: IsA<GestureDrag>> GestureDragExt for O {
         }
     }
 
+    #[doc(alias = "drag-end")]
     fn connect_drag_end<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drag_end_trampoline<P, F: Fn(&P, f64, f64) + 'static>(
             this: *mut ffi::GtkGestureDrag,
@@ -230,6 +237,7 @@ impl<O: IsA<GestureDrag>> GestureDragExt for O {
         }
     }
 
+    #[doc(alias = "drag-update")]
     fn connect_drag_update<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drag_update_trampoline<P, F: Fn(&P, f64, f64) + 'static>(
             this: *mut ffi::GtkGestureDrag,

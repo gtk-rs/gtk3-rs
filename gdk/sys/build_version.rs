@@ -9,11 +9,7 @@ if cfg!(feature = "v3_24") {
         "3.22"
     } else if cfg!(feature = "v3_20") {
         "3.20"
-    } else if cfg!(feature = "v3_18") {
-        "3.18"
-    } else if cfg!(feature = "v3_16") {
-        "3.16"
     } else {
-        "3.14"
+        "3.18"
     }
 }

@@ -13,9 +13,6 @@ edition = "2018"
 
 [package.metadata.system-deps.cairo]
 name = "cairo"
-version = "1.12"
-
-[package.metadata.system-deps.cairo.v1_14]
 version = "1.14"
 
 [package.metadata.system-deps.cairo.v1_16]
@@ -23,11 +20,8 @@ version = "1.16"
 
 [package.metadata.system-deps."cairo-gobject"]
 name = "cairo-gobject"
-version = "1.12"
-feature = "use_glib"
-
-[package.metadata.system-deps."cairo-gobject".v1_14]
 version = "1.14"
+feature = "use_glib"
 
 [package.metadata.system-deps."cairo-gobject".v1_16]
 version = "1.16"
@@ -37,8 +31,7 @@ name = "cairo_sys"
 
 [features]
 dox = ["x11/dox"]
-v1_14 = []
-v1_16 = ["v1_14"]
+v1_16 = []
 xlib = ["x11"]
 png = []
 pdf = []

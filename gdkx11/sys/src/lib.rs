@@ -293,8 +293,6 @@ extern "C" {
     // GdkX11Display
     //=========================================================================
     pub fn gdk_x11_display_get_type() -> GType;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_x11_display_get_glx_version(
         display: *mut gdk::GdkDisplay,
         major: *mut c_int,
@@ -363,8 +361,6 @@ extern "C" {
     //=========================================================================
     // GdkX11GLContext
     //=========================================================================
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_x11_gl_context_get_type() -> GType;
 
     //=========================================================================

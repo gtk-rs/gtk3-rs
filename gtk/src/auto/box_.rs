@@ -36,7 +36,7 @@ impl Box {
     pub fn new(orientation: Orientation, spacing: i32) -> Box {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(ffi::gtk_box_new(orientation.to_glib(), spacing)).unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_box_new(orientation.into_glib(), spacing)).unsafe_cast()
         }
     }
 }
@@ -211,8 +211,7 @@ impl BoxBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<Box>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Box>(&properties).expect("Failed to create an instance of Box")
     }
 
     pub fn baseline_position(mut self, baseline_position: BaselinePosition) -> Self {
@@ -417,15 +416,19 @@ pub const NONE_BOX: Option<&Box> = None;
 
 pub trait BoxExt: 'static {
     #[doc(alias = "gtk_box_get_baseline_position")]
+    #[doc(alias = "get_baseline_position")]
     fn baseline_position(&self) -> BaselinePosition;
 
     #[doc(alias = "gtk_box_get_center_widget")]
+    #[doc(alias = "get_center_widget")]
     fn center_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_box_get_homogeneous")]
+    #[doc(alias = "get_homogeneous")]
     fn is_homogeneous(&self) -> bool;
 
     #[doc(alias = "gtk_box_get_spacing")]
+    #[doc(alias = "get_spacing")]
     fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_box_pack_end")]
@@ -475,9 +478,11 @@ pub trait BoxExt: 'static {
     fn set_child_fill<T: IsA<Widget>>(&self, item: &T, fill: bool);
 
     #[doc(hidden)]
+    #[doc(alias = "child.pack-type")]
     fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
 
     #[doc(hidden)]
+    #[doc(alias = "child.pack-type")]
     fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType);
 
     #[doc(hidden)]
@@ -490,14 +495,14 @@ pub trait BoxExt: 'static {
 
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32);
 
-    fn connect_property_baseline_position_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "baseline-position")]
+    fn connect_baseline_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "homogeneous")]
+    fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Box>> BoxExt for O {
@@ -530,8 +535,8 @@ impl<O: IsA<Box>> BoxExt for O {
             ffi::gtk_box_pack_end(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                fill.to_glib(),
+                expand.into_glib(),
+                fill.into_glib(),
                 padding,
             );
         }
@@ -542,8 +547,8 @@ impl<O: IsA<Box>> BoxExt for O {
             ffi::gtk_box_pack_start(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                fill.to_glib(),
+                expand.into_glib(),
+                fill.into_glib(),
                 padding,
             );
         }
@@ -588,7 +593,10 @@ impl<O: IsA<Box>> BoxExt for O {
 
     fn set_baseline_position(&self, position: BaselinePosition) {
         unsafe {
-            ffi::gtk_box_set_baseline_position(self.as_ref().to_glib_none().0, position.to_glib());
+            ffi::gtk_box_set_baseline_position(
+                self.as_ref().to_glib_none().0,
+                position.into_glib(),
+            );
         }
     }
 
@@ -613,17 +621,17 @@ impl<O: IsA<Box>> BoxExt for O {
             ffi::gtk_box_set_child_packing(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                fill.to_glib(),
+                expand.into_glib(),
+                fill.into_glib(),
                 padding,
-                pack_type.to_glib(),
+                pack_type.into_glib(),
             );
         }
     }
 
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
-            ffi::gtk_box_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.to_glib());
+            ffi::gtk_box_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.into_glib());
         }
     }
 
@@ -771,10 +779,8 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    fn connect_property_baseline_position_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "baseline-position")]
+    fn connect_baseline_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_baseline_position_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkBox,
             _param_spec: glib::ffi::gpointer,
@@ -798,7 +804,8 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    fn connect_property_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "homogeneous")]
+    fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_homogeneous_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkBox,
             _param_spec: glib::ffi::gpointer,
@@ -822,7 +829,8 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkBox,
             _param_spec: glib::ffi::gpointer,

@@ -13,7 +13,7 @@ pub struct TextRectangle {
 
 impl TextRectangle {
     pub fn uninitialized() -> Self {
-        TextRectangle {
+        Self {
             x: 0,
             y: 0,
             width: 0,
@@ -44,7 +44,7 @@ impl fmt::Display for TextRectangle {
 impl FromGlib<ffi::AtkTextRectangle> for TextRectangle {
     unsafe fn from_glib(value: ffi::AtkTextRectangle) -> Self {
         skip_assert_initialized!();
-        TextRectangle {
+        Self {
             x: value.x,
             y: value.y,
             width: value.width,
@@ -54,10 +54,10 @@ impl FromGlib<ffi::AtkTextRectangle> for TextRectangle {
 }
 
 #[doc(hidden)]
-impl ToGlib for TextRectangle {
+impl IntoGlib for TextRectangle {
     type GlibType = ffi::AtkTextRectangle;
 
-    fn to_glib(&self) -> ffi::AtkTextRectangle {
+    fn into_glib(self) -> ffi::AtkTextRectangle {
         ffi::AtkTextRectangle {
             x: self.x,
             y: self.y,

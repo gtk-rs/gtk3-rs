@@ -7,9 +7,10 @@ use glib::translate::*;
 
 impl Frustum {
     #[doc(alias = "graphene_frustum_get_planes")]
+    #[doc(alias = "get_planes")]
     pub fn planes(&self) -> [Plane; 6] {
         unsafe {
-            let mut out: [ffi::graphene_plane_t; 6] = std::mem::uninitialized();
+            let mut out: [ffi::graphene_plane_t; 6] = std::mem::zeroed();
             ffi::graphene_frustum_get_planes(self.to_glib_none().0, &mut out as *mut _);
             [
                 from_glib_none(&out[0] as *const _),
@@ -41,7 +42,8 @@ impl Frustum {
     }
 
     #[doc(alias = "graphene_frustum_init_from_frustum")]
-    pub fn new_from_frustum(src: &Frustum) -> Frustum {
+    #[doc(alias = "new_from_frustum")]
+    pub fn from_frustum(src: &Frustum) -> Frustum {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_frustum_alloc();
@@ -51,7 +53,8 @@ impl Frustum {
     }
 
     #[doc(alias = "graphene_frustum_init_from_matrix")]
-    pub fn new_from_matrix(matrix: &Matrix) -> Frustum {
+    #[doc(alias = "new_from_matrix")]
+    pub fn from_matrix(matrix: &Matrix) -> Frustum {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_frustum_alloc();

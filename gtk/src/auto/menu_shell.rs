@@ -53,12 +53,15 @@ pub trait MenuShellExt: 'static {
     fn deselect(&self);
 
     #[doc(alias = "gtk_menu_shell_get_parent_shell")]
+    #[doc(alias = "get_parent_shell")]
     fn parent_shell(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_shell_get_selected_item")]
+    #[doc(alias = "get_selected_item")]
     fn selected_item(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_menu_shell_get_take_focus")]
+    #[doc(alias = "get_take_focus")]
     fn takes_focus(&self) -> bool;
 
     #[doc(alias = "gtk_menu_shell_insert")]
@@ -76,22 +79,28 @@ pub trait MenuShellExt: 'static {
     #[doc(alias = "gtk_menu_shell_set_take_focus")]
     fn set_take_focus(&self, take_focus: bool);
 
+    #[doc(alias = "activate-current")]
     fn connect_activate_current<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_activate_current(&self, force_hide: bool);
 
+    #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_cancel(&self);
 
+    #[doc(alias = "cycle-focus")]
     fn connect_cycle_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_cycle_focus(&self, direction: DirectionType);
 
+    #[doc(alias = "deactivate")]
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "insert")]
     fn connect_insert<F: Fn(&Self, &Widget, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "move-current")]
     fn connect_move_current<F: Fn(&Self, MenuDirectionType) + 'static>(
         &self,
         f: F,
@@ -99,14 +108,17 @@ pub trait MenuShellExt: 'static {
 
     fn emit_move_current(&self, direction: MenuDirectionType);
 
+    #[doc(alias = "move-selected")]
     fn connect_move_selected<F: Fn(&Self, i32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "selection-done")]
     fn connect_selection_done<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "take-focus")]
+    fn connect_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<MenuShell>> MenuShellExt for O {
@@ -115,7 +127,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
             ffi::gtk_menu_shell_activate_item(
                 self.as_ref().to_glib_none().0,
                 menu_item.as_ref().to_glib_none().0,
-                force_deactivate.to_glib(),
+                force_deactivate.into_glib(),
             );
         }
     }
@@ -140,7 +152,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
                 self.as_ref().to_glib_none().0,
                 model.map(|p| p.as_ref()).to_glib_none().0,
                 action_namespace.to_glib_none().0,
-                with_separators.to_glib(),
+                with_separators.into_glib(),
             );
         }
     }
@@ -210,7 +222,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         unsafe {
             ffi::gtk_menu_shell_select_first(
                 self.as_ref().to_glib_none().0,
-                search_sensitive.to_glib(),
+                search_sensitive.into_glib(),
             );
         }
     }
@@ -228,11 +240,12 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         unsafe {
             ffi::gtk_menu_shell_set_take_focus(
                 self.as_ref().to_glib_none().0,
-                take_focus.to_glib(),
+                take_focus.into_glib(),
             );
         }
     }
 
+    #[doc(alias = "activate-current")]
     fn connect_activate_current<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_current_trampoline<P, F: Fn(&P, bool) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -268,6 +281,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         };
     }
 
+    #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cancel_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -299,6 +313,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         };
     }
 
+    #[doc(alias = "cycle-focus")]
     fn connect_cycle_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cycle_focus_trampoline<P, F: Fn(&P, DirectionType) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -334,6 +349,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         };
     }
 
+    #[doc(alias = "deactivate")]
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn deactivate_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -357,6 +373,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "insert")]
     fn connect_insert<F: Fn(&Self, &Widget, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_trampoline<P, F: Fn(&P, &Widget, i32) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -386,6 +403,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "move-current")]
     fn connect_move_current<F: Fn(&Self, MenuDirectionType) + 'static>(
         &self,
         f: F,
@@ -424,6 +442,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         };
     }
 
+    #[doc(alias = "move-selected")]
     fn connect_move_selected<F: Fn(&Self, i32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -444,7 +463,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
                 &MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
                 distance,
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -459,6 +478,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "selection-done")]
     fn connect_selection_done<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_done_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -482,7 +502,8 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn connect_property_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "take-focus")]
+    fn connect_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_take_focus_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
             _param_spec: glib::ffi::gpointer,

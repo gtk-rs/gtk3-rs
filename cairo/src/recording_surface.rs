@@ -34,6 +34,7 @@ impl RecordingSurface {
     }
 
     #[doc(alias = "cairo_recording_surface_get_extents")]
+    #[doc(alias = "get_extents")]
     pub fn extents(&self) -> Option<Rectangle> {
         unsafe {
             let rectangle: Rectangle = ::std::mem::zeroed();

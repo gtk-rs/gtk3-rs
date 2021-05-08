@@ -62,30 +62,38 @@ pub trait VolumeExt: 'static {
     fn enumerate_identifiers(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_volume_get_activation_root")]
+    #[doc(alias = "get_activation_root")]
     fn activation_root(&self) -> Option<File>;
 
     #[doc(alias = "g_volume_get_drive")]
+    #[doc(alias = "get_drive")]
     fn drive(&self) -> Option<Drive>;
 
     #[doc(alias = "g_volume_get_icon")]
+    #[doc(alias = "get_icon")]
     fn icon(&self) -> Icon;
 
     #[doc(alias = "g_volume_get_identifier")]
+    #[doc(alias = "get_identifier")]
     fn identifier(&self, kind: &str) -> Option<glib::GString>;
 
     #[doc(alias = "g_volume_get_mount")]
     fn get_mount(&self) -> Option<Mount>;
 
     #[doc(alias = "g_volume_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_volume_get_sort_key")]
+    #[doc(alias = "get_sort_key")]
     fn sort_key(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_volume_get_symbolic_icon")]
+    #[doc(alias = "get_symbolic_icon")]
     fn symbolic_icon(&self) -> Icon;
 
     #[doc(alias = "g_volume_get_uuid")]
+    #[doc(alias = "get_uuid")]
     fn uuid(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_volume_mount")]
@@ -110,8 +118,10 @@ pub trait VolumeExt: 'static {
     #[doc(alias = "g_volume_should_automount")]
     fn should_automount(&self) -> bool;
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "removed")]
     fn connect_removed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -161,7 +171,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         unsafe {
             ffi::g_volume_eject_with_operation(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -281,7 +291,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         unsafe {
             ffi::g_volume_mount(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -319,6 +329,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         }
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GVolume,
@@ -342,6 +353,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         }
     }
 
+    #[doc(alias = "removed")]
     fn connect_removed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn removed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GVolume,

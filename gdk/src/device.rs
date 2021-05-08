@@ -12,18 +12,20 @@ use std::ptr;
 
 impl Device {
     #[doc(alias = "gdk_device_get_axis")]
+    #[doc(alias = "get_axis")]
     pub fn is_axis(&self, axes: &mut [f64], use_: AxisUse, value: &mut f64) -> bool {
         unsafe {
             from_glib(ffi::gdk_device_get_axis(
                 self.to_glib_none().0,
                 axes.as_mut_ptr(),
-                use_.to_glib(),
+                use_.into_glib(),
                 value,
             ))
         }
     }
 
     #[doc(alias = "gdk_device_get_history")]
+    #[doc(alias = "get_history")]
     pub fn history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32) -> Vec<TimeCoord> {
         unsafe {
             let mut events = ptr::null_mut();

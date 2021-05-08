@@ -24,14 +24,18 @@ pub const NONE_HYPERTEXT: Option<&Hypertext> = None;
 
 pub trait HypertextExt: 'static {
     #[doc(alias = "atk_hypertext_get_link")]
+    #[doc(alias = "get_link")]
     fn link(&self, link_index: i32) -> Option<Hyperlink>;
 
     #[doc(alias = "atk_hypertext_get_link_index")]
+    #[doc(alias = "get_link_index")]
     fn link_index(&self, char_index: i32) -> i32;
 
     #[doc(alias = "atk_hypertext_get_n_links")]
+    #[doc(alias = "get_n_links")]
     fn n_links(&self) -> i32;
 
+    #[doc(alias = "link-selected")]
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -53,6 +57,7 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
         unsafe { ffi::atk_hypertext_get_n_links(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "link-selected")]
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn link_selected_trampoline<P, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::AtkHypertext,

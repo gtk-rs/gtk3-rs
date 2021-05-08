@@ -317,8 +317,8 @@ impl AssistantBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Assistant>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Assistant>(&properties)
+            .expect("Failed to create an instance of Assistant")
     }
 
     pub fn use_header_bar(mut self, use_header_bar: i32) -> Self {
@@ -657,26 +657,31 @@ pub trait AssistantExt: 'static {
     fn commit(&self);
 
     #[doc(alias = "gtk_assistant_get_current_page")]
+    #[doc(alias = "get_current_page")]
     fn current_page(&self) -> i32;
 
     #[doc(alias = "gtk_assistant_get_n_pages")]
+    #[doc(alias = "get_n_pages")]
     fn n_pages(&self) -> i32;
 
     #[doc(alias = "gtk_assistant_get_nth_page")]
+    #[doc(alias = "get_nth_page")]
     fn nth_page(&self, page_num: i32) -> Option<Widget>;
 
     #[doc(alias = "gtk_assistant_get_page_complete")]
+    #[doc(alias = "get_page_complete")]
     fn page_is_complete<P: IsA<Widget>>(&self, page: &P) -> bool;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_assistant_get_page_has_padding")]
+    #[doc(alias = "get_page_has_padding")]
     fn page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool;
 
     #[doc(alias = "gtk_assistant_get_page_title")]
+    #[doc(alias = "get_page_title")]
     fn page_title<P: IsA<Widget>>(&self, page: &P) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_assistant_get_page_type")]
+    #[doc(alias = "get_page_type")]
     fn page_type<P: IsA<Widget>>(&self, page: &P) -> AssistantPageType;
 
     #[doc(alias = "gtk_assistant_insert_page")]
@@ -706,8 +711,6 @@ pub trait AssistantExt: 'static {
     #[doc(alias = "gtk_assistant_set_page_complete")]
     fn set_page_complete<P: IsA<Widget>>(&self, page: &P, complete: bool);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_assistant_set_page_has_padding")]
     fn set_page_has_padding<P: IsA<Widget>>(&self, page: &P, has_padding: bool);
 
@@ -720,35 +723,44 @@ pub trait AssistantExt: 'static {
     #[doc(alias = "gtk_assistant_update_buttons_state")]
     fn update_buttons_state(&self);
 
-    #[doc(alias = "get_property_use_header_bar")]
+    #[doc(alias = "use-header-bar")]
     fn use_header_bar(&self) -> i32;
 
     fn child_is_complete<T: IsA<Widget>>(&self, item: &T) -> bool;
 
     fn set_child_complete<T: IsA<Widget>>(&self, item: &T, complete: bool);
 
+    #[doc(alias = "child.has-padding")]
     fn child_has_padding<T: IsA<Widget>>(&self, item: &T) -> bool;
 
+    #[doc(alias = "child.has-padding")]
     fn set_child_has_padding<T: IsA<Widget>>(&self, item: &T, has_padding: bool);
 
+    #[doc(alias = "child.page-type")]
     fn child_page_type<T: IsA<Widget>>(&self, item: &T) -> AssistantPageType;
 
+    #[doc(alias = "child.page-type")]
     fn set_child_page_type<T: IsA<Widget>>(&self, item: &T, page_type: AssistantPageType);
 
     fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
 
     fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>);
 
+    #[doc(alias = "apply")]
     fn connect_apply<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "escape")]
     fn connect_escape<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_escape(&self);
 
+    #[doc(alias = "prepare")]
     fn connect_prepare<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -803,8 +815,6 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_assistant_get_page_has_padding(
@@ -924,19 +934,17 @@ impl<O: IsA<Assistant>> AssistantExt for O {
             ffi::gtk_assistant_set_page_complete(
                 self.as_ref().to_glib_none().0,
                 page.as_ref().to_glib_none().0,
-                complete.to_glib(),
+                complete.into_glib(),
             );
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_page_has_padding<P: IsA<Widget>>(&self, page: &P, has_padding: bool) {
         unsafe {
             ffi::gtk_assistant_set_page_has_padding(
                 self.as_ref().to_glib_none().0,
                 page.as_ref().to_glib_none().0,
-                has_padding.to_glib(),
+                has_padding.into_glib(),
             );
         }
     }
@@ -956,7 +964,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
             ffi::gtk_assistant_set_page_type(
                 self.as_ref().to_glib_none().0,
                 page.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             );
         }
     }
@@ -1086,6 +1094,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
+    #[doc(alias = "apply")]
     fn connect_apply<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn apply_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAssistant,
@@ -1109,6 +1118,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
+    #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cancel_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAssistant,
@@ -1132,6 +1142,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAssistant,
@@ -1155,6 +1166,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
+    #[doc(alias = "escape")]
     fn connect_escape<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn escape_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAssistant,
@@ -1186,6 +1198,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         };
     }
 
+    #[doc(alias = "prepare")]
     fn connect_prepare<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn prepare_trampoline<P, F: Fn(&P, &Widget) + 'static>(
             this: *mut ffi::GtkAssistant,

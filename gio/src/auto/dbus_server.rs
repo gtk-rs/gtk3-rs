@@ -12,7 +12,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -39,7 +38,7 @@ impl DBusServer {
             let mut error = ptr::null_mut();
             let ret = ffi::g_dbus_server_new_sync(
                 address.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 guid.to_glib_none().0,
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -54,16 +53,19 @@ impl DBusServer {
     }
 
     #[doc(alias = "g_dbus_server_get_client_address")]
+    #[doc(alias = "get_client_address")]
     pub fn client_address(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_server_get_client_address(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_server_get_flags")]
+    #[doc(alias = "get_flags")]
     pub fn flags(&self) -> DBusServerFlags {
         unsafe { from_glib(ffi::g_dbus_server_get_flags(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_server_get_guid")]
+    #[doc(alias = "get_guid")]
     pub fn guid(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_server_get_guid(self.to_glib_none().0)) }
     }
@@ -87,7 +89,6 @@ impl DBusServer {
         }
     }
 
-    #[doc(alias = "get_property_address")]
     pub fn address(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -102,7 +103,7 @@ impl DBusServer {
         }
     }
 
-    #[doc(alias = "get_property_authentication_observer")]
+    #[doc(alias = "authentication-observer")]
     pub fn authentication_observer(&self) -> Option<DBusAuthObserver> {
         unsafe {
             let mut value = glib::Value::from_type(<DBusAuthObserver as StaticType>::static_type());
@@ -117,6 +118,7 @@ impl DBusServer {
         }
     }
 
+    #[doc(alias = "new-connection")]
     pub fn connect_new_connection<F: Fn(&DBusServer, &DBusConnection) -> bool + 'static>(
         &self,
         f: F,
@@ -129,7 +131,7 @@ impl DBusServer {
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), &from_glib_borrow(connection)).to_glib()
+            f(&from_glib_borrow(this), &from_glib_borrow(connection)).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -144,10 +146,8 @@ impl DBusServer {
         }
     }
 
-    pub fn connect_property_active_notify<F: Fn(&DBusServer) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    pub fn connect_active_notify<F: Fn(&DBusServer) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<F: Fn(&DBusServer) + 'static>(
             this: *mut ffi::GDBusServer,
             _param_spec: glib::ffi::gpointer,
@@ -169,7 +169,8 @@ impl DBusServer {
         }
     }
 
-    pub fn connect_property_client_address_notify<F: Fn(&DBusServer) + 'static>(
+    #[doc(alias = "client-address")]
+    pub fn connect_client_address_notify<F: Fn(&DBusServer) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

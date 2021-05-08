@@ -33,7 +33,7 @@ glib::wrapper! {
 }
 
 impl ShortcutsSection {
-    #[doc(alias = "get_property_max_height")]
+    #[doc(alias = "max-height")]
     pub fn max_height(&self) -> u32 {
         unsafe {
             let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
@@ -48,7 +48,7 @@ impl ShortcutsSection {
         }
     }
 
-    #[doc(alias = "set_property_max_height")]
+    #[doc(alias = "max-height")]
     pub fn set_max_height(&self, max_height: u32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -59,7 +59,7 @@ impl ShortcutsSection {
         }
     }
 
-    #[doc(alias = "get_property_section_name")]
+    #[doc(alias = "section-name")]
     pub fn section_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -74,7 +74,7 @@ impl ShortcutsSection {
         }
     }
 
-    #[doc(alias = "set_property_section_name")]
+    #[doc(alias = "section-name")]
     pub fn set_section_name(&self, section_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -85,7 +85,6 @@ impl ShortcutsSection {
         }
     }
 
-    #[doc(alias = "get_property_title")]
     pub fn title(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -100,7 +99,6 @@ impl ShortcutsSection {
         }
     }
 
-    #[doc(alias = "set_property_title")]
     pub fn set_title(&self, title: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -111,7 +109,7 @@ impl ShortcutsSection {
         }
     }
 
-    #[doc(alias = "get_property_view_name")]
+    #[doc(alias = "view-name")]
     pub fn view_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -126,7 +124,7 @@ impl ShortcutsSection {
         }
     }
 
-    #[doc(alias = "set_property_view_name")]
+    #[doc(alias = "view-name")]
     pub fn set_view_name(&self, view_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -137,6 +135,7 @@ impl ShortcutsSection {
         }
     }
 
+    #[doc(alias = "change-current-page")]
     pub fn connect_change_current_page<F: Fn(&ShortcutsSection, i32) -> bool + 'static>(
         &self,
         f: F,
@@ -149,7 +148,7 @@ impl ShortcutsSection {
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), object).to_glib()
+            f(&from_glib_borrow(this), object).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -175,7 +174,8 @@ impl ShortcutsSection {
             .expect("Return Value for `emit_change_current_page`")
     }
 
-    pub fn connect_property_max_height_notify<F: Fn(&ShortcutsSection) + 'static>(
+    #[doc(alias = "max-height")]
+    pub fn connect_max_height_notify<F: Fn(&ShortcutsSection) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -200,7 +200,8 @@ impl ShortcutsSection {
         }
     }
 
-    pub fn connect_property_section_name_notify<F: Fn(&ShortcutsSection) + 'static>(
+    #[doc(alias = "section-name")]
+    pub fn connect_section_name_notify<F: Fn(&ShortcutsSection) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -225,7 +226,8 @@ impl ShortcutsSection {
         }
     }
 
-    pub fn connect_property_title_notify<F: Fn(&ShortcutsSection) + 'static>(
+    #[doc(alias = "title")]
+    pub fn connect_title_notify<F: Fn(&ShortcutsSection) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -250,7 +252,8 @@ impl ShortcutsSection {
         }
     }
 
-    pub fn connect_property_view_name_notify<F: Fn(&ShortcutsSection) + 'static>(
+    #[doc(alias = "view-name")]
+    pub fn connect_view_name_notify<F: Fn(&ShortcutsSection) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -462,8 +465,8 @@ impl ShortcutsSectionBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<ShortcutsSection>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ShortcutsSection>(&properties)
+            .expect("Failed to create an instance of ShortcutsSection")
     }
 
     pub fn max_height(mut self, max_height: u32) -> Self {

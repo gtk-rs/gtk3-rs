@@ -36,8 +36,6 @@ impl StackSidebar {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl Default for StackSidebar {
     fn default() -> Self {
         Self::new()
@@ -202,8 +200,8 @@ impl StackSidebarBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<StackSidebar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<StackSidebar>(&properties)
+            .expect("Failed to create an instance of StackSidebar")
     }
 
     pub fn stack<P: IsA<Stack>>(mut self, stack: &P) -> Self {
@@ -393,16 +391,14 @@ pub const NONE_STACK_SIDEBAR: Option<&StackSidebar> = None;
 
 pub trait StackSidebarExt: 'static {
     #[doc(alias = "gtk_stack_sidebar_get_stack")]
+    #[doc(alias = "get_stack")]
     fn stack(&self) -> Option<Stack>;
 
     #[doc(alias = "gtk_stack_sidebar_set_stack")]
     fn set_stack<P: IsA<Stack>>(&self, stack: &P);
 
-    fn get_property_stack(&self) -> Option<Stack>;
-
-    fn set_property_stack<P: IsA<Stack>>(&self, stack: Option<&P>);
-
-    fn connect_property_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "stack")]
+    fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<StackSidebar>> StackSidebarExt for O {
@@ -423,31 +419,8 @@ impl<O: IsA<StackSidebar>> StackSidebarExt for O {
         }
     }
 
-    fn get_property_stack(&self) -> Option<Stack> {
-        unsafe {
-            let mut value = glib::Value::from_type(<Stack as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"stack\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `stack` getter")
-        }
-    }
-
-    fn set_property_stack<P: IsA<Stack>>(&self, stack: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"stack\0".as_ptr() as *const _,
-                stack.to_value().to_glib_none().0,
-            );
-        }
-    }
-
-    fn connect_property_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "stack")]
+    fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stack_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSidebar,
             _param_spec: glib::ffi::gpointer,

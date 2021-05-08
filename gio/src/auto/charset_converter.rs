@@ -42,11 +42,13 @@ impl CharsetConverter {
     }
 
     #[doc(alias = "g_charset_converter_get_num_fallbacks")]
+    #[doc(alias = "get_num_fallbacks")]
     pub fn num_fallbacks(&self) -> u32 {
         unsafe { ffi::g_charset_converter_get_num_fallbacks(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_charset_converter_get_use_fallback")]
+    #[doc(alias = "get_use_fallback")]
     pub fn uses_fallback(&self) -> bool {
         unsafe {
             from_glib(ffi::g_charset_converter_get_use_fallback(
@@ -60,12 +62,12 @@ impl CharsetConverter {
         unsafe {
             ffi::g_charset_converter_set_use_fallback(
                 self.to_glib_none().0,
-                use_fallback.to_glib(),
+                use_fallback.into_glib(),
             );
         }
     }
 
-    #[doc(alias = "get_property_from_charset")]
+    #[doc(alias = "from-charset")]
     pub fn from_charset(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -80,7 +82,7 @@ impl CharsetConverter {
         }
     }
 
-    #[doc(alias = "get_property_to_charset")]
+    #[doc(alias = "to-charset")]
     pub fn to_charset(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -95,7 +97,8 @@ impl CharsetConverter {
         }
     }
 
-    pub fn connect_property_use_fallback_notify<F: Fn(&CharsetConverter) + 'static>(
+    #[doc(alias = "use-fallback")]
+    pub fn connect_use_fallback_notify<F: Fn(&CharsetConverter) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -144,8 +147,8 @@ impl CharsetConverterBuilder {
         if let Some(ref use_fallback) = self.use_fallback {
             properties.push(("use-fallback", use_fallback));
         }
-        let ret = glib::Object::new::<CharsetConverter>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CharsetConverter>(&properties)
+            .expect("Failed to create an instance of CharsetConverter")
     }
 
     pub fn from_charset(mut self, from_charset: &str) -> Self {

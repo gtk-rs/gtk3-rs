@@ -19,7 +19,6 @@ pub use crate::file::FileExtManual;
 pub use crate::inet_address::InetAddressExtManual;
 pub use crate::input_stream::InputStreamExtManual;
 pub use crate::io_stream::IOStreamExtManual;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use crate::list_store::ListStoreExtManual;
 pub use crate::output_stream::OutputStreamExtManual;
 pub use crate::pollable_input_stream::PollableInputStreamExtManual;

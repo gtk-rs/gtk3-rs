@@ -38,12 +38,15 @@ pub const NONE_APP_LAUNCH_CONTEXT: Option<&AppLaunchContext> = None;
 
 pub trait AppLaunchContextExt: 'static {
     #[doc(alias = "g_app_launch_context_get_display")]
+    #[doc(alias = "get_display")]
     fn display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_launch_context_get_environment")]
+    #[doc(alias = "get_environment")]
     fn environment(&self) -> Vec<std::ffi::OsString>;
 
     #[doc(alias = "g_app_launch_context_get_startup_notify_id")]
+    #[doc(alias = "get_startup_notify_id")]
     fn startup_notify_id<P: IsA<AppInfo>>(&self, info: &P, files: &[File])
         -> Option<glib::GString>;
 
@@ -56,8 +59,10 @@ pub trait AppLaunchContextExt: 'static {
     #[doc(alias = "g_app_launch_context_unsetenv")]
     fn unsetenv<P: AsRef<std::ffi::OsStr>>(&self, variable: P);
 
+    #[doc(alias = "launch-failed")]
     fn connect_launch_failed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "launched")]
     fn connect_launched<F: Fn(&Self, &AppInfo, &glib::Variant) + 'static>(
         &self,
         f: F,
@@ -125,6 +130,7 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
         }
     }
 
+    #[doc(alias = "launch-failed")]
     fn connect_launch_failed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn launch_failed_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GAppLaunchContext,
@@ -152,6 +158,7 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
         }
     }
 
+    #[doc(alias = "launched")]
     fn connect_launched<F: Fn(&Self, &AppInfo, &glib::Variant) + 'static>(
         &self,
         f: F,

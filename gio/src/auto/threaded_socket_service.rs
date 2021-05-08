@@ -11,7 +11,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -27,9 +26,10 @@ glib::wrapper! {
 pub const NONE_THREADED_SOCKET_SERVICE: Option<&ThreadedSocketService> = None;
 
 pub trait ThreadedSocketServiceExt: 'static {
-    #[doc(alias = "get_property_max_threads")]
+    #[doc(alias = "max-threads")]
     fn max_threads(&self) -> i32;
 
+    #[doc(alias = "run")]
     fn connect_run<F: Fn(&Self, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(
         &self,
         f: F,
@@ -51,6 +51,7 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
         }
     }
 
+    #[doc(alias = "run")]
     fn connect_run<F: Fn(&Self, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(
         &self,
         f: F,
@@ -75,7 +76,7 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
                     .as_ref()
                     .as_ref(),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

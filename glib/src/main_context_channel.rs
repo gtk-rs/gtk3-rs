@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::translate::{mut_override, FromGlibPtrFull, ToGlib};
+use crate::translate::{mut_override, FromGlibPtrFull, IntoGlib};
 use crate::Continue;
 use crate::MainContext;
 use crate::Priority;
@@ -249,13 +249,41 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
     ffi::G_SOURCE_CONTINUE
 }
 
+#[cfg(feature = "v2_64")]
+unsafe extern "C" fn dispose<T, F: FnMut(T) -> Continue + 'static>(source: *mut ffi::GSource) {
+    let source = &mut *(source as *mut ChannelSource<T, F>);
+
+    if let Some(ref channel) = source.channel {
+        // Set the source inside the channel to None so that all senders know that there
+        // is no receiver left and wake up the condition variable if any
+        let mut inner = (channel.0).0.lock().unwrap();
+        inner.source = ChannelSourceState::Destroyed;
+        if let Some(ChannelBound { ref cond, .. }) = (channel.0).1 {
+            cond.notify_all();
+        }
+    }
+}
+
 unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(source: *mut ffi::GSource) {
     let source = &mut *(source as *mut ChannelSource<T, F>);
 
     // Drop all memory we own by taking it out of the Options
-    let channel = source.channel.take().expect("Receiver without channel");
 
+    #[cfg(feature = "v2_64")]
     {
+        let _ = source.channel.take().expect("Receiver without channel");
+    }
+    #[cfg(not(feature = "v2_64"))]
+    {
+        let channel = source.channel.take().expect("Receiver without channel");
+
+        // FIXME: This is the same as would otherwise be done in the dispose() function but
+        // unfortunately it doesn't exist in older version of GLib. Doing it only here can
+        // cause a channel sender to get a reference to the source with reference count 0
+        // if it happens just before the mutex is taken below.
+        //
+        // This is exactly the pattern why g_source_set_dispose_function() was added.
+        //
         // Set the source inside the channel to None so that all senders know that there
         // is no receiver left and wake up the condition variable if any
         let mut inner = (channel.0).0.lock().unwrap();
@@ -289,7 +317,7 @@ impl<T> fmt::Debug for Sender<T> {
 
 impl<T> Clone for Sender<T> {
     fn clone(&self) -> Sender<T> {
-        Sender::new(&self.0)
+        Self::new(&self.0)
     }
 }
 
@@ -297,7 +325,7 @@ impl<T> Sender<T> {
     fn new(channel: &Channel<T>) -> Self {
         let mut inner = (channel.0).0.lock().unwrap();
         inner.num_senders += 1;
-        Sender(channel.clone())
+        Self(channel.clone())
     }
 
     /// Sends a value to the channel.
@@ -335,7 +363,7 @@ impl<T> fmt::Debug for SyncSender<T> {
 
 impl<T> Clone for SyncSender<T> {
     fn clone(&self) -> SyncSender<T> {
-        SyncSender::new(&self.0)
+        Self::new(&self.0)
     }
 }
 
@@ -343,7 +371,7 @@ impl<T> SyncSender<T> {
     fn new(channel: &Channel<T>) -> Self {
         let mut inner = (channel.0).0.lock().unwrap();
         inner.num_senders += 1;
-        SyncSender(channel.clone())
+        Self(channel.clone())
     }
 
     /// Sends a value to the channel and blocks if the channel is full.
@@ -435,12 +463,20 @@ impl<T> Receiver<T> {
             ) as *mut ChannelSource<T, F>;
             assert!(!source.is_null());
 
+            #[cfg(feature = "v2_64")]
+            {
+                ffi::g_source_set_dispose_function(
+                    source as *mut ffi::GSource,
+                    Some(dispose::<T, F>),
+                );
+            }
+
             // Set up the GSource
             {
                 let source = &mut *source;
                 let mut inner = (channel.0).0.lock().unwrap();
 
-                ffi::g_source_set_priority(mut_override(&source.source), self.1.to_glib());
+                ffi::g_source_set_priority(mut_override(&source.source), self.1.into_glib());
 
                 // We're immediately ready if the queue is not empty or if no sender is left at this point
                 ffi::g_source_set_ready_time(

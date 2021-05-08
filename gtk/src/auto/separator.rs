@@ -28,7 +28,7 @@ impl Separator {
     pub fn new(orientation: Orientation) -> Separator {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(ffi::gtk_separator_new(orientation.to_glib())).unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_separator_new(orientation.into_glib())).unsafe_cast()
         }
     }
 }
@@ -179,8 +179,8 @@ impl SeparatorBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<Separator>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Separator>(&properties)
+            .expect("Failed to create an instance of Separator")
     }
 
     pub fn app_paintable(mut self, app_paintable: bool) -> Self {

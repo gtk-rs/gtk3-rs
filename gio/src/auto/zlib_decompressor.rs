@@ -10,7 +10,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -26,10 +25,11 @@ glib::wrapper! {
 impl ZlibDecompressor {
     #[doc(alias = "g_zlib_decompressor_new")]
     pub fn new(format: ZlibCompressorFormat) -> ZlibDecompressor {
-        unsafe { from_glib_full(ffi::g_zlib_decompressor_new(format.to_glib())) }
+        unsafe { from_glib_full(ffi::g_zlib_decompressor_new(format.into_glib())) }
     }
 
     #[doc(alias = "g_zlib_decompressor_get_file_info")]
+    #[doc(alias = "get_file_info")]
     pub fn file_info(&self) -> Option<FileInfo> {
         unsafe {
             from_glib_none(ffi::g_zlib_decompressor_get_file_info(
@@ -38,7 +38,6 @@ impl ZlibDecompressor {
         }
     }
 
-    #[doc(alias = "get_property_format")]
     pub fn format(&self) -> ZlibCompressorFormat {
         unsafe {
             let mut value =
@@ -54,7 +53,8 @@ impl ZlibDecompressor {
         }
     }
 
-    pub fn connect_property_file_info_notify<F: Fn(&ZlibDecompressor) + 'static>(
+    #[doc(alias = "file-info")]
+    pub fn connect_file_info_notify<F: Fn(&ZlibDecompressor) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

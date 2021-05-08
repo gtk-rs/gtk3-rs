@@ -24,22 +24,22 @@ impl ::std::ops::DerefMut for Key {
 impl ::std::convert::From<u32> for Key {
     fn from(value: u32) -> Self {
         skip_assert_initialized!();
-        Key(value)
+        Self(value)
     }
 }
 
 impl FromGlib<u32> for Key {
     unsafe fn from_glib(value: u32) -> Self {
         skip_assert_initialized!();
-        Key(value)
+        Self(value)
     }
 }
 
-impl ToGlib for Key {
+impl IntoGlib for Key {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
-        **self
+    fn into_glib(self) -> u32 {
+        *self
     }
 }
 

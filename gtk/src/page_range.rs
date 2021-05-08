@@ -12,20 +12,22 @@ impl PageRange {
         PageRange(ffi::GtkPageRange { start, end })
     }
 
+    #[doc(alias = "get_start")]
     pub fn start(&self) -> i32 {
         self.0.start
     }
 
+    #[doc(alias = "get_end")]
     pub fn end(&self) -> i32 {
         self.0.end
     }
 }
 
 #[doc(hidden)]
-impl ToGlib for PageRange {
+impl IntoGlib for PageRange {
     type GlibType = ffi::GtkPageRange;
 
-    fn to_glib(&self) -> ffi::GtkPageRange {
+    fn into_glib(self) -> ffi::GtkPageRange {
         self.0
     }
 }

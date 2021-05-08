@@ -38,6 +38,7 @@ impl ValueArray {
         value.1.n_values as usize
     }
 
+    #[doc(alias = "get_nth")]
     pub fn nth(&self, index_: u32) -> Option<Value> {
         unsafe {
             from_glib_none(gobject_ffi::g_value_array_get_nth(

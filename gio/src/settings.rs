@@ -2,7 +2,7 @@
 
 use crate::prelude::*;
 use crate::{Settings, SettingsBindFlags};
-use glib::translate::{from_glib_borrow, from_glib_none, ToGlib, ToGlibPtr};
+use glib::translate::{from_glib_borrow, from_glib_none, IntoGlib, ToGlibPtr};
 use glib::variant::FromVariant;
 use glib::{BoolError, IsA, ToVariant};
 
@@ -23,6 +23,7 @@ impl<'a> BindingBuilder<'a> {
         self
     }
 
+    #[doc(alias = "get_mapping")]
     pub fn mapping<F: Fn(&glib::Variant, glib::Type) -> Option<glib::Value> + 'static>(
         mut self,
         f: F,
@@ -60,7 +61,7 @@ impl<'a> BindingBuilder<'a> {
             } else {
                 false
             }
-            .to_glib()
+            .into_glib()
         }
         unsafe extern "C" fn bind_with_mapping_set_trampoline(
             value: *const glib::gobject_ffi::GValue,
@@ -94,7 +95,7 @@ impl<'a> BindingBuilder<'a> {
                 self.key.to_glib_none().0,
                 self.object.to_glib_none().0,
                 self.property.to_glib_none().0,
-                self.flags.to_glib(),
+                self.flags.into_glib(),
                 get_trampoline,
                 set_trampoline,
                 Box::into_raw(Box::new(mappings)) as *mut libc::c_void,

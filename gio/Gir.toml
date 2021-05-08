@@ -2,7 +2,7 @@
 girs_directories = ["../gir-files"]
 library = "Gio"
 version = "2.0"
-min_cfg_version = "2.42"
+min_cfg_version = "2.48"
 target_path = "."
 work_mode = "normal"
 single_version_file = true
@@ -20,6 +20,7 @@ generate = [
     "Gio.BusNameOwnerFlags",
     "Gio.BusNameWatcherFlags",
     "Gio.BusType",
+    "Gio.BytesIcon",
     "Gio.ConverterFlags",
     "Gio.ConverterResult",
     "Gio.CredentialsType",
@@ -74,7 +75,6 @@ generate = [
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
     "Gio.FilterInputStream",
-    "Gio.Icon",
     "Gio.IOErrorEnum",
     "Gio.IOStreamSpliceFlags",
     "Gio.LoadableIcon",
@@ -111,6 +111,7 @@ generate = [
     "Gio.SettingsBindSetMapping",
     "Gio.SettingsGetMapping",
     "Gio.SettingsSchema",
+    "Gio.SettingsSchemaKey",
     "Gio.SettingsSchemaSource",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
@@ -305,13 +306,6 @@ generate_builder = true
     rename = "auto_grows"
 
 [[object]]
-name = "Gio.BytesIcon"
-status = "generate"
-    [[object.property]]
-    name = "bytes"
-    version = "2.38"
-
-[[object]]
 name = "Gio.Cancellable"
 status = "generate"
 concurrency = "send+sync"
@@ -423,6 +417,9 @@ name = "Gio.DBusConnection"
 concurrency = "send+sync"
 status = "generate"
     [[object.function]]
+    name = "new_for_address"
+    constructor = true
+    [[object.function]]
     pattern = ".+_unix_fd.+"
     cfg_condition = "unix"
     [[object.function]]
@@ -516,6 +513,9 @@ concurrency = "send+sync"
     [[object.function]]
     pattern = ".+_unix_fd.+"
     cfg_condition = "unix"
+    [[object.function]]
+    name = "new_for_bus"
+    constructor = true
 
 [[object]]
 name = "Gio.DesktopAppInfo"
@@ -541,14 +541,30 @@ concurrency = "send+sync"
 manual_traits = ["FileExtManual"]
     [[object.function]]
     name = "new_for_commandline_arg"
+    # Not annotated as constructor in Gir => force it to apply naming convention
+    constructor = true
         [[object.function.parameter]]
         name = "arg"
         string_type = "os_string"
     [[object.function]]
     name = "new_for_commandline_arg_and_cwd"
+    # Not annotated as constructor in Gir => force it to apply naming convention
+    constructor = true
         [[object.function.parameter]]
         name = "arg"
         string_type = "os_string"
+    [[object.function]]
+    name = "new_for_path"
+    # Not annotated as constructor in Gir => force it to apply naming convention
+    constructor = true
+    [[object.function]]
+    name = "new_for_uri"
+    # Not annotated as constructor in Gir => force it to apply naming convention
+    constructor = true
+    [[object.function]]
+    name = "parse_name"
+    # Constructor based on a String that can be obtained from method `parse_name`
+    rename = "for_parse_name"
     [[object.function]]
     name = "hash"
     ignore = true
@@ -607,6 +623,13 @@ status = "generate"
     generate = ["notify"]
 
 [[object]]
+name =  "Gio.Icon"
+status = "generate"
+    [[object.function]]
+    name = "new_for_string"
+    constructor = true
+
+[[object]]
 name =  "Gio.InetAddressMask"
 status = "generate"
 concurrency = "send+sync"
@@ -660,7 +683,6 @@ manual_traits = ["IOStreamExtManual"]
 [[object]]
 name = "Gio.ListModel"
 status = "generate"
-version = "2.44"
     # Can get removed when gir shadow annotations are implemented (gtk-rs/gir#1112)
     [[object.function]]
     name = "get_item"
@@ -672,7 +694,6 @@ version = "2.44"
 [[object]]
 name = "Gio.ListStore"
 status = "generate"
-version = "2.44"
 generate_builder = true
 manual_traits = ["ListStoreExtManual"]
     [[object.function]]
@@ -856,11 +877,6 @@ status = "generate"
     name = "get_boolean"
     # Retrieves the boolean value of a setting
     rename = "boolean"
-
-[[object]]
-name = "Gio.SettingsSchemaKey"
-status = "generate"
-version = "2.40"
 
 [[object]]
 name = "Gio.SimpleAction"

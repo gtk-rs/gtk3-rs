@@ -3,6 +3,7 @@
 //! Module for registering shared types for Rust types.
 
 use crate::translate::*;
+use crate::StaticType;
 
 pub unsafe trait RefCounted: Clone + Sized + 'static {
     /// The inner type
@@ -67,7 +68,7 @@ where
 /// with the type system.
 ///
 /// [`register_shared_type`]: fn.register_shared_type.html
-pub trait SharedType: Clone + Sized + 'static {
+pub trait SharedType: StaticType + Clone + Sized + 'static {
     /// Shared type name.
     ///
     /// This must be unique in the whole process.
@@ -75,13 +76,6 @@ pub trait SharedType: Clone + Sized + 'static {
 
     /// The inner refcounted type
     type RefCountedType: RefCounted;
-
-    /// Returns the type ID.
-    ///
-    /// This is usually defined via the [`Shared!`] derive macro.
-    ///
-    /// [`Shared!`]: ../../derive.Shared.html
-    fn type_() -> crate::Type;
 
     /// Converts the SharedType into its inner RefCountedType
     fn into_refcounted(self) -> Self::RefCountedType;
@@ -151,13 +145,13 @@ mod test {
 
     #[test]
     fn test_register() {
-        assert_ne!(crate::Type::INVALID, MySharedArc::type_());
-        assert_ne!(crate::Type::INVALID, MySharedRc::type_());
+        assert_ne!(crate::Type::INVALID, MySharedArc::static_type());
+        assert_ne!(crate::Type::INVALID, MySharedRc::static_type());
     }
 
     #[test]
     fn test_value_arc() {
-        assert_ne!(crate::Type::INVALID, MySharedArc::type_());
+        assert_ne!(crate::Type::INVALID, MySharedArc::static_type());
 
         let b = MySharedArc::from_refcounted(std::sync::Arc::new(MySharedInner {
             foo: String::from("abc"),
@@ -169,7 +163,7 @@ mod test {
 
     #[test]
     fn test_value_rc() {
-        assert_ne!(crate::Type::INVALID, MySharedRc::type_());
+        assert_ne!(crate::Type::INVALID, MySharedRc::static_type());
 
         let b = MySharedRc::from_refcounted(std::rc::Rc::new(MySharedInner {
             foo: String::from("abc"),
@@ -181,7 +175,7 @@ mod test {
 
     #[test]
     fn same_ffi_pointer_arc() {
-        assert_ne!(crate::Type::INVALID, MySharedArc::type_());
+        assert_ne!(crate::Type::INVALID, MySharedArc::static_type());
 
         let b = MySharedArc::from_refcounted(std::sync::Arc::new(MySharedInner {
             foo: String::from("abc"),
@@ -205,7 +199,7 @@ mod test {
 
     #[test]
     fn same_ffi_pointer_rc() {
-        assert_ne!(crate::Type::INVALID, MySharedRc::type_());
+        assert_ne!(crate::Type::INVALID, MySharedRc::static_type());
 
         let b = MySharedRc::from_refcounted(std::rc::Rc::new(MySharedInner {
             foo: String::from("abc"),

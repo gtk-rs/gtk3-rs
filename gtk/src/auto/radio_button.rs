@@ -35,6 +35,7 @@ glib::wrapper! {
 
 impl RadioButton {
     #[doc(alias = "gtk_radio_button_new_from_widget")]
+    #[doc(alias = "new_from_widget")]
     pub fn from_widget<P: IsA<RadioButton>>(radio_group_member: &P) -> RadioButton {
         skip_assert_initialized!();
         unsafe {
@@ -46,6 +47,7 @@ impl RadioButton {
     }
 
     #[doc(alias = "gtk_radio_button_new_with_label_from_widget")]
+    #[doc(alias = "new_with_label_from_widget")]
     pub fn with_label_from_widget<P: IsA<RadioButton>>(
         radio_group_member: &P,
         label: &str,
@@ -61,6 +63,7 @@ impl RadioButton {
     }
 
     #[doc(alias = "gtk_radio_button_new_with_mnemonic_from_widget")]
+    #[doc(alias = "new_with_mnemonic_from_widget")]
     pub fn with_mnemonic_from_widget<P: IsA<RadioButton>>(
         radio_group_member: &P,
         label: &str,
@@ -274,8 +277,8 @@ impl RadioButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new::<RadioButton>(&properties).expect("object new");
-        ret
+        glib::Object::new::<RadioButton>(&properties)
+            .expect("Failed to create an instance of RadioButton")
     }
 
     pub fn active(mut self, active: bool) -> Self {
@@ -515,11 +518,13 @@ pub const NONE_RADIO_BUTTON: Option<&RadioButton> = None;
 
 pub trait RadioButtonExt: 'static {
     #[doc(alias = "gtk_radio_button_get_group")]
+    #[doc(alias = "get_group")]
     fn group(&self) -> Vec<RadioButton>;
 
     #[doc(alias = "gtk_radio_button_join_group")]
     fn join_group<P: IsA<RadioButton>>(&self, group_source: Option<&P>);
 
+    #[doc(alias = "group-changed")]
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -541,6 +546,7 @@ impl<O: IsA<RadioButton>> RadioButtonExt for O {
         }
     }
 
+    #[doc(alias = "group-changed")]
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn group_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRadioButton,

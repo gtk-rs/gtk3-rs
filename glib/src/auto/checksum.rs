@@ -19,7 +19,7 @@ crate::wrapper! {
 impl Checksum {
     #[doc(alias = "g_checksum_new")]
     pub fn new(checksum_type: ChecksumType) -> Option<Checksum> {
-        unsafe { from_glib_full(ffi::g_checksum_new(checksum_type.to_glib())) }
+        unsafe { from_glib_full(ffi::g_checksum_new(checksum_type.into_glib())) }
     }
 
     #[doc(alias = "g_checksum_reset")]
@@ -39,7 +39,7 @@ impl Checksum {
 
     #[doc(alias = "g_checksum_type_get_length")]
     pub fn type_get_length(checksum_type: ChecksumType) -> isize {
-        unsafe { ffi::g_checksum_type_get_length(checksum_type.to_glib()) }
+        unsafe { ffi::g_checksum_type_get_length(checksum_type.into_glib()) }
     }
 }
 

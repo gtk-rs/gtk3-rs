@@ -47,7 +47,7 @@ impl PopoverMenu {
         }
     }
 
-    #[doc(alias = "get_property_visible_submenu")]
+    #[doc(alias = "visible-submenu")]
     pub fn visible_submenu(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -62,7 +62,7 @@ impl PopoverMenu {
         }
     }
 
-    #[doc(alias = "set_property_visible_submenu")]
+    #[doc(alias = "visible-submenu")]
     pub fn set_visible_submenu(&self, visible_submenu: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -125,7 +125,8 @@ impl PopoverMenu {
         }
     }
 
-    pub fn connect_property_visible_submenu_notify<F: Fn(&PopoverMenu) + 'static>(
+    #[doc(alias = "visible-submenu")]
+    pub fn connect_visible_submenu_notify<F: Fn(&PopoverMenu) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -151,8 +152,6 @@ impl PopoverMenu {
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl Default for PopoverMenu {
     fn default() -> Self {
         Self::new()
@@ -169,8 +168,6 @@ pub struct PopoverMenuBuilder {
     pointing_to: Option<gdk::Rectangle>,
     position: Option<PositionType>,
     relative_to: Option<Widget>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     transitions_enabled: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -237,7 +234,6 @@ impl PopoverMenuBuilder {
         if let Some(ref relative_to) = self.relative_to {
             properties.push(("relative-to", relative_to));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref transitions_enabled) = self.transitions_enabled {
             properties.push(("transitions-enabled", transitions_enabled));
         }
@@ -347,8 +343,8 @@ impl PopoverMenuBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<PopoverMenu>(&properties).expect("object new");
-        ret
+        glib::Object::new::<PopoverMenu>(&properties)
+            .expect("Failed to create an instance of PopoverMenu")
     }
 
     pub fn visible_submenu(mut self, visible_submenu: &str) -> Self {
@@ -383,8 +379,6 @@ impl PopoverMenuBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn transitions_enabled(mut self, transitions_enabled: bool) -> Self {
         self.transitions_enabled = Some(transitions_enabled);
         self

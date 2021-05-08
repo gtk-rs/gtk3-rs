@@ -34,6 +34,7 @@ impl PixbufSimpleAnim {
     }
 
     #[doc(alias = "gdk_pixbuf_simple_anim_get_loop")]
+    #[doc(alias = "get_loop")]
     pub fn is_loop(&self) -> bool {
         unsafe { from_glib(ffi::gdk_pixbuf_simple_anim_get_loop(self.to_glib_none().0)) }
     }
@@ -41,14 +42,12 @@ impl PixbufSimpleAnim {
     #[doc(alias = "gdk_pixbuf_simple_anim_set_loop")]
     pub fn set_loop(&self, loop_: bool) {
         unsafe {
-            ffi::gdk_pixbuf_simple_anim_set_loop(self.to_glib_none().0, loop_.to_glib());
+            ffi::gdk_pixbuf_simple_anim_set_loop(self.to_glib_none().0, loop_.into_glib());
         }
     }
 
-    pub fn connect_property_loop_notify<F: Fn(&PixbufSimpleAnim) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "loop")]
+    pub fn connect_loop_notify<F: Fn(&PixbufSimpleAnim) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_loop_trampoline<F: Fn(&PixbufSimpleAnim) + 'static>(
             this: *mut ffi::GdkPixbufSimpleAnim,
             _param_spec: glib::ffi::gpointer,

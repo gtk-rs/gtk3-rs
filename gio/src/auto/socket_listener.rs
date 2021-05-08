@@ -7,8 +7,6 @@ use crate::Cancellable;
 use crate::Socket;
 use crate::SocketAddress;
 use crate::SocketConnection;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 use crate::SocketListenerEvent;
 use crate::SocketProtocol;
 use crate::SocketType;
@@ -135,23 +133,20 @@ pub trait SocketListenerExt: 'static {
     #[doc(alias = "g_socket_listener_set_backlog")]
     fn set_backlog(&self, listen_backlog: i32);
 
-    #[doc(alias = "get_property_listen_backlog")]
+    #[doc(alias = "listen-backlog")]
     fn listen_backlog(&self) -> i32;
 
-    #[doc(alias = "set_property_listen_backlog")]
+    #[doc(alias = "listen-backlog")]
     fn set_listen_backlog(&self, listen_backlog: i32);
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[doc(alias = "event")]
     fn connect_event<F: Fn(&Self, SocketListenerEvent, &Socket) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_listen_backlog_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "listen-backlog")]
+    fn connect_listen_backlog_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<SocketListener>> SocketListenerExt for O {
@@ -333,8 +328,8 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
             let _ = ffi::g_socket_listener_add_address(
                 self.as_ref().to_glib_none().0,
                 address.as_ref().to_glib_none().0,
-                type_.to_glib(),
-                protocol.to_glib(),
+                type_.into_glib(),
+                protocol.into_glib(),
                 source_object.map(|p| p.as_ref()).to_glib_none().0,
                 &mut effective_address,
                 &mut error,
@@ -444,8 +439,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[doc(alias = "event")]
     fn connect_event<F: Fn(&Self, SocketListenerEvent, &Socket) + 'static>(
         &self,
         f: F,
@@ -481,10 +475,8 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         }
     }
 
-    fn connect_property_listen_backlog_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "listen-backlog")]
+    fn connect_listen_backlog_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_listen_backlog_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSocketListener,
             _param_spec: glib::ffi::gpointer,

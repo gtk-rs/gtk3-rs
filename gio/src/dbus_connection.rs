@@ -2,10 +2,8 @@
 
 use crate::ActionGroup;
 use crate::DBusConnection;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 use crate::DBusInterfaceInfo;
 use crate::DBusMessage;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 use crate::DBusMethodInvocation;
 use crate::DBusSignalFlags;
 use crate::MenuModel;
@@ -28,8 +26,6 @@ pub struct FilterId(NonZeroU32);
 pub struct SignalSubscriptionId(NonZeroU32);
 
 impl DBusConnection {
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn register_object<MethodCall, SetProperty, GetProperty>(
         &self,
         object_path: &str,
@@ -295,7 +291,7 @@ impl DBusConnection {
                 member.to_glib_none().0,
                 object_path.to_glib_none().0,
                 arg0.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 callback,
                 Box_::into_raw(super_callback0) as *mut _,
                 destroy_call9,

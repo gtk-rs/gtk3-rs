@@ -47,12 +47,14 @@ impl ToolPalette {
     }
 
     #[doc(alias = "gtk_tool_palette_get_drag_target_group")]
+    #[doc(alias = "get_drag_target_group")]
     pub fn drag_target_group() -> Option<TargetEntry> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_tool_palette_get_drag_target_group()) }
     }
 
     #[doc(alias = "gtk_tool_palette_get_drag_target_item")]
+    #[doc(alias = "get_drag_target_item")]
     pub fn drag_target_item() -> Option<TargetEntry> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_tool_palette_get_drag_target_item()) }
@@ -251,8 +253,8 @@ impl ToolPaletteBuilder {
         if let Some(ref vscroll_policy) = self.vscroll_policy {
             properties.push(("vscroll-policy", vscroll_policy));
         }
-        let ret = glib::Object::new::<ToolPalette>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ToolPalette>(&properties)
+            .expect("Failed to create an instance of ToolPalette")
     }
 
     pub fn icon_size(mut self, icon_size: IconSize) -> Self {
@@ -486,27 +488,35 @@ pub trait ToolPaletteExt: 'static {
     );
 
     #[doc(alias = "gtk_tool_palette_get_drag_item")]
+    #[doc(alias = "get_drag_item")]
     fn drag_item(&self, selection: &SelectionData) -> Option<Widget>;
 
     #[doc(alias = "gtk_tool_palette_get_drop_group")]
+    #[doc(alias = "get_drop_group")]
     fn drop_group(&self, x: i32, y: i32) -> Option<ToolItemGroup>;
 
     #[doc(alias = "gtk_tool_palette_get_drop_item")]
+    #[doc(alias = "get_drop_item")]
     fn drop_item(&self, x: i32, y: i32) -> Option<ToolItem>;
 
     #[doc(alias = "gtk_tool_palette_get_exclusive")]
+    #[doc(alias = "get_exclusive")]
     fn is_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool;
 
     #[doc(alias = "gtk_tool_palette_get_expand")]
+    #[doc(alias = "get_expand")]
     fn expands<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool;
 
     #[doc(alias = "gtk_tool_palette_get_group_position")]
+    #[doc(alias = "get_group_position")]
     fn group_position<P: IsA<ToolItemGroup>>(&self, group: &P) -> i32;
 
     #[doc(alias = "gtk_tool_palette_get_icon_size")]
+    #[doc(alias = "get_icon_size")]
     fn icon_size(&self) -> IconSize;
 
     #[doc(alias = "gtk_tool_palette_get_style")]
+    #[doc(alias = "get_style")]
     fn style(&self) -> ToolbarStyle;
 
     #[doc(alias = "gtk_tool_palette_set_drag_source")]
@@ -533,29 +543,26 @@ pub trait ToolPaletteExt: 'static {
     #[doc(alias = "gtk_tool_palette_unset_style")]
     fn unset_style(&self);
 
-    #[doc(alias = "get_property_icon_size_set")]
+    #[doc(alias = "icon-size-set")]
     fn is_icon_size_set(&self) -> bool;
 
-    #[doc(alias = "set_property_icon_size_set")]
+    #[doc(alias = "icon-size-set")]
     fn set_icon_size_set(&self, icon_size_set: bool);
 
-    #[doc(alias = "get_property_toolbar_style")]
+    #[doc(alias = "toolbar-style")]
     fn toolbar_style(&self) -> ToolbarStyle;
 
-    #[doc(alias = "set_property_toolbar_style")]
+    #[doc(alias = "toolbar-style")]
     fn set_toolbar_style(&self, toolbar_style: ToolbarStyle);
 
-    fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "icon-size")]
+    fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_icon_size_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "icon-size-set")]
+    fn connect_icon_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_toolbar_style_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "toolbar-style")]
+    fn connect_toolbar_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
@@ -570,9 +577,9 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
             ffi::gtk_tool_palette_add_drag_dest(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                flags.to_glib(),
-                targets.to_glib(),
-                actions.to_glib(),
+                flags.into_glib(),
+                targets.into_glib(),
+                actions.into_glib(),
             );
         }
     }
@@ -653,7 +660,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         unsafe {
             ffi::gtk_tool_palette_set_drag_source(
                 self.as_ref().to_glib_none().0,
-                targets.to_glib(),
+                targets.into_glib(),
             );
         }
     }
@@ -663,7 +670,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
             ffi::gtk_tool_palette_set_exclusive(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
-                exclusive.to_glib(),
+                exclusive.into_glib(),
             );
         }
     }
@@ -673,7 +680,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
             ffi::gtk_tool_palette_set_expand(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
-                expand.to_glib(),
+                expand.into_glib(),
             );
         }
     }
@@ -692,14 +699,14 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         unsafe {
             ffi::gtk_tool_palette_set_icon_size(
                 self.as_ref().to_glib_none().0,
-                icon_size.to_glib(),
+                icon_size.into_glib(),
             );
         }
     }
 
     fn set_style(&self, style: ToolbarStyle) {
         unsafe {
-            ffi::gtk_tool_palette_set_style(self.as_ref().to_glib_none().0, style.to_glib());
+            ffi::gtk_tool_palette_set_style(self.as_ref().to_glib_none().0, style.into_glib());
         }
     }
 
@@ -763,7 +770,8 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "icon-size")]
+    fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolPalette,
             _param_spec: glib::ffi::gpointer,
@@ -787,10 +795,8 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn connect_property_icon_size_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "icon-size-set")]
+    fn connect_icon_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolPalette,
             _param_spec: glib::ffi::gpointer,
@@ -814,10 +820,8 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn connect_property_toolbar_style_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "toolbar-style")]
+    fn connect_toolbar_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_toolbar_style_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolPalette,
             _param_spec: glib::ffi::gpointer,

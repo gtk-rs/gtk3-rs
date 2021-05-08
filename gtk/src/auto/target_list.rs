@@ -29,7 +29,11 @@ impl TargetList {
     #[doc(alias = "gtk_target_list_add_image_targets")]
     pub fn add_image_targets(&self, info: u32, writable: bool) {
         unsafe {
-            ffi::gtk_target_list_add_image_targets(self.to_glib_none().0, info, writable.to_glib());
+            ffi::gtk_target_list_add_image_targets(
+                self.to_glib_none().0,
+                info,
+                writable.into_glib(),
+            );
         }
     }
 
@@ -44,7 +48,7 @@ impl TargetList {
             ffi::gtk_target_list_add_rich_text_targets(
                 self.to_glib_none().0,
                 info,
-                deserializable.to_glib(),
+                deserializable.into_glib(),
                 buffer.as_ref().to_glib_none().0,
             );
         }

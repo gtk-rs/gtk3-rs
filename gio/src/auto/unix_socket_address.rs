@@ -8,7 +8,6 @@ use crate::UnixSocketAddressType;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
@@ -26,6 +25,7 @@ impl UnixSocketAddress {
     //}
 
     //#[doc(alias = "g_unix_socket_address_new_with_type")]
+    //#[doc(alias = "new_with_type")]
     //pub fn with_type(path: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 10 }, type_: UnixSocketAddressType) -> UnixSocketAddress {
     //    unsafe { TODO: call ffi:g_unix_socket_address_new_with_type() }
     //}
@@ -43,15 +43,18 @@ pub const NONE_UNIX_SOCKET_ADDRESS: Option<&UnixSocketAddress> = None;
 
 pub trait UnixSocketAddressExt: 'static {
     #[doc(alias = "g_unix_socket_address_get_address_type")]
+    #[doc(alias = "get_address_type")]
     fn address_type(&self) -> UnixSocketAddressType;
 
     #[doc(alias = "g_unix_socket_address_get_is_abstract")]
+    #[doc(alias = "get_is_abstract")]
     fn is_abstract(&self) -> bool;
 
     #[doc(alias = "g_unix_socket_address_get_path_len")]
+    #[doc(alias = "get_path_len")]
     fn path_len(&self) -> usize;
 
-    #[doc(alias = "get_property_path_as_array")]
+    #[doc(alias = "path-as-array")]
     fn path_as_array(&self) -> Option<glib::ByteArray>;
 }
 

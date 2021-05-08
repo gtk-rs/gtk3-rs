@@ -25,17 +25,17 @@ bitflags::bitflags! {
 }
 
 #[doc(hidden)]
-impl ToGlib for ParamFlags {
+impl IntoGlib for ParamFlags {
     type GlibType = gobject_ffi::GParamFlags;
 
-    fn to_glib(&self) -> gobject_ffi::GParamFlags {
+    fn into_glib(self) -> gobject_ffi::GParamFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
 impl FromGlib<gobject_ffi::GParamFlags> for ParamFlags {
-    unsafe fn from_glib(value: gobject_ffi::GParamFlags) -> ParamFlags {
-        ParamFlags::from_bits_truncate(value)
+    unsafe fn from_glib(value: gobject_ffi::GParamFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }

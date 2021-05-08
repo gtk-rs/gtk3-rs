@@ -62,16 +62,19 @@ impl Vec4 {
     }
 
     #[doc(alias = "graphene_vec4_get_w")]
+    #[doc(alias = "get_w")]
     pub fn w(&self) -> f32 {
         unsafe { ffi::graphene_vec4_get_w(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_vec4_get_x")]
+    #[doc(alias = "get_x")]
     pub fn x(&self) -> f32 {
         unsafe { ffi::graphene_vec4_get_x(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_vec4_get_xy")]
+    #[doc(alias = "get_xy")]
     pub fn xy(&self) -> Vec2 {
         unsafe {
             let mut res = Vec2::uninitialized();
@@ -81,6 +84,7 @@ impl Vec4 {
     }
 
     #[doc(alias = "graphene_vec4_get_xyz")]
+    #[doc(alias = "get_xyz")]
     pub fn xyz(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
@@ -90,11 +94,13 @@ impl Vec4 {
     }
 
     #[doc(alias = "graphene_vec4_get_y")]
+    #[doc(alias = "get_y")]
     pub fn y(&self) -> f32 {
         unsafe { ffi::graphene_vec4_get_y(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_vec4_get_z")]
+    #[doc(alias = "get_z")]
     pub fn z(&self) -> f32 {
         unsafe { ffi::graphene_vec4_get_z(self.to_glib_none().0) }
     }
@@ -137,8 +143,6 @@ impl Vec4 {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_vec4_interpolate")]
     pub fn interpolate(&self, v2: &Vec4, factor: f64) -> Vec4 {
         unsafe {

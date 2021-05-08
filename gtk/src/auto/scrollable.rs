@@ -3,8 +3,6 @@
 // DO NOT EDIT
 
 use crate::Adjustment;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::Border;
 use crate::ScrollablePolicy;
 use glib::object::Cast;
@@ -27,21 +25,24 @@ glib::wrapper! {
 pub const NONE_SCROLLABLE: Option<&Scrollable> = None;
 
 pub trait ScrollableExt: 'static {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_scrollable_get_border")]
+    #[doc(alias = "get_border")]
     fn border(&self) -> Option<Border>;
 
     #[doc(alias = "gtk_scrollable_get_hadjustment")]
+    #[doc(alias = "get_hadjustment")]
     fn hadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_scrollable_get_hscroll_policy")]
+    #[doc(alias = "get_hscroll_policy")]
     fn hscroll_policy(&self) -> ScrollablePolicy;
 
     #[doc(alias = "gtk_scrollable_get_vadjustment")]
+    #[doc(alias = "get_vadjustment")]
     fn vadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_scrollable_get_vscroll_policy")]
+    #[doc(alias = "get_vscroll_policy")]
     fn vscroll_policy(&self) -> ScrollablePolicy;
 
     #[doc(alias = "gtk_scrollable_set_hadjustment")]
@@ -56,24 +57,20 @@ pub trait ScrollableExt: 'static {
     #[doc(alias = "gtk_scrollable_set_vscroll_policy")]
     fn set_vscroll_policy(&self, policy: ScrollablePolicy);
 
-    fn connect_property_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "hadjustment")]
+    fn connect_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_hscroll_policy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "hscroll-policy")]
+    fn connect_hscroll_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "vadjustment")]
+    fn connect_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_vscroll_policy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "vscroll-policy")]
+    fn connect_vscroll_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Scrollable>> ScrollableExt for O {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn border(&self) -> Option<Border> {
         unsafe {
             let mut border = Border::uninitialized();
@@ -134,7 +131,7 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         unsafe {
             ffi::gtk_scrollable_set_hscroll_policy(
                 self.as_ref().to_glib_none().0,
-                policy.to_glib(),
+                policy.into_glib(),
             );
         }
     }
@@ -152,12 +149,13 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         unsafe {
             ffi::gtk_scrollable_set_vscroll_policy(
                 self.as_ref().to_glib_none().0,
-                policy.to_glib(),
+                policy.into_glib(),
             );
         }
     }
 
-    fn connect_property_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "hadjustment")]
+    fn connect_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hadjustment_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrollable,
             _param_spec: glib::ffi::gpointer,
@@ -181,10 +179,8 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         }
     }
 
-    fn connect_property_hscroll_policy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "hscroll-policy")]
+    fn connect_hscroll_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hscroll_policy_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrollable,
             _param_spec: glib::ffi::gpointer,
@@ -208,7 +204,8 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         }
     }
 
-    fn connect_property_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "vadjustment")]
+    fn connect_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vadjustment_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrollable,
             _param_spec: glib::ffi::gpointer,
@@ -232,10 +229,8 @@ impl<O: IsA<Scrollable>> ScrollableExt for O {
         }
     }
 
-    fn connect_property_vscroll_policy_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "vscroll-policy")]
+    fn connect_vscroll_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vscroll_policy_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScrollable,
             _param_spec: glib::ffi::gpointer,

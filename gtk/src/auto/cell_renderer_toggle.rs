@@ -125,8 +125,8 @@ impl CellRendererToggleBuilder {
         if let Some(ref ypad) = self.ypad {
             properties.push(("ypad", ypad));
         }
-        let ret = glib::Object::new::<CellRendererToggle>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CellRendererToggle>(&properties)
+            .expect("Failed to create an instance of CellRendererToggle")
     }
 
     pub fn activatable(mut self, activatable: bool) -> Self {
@@ -229,12 +229,15 @@ pub const NONE_CELL_RENDERER_TOGGLE: Option<&CellRendererToggle> = None;
 
 pub trait CellRendererToggleExt: 'static {
     #[doc(alias = "gtk_cell_renderer_toggle_get_activatable")]
+    #[doc(alias = "get_activatable")]
     fn is_activatable(&self) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_toggle_get_active")]
+    #[doc(alias = "get_active")]
     fn is_active(&self) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_toggle_get_radio")]
+    #[doc(alias = "get_radio")]
     fn is_radio(&self) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_toggle_set_activatable")]
@@ -246,33 +249,33 @@ pub trait CellRendererToggleExt: 'static {
     #[doc(alias = "gtk_cell_renderer_toggle_set_radio")]
     fn set_radio(&self, radio: bool);
 
-    #[doc(alias = "get_property_inconsistent")]
     fn is_inconsistent(&self) -> bool;
 
-    #[doc(alias = "set_property_inconsistent")]
     fn set_inconsistent(&self, inconsistent: bool);
 
-    #[doc(alias = "get_property_indicator_size")]
+    #[doc(alias = "indicator-size")]
     fn indicator_size(&self) -> i32;
 
-    #[doc(alias = "set_property_indicator_size")]
+    #[doc(alias = "indicator-size")]
     fn set_indicator_size(&self, indicator_size: i32);
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "activatable")]
+    fn connect_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "inconsistent")]
+    fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_indicator_size_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "indicator-size")]
+    fn connect_indicator_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "radio")]
+    fn connect_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
@@ -304,7 +307,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_activatable(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -313,7 +316,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_active(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -322,7 +325,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_radio(
                 self.as_ref().to_glib_none().0,
-                radio.to_glib(),
+                radio.into_glib(),
             );
         }
     }
@@ -375,6 +378,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<P, F: Fn(&P, TreePath) + 'static>(
             this: *mut ffi::GtkCellRendererToggle,
@@ -403,7 +407,8 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn connect_property_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "activatable")]
+    fn connect_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_activatable_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererToggle,
             _param_spec: glib::ffi::gpointer,
@@ -427,7 +432,8 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "active")]
+    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererToggle,
             _param_spec: glib::ffi::gpointer,
@@ -451,10 +457,8 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn connect_property_inconsistent_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "inconsistent")]
+    fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inconsistent_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererToggle,
             _param_spec: glib::ffi::gpointer,
@@ -478,10 +482,8 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn connect_property_indicator_size_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "indicator-size")]
+    fn connect_indicator_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_indicator_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererToggle,
             _param_spec: glib::ffi::gpointer,
@@ -505,7 +507,8 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    fn connect_property_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "radio")]
+    fn connect_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_radio_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererToggle,
             _param_spec: glib::ffi::gpointer,

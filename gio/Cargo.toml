@@ -19,10 +19,7 @@ build = "build.rs"
 name = "gio"
 
 [features]
-v2_44 = ["ffi/v2_44", "glib/v2_44"]
-v2_46 = ["v2_44", "ffi/v2_46", "glib/v2_46"]
-v2_48 = ["v2_46", "ffi/v2_48", "glib/v2_48"]
-v2_50 = ["v2_48", "ffi/v2_50", "glib/v2_50"]
+v2_50 = ["ffi/v2_50", "glib/v2_50"]
 v2_52 = ["v2_50", "ffi/v2_52", "glib/v2_52"]
 v2_54 = ["v2_52", "ffi/v2_54", "glib/v2_54"]
 v2_56 = ["v2_54", "ffi/v2_56", "glib/v2_56"]

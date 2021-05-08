@@ -36,6 +36,7 @@ impl MenuBar {
     }
 
     #[doc(alias = "gtk_menu_bar_new_from_model")]
+    #[doc(alias = "new_from_model")]
     pub fn from_model<P: IsA<gio::MenuModel>>(model: &P) -> MenuBar {
         assert_initialized_main_thread!();
         unsafe {
@@ -219,8 +220,7 @@ impl MenuBarBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<MenuBar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<MenuBar>(&properties).expect("Failed to create an instance of MenuBar")
     }
 
     pub fn child_pack_direction(mut self, child_pack_direction: PackDirection) -> Self {
@@ -420,9 +420,11 @@ pub const NONE_MENU_BAR: Option<&MenuBar> = None;
 
 pub trait MenuBarExt: 'static {
     #[doc(alias = "gtk_menu_bar_get_child_pack_direction")]
+    #[doc(alias = "get_child_pack_direction")]
     fn child_pack_direction(&self) -> PackDirection;
 
     #[doc(alias = "gtk_menu_bar_get_pack_direction")]
+    #[doc(alias = "get_pack_direction")]
     fn pack_direction(&self) -> PackDirection;
 
     #[doc(alias = "gtk_menu_bar_set_child_pack_direction")]
@@ -431,15 +433,11 @@ pub trait MenuBarExt: 'static {
     #[doc(alias = "gtk_menu_bar_set_pack_direction")]
     fn set_pack_direction(&self, pack_dir: PackDirection);
 
-    fn connect_property_child_pack_direction_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "child-pack-direction")]
+    fn connect_child_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_pack_direction_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "pack-direction")]
+    fn connect_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<MenuBar>> MenuBarExt for O {
@@ -463,7 +461,7 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         unsafe {
             ffi::gtk_menu_bar_set_child_pack_direction(
                 self.as_ref().to_glib_none().0,
-                child_pack_dir.to_glib(),
+                child_pack_dir.into_glib(),
             );
         }
     }
@@ -472,15 +470,13 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         unsafe {
             ffi::gtk_menu_bar_set_pack_direction(
                 self.as_ref().to_glib_none().0,
-                pack_dir.to_glib(),
+                pack_dir.into_glib(),
             );
         }
     }
 
-    fn connect_property_child_pack_direction_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "child-pack-direction")]
+    fn connect_child_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_child_pack_direction_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuBar,
             _param_spec: glib::ffi::gpointer,
@@ -504,10 +500,8 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
-    fn connect_property_pack_direction_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "pack-direction")]
+    fn connect_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pack_direction_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuBar,
             _param_spec: glib::ffi::gpointer,

@@ -42,6 +42,7 @@ impl ShortcutLabel {
     }
 
     #[doc(alias = "gtk_shortcut_label_get_accelerator")]
+    #[doc(alias = "get_accelerator")]
     pub fn accelerator(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_shortcut_label_get_accelerator(
@@ -51,6 +52,7 @@ impl ShortcutLabel {
     }
 
     #[doc(alias = "gtk_shortcut_label_get_disabled_text")]
+    #[doc(alias = "get_disabled_text")]
     pub fn disabled_text(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_shortcut_label_get_disabled_text(
@@ -81,7 +83,8 @@ impl ShortcutLabel {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn connect_property_accelerator_notify<F: Fn(&ShortcutLabel) + 'static>(
+    #[doc(alias = "accelerator")]
+    pub fn connect_accelerator_notify<F: Fn(&ShortcutLabel) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -108,7 +111,8 @@ impl ShortcutLabel {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn connect_property_disabled_text_notify<F: Fn(&ShortcutLabel) + 'static>(
+    #[doc(alias = "disabled-text")]
+    pub fn connect_disabled_text_notify<F: Fn(&ShortcutLabel) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -318,8 +322,8 @@ impl ShortcutLabelBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<ShortcutLabel>(&properties).expect("object new");
-        ret
+        glib::Object::new::<ShortcutLabel>(&properties)
+            .expect("Failed to create an instance of ShortcutLabel")
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]

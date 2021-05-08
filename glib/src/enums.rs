@@ -21,20 +21,20 @@ pub enum UserDirectory {
 }
 
 #[doc(hidden)]
-impl ToGlib for UserDirectory {
+impl IntoGlib for UserDirectory {
     type GlibType = ffi::GUserDirectory;
 
-    fn to_glib(&self) -> ffi::GUserDirectory {
-        match *self {
-            UserDirectory::Desktop => ffi::G_USER_DIRECTORY_DESKTOP,
-            UserDirectory::Documents => ffi::G_USER_DIRECTORY_DOCUMENTS,
-            UserDirectory::Downloads => ffi::G_USER_DIRECTORY_DOWNLOAD,
-            UserDirectory::Music => ffi::G_USER_DIRECTORY_MUSIC,
-            UserDirectory::Pictures => ffi::G_USER_DIRECTORY_PICTURES,
-            UserDirectory::PublicShare => ffi::G_USER_DIRECTORY_PUBLIC_SHARE,
-            UserDirectory::Templates => ffi::G_USER_DIRECTORY_TEMPLATES,
-            UserDirectory::Videos => ffi::G_USER_DIRECTORY_VIDEOS,
-            UserDirectory::NDirectories => ffi::G_USER_N_DIRECTORIES,
+    fn into_glib(self) -> ffi::GUserDirectory {
+        match self {
+            Self::Desktop => ffi::G_USER_DIRECTORY_DESKTOP,
+            Self::Documents => ffi::G_USER_DIRECTORY_DOCUMENTS,
+            Self::Downloads => ffi::G_USER_DIRECTORY_DOWNLOAD,
+            Self::Music => ffi::G_USER_DIRECTORY_MUSIC,
+            Self::Pictures => ffi::G_USER_DIRECTORY_PICTURES,
+            Self::PublicShare => ffi::G_USER_DIRECTORY_PUBLIC_SHARE,
+            Self::Templates => ffi::G_USER_DIRECTORY_TEMPLATES,
+            Self::Videos => ffi::G_USER_DIRECTORY_VIDEOS,
+            Self::NDirectories => ffi::G_USER_N_DIRECTORIES,
         }
     }
 }
@@ -54,7 +54,7 @@ impl EnumClass {
     pub fn new(type_: Type) -> Option<Self> {
         unsafe {
             let is_enum: bool = from_glib(gobject_ffi::g_type_is_a(
-                type_.to_glib(),
+                type_.into_glib(),
                 gobject_ffi::G_TYPE_ENUM,
             ));
             if !is_enum {
@@ -62,7 +62,7 @@ impl EnumClass {
             }
 
             Some(EnumClass(
-                gobject_ffi::g_type_class_ref(type_.to_glib()) as *mut _
+                gobject_ffi::g_type_class_ref(type_.into_glib()) as *mut _
             ))
         }
     }
@@ -77,6 +77,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with `value`.
     #[doc(alias = "g_enum_get_value")]
+    #[doc(alias = "get_value")]
     pub fn value(&self, value: i32) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value(self.0, value);
@@ -93,6 +94,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with name `name`.
     #[doc(alias = "g_enum_get_value_by_name")]
+    #[doc(alias = "get_value_by_name")]
     pub fn value_by_name(&self, name: &str) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value_by_name(self.0, name.to_glib_none().0);
@@ -109,6 +111,7 @@ impl EnumClass {
     /// Returns `None` if the enum does not contain any value
     /// with nick `nick`.
     #[doc(alias = "g_enum_get_value_by_nick")]
+    #[doc(alias = "get_value_by_nick")]
     pub fn value_by_nick(&self, nick: &str) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value_by_nick(self.0, nick.to_glib_none().0);
@@ -121,6 +124,7 @@ impl EnumClass {
     }
 
     /// Gets all `EnumValue` of this `EnumClass`.
+    #[doc(alias = "get_values")]
     pub fn values(&self) -> Vec<EnumValue> {
         unsafe {
             let n = (*self.0).n_values;
@@ -158,7 +162,7 @@ impl Drop for EnumClass {
 
 impl Clone for EnumClass {
     fn clone(&self) -> Self {
-        unsafe { EnumClass(gobject_ffi::g_type_class_ref(self.type_().to_glib()) as *mut _) }
+        unsafe { Self(gobject_ffi::g_type_class_ref(self.type_().into_glib()) as *mut _) }
     }
 }
 
@@ -171,16 +175,19 @@ unsafe impl Sync for EnumValue {}
 
 impl EnumValue {
     /// Get integer value corresponding to the value.
+    #[doc(alias = "get_value")]
     pub fn value(&self) -> i32 {
         unsafe { (*self.0).value }
     }
 
     /// Get name corresponding to the value.
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> &str {
         unsafe { CStr::from_ptr((*self.0).value_name).to_str().unwrap() }
     }
 
     /// Get nick corresponding to the value.
+    #[doc(alias = "get_nick")]
     pub fn nick(&self) -> &str {
         unsafe { CStr::from_ptr((*self.0).value_nick).to_str().unwrap() }
     }
@@ -203,6 +210,7 @@ impl EnumValue {
     }
 
     /// Get `EnumClass` to which the enum value belongs.
+    #[doc(alias = "get_class")]
     pub fn class(&self) -> &EnumClass {
         &self.1
     }
@@ -243,7 +251,7 @@ impl FlagsClass {
     pub fn new(type_: Type) -> Option<Self> {
         unsafe {
             let is_flags: bool = from_glib(gobject_ffi::g_type_is_a(
-                type_.to_glib(),
+                type_.into_glib(),
                 gobject_ffi::G_TYPE_FLAGS,
             ));
             if !is_flags {
@@ -251,7 +259,7 @@ impl FlagsClass {
             }
 
             Some(FlagsClass(
-                gobject_ffi::g_type_class_ref(type_.to_glib()) as *mut _
+                gobject_ffi::g_type_class_ref(type_.into_glib()) as *mut _
             ))
         }
     }
@@ -266,6 +274,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with `value`.
     #[doc(alias = "g_flags_get_first_value")]
+    #[doc(alias = "get_value")]
     pub fn value(&self, value: u32) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_first_value(self.0, value);
@@ -282,6 +291,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with name `name`.
     #[doc(alias = "g_flags_get_value_by_name")]
+    #[doc(alias = "get_value_by_name")]
     pub fn value_by_name(&self, name: &str) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_value_by_name(self.0, name.to_glib_none().0);
@@ -298,6 +308,7 @@ impl FlagsClass {
     /// Returns `None` if the flags do not contain any value
     /// with nick `nick`.
     #[doc(alias = "g_flags_get_value_by_nick")]
+    #[doc(alias = "get_value_by_nick")]
     pub fn value_by_nick(&self, nick: &str) -> Option<FlagsValue> {
         unsafe {
             let v = gobject_ffi::g_flags_get_value_by_nick(self.0, nick.to_glib_none().0);
@@ -310,6 +321,7 @@ impl FlagsClass {
     }
 
     /// Gets all `FlagsValue` of this `FlagsClass`.
+    #[doc(alias = "get_values")]
     pub fn values(&self) -> Vec<FlagsValue> {
         unsafe {
             let n = (*self.0).n_values;
@@ -534,7 +546,7 @@ impl Drop for FlagsClass {
 
 impl Clone for FlagsClass {
     fn clone(&self) -> Self {
-        unsafe { FlagsClass(gobject_ffi::g_type_class_ref(self.type_().to_glib()) as *mut _) }
+        unsafe { Self(gobject_ffi::g_type_class_ref(self.type_().into_glib()) as *mut _) }
     }
 }
 
@@ -547,16 +559,19 @@ unsafe impl Sync for FlagsValue {}
 
 impl FlagsValue {
     /// Get integer value corresponding to the value.
+    #[doc(alias = "get_value")]
     pub fn value(&self) -> u32 {
         unsafe { (*self.0).value }
     }
 
     /// Get name corresponding to the value.
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> &str {
         unsafe { CStr::from_ptr((*self.0).value_name).to_str().unwrap() }
     }
 
     /// Get nick corresponding to the value.
+    #[doc(alias = "get_nick")]
     pub fn nick(&self) -> &str {
         unsafe { CStr::from_ptr((*self.0).value_nick).to_str().unwrap() }
     }
@@ -588,6 +603,7 @@ impl FlagsValue {
     }
 
     /// Get `FlagsClass` to which the flags value belongs.
+    #[doc(alias = "get_class")]
     pub fn class(&self) -> &FlagsClass {
         &self.1
     }

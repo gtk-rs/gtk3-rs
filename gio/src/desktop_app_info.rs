@@ -131,7 +131,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExtManual for O {
                 self.as_ref().to_glib_none().0,
                 uris.to_glib_none().0,
                 launch_context.map(|p| p.as_ref()).to_glib_none().0,
-                spawn_flags.to_glib(),
+                spawn_flags.into_glib(),
                 user_setup,
                 Box_::into_raw(super_callback0) as *mut _,
                 pid_callback,

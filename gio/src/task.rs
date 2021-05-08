@@ -45,13 +45,14 @@ impl Task {
         }
     }
 
+    #[doc(alias = "get_priority")]
     pub fn priority(&self) -> glib::source::Priority {
         unsafe { FromGlib::from_glib(ffi::g_task_get_priority(self.to_glib_none().0)) }
     }
 
     pub fn set_priority(&self, priority: glib::source::Priority) {
         unsafe {
-            ffi::g_task_set_priority(self.to_glib_none().0, priority.to_glib());
+            ffi::g_task_set_priority(self.to_glib_none().0, priority.into_glib());
         }
     }
 
@@ -146,6 +147,7 @@ mod test {
                 glib::Object::new(&[]).expect("Failed to create MySimpleObject")
             }
 
+            #[doc(alias = "get_size")]
             pub fn size(&self) -> Option<i64> {
                 let imp = MySimpleObjectPrivate::from_instance(self);
                 *imp.size.borrow()

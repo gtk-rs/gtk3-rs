@@ -52,6 +52,7 @@ impl DBusAuthObserver {
         }
     }
 
+    #[doc(alias = "allow-mechanism")]
     pub fn connect_allow_mechanism<F: Fn(&DBusAuthObserver, &str) -> bool + 'static>(
         &self,
         f: F,
@@ -68,7 +69,7 @@ impl DBusAuthObserver {
                 &from_glib_borrow(this),
                 &glib::GString::from_glib_borrow(mechanism),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -83,6 +84,7 @@ impl DBusAuthObserver {
         }
     }
 
+    #[doc(alias = "authorize-authenticated-peer")]
     pub fn connect_authorize_authenticated_peer<
         F: Fn(&DBusAuthObserver, &IOStream, Option<&Credentials>) -> bool + 'static,
     >(
@@ -105,7 +107,7 @@ impl DBusAuthObserver {
                     .as_ref()
                     .as_ref(),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

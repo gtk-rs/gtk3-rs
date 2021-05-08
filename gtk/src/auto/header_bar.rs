@@ -227,8 +227,8 @@ impl HeaderBarBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<HeaderBar>(&properties).expect("object new");
-        ret
+        glib::Object::new::<HeaderBar>(&properties)
+            .expect("Failed to create an instance of HeaderBar")
     }
 
     pub fn custom_title<P: IsA<Widget>>(mut self, custom_title: &P) -> Self {
@@ -453,21 +453,27 @@ pub const NONE_HEADER_BAR: Option<&HeaderBar> = None;
 
 pub trait HeaderBarExt: 'static {
     #[doc(alias = "gtk_header_bar_get_custom_title")]
+    #[doc(alias = "get_custom_title")]
     fn custom_title(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_header_bar_get_decoration_layout")]
+    #[doc(alias = "get_decoration_layout")]
     fn decoration_layout(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_header_bar_get_has_subtitle")]
+    #[doc(alias = "get_has_subtitle")]
     fn has_subtitle(&self) -> bool;
 
     #[doc(alias = "gtk_header_bar_get_show_close_button")]
+    #[doc(alias = "get_show_close_button")]
     fn shows_close_button(&self) -> bool;
 
     #[doc(alias = "gtk_header_bar_get_subtitle")]
+    #[doc(alias = "get_subtitle")]
     fn subtitle(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_header_bar_get_title")]
+    #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_header_bar_pack_end")]
@@ -494,52 +500,50 @@ pub trait HeaderBarExt: 'static {
     #[doc(alias = "gtk_header_bar_set_title")]
     fn set_title(&self, title: Option<&str>);
 
-    #[doc(alias = "get_property_decoration_layout_set")]
+    #[doc(alias = "decoration-layout-set")]
     fn is_decoration_layout_set(&self) -> bool;
 
-    #[doc(alias = "set_property_decoration_layout_set")]
+    #[doc(alias = "decoration-layout-set")]
     fn set_decoration_layout_set(&self, decoration_layout_set: bool);
 
-    #[doc(alias = "get_property_spacing")]
     fn spacing(&self) -> i32;
 
-    #[doc(alias = "set_property_spacing")]
     fn set_spacing(&self, spacing: i32);
 
+    #[doc(alias = "child.pack-type")]
     fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
 
+    #[doc(alias = "child.pack-type")]
     fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType);
 
     fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
 
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32);
 
-    fn connect_property_custom_title_notify<F: Fn(&Self) + 'static>(&self, f: F)
+    #[doc(alias = "custom-title")]
+    fn connect_custom_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "decoration-layout")]
+    fn connect_decoration_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[doc(alias = "decoration-layout-set")]
+    fn connect_decoration_layout_set_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
-    fn connect_property_decoration_layout_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "has-subtitle")]
+    fn connect_has_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_decoration_layout_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-close-button")]
+    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_has_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_close_button_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "subtitle")]
+    fn connect_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "title")]
+    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<HeaderBar>> HeaderBarExt for O {
@@ -629,7 +633,10 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
 
     fn set_has_subtitle(&self, setting: bool) {
         unsafe {
-            ffi::gtk_header_bar_set_has_subtitle(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_header_bar_set_has_subtitle(
+                self.as_ref().to_glib_none().0,
+                setting.into_glib(),
+            );
         }
     }
 
@@ -637,7 +644,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         unsafe {
             ffi::gtk_header_bar_set_show_close_button(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -757,10 +764,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn connect_property_custom_title_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "custom-title")]
+    fn connect_custom_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_custom_title_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
             _param_spec: glib::ffi::gpointer,
@@ -784,10 +789,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn connect_property_decoration_layout_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "decoration-layout")]
+    fn connect_decoration_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_decoration_layout_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
             _param_spec: glib::ffi::gpointer,
@@ -811,7 +814,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn connect_property_decoration_layout_set_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "decoration-layout-set")]
+    fn connect_decoration_layout_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -838,10 +842,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn connect_property_has_subtitle_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "has-subtitle")]
+    fn connect_has_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_subtitle_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
             _param_spec: glib::ffi::gpointer,
@@ -865,10 +867,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn connect_property_show_close_button_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-close-button")]
+    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
             _param_spec: glib::ffi::gpointer,
@@ -892,7 +892,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
             _param_spec: glib::ffi::gpointer,
@@ -916,7 +917,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn connect_property_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "subtitle")]
+    fn connect_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_subtitle_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
             _param_spec: glib::ffi::gpointer,
@@ -940,7 +942,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "title")]
+    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
             _param_spec: glib::ffi::gpointer,

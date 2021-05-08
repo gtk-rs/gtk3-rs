@@ -9,7 +9,7 @@ use std::ptr;
 
 impl RadioToolButton {
     #[doc(alias = "gtk_radio_tool_button_new")]
-    pub fn new() -> RadioToolButton {
+    pub fn new() -> Self {
         assert_initialized_main_thread!();
         unsafe {
             ToolItem::from_glib_none(ffi::gtk_radio_tool_button_new(ptr::null_mut())).unsafe_cast()
@@ -17,7 +17,7 @@ impl RadioToolButton {
     }
 
     #[doc(alias = "gtk_radio_tool_button_new_from_stock")]
-    pub fn from_stock(stock_id: &str) -> RadioToolButton {
+    pub fn from_stock(stock_id: &str) -> Self {
         assert_initialized_main_thread!();
         unsafe {
             ToolItem::from_glib_none(ffi::gtk_radio_tool_button_new_from_stock(
@@ -36,5 +36,11 @@ impl RadioToolButton {
                 group.to_value().to_glib_none().0,
             );
         }
+    }
+}
+
+impl Default for RadioToolButton {
+    fn default() -> Self {
+        Self::new()
     }
 }

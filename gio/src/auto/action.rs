@@ -72,35 +72,43 @@ pub trait ActionExt: 'static {
     fn change_state(&self, value: &glib::Variant);
 
     #[doc(alias = "g_action_get_enabled")]
+    #[doc(alias = "get_enabled")]
     fn is_enabled(&self) -> bool;
 
     #[doc(alias = "g_action_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> glib::GString;
 
     #[doc(alias = "g_action_get_parameter_type")]
+    #[doc(alias = "get_parameter_type")]
     fn parameter_type(&self) -> Option<glib::VariantType>;
 
     #[doc(alias = "g_action_get_state")]
+    #[doc(alias = "get_state")]
     fn state(&self) -> Option<glib::Variant>;
 
     #[doc(alias = "g_action_get_state_hint")]
+    #[doc(alias = "get_state_hint")]
     fn state_hint(&self) -> Option<glib::Variant>;
 
     #[doc(alias = "g_action_get_state_type")]
+    #[doc(alias = "get_state_type")]
     fn state_type(&self) -> Option<glib::VariantType>;
 
-    fn connect_property_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "enabled")]
+    fn connect_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "name")]
+    fn connect_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_parameter_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "parameter-type")]
+    fn connect_parameter_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "state")]
+    fn connect_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "state-type")]
+    fn connect_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Action>> ActionExt for O {
@@ -144,7 +152,8 @@ impl<O: IsA<Action>> ActionExt for O {
         unsafe { from_glib_none(ffi::g_action_get_state_type(self.as_ref().to_glib_none().0)) }
     }
 
-    fn connect_property_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "enabled")]
+    fn connect_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_enabled_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GAction,
             _param_spec: glib::ffi::gpointer,
@@ -168,7 +177,8 @@ impl<O: IsA<Action>> ActionExt for O {
         }
     }
 
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "name")]
+    fn connect_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_name_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GAction,
             _param_spec: glib::ffi::gpointer,
@@ -192,10 +202,8 @@ impl<O: IsA<Action>> ActionExt for O {
         }
     }
 
-    fn connect_property_parameter_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "parameter-type")]
+    fn connect_parameter_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_parameter_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GAction,
             _param_spec: glib::ffi::gpointer,
@@ -219,7 +227,8 @@ impl<O: IsA<Action>> ActionExt for O {
         }
     }
 
-    fn connect_property_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "state")]
+    fn connect_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_state_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GAction,
             _param_spec: glib::ffi::gpointer,
@@ -243,7 +252,8 @@ impl<O: IsA<Action>> ActionExt for O {
         }
     }
 
-    fn connect_property_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "state-type")]
+    fn connect_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_state_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GAction,
             _param_spec: glib::ffi::gpointer,

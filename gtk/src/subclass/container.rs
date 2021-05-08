@@ -32,6 +32,7 @@ pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
         self.parent_child_type(container)
     }
 
+    #[doc(alias = "get_path_for_child")]
     fn path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
         self.parent_path_for_child(container, widget)
     }
@@ -134,7 +135,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             if let Some(f) = (*parent_class).forall {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
-                    include_internals.to_glib(),
+                    include_internals.into_glib(),
                     callback.callback,
                     callback.user_data,
                 )
@@ -213,7 +214,7 @@ unsafe extern "C" fn container_child_type<T: ContainerImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
 
-    imp.child_type(wrap.unsafe_cast_ref()).to_glib()
+    imp.child_type(wrap.unsafe_cast_ref()).into_glib()
 }
 
 unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
@@ -268,3 +269,15 @@ impl Callback {
         }
     }
 }
+
+pub unsafe trait ContainerClassSubclassExt: ClassStruct {
+    #[doc(alias = "gtk_container_class_handle_border_width")]
+    fn handle_border_width(&mut self) {
+        unsafe {
+            let widget_class = self as *mut _ as *mut ffi::GtkContainerClass;
+            ffi::gtk_container_class_handle_border_width(widget_class);
+        }
+    }
+}
+
+unsafe impl<T: ClassStruct> ContainerClassSubclassExt for T where T::Type: ContainerImpl {}

@@ -33,12 +33,12 @@ impl fmt::Display for ChecksumType {
             f,
             "ChecksumType::{}",
             match *self {
-                ChecksumType::Md5 => "Md5",
-                ChecksumType::Sha1 => "Sha1",
-                ChecksumType::Sha256 => "Sha256",
-                ChecksumType::Sha512 => "Sha512",
+                Self::Md5 => "Md5",
+                Self::Sha1 => "Sha1",
+                Self::Sha256 => "Sha256",
+                Self::Sha512 => "Sha512",
                 #[cfg(any(feature = "v2_52", feature = "dox"))]
-                ChecksumType::Sha384 => "Sha384",
+                Self::Sha384 => "Sha384",
                 _ => "Unknown",
             }
         )
@@ -46,18 +46,18 @@ impl fmt::Display for ChecksumType {
 }
 
 #[doc(hidden)]
-impl ToGlib for ChecksumType {
+impl IntoGlib for ChecksumType {
     type GlibType = ffi::GChecksumType;
 
-    fn to_glib(&self) -> ffi::GChecksumType {
-        match *self {
-            ChecksumType::Md5 => ffi::G_CHECKSUM_MD5,
-            ChecksumType::Sha1 => ffi::G_CHECKSUM_SHA1,
-            ChecksumType::Sha256 => ffi::G_CHECKSUM_SHA256,
-            ChecksumType::Sha512 => ffi::G_CHECKSUM_SHA512,
+    fn into_glib(self) -> ffi::GChecksumType {
+        match self {
+            Self::Md5 => ffi::G_CHECKSUM_MD5,
+            Self::Sha1 => ffi::G_CHECKSUM_SHA1,
+            Self::Sha256 => ffi::G_CHECKSUM_SHA256,
+            Self::Sha512 => ffi::G_CHECKSUM_SHA512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
-            ChecksumType::Sha384 => ffi::G_CHECKSUM_SHA384,
-            ChecksumType::__Unknown(value) => value,
+            Self::Sha384 => ffi::G_CHECKSUM_SHA384,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -66,13 +66,13 @@ impl ToGlib for ChecksumType {
 impl FromGlib<ffi::GChecksumType> for ChecksumType {
     unsafe fn from_glib(value: ffi::GChecksumType) -> Self {
         match value {
-            0 => ChecksumType::Md5,
-            1 => ChecksumType::Sha1,
-            2 => ChecksumType::Sha256,
-            3 => ChecksumType::Sha512,
+            0 => Self::Md5,
+            1 => Self::Sha1,
+            2 => Self::Sha256,
+            3 => Self::Sha512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
-            4 => ChecksumType::Sha384,
-            value => ChecksumType::__Unknown(value),
+            4 => Self::Sha384,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -117,19 +117,19 @@ impl fmt::Display for DateMonth {
             f,
             "DateMonth::{}",
             match *self {
-                DateMonth::BadMonth => "BadMonth",
-                DateMonth::January => "January",
-                DateMonth::February => "February",
-                DateMonth::March => "March",
-                DateMonth::April => "April",
-                DateMonth::May => "May",
-                DateMonth::June => "June",
-                DateMonth::July => "July",
-                DateMonth::August => "August",
-                DateMonth::September => "September",
-                DateMonth::October => "October",
-                DateMonth::November => "November",
-                DateMonth::December => "December",
+                Self::BadMonth => "BadMonth",
+                Self::January => "January",
+                Self::February => "February",
+                Self::March => "March",
+                Self::April => "April",
+                Self::May => "May",
+                Self::June => "June",
+                Self::July => "July",
+                Self::August => "August",
+                Self::September => "September",
+                Self::October => "October",
+                Self::November => "November",
+                Self::December => "December",
                 _ => "Unknown",
             }
         )
@@ -137,25 +137,25 @@ impl fmt::Display for DateMonth {
 }
 
 #[doc(hidden)]
-impl ToGlib for DateMonth {
+impl IntoGlib for DateMonth {
     type GlibType = ffi::GDateMonth;
 
-    fn to_glib(&self) -> ffi::GDateMonth {
-        match *self {
-            DateMonth::BadMonth => ffi::G_DATE_BAD_MONTH,
-            DateMonth::January => ffi::G_DATE_JANUARY,
-            DateMonth::February => ffi::G_DATE_FEBRUARY,
-            DateMonth::March => ffi::G_DATE_MARCH,
-            DateMonth::April => ffi::G_DATE_APRIL,
-            DateMonth::May => ffi::G_DATE_MAY,
-            DateMonth::June => ffi::G_DATE_JUNE,
-            DateMonth::July => ffi::G_DATE_JULY,
-            DateMonth::August => ffi::G_DATE_AUGUST,
-            DateMonth::September => ffi::G_DATE_SEPTEMBER,
-            DateMonth::October => ffi::G_DATE_OCTOBER,
-            DateMonth::November => ffi::G_DATE_NOVEMBER,
-            DateMonth::December => ffi::G_DATE_DECEMBER,
-            DateMonth::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GDateMonth {
+        match self {
+            Self::BadMonth => ffi::G_DATE_BAD_MONTH,
+            Self::January => ffi::G_DATE_JANUARY,
+            Self::February => ffi::G_DATE_FEBRUARY,
+            Self::March => ffi::G_DATE_MARCH,
+            Self::April => ffi::G_DATE_APRIL,
+            Self::May => ffi::G_DATE_MAY,
+            Self::June => ffi::G_DATE_JUNE,
+            Self::July => ffi::G_DATE_JULY,
+            Self::August => ffi::G_DATE_AUGUST,
+            Self::September => ffi::G_DATE_SEPTEMBER,
+            Self::October => ffi::G_DATE_OCTOBER,
+            Self::November => ffi::G_DATE_NOVEMBER,
+            Self::December => ffi::G_DATE_DECEMBER,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -164,20 +164,20 @@ impl ToGlib for DateMonth {
 impl FromGlib<ffi::GDateMonth> for DateMonth {
     unsafe fn from_glib(value: ffi::GDateMonth) -> Self {
         match value {
-            0 => DateMonth::BadMonth,
-            1 => DateMonth::January,
-            2 => DateMonth::February,
-            3 => DateMonth::March,
-            4 => DateMonth::April,
-            5 => DateMonth::May,
-            6 => DateMonth::June,
-            7 => DateMonth::July,
-            8 => DateMonth::August,
-            9 => DateMonth::September,
-            10 => DateMonth::October,
-            11 => DateMonth::November,
-            12 => DateMonth::December,
-            value => DateMonth::__Unknown(value),
+            0 => Self::BadMonth,
+            1 => Self::January,
+            2 => Self::February,
+            3 => Self::March,
+            4 => Self::April,
+            5 => Self::May,
+            6 => Self::June,
+            7 => Self::July,
+            8 => Self::August,
+            9 => Self::September,
+            10 => Self::October,
+            11 => Self::November,
+            12 => Self::December,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -212,14 +212,14 @@ impl fmt::Display for DateWeekday {
             f,
             "DateWeekday::{}",
             match *self {
-                DateWeekday::BadWeekday => "BadWeekday",
-                DateWeekday::Monday => "Monday",
-                DateWeekday::Tuesday => "Tuesday",
-                DateWeekday::Wednesday => "Wednesday",
-                DateWeekday::Thursday => "Thursday",
-                DateWeekday::Friday => "Friday",
-                DateWeekday::Saturday => "Saturday",
-                DateWeekday::Sunday => "Sunday",
+                Self::BadWeekday => "BadWeekday",
+                Self::Monday => "Monday",
+                Self::Tuesday => "Tuesday",
+                Self::Wednesday => "Wednesday",
+                Self::Thursday => "Thursday",
+                Self::Friday => "Friday",
+                Self::Saturday => "Saturday",
+                Self::Sunday => "Sunday",
                 _ => "Unknown",
             }
         )
@@ -227,20 +227,20 @@ impl fmt::Display for DateWeekday {
 }
 
 #[doc(hidden)]
-impl ToGlib for DateWeekday {
+impl IntoGlib for DateWeekday {
     type GlibType = ffi::GDateWeekday;
 
-    fn to_glib(&self) -> ffi::GDateWeekday {
-        match *self {
-            DateWeekday::BadWeekday => ffi::G_DATE_BAD_WEEKDAY,
-            DateWeekday::Monday => ffi::G_DATE_MONDAY,
-            DateWeekday::Tuesday => ffi::G_DATE_TUESDAY,
-            DateWeekday::Wednesday => ffi::G_DATE_WEDNESDAY,
-            DateWeekday::Thursday => ffi::G_DATE_THURSDAY,
-            DateWeekday::Friday => ffi::G_DATE_FRIDAY,
-            DateWeekday::Saturday => ffi::G_DATE_SATURDAY,
-            DateWeekday::Sunday => ffi::G_DATE_SUNDAY,
-            DateWeekday::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GDateWeekday {
+        match self {
+            Self::BadWeekday => ffi::G_DATE_BAD_WEEKDAY,
+            Self::Monday => ffi::G_DATE_MONDAY,
+            Self::Tuesday => ffi::G_DATE_TUESDAY,
+            Self::Wednesday => ffi::G_DATE_WEDNESDAY,
+            Self::Thursday => ffi::G_DATE_THURSDAY,
+            Self::Friday => ffi::G_DATE_FRIDAY,
+            Self::Saturday => ffi::G_DATE_SATURDAY,
+            Self::Sunday => ffi::G_DATE_SUNDAY,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -249,15 +249,15 @@ impl ToGlib for DateWeekday {
 impl FromGlib<ffi::GDateWeekday> for DateWeekday {
     unsafe fn from_glib(value: ffi::GDateWeekday) -> Self {
         match value {
-            0 => DateWeekday::BadWeekday,
-            1 => DateWeekday::Monday,
-            2 => DateWeekday::Tuesday,
-            3 => DateWeekday::Wednesday,
-            4 => DateWeekday::Thursday,
-            5 => DateWeekday::Friday,
-            6 => DateWeekday::Saturday,
-            7 => DateWeekday::Sunday,
-            value => DateWeekday::__Unknown(value),
+            0 => Self::BadWeekday,
+            1 => Self::Monday,
+            2 => Self::Tuesday,
+            3 => Self::Wednesday,
+            4 => Self::Thursday,
+            5 => Self::Friday,
+            6 => Self::Saturday,
+            7 => Self::Sunday,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -288,12 +288,12 @@ impl fmt::Display for KeyFileError {
             f,
             "KeyFileError::{}",
             match *self {
-                KeyFileError::UnknownEncoding => "UnknownEncoding",
-                KeyFileError::Parse => "Parse",
-                KeyFileError::NotFound => "NotFound",
-                KeyFileError::KeyNotFound => "KeyNotFound",
-                KeyFileError::GroupNotFound => "GroupNotFound",
-                KeyFileError::InvalidValue => "InvalidValue",
+                Self::UnknownEncoding => "UnknownEncoding",
+                Self::Parse => "Parse",
+                Self::NotFound => "NotFound",
+                Self::KeyNotFound => "KeyNotFound",
+                Self::GroupNotFound => "GroupNotFound",
+                Self::InvalidValue => "InvalidValue",
                 _ => "Unknown",
             }
         )
@@ -301,18 +301,18 @@ impl fmt::Display for KeyFileError {
 }
 
 #[doc(hidden)]
-impl ToGlib for KeyFileError {
+impl IntoGlib for KeyFileError {
     type GlibType = ffi::GKeyFileError;
 
-    fn to_glib(&self) -> ffi::GKeyFileError {
-        match *self {
-            KeyFileError::UnknownEncoding => ffi::G_KEY_FILE_ERROR_UNKNOWN_ENCODING,
-            KeyFileError::Parse => ffi::G_KEY_FILE_ERROR_PARSE,
-            KeyFileError::NotFound => ffi::G_KEY_FILE_ERROR_NOT_FOUND,
-            KeyFileError::KeyNotFound => ffi::G_KEY_FILE_ERROR_KEY_NOT_FOUND,
-            KeyFileError::GroupNotFound => ffi::G_KEY_FILE_ERROR_GROUP_NOT_FOUND,
-            KeyFileError::InvalidValue => ffi::G_KEY_FILE_ERROR_INVALID_VALUE,
-            KeyFileError::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GKeyFileError {
+        match self {
+            Self::UnknownEncoding => ffi::G_KEY_FILE_ERROR_UNKNOWN_ENCODING,
+            Self::Parse => ffi::G_KEY_FILE_ERROR_PARSE,
+            Self::NotFound => ffi::G_KEY_FILE_ERROR_NOT_FOUND,
+            Self::KeyNotFound => ffi::G_KEY_FILE_ERROR_KEY_NOT_FOUND,
+            Self::GroupNotFound => ffi::G_KEY_FILE_ERROR_GROUP_NOT_FOUND,
+            Self::InvalidValue => ffi::G_KEY_FILE_ERROR_INVALID_VALUE,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -321,13 +321,13 @@ impl ToGlib for KeyFileError {
 impl FromGlib<ffi::GKeyFileError> for KeyFileError {
     unsafe fn from_glib(value: ffi::GKeyFileError) -> Self {
         match value {
-            0 => KeyFileError::UnknownEncoding,
-            1 => KeyFileError::Parse,
-            2 => KeyFileError::NotFound,
-            3 => KeyFileError::KeyNotFound,
-            4 => KeyFileError::GroupNotFound,
-            5 => KeyFileError::InvalidValue,
-            value => KeyFileError::__Unknown(value),
+            0 => Self::UnknownEncoding,
+            1 => Self::Parse,
+            2 => Self::NotFound,
+            3 => Self::KeyNotFound,
+            4 => Self::GroupNotFound,
+            5 => Self::InvalidValue,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -338,18 +338,18 @@ impl ErrorDomain for KeyFileError {
     }
 
     fn code(self) -> i32 {
-        self.to_glib()
+        self.into_glib()
     }
 
     fn from(code: i32) -> Option<Self> {
         match code {
-            0 => Some(KeyFileError::UnknownEncoding),
-            1 => Some(KeyFileError::Parse),
-            2 => Some(KeyFileError::NotFound),
-            3 => Some(KeyFileError::KeyNotFound),
-            4 => Some(KeyFileError::GroupNotFound),
-            5 => Some(KeyFileError::InvalidValue),
-            value => Some(KeyFileError::__Unknown(value)),
+            0 => Some(Self::UnknownEncoding),
+            1 => Some(Self::Parse),
+            2 => Some(Self::NotFound),
+            3 => Some(Self::KeyNotFound),
+            4 => Some(Self::GroupNotFound),
+            5 => Some(Self::InvalidValue),
+            value => Some(Self::__Unknown(value)),
         }
     }
 }
@@ -386,15 +386,15 @@ impl fmt::Display for OptionArg {
             f,
             "OptionArg::{}",
             match *self {
-                OptionArg::None => "None",
-                OptionArg::String => "String",
-                OptionArg::Int => "Int",
-                OptionArg::Callback => "Callback",
-                OptionArg::Filename => "Filename",
-                OptionArg::StringArray => "StringArray",
-                OptionArg::FilenameArray => "FilenameArray",
-                OptionArg::Double => "Double",
-                OptionArg::Int64 => "Int64",
+                Self::None => "None",
+                Self::String => "String",
+                Self::Int => "Int",
+                Self::Callback => "Callback",
+                Self::Filename => "Filename",
+                Self::StringArray => "StringArray",
+                Self::FilenameArray => "FilenameArray",
+                Self::Double => "Double",
+                Self::Int64 => "Int64",
                 _ => "Unknown",
             }
         )
@@ -402,21 +402,21 @@ impl fmt::Display for OptionArg {
 }
 
 #[doc(hidden)]
-impl ToGlib for OptionArg {
+impl IntoGlib for OptionArg {
     type GlibType = ffi::GOptionArg;
 
-    fn to_glib(&self) -> ffi::GOptionArg {
-        match *self {
-            OptionArg::None => ffi::G_OPTION_ARG_NONE,
-            OptionArg::String => ffi::G_OPTION_ARG_STRING,
-            OptionArg::Int => ffi::G_OPTION_ARG_INT,
-            OptionArg::Callback => ffi::G_OPTION_ARG_CALLBACK,
-            OptionArg::Filename => ffi::G_OPTION_ARG_FILENAME,
-            OptionArg::StringArray => ffi::G_OPTION_ARG_STRING_ARRAY,
-            OptionArg::FilenameArray => ffi::G_OPTION_ARG_FILENAME_ARRAY,
-            OptionArg::Double => ffi::G_OPTION_ARG_DOUBLE,
-            OptionArg::Int64 => ffi::G_OPTION_ARG_INT64,
-            OptionArg::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GOptionArg {
+        match self {
+            Self::None => ffi::G_OPTION_ARG_NONE,
+            Self::String => ffi::G_OPTION_ARG_STRING,
+            Self::Int => ffi::G_OPTION_ARG_INT,
+            Self::Callback => ffi::G_OPTION_ARG_CALLBACK,
+            Self::Filename => ffi::G_OPTION_ARG_FILENAME,
+            Self::StringArray => ffi::G_OPTION_ARG_STRING_ARRAY,
+            Self::FilenameArray => ffi::G_OPTION_ARG_FILENAME_ARRAY,
+            Self::Double => ffi::G_OPTION_ARG_DOUBLE,
+            Self::Int64 => ffi::G_OPTION_ARG_INT64,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -425,16 +425,16 @@ impl ToGlib for OptionArg {
 impl FromGlib<ffi::GOptionArg> for OptionArg {
     unsafe fn from_glib(value: ffi::GOptionArg) -> Self {
         match value {
-            0 => OptionArg::None,
-            1 => OptionArg::String,
-            2 => OptionArg::Int,
-            3 => OptionArg::Callback,
-            4 => OptionArg::Filename,
-            5 => OptionArg::StringArray,
-            6 => OptionArg::FilenameArray,
-            7 => OptionArg::Double,
-            8 => OptionArg::Int64,
-            value => OptionArg::__Unknown(value),
+            0 => Self::None,
+            1 => Self::String,
+            2 => Self::Int,
+            3 => Self::Callback,
+            4 => Self::Filename,
+            5 => Self::StringArray,
+            6 => Self::FilenameArray,
+            7 => Self::Double,
+            8 => Self::Int64,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -459,9 +459,9 @@ impl fmt::Display for SeekType {
             f,
             "SeekType::{}",
             match *self {
-                SeekType::Cur => "Cur",
-                SeekType::Set => "Set",
-                SeekType::End => "End",
+                Self::Cur => "Cur",
+                Self::Set => "Set",
+                Self::End => "End",
                 _ => "Unknown",
             }
         )
@@ -469,15 +469,15 @@ impl fmt::Display for SeekType {
 }
 
 #[doc(hidden)]
-impl ToGlib for SeekType {
+impl IntoGlib for SeekType {
     type GlibType = ffi::GSeekType;
 
-    fn to_glib(&self) -> ffi::GSeekType {
-        match *self {
-            SeekType::Cur => ffi::G_SEEK_CUR,
-            SeekType::Set => ffi::G_SEEK_SET,
-            SeekType::End => ffi::G_SEEK_END,
-            SeekType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GSeekType {
+        match self {
+            Self::Cur => ffi::G_SEEK_CUR,
+            Self::Set => ffi::G_SEEK_SET,
+            Self::End => ffi::G_SEEK_END,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -486,10 +486,10 @@ impl ToGlib for SeekType {
 impl FromGlib<ffi::GSeekType> for SeekType {
     unsafe fn from_glib(value: ffi::GSeekType) -> Self {
         match value {
-            0 => SeekType::Cur,
-            1 => SeekType::Set,
-            2 => SeekType::End,
-            value => SeekType::__Unknown(value),
+            0 => Self::Cur,
+            1 => Self::Set,
+            2 => Self::End,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -514,9 +514,9 @@ impl fmt::Display for TimeType {
             f,
             "TimeType::{}",
             match *self {
-                TimeType::Standard => "Standard",
-                TimeType::Daylight => "Daylight",
-                TimeType::Universal => "Universal",
+                Self::Standard => "Standard",
+                Self::Daylight => "Daylight",
+                Self::Universal => "Universal",
                 _ => "Unknown",
             }
         )
@@ -524,15 +524,15 @@ impl fmt::Display for TimeType {
 }
 
 #[doc(hidden)]
-impl ToGlib for TimeType {
+impl IntoGlib for TimeType {
     type GlibType = ffi::GTimeType;
 
-    fn to_glib(&self) -> ffi::GTimeType {
-        match *self {
-            TimeType::Standard => ffi::G_TIME_TYPE_STANDARD,
-            TimeType::Daylight => ffi::G_TIME_TYPE_DAYLIGHT,
-            TimeType::Universal => ffi::G_TIME_TYPE_UNIVERSAL,
-            TimeType::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GTimeType {
+        match self {
+            Self::Standard => ffi::G_TIME_TYPE_STANDARD,
+            Self::Daylight => ffi::G_TIME_TYPE_DAYLIGHT,
+            Self::Universal => ffi::G_TIME_TYPE_UNIVERSAL,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -541,10 +541,10 @@ impl ToGlib for TimeType {
 impl FromGlib<ffi::GTimeType> for TimeType {
     unsafe fn from_glib(value: ffi::GTimeType) -> Self {
         match value {
-            0 => TimeType::Standard,
-            1 => TimeType::Daylight,
-            2 => TimeType::Universal,
-            value => TimeType::__Unknown(value),
+            0 => Self::Standard,
+            1 => Self::Daylight,
+            2 => Self::Universal,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -587,16 +587,16 @@ impl fmt::Display for UriError {
             f,
             "UriError::{}",
             match *self {
-                UriError::Failed => "Failed",
-                UriError::BadScheme => "BadScheme",
-                UriError::BadUser => "BadUser",
-                UriError::BadPassword => "BadPassword",
-                UriError::BadAuthParams => "BadAuthParams",
-                UriError::BadHost => "BadHost",
-                UriError::BadPort => "BadPort",
-                UriError::BadPath => "BadPath",
-                UriError::BadQuery => "BadQuery",
-                UriError::BadFragment => "BadFragment",
+                Self::Failed => "Failed",
+                Self::BadScheme => "BadScheme",
+                Self::BadUser => "BadUser",
+                Self::BadPassword => "BadPassword",
+                Self::BadAuthParams => "BadAuthParams",
+                Self::BadHost => "BadHost",
+                Self::BadPort => "BadPort",
+                Self::BadPath => "BadPath",
+                Self::BadQuery => "BadQuery",
+                Self::BadFragment => "BadFragment",
                 _ => "Unknown",
             }
         )
@@ -606,22 +606,22 @@ impl fmt::Display for UriError {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl ToGlib for UriError {
+impl IntoGlib for UriError {
     type GlibType = ffi::GUriError;
 
-    fn to_glib(&self) -> ffi::GUriError {
-        match *self {
-            UriError::Failed => ffi::G_URI_ERROR_FAILED,
-            UriError::BadScheme => ffi::G_URI_ERROR_BAD_SCHEME,
-            UriError::BadUser => ffi::G_URI_ERROR_BAD_USER,
-            UriError::BadPassword => ffi::G_URI_ERROR_BAD_PASSWORD,
-            UriError::BadAuthParams => ffi::G_URI_ERROR_BAD_AUTH_PARAMS,
-            UriError::BadHost => ffi::G_URI_ERROR_BAD_HOST,
-            UriError::BadPort => ffi::G_URI_ERROR_BAD_PORT,
-            UriError::BadPath => ffi::G_URI_ERROR_BAD_PATH,
-            UriError::BadQuery => ffi::G_URI_ERROR_BAD_QUERY,
-            UriError::BadFragment => ffi::G_URI_ERROR_BAD_FRAGMENT,
-            UriError::__Unknown(value) => value,
+    fn into_glib(self) -> ffi::GUriError {
+        match self {
+            Self::Failed => ffi::G_URI_ERROR_FAILED,
+            Self::BadScheme => ffi::G_URI_ERROR_BAD_SCHEME,
+            Self::BadUser => ffi::G_URI_ERROR_BAD_USER,
+            Self::BadPassword => ffi::G_URI_ERROR_BAD_PASSWORD,
+            Self::BadAuthParams => ffi::G_URI_ERROR_BAD_AUTH_PARAMS,
+            Self::BadHost => ffi::G_URI_ERROR_BAD_HOST,
+            Self::BadPort => ffi::G_URI_ERROR_BAD_PORT,
+            Self::BadPath => ffi::G_URI_ERROR_BAD_PATH,
+            Self::BadQuery => ffi::G_URI_ERROR_BAD_QUERY,
+            Self::BadFragment => ffi::G_URI_ERROR_BAD_FRAGMENT,
+            Self::__Unknown(value) => value,
         }
     }
 }
@@ -632,17 +632,17 @@ impl ToGlib for UriError {
 impl FromGlib<ffi::GUriError> for UriError {
     unsafe fn from_glib(value: ffi::GUriError) -> Self {
         match value {
-            0 => UriError::Failed,
-            1 => UriError::BadScheme,
-            2 => UriError::BadUser,
-            3 => UriError::BadPassword,
-            4 => UriError::BadAuthParams,
-            5 => UriError::BadHost,
-            6 => UriError::BadPort,
-            7 => UriError::BadPath,
-            8 => UriError::BadQuery,
-            9 => UriError::BadFragment,
-            value => UriError::__Unknown(value),
+            0 => Self::Failed,
+            1 => Self::BadScheme,
+            2 => Self::BadUser,
+            3 => Self::BadPassword,
+            4 => Self::BadAuthParams,
+            5 => Self::BadHost,
+            6 => Self::BadPort,
+            7 => Self::BadPath,
+            8 => Self::BadQuery,
+            9 => Self::BadFragment,
+            value => Self::__Unknown(value),
         }
     }
 }
@@ -655,22 +655,22 @@ impl ErrorDomain for UriError {
     }
 
     fn code(self) -> i32 {
-        self.to_glib()
+        self.into_glib()
     }
 
     fn from(code: i32) -> Option<Self> {
         match code {
-            0 => Some(UriError::Failed),
-            1 => Some(UriError::BadScheme),
-            2 => Some(UriError::BadUser),
-            3 => Some(UriError::BadPassword),
-            4 => Some(UriError::BadAuthParams),
-            5 => Some(UriError::BadHost),
-            6 => Some(UriError::BadPort),
-            7 => Some(UriError::BadPath),
-            8 => Some(UriError::BadQuery),
-            9 => Some(UriError::BadFragment),
-            _ => Some(UriError::Failed),
+            0 => Some(Self::Failed),
+            1 => Some(Self::BadScheme),
+            2 => Some(Self::BadUser),
+            3 => Some(Self::BadPassword),
+            4 => Some(Self::BadAuthParams),
+            5 => Some(Self::BadHost),
+            6 => Some(Self::BadPort),
+            7 => Some(Self::BadPath),
+            8 => Some(Self::BadQuery),
+            9 => Some(Self::BadFragment),
+            _ => Some(Self::Failed),
         }
     }
 }

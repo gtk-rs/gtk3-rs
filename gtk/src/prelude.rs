@@ -30,16 +30,16 @@ pub use crate::drag_context::DragContextExtManual;
 pub use crate::entry::EntryExtManual;
 pub use crate::entry_completion::EntryCompletionExtManual;
 pub use crate::fixed::FixedExtManual;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
 pub use crate::flow_box::FlowBoxExtManual;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 pub use crate::gesture_stylus::GestureStylusExtManual;
 pub use crate::im_context_simple::IMContextSimpleExtManual;
 pub use crate::invisible::InvisibleExtManual;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
 pub use crate::list_box::ListBoxExtManual;
 pub use crate::list_store::GtkListStoreExtManual;
 pub use crate::menu::GtkMenuExtManual;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+pub use crate::native_dialog::NativeDialogExtManual;
 pub use crate::notebook::NotebookExtManual;
 pub use crate::style_context::StyleContextExtManual;
 pub use crate::switch::SwitchExtManual;

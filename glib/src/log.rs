@@ -3,7 +3,6 @@
 use crate::translate::*;
 use crate::GString;
 use once_cell::sync::Lazy;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::sync::{Arc, Mutex};
 
@@ -12,16 +11,16 @@ pub struct LogHandlerId(u32);
 
 #[doc(hidden)]
 impl FromGlib<u32> for LogHandlerId {
-    unsafe fn from_glib(value: u32) -> LogHandlerId {
-        LogHandlerId(value)
+    unsafe fn from_glib(value: u32) -> Self {
+        Self(value)
     }
 }
 
 #[doc(hidden)]
-impl ToGlib for LogHandlerId {
+impl IntoGlib for LogHandlerId {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
+    fn into_glib(self) -> u32 {
         self.0
     }
 }
@@ -37,36 +36,36 @@ pub enum LogLevel {
 }
 
 #[doc(hidden)]
-impl ToGlib for LogLevel {
+impl IntoGlib for LogLevel {
     type GlibType = u32;
 
-    fn to_glib(&self) -> u32 {
-        match *self {
-            LogLevel::Error => ffi::G_LOG_LEVEL_ERROR,
-            LogLevel::Critical => ffi::G_LOG_LEVEL_CRITICAL,
-            LogLevel::Warning => ffi::G_LOG_LEVEL_WARNING,
-            LogLevel::Message => ffi::G_LOG_LEVEL_MESSAGE,
-            LogLevel::Info => ffi::G_LOG_LEVEL_INFO,
-            LogLevel::Debug => ffi::G_LOG_LEVEL_DEBUG,
+    fn into_glib(self) -> u32 {
+        match self {
+            Self::Error => ffi::G_LOG_LEVEL_ERROR,
+            Self::Critical => ffi::G_LOG_LEVEL_CRITICAL,
+            Self::Warning => ffi::G_LOG_LEVEL_WARNING,
+            Self::Message => ffi::G_LOG_LEVEL_MESSAGE,
+            Self::Info => ffi::G_LOG_LEVEL_INFO,
+            Self::Debug => ffi::G_LOG_LEVEL_DEBUG,
         }
     }
 }
 
 #[doc(hidden)]
 impl FromGlib<u32> for LogLevel {
-    unsafe fn from_glib(value: u32) -> LogLevel {
+    unsafe fn from_glib(value: u32) -> Self {
         if value & ffi::G_LOG_LEVEL_ERROR != 0 {
-            LogLevel::Error
+            Self::Error
         } else if value & ffi::G_LOG_LEVEL_CRITICAL != 0 {
-            LogLevel::Critical
+            Self::Critical
         } else if value & ffi::G_LOG_LEVEL_WARNING != 0 {
-            LogLevel::Warning
+            Self::Warning
         } else if value & ffi::G_LOG_LEVEL_MESSAGE != 0 {
-            LogLevel::Message
+            Self::Message
         } else if value & ffi::G_LOG_LEVEL_INFO != 0 {
-            LogLevel::Info
+            Self::Info
         } else if value & ffi::G_LOG_LEVEL_DEBUG != 0 {
-            LogLevel::Debug
+            Self::Debug
         } else {
             panic!("Unknown log level: {}", value)
         }
@@ -85,22 +84,21 @@ bitflags::bitflags! {
 }
 
 #[doc(hidden)]
-impl ToGlib for LogLevels {
+impl IntoGlib for LogLevels {
     type GlibType = ffi::GLogLevelFlags;
 
-    fn to_glib(&self) -> ffi::GLogLevelFlags {
+    fn into_glib(self) -> ffi::GLogLevelFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::GLogLevelFlags> for LogLevels {
-    unsafe fn from_glib(value: ffi::GLogLevelFlags) -> LogLevels {
-        LogLevels::from_bits_truncate(value)
+    unsafe fn from_glib(value: ffi::GLogLevelFlags) -> Self {
+        Self::from_bits_truncate(value)
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
     (if fatal { ffi::G_LOG_FLAG_FATAL } else { 0 })
         | if recursion {
@@ -110,7 +108,6 @@ fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
         }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
 #[doc(alias = "g_log_set_handler_full")]
 pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
     log_domain: Option<&str>,
@@ -150,7 +147,7 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
     unsafe {
         from_glib(ffi::g_log_set_handler_full(
             log_domain.to_glib_none().0,
-            log_levels.to_glib() | to_log_flags(fatal, recursion),
+            log_levels.into_glib() | to_log_flags(fatal, recursion),
             log_func,
             Box_::into_raw(super_callback0) as *mut _,
             destroy_call4,
@@ -161,13 +158,13 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
 #[doc(alias = "g_log_remove_handler")]
 pub fn log_remove_handler(log_domain: Option<&str>, handler_id: LogHandlerId) {
     unsafe {
-        ffi::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
+        ffi::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.into_glib());
     }
 }
 
 #[doc(alias = "g_log_set_always_fatal")]
 pub fn log_set_always_fatal(fatal_levels: LogLevels) -> LogLevels {
-    unsafe { from_glib(ffi::g_log_set_always_fatal(fatal_levels.to_glib())) }
+    unsafe { from_glib(ffi::g_log_set_always_fatal(fatal_levels.into_glib())) }
 }
 
 #[doc(alias = "g_log_set_fatal_mask")]
@@ -175,7 +172,7 @@ pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> 
     unsafe {
         from_glib(ffi::g_log_set_fatal_mask(
             log_domain.to_glib_none().0,
-            fatal_levels.to_glib(),
+            fatal_levels.into_glib(),
         ))
     }
 }
@@ -185,7 +182,7 @@ pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> 
 //     unsafe {
 //         ffi::g_log_variant(
 //             log_domain.to_glib_none().0,
-//             log_level.to_glib(),
+//             log_level.into_glib(),
 //             fields.to_glib_none().0,
 //         );
 //     }
@@ -199,10 +196,12 @@ static PRINT_HANDLER: Lazy<Mutex<Option<Arc<PrintCallback>>>> = Lazy::new(|| Mut
 #[doc(alias = "g_set_print_handler")]
 pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
-        if let Some(callback) = match *PRINT_HANDLER.lock().expect("Failed to lock PRINT_HANDLER") {
-            Some(ref handler) => Some(Arc::clone(handler)),
-            None => None,
-        } {
+        if let Some(callback) = PRINT_HANDLER
+            .lock()
+            .expect("Failed to lock PRINT_HANDLER")
+            .as_ref()
+            .map(Arc::clone)
+        {
             let string: Borrowed<GString> = from_glib_borrow(string);
             (*callback)(string.as_str())
         }
@@ -227,13 +226,12 @@ static PRINTERR_HANDLER: Lazy<Mutex<Option<Arc<PrintCallback>>>> = Lazy::new(|| 
 #[doc(alias = "g_set_printerr_handler")]
 pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
-        if let Some(callback) = match *PRINTERR_HANDLER
+        if let Some(callback) = PRINTERR_HANDLER
             .lock()
             .expect("Failed to lock PRINTERR_HANDLER")
+            .as_ref()
+            .map(Arc::clone)
         {
-            Some(ref handler) => Some(Arc::clone(handler)),
-            None => None,
-        } {
             let string: Borrowed<GString> = from_glib_borrow(string);
             (*callback)(string.as_str())
         }
@@ -267,13 +265,12 @@ pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync
         message: *const libc::c_char,
         _user_data: ffi::gpointer,
     ) {
-        if let Some(callback) = match *DEFAULT_HANDLER
+        if let Some(callback) = DEFAULT_HANDLER
             .lock()
             .expect("Failed to lock DEFAULT_HANDLER")
+            .as_ref()
+            .map(Arc::clone)
         {
-            Some(ref handler) => Some(Arc::clone(handler)),
-            None => None,
-        } {
             let log_domain: Borrowed<Option<GString>> = from_glib_borrow(log_domain);
             let message: Borrowed<GString> = from_glib_borrow(message);
             (*callback)(
@@ -305,7 +302,7 @@ pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, messag
     unsafe {
         ffi::g_log_default_handler(
             log_domain.to_glib_none().0,
-            log_level.to_glib(),
+            log_level.into_glib(),
             message.to_glib_none().0,
             std::ptr::null_mut(),
         )
@@ -354,7 +351,7 @@ pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, messag
 #[macro_export]
 macro_rules! g_log {
     ($log_level:expr, $format:literal, $($arg:expr),* $(,)?) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::translate::{IntoGlib, ToGlibPtr};
         use $crate::LogLevel;
 
         fn check_log_args(_log_level: LogLevel, _format: &str) {}
@@ -365,13 +362,13 @@ macro_rules! g_log {
         unsafe {
             $crate::ffi::g_log(
                 std::ptr::null(),
-                $log_level.to_glib(),
+                $log_level.into_glib(),
                 f.to_glib_none().0,
             );
         }
     }};
     ($log_level:expr, $format:literal $(,)?) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::translate::{IntoGlib, ToGlibPtr};
         use $crate::LogLevel;
 
         fn check_log_args(_log_level: LogLevel, _format: &str) {}
@@ -382,13 +379,13 @@ macro_rules! g_log {
         unsafe {
             $crate::ffi::g_log(
                 std::ptr::null(),
-                $log_level.to_glib(),
+                $log_level.into_glib(),
                 f.to_glib_none().0,
             );
         }
     }};
     ($log_domain:expr, $log_level:expr, $format:literal, $($arg:expr),* $(,)?) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::translate::{IntoGlib, ToGlibPtr};
         use $crate::LogLevel;
 
         fn check_log_args(_log_level: LogLevel, _format: &str) {}
@@ -401,13 +398,13 @@ macro_rules! g_log {
         unsafe {
             $crate::ffi::g_log(
                 log_domain.to_glib_none().0,
-                $log_level.to_glib(),
+                $log_level.into_glib(),
                 f.to_glib_none().0,
             );
         }
     }};
     ($log_domain:expr, $log_level:expr, $format:literal $(,)?) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::translate::{IntoGlib, ToGlibPtr};
         use $crate::LogLevel;
 
         fn check_log_args(_log_level: LogLevel, _format: &str) {}
@@ -420,7 +417,7 @@ macro_rules! g_log {
         unsafe {
             $crate::ffi::g_log(
                 log_domain.to_glib_none().0,
-                $log_level.to_glib(),
+                $log_level.into_glib(),
                 f.to_glib_none().0,
             );
         }
@@ -746,7 +743,7 @@ macro_rules! g_printerr {
 // #[macro_export]
 // macro_rules! g_log_structured {
 //     ($log_domain:expr, $log_level:expr, {$($key:expr => $value:expr),+}) => {{
-//         use $crate::translate::{Stash, ToGlib, ToGlibPtr};
+//         use $crate::translate::{Stash, IntoGlib, ToGlibPtr};
 //         use $crate::LogLevel;
 //         use std::ffi::CString;
 
@@ -757,7 +754,7 @@ macro_rules! g_printerr {
 //         unsafe {
 //             ffi::g_log_structured(
 //                 $log_domain.to_glib_none().0,
-//                 $log_level.to_glib(),
+//                 $log_level.into_glib(),
 //                 $(check_key($key).0, check_key(format!("{}", $value).as_str()).0 ),+
 //             )
 //         }

@@ -31,12 +31,14 @@ impl CssProvider {
 
     #[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
     #[doc(alias = "gtk_css_provider_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default() -> Option<CssProvider> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_css_provider_get_default()) }
     }
 
     #[doc(alias = "gtk_css_provider_get_named")]
+    #[doc(alias = "get_named")]
     pub fn named(name: &str, variant: Option<&str>) -> Option<CssProvider> {
         assert_initialized_main_thread!();
         unsafe {
@@ -73,14 +75,14 @@ pub trait CssProviderExt: 'static {
     #[doc(alias = "gtk_css_provider_load_from_path")]
     fn load_from_path(&self, path: &str) -> Result<(), glib::Error>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_css_provider_load_from_resource")]
     fn load_from_resource(&self, resource_path: &str);
 
     #[doc(alias = "gtk_css_provider_to_string")]
+    #[doc(alias = "to_string")]
     fn to_str(&self) -> glib::GString;
 
+    #[doc(alias = "parsing-error")]
     fn connect_parsing_error<F: Fn(&Self, &CssSection, &glib::Error) + 'static>(
         &self,
         f: F,
@@ -138,8 +140,6 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn load_from_resource(&self, resource_path: &str) {
         unsafe {
             ffi::gtk_css_provider_load_from_resource(
@@ -157,6 +157,7 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
+    #[doc(alias = "parsing-error")]
     fn connect_parsing_error<F: Fn(&Self, &CssSection, &glib::Error) + 'static>(
         &self,
         f: F,

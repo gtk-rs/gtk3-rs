@@ -9,7 +9,10 @@ use std::mem;
 
 impl UnixMountEntry {
     #[doc(alias = "g_unix_mount_at")]
-    pub fn new_at<P: AsRef<std::path::Path>>(mount_path: P) -> (Option<UnixMountEntry>, u64) {
+    #[doc(alias = "new_at")]
+    pub fn for_mount_path<P: AsRef<std::path::Path>>(
+        mount_path: P,
+    ) -> (Option<UnixMountEntry>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
             let ret = from_glib_full(ffi::g_unix_mount_at(
@@ -24,7 +27,8 @@ impl UnixMountEntry {
     #[cfg(any(feature = "v2_52", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
     #[doc(alias = "g_unix_mount_for")]
-    pub fn new_for<P: AsRef<std::path::Path>>(file_path: P) -> (Option<UnixMountEntry>, u64) {
+    #[doc(alias = "new_for")]
+    pub fn for_file_path<P: AsRef<std::path::Path>>(file_path: P) -> (Option<UnixMountEntry>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
             let ret = from_glib_full(ffi::g_unix_mount_for(
@@ -37,6 +41,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mounts_get")]
+    #[doc(alias = "get_mounts")]
     pub fn mounts() -> (Vec<UnixMountEntry>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
@@ -59,7 +64,8 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_get_device_path")]
-    pub fn device_path(&self) -> Option<std::path::PathBuf> {
+    #[doc(alias = "get_device_path")]
+    pub fn device_path(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_device_path(mut_override(
                 self.to_glib_none().0,
@@ -68,7 +74,8 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_get_fs_type")]
-    pub fn fs_type(&self) -> Option<GString> {
+    #[doc(alias = "get_fs_type")]
+    pub fn fs_type(&self) -> GString {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_fs_type(mut_override(
                 self.to_glib_none().0,
@@ -77,7 +84,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_get_mount_path")]
-    pub fn unix_mount_get_mount_path(&self) -> Option<std::path::PathBuf> {
+    pub fn unix_mount_get_mount_path(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_mount_path(mut_override(
                 self.to_glib_none().0,
@@ -88,6 +95,7 @@ impl UnixMountEntry {
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_unix_mount_get_options")]
+    #[doc(alias = "get_options")]
     pub fn options(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_options(mut_override(
@@ -99,6 +107,7 @@ impl UnixMountEntry {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_unix_mount_get_root_path")]
+    #[doc(alias = "get_root_path")]
     pub fn root_path(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_root_path(mut_override(
@@ -117,7 +126,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_guess_icon")]
-    pub fn guess_icon(&self) -> Option<Icon> {
+    pub fn guess_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_unix_mount_guess_icon(mut_override(
                 self.to_glib_none().0,
@@ -126,7 +135,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_guess_name")]
-    pub fn guess_name(&self) -> Option<GString> {
+    pub fn guess_name(&self) -> GString {
         unsafe {
             from_glib_full(ffi::g_unix_mount_guess_name(mut_override(
                 self.to_glib_none().0,
@@ -144,7 +153,7 @@ impl UnixMountEntry {
     }
 
     #[doc(alias = "g_unix_mount_guess_symbolic_icon")]
-    pub fn guess_symbolic_icon(&self) -> Option<Icon> {
+    pub fn guess_symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_unix_mount_guess_symbolic_icon(mut_override(
                 self.to_glib_none().0,

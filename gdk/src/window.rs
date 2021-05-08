@@ -28,9 +28,9 @@ pub struct WindowAttr {
 }
 
 impl Default for WindowAttr {
-    fn default() -> WindowAttr {
+    fn default() -> Self {
         skip_assert_initialized!();
-        WindowAttr {
+        Self {
             title: None,
             event_mask: EventMask::empty(),
             x: None,
@@ -48,6 +48,7 @@ impl Default for WindowAttr {
 }
 
 impl WindowAttr {
+    #[doc(alias = "get_mask")]
     fn mask(&self) -> u32 {
         let mut mask: ffi::GdkWindowAttributesType = 0;
         if self.title.is_some() {
@@ -96,14 +97,14 @@ impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for WindowAttr {
             y: self.y.unwrap_or(0),
             width: self.width,
             height: self.height,
-            wclass: self.wclass.to_glib(),
+            wclass: self.wclass.into_glib(),
             visual: visual.0,
-            window_type: self.window_type.to_glib(),
+            window_type: self.window_type.into_glib(),
             cursor: cursor.0,
             wmclass_name: ptr::null_mut(),
             wmclass_class: ptr::null_mut(),
-            override_redirect: self.override_redirect.to_glib(),
-            type_hint: self.type_hint.unwrap_or(WindowTypeHint::Normal).to_glib(),
+            override_redirect: self.override_redirect.into_glib(),
+            type_hint: self.type_hint.unwrap_or(WindowTypeHint::Normal).into_glib(),
         });
 
         Stash(&mut *attrs, (attrs, visual, cursor, title))
@@ -166,9 +167,11 @@ pub trait WindowExtManual: 'static {
 
     #[allow(clippy::mut_from_ref)]
     #[doc(alias = "gdk_window_get_user_data")]
+    #[doc(alias = "get_user_data")]
     unsafe fn user_data<T>(&self) -> &mut T;
 
     #[doc(alias = "gdk_get_default_root_window")]
+    #[doc(alias = "get_default_root_window")]
     fn default_root_window() -> Window;
 
     #[doc(alias = "gdk_offscreen_window_set_embedder")]
@@ -181,10 +184,12 @@ pub trait WindowExtManual: 'static {
     fn offscreen_window_get_surface(&self) -> Option<Surface>;
 
     #[doc(alias = "gdk_pixbuf_get_from_window")]
+    #[doc(alias = "get_pixbuf")]
     fn pixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32)
         -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gdk_window_get_background_pattern")]
+    #[doc(alias = "get_background_pattern")]
     fn background_pattern(&self) -> Option<cairo::Pattern>;
 
     #[doc(alias = "gdk_window_set_background_pattern")]

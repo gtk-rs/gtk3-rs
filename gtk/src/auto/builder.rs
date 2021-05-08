@@ -30,6 +30,7 @@ impl Builder {
     }
 
     #[doc(alias = "gtk_builder_new_from_resource")]
+    #[doc(alias = "new_from_resource")]
     pub fn from_resource(resource_path: &str) -> Builder {
         assert_initialized_main_thread!();
         unsafe {
@@ -40,6 +41,7 @@ impl Builder {
     }
 
     #[doc(alias = "gtk_builder_new_from_string")]
+    #[doc(alias = "new_from_string")]
     pub fn from_string(string: &str) -> Builder {
         assert_initialized_main_thread!();
         let length = string.len() as isize;
@@ -99,15 +101,19 @@ pub trait BuilderExt: 'static {
     ) -> Result<(), glib::Error>;
 
     #[doc(alias = "gtk_builder_get_application")]
+    #[doc(alias = "get_application")]
     fn application(&self) -> Option<Application>;
 
     #[doc(alias = "gtk_builder_get_objects")]
+    #[doc(alias = "get_objects")]
     fn objects(&self) -> Vec<glib::Object>;
 
     #[doc(alias = "gtk_builder_get_translation_domain")]
+    #[doc(alias = "get_translation_domain")]
     fn translation_domain(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_builder_get_type_from_name")]
+    #[doc(alias = "get_type_from_name")]
     fn type_from_name(&self, type_name: &str) -> glib::types::Type;
 
     //#[doc(alias = "gtk_builder_lookup_callback_symbol")]
@@ -133,10 +139,8 @@ pub trait BuilderExt: 'static {
         string: &str,
     ) -> Result<glib::Value, glib::Error>;
 
-    fn connect_property_translation_domain_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "translation-domain")]
+    fn connect_translation_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Builder>> BuilderExt for O {
@@ -252,7 +256,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
             let _ = ffi::gtk_builder_extend_with_template(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                template_type.to_glib(),
+                template_type.into_glib(),
                 buffer.to_glib_none().0,
                 length,
                 &mut error,
@@ -353,7 +357,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
             let mut error = ptr::null_mut();
             let _ = ffi::gtk_builder_value_from_string_type(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
                 string.to_glib_none().0,
                 value.to_glib_none_mut().0,
                 &mut error,
@@ -366,10 +370,8 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
-    fn connect_property_translation_domain_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "translation-domain")]
+    fn connect_translation_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_translation_domain_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkBuilder,
             _param_spec: glib::ffi::gpointer,

@@ -5,10 +5,10 @@ use glib::translate::*;
 use std::ffi::CString;
 use std::ptr;
 
-use crate::enums::FontType;
 use crate::ffi::{FontExtents, Glyph, TextCluster, TextExtents};
 use crate::matrices::Matrix;
 use crate::utils::status_to_result;
+use crate::{enums::FontType, Error};
 
 use super::{FontFace, FontOptions};
 
@@ -35,7 +35,7 @@ impl ScaledFont {
         font_matrix: &Matrix,
         ctm: &Matrix,
         options: &FontOptions,
-    ) -> ScaledFont {
+    ) -> Result<ScaledFont, Error> {
         let scaled_font: ScaledFont = unsafe {
             ScaledFont::from_raw_full(ffi::cairo_scaled_font_create(
                 font_face.to_raw_none(),
@@ -45,8 +45,9 @@ impl ScaledFont {
             ))
         };
         let status = unsafe { ffi::cairo_scaled_font_status(scaled_font.to_raw_none()) };
-        status_to_result(status).expect("Failed to create a scaled font");
-        scaled_font
+        status_to_result(status)?;
+
+        Ok(scaled_font)
     }
 
     #[cfg(feature = "use_glib")]
@@ -83,11 +84,13 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_get_type")]
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> FontType {
         unsafe { FontType::from(ffi::cairo_scaled_font_get_type(self.to_raw_none())) }
     }
 
     #[doc(alias = "cairo_scaled_font_get_reference_count")]
+    #[doc(alias = "get_reference_count")]
     pub fn reference_count(&self) -> usize {
         unsafe { ffi::cairo_scaled_font_get_reference_count(self.to_raw_none()) as usize }
     }
@@ -150,7 +153,12 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_text_to_glyphs")]
-    pub fn text_to_glyphs(&self, x: f64, y: f64, text: &str) -> (Vec<Glyph>, Vec<TextCluster>) {
+    pub fn text_to_glyphs(
+        &self,
+        x: f64,
+        y: f64,
+        text: &str,
+    ) -> Result<(Vec<Glyph>, Vec<TextCluster>), Error> {
         // This large unsafe block is due to the FFI function returning two specially allocated
         // (cairo_{glyph,text_cluster}_allocate) pointers that need to be copied into Vec<T>
         // types before they're of any use to Rust code.
@@ -176,7 +184,7 @@ impl ScaledFont {
                 &mut cluster_count,
                 &mut cluster_flags,
             );
-            status_to_result(status).expect("Failed to convert text to glyphs");
+            status_to_result(status)?;
 
             let glyph_count = glyph_count as usize;
             let glyphs: Vec<Glyph> = {
@@ -201,27 +209,30 @@ impl ScaledFont {
             ffi::cairo_glyph_free(glyphs_ptr);
             ffi::cairo_text_cluster_free(clusters_ptr);
 
-            (glyphs, clusters)
+            Ok((glyphs, clusters))
         }
     }
 
     #[doc(alias = "cairo_scaled_font_get_font_face")]
+    #[doc(alias = "get_font_face")]
     pub fn font_face(&self) -> FontFace {
         unsafe { FontFace::from_raw_none(ffi::cairo_scaled_font_get_font_face(self.to_raw_none())) }
     }
 
     #[doc(alias = "cairo_scaled_font_get_font_options")]
-    pub fn font_options(&self) -> FontOptions {
-        let options = FontOptions::new();
+    #[doc(alias = "get_font_options")]
+    pub fn font_options(&self) -> Result<FontOptions, Error> {
+        let options = FontOptions::new()?;
 
         unsafe {
             ffi::cairo_scaled_font_get_font_options(self.to_raw_none(), options.to_raw_none())
         }
 
-        options
+        Ok(options)
     }
 
     #[doc(alias = "cairo_scaled_font_get_font_matrix")]
+    #[doc(alias = "get_font_matrix")]
     pub fn font_matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
 
@@ -231,6 +242,7 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_get_ctm")]
+    #[doc(alias = "get_ctm")]
     pub fn ctm(&self) -> Matrix {
         let mut matrix = Matrix::null();
 
@@ -240,12 +252,19 @@ impl ScaledFont {
     }
 
     #[doc(alias = "cairo_scaled_font_get_scale_matrix")]
+    #[doc(alias = "get_scale_matrix")]
     pub fn scale_matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
 
         unsafe { ffi::cairo_scaled_font_get_scale_matrix(self.to_raw_none(), matrix.mut_ptr()) }
 
         matrix
+    }
+
+    #[doc(alias = "cairo_scaled_font_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_scaled_font_status(self.to_raw_none()) };
+        status_to_result(status)
     }
 
     user_data_methods! {

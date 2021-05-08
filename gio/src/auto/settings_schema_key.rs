@@ -3,8 +3,6 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::fmt;
 
 glib::wrapper! {
@@ -20,6 +18,7 @@ glib::wrapper! {
 
 impl SettingsSchemaKey {
     #[doc(alias = "g_settings_schema_key_get_default_value")]
+    #[doc(alias = "get_default_value")]
     pub fn default_value(&self) -> glib::Variant {
         unsafe {
             from_glib_full(ffi::g_settings_schema_key_get_default_value(
@@ -29,6 +28,7 @@ impl SettingsSchemaKey {
     }
 
     #[doc(alias = "g_settings_schema_key_get_description")]
+    #[doc(alias = "get_description")]
     pub fn description(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_settings_schema_key_get_description(
@@ -37,19 +37,20 @@ impl SettingsSchemaKey {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_settings_schema_key_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_settings_schema_key_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_settings_schema_key_get_range")]
+    #[doc(alias = "get_range")]
     pub fn range(&self) -> glib::Variant {
         unsafe { from_glib_full(ffi::g_settings_schema_key_get_range(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_settings_schema_key_get_summary")]
+    #[doc(alias = "get_summary")]
     pub fn summary(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_settings_schema_key_get_summary(
@@ -59,6 +60,7 @@ impl SettingsSchemaKey {
     }
 
     #[doc(alias = "g_settings_schema_key_get_value_type")]
+    #[doc(alias = "get_value_type")]
     pub fn value_type(&self) -> glib::VariantType {
         unsafe {
             from_glib_none(ffi::g_settings_schema_key_get_value_type(
@@ -78,8 +80,6 @@ impl SettingsSchemaKey {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl fmt::Display for SettingsSchemaKey {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

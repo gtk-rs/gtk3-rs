@@ -37,21 +37,26 @@ pub const NONE_NETWORK_SERVICE: Option<&NetworkService> = None;
 
 pub trait NetworkServiceExt: 'static {
     #[doc(alias = "g_network_service_get_domain")]
+    #[doc(alias = "get_domain")]
     fn domain(&self) -> glib::GString;
 
     #[doc(alias = "g_network_service_get_protocol")]
+    #[doc(alias = "get_protocol")]
     fn protocol(&self) -> glib::GString;
 
     #[doc(alias = "g_network_service_get_scheme")]
+    #[doc(alias = "get_scheme")]
     fn scheme(&self) -> glib::GString;
 
     #[doc(alias = "g_network_service_get_service")]
+    #[doc(alias = "get_service")]
     fn service(&self) -> glib::GString;
 
     #[doc(alias = "g_network_service_set_scheme")]
     fn set_scheme(&self, scheme: &str);
 
-    fn connect_property_scheme_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "scheme")]
+    fn connect_scheme_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<NetworkService>> NetworkServiceExt for O {
@@ -96,7 +101,8 @@ impl<O: IsA<NetworkService>> NetworkServiceExt for O {
         }
     }
 
-    fn connect_property_scheme_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "scheme")]
+    fn connect_scheme_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_scheme_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GNetworkService,
             _param_spec: glib::ffi::gpointer,

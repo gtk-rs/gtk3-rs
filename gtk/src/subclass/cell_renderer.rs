@@ -25,6 +25,7 @@ pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
         self.parent_preferred_width(renderer, widget)
     }
 
+    #[doc(alias = "get_preferred_width_for_height")]
     fn preferred_width_for_height<P: IsA<Widget>>(
         &self,
         renderer: &Self::Type,
@@ -34,10 +35,12 @@ pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
         self.parent_preferred_width_for_height(renderer, widget, height)
     }
 
+    #[doc(alias = "get_preferred_height")]
     fn preferred_height<P: IsA<Widget>>(&self, renderer: &Self::Type, widget: &P) -> (i32, i32) {
         self.parent_preferred_height(renderer, widget)
     }
 
+    #[doc(alias = "get_preferred_height_for_width")]
     fn preferred_height_for_width<P: IsA<Widget>>(
         &self,
         renderer: &Self::Type,
@@ -47,6 +50,7 @@ pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
         self.parent_preferred_height_for_width(renderer, widget, width)
     }
 
+    #[doc(alias = "get_aligned_area")]
     fn aligned_area<P: IsA<Widget>>(
         &self,
         renderer: &Self::Type,
@@ -300,7 +304,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             f(
                 renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cell_area.to_glib_none().0,
                 aligned_area.to_glib_none_mut().0,
             );
@@ -327,7 +331,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
                     widget.as_ref().to_glib_none().0,
                     background_area.to_glib_none().0,
                     cell_area.to_glib_none().0,
-                    flags.to_glib(),
+                    flags.into_glib(),
                 )
             }
         }
@@ -354,7 +358,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
                     path.to_glib_none().0,
                     background_area.to_glib_none().0,
                     cell_area.to_glib_none().0,
-                    flags.to_glib(),
+                    flags.into_glib(),
                 ))
             } else {
                 false
@@ -383,7 +387,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
                     path.to_glib_none().0,
                     background_area.to_glib_none().0,
                     cell_area.to_glib_none().0,
-                    flags.to_glib(),
+                    flags.into_glib(),
                 ))
             } else {
                 None
@@ -448,7 +452,7 @@ unsafe extern "C" fn cell_renderer_get_request_mode<T: CellRendererImpl>(
     let imp = instance.impl_();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
 
-    imp.request_mode(wrap.unsafe_cast_ref()).to_glib()
+    imp.request_mode(wrap.unsafe_cast_ref()).into_glib()
 }
 
 unsafe extern "C" fn cell_renderer_get_preferred_width<T: CellRendererImpl>(
@@ -604,7 +608,7 @@ unsafe extern "C" fn cell_renderer_activate<T: CellRendererImpl>(
         &from_glib_borrow(cellptr),
         from_glib(flags),
     )
-    .to_glib()
+    .into_glib()
 }
 
 unsafe extern "C" fn cell_renderer_start_editing<T: CellRendererImpl>(

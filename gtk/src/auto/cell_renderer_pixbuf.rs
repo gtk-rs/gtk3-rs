@@ -39,7 +39,6 @@ impl Default for CellRendererPixbuf {
 
 #[derive(Clone, Default)]
 pub struct CellRendererPixbufBuilder {
-    follow_state: Option<bool>,
     gicon: Option<gio::Icon>,
     icon_name: Option<String>,
     pixbuf: Option<gdk_pixbuf::Pixbuf>,
@@ -71,9 +70,6 @@ impl CellRendererPixbufBuilder {
 
     pub fn build(self) -> CellRendererPixbuf {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref follow_state) = self.follow_state {
-            properties.push(("follow-state", follow_state));
-        }
         if let Some(ref gicon) = self.gicon {
             properties.push(("gicon", gicon));
         }
@@ -140,13 +136,8 @@ impl CellRendererPixbufBuilder {
         if let Some(ref ypad) = self.ypad {
             properties.push(("ypad", ypad));
         }
-        let ret = glib::Object::new::<CellRendererPixbuf>(&properties).expect("object new");
-        ret
-    }
-
-    pub fn follow_state(mut self, follow_state: bool) -> Self {
-        self.follow_state = Some(follow_state);
-        self
+        glib::Object::new::<CellRendererPixbuf>(&properties)
+            .expect("Failed to create an instance of CellRendererPixbuf")
     }
 
     pub fn gicon<P: IsA<gio::Icon>>(mut self, gicon: &P) -> Self {
@@ -263,109 +254,71 @@ impl CellRendererPixbufBuilder {
 pub const NONE_CELL_RENDERER_PIXBUF: Option<&CellRendererPixbuf> = None;
 
 pub trait CellRendererPixbufExt: 'static {
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "get_property_follow_state")]
-    fn follows_state(&self) -> bool;
-
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    #[doc(alias = "set_property_follow_state")]
-    fn set_follow_state(&self, follow_state: bool);
-
-    #[doc(alias = "get_property_gicon")]
     fn gicon(&self) -> Option<gio::Icon>;
 
-    #[doc(alias = "set_property_gicon")]
     fn set_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>);
 
-    #[doc(alias = "get_property_icon_name")]
+    #[doc(alias = "icon-name")]
     fn icon_name(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_icon_name")]
+    #[doc(alias = "icon-name")]
     fn set_icon_name(&self, icon_name: Option<&str>);
 
-    #[doc(alias = "get_property_pixbuf")]
     fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
-    #[doc(alias = "set_property_pixbuf")]
     fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>);
 
-    #[doc(alias = "get_property_pixbuf_expander_closed")]
+    #[doc(alias = "pixbuf-expander-closed")]
     fn pixbuf_expander_closed(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
-    #[doc(alias = "set_property_pixbuf_expander_closed")]
+    #[doc(alias = "pixbuf-expander-closed")]
     fn set_pixbuf_expander_closed(&self, pixbuf_expander_closed: Option<&gdk_pixbuf::Pixbuf>);
 
-    #[doc(alias = "get_property_pixbuf_expander_open")]
+    #[doc(alias = "pixbuf-expander-open")]
     fn pixbuf_expander_open(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
-    #[doc(alias = "set_property_pixbuf_expander_open")]
+    #[doc(alias = "pixbuf-expander-open")]
     fn set_pixbuf_expander_open(&self, pixbuf_expander_open: Option<&gdk_pixbuf::Pixbuf>);
 
-    #[doc(alias = "get_property_stock_detail")]
+    #[doc(alias = "stock-detail")]
     fn stock_detail(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "set_property_stock_detail")]
+    #[doc(alias = "stock-detail")]
     fn set_stock_detail(&self, stock_detail: Option<&str>);
 
-    #[doc(alias = "get_property_surface")]
     fn surface(&self) -> Option<cairo::Surface>;
 
-    #[doc(alias = "set_property_surface")]
     fn set_surface(&self, surface: Option<&cairo::Surface>);
 
-    #[cfg_attr(feature = "v3_16", deprecated = "Since 3.16")]
-    fn connect_property_follow_state_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "gicon")]
+    fn connect_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "icon-name")]
+    fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "pixbuf")]
+    fn connect_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_pixbuf_expander_closed_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "pixbuf-expander-closed")]
+    fn connect_pixbuf_expander_closed_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_pixbuf_expander_open_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "pixbuf-expander-open")]
+    fn connect_pixbuf_expander_open_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_stock_detail_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "stock-detail")]
+    fn connect_stock_detail_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "stock-size")]
+    fn connect_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "surface")]
+    fn connect_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
-    fn follows_state(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"follow-state\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `follow-state` getter")
-        }
-    }
-
-    fn set_follow_state(&self, follow_state: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"follow-state\0".as_ptr() as *const _,
-                follow_state.to_value().to_glib_none().0,
-            );
-        }
-    }
-
     fn gicon(&self) -> Option<gio::Icon> {
         unsafe {
             let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
@@ -537,34 +490,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    fn connect_property_follow_state_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_follow_state_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut ffi::GtkCellRendererPixbuf,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
-            let f: &F = &*(f as *const F);
-            f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::follow-state\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_follow_state_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    fn connect_property_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "gicon")]
+    fn connect_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_gicon_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
@@ -588,7 +515,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    fn connect_property_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "icon-name")]
+    fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_name_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
@@ -612,7 +540,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    fn connect_property_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "pixbuf")]
+    fn connect_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
@@ -636,7 +565,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    fn connect_property_pixbuf_expander_closed_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "pixbuf-expander-closed")]
+    fn connect_pixbuf_expander_closed_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -663,10 +593,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    fn connect_property_pixbuf_expander_open_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "pixbuf-expander-open")]
+    fn connect_pixbuf_expander_open_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_expander_open_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
@@ -690,10 +618,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    fn connect_property_stock_detail_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "stock-detail")]
+    fn connect_stock_detail_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stock_detail_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
@@ -717,7 +643,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    fn connect_property_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "stock-size")]
+    fn connect_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stock_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
@@ -741,7 +668,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    fn connect_property_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "surface")]
+    fn connect_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_surface_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,

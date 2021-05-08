@@ -40,15 +40,17 @@ impl Pattern {
     }
 
     pub unsafe fn from_raw_full(pointer: *mut cairo_pattern_t) -> Pattern {
-        Pattern { pointer }
+        Self { pointer }
     }
 
     #[doc(alias = "cairo_pattern_get_type")]
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> PatternType {
         unsafe { ffi::cairo_pattern_get_type(self.pointer).into() }
     }
 
     #[doc(alias = "cairo_pattern_get_reference_count")]
+    #[doc(alias = "get_reference_count")]
     pub fn reference_count(&self) -> isize {
         unsafe { ffi::cairo_pattern_get_reference_count(self.pointer) as isize }
     }
@@ -59,6 +61,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_extend")]
+    #[doc(alias = "get_extend")]
     pub fn extend(&self) -> Extend {
         unsafe { Extend::from(ffi::cairo_pattern_get_extend(self.pointer)) }
     }
@@ -69,6 +72,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_filter")]
+    #[doc(alias = "get_filter")]
     pub fn filter(&self) -> Filter {
         unsafe { Filter::from(ffi::cairo_pattern_get_filter(self.pointer)) }
     }
@@ -79,6 +83,7 @@ impl Pattern {
     }
 
     #[doc(alias = "cairo_pattern_get_matrix")]
+    #[doc(alias = "get_matrix")]
     pub fn matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
@@ -87,7 +92,8 @@ impl Pattern {
         matrix
     }
 
-    fn status(&self) -> Result<(), Error> {
+    #[doc(alias = "cairo_pattern_status")]
+    pub fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_pattern_status(self.pointer) };
         status_to_result(status)
     }
@@ -95,7 +101,7 @@ impl Pattern {
 
 impl Clone for Pattern {
     fn clone(&self) -> Self {
-        Pattern {
+        Self {
             pointer: unsafe { ffi::cairo_pattern_reference(self.pointer) },
         }
     }
@@ -158,25 +164,26 @@ pattern_type!(SolidPattern = Solid);
 
 impl SolidPattern {
     #[doc(alias = "cairo_pattern_create_rgb")]
-    pub fn from_rgb(red: f64, green: f64, blue: f64) -> SolidPattern {
+    pub fn from_rgb(red: f64, green: f64, blue: f64) -> Self {
         unsafe {
-            SolidPattern(Pattern::from_raw_full(ffi::cairo_pattern_create_rgb(
+            Self(Pattern::from_raw_full(ffi::cairo_pattern_create_rgb(
                 red, green, blue,
             )))
         }
     }
 
     #[doc(alias = "cairo_pattern_create_rgba")]
-    pub fn from_rgba(red: f64, green: f64, blue: f64, alpha: f64) -> SolidPattern {
+    pub fn from_rgba(red: f64, green: f64, blue: f64, alpha: f64) -> Self {
         unsafe {
-            SolidPattern(Pattern::from_raw_full(ffi::cairo_pattern_create_rgba(
+            Self(Pattern::from_raw_full(ffi::cairo_pattern_create_rgba(
                 red, green, blue, alpha,
             )))
         }
     }
 
     #[doc(alias = "cairo_pattern_get_rgba")]
-    pub fn rgba(&self) -> (f64, f64, f64, f64) {
+    #[doc(alias = "get_rgba")]
+    pub fn rgba(&self) -> Result<(f64, f64, f64, f64), Error> {
         unsafe {
             let mut red = 0.0;
             let mut green = 0.0;
@@ -190,9 +197,9 @@ impl SolidPattern {
                 &mut blue,
                 &mut alpha,
             );
-            status_to_result(status).expect("Failed to get_rgba");
+            status_to_result(status)?;
 
-            (red, green, blue, alpha)
+            Ok((red, green, blue, alpha))
         }
     }
 }
@@ -214,18 +221,20 @@ impl Gradient {
     }
 
     #[doc(alias = "cairo_pattern_get_color_stop_count")]
-    pub fn color_stop_count(&self) -> isize {
+    #[doc(alias = "get_color_stop_count")]
+    pub fn color_stop_count(&self) -> Result<isize, Error> {
         unsafe {
             let mut count = 0;
             let status = ffi::cairo_pattern_get_color_stop_count(self.pointer, &mut count);
 
-            status_to_result(status).expect("Failed to get_color_stop_count");
-            count as isize
+            status_to_result(status)?;
+            Ok(count as isize)
         }
     }
 
     #[doc(alias = "cairo_pattern_get_color_stop_rgba")]
-    pub fn color_stop_rgba(&self, index: isize) -> (f64, f64, f64, f64, f64) {
+    #[doc(alias = "get_color_stop_rgba")]
+    pub fn color_stop_rgba(&self, index: isize) -> Result<(f64, f64, f64, f64, f64), Error> {
         unsafe {
             let mut offset = 0.0;
             let mut red = 0.0;
@@ -242,8 +251,8 @@ impl Gradient {
                 &mut blue,
                 &mut alpha,
             );
-            status_to_result(status).expect("Failed to get_color_stop_rgba");
-            (offset, red, green, blue, alpha)
+            status_to_result(status)?;
+            Ok((offset, red, green, blue, alpha))
         }
     }
 }
@@ -276,16 +285,17 @@ gradient_type!(LinearGradient);
 
 impl LinearGradient {
     #[doc(alias = "cairo_pattern_create_linear")]
-    pub fn new(x0: f64, y0: f64, x1: f64, y1: f64) -> LinearGradient {
+    pub fn new(x0: f64, y0: f64, x1: f64, y1: f64) -> Self {
         unsafe {
-            LinearGradient(Gradient(Pattern::from_raw_full(
+            Self(Gradient(Pattern::from_raw_full(
                 ffi::cairo_pattern_create_linear(x0, y0, x1, y1),
             )))
         }
     }
 
     #[doc(alias = "cairo_pattern_get_linear_points")]
-    pub fn linear_points(&self) -> (f64, f64, f64, f64) {
+    #[doc(alias = "get_linear_points")]
+    pub fn linear_points(&self) -> Result<(f64, f64, f64, f64), Error> {
         unsafe {
             let mut x0 = 0.0;
             let mut y0 = 0.0;
@@ -299,8 +309,8 @@ impl LinearGradient {
                 &mut x1,
                 &mut y1,
             );
-            status_to_result(status).expect("Failed to get linear points");
-            (x0, y0, x1, y1)
+            status_to_result(status)?;
+            Ok((x0, y0, x1, y1))
         }
     }
 }
@@ -309,16 +319,17 @@ gradient_type!(RadialGradient);
 
 impl RadialGradient {
     #[doc(alias = "cairo_pattern_create_radial")]
-    pub fn new(x0: f64, y0: f64, r0: f64, x1: f64, y1: f64, r1: f64) -> RadialGradient {
+    pub fn new(x0: f64, y0: f64, r0: f64, x1: f64, y1: f64, r1: f64) -> Self {
         unsafe {
-            RadialGradient(Gradient(Pattern::from_raw_full(
+            Self(Gradient(Pattern::from_raw_full(
                 ffi::cairo_pattern_create_radial(x0, y0, r0, x1, y1, r1),
             )))
         }
     }
 
     #[doc(alias = "cairo_pattern_get_radial_circles")]
-    pub fn radial_circles(&self) -> (f64, f64, f64, f64, f64, f64) {
+    #[doc(alias = "get_radial_circles")]
+    pub fn radial_circles(&self) -> Result<(f64, f64, f64, f64, f64, f64), Error> {
         unsafe {
             let mut x0 = 0.0;
             let mut y0 = 0.0;
@@ -336,8 +347,8 @@ impl RadialGradient {
                 &mut y1,
                 &mut r1,
             );
-            status_to_result(status).expect("Failed to get radial circles");
-            (x0, y0, r0, x1, y1, r1)
+            status_to_result(status)?;
+            Ok((x0, y0, r0, x1, y1, r1))
         }
     }
 }
@@ -346,21 +357,22 @@ pattern_type!(SurfacePattern = Surface);
 
 impl SurfacePattern {
     #[doc(alias = "cairo_pattern_create_for_surface")]
-    pub fn create(surface: &Surface) -> SurfacePattern {
+    pub fn create(surface: &Surface) -> Self {
         unsafe {
-            SurfacePattern(Pattern::from_raw_full(
+            Self(Pattern::from_raw_full(
                 ffi::cairo_pattern_create_for_surface(surface.to_raw_none()),
             ))
         }
     }
 
     #[doc(alias = "cairo_pattern_get_surface")]
-    pub fn surface(&self) -> Surface {
+    #[doc(alias = "get_surface")]
+    pub fn surface(&self) -> Result<Surface, Error> {
         unsafe {
             let mut surface_ptr: *mut cairo_surface_t = ptr::null_mut();
             let status = ffi::cairo_pattern_get_surface(self.pointer, &mut surface_ptr);
-            status_to_result(status).expect("Failed to get the surface");
-            Surface::from_raw_none(surface_ptr)
+            status_to_result(status)?;
+            Ok(Surface::from_raw_none(surface_ptr))
         }
     }
 }
@@ -369,48 +381,43 @@ pattern_type!(Mesh = Mesh);
 
 impl Mesh {
     #[doc(alias = "cairo_pattern_create_mesh")]
-    pub fn new() -> Mesh {
-        unsafe { Mesh(Pattern::from_raw_full(ffi::cairo_pattern_create_mesh())) }
+    pub fn new() -> Self {
+        unsafe { Self(Pattern::from_raw_full(ffi::cairo_pattern_create_mesh())) }
     }
 
     #[doc(alias = "cairo_mesh_pattern_begin_patch")]
     pub fn begin_patch(&self) {
         unsafe { ffi::cairo_mesh_pattern_begin_patch(self.pointer) }
-        self.status().expect("Failed to begin_patch");
     }
 
     #[doc(alias = "cairo_mesh_pattern_end_patch")]
     pub fn end_patch(&self) {
         unsafe { ffi::cairo_mesh_pattern_end_patch(self.pointer) }
-        self.status().expect("Failed to end_patch");
     }
 
     #[doc(alias = "cairo_mesh_pattern_move_to")]
     pub fn move_to(&self, x: f64, y: f64) {
         unsafe { ffi::cairo_mesh_pattern_move_to(self.pointer, x, y) }
-        self.status().expect("Failed to move to");
     }
 
     #[doc(alias = "cairo_mesh_pattern_line_to")]
     pub fn line_to(&self, x: f64, y: f64) {
         unsafe { ffi::cairo_mesh_pattern_line_to(self.pointer, x, y) }
-        self.status().expect("Failed to line to");
     }
 
     #[doc(alias = "cairo_mesh_pattern_curve_to")]
     pub fn curve_to(&self, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64) {
         unsafe { ffi::cairo_mesh_pattern_curve_to(self.pointer, x1, y1, x2, y2, x3, y3) }
-        self.status().expect("Failed to curve to");
     }
 
     #[doc(alias = "cairo_mesh_pattern_set_control_point")]
     pub fn set_control_point(&self, corner: MeshCorner, x: f64, y: f64) {
         unsafe { ffi::cairo_mesh_pattern_set_control_point(self.pointer, corner.into(), x, y) }
-        self.status().expect("Failed to set control point");
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_control_point")]
-    pub fn control_point(&self, patch_num: usize, corner: MeshCorner) -> (f64, f64) {
+    #[doc(alias = "get_control_point")]
+    pub fn control_point(&self, patch_num: usize, corner: MeshCorner) -> Result<(f64, f64), Error> {
         let mut x: c_double = 0.0;
         let mut y: c_double = 0.0;
 
@@ -423,8 +430,8 @@ impl Mesh {
                 &mut y,
             )
         };
-        status_to_result(status).expect("Failed to get control point");
-        (x, y)
+        status_to_result(status)?;
+        Ok((x, y))
     }
 
     #[doc(alias = "cairo_mesh_pattern_set_corner_color_rgb")]
@@ -438,7 +445,6 @@ impl Mesh {
                 blue,
             )
         }
-        self.status().expect("Failed to set corner color rgb");
     }
 
     #[doc(alias = "cairo_mesh_pattern_set_corner_color_rgba")]
@@ -460,11 +466,15 @@ impl Mesh {
                 alpha,
             )
         }
-        self.status().expect("Failed to set corner color rgba");
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_corner_color_rgba")]
-    pub fn corner_color_rgba(&self, patch_num: usize, corner: MeshCorner) -> (f64, f64, f64, f64) {
+    #[doc(alias = "get_corner_color_rgba")]
+    pub fn corner_color_rgba(
+        &self,
+        patch_num: usize,
+        corner: MeshCorner,
+    ) -> Result<(f64, f64, f64, f64), Error> {
         let mut red: c_double = 0.0;
         let mut green: c_double = 0.0;
         let mut blue: c_double = 0.0;
@@ -481,22 +491,24 @@ impl Mesh {
                 &mut alpha,
             )
         };
-        status_to_result(status).expect("Failed to get mesh corner color");
-        (red, green, blue, alpha)
+        status_to_result(status)?;
+        Ok((red, green, blue, alpha))
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_patch_count")]
-    pub fn patch_count(&self) -> usize {
+    #[doc(alias = "get_patch_count")]
+    pub fn patch_count(&self) -> Result<usize, Error> {
         let mut count: c_uint = 0;
         unsafe {
             let status = ffi::cairo_mesh_pattern_get_patch_count(self.pointer, &mut count);
-            status_to_result(status).expect("Failed to get mesh patch count")
+            status_to_result(status)?;
         }
-        count as usize
+        Ok(count as usize)
     }
 
     #[doc(alias = "cairo_mesh_pattern_get_path")]
-    pub fn path(&self, patch_num: usize) -> Path {
+    #[doc(alias = "get_path")]
+    pub fn path(&self, patch_num: usize) -> Result<Path, Error> {
         let path: Path = unsafe {
             Path::from_raw_full(ffi::cairo_mesh_pattern_get_path(
                 self.pointer,
@@ -507,14 +519,14 @@ impl Mesh {
             let ptr: *mut ffi::cairo_path_t = path.as_ptr();
             (*ptr).status
         };
-        status_to_result(status).expect("Failed to get the mesh path");
-        path
+        status_to_result(status)?;
+        Ok(path)
     }
 }
 
 impl Default for Mesh {
-    fn default() -> Mesh {
-        Mesh::new()
+    fn default() -> Self {
+        Self::new()
     }
 }
 

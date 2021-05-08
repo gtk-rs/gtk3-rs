@@ -1,8 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Attribute;
-use crate::EngineLang;
-use crate::EngineShape;
 use crate::Font;
 use crate::Gravity;
 use crate::Language;
@@ -13,14 +11,6 @@ use glib::translate::*;
 pub struct Analysis(ffi::PangoAnalysis);
 
 impl Analysis {
-    pub fn shape_engine(&self) -> EngineShape {
-        unsafe { from_glib_none(self.0.shape_engine) }
-    }
-
-    pub fn lang_engine(&self) -> EngineLang {
-        unsafe { from_glib_none(self.0.lang_engine) }
-    }
-
     pub fn font(&self) -> Font {
         unsafe { from_glib_none(self.0.font) }
     }
@@ -75,13 +65,13 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::PangoAnalysis> for Analysis {
 #[doc(hidden)]
 impl FromGlibPtrNone<*const ffi::PangoAnalysis> for Analysis {
     unsafe fn from_glib_none(ptr: *const ffi::PangoAnalysis) -> Self {
-        Analysis(*ptr)
+        Self(*ptr)
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrNone<*mut ffi::PangoAnalysis> for Analysis {
     unsafe fn from_glib_none(ptr: *mut ffi::PangoAnalysis) -> Self {
-        Analysis(*ptr)
+        Self(*ptr)
     }
 }

@@ -18,11 +18,13 @@ glib::wrapper! {
 
 impl SettingsSchema {
     #[doc(alias = "g_settings_schema_get_id")]
+    #[doc(alias = "get_id")]
     pub fn id(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_settings_schema_get_id(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_settings_schema_get_key")]
+    #[doc(alias = "get_key")]
     pub fn key(&self, name: &str) -> SettingsSchemaKey {
         unsafe {
             from_glib_full(ffi::g_settings_schema_get_key(
@@ -33,6 +35,7 @@ impl SettingsSchema {
     }
 
     #[doc(alias = "g_settings_schema_get_path")]
+    #[doc(alias = "get_path")]
     pub fn path(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_settings_schema_get_path(self.to_glib_none().0)) }
     }
@@ -47,8 +50,6 @@ impl SettingsSchema {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_settings_schema_list_children")]
     pub fn list_children(&self) -> Vec<glib::GString> {
         unsafe {
@@ -58,8 +59,6 @@ impl SettingsSchema {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_settings_schema_list_keys")]
     pub fn list_keys(&self) -> Vec<glib::GString> {
         unsafe {

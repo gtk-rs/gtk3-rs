@@ -31,6 +31,7 @@ pub const NONE_UNIX_FD_LIST: Option<&UnixFDList> = None;
 
 pub trait UnixFDListExt: 'static {
     #[doc(alias = "g_unix_fd_list_get_length")]
+    #[doc(alias = "get_length")]
     fn length(&self) -> i32;
 }
 

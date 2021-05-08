@@ -33,13 +33,14 @@ impl EventControllerScroll {
         unsafe {
             EventController::from_glib_full(ffi::gtk_event_controller_scroll_new(
                 widget.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
             .unsafe_cast()
         }
     }
 
     #[doc(alias = "gtk_event_controller_scroll_get_flags")]
+    #[doc(alias = "get_flags")]
     pub fn flags(&self) -> EventControllerScrollFlags {
         unsafe {
             from_glib(ffi::gtk_event_controller_scroll_get_flags(
@@ -51,10 +52,11 @@ impl EventControllerScroll {
     #[doc(alias = "gtk_event_controller_scroll_set_flags")]
     pub fn set_flags(&self, flags: EventControllerScrollFlags) {
         unsafe {
-            ffi::gtk_event_controller_scroll_set_flags(self.to_glib_none().0, flags.to_glib());
+            ffi::gtk_event_controller_scroll_set_flags(self.to_glib_none().0, flags.into_glib());
         }
     }
 
+    #[doc(alias = "decelerate")]
     pub fn connect_decelerate<F: Fn(&EventControllerScroll, f64, f64) + 'static>(
         &self,
         f: F,
@@ -83,6 +85,7 @@ impl EventControllerScroll {
         }
     }
 
+    #[doc(alias = "scroll")]
     pub fn connect_scroll<F: Fn(&EventControllerScroll, f64, f64) + 'static>(
         &self,
         f: F,
@@ -111,6 +114,7 @@ impl EventControllerScroll {
         }
     }
 
+    #[doc(alias = "scroll-begin")]
     pub fn connect_scroll_begin<F: Fn(&EventControllerScroll) + 'static>(
         &self,
         f: F,
@@ -135,6 +139,7 @@ impl EventControllerScroll {
         }
     }
 
+    #[doc(alias = "scroll-end")]
     pub fn connect_scroll_end<F: Fn(&EventControllerScroll) + 'static>(
         &self,
         f: F,
@@ -161,7 +166,8 @@ impl EventControllerScroll {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    pub fn connect_property_flags_notify<F: Fn(&EventControllerScroll) + 'static>(
+    #[doc(alias = "flags")]
+    pub fn connect_flags_notify<F: Fn(&EventControllerScroll) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

@@ -32,11 +32,13 @@ impl TreePath {
     }
 
     //#[doc(alias = "gtk_tree_path_new_from_indices")]
+    //#[doc(alias = "new_from_indices")]
     //pub fn from_indices(first_index: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreePath {
     //    unsafe { TODO: call ffi:gtk_tree_path_new_from_indices() }
     //}
 
     #[doc(alias = "gtk_tree_path_new_from_indicesv")]
+    #[doc(alias = "new_from_indicesv")]
     pub fn from_indicesv(indices: &[i32]) -> TreePath {
         assert_initialized_main_thread!();
         let length = indices.len() as usize;
@@ -49,6 +51,7 @@ impl TreePath {
     }
 
     #[doc(alias = "gtk_tree_path_new_from_string")]
+    #[doc(alias = "new_from_string")]
     pub fn from_string(path: &str) -> TreePath {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_tree_path_new_from_string(path.to_glib_none().0)) }
@@ -74,11 +77,13 @@ impl TreePath {
     }
 
     #[doc(alias = "gtk_tree_path_get_depth")]
+    #[doc(alias = "get_depth")]
     pub fn depth(&self) -> i32 {
         unsafe { ffi::gtk_tree_path_get_depth(mut_override(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_tree_path_get_indices_with_depth")]
+    #[doc(alias = "get_indices_with_depth")]
     pub fn indices_with_depth(&mut self) -> Vec<i32> {
         unsafe {
             let mut depth = mem::MaybeUninit::uninit();
@@ -133,6 +138,7 @@ impl TreePath {
     }
 
     #[doc(alias = "gtk_tree_path_to_string")]
+    #[doc(alias = "to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::gtk_tree_path_to_string(mut_override(

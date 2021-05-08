@@ -21,7 +21,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -39,6 +38,7 @@ glib::wrapper! {
 
 impl DBusConnection {
     #[doc(alias = "g_dbus_connection_new_for_address_sync")]
+    #[doc(alias = "new_for_address_sync")]
     pub fn for_address_sync<P: IsA<Cancellable>>(
         address: &str,
         flags: DBusConnectionFlags,
@@ -49,7 +49,7 @@ impl DBusConnection {
             let mut error = ptr::null_mut();
             let ret = ffi::g_dbus_connection_new_for_address_sync(
                 address.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -75,7 +75,7 @@ impl DBusConnection {
             let ret = ffi::g_dbus_connection_new_sync(
                 stream.as_ref().to_glib_none().0,
                 guid.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -133,7 +133,7 @@ impl DBusConnection {
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
                 reply_type.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -204,7 +204,7 @@ impl DBusConnection {
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
                 reply_type.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -272,7 +272,7 @@ impl DBusConnection {
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
                 reply_type.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 fd_list.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -357,7 +357,7 @@ impl DBusConnection {
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
                 reply_type.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 fd_list.map(|p| p.as_ref()).to_glib_none().0,
                 &mut out_fd_list,
@@ -537,6 +537,7 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_capabilities")]
+    #[doc(alias = "get_capabilities")]
     pub fn capabilities(&self) -> DBusCapabilityFlags {
         unsafe {
             from_glib(ffi::g_dbus_connection_get_capabilities(
@@ -546,6 +547,7 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_exit_on_close")]
+    #[doc(alias = "get_exit_on_close")]
     pub fn exits_on_close(&self) -> bool {
         unsafe {
             from_glib(ffi::g_dbus_connection_get_exit_on_close(
@@ -557,21 +559,25 @@ impl DBusConnection {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_dbus_connection_get_flags")]
+    #[doc(alias = "get_flags")]
     pub fn flags(&self) -> DBusConnectionFlags {
         unsafe { from_glib(ffi::g_dbus_connection_get_flags(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_guid")]
+    #[doc(alias = "get_guid")]
     pub fn guid(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_connection_get_guid(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_last_serial")]
+    #[doc(alias = "get_last_serial")]
     pub fn last_serial(&self) -> u32 {
         unsafe { ffi::g_dbus_connection_get_last_serial(self.to_glib_none().0) }
     }
 
     #[doc(alias = "g_dbus_connection_get_peer_credentials")]
+    #[doc(alias = "get_peer_credentials")]
     pub fn peer_credentials(&self) -> Option<Credentials> {
         unsafe {
             from_glib_none(ffi::g_dbus_connection_get_peer_credentials(
@@ -581,11 +587,13 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_stream")]
+    #[doc(alias = "get_stream")]
     pub fn stream(&self) -> IOStream {
         unsafe { from_glib_none(ffi::g_dbus_connection_get_stream(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_connection_get_unique_name")]
+    #[doc(alias = "get_unique_name")]
     pub fn unique_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_dbus_connection_get_unique_name(
@@ -616,7 +624,7 @@ impl DBusConnection {
             let _ = ffi::g_dbus_connection_send_message(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 out_serial.as_mut_ptr(),
                 &mut error,
             );
@@ -669,7 +677,7 @@ impl DBusConnection {
             ffi::g_dbus_connection_send_message_with_reply(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 out_serial.as_mut_ptr(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -719,7 +727,7 @@ impl DBusConnection {
             let ret = ffi::g_dbus_connection_send_message_with_reply_sync(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 timeout_msec,
                 out_serial.as_mut_ptr(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -739,7 +747,7 @@ impl DBusConnection {
         unsafe {
             ffi::g_dbus_connection_set_exit_on_close(
                 self.to_glib_none().0,
-                exit_on_close.to_glib(),
+                exit_on_close.into_glib(),
             );
         }
     }
@@ -802,7 +810,7 @@ impl DBusConnection {
             ffi::g_dbus_connection_new(
                 stream.as_ref().to_glib_none().0,
                 guid.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -839,7 +847,8 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_new_for_address")]
-    pub fn new_for_address<
+    #[doc(alias = "new_for_address")]
+    pub fn for_address<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
     >(
@@ -850,7 +859,7 @@ impl DBusConnection {
         callback: Q,
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
-        unsafe extern "C" fn new_for_address_trampoline<
+        unsafe extern "C" fn for_address_trampoline<
             Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
@@ -867,11 +876,11 @@ impl DBusConnection {
             let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = new_for_address_trampoline::<Q>;
+        let callback = for_address_trampoline::<Q>;
         unsafe {
             ffi::g_dbus_connection_new_for_address(
                 address.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 observer.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -880,7 +889,7 @@ impl DBusConnection {
         }
     }
 
-    pub fn new_for_address_future(
+    pub fn for_address_future(
         address: &str,
         flags: DBusConnectionFlags,
         observer: Option<&DBusAuthObserver>,
@@ -890,7 +899,7 @@ impl DBusConnection {
         let observer = observer.map(ToOwned::to_owned);
         Box_::pin(crate::GioFuture::new(&(), move |_obj, send| {
             let cancellable = Cancellable::new();
-            Self::new_for_address(
+            Self::for_address(
                 &address,
                 flags,
                 observer.as_ref().map(::std::borrow::Borrow::borrow),
@@ -904,6 +913,7 @@ impl DBusConnection {
         }))
     }
 
+    #[doc(alias = "closed")]
     pub fn connect_closed<
         F: Fn(&DBusConnection, bool, Option<&glib::Error>) + Send + Sync + 'static,
     >(
@@ -940,7 +950,8 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_capabilities_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
+    #[doc(alias = "capabilities")]
+    pub fn connect_capabilities_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -967,7 +978,8 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_closed_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
+    #[doc(alias = "closed")]
+    pub fn connect_closed_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -994,7 +1006,8 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_exit_on_close_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
+    #[doc(alias = "exit-on-close")]
+    pub fn connect_exit_on_close_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1021,7 +1034,8 @@ impl DBusConnection {
         }
     }
 
-    pub fn connect_property_unique_name_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
+    #[doc(alias = "unique-name")]
+    pub fn connect_unique_name_notify<F: Fn(&DBusConnection) + Send + Sync + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

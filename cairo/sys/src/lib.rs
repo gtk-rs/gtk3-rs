@@ -1029,13 +1029,11 @@ extern "C" {
         x_offset: *mut c_double,
         y_offset: *mut c_double,
     );
-    #[cfg(any(feature = "v1_14", feature = "dox"))]
     pub fn cairo_surface_get_device_scale(
         surface: *mut cairo_surface_t,
         x_scale: *mut c_double,
         y_scale: *mut c_double,
     );
-    #[cfg(any(feature = "v1_14", feature = "dox"))]
     pub fn cairo_surface_set_device_scale(
         surface: *mut cairo_surface_t,
         x_scale: c_double,
@@ -1347,10 +1345,7 @@ extern "C" {
     // CAIRO WINDOWS SURFACE
     #[cfg(any(all(windows, feature = "win32-surface"), feature = "dox"))]
     pub fn cairo_win32_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
-    #[cfg(any(
-        all(windows, feature = "win32-surface", feature = "v1_14"),
-        feature = "dox"
-    ))]
+    #[cfg(any(all(windows, feature = "win32-surface"), feature = "dox"))]
     pub fn cairo_win32_surface_create_with_format(
         hdc: winapi::HDC,
         format: cairo_format_t,

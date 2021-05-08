@@ -6,11 +6,11 @@
 //! logic and use unified idioms at FFI boundaries. It also implements
 //! translation of GLib core data types.
 //!
-//! `FromGlib`, `from_glib` and `ToGlib` translate simple types like `bool`.
+//! `FromGlib`, `from_glib` and `IntoGlib` translate simple types like `bool`.
 //!
 //! ```ignore
 //!     pub fn set_accept_focus(&self, accept_focus: bool) {
-//!         unsafe { gdk::ffi::gdk_window_set_accept_focus(self.pointer, accept_focus.to_glib()) }
+//!         unsafe { gdk::ffi::gdk_window_set_accept_focus(self.pointer, accept_focus.into_glib()) }
 //!     }
 //!
 //!     pub fn get_accept_focus(&self) -> bool {
@@ -18,21 +18,21 @@
 //!     }
 //! ```
 //!
-//! Implementing [`OptionToGlib`] on a Rust type `T` allows specifying a sentinel to indicate
+//! Implementing [`OptionIntoGlib`] on a Rust type `T` allows specifying a sentinel to indicate
 //! a `None` value and auto-implementing [`FromGlib`] for `Option<T>`, which would not be
 //! possible in dependent crates due to the [orphan rule](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type).
-//! In the example below, [`ToGlib`] is auto-implemented for `Option<SpecialU32>`.
+//! In the example below, [`IntoGlib`] is auto-implemented for `Option<SpecialU32>`.
 //!
 //! ```
 //! # use glib::translate::*;
 //! struct SpecialU32(u32);
-//! impl ToGlib for SpecialU32 {
+//! impl IntoGlib for SpecialU32 {
 //!     type GlibType = libc::c_uint;
-//!     fn to_glib(&self) -> libc::c_uint {
+//!     fn into_glib(self) -> libc::c_uint {
 //!         self.0 as libc::c_uint
 //!     }
 //! }
-//! impl OptionToGlib for SpecialU32 {
+//! impl OptionIntoGlib for SpecialU32 {
 //!     const GLIB_NONE: Self::GlibType = 0xFFFFFF;
 //! }
 //! ```
@@ -42,13 +42,13 @@
 //! ```
 //! # use glib::translate::*;
 //! # struct SpecialU32(u32);
-//! # impl ToGlib for SpecialU32 {
+//! # impl IntoGlib for SpecialU32 {
 //! #     type GlibType = libc::c_uint;
-//! #     fn to_glib(&self) -> libc::c_uint {
+//! #     fn into_glib(self) -> libc::c_uint {
 //! #         self.0 as libc::c_uint
 //! #     }
 //! # }
-//! # impl OptionToGlib for SpecialU32 {
+//! # impl OptionIntoGlib for SpecialU32 {
 //! #     const GLIB_NONE: Self::GlibType = 0xFFFFFF;
 //! # }
 //! impl TryFromGlib<libc::c_uint> for SpecialU32 {
@@ -290,18 +290,18 @@ impl<T> std::ops::Deref for Borrowed<T> {
 }
 
 /// Translate a simple type.
-pub trait ToGlib {
+pub trait IntoGlib {
     type GlibType: Copy;
 
-    fn to_glib(&self) -> Self::GlibType;
+    fn into_glib(self) -> Self::GlibType;
 }
 
-impl ToGlib for bool {
+impl IntoGlib for bool {
     type GlibType = ffi::gboolean;
 
     #[inline]
-    fn to_glib(&self) -> ffi::gboolean {
-        if *self {
+    fn into_glib(self) -> ffi::gboolean {
+        if self {
             ffi::GTRUE
         } else {
             ffi::GFALSE
@@ -309,30 +309,30 @@ impl ToGlib for bool {
     }
 }
 
-impl ToGlib for char {
+impl IntoGlib for char {
     type GlibType = u32;
 
     #[inline]
-    fn to_glib(&self) -> u32 {
-        *self as u32
+    fn into_glib(self) -> u32 {
+        self as u32
     }
 }
 
-impl ToGlib for Option<char> {
+impl IntoGlib for Option<char> {
     type GlibType = u32;
 
     #[inline]
-    fn to_glib(&self) -> u32 {
+    fn into_glib(self) -> u32 {
         self.as_ref().map(|&c| c as u32).unwrap_or(0)
     }
 }
 
-impl ToGlib for Ordering {
+impl IntoGlib for Ordering {
     type GlibType = i32;
 
     #[inline]
-    fn to_glib(&self) -> i32 {
-        match *self {
+    fn into_glib(self) -> i32 {
+        match self {
             Ordering::Less => -1,
             Ordering::Equal => 0,
             Ordering::Greater => 1,
@@ -340,18 +340,35 @@ impl ToGlib for Ordering {
     }
 }
 
+impl<O, E, G> IntoGlib for Result<O, E>
+where
+    G: Copy,
+    O: IntoGlib<GlibType = G> + TryFromGlib<G, Error = E>,
+    E: IntoGlib<GlibType = G>,
+{
+    type GlibType = G;
+
+    #[inline]
+    fn into_glib(self) -> Self::GlibType {
+        match self {
+            Ok(ok) => ok.into_glib(),
+            Err(err) => err.into_glib(),
+        }
+    }
+}
+
 /// A Rust type `T` for which `Option<T>` translates to the same glib type as T.
-pub trait OptionToGlib: ToGlib {
+pub trait OptionIntoGlib: IntoGlib {
     const GLIB_NONE: Self::GlibType;
 }
 
-impl<T: OptionToGlib> ToGlib for Option<T> {
+impl<T: OptionIntoGlib> IntoGlib for Option<T> {
     type GlibType = T::GlibType;
 
     #[inline]
-    fn to_glib(&self) -> Self::GlibType {
+    fn into_glib(self) -> Self::GlibType {
         match self {
-            Some(t) => t.to_glib(),
+            Some(t) => t.into_glib(),
             None => T::GLIB_NONE,
         }
     }
@@ -1159,14 +1176,14 @@ pub unsafe fn from_glib<G: Copy, T: FromGlib<G>>(val: G) -> T {
 
 impl FromGlib<ffi::gboolean> for bool {
     #[inline]
-    unsafe fn from_glib(val: ffi::gboolean) -> bool {
+    unsafe fn from_glib(val: ffi::gboolean) -> Self {
         val != ffi::GFALSE
     }
 }
 
 impl FromGlib<i32> for Ordering {
     #[inline]
-    unsafe fn from_glib(val: i32) -> Ordering {
+    unsafe fn from_glib(val: i32) -> Self {
         val.cmp(&0)
     }
 }
@@ -1191,7 +1208,7 @@ impl std::error::Error for GlibNoneError {}
 
 impl<G: Copy, T: TryFromGlib<G, Error = GlibNoneError>> FromGlib<G> for Option<T> {
     #[inline]
-    unsafe fn from_glib(val: G) -> Option<T> {
+    unsafe fn from_glib(val: G) -> Self {
         T::try_from_glib(val).ok()
     }
 }
@@ -1206,34 +1223,34 @@ pub enum GlibNoneOrInvalidError<I: Error> {
 impl<I: Error> GlibNoneOrInvalidError<I> {
     /// Builds the `None` variant.
     pub fn none() -> Self {
-        GlibNoneOrInvalidError::None
+        Self::None
     }
 
     /// Returns `true` if `self` is the `None` variant.
     pub fn is_none(&self) -> bool {
-        matches!(self, GlibNoneOrInvalidError::None)
+        matches!(self, Self::None)
     }
 
     /// Returns `true` if `self` is the `Invalid` variant.
     pub fn is_invalid(&self) -> bool {
-        matches!(self, GlibNoneOrInvalidError::Invalid(_))
+        matches!(self, Self::Invalid(_))
     }
 }
 
 impl<I: Error> From<I> for GlibNoneOrInvalidError<I> {
     fn from(invalid: I) -> Self {
-        GlibNoneOrInvalidError::Invalid(invalid)
+        Self::Invalid(invalid)
     }
 }
 
 impl<I: Error> fmt::Display for GlibNoneOrInvalidError<I> {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            GlibNoneOrInvalidError::Invalid(err) => {
+            Self::Invalid(err) => {
                 write!(fmt, "glib value is invalid: ")?;
                 fmt::Display::fmt(err, fmt)
             }
-            GlibNoneOrInvalidError::None => write!(fmt, "glib value is None"),
+            Self::None => write!(fmt, "glib value is None"),
         }
     }
 }
@@ -1244,7 +1261,7 @@ impl<G: Copy, I: Error, T: TryFromGlib<G, Error = GlibNoneOrInvalidError<I>>> Fr
     for Result<Option<T>, I>
 {
     #[inline]
-    unsafe fn from_glib(val: G) -> Result<Option<T>, I> {
+    unsafe fn from_glib(val: G) -> Self {
         match T::try_from_glib(val) {
             Ok(value) => Ok(Some(value)),
             Err(GlibNoneOrInvalidError::None) => Ok(None),
@@ -1393,7 +1410,7 @@ impl FromGlibPtrNone<*const c_char> for String {
     #[inline]
     unsafe fn from_glib_none(ptr: *const c_char) -> Self {
         assert!(!ptr.is_null());
-        String::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
+        Self::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
     }
 }
 
@@ -1412,7 +1429,7 @@ impl FromGlibPtrNone<*mut c_char> for String {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());
-        String::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
+        Self::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
     }
 }
 
@@ -2256,8 +2273,8 @@ mod tests {
 
     #[test]
     fn boolean() {
-        assert_eq!(true.to_glib(), ffi::GTRUE);
-        assert_eq!(false.to_glib(), ffi::GFALSE);
+        assert_eq!(true.into_glib(), ffi::GTRUE);
+        assert_eq!(false.into_glib(), ffi::GFALSE);
         assert_eq!(true, unsafe { bool::from_glib(ffi::GTRUE) });
         assert_eq!(false, unsafe { bool::from_glib(ffi::GFALSE) });
         assert_eq!(true, unsafe { bool::from_glib(42) });
@@ -2265,9 +2282,9 @@ mod tests {
 
     #[test]
     fn ordering() {
-        assert_eq!(Ordering::Less.to_glib(), -1);
-        assert_eq!(Ordering::Equal.to_glib(), 0);
-        assert_eq!(Ordering::Greater.to_glib(), 1);
+        assert_eq!(Ordering::Less.into_glib(), -1);
+        assert_eq!(Ordering::Equal.into_glib(), 0);
+        assert_eq!(Ordering::Greater.into_glib(), 1);
         assert_eq!(Ordering::Less, unsafe { Ordering::from_glib(-42) });
         assert_eq!(Ordering::Less, unsafe { Ordering::from_glib(-1) });
         assert_eq!(Ordering::Equal, unsafe { Ordering::from_glib(0) });
@@ -2435,21 +2452,24 @@ mod tests {
 
         #[derive(Debug, PartialEq, Eq)]
         struct SpecialU32(u32);
-        impl ToGlib for SpecialU32 {
+        impl IntoGlib for SpecialU32 {
             type GlibType = libc::c_uint;
-            fn to_glib(&self) -> libc::c_uint {
+            fn into_glib(self) -> libc::c_uint {
                 self.0 as libc::c_uint
             }
         }
-        impl OptionToGlib for SpecialU32 {
+        impl OptionIntoGlib for SpecialU32 {
             const GLIB_NONE: Self::GlibType = CLONG_NONE as libc::c_uint;
         }
 
-        assert_eq!(SpecialU32(0).to_glib(), 0);
-        assert_eq!(SpecialU32(42).to_glib(), 42);
-        assert_eq!(Some(SpecialU32(0)).to_glib(), 0);
-        assert_eq!(Some(SpecialU32(42)).to_glib(), 42);
-        assert_eq!(Option::None::<SpecialU32>.to_glib(), SpecialU32::GLIB_NONE);
+        assert_eq!(SpecialU32(0).into_glib(), 0);
+        assert_eq!(SpecialU32(42).into_glib(), 42);
+        assert_eq!(Some(SpecialU32(0)).into_glib(), 0);
+        assert_eq!(Some(SpecialU32(42)).into_glib(), 42);
+        assert_eq!(
+            Option::None::<SpecialU32>.into_glib(),
+            SpecialU32::GLIB_NONE
+        );
 
         impl TryFromGlib<libc::c_uint> for SpecialU32 {
             type Error = GlibNoneError;
@@ -2508,20 +2528,23 @@ mod tests {
 
         #[derive(Debug, PartialEq, Eq)]
         struct SpecialU32(u32);
-        impl ToGlib for SpecialU32 {
+        impl IntoGlib for SpecialU32 {
             type GlibType = libc::c_long;
-            fn to_glib(&self) -> libc::c_long {
+            fn into_glib(self) -> libc::c_long {
                 self.0 as libc::c_long
             }
         }
-        impl OptionToGlib for SpecialU32 {
+        impl OptionIntoGlib for SpecialU32 {
             const GLIB_NONE: Self::GlibType = -1;
         }
 
-        assert_eq!(SpecialU32(0).to_glib(), 0);
-        assert_eq!(SpecialU32(42).to_glib(), 42);
-        assert_eq!(Some(SpecialU32(42)).to_glib(), 42);
-        assert_eq!(Option::None::<SpecialU32>.to_glib(), SpecialU32::GLIB_NONE);
+        assert_eq!(SpecialU32(0).into_glib(), 0);
+        assert_eq!(SpecialU32(42).into_glib(), 42);
+        assert_eq!(Some(SpecialU32(42)).into_glib(), 42);
+        assert_eq!(
+            Option::None::<SpecialU32>.into_glib(),
+            SpecialU32::GLIB_NONE
+        );
 
         impl TryFromGlib<libc::c_long> for SpecialU32 {
             type Error = GlibNoneOrInvalidError<TryFromIntError>;

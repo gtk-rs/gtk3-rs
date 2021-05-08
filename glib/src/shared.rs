@@ -62,7 +62,7 @@ macro_rules! glib_shared_wrapper {
         #[doc(hidden)]
         impl $crate::value::ToValueOptional for $name {
             fn to_value_optional(s: Option<&Self>) -> $crate::Value {
-                let mut value = $crate::Value::for_value_type::<$name>();
+                let mut value = $crate::Value::for_value_type::<Self>();
                 unsafe {
                     $crate::gobject_ffi::g_value_take_boxed(
                         $crate::translate::ToGlibPtrMut::to_glib_none_mut(&mut value).0,
@@ -339,7 +339,7 @@ impl<T, MM: SharedMemoryManager<T>> Clone for Shared<T, MM> {
         unsafe {
             MM::ref_(self.inner.as_ptr());
         }
-        Shared {
+        Self {
             inner: self.inner,
             mm: PhantomData,
         }
@@ -408,7 +408,7 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrNone<*mut T> for Shared<
     unsafe fn from_glib_none(ptr: *mut T) -> Self {
         assert!(!ptr.is_null());
         MM::ref_(ptr);
-        Shared {
+        Self {
             inner: ptr::NonNull::new_unchecked(ptr),
             mm: PhantomData,
         }
@@ -420,7 +420,7 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrNone<*const T> for Share
     unsafe fn from_glib_none(ptr: *const T) -> Self {
         assert!(!ptr.is_null());
         MM::ref_(ptr as *mut _);
-        Shared {
+        Self {
             inner: ptr::NonNull::new_unchecked(ptr as *mut _),
             mm: PhantomData,
         }
@@ -431,7 +431,7 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrFull<*mut T> for Shared<
     #[inline]
     unsafe fn from_glib_full(ptr: *mut T) -> Self {
         assert!(!ptr.is_null());
-        Shared {
+        Self {
             inner: ptr::NonNull::new_unchecked(ptr),
             mm: PhantomData,
         }
@@ -442,7 +442,7 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrBorrow<*mut T> for Share
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut T) -> Borrowed<Self> {
         assert!(!ptr.is_null());
-        Borrowed::new(Shared {
+        Borrowed::new(Self {
             inner: ptr::NonNull::new_unchecked(ptr),
             mm: PhantomData,
         })

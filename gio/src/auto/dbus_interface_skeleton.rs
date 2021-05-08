@@ -36,21 +36,27 @@ pub trait DBusInterfaceSkeletonExt: 'static {
     fn flush(&self);
 
     #[doc(alias = "g_dbus_interface_skeleton_get_connection")]
+    #[doc(alias = "get_connection")]
     fn connection(&self) -> Option<DBusConnection>;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_connections")]
+    #[doc(alias = "get_connections")]
     fn connections(&self) -> Vec<DBusConnection>;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_flags")]
+    #[doc(alias = "get_flags")]
     fn flags(&self) -> DBusInterfaceSkeletonFlags;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_object_path")]
+    #[doc(alias = "get_object_path")]
     fn object_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_properties")]
+    #[doc(alias = "get_properties")]
     fn properties(&self) -> glib::Variant;
 
     //#[doc(alias = "g_dbus_interface_skeleton_get_vtable")]
+    //#[doc(alias = "get_vtable")]
     //fn vtable(&self) -> /*Ignored*/DBusInterfaceVTable;
 
     #[doc(alias = "g_dbus_interface_skeleton_has_connection")]
@@ -65,18 +71,20 @@ pub trait DBusInterfaceSkeletonExt: 'static {
     #[doc(alias = "g_dbus_interface_skeleton_unexport_from_connection")]
     fn unexport_from_connection(&self, connection: &DBusConnection);
 
-    #[doc(alias = "get_property_g_flags")]
+    #[doc(alias = "g-flags")]
     fn g_flags(&self) -> DBusInterfaceSkeletonFlags;
 
-    #[doc(alias = "set_property_g_flags")]
+    #[doc(alias = "g-flags")]
     fn set_g_flags(&self, g_flags: DBusInterfaceSkeletonFlags);
 
+    #[doc(alias = "g-authorize-method")]
     fn connect_g_authorize_method<F: Fn(&Self, &DBusMethodInvocation) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_g_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "g-flags")]
+    fn connect_g_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
@@ -160,7 +168,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         unsafe {
             ffi::g_dbus_interface_skeleton_set_flags(
                 self.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             );
         }
     }
@@ -205,6 +213,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
+    #[doc(alias = "g-authorize-method")]
     fn connect_g_authorize_method<F: Fn(&Self, &DBusMethodInvocation) -> bool + 'static>(
         &self,
         f: F,
@@ -225,7 +234,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
                 &DBusInterfaceSkeleton::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(invocation),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -240,7 +249,8 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn connect_property_g_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "g-flags")]
+    fn connect_g_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_g_flags_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GDBusInterfaceSkeleton,
             _param_spec: glib::ffi::gpointer,

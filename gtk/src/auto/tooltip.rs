@@ -40,7 +40,7 @@ impl Tooltip {
             ffi::gtk_tooltip_set_icon_from_gicon(
                 self.to_glib_none().0,
                 gicon.map(|p| p.as_ref()).to_glib_none().0,
-                size.to_glib(),
+                size.into_glib(),
             );
         }
     }
@@ -51,7 +51,7 @@ impl Tooltip {
             ffi::gtk_tooltip_set_icon_from_icon_name(
                 self.to_glib_none().0,
                 icon_name.to_glib_none().0,
-                size.to_glib(),
+                size.into_glib(),
             );
         }
     }

@@ -19,9 +19,11 @@ pub const NONE_ASYNC_RESULT: Option<&AsyncResult> = None;
 
 pub trait AsyncResultExt: 'static {
     #[doc(alias = "g_async_result_get_source_object")]
+    #[doc(alias = "get_source_object")]
     fn source_object(&self) -> Option<glib::Object>;
 
     //#[doc(alias = "g_async_result_get_user_data")]
+    //#[doc(alias = "get_user_data")]
     //fn user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     //#[doc(alias = "g_async_result_is_tagged")]

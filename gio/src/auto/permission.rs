@@ -41,12 +41,15 @@ pub trait PermissionExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_permission_get_allowed")]
+    #[doc(alias = "get_allowed")]
     fn is_allowed(&self) -> bool;
 
     #[doc(alias = "g_permission_get_can_acquire")]
+    #[doc(alias = "get_can_acquire")]
     fn can_acquire(&self) -> bool;
 
     #[doc(alias = "g_permission_get_can_release")]
+    #[doc(alias = "get_can_release")]
     fn can_release(&self) -> bool;
 
     #[doc(alias = "g_permission_impl_update")]
@@ -66,11 +69,14 @@ pub trait PermissionExt: 'static {
         &self,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
-    fn connect_property_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "allowed")]
+    fn connect_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_can_acquire_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "can-acquire")]
+    fn connect_can_acquire_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_can_release_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "can-release")]
+    fn connect_can_release_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Permission>> PermissionExt for O {
@@ -165,9 +171,9 @@ impl<O: IsA<Permission>> PermissionExt for O {
         unsafe {
             ffi::g_permission_impl_update(
                 self.as_ref().to_glib_none().0,
-                allowed.to_glib(),
-                can_acquire.to_glib(),
-                can_release.to_glib(),
+                allowed.into_glib(),
+                can_acquire.into_glib(),
+                can_release.into_glib(),
             );
         }
     }
@@ -235,7 +241,8 @@ impl<O: IsA<Permission>> PermissionExt for O {
         }))
     }
 
-    fn connect_property_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "allowed")]
+    fn connect_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_allowed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GPermission,
             _param_spec: glib::ffi::gpointer,
@@ -259,7 +266,8 @@ impl<O: IsA<Permission>> PermissionExt for O {
         }
     }
 
-    fn connect_property_can_acquire_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "can-acquire")]
+    fn connect_can_acquire_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_can_acquire_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GPermission,
             _param_spec: glib::ffi::gpointer,
@@ -283,7 +291,8 @@ impl<O: IsA<Permission>> PermissionExt for O {
         }
     }
 
-    fn connect_property_can_release_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "can-release")]
+    fn connect_can_release_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_can_release_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GPermission,
             _param_spec: glib::ffi::gpointer,

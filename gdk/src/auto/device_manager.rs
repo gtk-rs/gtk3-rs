@@ -24,6 +24,7 @@ glib::wrapper! {
 impl DeviceManager {
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gdk_device_manager_get_client_pointer")]
+    #[doc(alias = "get_client_pointer")]
     pub fn client_pointer(&self) -> Option<Device> {
         unsafe {
             from_glib_none(ffi::gdk_device_manager_get_client_pointer(
@@ -33,6 +34,7 @@ impl DeviceManager {
     }
 
     #[doc(alias = "gdk_device_manager_get_display")]
+    #[doc(alias = "get_display")]
     pub fn display(&self) -> Option<Display> {
         unsafe { from_glib_none(ffi::gdk_device_manager_get_display(self.to_glib_none().0)) }
     }
@@ -43,11 +45,12 @@ impl DeviceManager {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_manager_list_devices(
                 self.to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             ))
         }
     }
 
+    #[doc(alias = "device-added")]
     pub fn connect_device_added<F: Fn(&DeviceManager, &Device) + 'static>(
         &self,
         f: F,
@@ -73,6 +76,7 @@ impl DeviceManager {
         }
     }
 
+    #[doc(alias = "device-changed")]
     pub fn connect_device_changed<F: Fn(&DeviceManager, &Device) + 'static>(
         &self,
         f: F,
@@ -98,6 +102,7 @@ impl DeviceManager {
         }
     }
 
+    #[doc(alias = "device-removed")]
     pub fn connect_device_removed<F: Fn(&DeviceManager, &Device) + 'static>(
         &self,
         f: F,

@@ -8,8 +8,8 @@ pub struct Notebook {
 }
 
 impl Notebook {
-    pub fn new() -> Notebook {
-        Notebook {
+    pub fn new() -> Self {
+        Self {
             notebook: gtk::Notebook::new(),
             tabs: Vec::new(),
         }

@@ -3,7 +3,7 @@
 //! Runtime type information.
 
 use crate::translate::{
-    from_glib, FromGlib, FromGlibContainerAsVec, ToGlib, ToGlibContainerFromSlice, ToGlibPtr,
+    from_glib, FromGlib, FromGlibContainerAsVec, IntoGlib, ToGlibContainerFromSlice, ToGlibPtr,
     ToGlibPtrMut,
 };
 
@@ -84,7 +84,7 @@ impl Type {
 
     #[doc(alias = "g_type_name")]
     pub fn name<'a>(self) -> &'a str {
-        match self.to_glib() {
+        match self.into_glib() {
             gobject_ffi::G_TYPE_INVALID => "<invalid>",
             x => unsafe {
                 let ptr = gobject_ffi::g_type_name(x);
@@ -95,7 +95,7 @@ impl Type {
 
     #[doc(alias = "g_type_qname")]
     pub fn qname(self) -> crate::Quark {
-        match self.to_glib() {
+        match self.into_glib() {
             gobject_ffi::G_TYPE_INVALID => crate::Quark::from_string("<invalid>"),
             x => unsafe { from_glib(gobject_ffi::g_type_qname(x)) },
         }
@@ -103,13 +103,18 @@ impl Type {
 
     #[doc(alias = "g_type_is_a")]
     pub fn is_a(self, other: Self) -> bool {
-        unsafe { from_glib(gobject_ffi::g_type_is_a(self.to_glib(), other.to_glib())) }
+        unsafe {
+            from_glib(gobject_ffi::g_type_is_a(
+                self.into_glib(),
+                other.into_glib(),
+            ))
+        }
     }
 
     #[doc(alias = "g_type_parent")]
     pub fn parent(self) -> Option<Self> {
         unsafe {
-            let parent: Self = from_glib(gobject_ffi::g_type_parent(self.to_glib()));
+            let parent: Self = from_glib(gobject_ffi::g_type_parent(self.into_glib()));
             Some(parent).filter(|t| t.is_valid())
         }
     }
@@ -118,7 +123,7 @@ impl Type {
     pub fn children(self) -> Vec<Self> {
         unsafe {
             let mut n_children = 0u32;
-            let children = gobject_ffi::g_type_children(self.to_glib(), &mut n_children);
+            let children = gobject_ffi::g_type_children(self.into_glib(), &mut n_children);
 
             FromGlibContainerAsVec::from_glib_full_num_as_vec(children, n_children as usize)
         }
@@ -128,7 +133,7 @@ impl Type {
     pub fn interfaces(self) -> Vec<Self> {
         unsafe {
             let mut n_interfaces = 0u32;
-            let interfaces = gobject_ffi::g_type_interfaces(self.to_glib(), &mut n_interfaces);
+            let interfaces = gobject_ffi::g_type_interfaces(self.into_glib(), &mut n_interfaces);
 
             FromGlibContainerAsVec::from_glib_full_num_as_vec(interfaces, n_interfaces as usize)
         }
@@ -141,7 +146,7 @@ impl Type {
             _ => unsafe {
                 let mut n_prereqs = 0u32;
                 let prereqs =
-                    gobject_ffi::g_type_interface_prerequisites(self.to_glib(), &mut n_prereqs);
+                    gobject_ffi::g_type_interface_prerequisites(self.into_glib(), &mut n_prereqs);
 
                 FromGlibContainerAsVec::from_glib_full_num_as_vec(prereqs, n_prereqs as usize)
             },
@@ -208,7 +213,7 @@ impl crate::value::ToValue for Type {
     fn to_value(&self) -> crate::Value {
         unsafe {
             let mut value = crate::Value::from_type(Type::static_type());
-            gobject_ffi::g_value_set_gtype(value.to_glib_none_mut().0, self.to_glib());
+            gobject_ffi::g_value_set_gtype(value.to_glib_none_mut().0, self.into_glib());
             value
         }
     }
@@ -382,22 +387,22 @@ impl StaticType for () {
 pub unsafe fn instance_of<C: StaticType>(ptr: ffi::gconstpointer) -> bool {
     from_glib(gobject_ffi::g_type_check_instance_is_a(
         ptr as *mut _,
-        <C as StaticType>::static_type().to_glib(),
+        <C as StaticType>::static_type().into_glib(),
     ))
 }
 
 impl FromGlib<ffi::GType> for Type {
     #[inline]
-    unsafe fn from_glib(val: ffi::GType) -> Type {
+    unsafe fn from_glib(val: ffi::GType) -> Self {
         Self(val)
     }
 }
 
-impl ToGlib for Type {
+impl IntoGlib for Type {
     type GlibType = ffi::GType;
 
     #[inline]
-    fn to_glib(&self) -> ffi::GType {
+    fn into_glib(self) -> ffi::GType {
         self.0
     }
 }
@@ -406,7 +411,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut ffi::GType> for Type {
     type Storage = Option<Vec<ffi::GType>>;
 
     fn to_glib_none_from_slice(t: &'a [Type]) -> (*mut ffi::GType, Self::Storage) {
-        let mut vec = t.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
+        let mut vec = t.iter().map(|t| t.into_glib()).collect::<Vec<_>>();
 
         (vec.as_mut_ptr(), Some(vec))
     }
@@ -424,7 +429,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut ffi::GType> for Type {
             let res =
                 ffi::g_malloc0(mem::size_of::<ffi::GType>() * (t.len() + 1)) as *mut ffi::GType;
             for (i, v) in t.iter().enumerate() {
-                *res.add(i) = v.to_glib();
+                *res.add(i) = v.into_glib();
             }
             res
         }

@@ -21,6 +21,7 @@ pub const NONE_BIN: Option<&Bin> = None;
 
 pub trait BinExt: 'static {
     #[doc(alias = "gtk_bin_get_child")]
+    #[doc(alias = "get_child")]
     fn child(&self) -> Option<Widget>;
 }
 

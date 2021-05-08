@@ -47,8 +47,6 @@ pub trait ContainerExt: 'static {
     #[doc(alias = "gtk_container_child_notify")]
     fn child_notify<P: IsA<Widget>>(&self, child: &P, child_property: &str);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     #[doc(alias = "gtk_container_child_notify_by_pspec")]
     fn child_notify_by_pspec<P: IsA<Widget>>(&self, child: &P, pspec: &glib::ParamSpec);
 
@@ -68,25 +66,32 @@ pub trait ContainerExt: 'static {
     fn foreach<P: FnMut(&Widget)>(&self, callback: P);
 
     #[doc(alias = "gtk_container_get_border_width")]
+    #[doc(alias = "get_border_width")]
     fn border_width(&self) -> u32;
 
     #[doc(alias = "gtk_container_get_children")]
+    #[doc(alias = "get_children")]
     fn children(&self) -> Vec<Widget>;
 
     //#[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
     //#[doc(alias = "gtk_container_get_focus_chain")]
+    //#[doc(alias = "get_focus_chain")]
     //fn focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool;
 
     #[doc(alias = "gtk_container_get_focus_child")]
+    #[doc(alias = "get_focus_child")]
     fn focus_child(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_container_get_focus_hadjustment")]
+    #[doc(alias = "get_focus_hadjustment")]
     fn focus_hadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_container_get_focus_vadjustment")]
+    #[doc(alias = "get_focus_vadjustment")]
     fn focus_vadjustment(&self) -> Option<Adjustment>;
 
     #[doc(alias = "gtk_container_get_path_for_child")]
+    #[doc(alias = "get_path_for_child")]
     fn path_for_child<P: IsA<Widget>>(&self, child: &P) -> Option<WidgetPath>;
 
     #[doc(alias = "gtk_container_propagate_draw")]
@@ -115,29 +120,34 @@ pub trait ContainerExt: 'static {
     #[doc(alias = "gtk_container_unset_focus_chain")]
     fn unset_focus_chain(&self);
 
-    #[doc(alias = "set_property_child")]
     fn set_child<P: IsA<Widget>>(&self, child: Option<&P>);
 
-    #[doc(alias = "get_property_resize_mode")]
+    #[doc(alias = "resize-mode")]
     fn resize_mode(&self) -> ResizeMode;
 
-    #[doc(alias = "set_property_resize_mode")]
+    #[doc(alias = "resize-mode")]
     fn set_resize_mode(&self, resize_mode: ResizeMode);
 
+    #[doc(alias = "add")]
     fn connect_add<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "check-resize")]
     fn connect_check_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "remove")]
     fn connect_remove<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "set-focus-child")]
     fn connect_set_focus_child<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_border_width_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "border-width")]
+    fn connect_border_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "child")]
+    fn connect_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_resize_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "resize-mode")]
+    fn connect_resize_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Container>> ContainerExt for O {
@@ -178,8 +188,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn child_notify_by_pspec<P: IsA<Widget>>(&self, child: &P, pspec: &glib::ParamSpec) {
         unsafe {
             ffi::gtk_container_child_notify_by_pspec(
@@ -398,6 +406,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
+    #[doc(alias = "add")]
     fn connect_add<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn add_trampoline<P, F: Fn(&P, &Widget) + 'static>(
             this: *mut ffi::GtkContainer,
@@ -425,6 +434,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
+    #[doc(alias = "check-resize")]
     fn connect_check_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn check_resize_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkContainer,
@@ -448,6 +458,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
+    #[doc(alias = "remove")]
     fn connect_remove<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn remove_trampoline<P, F: Fn(&P, &Widget) + 'static>(
             this: *mut ffi::GtkContainer,
@@ -475,6 +486,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
+    #[doc(alias = "set-focus-child")]
     fn connect_set_focus_child<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn set_focus_child_trampoline<P, F: Fn(&P, &Widget) + 'static>(
             this: *mut ffi::GtkContainer,
@@ -502,10 +514,8 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn connect_property_border_width_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "border-width")]
+    fn connect_border_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_border_width_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkContainer,
             _param_spec: glib::ffi::gpointer,
@@ -529,7 +539,8 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn connect_property_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "child")]
+    fn connect_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_child_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkContainer,
             _param_spec: glib::ffi::gpointer,
@@ -553,7 +564,8 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn connect_property_resize_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "resize-mode")]
+    fn connect_resize_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_resize_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkContainer,
             _param_spec: glib::ffi::gpointer,

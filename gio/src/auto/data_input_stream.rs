@@ -73,8 +73,8 @@ impl DataInputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        let ret = glib::Object::new::<DataInputStream>(&properties).expect("object new");
-        ret
+        glib::Object::new::<DataInputStream>(&properties)
+            .expect("Failed to create an instance of DataInputStream")
     }
 
     pub fn byte_order(mut self, byte_order: DataStreamByteOrder) -> Self {
@@ -107,9 +107,11 @@ pub const NONE_DATA_INPUT_STREAM: Option<&DataInputStream> = None;
 
 pub trait DataInputStreamExt: 'static {
     #[doc(alias = "g_data_input_stream_get_byte_order")]
+    #[doc(alias = "get_byte_order")]
     fn byte_order(&self) -> DataStreamByteOrder;
 
     #[doc(alias = "g_data_input_stream_get_newline_type")]
+    #[doc(alias = "get_newline_type")]
     fn newline_type(&self) -> DataStreamNewlineType;
 
     #[doc(alias = "g_data_input_stream_read_byte")]
@@ -142,10 +144,11 @@ pub trait DataInputStreamExt: 'static {
     #[doc(alias = "g_data_input_stream_set_newline_type")]
     fn set_newline_type(&self, type_: DataStreamNewlineType);
 
-    fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "byte-order")]
+    fn connect_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_newline_type_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "newline-type")]
+    fn connect_newline_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
@@ -290,7 +293,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         unsafe {
             ffi::g_data_input_stream_set_byte_order(
                 self.as_ref().to_glib_none().0,
-                order.to_glib(),
+                order.into_glib(),
             );
         }
     }
@@ -299,12 +302,13 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         unsafe {
             ffi::g_data_input_stream_set_newline_type(
                 self.as_ref().to_glib_none().0,
-                type_.to_glib(),
+                type_.into_glib(),
             );
         }
     }
 
-    fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "byte-order")]
+    fn connect_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GDataInputStream,
             _param_spec: glib::ffi::gpointer,
@@ -328,10 +332,8 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         }
     }
 
-    fn connect_property_newline_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "newline-type")]
+    fn connect_newline_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_newline_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GDataInputStream,
             _param_spec: glib::ffi::gpointer,

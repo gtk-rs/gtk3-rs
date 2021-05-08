@@ -76,7 +76,7 @@ jobs:
           - { name: "gdk-pixbuf", test: true, test-sys: false, args: "--features v2_40" }
           - { name: "gio", test: true, test-sys: false, args: "--features v2_66" }
           - { name: "glib", test: true, test-sys: false, args: "--features v2_66" }
-          - { name: "graphene", test: false, test-sys: false, args: "--features v1_10" }
+          - { name: "graphene", test: false, test-sys: false, args: "" }
           - { name: "gtk", test: true, test-sys: false, args: "--features v3_24_9" }
           - { name: "pango", test: true, test-sys: false, args: "--features v1_46" }
           - { name: "pangocairo", test: true, test-sys: false, args: "" }

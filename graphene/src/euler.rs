@@ -19,7 +19,8 @@ impl Euler {
     }
 
     #[doc(alias = "graphene_euler_init_from_euler")]
-    pub fn new_from_euler(src: Option<&Euler>) -> Euler {
+    #[doc(alias = "new_from_euler")]
+    pub fn from_euler(src: Option<&Euler>) -> Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
@@ -29,31 +30,34 @@ impl Euler {
     }
 
     #[doc(alias = "graphene_euler_init_from_matrix")]
-    pub fn new_from_matrix(m: Option<&Matrix>, order: EulerOrder) -> Euler {
+    #[doc(alias = "new_from_matrix")]
+    pub fn from_matrix(m: Option<&Matrix>, order: EulerOrder) -> Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
-            ffi::graphene_euler_init_from_matrix(alloc, m.to_glib_none().0, order.to_glib());
+            ffi::graphene_euler_init_from_matrix(alloc, m.to_glib_none().0, order.into_glib());
             from_glib_full(alloc)
         }
     }
 
     #[doc(alias = "graphene_euler_init_from_quaternion")]
-    pub fn new_from_quaternion(q: Option<&Quaternion>, order: EulerOrder) -> Euler {
+    #[doc(alias = "new_from_quaternion")]
+    pub fn from_quaternion(q: Option<&Quaternion>, order: EulerOrder) -> Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
-            ffi::graphene_euler_init_from_quaternion(alloc, q.to_glib_none().0, order.to_glib());
+            ffi::graphene_euler_init_from_quaternion(alloc, q.to_glib_none().0, order.into_glib());
             from_glib_full(alloc)
         }
     }
 
     #[doc(alias = "graphene_euler_init_from_vec3")]
-    pub fn new_from_vec3(v: Option<&Vec3>, order: EulerOrder) -> Euler {
+    #[doc(alias = "new_from_vec3")]
+    pub fn from_vec3(v: Option<&Vec3>, order: EulerOrder) -> Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
-            ffi::graphene_euler_init_from_vec3(alloc, v.to_glib_none().0, order.to_glib());
+            ffi::graphene_euler_init_from_vec3(alloc, v.to_glib_none().0, order.into_glib());
             from_glib_full(alloc)
         }
     }
@@ -63,7 +67,7 @@ impl Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_euler_alloc();
-            ffi::graphene_euler_init_with_order(alloc, x, y, z, order.to_glib());
+            ffi::graphene_euler_init_with_order(alloc, x, y, z, order.into_glib());
             from_glib_full(alloc)
         }
     }

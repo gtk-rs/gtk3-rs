@@ -38,6 +38,7 @@ impl Expander {
     }
 
     #[doc(alias = "gtk_expander_new_with_mnemonic")]
+    #[doc(alias = "new_with_mnemonic")]
     pub fn with_mnemonic(label: &str) -> Expander {
         assert_initialized_main_thread!();
         unsafe {
@@ -233,8 +234,8 @@ impl ExpanderBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<Expander>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Expander>(&properties)
+            .expect("Failed to create an instance of Expander")
     }
 
     pub fn expanded(mut self, expanded: bool) -> Self {
@@ -459,28 +460,36 @@ pub const NONE_EXPANDER: Option<&Expander> = None;
 
 pub trait ExpanderExt: 'static {
     #[doc(alias = "gtk_expander_get_expanded")]
+    #[doc(alias = "get_expanded")]
     fn is_expanded(&self) -> bool;
 
     #[doc(alias = "gtk_expander_get_label")]
+    #[doc(alias = "get_label")]
     fn label(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_expander_get_label_fill")]
+    #[doc(alias = "get_label_fill")]
     fn is_label_fill(&self) -> bool;
 
     #[doc(alias = "gtk_expander_get_label_widget")]
+    #[doc(alias = "get_label_widget")]
     fn label_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_expander_get_resize_toplevel")]
+    #[doc(alias = "get_resize_toplevel")]
     fn resizes_toplevel(&self) -> bool;
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_expander_get_spacing")]
+    #[doc(alias = "get_spacing")]
     fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_expander_get_use_markup")]
+    #[doc(alias = "get_use_markup")]
     fn uses_markup(&self) -> bool;
 
     #[doc(alias = "gtk_expander_get_use_underline")]
+    #[doc(alias = "get_use_underline")]
     fn uses_underline(&self) -> bool;
 
     #[doc(alias = "gtk_expander_set_expanded")]
@@ -508,33 +517,35 @@ pub trait ExpanderExt: 'static {
     #[doc(alias = "gtk_expander_set_use_underline")]
     fn set_use_underline(&self, use_underline: bool);
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn emit_activate(&self);
 
-    fn connect_property_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "expanded")]
+    fn connect_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "label")]
+    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_label_fill_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "label-fill")]
+    fn connect_label_fill_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "label-widget")]
+    fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_resize_toplevel_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "resize-toplevel")]
+    fn connect_resize_toplevel_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "use-markup")]
+    fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_use_underline_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "use-underline")]
+    fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Expander>> ExpanderExt for O {
@@ -596,7 +607,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
 
     fn set_expanded(&self, expanded: bool) {
         unsafe {
-            ffi::gtk_expander_set_expanded(self.as_ref().to_glib_none().0, expanded.to_glib());
+            ffi::gtk_expander_set_expanded(self.as_ref().to_glib_none().0, expanded.into_glib());
         }
     }
 
@@ -608,7 +619,10 @@ impl<O: IsA<Expander>> ExpanderExt for O {
 
     fn set_label_fill(&self, label_fill: bool) {
         unsafe {
-            ffi::gtk_expander_set_label_fill(self.as_ref().to_glib_none().0, label_fill.to_glib());
+            ffi::gtk_expander_set_label_fill(
+                self.as_ref().to_glib_none().0,
+                label_fill.into_glib(),
+            );
         }
     }
 
@@ -625,7 +639,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         unsafe {
             ffi::gtk_expander_set_resize_toplevel(
                 self.as_ref().to_glib_none().0,
-                resize_toplevel.to_glib(),
+                resize_toplevel.into_glib(),
             );
         }
     }
@@ -638,7 +652,10 @@ impl<O: IsA<Expander>> ExpanderExt for O {
 
     fn set_use_markup(&self, use_markup: bool) {
         unsafe {
-            ffi::gtk_expander_set_use_markup(self.as_ref().to_glib_none().0, use_markup.to_glib());
+            ffi::gtk_expander_set_use_markup(
+                self.as_ref().to_glib_none().0,
+                use_markup.into_glib(),
+            );
         }
     }
 
@@ -646,11 +663,12 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         unsafe {
             ffi::gtk_expander_set_use_underline(
                 self.as_ref().to_glib_none().0,
-                use_underline.to_glib(),
+                use_underline.into_glib(),
             );
         }
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -682,7 +700,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         };
     }
 
-    fn connect_property_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "expanded")]
+    fn connect_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_expanded_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
             _param_spec: glib::ffi::gpointer,
@@ -706,7 +725,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn connect_property_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "label")]
+    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
             _param_spec: glib::ffi::gpointer,
@@ -730,7 +750,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn connect_property_label_fill_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "label-fill")]
+    fn connect_label_fill_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_fill_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
             _param_spec: glib::ffi::gpointer,
@@ -754,10 +775,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn connect_property_label_widget_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "label-widget")]
+    fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_widget_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
             _param_spec: glib::ffi::gpointer,
@@ -781,10 +800,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn connect_property_resize_toplevel_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "resize-toplevel")]
+    fn connect_resize_toplevel_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_resize_toplevel_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
             _param_spec: glib::ffi::gpointer,
@@ -808,7 +825,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
             _param_spec: glib::ffi::gpointer,
@@ -832,7 +850,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn connect_property_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "use-markup")]
+    fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_markup_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
             _param_spec: glib::ffi::gpointer,
@@ -856,10 +875,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn connect_property_use_underline_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "use-underline")]
+    fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
             _param_spec: glib::ffi::gpointer,

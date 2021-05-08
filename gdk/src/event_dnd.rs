@@ -17,14 +17,17 @@ event_subtype!(
 );
 
 impl EventDND {
+    #[doc(alias = "get_context")]
     pub fn context(&self) -> Option<crate::DragContext> {
         unsafe { from_glib_none(self.as_ref().context) }
     }
 
+    #[doc(alias = "get_time")]
     pub fn time(&self) -> u32 {
         self.as_ref().time
     }
 
+    #[doc(alias = "get_root")]
     pub fn root(&self) -> (i16, i16) {
         let x_root = self.as_ref().x_root;
         let y_root = self.as_ref().y_root;

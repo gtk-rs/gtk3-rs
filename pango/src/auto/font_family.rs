@@ -23,9 +23,11 @@ pub trait FontFamilyExt: 'static {
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     #[doc(alias = "pango_font_family_get_face")]
+    #[doc(alias = "get_face")]
     fn face(&self, name: Option<&str>) -> Option<FontFace>;
 
     #[doc(alias = "pango_font_family_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "pango_font_family_is_monospace")]

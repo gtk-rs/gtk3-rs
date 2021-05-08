@@ -32,7 +32,7 @@ impl Error {
     pub fn new<T: ErrorDomain>(error: T, message: &str) -> Error {
         unsafe {
             from_glib_full(ffi::g_error_new_literal(
-                T::domain().to_glib(),
+                T::domain().into_glib(),
                 error.code(),
                 message.to_glib_none().0,
             ))
@@ -41,7 +41,7 @@ impl Error {
 
     /// Checks if the error domain matches `T`.
     pub fn is<T: ErrorDomain>(&self) -> bool {
-        self.0.domain == T::domain().to_glib()
+        self.0.domain == T::domain().into_glib()
     }
 
     /// Tries to convert to a specific error enum.
@@ -58,14 +58,6 @@ impl Error {
     ///         FileError::Isdir => ...
     ///         ...
     ///     }
-    /// }
-    /// ```
-    ///
-    /// ```ignore
-    /// match error.kind::<FileError>() {
-    ///     Some(FileError::Exist) => ...
-    ///     Some(FileError::Isdir) => ...
-    ///     ...
     /// }
     /// ```
     pub fn kind<T: ErrorDomain>(&self) -> Option<T> {
@@ -181,7 +173,7 @@ impl BoolError {
         function: &'static str,
         line: u32,
     ) -> Self {
-        BoolError {
+        Self {
             message: message.into(),
             filename,
             function,

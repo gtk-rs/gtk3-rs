@@ -12,8 +12,11 @@ use std::ffi::CString;
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
 
-use crate::enums::{Antialias, HintMetrics, HintStyle, SubpixelOrder};
 use crate::utils::status_to_result;
+use crate::{
+    enums::{Antialias, HintMetrics, HintStyle, SubpixelOrder},
+    Error,
+};
 
 #[cfg(feature = "use_glib")]
 glib::wrapper! {
@@ -38,25 +41,25 @@ pub struct FontOptions(ptr::NonNull<ffi::cairo_font_options_t>);
 
 impl FontOptions {
     #[doc(alias = "cairo_font_options_create")]
-    pub fn new() -> FontOptions {
+    pub fn new() -> Result<FontOptions, Error> {
         let font_options: FontOptions =
             unsafe { FontOptions::from_raw_full(ffi::cairo_font_options_create()) };
 
         let status = unsafe { ffi::cairo_font_options_status(font_options.to_raw_none()) };
-        status_to_result(status).expect("Failed to create a font option");
+        status_to_result(status)?;
 
-        font_options
+        Ok(font_options)
     }
 
     #[cfg(feature = "use_glib")]
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> Self {
         from_glib_full(ptr)
     }
 
     #[cfg(not(feature = "use_glib"))]
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> Self {
         assert!(!ptr.is_null());
-        FontOptions(ptr::NonNull::new_unchecked(ptr))
+        Self(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[cfg(feature = "use_glib")]
@@ -80,6 +83,7 @@ impl FontOptions {
     }
 
     #[doc(alias = "cairo_font_options_get_antialias")]
+    #[doc(alias = "get_antialias")]
     pub fn antialias(&self) -> Antialias {
         unsafe { Antialias::from(ffi::cairo_font_options_get_antialias(self.to_raw_none())) }
     }
@@ -90,6 +94,7 @@ impl FontOptions {
     }
 
     #[doc(alias = "cairo_font_options_get_subpixel_order")]
+    #[doc(alias = "get_subpixel_order")]
     pub fn subpixel_order(&self) -> SubpixelOrder {
         unsafe {
             SubpixelOrder::from(ffi::cairo_font_options_get_subpixel_order(
@@ -104,6 +109,7 @@ impl FontOptions {
     }
 
     #[doc(alias = "cairo_font_options_get_hint_style")]
+    #[doc(alias = "get_hint_style")]
     pub fn hint_style(&self) -> HintStyle {
         unsafe { HintStyle::from(ffi::cairo_font_options_get_hint_style(self.to_raw_none())) }
     }
@@ -114,12 +120,14 @@ impl FontOptions {
     }
 
     #[doc(alias = "cairo_font_options_get_hint_metrics")]
+    #[doc(alias = "get_hint_metrics")]
     pub fn hint_metrics(&self) -> HintMetrics {
         unsafe { HintMetrics::from(ffi::cairo_font_options_get_hint_metrics(self.to_raw_none())) }
     }
 
     #[cfg(any(feature = "v1_16", feature = "dox"))]
     #[doc(alias = "cairo_font_options_get_variations")]
+    #[doc(alias = "get_variations")]
     pub fn variations(&self) -> Option<String> {
         unsafe { to_optional_string(ffi::cairo_font_options_get_variations(self.to_raw_none())) }
     }
@@ -140,6 +148,12 @@ impl FontOptions {
             }
         }
     }
+
+    #[doc(alias = "cairo_font_options_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_font_options_status(self.to_raw_none()) };
+        status_to_result(status)
+    }
 }
 
 impl PartialEq for FontOptions {
@@ -158,12 +172,6 @@ impl hash::Hash for FontOptions {
         H: hash::Hasher,
     {
         unsafe { hash::Hash::hash(&ffi::cairo_font_options_hash(self.to_raw_none()), state) }
-    }
-}
-
-impl Default for FontOptions {
-    fn default() -> Self {
-        Self::new()
     }
 }
 

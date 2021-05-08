@@ -45,6 +45,7 @@ pub trait CellRendererExt: 'static {
     ) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_get_aligned_area")]
+    #[doc(alias = "get_aligned_area")]
     fn aligned_area<P: IsA<Widget>>(
         &self,
         widget: &P,
@@ -53,36 +54,47 @@ pub trait CellRendererExt: 'static {
     ) -> gdk::Rectangle;
 
     #[doc(alias = "gtk_cell_renderer_get_alignment")]
+    #[doc(alias = "get_alignment")]
     fn alignment(&self) -> (f32, f32);
 
     #[doc(alias = "gtk_cell_renderer_get_fixed_size")]
+    #[doc(alias = "get_fixed_size")]
     fn fixed_size(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_renderer_get_padding")]
+    #[doc(alias = "get_padding")]
     fn padding(&self) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_renderer_get_preferred_height")]
+    #[doc(alias = "get_preferred_height")]
     fn preferred_height<P: IsA<Widget>>(&self, widget: &P) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_renderer_get_preferred_height_for_width")]
+    #[doc(alias = "get_preferred_height_for_width")]
     fn preferred_height_for_width<P: IsA<Widget>>(&self, widget: &P, width: i32) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_renderer_get_preferred_size")]
+    #[doc(alias = "get_preferred_size")]
     fn preferred_size<P: IsA<Widget>>(&self, widget: &P) -> (Requisition, Requisition);
 
     #[doc(alias = "gtk_cell_renderer_get_preferred_width")]
+    #[doc(alias = "get_preferred_width")]
     fn preferred_width<P: IsA<Widget>>(&self, widget: &P) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_renderer_get_preferred_width_for_height")]
+    #[doc(alias = "get_preferred_width_for_height")]
     fn preferred_width_for_height<P: IsA<Widget>>(&self, widget: &P, height: i32) -> (i32, i32);
 
     #[doc(alias = "gtk_cell_renderer_get_request_mode")]
+    #[doc(alias = "get_request_mode")]
     fn request_mode(&self) -> SizeRequestMode;
 
     #[doc(alias = "gtk_cell_renderer_get_sensitive")]
+    #[doc(alias = "get_sensitive")]
     fn is_sensitive(&self) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_get_state")]
+    #[doc(alias = "get_state")]
     fn state<P: IsA<Widget>>(
         &self,
         widget: Option<&P>,
@@ -90,6 +102,7 @@ pub trait CellRendererExt: 'static {
     ) -> StateFlags;
 
     #[doc(alias = "gtk_cell_renderer_get_visible")]
+    #[doc(alias = "get_visible")]
     fn is_visible(&self) -> bool;
 
     #[doc(alias = "gtk_cell_renderer_is_activatable")]
@@ -134,123 +147,116 @@ pub trait CellRendererExt: 'static {
     #[doc(alias = "gtk_cell_renderer_stop_editing")]
     fn stop_editing(&self, canceled: bool);
 
-    #[doc(alias = "set_property_cell_background")]
+    #[doc(alias = "cell-background")]
     fn set_cell_background(&self, cell_background: Option<&str>);
 
-    #[doc(alias = "get_property_cell_background_rgba")]
+    #[doc(alias = "cell-background-rgba")]
     fn cell_background_rgba(&self) -> Option<gdk::RGBA>;
 
-    #[doc(alias = "set_property_cell_background_rgba")]
+    #[doc(alias = "cell-background-rgba")]
     fn set_cell_background_rgba(&self, cell_background_rgba: Option<&gdk::RGBA>);
 
-    #[doc(alias = "get_property_cell_background_set")]
+    #[doc(alias = "cell-background-set")]
     fn is_cell_background_set(&self) -> bool;
 
-    #[doc(alias = "set_property_cell_background_set")]
+    #[doc(alias = "cell-background-set")]
     fn set_cell_background_set(&self, cell_background_set: bool);
 
-    #[doc(alias = "get_property_editing")]
     fn is_editing(&self) -> bool;
 
-    #[doc(alias = "get_property_height")]
     fn height(&self) -> i32;
 
-    #[doc(alias = "set_property_height")]
     fn set_height(&self, height: i32);
 
-    #[doc(alias = "get_property_is_expanded")]
+    #[doc(alias = "is-expanded")]
     fn is_expanded(&self) -> bool;
 
-    #[doc(alias = "set_property_is_expanded")]
+    #[doc(alias = "is-expanded")]
     fn set_is_expanded(&self, is_expanded: bool);
 
-    #[doc(alias = "get_property_is_expander")]
+    #[doc(alias = "is-expander")]
     fn is_expander(&self) -> bool;
 
-    #[doc(alias = "set_property_is_expander")]
+    #[doc(alias = "is-expander")]
     fn set_is_expander(&self, is_expander: bool);
 
-    #[doc(alias = "get_property_mode")]
     fn mode(&self) -> CellRendererMode;
 
-    #[doc(alias = "set_property_mode")]
     fn set_mode(&self, mode: CellRendererMode);
 
-    #[doc(alias = "get_property_width")]
     fn width(&self) -> i32;
 
-    #[doc(alias = "set_property_width")]
     fn set_width(&self, width: i32);
 
-    #[doc(alias = "get_property_xalign")]
     fn xalign(&self) -> f32;
 
-    #[doc(alias = "set_property_xalign")]
     fn set_xalign(&self, xalign: f32);
 
-    #[doc(alias = "get_property_xpad")]
     fn xpad(&self) -> u32;
 
-    #[doc(alias = "set_property_xpad")]
     fn set_xpad(&self, xpad: u32);
 
-    #[doc(alias = "get_property_yalign")]
     fn yalign(&self) -> f32;
 
-    #[doc(alias = "set_property_yalign")]
     fn set_yalign(&self, yalign: f32);
 
-    #[doc(alias = "get_property_ypad")]
     fn ypad(&self) -> u32;
 
-    #[doc(alias = "set_property_ypad")]
     fn set_ypad(&self, ypad: u32);
 
+    #[doc(alias = "editing-canceled")]
     fn connect_editing_canceled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "editing-started")]
     fn connect_editing_started<F: Fn(&Self, &CellEditable, TreePath) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_cell_background_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "cell-background")]
+    fn connect_cell_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_cell_background_rgba_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "cell-background-rgba")]
+    fn connect_cell_background_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_cell_background_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "cell-background-set")]
+    fn connect_cell_background_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_editing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "editing")]
+    fn connect_editing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "height")]
+    fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_is_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "is-expanded")]
+    fn connect_is_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_is_expander_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "is-expander")]
+    fn connect_is_expander_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "mode")]
+    fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "sensitive")]
+    fn connect_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "visible")]
+    fn connect_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "width")]
+    fn connect_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "xalign")]
+    fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_xpad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "xpad")]
+    fn connect_xpad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "yalign")]
+    fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_ypad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "ypad")]
+    fn connect_ypad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellRenderer>> CellRendererExt for O {
@@ -271,7 +277,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
                 path.to_glib_none().0,
                 background_area.to_glib_none().0,
                 cell_area.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
@@ -287,7 +293,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             ffi::gtk_cell_renderer_get_aligned_area(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
                 cell_area.to_glib_none().0,
                 aligned_area.to_glib_none_mut().0,
             );
@@ -445,7 +451,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
             from_glib(ffi::gtk_cell_renderer_get_state(
                 self.as_ref().to_glib_none().0,
                 widget.map(|p| p.as_ref()).to_glib_none().0,
-                cell_state.to_glib(),
+                cell_state.into_glib(),
             ))
         }
     }
@@ -481,7 +487,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
                 widget.as_ref().to_glib_none().0,
                 background_area.to_glib_none().0,
                 cell_area.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             );
         }
     }
@@ -508,14 +514,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         unsafe {
             ffi::gtk_cell_renderer_set_sensitive(
                 self.as_ref().to_glib_none().0,
-                sensitive.to_glib(),
+                sensitive.into_glib(),
             );
         }
     }
 
     fn set_visible(&self, visible: bool) {
         unsafe {
-            ffi::gtk_cell_renderer_set_visible(self.as_ref().to_glib_none().0, visible.to_glib());
+            ffi::gtk_cell_renderer_set_visible(self.as_ref().to_glib_none().0, visible.into_glib());
         }
     }
 
@@ -536,14 +542,17 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
                 path.to_glib_none().0,
                 background_area.to_glib_none().0,
                 cell_area.to_glib_none().0,
-                flags.to_glib(),
+                flags.into_glib(),
             ))
         }
     }
 
     fn stop_editing(&self, canceled: bool) {
         unsafe {
-            ffi::gtk_cell_renderer_stop_editing(self.as_ref().to_glib_none().0, canceled.to_glib());
+            ffi::gtk_cell_renderer_stop_editing(
+                self.as_ref().to_glib_none().0,
+                canceled.into_glib(),
+            );
         }
     }
 
@@ -835,6 +844,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
+    #[doc(alias = "editing-canceled")]
     fn connect_editing_canceled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn editing_canceled_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
@@ -858,6 +868,7 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
+    #[doc(alias = "editing-started")]
     fn connect_editing_started<F: Fn(&Self, &CellEditable, TreePath) + 'static>(
         &self,
         f: F,
@@ -894,10 +905,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_cell_background_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "cell-background")]
+    fn connect_cell_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cell_background_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -921,10 +930,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_cell_background_rgba_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "cell-background-rgba")]
+    fn connect_cell_background_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cell_background_rgba_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -948,10 +955,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_cell_background_set_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "cell-background-set")]
+    fn connect_cell_background_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cell_background_set_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -975,7 +980,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_editing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "editing")]
+    fn connect_editing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_editing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -999,7 +1005,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "height")]
+    fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_height_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1023,7 +1030,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_is_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "is-expanded")]
+    fn connect_is_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_expanded_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1047,7 +1055,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_is_expander_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "is-expander")]
+    fn connect_is_expander_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_expander_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1071,7 +1080,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "mode")]
+    fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1095,7 +1105,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "sensitive")]
+    fn connect_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_sensitive_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1119,7 +1130,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "visible")]
+    fn connect_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1143,7 +1155,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "width")]
+    fn connect_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1167,7 +1180,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "xalign")]
+    fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_xalign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1191,7 +1205,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_xpad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "xpad")]
+    fn connect_xpad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_xpad_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1215,7 +1230,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "yalign")]
+    fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_yalign_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
@@ -1239,7 +1255,8 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         }
     }
 
-    fn connect_property_ypad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "ypad")]
+    fn connect_ypad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ypad_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,

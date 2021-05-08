@@ -54,8 +54,8 @@ impl ObjectImpl for SimpleWindow {
         self.widgets
             .set(WindowWidgets {
                 headerbar,
-                label,
                 increment,
+                label,
             })
             .expect("Failed to initialize window state");
     }

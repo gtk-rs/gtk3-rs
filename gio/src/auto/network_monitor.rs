@@ -4,8 +4,6 @@
 
 use crate::AsyncResult;
 use crate::Cancellable;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use crate::NetworkConnectivity;
 use crate::SocketConnectable;
 use glib::object::Cast;
@@ -29,6 +27,7 @@ glib::wrapper! {
 
 impl NetworkMonitor {
     #[doc(alias = "g_network_monitor_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default() -> NetworkMonitor {
         unsafe { from_glib_none(ffi::g_network_monitor_get_default()) }
     }
@@ -61,37 +60,29 @@ pub trait NetworkMonitorExt: 'static {
         connectable: &P,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_network_monitor_get_connectivity")]
+    #[doc(alias = "get_connectivity")]
     fn connectivity(&self) -> NetworkConnectivity;
 
     #[doc(alias = "g_network_monitor_get_network_available")]
+    #[doc(alias = "get_network_available")]
     fn is_network_available(&self) -> bool;
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     #[doc(alias = "g_network_monitor_get_network_metered")]
+    #[doc(alias = "get_network_metered")]
     fn is_network_metered(&self) -> bool;
 
+    #[doc(alias = "network-changed")]
     fn connect_network_changed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-    fn connect_property_connectivity_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "connectivity")]
+    fn connect_connectivity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_network_available_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "network-available")]
+    fn connect_network_available_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    fn connect_property_network_metered_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "network-metered")]
+    fn connect_network_metered_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
@@ -172,8 +163,6 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         }))
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn connectivity(&self) -> NetworkConnectivity {
         unsafe {
             from_glib(ffi::g_network_monitor_get_connectivity(
@@ -190,8 +179,6 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn is_network_metered(&self) -> bool {
         unsafe {
             from_glib(ffi::g_network_monitor_get_network_metered(
@@ -200,6 +187,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         }
     }
 
+    #[doc(alias = "network-changed")]
     fn connect_network_changed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn network_changed_trampoline<P, F: Fn(&P, bool) + 'static>(
             this: *mut ffi::GNetworkMonitor,
@@ -227,12 +215,8 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-    fn connect_property_connectivity_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "connectivity")]
+    fn connect_connectivity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_connectivity_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GNetworkMonitor,
             _param_spec: glib::ffi::gpointer,
@@ -256,10 +240,8 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         }
     }
 
-    fn connect_property_network_available_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "network-available")]
+    fn connect_network_available_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_network_available_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GNetworkMonitor,
             _param_spec: glib::ffi::gpointer,
@@ -283,12 +265,8 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    fn connect_property_network_metered_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "network-metered")]
+    fn connect_network_metered_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_network_metered_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GNetworkMonitor,
             _param_spec: glib::ffi::gpointer,

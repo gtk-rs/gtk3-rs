@@ -31,42 +31,55 @@ pub trait RecentChooserExt: 'static {
     fn add_filter(&self, filter: &RecentFilter);
 
     #[doc(alias = "gtk_recent_chooser_get_current_item")]
+    #[doc(alias = "get_current_item")]
     fn current_item(&self) -> Option<RecentInfo>;
 
     #[doc(alias = "gtk_recent_chooser_get_current_uri")]
+    #[doc(alias = "get_current_uri")]
     fn current_uri(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_recent_chooser_get_filter")]
+    #[doc(alias = "get_filter")]
     fn filter(&self) -> Option<RecentFilter>;
 
     #[doc(alias = "gtk_recent_chooser_get_items")]
+    #[doc(alias = "get_items")]
     fn items(&self) -> Vec<RecentInfo>;
 
     #[doc(alias = "gtk_recent_chooser_get_limit")]
+    #[doc(alias = "get_limit")]
     fn limit(&self) -> i32;
 
     #[doc(alias = "gtk_recent_chooser_get_local_only")]
+    #[doc(alias = "get_local_only")]
     fn is_local_only(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_select_multiple")]
+    #[doc(alias = "get_select_multiple")]
     fn selects_multiple(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_show_icons")]
+    #[doc(alias = "get_show_icons")]
     fn shows_icons(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_show_not_found")]
+    #[doc(alias = "get_show_not_found")]
     fn shows_not_found(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_show_private")]
+    #[doc(alias = "get_show_private")]
     fn shows_private(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_show_tips")]
+    #[doc(alias = "get_show_tips")]
     fn shows_tips(&self) -> bool;
 
     #[doc(alias = "gtk_recent_chooser_get_sort_type")]
+    #[doc(alias = "get_sort_type")]
     fn sort_type(&self) -> RecentSortType;
 
     #[doc(alias = "gtk_recent_chooser_get_uris")]
+    #[doc(alias = "get_uris")]
     fn uris(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "gtk_recent_chooser_list_filters")]
@@ -120,34 +133,38 @@ pub trait RecentChooserExt: 'static {
     #[doc(alias = "gtk_recent_chooser_unselect_uri")]
     fn unselect_uri(&self, uri: &str);
 
+    #[doc(alias = "item-activated")]
     fn connect_item_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_filter_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "filter")]
+    fn connect_filter_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "limit")]
+    fn connect_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_local_only_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "local-only")]
+    fn connect_local_only_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_select_multiple_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "select-multiple")]
+    fn connect_select_multiple_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_icons_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "show-icons")]
+    fn connect_show_icons_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_not_found_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-not-found")]
+    fn connect_show_not_found_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_private_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "show-private")]
+    fn connect_show_private_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_tips_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "show-tips")]
+    fn connect_show_tips_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_sort_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "sort-type")]
+    fn connect_sort_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<RecentChooser>> RecentChooserExt for O {
@@ -340,7 +357,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_local_only(
                 self.as_ref().to_glib_none().0,
-                local_only.to_glib(),
+                local_only.into_glib(),
             );
         }
     }
@@ -349,7 +366,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_select_multiple(
                 self.as_ref().to_glib_none().0,
-                select_multiple.to_glib(),
+                select_multiple.into_glib(),
             );
         }
     }
@@ -358,7 +375,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_show_icons(
                 self.as_ref().to_glib_none().0,
-                show_icons.to_glib(),
+                show_icons.into_glib(),
             );
         }
     }
@@ -367,7 +384,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_show_not_found(
                 self.as_ref().to_glib_none().0,
-                show_not_found.to_glib(),
+                show_not_found.into_glib(),
             );
         }
     }
@@ -376,7 +393,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_show_private(
                 self.as_ref().to_glib_none().0,
-                show_private.to_glib(),
+                show_private.into_glib(),
             );
         }
     }
@@ -385,7 +402,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_show_tips(
                 self.as_ref().to_glib_none().0,
-                show_tips.to_glib(),
+                show_tips.into_glib(),
             );
         }
     }
@@ -425,7 +442,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         unsafe {
             ffi::gtk_recent_chooser_set_sort_type(
                 self.as_ref().to_glib_none().0,
-                sort_type.to_glib(),
+                sort_type.into_glib(),
             );
         }
     }
@@ -445,6 +462,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
+    #[doc(alias = "item-activated")]
     fn connect_item_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn item_activated_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
@@ -468,6 +486,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
+    #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
@@ -491,7 +510,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_filter_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "filter")]
+    fn connect_filter_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_filter_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
@@ -515,7 +535,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "limit")]
+    fn connect_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_limit_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
@@ -539,7 +560,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_local_only_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "local-only")]
+    fn connect_local_only_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_local_only_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
@@ -563,10 +585,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_select_multiple_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "select-multiple")]
+    fn connect_select_multiple_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_select_multiple_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
@@ -590,7 +610,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_show_icons_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "show-icons")]
+    fn connect_show_icons_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_icons_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
@@ -614,10 +635,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_show_not_found_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-not-found")]
+    fn connect_show_not_found_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_not_found_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
@@ -641,10 +660,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_show_private_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-private")]
+    fn connect_show_private_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_private_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
@@ -668,7 +685,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_show_tips_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "show-tips")]
+    fn connect_show_tips_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_tips_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
@@ -692,7 +710,8 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn connect_property_sort_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "sort-type")]
+    fn connect_sort_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_sort_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,

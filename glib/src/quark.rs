@@ -18,7 +18,7 @@ impl Quark {
     #[doc(alias = "g_quark_to_string")]
     pub fn to_string<'a>(&self) -> &'a str {
         unsafe {
-            CStr::from_ptr(ffi::g_quark_to_string(self.to_glib()))
+            CStr::from_ptr(ffi::g_quark_to_string(self.into_glib()))
                 .to_str()
                 .unwrap()
         }
@@ -44,15 +44,15 @@ impl fmt::Debug for Quark {
 #[doc(hidden)]
 impl FromGlib<ffi::GQuark> for Quark {
     unsafe fn from_glib(value: ffi::GQuark) -> Self {
-        Quark(value)
+        Self(value)
     }
 }
 
 #[doc(hidden)]
-impl ToGlib for Quark {
+impl IntoGlib for Quark {
     type GlibType = ffi::GQuark;
 
-    fn to_glib(&self) -> ffi::GQuark {
+    fn into_glib(self) -> ffi::GQuark {
         self.0
     }
 }

@@ -28,11 +28,13 @@ impl Clipboard {
     }
 
     #[doc(alias = "gtk_clipboard_get_display")]
+    #[doc(alias = "get_display")]
     pub fn display(&self) -> Option<gdk::Display> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_display(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_clipboard_get_owner")]
+    #[doc(alias = "get_owner")]
     pub fn owner(&self) -> Option<glib::Object> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_owner(self.to_glib_none().0)) }
     }
@@ -40,6 +42,7 @@ impl Clipboard {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_clipboard_get_selection")]
+    #[doc(alias = "get_selection")]
     pub fn selection(&self) -> Option<gdk::Atom> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_selection(self.to_glib_none().0)) }
     }
@@ -302,15 +305,15 @@ impl Clipboard {
         unsafe { from_glib_none(ffi::gtk_clipboard_get(selection.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_clipboard_get_default")]
+    #[doc(alias = "get_default")]
     pub fn default(display: &gdk::Display) -> Option<Clipboard> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_clipboard_get_default(display.to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_clipboard_get_for_display")]
+    #[doc(alias = "get_for_display")]
     pub fn for_display(display: &gdk::Display, selection: &gdk::Atom) -> Clipboard {
         assert_initialized_main_thread!();
         unsafe {
@@ -321,6 +324,7 @@ impl Clipboard {
         }
     }
 
+    //#[doc(alias = "owner-change")]
     //pub fn connect_owner_change<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Ignored event: Gdk.EventOwnerChange
     //}

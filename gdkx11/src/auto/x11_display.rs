@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
@@ -44,6 +42,7 @@ impl X11Display {
     }
 
     #[doc(alias = "gdk_x11_display_get_startup_notification_id")]
+    #[doc(alias = "get_startup_notification_id")]
     pub fn startup_notification_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_x11_display_get_startup_notification_id(
@@ -53,6 +52,7 @@ impl X11Display {
     }
 
     #[doc(alias = "gdk_x11_display_get_user_time")]
+    #[doc(alias = "get_user_time")]
     pub fn user_time(&self) -> u32 {
         unsafe { ffi::gdk_x11_display_get_user_time(self.to_glib_none().0) }
     }
@@ -152,9 +152,8 @@ impl X11Display {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_x11_display_get_glx_version")]
+    #[doc(alias = "get_glx_version")]
     pub fn glx_version<P: IsA<gdk::Display>>(display: &P) -> Option<(i32, i32)> {
         assert_initialized_main_thread!();
         unsafe {

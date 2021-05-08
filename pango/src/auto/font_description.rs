@@ -55,6 +55,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_family")]
+    #[doc(alias = "get_family")]
     pub fn family(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::pango_font_description_get_family(
@@ -64,6 +65,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_gravity")]
+    #[doc(alias = "get_gravity")]
     pub fn gravity(&self) -> Gravity {
         unsafe {
             from_glib(ffi::pango_font_description_get_gravity(
@@ -73,6 +75,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_set_fields")]
+    #[doc(alias = "get_set_fields")]
     pub fn set_fields(&self) -> FontMask {
         unsafe {
             from_glib(ffi::pango_font_description_get_set_fields(
@@ -82,11 +85,13 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_size")]
+    #[doc(alias = "get_size")]
     pub fn size(&self) -> i32 {
         unsafe { ffi::pango_font_description_get_size(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pango_font_description_get_size_is_absolute")]
+    #[doc(alias = "get_size_is_absolute")]
     pub fn is_size_absolute(&self) -> bool {
         unsafe {
             from_glib(ffi::pango_font_description_get_size_is_absolute(
@@ -96,6 +101,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_stretch")]
+    #[doc(alias = "get_stretch")]
     pub fn stretch(&self) -> Stretch {
         unsafe {
             from_glib(ffi::pango_font_description_get_stretch(
@@ -105,11 +111,13 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_style")]
+    #[doc(alias = "get_style")]
     pub fn style(&self) -> Style {
         unsafe { from_glib(ffi::pango_font_description_get_style(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pango_font_description_get_variant")]
+    #[doc(alias = "get_variant")]
     pub fn variant(&self) -> Variant {
         unsafe {
             from_glib(ffi::pango_font_description_get_variant(
@@ -121,6 +129,7 @@ impl FontDescription {
     #[cfg(any(feature = "v1_42", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_42")))]
     #[doc(alias = "pango_font_description_get_variations")]
+    #[doc(alias = "get_variations")]
     pub fn variations(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::pango_font_description_get_variations(
@@ -130,6 +139,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_get_weight")]
+    #[doc(alias = "get_weight")]
     pub fn weight(&self) -> Weight {
         unsafe {
             from_glib(ffi::pango_font_description_get_weight(
@@ -149,7 +159,7 @@ impl FontDescription {
             ffi::pango_font_description_merge(
                 self.to_glib_none_mut().0,
                 desc_to_merge.to_glib_none().0,
-                replace_existing.to_glib(),
+                replace_existing.into_glib(),
             );
         }
     }
@@ -174,7 +184,7 @@ impl FontDescription {
     #[doc(alias = "pango_font_description_set_gravity")]
     pub fn set_gravity(&mut self, gravity: Gravity) {
         unsafe {
-            ffi::pango_font_description_set_gravity(self.to_glib_none_mut().0, gravity.to_glib());
+            ffi::pango_font_description_set_gravity(self.to_glib_none_mut().0, gravity.into_glib());
         }
     }
 
@@ -188,21 +198,21 @@ impl FontDescription {
     #[doc(alias = "pango_font_description_set_stretch")]
     pub fn set_stretch(&mut self, stretch: Stretch) {
         unsafe {
-            ffi::pango_font_description_set_stretch(self.to_glib_none_mut().0, stretch.to_glib());
+            ffi::pango_font_description_set_stretch(self.to_glib_none_mut().0, stretch.into_glib());
         }
     }
 
     #[doc(alias = "pango_font_description_set_style")]
     pub fn set_style(&mut self, style: Style) {
         unsafe {
-            ffi::pango_font_description_set_style(self.to_glib_none_mut().0, style.to_glib());
+            ffi::pango_font_description_set_style(self.to_glib_none_mut().0, style.into_glib());
         }
     }
 
     #[doc(alias = "pango_font_description_set_variant")]
     pub fn set_variant(&mut self, variant: Variant) {
         unsafe {
-            ffi::pango_font_description_set_variant(self.to_glib_none_mut().0, variant.to_glib());
+            ffi::pango_font_description_set_variant(self.to_glib_none_mut().0, variant.into_glib());
         }
     }
 
@@ -233,7 +243,7 @@ impl FontDescription {
     #[doc(alias = "pango_font_description_set_weight")]
     pub fn set_weight(&mut self, weight: Weight) {
         unsafe {
-            ffi::pango_font_description_set_weight(self.to_glib_none_mut().0, weight.to_glib());
+            ffi::pango_font_description_set_weight(self.to_glib_none_mut().0, weight.into_glib());
         }
     }
 
@@ -247,6 +257,7 @@ impl FontDescription {
     }
 
     #[doc(alias = "pango_font_description_to_string")]
+    #[doc(alias = "to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::pango_font_description_to_string(self.to_glib_none().0)) }
     }
@@ -254,7 +265,10 @@ impl FontDescription {
     #[doc(alias = "pango_font_description_unset_fields")]
     pub fn unset_fields(&mut self, to_unset: FontMask) {
         unsafe {
-            ffi::pango_font_description_unset_fields(self.to_glib_none_mut().0, to_unset.to_glib());
+            ffi::pango_font_description_unset_fields(
+                self.to_glib_none_mut().0,
+                to_unset.into_glib(),
+            );
         }
     }
 

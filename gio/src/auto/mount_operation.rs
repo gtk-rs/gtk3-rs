@@ -39,36 +39,45 @@ pub const NONE_MOUNT_OPERATION: Option<&MountOperation> = None;
 
 pub trait MountOperationExt: 'static {
     #[doc(alias = "g_mount_operation_get_anonymous")]
+    #[doc(alias = "get_anonymous")]
     fn is_anonymous(&self) -> bool;
 
     #[doc(alias = "g_mount_operation_get_choice")]
+    #[doc(alias = "get_choice")]
     fn choice(&self) -> i32;
 
     #[doc(alias = "g_mount_operation_get_domain")]
+    #[doc(alias = "get_domain")]
     fn domain(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_mount_operation_get_is_tcrypt_hidden_volume")]
+    #[doc(alias = "get_is_tcrypt_hidden_volume")]
     fn is_tcrypt_hidden_volume(&self) -> bool;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_mount_operation_get_is_tcrypt_system_volume")]
+    #[doc(alias = "get_is_tcrypt_system_volume")]
     fn is_tcrypt_system_volume(&self) -> bool;
 
     #[doc(alias = "g_mount_operation_get_password")]
+    #[doc(alias = "get_password")]
     fn password(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_mount_operation_get_password_save")]
+    #[doc(alias = "get_password_save")]
     fn password_save(&self) -> PasswordSave;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     #[doc(alias = "g_mount_operation_get_pim")]
+    #[doc(alias = "get_pim")]
     fn pim(&self) -> u32;
 
     #[doc(alias = "g_mount_operation_get_username")]
+    #[doc(alias = "get_username")]
     fn username(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_mount_operation_reply")]
@@ -107,56 +116,68 @@ pub trait MountOperationExt: 'static {
     #[doc(alias = "g_mount_operation_set_username")]
     fn set_username(&self, username: Option<&str>);
 
+    #[doc(alias = "aborted")]
     fn connect_aborted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "ask-password")]
     fn connect_ask_password<F: Fn(&Self, &str, &str, &str, AskPasswordFlags) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    //#[doc(alias = "ask-question")]
     //fn connect_ask_question<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "reply")]
     fn connect_reply<F: Fn(&Self, MountOperationResult) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    //#[doc(alias = "show-processes")]
     //fn connect_show_processes<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "show-unmount-progress")]
     fn connect_show_unmount_progress<F: Fn(&Self, &str, i64, i64) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_anonymous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "anonymous")]
+    fn connect_anonymous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_choice_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "choice")]
+    fn connect_choice_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "domain")]
+    fn connect_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn connect_property_is_tcrypt_hidden_volume_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "is-tcrypt-hidden-volume")]
+    fn connect_is_tcrypt_hidden_volume_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn connect_property_is_tcrypt_system_volume_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "is-tcrypt-system-volume")]
+    fn connect_is_tcrypt_system_volume_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_password_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "password")]
+    fn connect_password_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_password_save_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "password-save")]
+    fn connect_password_save_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn connect_property_pim_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "pim")]
+    fn connect_pim_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "username")]
+    fn connect_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<MountOperation>> MountOperationExt for O {
@@ -232,7 +253,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     fn reply(&self, result: MountOperationResult) {
         unsafe {
-            ffi::g_mount_operation_reply(self.as_ref().to_glib_none().0, result.to_glib());
+            ffi::g_mount_operation_reply(self.as_ref().to_glib_none().0, result.into_glib());
         }
     }
 
@@ -240,7 +261,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         unsafe {
             ffi::g_mount_operation_set_anonymous(
                 self.as_ref().to_glib_none().0,
-                anonymous.to_glib(),
+                anonymous.into_glib(),
             );
         }
     }
@@ -266,7 +287,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         unsafe {
             ffi::g_mount_operation_set_is_tcrypt_hidden_volume(
                 self.as_ref().to_glib_none().0,
-                hidden_volume.to_glib(),
+                hidden_volume.into_glib(),
             );
         }
     }
@@ -277,7 +298,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         unsafe {
             ffi::g_mount_operation_set_is_tcrypt_system_volume(
                 self.as_ref().to_glib_none().0,
-                system_volume.to_glib(),
+                system_volume.into_glib(),
             );
         }
     }
@@ -295,7 +316,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         unsafe {
             ffi::g_mount_operation_set_password_save(
                 self.as_ref().to_glib_none().0,
-                save.to_glib(),
+                save.into_glib(),
             );
         }
     }
@@ -317,6 +338,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "aborted")]
     fn connect_aborted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn aborted_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMountOperation,
@@ -340,6 +362,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "ask-password")]
     fn connect_ask_password<F: Fn(&Self, &str, &str, &str, AskPasswordFlags) + 'static>(
         &self,
         f: F,
@@ -379,10 +402,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    //#[doc(alias = "ask-question")]
     //fn connect_ask_question<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Empty ctype choices: *.CArray TypeId { ns_id: 0, id: 28 }
     //}
 
+    #[doc(alias = "reply")]
     fn connect_reply<F: Fn(&Self, MountOperationResult) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn reply_trampoline<P, F: Fn(&P, MountOperationResult) + 'static>(
             this: *mut ffi::GMountOperation,
@@ -410,11 +435,13 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    //#[doc(alias = "show-processes")]
     //fn connect_show_processes<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Empty ctype processes: *.Array TypeId { ns_id: 2, id: 4 }
     //    Empty ctype choices: *.CArray TypeId { ns_id: 0, id: 28 }
     //}
 
+    #[doc(alias = "show-unmount-progress")]
     fn connect_show_unmount_progress<F: Fn(&Self, &str, i64, i64) + 'static>(
         &self,
         f: F,
@@ -452,7 +479,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_anonymous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "anonymous")]
+    fn connect_anonymous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_anonymous_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMountOperation,
             _param_spec: glib::ffi::gpointer,
@@ -476,7 +504,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_choice_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "choice")]
+    fn connect_choice_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_choice_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMountOperation,
             _param_spec: glib::ffi::gpointer,
@@ -500,7 +529,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "domain")]
+    fn connect_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_domain_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMountOperation,
             _param_spec: glib::ffi::gpointer,
@@ -526,7 +556,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn connect_property_is_tcrypt_hidden_volume_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "is-tcrypt-hidden-volume")]
+    fn connect_is_tcrypt_hidden_volume_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -555,7 +586,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn connect_property_is_tcrypt_system_volume_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "is-tcrypt-system-volume")]
+    fn connect_is_tcrypt_system_volume_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -582,7 +614,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_password_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "password")]
+    fn connect_password_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_password_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMountOperation,
             _param_spec: glib::ffi::gpointer,
@@ -606,10 +639,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_password_save_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "password-save")]
+    fn connect_password_save_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_password_save_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMountOperation,
             _param_spec: glib::ffi::gpointer,
@@ -635,7 +666,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-    fn connect_property_pim_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "pim")]
+    fn connect_pim_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pim_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMountOperation,
             _param_spec: glib::ffi::gpointer,
@@ -659,7 +691,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn connect_property_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "username")]
+    fn connect_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_username_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GMountOperation,
             _param_spec: glib::ffi::gpointer,

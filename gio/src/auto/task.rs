@@ -5,22 +5,12 @@
 use crate::AsyncResult;
 use crate::Cancellable;
 use glib::object::IsA;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::ObjectType as ObjectType_;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::signal::connect_raw;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::mem::transmute;
 
 glib::wrapper! {
@@ -38,23 +28,25 @@ impl Task {
     //}
 
     #[doc(alias = "g_task_get_cancellable")]
+    #[doc(alias = "get_cancellable")]
     pub fn cancellable(&self) -> Cancellable {
         unsafe { from_glib_none(ffi::g_task_get_cancellable(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_check_cancellable")]
+    #[doc(alias = "get_check_cancellable")]
     pub fn is_check_cancellable(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_check_cancellable(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_task_get_completed")]
+    #[doc(alias = "get_completed")]
     pub fn is_completed(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_completed(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_context")]
+    #[doc(alias = "get_context")]
     pub fn context(&self) -> glib::MainContext {
         unsafe { from_glib_none(ffi::g_task_get_context(self.to_glib_none().0)) }
     }
@@ -62,21 +54,25 @@ impl Task {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_task_get_name")]
+    #[doc(alias = "get_name")]
     pub fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_task_get_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_task_get_return_on_cancel")]
+    #[doc(alias = "get_return_on_cancel")]
     pub fn is_return_on_cancel(&self) -> bool {
         unsafe { from_glib(ffi::g_task_get_return_on_cancel(self.to_glib_none().0)) }
     }
 
     //#[doc(alias = "g_task_get_source_tag")]
+    //#[doc(alias = "get_source_tag")]
     //pub fn source_tag(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_task_get_source_tag() }
     //}
 
     //#[doc(alias = "g_task_get_task_data")]
+    //#[doc(alias = "get_task_data")]
     //pub fn task_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_task_get_task_data() }
     //}
@@ -109,7 +105,7 @@ impl Task {
     #[doc(alias = "g_task_set_check_cancellable")]
     pub fn set_check_cancellable(&self, check_cancellable: bool) {
         unsafe {
-            ffi::g_task_set_check_cancellable(self.to_glib_none().0, check_cancellable.to_glib());
+            ffi::g_task_set_check_cancellable(self.to_glib_none().0, check_cancellable.into_glib());
         }
     }
 
@@ -127,7 +123,7 @@ impl Task {
         unsafe {
             from_glib(ffi::g_task_set_return_on_cancel(
                 self.to_glib_none().0,
-                return_on_cancel.to_glib(),
+                return_on_cancel.into_glib(),
             ))
         }
     }
@@ -165,12 +161,8 @@ impl Task {
     //    unsafe { TODO: call ffi:g_task_report_new_error() }
     //}
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-    pub fn connect_property_completed_notify<F: Fn(&Task) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "completed")]
+    pub fn connect_completed_notify<F: Fn(&Task) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_completed_trampoline<F: Fn(&Task) + 'static>(
             this: *mut ffi::GTask,
             _param_spec: glib::ffi::gpointer,

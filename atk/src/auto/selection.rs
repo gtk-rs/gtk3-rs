@@ -30,6 +30,7 @@ pub trait SelectionExt: 'static {
     fn clear_selection(&self) -> bool;
 
     #[doc(alias = "atk_selection_get_selection_count")]
+    #[doc(alias = "get_selection_count")]
     fn selection_count(&self) -> i32;
 
     #[doc(alias = "atk_selection_is_child_selected")]
@@ -44,6 +45,7 @@ pub trait SelectionExt: 'static {
     #[doc(alias = "atk_selection_select_all_selection")]
     fn select_all_selection(&self) -> bool;
 
+    #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -104,6 +106,7 @@ impl<O: IsA<Selection>> SelectionExt for O {
         }
     }
 
+    #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_changed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkSelection,

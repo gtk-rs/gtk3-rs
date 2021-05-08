@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use crate::Matrix;
 use crate::Point3D;
 use crate::Vec3;
@@ -40,11 +38,13 @@ impl Plane {
     }
 
     #[doc(alias = "graphene_plane_get_constant")]
+    #[doc(alias = "get_constant")]
     pub fn constant(&self) -> f32 {
         unsafe { ffi::graphene_plane_get_constant(self.to_glib_none().0) }
     }
 
     #[doc(alias = "graphene_plane_get_normal")]
+    #[doc(alias = "get_normal")]
     pub fn normal(&self) -> Vec3 {
         unsafe {
             let mut normal = Vec3::uninitialized();
@@ -115,8 +115,6 @@ impl Plane {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     #[doc(alias = "graphene_plane_transform")]
     pub fn transform(&self, matrix: &Matrix, normal_matrix: Option<&Matrix>) -> Plane {
         unsafe {

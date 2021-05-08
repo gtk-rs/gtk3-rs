@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::translate::{from_glib_borrow, from_glib_full, mut_override, Borrowed, ToGlib};
+use crate::translate::{from_glib_borrow, from_glib_full, mut_override, Borrowed, IntoGlib};
 use crate::ThreadGuard;
 use futures_core::future::Future;
 use futures_core::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
@@ -161,7 +161,7 @@ impl TaskSource {
                 mem::size_of::<WakerSource>() as u32,
             );
 
-            ffi::g_source_set_priority(source, priority.to_glib());
+            ffi::g_source_set_priority(source, priority.into_glib());
             ffi::g_source_add_child_source(source, waker_source);
 
             {

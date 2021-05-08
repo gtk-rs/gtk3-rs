@@ -67,12 +67,12 @@ impl fmt::Display for PathSegment {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "PathSegment::{}",
+            "Self::{}",
             match *self {
-                PathSegment::MoveTo(_) => "MoveTo",
-                PathSegment::LineTo(_) => "LineTo",
-                PathSegment::CurveTo(_, _, _) => "CurveTo",
-                PathSegment::ClosePath => "ClosePath",
+                Self::MoveTo(_) => "MoveTo",
+                Self::LineTo(_) => "LineTo",
+                Self::CurveTo(_, _, _) => "CurveTo",
+                Self::ClosePath => "ClosePath",
             }
         )
     }
@@ -132,7 +132,7 @@ mod tests {
     fn make_cr() -> Context {
         let surface = ImageSurface::create(Format::Rgb24, 1, 1).unwrap();
 
-        Context::new(&surface)
+        Context::new(&surface).expect("Can't create a Cairo context")
     }
 
     fn assert_path_equals_segments(expected: &Path, actual: &[PathSegment]) {
@@ -158,7 +158,7 @@ mod tests {
     fn empty_path_doesnt_iter() {
         let cr = make_cr();
 
-        let path = cr.copy_path();
+        let path = cr.copy_path().expect("Invalid context");
 
         assert!(path.iter().next().is_none());
     }
@@ -169,7 +169,7 @@ mod tests {
 
         cr.move_to(1.0, 2.0);
 
-        let path = cr.copy_path();
+        let path = cr.copy_path().expect("Invalid path");
 
         assert_path_equals_segments(&path, &[PathSegment::MoveTo((1.0, 2.0))]);
     }
@@ -182,7 +182,7 @@ mod tests {
         cr.line_to(3.0, 4.0);
         cr.move_to(5.0, 6.0);
 
-        let path = cr.copy_path();
+        let path = cr.copy_path().expect("Invalid path");
 
         assert_path_equals_segments(
             &path,
@@ -201,7 +201,7 @@ mod tests {
         cr.move_to(1.0, 2.0);
         cr.close_path();
 
-        let path = cr.copy_path();
+        let path = cr.copy_path().expect("Invalid path");
 
         // Note that Cairo represents a close_path as closepath+moveto,
         // so that the next subpath will have a starting point,
@@ -224,7 +224,7 @@ mod tests {
         cr.close_path();
         cr.line_to(9.0, 10.0);
 
-        let path = cr.copy_path();
+        let path = cr.copy_path().expect("Invalid path");
 
         assert_path_equals_segments(
             &path,

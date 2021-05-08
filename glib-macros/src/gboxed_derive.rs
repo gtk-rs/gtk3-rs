@@ -69,7 +69,7 @@ fn gen_impl_to_value_optional(name: &Ident, crate_ident: &TokenStream) -> TokenS
     quote! {
         impl #crate_ident::value::ToValueOptional for #name {
             fn to_value_optional(s: Option<&Self>) -> #crate_ident::Value {
-                let mut value = #crate_ident::Value::for_value_type::<#name>();
+                let mut value = #crate_ident::Value::for_value_type::<Self>();
                 unsafe {
                     let ptr: *mut #name = #option_to_ptr;
                     #crate_ident::gobject_ffi::g_value_take_boxed(
@@ -116,13 +116,15 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
     quote! {
         impl #crate_ident::subclass::boxed::BoxedType for #name {
             const NAME: &'static str = #gtype_name;
+        }
 
-            fn type_() -> #crate_ident::Type {
-                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
+        impl #crate_ident::StaticType for #name {
+            fn static_type() -> #crate_ident::Type {
                 static ONCE: ::std::sync::Once = ::std::sync::Once::new();
+                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
 
                 ONCE.call_once(|| {
-                    let type_ = #crate_ident::subclass::register_boxed_type::<Self>();
+                    let type_ = #crate_ident::subclass::register_boxed_type::<#name>();
                     unsafe {
                         TYPE_ = type_;
                     }
@@ -132,12 +134,6 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
                     assert!(TYPE_.is_valid());
                     TYPE_
                 }
-            }
-        }
-
-        impl #crate_ident::StaticType for #name {
-            fn static_type() -> #crate_ident::Type {
-                <#name as #crate_ident::subclass::boxed::BoxedType>::type_()
             }
         }
 

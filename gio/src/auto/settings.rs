@@ -11,7 +11,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -46,6 +45,7 @@ impl Settings {
     }
 
     #[doc(alias = "g_settings_new_with_backend")]
+    #[doc(alias = "new_with_backend")]
     pub fn with_backend<P: IsA<SettingsBackend>>(schema_id: &str, backend: &P) -> Settings {
         unsafe {
             from_glib_full(ffi::g_settings_new_with_backend(
@@ -56,6 +56,7 @@ impl Settings {
     }
 
     #[doc(alias = "g_settings_new_with_backend_and_path")]
+    #[doc(alias = "new_with_backend_and_path")]
     pub fn with_backend_and_path<P: IsA<SettingsBackend>>(
         schema_id: &str,
         backend: &P,
@@ -71,6 +72,7 @@ impl Settings {
     }
 
     #[doc(alias = "g_settings_new_with_path")]
+    #[doc(alias = "new_with_path")]
     pub fn with_path(schema_id: &str, path: &str) -> Settings {
         unsafe {
             from_glib_full(ffi::g_settings_new_with_path(
@@ -120,55 +122,71 @@ pub trait SettingsExt: 'static {
     //fn get(&self, key: &str, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "g_settings_get_boolean")]
+    #[doc(alias = "get_boolean")]
     fn boolean(&self, key: &str) -> bool;
 
     #[doc(alias = "g_settings_get_child")]
+    #[doc(alias = "get_child")]
     fn child(&self, name: &str) -> Settings;
 
     #[doc(alias = "g_settings_get_default_value")]
+    #[doc(alias = "get_default_value")]
     fn default_value(&self, key: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_settings_get_double")]
+    #[doc(alias = "get_double")]
     fn double(&self, key: &str) -> f64;
 
     #[doc(alias = "g_settings_get_enum")]
+    #[doc(alias = "get_enum")]
     fn enum_(&self, key: &str) -> i32;
 
     #[doc(alias = "g_settings_get_flags")]
+    #[doc(alias = "get_flags")]
     fn flags(&self, key: &str) -> u32;
 
     #[doc(alias = "g_settings_get_has_unapplied")]
+    #[doc(alias = "get_has_unapplied")]
     fn has_unapplied(&self) -> bool;
 
     #[doc(alias = "g_settings_get_int")]
+    #[doc(alias = "get_int")]
     fn int(&self, key: &str) -> i32;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     #[doc(alias = "g_settings_get_int64")]
+    #[doc(alias = "get_int64")]
     fn int64(&self, key: &str) -> i64;
 
     //#[doc(alias = "g_settings_get_mapped")]
+    //#[doc(alias = "get_mapped")]
     //fn mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[doc(alias = "g_settings_get_string")]
+    #[doc(alias = "get_string")]
     fn string(&self, key: &str) -> glib::GString;
 
     #[doc(alias = "g_settings_get_strv")]
+    #[doc(alias = "get_strv")]
     fn strv(&self, key: &str) -> Vec<glib::GString>;
 
     #[doc(alias = "g_settings_get_uint")]
+    #[doc(alias = "get_uint")]
     fn uint(&self, key: &str) -> u32;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     #[doc(alias = "g_settings_get_uint64")]
+    #[doc(alias = "get_uint64")]
     fn uint64(&self, key: &str) -> u64;
 
     #[doc(alias = "g_settings_get_user_value")]
+    #[doc(alias = "get_user_value")]
     fn user_value(&self, key: &str) -> Option<glib::Variant>;
 
     #[doc(alias = "g_settings_get_value")]
+    #[doc(alias = "get_value")]
     fn value(&self, key: &str) -> glib::Variant;
 
     #[doc(alias = "g_settings_is_writable")]
@@ -176,10 +194,6 @@ pub trait SettingsExt: 'static {
 
     #[doc(alias = "g_settings_list_children")]
     fn list_children(&self) -> Vec<glib::GString>;
-
-    #[cfg_attr(feature = "v2_46", deprecated = "Since 2.46")]
-    #[doc(alias = "g_settings_list_keys")]
-    fn list_keys(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "g_settings_reset")]
     fn reset(&self, key: &str);
@@ -227,46 +241,47 @@ pub trait SettingsExt: 'static {
     #[doc(alias = "g_settings_set_value")]
     fn set_value(&self, key: &str, value: &glib::Variant) -> Result<(), glib::error::BoolError>;
 
-    #[doc(alias = "get_property_backend")]
     fn backend(&self) -> Option<SettingsBackend>;
 
-    #[doc(alias = "get_property_delay_apply")]
+    #[doc(alias = "delay-apply")]
     fn is_delay_apply(&self) -> bool;
 
-    #[doc(alias = "get_property_path")]
     fn path(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "get_property_schema_id")]
+    #[doc(alias = "schema-id")]
     fn schema_id(&self) -> Option<glib::GString>;
 
-    #[doc(alias = "get_property_settings_schema")]
+    #[doc(alias = "settings-schema")]
     fn settings_schema(&self) -> Option<SettingsSchema>;
 
+    //#[doc(alias = "change-event")]
     //fn connect_change_event<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "writable-change-event")]
     fn connect_writable_change_event<F: Fn(&Self, u32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "writable-changed")]
     fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "delay-apply")]
+    fn connect_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_has_unapplied_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "has-unapplied")]
+    fn connect_has_unapplied_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Settings>> SettingsExt for O {
@@ -289,7 +304,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 key.to_glib_none().0,
                 object.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
-                inverted.to_glib(),
+                inverted.into_glib(),
             );
         }
     }
@@ -437,14 +452,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn list_keys(&self) -> Vec<glib::GString> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_settings_list_keys(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
     fn reset(&self, key: &str) {
         unsafe {
             ffi::g_settings_reset(self.as_ref().to_glib_none().0, key.to_glib_none().0);
@@ -467,7 +474,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 ffi::g_settings_set_boolean(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
-                    value.to_glib()
+                    value.into_glib()
                 ),
                 "Can't set readonly key"
             )
@@ -678,10 +685,12 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
+    //#[doc(alias = "change-event")]
     //fn connect_change_event<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented keys: *.CArray TypeId { ns_id: 2, id: 5 }
     //}
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -717,6 +726,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
+    #[doc(alias = "writable-change-event")]
     fn connect_writable_change_event<F: Fn(&Self, u32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -733,7 +743,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             P: IsA<Settings>,
         {
             let f: &F = &*(f as *const F);
-            f(&Settings::from_glib_borrow(this).unsafe_cast_ref(), key).to_glib()
+            f(&Settings::from_glib_borrow(this).unsafe_cast_ref(), key).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -748,6 +758,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
+    #[doc(alias = "writable-changed")]
     fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -783,7 +794,8 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn connect_property_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "delay-apply")]
+    fn connect_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_delay_apply_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSettings,
             _param_spec: glib::ffi::gpointer,
@@ -807,10 +819,8 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn connect_property_has_unapplied_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "has-unapplied")]
+    fn connect_has_unapplied_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_unapplied_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GSettings,
             _param_spec: glib::ffi::gpointer,

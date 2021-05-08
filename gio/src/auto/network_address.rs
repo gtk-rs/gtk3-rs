@@ -22,8 +22,6 @@ impl NetworkAddress {
         unsafe { from_glib_full(ffi::g_network_address_new(hostname.to_glib_none().0, port)) }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_network_address_new_loopback")]
     pub fn new_loopback(port: u16) -> NetworkAddress {
         unsafe { from_glib_full(ffi::g_network_address_new_loopback(port)) }
@@ -68,12 +66,15 @@ pub const NONE_NETWORK_ADDRESS: Option<&NetworkAddress> = None;
 
 pub trait NetworkAddressExt: 'static {
     #[doc(alias = "g_network_address_get_hostname")]
+    #[doc(alias = "get_hostname")]
     fn hostname(&self) -> glib::GString;
 
     #[doc(alias = "g_network_address_get_port")]
+    #[doc(alias = "get_port")]
     fn port(&self) -> u16;
 
     #[doc(alias = "g_network_address_get_scheme")]
+    #[doc(alias = "get_scheme")]
     fn scheme(&self) -> Option<glib::GString>;
 }
 

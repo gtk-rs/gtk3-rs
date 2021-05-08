@@ -54,6 +54,7 @@ impl MainContext {
     //}
 
     //#[doc(alias = "g_main_context_get_poll_func")]
+    //#[doc(alias = "get_poll_func")]
     //pub fn poll_func(&self) -> /*Unimplemented*/Fn(/*Ignored*/PollFD, u32, i32) -> i32 {
     //    unsafe { TODO: call ffi:g_main_context_get_poll_func() }
     //}
@@ -68,7 +69,7 @@ impl MainContext {
         unsafe {
             from_glib(ffi::g_main_context_iteration(
                 self.to_glib_none().0,
-                may_block.to_glib(),
+                may_block.into_glib(),
             ))
         }
     }
@@ -133,6 +134,7 @@ impl MainContext {
     }
 
     #[doc(alias = "g_main_context_get_thread_default")]
+    #[doc(alias = "get_thread_default")]
     pub fn thread_default() -> Option<MainContext> {
         unsafe { from_glib_none(ffi::g_main_context_get_thread_default()) }
     }

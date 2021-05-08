@@ -17,6 +17,7 @@ pub fn status_to_result(status: ffi::cairo_status_t) -> Result<(), Error> {
 }
 
 #[doc(alias = "cairo_version_string")]
+#[doc(alias = "get_version_string")]
 pub fn version_string() -> &'static str {
     unsafe {
         let ptr = ffi::cairo_version_string();
@@ -35,6 +36,7 @@ pub struct Version {
 
 impl Version {
     #[doc(alias = "cairo_version")]
+    #[doc(alias = "get_version")]
     pub fn version() -> Version {
         let version = unsafe { ffi::cairo_version() };
         Version {

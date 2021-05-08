@@ -59,8 +59,8 @@ impl Pixbuf {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_new_from_data(
                 ptr,
-                colorspace.to_glib(),
-                has_alpha.to_glib(),
+                colorspace.into_glib(),
+                has_alpha.into_glib(),
                 bits_per_sample as i32,
                 width as i32,
                 height as i32,
@@ -151,7 +151,7 @@ impl Pixbuf {
                 filename.as_ref().to_glib_none().0,
                 width,
                 height,
-                preserve_aspect_ratio.to_glib(),
+                preserve_aspect_ratio.into_glib(),
                 &mut error,
             );
             if error.is_null() {
@@ -254,7 +254,7 @@ impl Pixbuf {
                 stream.as_ref().to_glib_none().0,
                 width,
                 height,
-                preserve_aspect_ratio.to_glib(),
+                preserve_aspect_ratio.into_glib(),
                 cancellable.to_glib_none().0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
@@ -289,6 +289,7 @@ impl Pixbuf {
     #[allow(clippy::mut_from_ref)]
     #[allow(clippy::missing_safety_doc)]
     #[doc(alias = "gdk_pixbuf_get_pixels_with_length")]
+    #[doc(alias = "get_pixels")]
     pub unsafe fn pixels(&self) -> &mut [u8] {
         let mut len = 0;
         let ptr = ffi::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);
@@ -324,6 +325,7 @@ impl Pixbuf {
     }
 
     #[doc(alias = "gdk_pixbuf_get_file_info")]
+    #[doc(alias = "get_file_info")]
     pub fn file_info<T: AsRef<Path>>(filename: T) -> Option<(PixbufFormat, i32, i32)> {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
@@ -345,9 +347,8 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[doc(alias = "gdk_pixbuf_get_file_info_async")]
+    #[doc(alias = "get_file_info_async")]
     pub fn file_info_async<
         P: IsA<gio::Cancellable>,
         Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
@@ -400,9 +401,8 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     #[allow(clippy::type_complexity)]
+    #[doc(alias = "get_file_info_async_future")]
     pub fn file_info_async_future<T: AsRef<Path> + Clone + 'static>(
         filename: T,
     ) -> Pin<Box<dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + 'static>>

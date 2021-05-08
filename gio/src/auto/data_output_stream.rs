@@ -61,8 +61,8 @@ impl DataOutputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        let ret = glib::Object::new::<DataOutputStream>(&properties).expect("object new");
-        ret
+        glib::Object::new::<DataOutputStream>(&properties)
+            .expect("Failed to create an instance of DataOutputStream")
     }
 
     pub fn byte_order(mut self, byte_order: DataStreamByteOrder) -> Self {
@@ -85,6 +85,7 @@ pub const NONE_DATA_OUTPUT_STREAM: Option<&DataOutputStream> = None;
 
 pub trait DataOutputStreamExt: 'static {
     #[doc(alias = "g_data_output_stream_get_byte_order")]
+    #[doc(alias = "get_byte_order")]
     fn byte_order(&self) -> DataStreamByteOrder;
 
     #[doc(alias = "g_data_output_stream_put_byte")]
@@ -146,7 +147,8 @@ pub trait DataOutputStreamExt: 'static {
     #[doc(alias = "g_data_output_stream_set_byte_order")]
     fn set_byte_order(&self, order: DataStreamByteOrder);
 
-    fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "byte-order")]
+    fn connect_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
@@ -330,12 +332,13 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         unsafe {
             ffi::g_data_output_stream_set_byte_order(
                 self.as_ref().to_glib_none().0,
-                order.to_glib(),
+                order.into_glib(),
             );
         }
     }
 
-    fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "byte-order")]
+    fn connect_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GDataOutputStream,
             _param_spec: glib::ffi::gpointer,

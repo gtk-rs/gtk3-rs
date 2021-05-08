@@ -50,9 +50,11 @@ pub trait IOStreamExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_io_stream_get_input_stream")]
+    #[doc(alias = "get_input_stream")]
     fn input_stream(&self) -> InputStream;
 
     #[doc(alias = "g_io_stream_get_output_stream")]
+    #[doc(alias = "get_output_stream")]
     fn output_stream(&self) -> OutputStream;
 
     #[doc(alias = "g_io_stream_has_pending")]
@@ -64,7 +66,8 @@ pub trait IOStreamExt: 'static {
     #[doc(alias = "g_io_stream_set_pending")]
     fn set_pending(&self) -> Result<(), glib::Error>;
 
-    fn connect_property_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "closed")]
+    fn connect_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<IOStream>> IOStreamExt for O {
@@ -118,7 +121,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         unsafe {
             ffi::g_io_stream_close_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -176,7 +179,8 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         }
     }
 
-    fn connect_property_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "closed")]
+    fn connect_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_closed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GIOStream,
             _param_spec: glib::ffi::gpointer,

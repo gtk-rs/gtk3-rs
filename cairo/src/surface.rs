@@ -75,6 +75,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_mime_data")]
+    #[doc(alias = "get_mime_data")]
     pub fn mime_data(&self, mime_type: &str) -> Option<Vec<u8>> {
         let data_ptr: *mut u8 = ptr::null_mut();
         let mut length: c_ulong = 0;
@@ -95,6 +96,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_mime_data")]
+    #[doc(alias = "get_mime_data_raw")]
     pub unsafe fn mime_data_raw(&self, mime_type: &str) -> Option<&[u8]> {
         let data_ptr: *mut u8 = ptr::null_mut();
         let mut length: c_ulong = 0;
@@ -157,6 +159,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_device")]
+    #[doc(alias = "get_device")]
     pub fn device(&self) -> Option<Device> {
         unsafe {
             let device = ffi::cairo_surface_get_device(self.to_raw_none());
@@ -174,6 +177,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_device_offset")]
+    #[doc(alias = "get_device_offset")]
     pub fn device_offset(&self) -> (f64, f64) {
         let mut x_offset = 0.0f64;
         let mut y_offset = 0.0f64;
@@ -183,14 +187,13 @@ impl Surface {
         (x_offset, y_offset)
     }
 
-    #[cfg(any(feature = "v1_14", feature = "dox"))]
     #[doc(alias = "cairo_surface_set_device_scale")]
     pub fn set_device_scale(&self, x_scale: f64, y_scale: f64) {
         unsafe { ffi::cairo_surface_set_device_scale(self.to_raw_none(), x_scale, y_scale) }
     }
 
-    #[cfg(any(feature = "v1_14", feature = "dox"))]
     #[doc(alias = "cairo_surface_get_device_scale")]
+    #[doc(alias = "get_device_scale")]
     pub fn device_scale(&self) -> (f64, f64) {
         let mut x_scale = 0.0f64;
         let mut y_scale = 0.0f64;
@@ -212,6 +215,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_fallback_resolution")]
+    #[doc(alias = "get_fallback_resolution")]
     pub fn fallback_resolution(&self) -> (f64, f64) {
         let mut x_pixels_per_inch = 0.0f64;
         let mut y_pixels_per_inch = 0.0f64;
@@ -264,6 +268,12 @@ impl Surface {
     #[doc(alias = "cairo_surface_mark_dirty_rectangle")]
     pub fn mark_dirty_rectangle(&self, x: i32, y: i32, width: i32, height: i32) {
         unsafe { ffi::cairo_surface_mark_dirty_rectangle(self.to_raw_none(), x, y, width, height) }
+    }
+
+    #[doc(alias = "cairo_surface_status")]
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_surface_status(self.to_raw_none()) };
+        status_to_result(status)
     }
 
     user_data_methods! {
@@ -354,6 +364,7 @@ impl Surface {
     }
 
     #[doc(alias = "cairo_surface_get_type")]
+    #[doc(alias = "get_type")]
     pub fn type_(&self) -> SurfaceType {
         unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.0.as_ptr())) }
     }

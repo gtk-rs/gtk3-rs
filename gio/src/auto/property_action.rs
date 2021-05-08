@@ -8,12 +8,7 @@ use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 use glib::StaticType;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -42,9 +37,7 @@ impl PropertyAction {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    #[doc(alias = "get_property_invert_boolean")]
+    #[doc(alias = "invert-boolean")]
     pub fn inverts_boolean(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -59,7 +52,8 @@ impl PropertyAction {
         }
     }
 
-    pub fn connect_property_enabled_notify<F: Fn(&PropertyAction) + 'static>(
+    #[doc(alias = "enabled")]
+    pub fn connect_enabled_notify<F: Fn(&PropertyAction) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -84,7 +78,8 @@ impl PropertyAction {
         }
     }
 
-    pub fn connect_property_parameter_type_notify<F: Fn(&PropertyAction) + 'static>(
+    #[doc(alias = "parameter-type")]
+    pub fn connect_parameter_type_notify<F: Fn(&PropertyAction) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -109,10 +104,8 @@ impl PropertyAction {
         }
     }
 
-    pub fn connect_property_state_notify<F: Fn(&PropertyAction) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "state")]
+    pub fn connect_state_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_state_trampoline<F: Fn(&PropertyAction) + 'static>(
             this: *mut ffi::GPropertyAction,
             _param_spec: glib::ffi::gpointer,
@@ -134,7 +127,8 @@ impl PropertyAction {
         }
     }
 
-    pub fn connect_property_state_type_notify<F: Fn(&PropertyAction) + 'static>(
+    #[doc(alias = "state-type")]
+    pub fn connect_state_type_notify<F: Fn(&PropertyAction) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

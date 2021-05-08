@@ -57,7 +57,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
             working_directory.as_ref().to_glib_none().0,
             argv.to_glib_none().0,
             envp.to_glib_none().0,
-            flags.to_glib(),
+            flags.into_glib(),
             child_setup,
             Box_::into_raw(super_callback0) as *mut _,
             child_pid.as_mut_ptr(),
@@ -114,7 +114,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
 //             working_directory.as_ref().to_glib_none().0,
 //             argv.to_glib_none().0,
 //             envp.to_glib_none().0,
-//             flags.to_glib(),
+//             flags.into_glib(),
 //             child_setup,
 //             Box_::into_raw(super_callback0) as *mut _,
 //             child_pid.as_mut_ptr(),
@@ -170,7 +170,7 @@ pub fn spawn_async_with_pipes<
             working_directory.as_ref().to_glib_none().0,
             argv.to_glib_none().0,
             envp.to_glib_none().0,
-            flags.to_glib(),
+            flags.into_glib(),
             child_setup,
             Box_::into_raw(super_callback0) as *mut _,
             child_pid.as_mut_ptr(),
@@ -214,6 +214,7 @@ pub fn spawn_async_with_pipes<
 /// This returns whether the locale's encoding is UTF-8, and the current
 /// charset if available.
 #[doc(alias = "g_get_charset")]
+#[doc(alias = "get_charset")]
 pub fn charset() -> (bool, Option<GString>) {
     unsafe {
         let mut out_charset = ptr::null();

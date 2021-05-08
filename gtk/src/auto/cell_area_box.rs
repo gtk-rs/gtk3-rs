@@ -64,8 +64,8 @@ impl CellAreaBoxBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new::<CellAreaBox>(&properties).expect("object new");
-        ret
+        glib::Object::new::<CellAreaBox>(&properties)
+            .expect("Failed to create an instance of CellAreaBox")
     }
 
     pub fn spacing(mut self, spacing: i32) -> Self {
@@ -88,6 +88,7 @@ pub const NONE_CELL_AREA_BOX: Option<&CellAreaBox> = None;
 
 pub trait CellAreaBoxExt: 'static {
     #[doc(alias = "gtk_cell_area_box_get_spacing")]
+    #[doc(alias = "get_spacing")]
     fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_cell_area_box_pack_end")]
@@ -105,7 +106,8 @@ pub trait CellAreaBoxExt: 'static {
     #[doc(alias = "gtk_cell_area_box_set_spacing")]
     fn set_spacing(&self, spacing: i32);
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
@@ -118,9 +120,9 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
             ffi::gtk_cell_area_box_pack_end(
                 self.as_ref().to_glib_none().0,
                 renderer.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                align.to_glib(),
-                fixed.to_glib(),
+                expand.into_glib(),
+                align.into_glib(),
+                fixed.into_glib(),
             );
         }
     }
@@ -136,9 +138,9 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
             ffi::gtk_cell_area_box_pack_start(
                 self.as_ref().to_glib_none().0,
                 renderer.as_ref().to_glib_none().0,
-                expand.to_glib(),
-                align.to_glib(),
-                fixed.to_glib(),
+                expand.into_glib(),
+                align.into_glib(),
+                fixed.into_glib(),
             );
         }
     }
@@ -149,7 +151,8 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
         }
     }
 
-    fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "spacing")]
+    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellAreaBox,
             _param_spec: glib::ffi::gpointer,

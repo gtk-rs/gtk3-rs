@@ -42,7 +42,7 @@ impl FileChooserNative {
             from_glib_full(ffi::gtk_file_chooser_native_new(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
-                action.to_glib(),
+                action.into_glib(),
                 accept_label.to_glib_none().0,
                 cancel_label.to_glib_none().0,
             ))
@@ -50,6 +50,7 @@ impl FileChooserNative {
     }
 
     #[doc(alias = "gtk_file_chooser_native_get_accept_label")]
+    #[doc(alias = "get_accept_label")]
     pub fn accept_label(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_native_get_accept_label(
@@ -59,6 +60,7 @@ impl FileChooserNative {
     }
 
     #[doc(alias = "gtk_file_chooser_native_get_cancel_label")]
+    #[doc(alias = "get_cancel_label")]
     pub fn cancel_label(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_native_get_cancel_label(
@@ -87,6 +89,7 @@ impl FileChooserNative {
         }
     }
 
+    #[doc(alias = "accept-label")]
     pub fn get_property_accept_label(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -101,6 +104,7 @@ impl FileChooserNative {
         }
     }
 
+    #[doc(alias = "accept-label")]
     pub fn set_property_accept_label(&self, accept_label: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -111,6 +115,7 @@ impl FileChooserNative {
         }
     }
 
+    #[doc(alias = "cancel-label")]
     pub fn get_property_cancel_label(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
@@ -125,6 +130,7 @@ impl FileChooserNative {
         }
     }
 
+    #[doc(alias = "cancel-label")]
     pub fn set_property_cancel_label(&self, cancel_label: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -135,7 +141,8 @@ impl FileChooserNative {
         }
     }
 
-    pub fn connect_property_accept_label_notify<F: Fn(&FileChooserNative) + 'static>(
+    #[doc(alias = "accept-label")]
+    pub fn connect_accept_label_notify<F: Fn(&FileChooserNative) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -160,7 +167,8 @@ impl FileChooserNative {
         }
     }
 
-    pub fn connect_property_cancel_label_notify<F: Fn(&FileChooserNative) + 'static>(
+    #[doc(alias = "cancel-label")]
+    pub fn connect_cancel_label_notify<F: Fn(&FileChooserNative) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -277,8 +285,8 @@ impl FileChooserNativeBuilder {
         if let Some(ref use_preview_label) = self.use_preview_label {
             properties.push(("use-preview-label", use_preview_label));
         }
-        let ret = glib::Object::new::<FileChooserNative>(&properties).expect("object new");
-        ret
+        glib::Object::new::<FileChooserNative>(&properties)
+            .expect("Failed to create an instance of FileChooserNative")
     }
 
     pub fn accept_label(mut self, accept_label: &str) -> Self {

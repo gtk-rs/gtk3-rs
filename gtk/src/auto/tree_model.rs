@@ -32,33 +32,43 @@ pub trait TreeModelExt: 'static {
     //fn get(&self, iter: &TreeIter, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_tree_model_get_column_type")]
+    #[doc(alias = "get_column_type")]
     fn column_type(&self, index_: i32) -> glib::types::Type;
 
     #[doc(alias = "gtk_tree_model_get_flags")]
+    #[doc(alias = "get_flags")]
     fn flags(&self) -> TreeModelFlags;
 
     #[doc(alias = "gtk_tree_model_get_iter")]
+    #[doc(alias = "get_iter")]
     fn iter(&self, path: &TreePath) -> Option<TreeIter>;
 
     #[doc(alias = "gtk_tree_model_get_iter_first")]
+    #[doc(alias = "get_iter_first")]
     fn iter_first(&self) -> Option<TreeIter>;
 
     #[doc(alias = "gtk_tree_model_get_iter_from_string")]
+    #[doc(alias = "get_iter_from_string")]
     fn iter_from_string(&self, path_string: &str) -> Option<TreeIter>;
 
     #[doc(alias = "gtk_tree_model_get_n_columns")]
+    #[doc(alias = "get_n_columns")]
     fn n_columns(&self) -> i32;
 
     #[doc(alias = "gtk_tree_model_get_path")]
+    #[doc(alias = "get_path")]
     fn path(&self, iter: &TreeIter) -> Option<TreePath>;
 
     #[doc(alias = "gtk_tree_model_get_string_from_iter")]
+    #[doc(alias = "get_string_from_iter")]
     fn string_from_iter(&self, iter: &TreeIter) -> Option<glib::GString>;
 
     //#[doc(alias = "gtk_tree_model_get_valist")]
+    //#[doc(alias = "get_valist")]
     //fn valist(&self, iter: &TreeIter, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     #[doc(alias = "gtk_tree_model_get_value")]
+    #[doc(alias = "get_value")]
     fn value(&self, iter: &TreeIter, column: i32) -> glib::Value;
 
     #[doc(alias = "gtk_tree_model_iter_children")]
@@ -102,23 +112,28 @@ pub trait TreeModelExt: 'static {
         new_order: &[i32],
     );
 
+    #[doc(alias = "row-changed")]
     fn connect_row_changed<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "row-deleted")]
     fn connect_row_deleted<F: Fn(&Self, &TreePath) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "row-has-child-toggled")]
     fn connect_row_has_child_toggled<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "row-inserted")]
     fn connect_row_inserted<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    //#[doc(alias = "rows-reordered")]
     //fn connect_rows_reordered<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -136,7 +151,7 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
             let iter = from_glib_borrow(iter);
             let callback: *mut P = data as *const _ as usize as *mut P;
             let res = (*callback)(&model, &path, &iter);
-            res.to_glib()
+            res.into_glib()
         }
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;
@@ -398,6 +413,7 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
+    #[doc(alias = "row-changed")]
     fn connect_row_changed<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -430,6 +446,7 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
+    #[doc(alias = "row-deleted")]
     fn connect_row_deleted<F: Fn(&Self, &TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_deleted_trampoline<P, F: Fn(&P, &TreePath) + 'static>(
             this: *mut ffi::GtkTreeModel,
@@ -457,6 +474,7 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
+    #[doc(alias = "row-has-child-toggled")]
     fn connect_row_has_child_toggled<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -492,6 +510,7 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
+    #[doc(alias = "row-inserted")]
     fn connect_row_inserted<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -524,6 +543,7 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
+    //#[doc(alias = "rows-reordered")]
     //fn connect_rows_reordered<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented new_order: *.Pointer
     //}

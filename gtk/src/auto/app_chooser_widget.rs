@@ -243,8 +243,8 @@ impl AppChooserWidgetBuilder {
         if let Some(ref content_type) = self.content_type {
             properties.push(("content-type", content_type));
         }
-        let ret = glib::Object::new::<AppChooserWidget>(&properties).expect("object new");
-        ret
+        glib::Object::new::<AppChooserWidget>(&properties)
+            .expect("Failed to create an instance of AppChooserWidget")
     }
 
     pub fn default_text(mut self, default_text: &str) -> Self {
@@ -484,21 +484,27 @@ pub const NONE_APP_CHOOSER_WIDGET: Option<&AppChooserWidget> = None;
 
 pub trait AppChooserWidgetExt: 'static {
     #[doc(alias = "gtk_app_chooser_widget_get_default_text")]
+    #[doc(alias = "get_default_text")]
     fn default_text(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_all")]
+    #[doc(alias = "get_show_all")]
     fn shows_all(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_default")]
+    #[doc(alias = "get_show_default")]
     fn shows_default(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_fallback")]
+    #[doc(alias = "get_show_fallback")]
     fn shows_fallback(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_other")]
+    #[doc(alias = "get_show_other")]
     fn shows_other(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_recommended")]
+    #[doc(alias = "get_show_recommended")]
     fn shows_recommended(&self) -> bool;
 
     #[doc(alias = "gtk_app_chooser_widget_set_default_text")]
@@ -519,40 +525,41 @@ pub trait AppChooserWidgetExt: 'static {
     #[doc(alias = "gtk_app_chooser_widget_set_show_recommended")]
     fn set_show_recommended(&self, setting: bool);
 
+    #[doc(alias = "application-activated")]
     fn connect_application_activated<F: Fn(&Self, &gio::AppInfo) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "application-selected")]
     fn connect_application_selected<F: Fn(&Self, &gio::AppInfo) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "populate-popup")]
     fn connect_populate_popup<F: Fn(&Self, &Menu, &gio::AppInfo) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_default_text_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "default-text")]
+    fn connect_default_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "show-all")]
+    fn connect_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_default_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "show-default")]
+    fn connect_show_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_fallback_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-fallback")]
+    fn connect_show_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_other_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "show-other")]
+    fn connect_show_other_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_show_recommended_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "show-recommended")]
+    fn connect_show_recommended_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
@@ -617,7 +624,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_all(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -626,7 +633,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_default(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -635,7 +642,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_fallback(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -644,7 +651,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_other(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
@@ -653,11 +660,12 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_recommended(
                 self.as_ref().to_glib_none().0,
-                setting.to_glib(),
+                setting.into_glib(),
             );
         }
     }
 
+    #[doc(alias = "application-activated")]
     fn connect_application_activated<F: Fn(&Self, &gio::AppInfo) + 'static>(
         &self,
         f: F,
@@ -691,6 +699,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
+    #[doc(alias = "application-selected")]
     fn connect_application_selected<F: Fn(&Self, &gio::AppInfo) + 'static>(
         &self,
         f: F,
@@ -724,6 +733,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
+    #[doc(alias = "populate-popup")]
     fn connect_populate_popup<F: Fn(&Self, &Menu, &gio::AppInfo) + 'static>(
         &self,
         f: F,
@@ -759,10 +769,8 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn connect_property_default_text_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "default-text")]
+    fn connect_default_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_default_text_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserWidget,
             _param_spec: glib::ffi::gpointer,
@@ -786,7 +794,8 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn connect_property_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "show-all")]
+    fn connect_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_all_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserWidget,
             _param_spec: glib::ffi::gpointer,
@@ -810,10 +819,8 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn connect_property_show_default_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-default")]
+    fn connect_show_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_default_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserWidget,
             _param_spec: glib::ffi::gpointer,
@@ -837,10 +844,8 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn connect_property_show_fallback_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-fallback")]
+    fn connect_show_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_fallback_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserWidget,
             _param_spec: glib::ffi::gpointer,
@@ -864,7 +869,8 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn connect_property_show_other_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "show-other")]
+    fn connect_show_other_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_other_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserWidget,
             _param_spec: glib::ffi::gpointer,
@@ -888,10 +894,8 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    fn connect_property_show_recommended_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "show-recommended")]
+    fn connect_show_recommended_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_recommended_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAppChooserWidget,
             _param_spec: glib::ffi::gpointer,

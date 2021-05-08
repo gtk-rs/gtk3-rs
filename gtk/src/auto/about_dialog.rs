@@ -377,8 +377,8 @@ impl AboutDialogBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<AboutDialog>(&properties).expect("object new");
-        ret
+        glib::Object::new::<AboutDialog>(&properties)
+            .expect("Failed to create an instance of AboutDialog")
     }
 
     pub fn artists(mut self, artists: Vec<String>) -> Self {
@@ -786,48 +786,63 @@ pub trait AboutDialogExt: 'static {
     fn add_credit_section(&self, section_name: &str, people: &[&str]);
 
     #[doc(alias = "gtk_about_dialog_get_artists")]
+    #[doc(alias = "get_artists")]
     fn artists(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_authors")]
+    #[doc(alias = "get_authors")]
     fn authors(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_comments")]
+    #[doc(alias = "get_comments")]
     fn comments(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_copyright")]
+    #[doc(alias = "get_copyright")]
     fn copyright(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_documenters")]
+    #[doc(alias = "get_documenters")]
     fn documenters(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_license")]
+    #[doc(alias = "get_license")]
     fn license(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_license_type")]
+    #[doc(alias = "get_license_type")]
     fn license_type(&self) -> License;
 
     #[doc(alias = "gtk_about_dialog_get_logo")]
+    #[doc(alias = "get_logo")]
     fn logo(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
     #[doc(alias = "gtk_about_dialog_get_logo_icon_name")]
+    #[doc(alias = "get_logo_icon_name")]
     fn logo_icon_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_program_name")]
+    #[doc(alias = "get_program_name")]
     fn program_name(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_translator_credits")]
+    #[doc(alias = "get_translator_credits")]
     fn translator_credits(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_version")]
+    #[doc(alias = "get_version")]
     fn version(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_website")]
+    #[doc(alias = "get_website")]
     fn website(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_website_label")]
+    #[doc(alias = "get_website_label")]
     fn website_label(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_about_dialog_get_wrap_license")]
+    #[doc(alias = "get_wrap_license")]
     fn wraps_license(&self) -> bool;
 
     #[doc(alias = "gtk_about_dialog_set_artists")]
@@ -875,52 +890,56 @@ pub trait AboutDialogExt: 'static {
     #[doc(alias = "gtk_about_dialog_set_wrap_license")]
     fn set_wrap_license(&self, wrap_license: bool);
 
+    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_artists_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "artists")]
+    fn connect_artists_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_authors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "authors")]
+    fn connect_authors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_comments_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "comments")]
+    fn connect_comments_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_copyright_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "copyright")]
+    fn connect_copyright_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_documenters_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "documenters")]
+    fn connect_documenters_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "license")]
+    fn connect_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_license_type_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "license-type")]
+    fn connect_license_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_logo_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "logo")]
+    fn connect_logo_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_logo_icon_name_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "logo-icon-name")]
+    fn connect_logo_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_program_name_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "program-name")]
+    fn connect_program_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_translator_credits_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "translator-credits")]
+    fn connect_translator_credits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_version_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "version")]
+    fn connect_version_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_website_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "website")]
+    fn connect_website_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_website_label_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "website-label")]
+    fn connect_website_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_wrap_license_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "wrap-license")]
+    fn connect_wrap_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<AboutDialog>> AboutDialogExt for O {
@@ -1112,7 +1131,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         unsafe {
             ffi::gtk_about_dialog_set_license_type(
                 self.as_ref().to_glib_none().0,
-                license_type.to_glib(),
+                license_type.into_glib(),
             );
         }
     }
@@ -1181,11 +1200,12 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         unsafe {
             ffi::gtk_about_dialog_set_wrap_license(
                 self.as_ref().to_glib_none().0,
-                wrap_license.to_glib(),
+                wrap_license.into_glib(),
             );
         }
     }
 
+    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -1206,7 +1226,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
                 &AboutDialog::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(uri),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1221,7 +1241,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_artists_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "artists")]
+    fn connect_artists_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_artists_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1245,7 +1266,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_authors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "authors")]
+    fn connect_authors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_authors_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1269,7 +1291,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_comments_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "comments")]
+    fn connect_comments_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_comments_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1293,7 +1316,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_copyright_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "copyright")]
+    fn connect_copyright_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_copyright_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1317,7 +1341,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_documenters_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "documenters")]
+    fn connect_documenters_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_documenters_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1341,7 +1366,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "license")]
+    fn connect_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_license_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1365,10 +1391,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_license_type_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "license-type")]
+    fn connect_license_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_license_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1392,7 +1416,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_logo_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "logo")]
+    fn connect_logo_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_logo_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1416,10 +1441,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_logo_icon_name_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "logo-icon-name")]
+    fn connect_logo_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_logo_icon_name_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1443,10 +1466,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_program_name_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "program-name")]
+    fn connect_program_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_program_name_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1470,10 +1491,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_translator_credits_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "translator-credits")]
+    fn connect_translator_credits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_translator_credits_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1497,7 +1516,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_version_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "version")]
+    fn connect_version_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_version_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1521,7 +1541,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_website_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "website")]
+    fn connect_website_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_website_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1545,10 +1566,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_website_label_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "website-label")]
+    fn connect_website_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_website_label_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -1572,10 +1591,8 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    fn connect_property_wrap_license_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "wrap-license")]
+    fn connect_wrap_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_license_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,

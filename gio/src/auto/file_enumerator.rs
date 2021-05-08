@@ -41,9 +41,11 @@ pub trait FileEnumeratorExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_file_enumerator_get_child")]
+    #[doc(alias = "get_child")]
     fn child(&self, info: &FileInfo) -> File;
 
     #[doc(alias = "g_file_enumerator_get_container")]
+    #[doc(alias = "get_container")]
     fn container(&self) -> File;
 
     #[doc(alias = "g_file_enumerator_has_pending")]
@@ -125,7 +127,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
         unsafe {
             ffi::g_file_enumerator_close_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -233,7 +235,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
             ffi::g_file_enumerator_next_files_async(
                 self.as_ref().to_glib_none().0,
                 num_files,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -259,7 +261,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
 
     fn set_pending(&self, pending: bool) {
         unsafe {
-            ffi::g_file_enumerator_set_pending(self.as_ref().to_glib_none().0, pending.to_glib());
+            ffi::g_file_enumerator_set_pending(self.as_ref().to_glib_none().0, pending.into_glib());
         }
     }
 }

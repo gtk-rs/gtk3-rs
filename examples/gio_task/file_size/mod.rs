@@ -19,6 +19,7 @@ impl FileSize {
         *simple_object.size.borrow()
     }
 
+    #[doc(alias = "get_file_size_async")]
     pub fn file_size_async<Q: FnOnce(i64, &FileSize) + 'static>(
         &self,
         cancellable: Option<&gio::Cancellable>,
@@ -43,7 +44,7 @@ impl FileSize {
         );
 
         glib::MainContext::default().spawn_local(async move {
-            let size = gio::File::new_for_path("Cargo.toml")
+            let size = gio::File::for_path("Cargo.toml")
                 .query_info_async_future("*", gio::FileQueryInfoFlags::NONE, glib::PRIORITY_DEFAULT)
                 .await
                 .unwrap()
@@ -65,6 +66,6 @@ impl FileSize {
 
 impl Default for FileSize {
     fn default() -> Self {
-        FileSize::new()
+        Self::new()
     }
 }

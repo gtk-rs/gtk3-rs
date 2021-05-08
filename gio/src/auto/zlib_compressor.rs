@@ -10,7 +10,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -26,10 +25,11 @@ glib::wrapper! {
 impl ZlibCompressor {
     #[doc(alias = "g_zlib_compressor_new")]
     pub fn new(format: ZlibCompressorFormat, level: i32) -> ZlibCompressor {
-        unsafe { from_glib_full(ffi::g_zlib_compressor_new(format.to_glib(), level)) }
+        unsafe { from_glib_full(ffi::g_zlib_compressor_new(format.into_glib(), level)) }
     }
 
     #[doc(alias = "g_zlib_compressor_get_file_info")]
+    #[doc(alias = "get_file_info")]
     pub fn file_info(&self) -> Option<FileInfo> {
         unsafe { from_glib_none(ffi::g_zlib_compressor_get_file_info(self.to_glib_none().0)) }
     }
@@ -41,7 +41,6 @@ impl ZlibCompressor {
         }
     }
 
-    #[doc(alias = "get_property_format")]
     pub fn format(&self) -> ZlibCompressorFormat {
         unsafe {
             let mut value =
@@ -57,7 +56,6 @@ impl ZlibCompressor {
         }
     }
 
-    #[doc(alias = "get_property_level")]
     pub fn level(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
@@ -72,7 +70,8 @@ impl ZlibCompressor {
         }
     }
 
-    pub fn connect_property_file_info_notify<F: Fn(&ZlibCompressor) + 'static>(
+    #[doc(alias = "file-info")]
+    pub fn connect_file_info_notify<F: Fn(&ZlibCompressor) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {

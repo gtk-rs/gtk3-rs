@@ -222,8 +222,8 @@ impl ViewportBuilder {
         if let Some(ref vscroll_policy) = self.vscroll_policy {
             properties.push(("vscroll-policy", vscroll_policy));
         }
-        let ret = glib::Object::new::<Viewport>(&properties).expect("object new");
-        ret
+        glib::Object::new::<Viewport>(&properties)
+            .expect("Failed to create an instance of Viewport")
     }
 
     pub fn shadow_type(mut self, shadow_type: ShadowType) -> Self {
@@ -433,18 +433,22 @@ pub const NONE_VIEWPORT: Option<&Viewport> = None;
 
 pub trait ViewportExt: 'static {
     #[doc(alias = "gtk_viewport_get_bin_window")]
+    #[doc(alias = "get_bin_window")]
     fn bin_window(&self) -> Option<gdk::Window>;
 
     #[doc(alias = "gtk_viewport_get_shadow_type")]
+    #[doc(alias = "get_shadow_type")]
     fn shadow_type(&self) -> ShadowType;
 
     #[doc(alias = "gtk_viewport_get_view_window")]
+    #[doc(alias = "get_view_window")]
     fn view_window(&self) -> Option<gdk::Window>;
 
     #[doc(alias = "gtk_viewport_set_shadow_type")]
     fn set_shadow_type(&self, type_: ShadowType);
 
-    fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "shadow-type")]
+    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Viewport>> ViewportExt for O {
@@ -474,11 +478,12 @@ impl<O: IsA<Viewport>> ViewportExt for O {
 
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
-            ffi::gtk_viewport_set_shadow_type(self.as_ref().to_glib_none().0, type_.to_glib());
+            ffi::gtk_viewport_set_shadow_type(self.as_ref().to_glib_none().0, type_.into_glib());
         }
     }
 
-    fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "shadow-type")]
+    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkViewport,
             _param_spec: glib::ffi::gpointer,

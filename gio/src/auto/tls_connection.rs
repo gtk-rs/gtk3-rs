@@ -16,7 +16,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -42,30 +41,38 @@ pub trait TlsConnectionExt: 'static {
     ) -> bool;
 
     #[doc(alias = "g_tls_connection_get_certificate")]
+    #[doc(alias = "get_certificate")]
     fn certificate(&self) -> Option<TlsCertificate>;
 
     #[doc(alias = "g_tls_connection_get_database")]
+    #[doc(alias = "get_database")]
     fn database(&self) -> Option<TlsDatabase>;
 
     #[doc(alias = "g_tls_connection_get_interaction")]
+    #[doc(alias = "get_interaction")]
     fn interaction(&self) -> Option<TlsInteraction>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     #[doc(alias = "g_tls_connection_get_negotiated_protocol")]
+    #[doc(alias = "get_negotiated_protocol")]
     fn negotiated_protocol(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_tls_connection_get_peer_certificate")]
+    #[doc(alias = "get_peer_certificate")]
     fn peer_certificate(&self) -> Option<TlsCertificate>;
 
     #[doc(alias = "g_tls_connection_get_peer_certificate_errors")]
+    #[doc(alias = "get_peer_certificate_errors")]
     fn peer_certificate_errors(&self) -> TlsCertificateFlags;
 
     #[cfg_attr(feature = "v2_60", deprecated = "Since 2.60")]
     #[doc(alias = "g_tls_connection_get_rehandshake_mode")]
+    #[doc(alias = "get_rehandshake_mode")]
     fn rehandshake_mode(&self) -> TlsRehandshakeMode;
 
     #[doc(alias = "g_tls_connection_get_require_close_notify")]
+    #[doc(alias = "get_require_close_notify")]
     fn requires_close_notify(&self) -> bool;
 
     #[doc(alias = "g_tls_connection_handshake")]
@@ -107,12 +114,13 @@ pub trait TlsConnectionExt: 'static {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    #[doc(alias = "get_property_advertised_protocols")]
+    #[doc(alias = "advertised-protocols")]
     fn advertised_protocols(&self) -> Vec<glib::GString>;
 
-    #[doc(alias = "get_property_base_io_stream")]
+    #[doc(alias = "base-io-stream")]
     fn base_io_stream(&self) -> Option<IOStream>;
 
+    #[doc(alias = "accept-certificate")]
     fn connect_accept_certificate<
         F: Fn(&Self, &TlsCertificate, TlsCertificateFlags) -> bool + 'static,
     >(
@@ -122,44 +130,38 @@ pub trait TlsConnectionExt: 'static {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn connect_property_advertised_protocols_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "advertised-protocols")]
+    fn connect_advertised_protocols_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "certificate")]
+    fn connect_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "database")]
+    fn connect_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "interaction")]
+    fn connect_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn connect_property_negotiated_protocol_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "negotiated-protocol")]
+    fn connect_negotiated_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_peer_certificate_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "peer-certificate")]
+    fn connect_peer_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_peer_certificate_errors_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "peer-certificate-errors")]
+    fn connect_peer_certificate_errors_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v2_60", deprecated = "Since 2.60")]
-    fn connect_property_rehandshake_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "rehandshake-mode")]
+    fn connect_rehandshake_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_require_close_notify_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "require-close-notify")]
+    fn connect_require_close_notify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
@@ -172,7 +174,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
             from_glib(ffi::g_tls_connection_emit_accept_certificate(
                 self.as_ref().to_glib_none().0,
                 peer_cert.as_ref().to_glib_none().0,
-                errors.to_glib(),
+                errors.into_glib(),
             ))
         }
     }
@@ -288,7 +290,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         unsafe {
             ffi::g_tls_connection_handshake_async(
                 self.as_ref().to_glib_none().0,
-                io_priority.to_glib(),
+                io_priority.into_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
                 Box_::into_raw(user_data) as *mut _,
@@ -352,7 +354,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         unsafe {
             ffi::g_tls_connection_set_rehandshake_mode(
                 self.as_ref().to_glib_none().0,
-                mode.to_glib(),
+                mode.into_glib(),
             );
         }
     }
@@ -361,7 +363,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         unsafe {
             ffi::g_tls_connection_set_require_close_notify(
                 self.as_ref().to_glib_none().0,
-                require_close_notify.to_glib(),
+                require_close_notify.into_glib(),
             );
         }
     }
@@ -397,6 +399,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
+    #[doc(alias = "accept-certificate")]
     fn connect_accept_certificate<
         F: Fn(&Self, &TlsCertificate, TlsCertificateFlags) -> bool + 'static,
     >(
@@ -421,7 +424,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
                 &from_glib_borrow(peer_cert),
                 from_glib(errors),
             )
-            .to_glib()
+            .into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -438,10 +441,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn connect_property_advertised_protocols_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "advertised-protocols")]
+    fn connect_advertised_protocols_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_advertised_protocols_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsConnection,
             _param_spec: glib::ffi::gpointer,
@@ -465,7 +466,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "certificate")]
+    fn connect_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_certificate_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsConnection,
             _param_spec: glib::ffi::gpointer,
@@ -489,7 +491,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn connect_property_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "database")]
+    fn connect_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_database_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsConnection,
             _param_spec: glib::ffi::gpointer,
@@ -513,7 +516,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn connect_property_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "interaction")]
+    fn connect_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_interaction_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsConnection,
             _param_spec: glib::ffi::gpointer,
@@ -539,10 +543,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn connect_property_negotiated_protocol_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "negotiated-protocol")]
+    fn connect_negotiated_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_negotiated_protocol_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsConnection,
             _param_spec: glib::ffi::gpointer,
@@ -566,10 +568,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn connect_property_peer_certificate_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "peer-certificate")]
+    fn connect_peer_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_peer_certificate_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsConnection,
             _param_spec: glib::ffi::gpointer,
@@ -593,7 +593,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn connect_property_peer_certificate_errors_notify<F: Fn(&Self) + 'static>(
+    #[doc(alias = "peer-certificate-errors")]
+    fn connect_peer_certificate_errors_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -620,10 +621,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn connect_property_rehandshake_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "rehandshake-mode")]
+    fn connect_rehandshake_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rehandshake_mode_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsConnection,
             _param_spec: glib::ffi::gpointer,
@@ -647,10 +646,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn connect_property_require_close_notify_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "require-close-notify")]
+    fn connect_require_close_notify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_require_close_notify_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GTlsConnection,
             _param_spec: glib::ffi::gpointer,

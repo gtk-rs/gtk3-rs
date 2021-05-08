@@ -14,21 +14,21 @@ pub enum ChangeData<'a> {
 impl<'a> ChangeData<'a> {
     pub fn to_glib(&self) -> *const u8 {
         match *self {
-            ChangeData::UChars(d) => d.as_ptr() as *const _,
-            ChangeData::UShorts(d) => d.as_ptr() as *const _,
-            ChangeData::ULongs(d) => d.as_ptr() as *const _,
-            ChangeData::UChar(d) => &d as *const _ as *const _,
-            ChangeData::UShort(d) => &d as *const _ as *const _,
-            ChangeData::ULong(d) => &d as *const _ as *const _,
+            Self::UChars(d) => d.as_ptr() as *const _,
+            Self::UShorts(d) => d.as_ptr() as *const _,
+            Self::ULongs(d) => d.as_ptr() as *const _,
+            Self::UChar(d) => &d as *const _ as *const _,
+            Self::UShort(d) => &d as *const _ as *const _,
+            Self::ULong(d) => &d as *const _ as *const _,
         }
     }
 
     pub fn len(&self) -> usize {
         match *self {
-            ChangeData::UChars(d) => d.len(),
-            ChangeData::UShorts(d) => d.len(),
-            ChangeData::ULongs(d) => d.len(),
-            ChangeData::UChar(_) | ChangeData::UShort(_) | ChangeData::ULong(_) => 1,
+            Self::UChars(d) => d.len(),
+            Self::UShorts(d) => d.len(),
+            Self::ULongs(d) => d.len(),
+            Self::UChar(_) | Self::UShort(_) | Self::ULong(_) => 1,
         }
     }
 

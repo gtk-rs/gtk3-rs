@@ -60,11 +60,7 @@ pub struct AccelLabelBuilder {
     width_chars: Option<i32>,
     wrap: Option<bool>,
     wrap_mode: Option<pango::WrapMode>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     xalign: Option<f32>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     yalign: Option<f32>,
     app_paintable: Option<bool>,
     can_default: Option<bool>,
@@ -166,11 +162,9 @@ impl AccelLabelBuilder {
         if let Some(ref wrap_mode) = self.wrap_mode {
             properties.push(("wrap-mode", wrap_mode));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref xalign) = self.xalign {
             properties.push(("xalign", xalign));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
         if let Some(ref yalign) = self.yalign {
             properties.push(("yalign", yalign));
         }
@@ -271,8 +265,8 @@ impl AccelLabelBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new::<AccelLabel>(&properties).expect("object new");
-        ret
+        glib::Object::new::<AccelLabel>(&properties)
+            .expect("Failed to create an instance of AccelLabel")
     }
 
     pub fn accel_closure(mut self, accel_closure: &glib::Closure) -> Self {
@@ -370,15 +364,11 @@ impl AccelLabelBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn xalign(mut self, xalign: f32) -> Self {
         self.xalign = Some(xalign);
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn yalign(mut self, yalign: f32) -> Self {
         self.yalign = Some(yalign);
         self
@@ -551,12 +541,15 @@ pub const NONE_ACCEL_LABEL: Option<&AccelLabel> = None;
 
 pub trait AccelLabelExt: 'static {
     #[doc(alias = "gtk_accel_label_get_accel")]
+    #[doc(alias = "get_accel")]
     fn accel(&self) -> (u32, gdk::ModifierType);
 
     #[doc(alias = "gtk_accel_label_get_accel_widget")]
+    #[doc(alias = "get_accel_widget")]
     fn accel_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_accel_label_get_accel_width")]
+    #[doc(alias = "get_accel_width")]
     fn accel_width(&self) -> u32;
 
     #[doc(alias = "gtk_accel_label_refetch")]
@@ -571,16 +564,14 @@ pub trait AccelLabelExt: 'static {
     #[doc(alias = "gtk_accel_label_set_accel_widget")]
     fn set_accel_widget<P: IsA<Widget>>(&self, accel_widget: Option<&P>);
 
-    #[doc(alias = "get_property_accel_closure")]
+    #[doc(alias = "accel-closure")]
     fn accel_closure(&self) -> Option<glib::Closure>;
 
-    fn connect_property_accel_closure_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
+    #[doc(alias = "accel-closure")]
+    fn connect_accel_closure_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_accel_widget_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
+    #[doc(alias = "accel-widget")]
+    fn connect_accel_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<AccelLabel>> AccelLabelExt for O {
@@ -620,7 +611,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
             ffi::gtk_accel_label_set_accel(
                 self.as_ref().to_glib_none().0,
                 accelerator_key,
-                accelerator_mods.to_glib(),
+                accelerator_mods.into_glib(),
             );
         }
     }
@@ -657,10 +648,8 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
-    fn connect_property_accel_closure_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "accel-closure")]
+    fn connect_accel_closure_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_closure_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAccelLabel,
             _param_spec: glib::ffi::gpointer,
@@ -684,10 +673,8 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
-    fn connect_property_accel_widget_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    #[doc(alias = "accel-widget")]
+    fn connect_accel_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_widget_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAccelLabel,
             _param_spec: glib::ffi::gpointer,

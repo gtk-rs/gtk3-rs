@@ -10,7 +10,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -43,17 +42,20 @@ pub trait FileMonitorExt: 'static {
     #[doc(alias = "g_file_monitor_set_rate_limit")]
     fn set_rate_limit(&self, limit_msecs: i32);
 
-    #[doc(alias = "get_property_rate_limit")]
+    #[doc(alias = "rate-limit")]
     fn rate_limit(&self) -> i32;
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, &File, Option<&File>, FileMonitorEvent) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_property_cancelled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "cancelled")]
+    fn connect_cancelled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_rate_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    #[doc(alias = "rate-limit")]
+    fn connect_rate_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<FileMonitor>> FileMonitorExt for O {
@@ -72,7 +74,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 other_file.as_ref().to_glib_none().0,
-                event_type.to_glib(),
+                event_type.into_glib(),
             );
         }
     }
@@ -105,6 +107,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
         }
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, &File, Option<&File>, FileMonitorEvent) + 'static>(
         &self,
         f: F,
@@ -144,7 +147,8 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
         }
     }
 
-    fn connect_property_cancelled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "cancelled")]
+    fn connect_cancelled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cancelled_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GFileMonitor,
             _param_spec: glib::ffi::gpointer,
@@ -168,7 +172,8 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
         }
     }
 
-    fn connect_property_rate_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    #[doc(alias = "rate-limit")]
+    fn connect_rate_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rate_limit_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GFileMonitor,
             _param_spec: glib::ffi::gpointer,
