@@ -13,6 +13,7 @@
 //! use glib::prelude::*;
 //! use glib::subclass;
 //! use glib::subclass::prelude::*;
+//! use glib::{Variant, VariantType};
 //!
 //! use std::cell::{Cell, RefCell};
 //!
@@ -63,15 +64,21 @@
 //!     // This is the struct containing all state carried with
 //!     // the new type. Generally this has to make use of
 //!     // interior mutability.
+//!     // If it implements the `Default` trait, then `Self::default()`
+//!     // will be called every time a new instance is created.
+//!     #[derive(Default)]
 //!     pub struct SimpleObject {
 //!         name: RefCell<Option<String>>,
 //!         animal: Cell<Animal>,
 //!         flags: Cell<MyFlags>,
+//!         variant: RefCell<Option<Variant>>,
 //!     }
 //!
 //!     // ObjectSubclass is the trait that defines the new type and
 //!     // contains all information needed by the GObject type system,
 //!     // including the new type's name, parent type, etc.
+//!     // If you do not want to implement `Default`, you can provide
+//!     // a `new()` method.
 //!     #[glib::object_subclass]
 //!     impl ObjectSubclass for SimpleObject {
 //!         // This type name must be unique per process.
@@ -83,16 +90,6 @@
 //!
 //!         // Interfaces this type implements
 //!         type Interfaces = ();
-//!
-//!         // Called every time a new instance is created. This should return
-//!         // a new instance of our type with its basic values.
-//!         fn new() -> Self {
-//!             Self {
-//!                 name: RefCell::new(None),
-//!                 animal: Cell::new(Animal::default()),
-//!                 flags: Cell::new(MyFlags::default()),
-//!             }
-//!         }
 //!     }
 //!
 //!     // Trait that is used to override virtual methods of glib::Object.
@@ -125,6 +122,14 @@
 //!                         MyFlags::default().bits(),
 //!                         glib::ParamFlags::READWRITE,
 //!                     ),
+//!                     glib::ParamSpec::new_variant(
+//!                         "variant",
+//!                         "Variant",
+//!                         "Variant",
+//!                         glib::VariantTy::ANY,
+//!                         None,
+//!                         glib::ParamFlags::READWRITE,
+//!                    ),
 //!                 ]
 //!             });
 //!
@@ -153,6 +158,12 @@
 //!                         .expect("type conformity checked by `Object::set_property`");
 //!                     self.flags.replace(flags);
 //!                 },
+//!                 "variant" => {
+//!                     let variant = value
+//!                         .get()
+//!                         .expect("type conformity checked by `Object::set_property`");
+//!                     self.variant.replace(variant);
+//!                 },
 //!                 _ => unimplemented!(),
 //!             }
 //!         }
@@ -164,6 +175,7 @@
 //!                 "name" => self.name.borrow().to_value(),
 //!                 "animal" => self.animal.get().to_value(),
 //!                 "flags" => self.flags.get().to_value(),
+//!                 "variant" => self.variant.borrow().to_value(),
 //!                 _ => unimplemented!(),
 //!             }
 //!         }
