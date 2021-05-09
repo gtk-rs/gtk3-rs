@@ -139,6 +139,10 @@ pub struct VariantTy {
 }
 
 impl VariantTy {
+    /// An indefinite type that is a supertype of every type (including itself).
+    #[doc(alias = "G_VARIANT_TYPE_ANY")]
+    pub const ANY: &'static VariantTy = unsafe { std::mem::transmute::<&str, &VariantTy>("*") };
+
     /// Tries to create a `&VariantTy` from a string slice.
     ///
     /// Returns `Ok` if the string is a valid type string, `Err` otherwise.
@@ -492,10 +496,18 @@ mod tests {
         assert_eq!(ty1, ty2);
 
         let ty3 = VariantTy::new("*").unwrap();
-        let tyv2 = ty1.to_value();
+        let tyv2 = ty3.to_value();
         let ty4 = tyv2.get::<VariantType>().unwrap();
         assert_eq!(ty3, ty4);
 
-        assert_eq!(VariantTy::static_type(), VariantTy::static_type());
+        let ty5 = VariantTy::ANY;
+        let tyv3 = ty5.to_value();
+        let ty6 = tyv3.get::<VariantType>().unwrap();
+        assert_eq!(ty5, ty6);
+    }
+
+    #[test]
+    fn type_() {
+        assert_eq!(VariantTy::static_type(), VariantType::static_type())
     }
 }
