@@ -274,6 +274,18 @@
 <span id="271">271</span>
 <span id="272">272</span>
 <span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -290,6 +302,7 @@
 <span class="doccomment">//! use glib::prelude::*;</span>
 <span class="doccomment">//! use glib::subclass;</span>
 <span class="doccomment">//! use glib::subclass::prelude::*;</span>
+<span class="doccomment">//! use glib::{Variant, VariantType};</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! use std::cell::{Cell, RefCell};</span>
 <span class="doccomment">//!</span>
@@ -340,15 +353,21 @@
 <span class="doccomment">//!     // This is the struct containing all state carried with</span>
 <span class="doccomment">//!     // the new type. Generally this has to make use of</span>
 <span class="doccomment">//!     // interior mutability.</span>
+<span class="doccomment">//!     // If it implements the `Default` trait, then `Self::default()`</span>
+<span class="doccomment">//!     // will be called every time a new instance is created.</span>
+<span class="doccomment">//!     #[derive(Default)]</span>
 <span class="doccomment">//!     pub struct SimpleObject {</span>
 <span class="doccomment">//!         name: RefCell&lt;Option&lt;String&gt;&gt;,</span>
 <span class="doccomment">//!         animal: Cell&lt;Animal&gt;,</span>
 <span class="doccomment">//!         flags: Cell&lt;MyFlags&gt;,</span>
+<span class="doccomment">//!         variant: RefCell&lt;Option&lt;Variant&gt;&gt;,</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     // ObjectSubclass is the trait that defines the new type and</span>
 <span class="doccomment">//!     // contains all information needed by the GObject type system,</span>
 <span class="doccomment">//!     // including the new type&#39;s name, parent type, etc.</span>
+<span class="doccomment">//!     // If you do not want to implement `Default`, you can provide</span>
+<span class="doccomment">//!     // a `new()` method.</span>
 <span class="doccomment">//!     #[glib::object_subclass]</span>
 <span class="doccomment">//!     impl ObjectSubclass for SimpleObject {</span>
 <span class="doccomment">//!         // This type name must be unique per process.</span>
@@ -360,16 +379,6 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//!         // Interfaces this type implements</span>
 <span class="doccomment">//!         type Interfaces = ();</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//!         // Called every time a new instance is created. This should return</span>
-<span class="doccomment">//!         // a new instance of our type with its basic values.</span>
-<span class="doccomment">//!         fn new() -&gt; Self {</span>
-<span class="doccomment">//!             Self {</span>
-<span class="doccomment">//!                 name: RefCell::new(None),</span>
-<span class="doccomment">//!                 animal: Cell::new(Animal::default()),</span>
-<span class="doccomment">//!                 flags: Cell::new(MyFlags::default()),</span>
-<span class="doccomment">//!             }</span>
-<span class="doccomment">//!         }</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     // Trait that is used to override virtual methods of glib::Object.</span>
@@ -402,6 +411,14 @@
 <span class="doccomment">//!                         MyFlags::default().bits(),</span>
 <span class="doccomment">//!                         glib::ParamFlags::READWRITE,</span>
 <span class="doccomment">//!                     ),</span>
+<span class="doccomment">//!                     glib::ParamSpec::new_variant(</span>
+<span class="doccomment">//!                         &quot;variant&quot;,</span>
+<span class="doccomment">//!                         &quot;Variant&quot;,</span>
+<span class="doccomment">//!                         &quot;Variant&quot;,</span>
+<span class="doccomment">//!                         glib::VariantTy::ANY,</span>
+<span class="doccomment">//!                         None,</span>
+<span class="doccomment">//!                         glib::ParamFlags::READWRITE,</span>
+<span class="doccomment">//!                    ),</span>
 <span class="doccomment">//!                 ]</span>
 <span class="doccomment">//!             });</span>
 <span class="doccomment">//!</span>
@@ -430,6 +447,12 @@
 <span class="doccomment">//!                         .expect(&quot;type conformity checked by `Object::set_property`&quot;);</span>
 <span class="doccomment">//!                     self.flags.replace(flags);</span>
 <span class="doccomment">//!                 },</span>
+<span class="doccomment">//!                 &quot;variant&quot; =&gt; {</span>
+<span class="doccomment">//!                     let variant = value</span>
+<span class="doccomment">//!                         .get()</span>
+<span class="doccomment">//!                         .expect(&quot;type conformity checked by `Object::set_property`&quot;);</span>
+<span class="doccomment">//!                     self.variant.replace(variant);</span>
+<span class="doccomment">//!                 },</span>
 <span class="doccomment">//!                 _ =&gt; unimplemented!(),</span>
 <span class="doccomment">//!             }</span>
 <span class="doccomment">//!         }</span>
@@ -441,6 +464,7 @@
 <span class="doccomment">//!                 &quot;name&quot; =&gt; self.name.borrow().to_value(),</span>
 <span class="doccomment">//!                 &quot;animal&quot; =&gt; self.animal.get().to_value(),</span>
 <span class="doccomment">//!                 &quot;flags&quot; =&gt; self.flags.get().to_value(),</span>
+<span class="doccomment">//!                 &quot;variant&quot; =&gt; self.variant.borrow().to_value(),</span>
 <span class="doccomment">//!                 _ =&gt; unimplemented!(),</span>
 <span class="doccomment">//!             }</span>
 <span class="doccomment">//!         }</span>
