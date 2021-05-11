@@ -34,13 +34,16 @@ mod file_enumerator;
 mod file_info;
 mod flags;
 mod inet_address;
+pub use crate::inet_address::InetAddressBytes;
 mod inet_socket_address;
 mod io_stream;
 pub use crate::io_stream::IOStreamAsyncReadWrite;
 mod input_stream;
 pub use crate::input_stream::{InputStreamAsyncBufRead, InputStreamRead};
 mod list_store;
+#[cfg(test)]
 mod memory_input_stream;
+#[cfg(test)]
 mod memory_output_stream;
 mod output_stream;
 pub use crate::output_stream::OutputStreamWrite;
@@ -51,6 +54,7 @@ pub use crate::pollable_output_stream::OutputStreamAsyncWrite;
 mod resource;
 pub use crate::resource::{compile_resources, resources_register_include_impl};
 mod settings;
+pub use crate::settings::BindingBuilder;
 mod socket;
 mod subprocess;
 mod subprocess_launcher;
@@ -69,7 +73,6 @@ mod unix_mount_point;
 mod unix_output_stream;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
-pub use crate::inet_address::InetAddressBytes;
 
 #[cfg(test)]
 mod test_util;

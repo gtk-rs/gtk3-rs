@@ -27,6 +27,8 @@ pub use crate::settings::SettingsExtManual;
 pub use crate::socket::*;
 pub use crate::tls_connection::TlsConnectionExtManual;
 #[cfg(any(unix, feature = "dox"))]
+pub use crate::unix_fd_list::UnixFDListExtManual;
+#[cfg(any(unix, feature = "dox"))]
 pub use crate::unix_input_stream::UnixInputStreamExtManual;
 #[cfg(any(unix, feature = "dox"))]
 pub use crate::unix_output_stream::UnixOutputStreamExtManual;
