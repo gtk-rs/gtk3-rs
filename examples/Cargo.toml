@@ -7,33 +7,27 @@ edition = "2018"
 [dependencies]
 chrono = "0.4"
 futures = "0.3"
-futures-channel = "0.3"
 futures-util = "0.3"
 once_cell = "1.2.0"
 
 [dependencies.glib]
-path = "../glib"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gtk]
 path = "../gtk"
 
 [dependencies.pangocairo]
-path = "../pangocairo"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 optional = true
 
 [dependencies.cairo]
 package = "cairo-rs"
-path = "../cairo"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 features = ["png"]
 optional = true
 
-[dependencies.async-tls]
-version = "0.11"
-optional = true
-
 [build-dependencies.gio]
-path = "../gio"
-
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [[bin]]
 name = "accessibility"
@@ -107,23 +101,6 @@ path = "drag_drop_text_view/main.rs"
 [[bin]]
 name = "entry_completion"
 path = "entry_completion/main.rs"
-
-[[bin]]
-name = "gio_async_tls"
-path = "gio_async_tls/main.rs"
-required-features = ["async-tls"]
-
-[[bin]]
-name = "gio_futures"
-path = "gio_futures/main.rs"
-
-[[bin]]
-name = "gio_futures_await"
-path = "gio_futures_await/main.rs"
-
-[[bin]]
-name = "gio_task"
-path = "gio_task/main.rs"
 
 [[bin]]
 name = "grid"
@@ -213,5 +190,3 @@ path = "tree_view_model_sort/main.rs"
 [[bin]]
 name = "tree_view_simple"
 path = "tree_view_simple/main.rs"
-
-

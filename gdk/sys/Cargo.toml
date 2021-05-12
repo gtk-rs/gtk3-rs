@@ -6,22 +6,22 @@ system-deps = "3"
 libc = "0.2"
 
 [dependencies.cairo-sys-rs]
-path = "../../cairo/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gdk-pixbuf-sys]
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gio-sys]
-path = "../../gio/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.glib-sys]
-path = "../../glib/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gobject-sys]
-path = "../../glib/gobject-sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.pango-sys]
-path = "../../pango/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dev-dependencies]
 shell-words = "1.0.0"
