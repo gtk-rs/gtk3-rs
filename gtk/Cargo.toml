@@ -9,7 +9,7 @@ authors = ["The Gtk-rs Project Developers"]
 readme = "README.md"
 version = "0.13.0"
 keywords = ["gtk", "gtk-rs", "gnome", "GUI"]
-repository = "https://github.com/gtk-rs/gtk-rs"
+repository = "https://github.com/gtk-rs/gtk3-rs"
 build = "build.rs"
 exclude = [
     "gir-files/*",

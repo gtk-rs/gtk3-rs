@@ -1,6 +1,6 @@
 # gdkx11
 
-__Rust__ bindings and wrappers for __GDKX11__, part of [gtk-rs](https://github.com/gtk-rs/gtk-rs).
+__Rust__ bindings and wrappers for __GDKX11__, part of [gtk-rs](https://github.com/gtk-rs/gtk3-rs).
 
 ## Minimum supported Rust version
 
@@ -21,7 +21,7 @@ If you want to track the bleeding edge, use the git dependency instead:
 
 ```toml
 [dependencies]
-gdkx11 = { git = "https://github.com/gtk-rs/gtk-rs.git", package = "gdkx11" }
+gdkx11 = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdkx11" }
 ```
 
 Avoid mixing versioned and git crates like this:
@@ -30,7 +30,7 @@ Avoid mixing versioned and git crates like this:
 # This will not compile
 [dependencies]
 gdkx11 = "0.13"
-gdkx11 = { git = "https://github.com/gtk-rs/gtk-rs.git", package = "gdkx11" }
+gdkx11 = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdkx11" }
 
 ### See Also
 
