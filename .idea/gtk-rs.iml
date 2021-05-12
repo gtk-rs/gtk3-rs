@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/atk/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/atk/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/atk/sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/cairo/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/cairo/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gdk-pixbuf/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gdk-pixbuf/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gdk-pixbuf/sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/gdk-pixbuf/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/gdk/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gdk/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gdk/sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/gdk/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/gdkx11/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gdkx11/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gio/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gio/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gio/sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/gio/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/glib-macros/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/glib-macros/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/glib/gobject-sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/glib/gobject-sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/glib/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/glib/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/glib/sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/glib/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/graphene/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/graphene/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/graphene/sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/graphene/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/gtk/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gtk/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gtk/sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/gtk/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/gtk3-macros/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pango/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pango/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pango/sys/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/pango/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/pangocairo/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pangocairo/sys/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pangocairo/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

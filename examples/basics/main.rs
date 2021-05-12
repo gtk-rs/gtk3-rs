@@ -1,4 +1,5 @@
 use gtk::prelude::*;
+use gio::prelude::ApplicationExt;
 
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
@@ -9,6 +10,11 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(350, 70);
 
     let button = gtk::Button::with_label("Click me!");
+    let app = application.clone();
+    button.connect_clicked(move |_| {
+        let n = gio::Notification::new("Clicked");
+        app.send_notification(None, &n);
+    });
 
     window.add(&button);
 
@@ -18,6 +24,11 @@ fn build_ui(application: &gtk::Application) {
 fn main() {
     let application =
         gtk::Application::new(Some("com.github.gtk-rs.examples.basic"), Default::default());
+
+    application.connect_startup(|app| {
+        let n = gio::Notification::new("Startup");
+        app.send_notification(None, &n);
+    });
 
     application.connect_activate(build_ui);
 
