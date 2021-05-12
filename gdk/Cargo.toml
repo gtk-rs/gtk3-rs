@@ -30,11 +30,11 @@ features = ["dox"]
 libc = "0.2"
 bitflags = "1.0"
 ffi = { package = "gdk-sys", path = "sys" }
-cairo-rs = { path = "../cairo" }
-gdk-pixbuf = { path = "../gdk-pixbuf" }
-gio = { path = "../gio" }
-glib = { path = "../glib" }
-pango = { path = "../pango" }
+cairo-rs = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+gdk-pixbuf = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+gio = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+glib = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+pango = { git = "https://github.com/gtk-rs/gtk-rs-core" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

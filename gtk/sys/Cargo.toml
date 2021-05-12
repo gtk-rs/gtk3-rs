@@ -53,28 +53,28 @@ name = "gtk_sys"
 libc = "0.2"
 
 [dependencies.glib-sys]
-path = "../../glib/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gobject-sys]
-path = "../../glib/gobject-sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gio-sys]
-path = "../../gio/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.atk-sys]
 path = "../../atk/sys"
 
 [dependencies.gdk-pixbuf-sys]
-path = "../../gdk-pixbuf/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gdk-sys]
 path = "../../gdk/sys"
 
 [dependencies.pango-sys]
-path = "../../pango/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.cairo-sys-rs]
-path = "../../cairo/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [build-dependencies]
 system-deps = "3"

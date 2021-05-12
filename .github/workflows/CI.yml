@@ -20,16 +20,9 @@ jobs:
           - "1.51.0"
         conf:
           - { name: "atk", features: "v2_34", nightly: "--all-features", test_sys: true }
-          - { name: "cairo", features: "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface", nightly: "--features 'png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface'", test_sys: true }
           - { name: "gdk", features: "v3_24", nightly: "--features v3_24", test_sys: true }
-          - { name: "gdk-pixbuf", features: "v2_40", nightly: "--all-features", test_sys: true }
           - { name: "gdkx11", features: "v3_24", nightly: "--all-features", test_sys: true }
-          - { name: "gio", features: "v2_66", nightly: "--all-features", test_sys: false }
-          - { name: "glib", features: "v2_66", nightly: "--all-features", test_sys: false }
-          - { name: "graphene", features: "", nightly: "", test_sys: false }
           - { name: "gtk", features: "v3_24_9", nightly: "--all-features", test_sys: false }
-          - { name: "pango", features: "v1_46", nightly: "--all-features", test_sys: false }
-          - { name: "pangocairo", features: "", nightly: "--all-features", test_sys: true }
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -47,24 +40,15 @@ jobs:
       - run: cargo build --release
         working-directory: checker
         if: matrix.rust == 'nightly'
-      - run: cargo run --release -- --no-manual-traits ../${{matrix.conf.name}}
-        working-directory: checker
-        if: matrix.rust == 'nightly' && matrix.conf.name == 'cairo'
       - run: cargo run --release -- ../${{matrix.conf.name}}
         working-directory: checker
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'cairo'
+        if: matrix.rust == 'nightly'
       - run: cargo run --release -- --no-license ../${{matrix.conf.name}}/sys
         working-directory: checker
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'cairo'
-      - run: cargo run --release -- --no-manual-traits ../glib-macros
-        working-directory: checker
-        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
-      - run: cargo run --release -- --no-manual-traits ../gtk3-macros
-        working-directory: checker
-        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
+        if: matrix.rust == 'nightly'
       - run: ./check_init_asserts ../${{matrix.conf.name}}
         working-directory: checker
-        if: matrix.rust == 'nightly' && (matrix.conf.name == 'atk' || matrix.conf.name == 'gdk' || matrix.conf.name == 'gdkx11' || matrix.conf.name == 'gtk')
+        if: matrix.rust == 'nightly'
       # tests run
       - name: tests nightly
         run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
@@ -113,15 +97,6 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
           override: true
-      # glib (macros)
-      - name: "glib: tests glib macros nightly"
-        working-directory: glib
-        run: python3 clone_tests/clone_compilation_errors.py
-      # glib-macros
-      - name: "glib-macros: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path glib-macros/Cargo.toml
-      - name: "glib-macros: build"
-        run: cargo build --manifest-path glib-macros/Cargo.toml
       # examples
       - name: "examples"
         run: cargo build --manifest-path examples/Cargo.toml --bins --examples --all-features
