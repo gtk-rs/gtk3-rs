@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["register_interface","Register a `glib::Type` ID for `T`."]],"trait":[["ObjectInterface","The central trait for defining a `GObject` interface."],["ObjectInterfaceExt",""],["ObjectInterfaceType","Type methods required for an [`ObjectInterface`] implementation."],["PrerequisiteList","Trait for a type list of prerequisite object types."]]});

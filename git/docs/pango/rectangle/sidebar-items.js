@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Rectangle","The [`crate::Rectangle`] structure represents a rectangle. It is frequently used to represent the logical or ink extents of a single glyph or section of text. (See, for instance, [`crate::prelude::FontExt::get_glyph_extents()`])"]]});

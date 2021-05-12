@@ -13,7 +13,7 @@ with the actual Rust API.</p>
 <p><a href="https://gtk-rs.org/docs-src/">Gtk-rs documentation overview</a></p>
 </li>
 <li>
-<p><a href="../glib/index.html">General <code>GLib</code> family types and object system overview</a></p>
+<p><a href="mod@glib">General <code>GLib</code> family types and object system overview</a></p>
 </li>
 <li>
 <p><a href="https://www.gtk.org/docs/">GTK documentation</a></p>
@@ -87,9 +87,9 @@ its own notion of the main thread and <a href="fn.init.html" title="init()"><cod
 After successful initialization, calling any <a href="index.html"><code>gtk</code></a> or <a href="../gdk/index.html" title="gdk"><code>gdk</code></a> functions
 (including <a href="fn.init.html" title="init()"><code>init()</code></a>) from other threads will <code>panic</code>.</p>
 <p>Any thread can schedule a closure to be run by the main loop on the main
-thread via <a href="../glib/source/fn.idle_add.html" title="glib::idle_add()"><code>glib::idle_add()</code></a> or <a href="../glib/source/fn.timeout_add.html" title="glib::timeout_add()"><code>glib::timeout_add()</code></a>. While
-working with GTK you might need the <a href="../glib/source/fn.idle_add_local.html" title="glib::idle_add_local()"><code>glib::idle_add_local()</code></a>
-or <a href="../glib/source/fn.timeout_add_local.html" title="glib::timeout_add_local()"><code>glib::timeout_add_local()</code></a> version without the
+thread via [<code>fn@glib::idle_add</code>] or [<code>fn@glib::timeout_add</code>]. While
+working with GTK you might need the [<code>fn@glib::idle_add_local</code>]
+or [<code>fn@glib::timeout_add_local</code>] version without the
 <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="Send"><code>Send</code></a> bound. Those may only be called from the main thread.</p>
 <h1 id="panics" class="section-header"><a href="#panics">Panics</a></h1>
 <p>The <a href="index.html"><code>gtk</code></a> and <a href="../gdk/index.html" title="gdk"><code>gdk</code></a> crates have some run-time safety and contract checks.</p>
@@ -123,7 +123,7 @@ features = [&quot;v3_20&quot;]
 not have easy access to the latest ones. The higher the version, the fewer
 users will have it installed.</p>
 </div></details><h2 id="reexports" class="section-header"><a href="#reexports">Re-exports</a></h2>
-<table><tr class="import-item"><td><code>pub use <a class="mod" href="../gtk_sys/index.html" title="mod gtk_sys">ffi</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../atk/index.html" title="mod atk">atk</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../cairo/index.html" title="mod cairo">cairo</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../gdk/index.html" title="mod gdk">gdk</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../gdk_pixbuf/index.html" title="mod gdk_pixbuf">gdk_pixbuf</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../gio/index.html" title="mod gio">gio</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../glib/index.html" title="mod glib">glib</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../pango/index.html" title="mod pango">pango</a>;</code></td><td class="docblock-short"></td></tr></table><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
+<table><tr class="import-item"><td><code>pub use <a class="mod" href="../gtk_sys/index.html" title="mod gtk_sys">ffi</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../atk/index.html" title="mod atk">atk</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use cairo;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use <a class="mod" href="../gdk/index.html" title="mod gdk">gdk</a>;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use gdk_pixbuf;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use gio;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use glib;</code></td><td class="docblock-short"></td></tr><tr class="import-item"><td><code>pub use pango;</code></td><td class="docblock-short"></td></tr></table><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
 <table><tr class="module-item"><td><a class="mod" href="functions/index.html" title="gtk::functions mod">functions</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="prelude/index.html" title="gtk::prelude mod">prelude</a></td><td class="docblock-short"><p>Traits and essential types intended for blanket imports.</p>
 </td></tr><tr class="module-item"><td><a class="mod" href="subclass/index.html" title="gtk::subclass mod">subclass</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="xlib/index.html" title="gtk::xlib mod">xlib</a></td><td class="docblock-short"></td></tr></table><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
 <table><tr class="module-item"><td><a class="struct" href="struct.AboutDialog.html" title="gtk::AboutDialog struct">AboutDialog</a></td><td class="docblock-short"><p>The <code>AboutDialog</code> offers a simple way to display information about
@@ -152,7 +152,7 @@ and upper bound, together with step and page increments, and a page size.
 It is used within several GTK+ widgets, including <a href="struct.SpinButton.html" title="crate::SpinButton"><code>crate::SpinButton</code></a>, <a href="struct.Viewport.html" title="crate::Viewport"><code>crate::Viewport</code></a>,
 and <a href="struct.Range.html" title="crate::Range"><code>crate::Range</code></a> (which is a base class for <a href="struct.Scrollbar.html" title="crate::Scrollbar"><code>crate::Scrollbar</code></a> and <a href="struct.Scale.html" title="crate::Scale"><code>crate::Scale</code></a>).</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.AdjustmentBuilder.html" title="gtk::AdjustmentBuilder struct">AdjustmentBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.Allocation.html" title="gtk::Allocation struct">Allocation</a></td><td class="docblock-short"><p>Defines the position and size of a rectangle. It is identical to
-<a href="../cairo/rectangle_int/struct.RectangleInt.html" title="crate::cairo::RectangleInt"><code>crate::cairo::RectangleInt</code></a>.</p>
+[<code>crate::cairo::RectangleInt</code>].</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.AppChooser.html" title="gtk::AppChooser struct">AppChooser</a></td><td class="docblock-short"><p><a href="struct.AppChooser.html" title="crate::AppChooser"><code>crate::AppChooser</code></a> is an interface that can be implemented by widgets which
 allow the user to choose an application (typically for the purpose of
 opening a file). The main objects that implement this interface are
@@ -226,7 +226,7 @@ temporary widgets should be configured for editing, get the new value, etc.</p>
 want to provide a <a href="struct.TreeViewColumn.html" title="crate::TreeViewColumn"><code>crate::TreeViewColumn</code></a> like API for packing cells,
 setting attributes and data funcs.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.CellRenderer.html" title="gtk::CellRenderer struct">CellRenderer</a></td><td class="docblock-short"><p>The <a href="struct.CellRenderer.html" title="crate::CellRenderer"><code>crate::CellRenderer</code></a> is a base class of a set of objects used for
-rendering a cell to a <a href="../cairo/context/struct.Context.html" title="crate::cairo::Context"><code>crate::cairo::Context</code></a>. These objects are used primarily by
+rendering a cell to a [<code>crate::cairo::Context</code>]. These objects are used primarily by
 the <a href="struct.TreeView.html" title="crate::TreeView"><code>crate::TreeView</code></a> widget, though they aren’t tied to them in any
 specific way. It is worth noting that <a href="struct.CellRenderer.html" title="crate::CellRenderer"><code>crate::CellRenderer</code></a> is not a
 <a href="struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> and cannot be treated as such.</p>
@@ -239,7 +239,7 @@ edit the text, <a href="struct.CellRendererCombo.html" title="crate::CellRendere
 widget to edit the text. The values to display in the combo box are taken from
 the tree model specified in the [<code>crate::CellRendererCombo:model</code>] property.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.CellRendererComboBuilder.html" title="gtk::CellRendererComboBuilder struct">CellRendererComboBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.CellRendererPixbuf.html" title="gtk::CellRendererPixbuf struct">CellRendererPixbuf</a></td><td class="docblock-short"><p>A <a href="struct.CellRendererPixbuf.html" title="crate::CellRendererPixbuf"><code>crate::CellRendererPixbuf</code></a> can be used to render an image in a cell. It allows
-to render either a given <a href="../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="crate::gdk_pixbuf::Pixbuf"><code>crate::gdk_pixbuf::Pixbuf</code></a> (set via the
+to render either a given [<code>crate::gdk_pixbuf::Pixbuf</code>] (set via the
 [<code>crate::CellRendererPixbuf:pixbuf</code>] property) or a named icon (set via the
 [<code>crate::CellRendererPixbuf:icon-name</code>] property).</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.CellRendererPixbufBuilder.html" title="gtk::CellRendererPixbufBuilder struct">CellRendererPixbufBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.CellRendererProgress.html" title="gtk::CellRendererProgress struct">CellRendererProgress</a></td><td class="docblock-short"><p><a href="struct.CellRendererProgress.html" title="crate::CellRendererProgress"><code>crate::CellRendererProgress</code></a> renders a numeric value as a progress par in a cell.
@@ -501,7 +501,7 @@ In addition to selection with the arrow keys, <a href="struct.IconView.html" tit
 rubberband selection, which is controlled by dragging the pointer.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.IconViewBuilder.html" title="gtk::IconViewBuilder struct">IconViewBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.Image.html" title="gtk::Image struct">Image</a></td><td class="docblock-short"><p>The <a href="struct.Image.html" title="crate::Image"><code>crate::Image</code></a> widget displays an image. Various kinds of object
 can be displayed as an image; most typically, you would load a
-<a href="../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="crate::gdk_pixbuf::Pixbuf"><code>crate::gdk_pixbuf::Pixbuf</code></a> (“pixel buffer”) from a file, and then display that.
+[<code>crate::gdk_pixbuf::Pixbuf</code>] (“pixel buffer”) from a file, and then display that.
 There’s a convenience function to do this, [<code>Self::new_from_file()</code>],
 used as follows:</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.ImageBuilder.html" title="gtk::ImageBuilder struct">ImageBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.InfoBar.html" title="gtk::InfoBar struct">InfoBar</a></td><td class="docblock-short"><p><a href="struct.InfoBar.html" title="crate::InfoBar"><code>crate::InfoBar</code></a> is a widget that can be used to show messages to
@@ -545,9 +545,9 @@ interfaces.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.LockButton.html" title="gtk::LockButton struct">LockButton</a></td><td class="docblock-short"><p><code>LockButton</code> is a widget that can be used in control panels or
 preference dialogs to allow users to obtain and revoke authorizations
 needed to operate the controls. The required authorization is represented
-by a <a href="../gio/auto/permission/struct.Permission.html" title="crate::gio::Permission"><code>crate::gio::Permission</code></a> object. Concrete implementations of <a href="../gio/auto/permission/struct.Permission.html" title="crate::gio::Permission"><code>crate::gio::Permission</code></a> may use
+by a [<code>crate::gio::Permission</code>] object. Concrete implementations of [<code>crate::gio::Permission</code>] may use
 PolicyKit or some other authorization framework. To obtain a PolicyKit-based
-<a href="../gio/auto/permission/struct.Permission.html" title="crate::gio::Permission"><code>crate::gio::Permission</code></a>, use <code>polkit_permission_new()</code>.</p>
+[<code>crate::gio::Permission</code>], use <code>polkit_permission_new()</code>.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.LockButtonBuilder.html" title="gtk::LockButtonBuilder struct">LockButtonBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.Menu.html" title="gtk::Menu struct">Menu</a></td><td class="docblock-short"><p>A <a href="struct.Menu.html" title="crate::Menu"><code>crate::Menu</code></a> is a <a href="struct.MenuShell.html" title="crate::MenuShell"><code>crate::MenuShell</code></a> that implements a drop down menu
 consisting of a list of <a href="struct.MenuItem.html" title="crate::MenuItem"><code>crate::MenuItem</code></a> objects which can be navigated
 and activated by the user to perform application functions.</p>
@@ -556,7 +556,7 @@ more <code>GtkMenuItems</code>. The result is a standard menu bar which can hold
 many menu items.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.MenuBarBuilder.html" title="gtk::MenuBarBuilder struct">MenuBarBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.MenuBuilder.html" title="gtk::MenuBuilder struct">MenuBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.MenuButton.html" title="gtk::MenuButton struct">MenuButton</a></td><td class="docblock-short"><p>The <a href="struct.MenuButton.html" title="crate::MenuButton"><code>crate::MenuButton</code></a> widget is used to display a popup when clicked on.
 This popup can be provided either as a <a href="struct.Menu.html" title="crate::Menu"><code>crate::Menu</code></a>, a <a href="struct.Popover.html" title="crate::Popover"><code>crate::Popover</code></a> or an
-abstract <a href="../gio/auto/menu_model/struct.MenuModel.html" title="crate::gio::MenuModel"><code>crate::gio::MenuModel</code></a>.</p>
+abstract [<code>crate::gio::MenuModel</code>].</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.MenuButtonBuilder.html" title="gtk::MenuButtonBuilder struct">MenuButtonBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.MenuItem.html" title="gtk::MenuItem struct">MenuItem</a></td><td class="docblock-short"><p>The <a href="struct.MenuItem.html" title="crate::MenuItem"><code>crate::MenuItem</code></a> widget and the derived widgets are the only valid
 children for menus. Their function is to correctly handle highlighting,
 alignment, events and submenus.</p>
@@ -570,9 +570,9 @@ convenience widget; you could construct the equivalent of <a href="struct.Messag
 from <a href="struct.Dialog.html" title="crate::Dialog"><code>crate::Dialog</code></a> without too much effort, but <a href="struct.MessageDialog.html" title="crate::MessageDialog"><code>crate::MessageDialog</code></a> saves typing.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.MessageDialogBuilder.html" title="gtk::MessageDialogBuilder struct">MessageDialogBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.Misc.html" title="gtk::Misc struct">Misc</a></td><td class="docblock-short"><p>The <a href="struct.Misc.html" title="crate::Misc"><code>crate::Misc</code></a> widget is an abstract widget which is not useful itself, but
 is used to derive subclasses which have alignment and padding attributes.</p>
-</td></tr><tr class="module-item"><td><a class="struct" href="struct.ModelButton.html" title="gtk::ModelButton struct">ModelButton</a></td><td class="docblock-short"><p><code>ModelButton</code> is a button class that can use a <a href="../gio/auto/action/struct.Action.html" title="crate::gio::Action"><code>crate::gio::Action</code></a> as its model.
+</td></tr><tr class="module-item"><td><a class="struct" href="struct.ModelButton.html" title="gtk::ModelButton struct">ModelButton</a></td><td class="docblock-short"><p><code>ModelButton</code> is a button class that can use a [<code>crate::gio::Action</code>] as its model.
 In contrast to <a href="struct.ToggleButton.html" title="crate::ToggleButton"><code>crate::ToggleButton</code></a> or <a href="struct.RadioButton.html" title="crate::RadioButton"><code>crate::RadioButton</code></a>, which can also
-be backed by a <a href="../gio/auto/action/struct.Action.html" title="crate::gio::Action"><code>crate::gio::Action</code></a> via the [<code>crate::Actionable:action-name</code>] property,
+be backed by a [<code>crate::gio::Action</code>] via the [<code>crate::Actionable:action-name</code>] property,
 <code>ModelButton</code> will adapt its appearance according to the kind of
 action it is backed by, and appear either as a plain, check or
 radio button.</p>
@@ -649,11 +649,11 @@ children like menus and allows switching between them. It is
 meant to be used primarily together with <a href="struct.ModelButton.html" title="crate::ModelButton"><code>crate::ModelButton</code></a>, but
 any widget can be used, such as <a href="struct.SpinButton.html" title="crate::SpinButton"><code>crate::SpinButton</code></a> or <a href="struct.Scale.html" title="crate::Scale"><code>crate::Scale</code></a>.
 In this respect, <code>PopoverMenu</code> is more flexible than popovers
-that are created from a <a href="../gio/auto/menu_model/struct.MenuModel.html" title="crate::gio::MenuModel"><code>crate::gio::MenuModel</code></a> with [<code>crate::Popover::new_from_model()</code>].</p>
+that are created from a [<code>crate::gio::MenuModel</code>] with [<code>crate::Popover::new_from_model()</code>].</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.PopoverMenuBuilder.html" title="gtk::PopoverMenuBuilder struct">PopoverMenuBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.PrintContext.html" title="gtk::PrintContext struct">PrintContext</a></td><td class="docblock-short"><p>A <code>PrintContext</code> encapsulates context information that is required when
 drawing pages for printing, such as the cairo context and important
 parameters like page size and resolution. It also lets you easily
-create <a href="../pango/auto/layout/struct.Layout.html" title="crate::pango::Layout"><code>crate::pango::Layout</code></a> and <a href="../pango/auto/context/struct.Context.html" title="crate::pango::Context"><code>crate::pango::Context</code></a> objects that match the font metrics
+create [<code>crate::pango::Layout</code>] and [<code>crate::pango::Context</code>] objects that match the font metrics
 of the cairo surface.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.PrintOperation.html" title="gtk::PrintOperation struct">PrintOperation</a></td><td class="docblock-short"><p><code>PrintOperation</code> is the high-level, portable printing API.
 It looks a bit different than other GTK+ dialogs such as the
@@ -720,7 +720,7 @@ the same file, the mime type of the file and whether the file
 should be displayed only by the applications that have
 registered it.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.RecentManagerBuilder.html" title="gtk::RecentManagerBuilder struct">RecentManagerBuilder</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="struct" href="struct.Rectangle.html" title="gtk::Rectangle struct">Rectangle</a></td><td class="docblock-short"><p>Defines the position and size of a rectangle. It is identical to
-<a href="../cairo/rectangle_int/struct.RectangleInt.html" title="crate::cairo::RectangleInt"><code>crate::cairo::RectangleInt</code></a>.</p>
+[<code>crate::cairo::RectangleInt</code>].</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.RegionFlags.html" title="gtk::RegionFlags struct">RegionFlags</a></td><td class="docblock-short"><p>Describes a region within a widget.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Requisition.html" title="gtk::Requisition struct">Requisition</a></td><td class="docblock-short"><p>A <a href="struct.Requisition.html" title="crate::Requisition"><code>crate::Requisition</code></a>-struct represents the desired size of a widget. See
 [<code>Widget</code>’s geometry management section][geometry-management] for
