@@ -1,7 +1,7 @@
 # atk 
 [Project site](https://gtk-rs.org/) | [Online documentation](https://gtk-rs.org/docs-src/)
 
-__Rust__ bindings and wrappers for __Atk__, part of [gtk-rs](https://github.com/gtk-rs/gtk-rs).
+__Rust__ bindings and wrappers for __Atk__, part of [gtk-rs](https://github.com/gtk-rs/gtk3-rs).
 
 ## Minimum supported Rust version
 
@@ -22,7 +22,7 @@ If you want to track the bleeding edge, use the git dependency instead:
 
 ```toml
 [dependencies]
-atk = { git = "https://github.com/gtk-rs/gtk-rs.git", package = "atk" }
+atk = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "atk" }
 ```
 
 Avoid mixing versioned and git crates like this:
@@ -31,7 +31,7 @@ Avoid mixing versioned and git crates like this:
 # This will not compile
 [dependencies]
 atk = "0.13"
-atk = { git = "https://github.com/gtk-rs/gtk-rs.git", package = "atk" }
+atk = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "atk" }
 
 ### See Also
 

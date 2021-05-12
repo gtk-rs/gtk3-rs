@@ -9,7 +9,7 @@ version = "0.1.0"
 authors = ["The Gtk-rs Project Developers"]
 edition = "2018"
 keywords = ["gtk", "gtk3", "gtk-rs", "gnome", "GUI"]
-repository = "https://github.com/gtk-rs/gtk-rs"
+repository = "https://github.com/gtk-rs/gtk3-rs"
 exclude = [
     "gir-files/*",
 ]

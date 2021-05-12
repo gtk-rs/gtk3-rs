@@ -2,7 +2,7 @@
 
 [Project site](http://gtk-rs.org/) | [Online documentation](https://gtk-rs.org/docs-src/)
 
-__Rust__ bindings and wrappers for __GTK 3__, part of [gtk-rs](https://github.com/gtk-rs/gtk-rs).
+__Rust__ bindings and wrappers for __GTK 3__, part of [gtk-rs](https://github.com/gtk-rs/gtk3-rs).
 
 ## Minimum supported Rust version
 

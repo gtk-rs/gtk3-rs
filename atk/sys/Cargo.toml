@@ -32,7 +32,7 @@ keywords = ["atk", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
 links = "atk-1.0"
 name = "atk-sys"
-repository = "https://github.com/gtk-rs/gtk-rs"
+repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.13.0"
 edition = "2018"
 [package.metadata.docs.rs]

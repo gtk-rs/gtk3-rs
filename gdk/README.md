@@ -1,6 +1,6 @@
 # gdk 
 
-__Rust__ bindings and wrappers for __GDK__, part of [gtk-rs](https://github.com/gtk-rs/gtk-rs).
+__Rust__ bindings and wrappers for __GDK__, part of [gtk-rs](https://github.com/gtk-rs/gtk3-rs).
 
 ## Minimum supported Rust version
 
@@ -22,7 +22,7 @@ If you want to track the bleeding edge, use the git dependency instead:
 
 ```toml
 [dependencies]
-gdk = { git = "https://github.com/gtk-rs/gtk-rs.git", package = "gdk" }
+gdk = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdk" }
 ```
 
 Avoid mixing versioned and git crates like this:
@@ -31,7 +31,7 @@ Avoid mixing versioned and git crates like this:
 # This will not compile
 [dependencies]
 gdk = "0.13"
-gdk = { git = "https://github.com/gtk-rs/gtk-rs.git", package = "gdk" }
+gdk = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdk" }
 
 ### See Also
 
