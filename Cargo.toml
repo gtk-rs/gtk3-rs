@@ -6,8 +6,6 @@ members = [
   "cairo/sys",
   "gdk",
   "gdk/sys",
-  "gdk-pixbuf",
-  "gdk-pixbuf/sys",
   "gdkx11",
   "gdkx11/sys",
   "gio",

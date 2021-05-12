@@ -9,7 +9,7 @@ libc = "0.2"
 path = "../../cairo/sys"
 
 [dependencies.gdk-pixbuf-sys]
-path = "../../gdk-pixbuf/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gio-sys]
 path = "../../gio/sys"

@@ -65,7 +65,7 @@ path = "../../gio/sys"
 path = "../../atk/sys"
 
 [dependencies.gdk-pixbuf-sys]
-path = "../../gdk-pixbuf/sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gdk-sys]
 path = "../../gdk/sys"

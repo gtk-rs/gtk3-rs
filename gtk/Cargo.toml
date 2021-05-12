@@ -54,8 +54,8 @@ cairo-rs = { path = "../cairo" }
 gio = { path = "../gio" }
 glib = { path = "../glib" }
 gdk = { path = "../gdk" }
-gdk-pixbuf = { path = "../gdk-pixbuf" }
-pango = { path = "../pango" }
+gdk-pixbuf = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+pango = { git = "https://github.com/gtk-rs/gtk-rs-core" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
