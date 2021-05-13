@@ -1,12 +1,15 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 mod attribute_parser;
+mod builder_handlers;
 mod composite_template_derive;
 mod util;
 
+use darling::FromMeta;
 use proc_macro::TokenStream;
 use proc_macro_error::proc_macro_error;
-use syn::{parse_macro_input, DeriveInput};
+use syn::DeriveInput;
+use syn::{parse_macro_input, AttributeArgs, ItemImpl};
 
 /// Derive macro for using a composite template in a widget.
 ///
@@ -60,4 +63,17 @@ pub fn composite_template_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let gen = composite_template_derive::impl_composite_template(&input);
     gen.into()
+}
+
+#[proc_macro_attribute]
+pub fn builder_handlers(args: TokenStream, item: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(item as ItemImpl);
+    let attribute_args = parse_macro_input!(args as AttributeArgs);
+    let attrs = match builder_handlers::HandlersImplAttributes::from_list(&attribute_args) {
+        Ok(v) => v,
+        Err(e) => {
+            return TokenStream::from(e.write_errors());
+        }
+    };
+    builder_handlers::handlers(attrs, input).unwrap_or_else(|err| err)
 }
