@@ -176,12 +176,31 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "keyval_name"
-    #manual
-    ignore = true
+    manual = true
     [[object.function]]
     name = "keyval_to_unicode"
-    #manual
-    ignore = true
+    manual = true
+    [[object.function]]
+    name = "unicode_to_keyval"
+    manual = true
+    [[object.function]]
+    name = "keyval_from_name"
+    manual = true
+    [[object.function]]
+    name = "keyval_convert_case"
+    manual = true
+    [[object.function]]
+    name = "keyval_is_lower"
+    manual = true
+    [[object.function]]
+    name = "keyval_is_upper"
+    manual = true
+    [[object.function]]
+    name = "keyval_to_lower"
+    manual = true
+    [[object.function]]
+    name = "keyval_to_upper"
+    manual = true
     [[object.function]]
     name = "init"
     #manual
@@ -341,6 +360,9 @@ status = "generate"
     [[object.function]]
     name = "map_virtual_modifiers"
     # Invalid usage of "&mut ModifierType"
+    manual = true
+    [[object.function]]
+    name = "lookup_key"
     manual = true
 
 [[object]]

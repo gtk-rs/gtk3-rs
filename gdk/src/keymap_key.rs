@@ -5,9 +5,9 @@ use glib::translate::*;
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(C)]
 pub struct KeymapKey {
-    group: i32,
-    keycode: u32,
-    level: i32,
+    pub keycode: u32,
+    pub group: i32,
+    pub level: i32,
 }
 
 #[doc(hidden)]

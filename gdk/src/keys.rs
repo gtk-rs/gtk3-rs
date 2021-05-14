@@ -3,6 +3,7 @@
 use glib::translate::*;
 use glib::GString;
 use libc::c_uint;
+use std::mem;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Key(u32);
@@ -44,6 +45,18 @@ impl IntoGlib for Key {
 }
 
 impl Key {
+    #[doc(alias = "gdk_keyval_from_name")]
+    pub fn from_name(keyval_name: &str) -> Self {
+        skip_assert_initialized!();
+        Self(unsafe { ffi::gdk_keyval_from_name(keyval_name.to_glib_none().0) })
+    }
+
+    #[doc(alias = "gdk_unicode_to_keyval")]
+    pub fn from_unicode(c: char) -> Self {
+        skip_assert_initialized!();
+        Self(unsafe { ffi::gdk_unicode_to_keyval(u32::from(c)) })
+    }
+
     #[doc(alias = "gdk_keyval_to_unicode")]
     pub fn to_unicode(&self) -> Option<char> {
         skip_assert_initialized!();
@@ -78,6 +91,19 @@ impl Key {
     pub fn to_lower(&self) -> Self {
         skip_assert_initialized!();
         unsafe { ffi::gdk_keyval_to_lower(**self) }.into()
+    }
+
+    #[doc(alias = "gdk_keyval_convert_case")]
+    pub fn convert_case(&self) -> (Self, Self) {
+        skip_assert_initialized!();
+        unsafe {
+            let mut lower = mem::MaybeUninit::uninit();
+            let mut upper = mem::MaybeUninit::uninit();
+            ffi::gdk_keyval_convert_case(self.0, lower.as_mut_ptr(), upper.as_mut_ptr());
+            let lower = lower.assume_init();
+            let upper = upper.assume_init();
+            (Self(lower), Self(upper))
+        }
     }
 }
 

@@ -145,49 +145,6 @@ pub fn shows_events() -> bool {
 //    unsafe { TODO: call ffi:gdk_init_check() }
 //}
 
-#[doc(alias = "gdk_keyval_convert_case")]
-pub fn keyval_convert_case(symbol: u32) -> (u32, u32) {
-    assert_initialized_main_thread!();
-    unsafe {
-        let mut lower = mem::MaybeUninit::uninit();
-        let mut upper = mem::MaybeUninit::uninit();
-        ffi::gdk_keyval_convert_case(symbol, lower.as_mut_ptr(), upper.as_mut_ptr());
-        let lower = lower.assume_init();
-        let upper = upper.assume_init();
-        (lower, upper)
-    }
-}
-
-#[doc(alias = "gdk_keyval_from_name")]
-pub fn keyval_from_name(keyval_name: &str) -> u32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_keyval_from_name(keyval_name.to_glib_none().0) }
-}
-
-#[doc(alias = "gdk_keyval_is_lower")]
-pub fn keyval_is_lower(keyval: u32) -> bool {
-    assert_initialized_main_thread!();
-    unsafe { from_glib(ffi::gdk_keyval_is_lower(keyval)) }
-}
-
-#[doc(alias = "gdk_keyval_is_upper")]
-pub fn keyval_is_upper(keyval: u32) -> bool {
-    assert_initialized_main_thread!();
-    unsafe { from_glib(ffi::gdk_keyval_is_upper(keyval)) }
-}
-
-#[doc(alias = "gdk_keyval_to_lower")]
-pub fn keyval_to_lower(keyval: u32) -> u32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_keyval_to_lower(keyval) }
-}
-
-#[doc(alias = "gdk_keyval_to_upper")]
-pub fn keyval_to_upper(keyval: u32) -> u32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_keyval_to_upper(keyval) }
-}
-
 #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
 #[doc(alias = "gdk_list_visuals")]
 pub fn list_visuals() -> Vec<Visual> {
@@ -562,12 +519,6 @@ pub fn text_property_to_utf8_list_for_display(
         );
         (ret, FromGlibPtrContainer::from_glib_full(list))
     }
-}
-
-#[doc(alias = "gdk_unicode_to_keyval")]
-pub fn unicode_to_keyval(wc: u32) -> u32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_unicode_to_keyval(wc) }
 }
 
 #[doc(alias = "gdk_utf8_to_string_target")]
