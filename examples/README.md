@@ -1,7 +1,7 @@
 # Examples
 
 Consists of various examples to get familiar with writing applications using the `gtk-rs` bindings.
-Please be sure to have installed all the required libraries before building the examples (the list is available on the [gtk-rs](https://github.com/gtk-rs/gtk/) repository).
+Please be sure to have installed all the required libraries before building the examples (the list is available on the [gtk-rs](https://github.com/gtk-rs/gtk3-rs/) repository).
 
 - [Accessibility](./accessibility/)
 - [Basic Subclass](./basic_subclass/)
@@ -20,10 +20,6 @@ Please be sure to have installed all the required libraries before building the 
 - [Drag and Drop](./drag_drop/)
 - [Drag and Drop TextView](./drag_drop_text_view/)
 - [Entry Completion](./entry_completion/)
-- [GIO Async TLS](./gio_async_tls/)
-- [GIO Futures](./gio_futures/)
-- [GIO Futures Await](./gio_futures_await/)
-- [GIO Task](./gio_task/)
 - [Grid](./grid/)
 - [GTK Builder Basics](./gtk_builder_basics/)
 - [GTK Builder Signal](./gtk_builder_signal/)
