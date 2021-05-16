@@ -1,4 +1,4 @@
-# gtk-rs ![CI](https://github.com/gtk-rs/gtk3-rs/workflows/CI/badge.svg)
+# gtk3-rs ![CI](https://github.com/gtk-rs/gtk3-rs/workflows/CI/badge.svg)
 
 The `gtk-rs` organization aims to provide safe Rust binding over `GObject`-based libraries.
 You can find more about it on <https://gtk-rs.org>.
@@ -17,12 +17,11 @@ You can see the all the released crates' documentation in
 
 ## Ecosystem
 
-The `gtk-rs` repository contains Rust crates for the foundational `GObject`-based
-libraries. However there is a large ecosystem of `GObject` libraries and many of these
+The `gtk3-rs` repository contains Rust crates for GTK 3. However there is a large ecosystem of `GObject` libraries and many of these
 libraries have Rust bindings based on the tooling included in `gtk-rs`.
 Of particular note:
 
-* [gtk4-rs](https://github.com/gtk-rs/gtk4-rs) - bindings for GTK 4
+* [gtk-rs-core](https://github.com/gtk-rs/gtk-rs-core) - bindings for some of the core libraries such as `glib`, `gio`, `pango`, `graphene`
 * [gstreamer-rs](https://gitlab.freedesktop.org/gstreamer/gstreamer-rs) - bindings for the GStreamer media framework
 
 Additionally, Rust bindings for various libraries are hosted on
