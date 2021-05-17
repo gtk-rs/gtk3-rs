@@ -1,6 +1,6 @@
 ---
 name: Asking for help
-about: You have a question on how to use gtk-rs-core
+about: You have a question on how to use gtk3-rs
 title: "[HELP]"
 labels: ''
 assignees: ''
