@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::Display;
-use crate::KeymapKey;
 use crate::ModifierIntent;
 use crate::ModifierType;
 use glib::object::ObjectType as ObjectType_;
@@ -68,11 +67,6 @@ impl Keymap {
     #[doc(alias = "gdk_keymap_have_bidi_layouts")]
     pub fn have_bidi_layouts(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_have_bidi_layouts(self.to_glib_none().0)) }
-    }
-
-    #[doc(alias = "gdk_keymap_lookup_key")]
-    pub fn lookup_key(&self, key: &KeymapKey) -> u32 {
-        unsafe { ffi::gdk_keymap_lookup_key(self.to_glib_none().0, key.to_glib_none().0) }
     }
 
     #[doc(alias = "gdk_keymap_translate_keyboard_state")]

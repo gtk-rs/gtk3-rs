@@ -1,5 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::keys::Key;
 use crate::Keymap;
 use crate::KeymapKey;
 use crate::ModifierType;
@@ -82,6 +83,17 @@ impl Keymap {
             ));
             *state = from_glib(s);
             ret
+        }
+    }
+
+    #[doc(alias = "gdk_keymap_lookup_key")]
+    pub fn lookup_key(&self, key: &KeymapKey) -> Option<Key> {
+        let key =
+            unsafe { ffi::gdk_keymap_lookup_key(self.to_glib_none().0, key.to_glib_none().0) };
+        if key != 0 {
+            Some(Key::from(key))
+        } else {
+            None
         }
     }
 }
