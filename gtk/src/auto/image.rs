@@ -133,7 +133,7 @@ pub struct ImageBuilder {
     file: Option<String>,
     gicon: Option<gio::Icon>,
     icon_name: Option<String>,
-    icon_size: Option<i32>,
+    icon_size: Option<IconSize>,
     pixbuf: Option<gdk_pixbuf::Pixbuf>,
     pixbuf_animation: Option<gdk_pixbuf::PixbufAnimation>,
     pixel_size: Option<i32>,
@@ -328,7 +328,7 @@ impl ImageBuilder {
         self
     }
 
-    pub fn icon_size(mut self, icon_size: i32) -> Self {
+    pub fn icon_size(mut self, icon_size: IconSize) -> Self {
         self.icon_size = Some(icon_size);
         self
     }
@@ -592,10 +592,10 @@ pub trait ImageExt: 'static {
     fn set_icon_name(&self, icon_name: Option<&str>);
 
     #[doc(alias = "icon-size")]
-    fn icon_size(&self) -> i32;
+    fn icon_size(&self) -> IconSize;
 
     #[doc(alias = "icon-size")]
-    fn set_icon_size(&self, icon_size: i32);
+    fn set_icon_size(&self, icon_size: IconSize);
 
     fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>);
 
@@ -823,9 +823,9 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn icon_size(&self) -> i32 {
+    fn icon_size(&self) -> IconSize {
         unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<IconSize as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size\0".as_ptr() as *const _,
@@ -837,7 +837,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_icon_size(&self, icon_size: i32) {
+    fn set_icon_size(&self, icon_size: IconSize) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
