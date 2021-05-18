@@ -7,6 +7,9 @@ use crate::BaselinePosition;
 use crate::Box;
 use crate::Buildable;
 use crate::Container;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::IconSize;
 use crate::Orientable;
 use crate::Orientation;
 use crate::ResizeMode;
@@ -49,7 +52,7 @@ impl Default for StackSwitcher {
 pub struct StackSwitcherBuilder {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    icon_size: Option<i32>,
+    icon_size: Option<IconSize>,
     stack: Option<Stack>,
     baseline_position: Option<BaselinePosition>,
     homogeneous: Option<bool>,
@@ -232,7 +235,7 @@ impl StackSwitcherBuilder {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    pub fn icon_size(mut self, icon_size: i32) -> Self {
+    pub fn icon_size(mut self, icon_size: IconSize) -> Self {
         self.icon_size = Some(icon_size);
         self
     }
@@ -453,12 +456,12 @@ pub trait StackSwitcherExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "icon-size")]
-    fn icon_size(&self) -> i32;
+    fn icon_size(&self) -> IconSize;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "icon-size")]
-    fn set_icon_size(&self, icon_size: i32);
+    fn set_icon_size(&self, icon_size: IconSize);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -489,9 +492,9 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn icon_size(&self) -> i32 {
+    fn icon_size(&self) -> IconSize {
         unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<IconSize as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size\0".as_ptr() as *const _,
@@ -505,7 +508,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn set_icon_size(&self, icon_size: i32) {
+    fn set_icon_size(&self, icon_size: IconSize) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
