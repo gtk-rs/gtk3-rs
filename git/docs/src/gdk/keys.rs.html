@@ -2367,12 +2367,39 @@
 <span id="2364">2364</span>
 <span id="2365">2365</span>
 <span id="2366">2366</span>
+<span id="2367">2367</span>
+<span id="2368">2368</span>
+<span id="2369">2369</span>
+<span id="2370">2370</span>
+<span id="2371">2371</span>
+<span id="2372">2372</span>
+<span id="2373">2373</span>
+<span id="2374">2374</span>
+<span id="2375">2375</span>
+<span id="2376">2376</span>
+<span id="2377">2377</span>
+<span id="2378">2378</span>
+<span id="2379">2379</span>
+<span id="2380">2380</span>
+<span id="2381">2381</span>
+<span id="2382">2382</span>
+<span id="2383">2383</span>
+<span id="2384">2384</span>
+<span id="2385">2385</span>
+<span id="2386">2386</span>
+<span id="2387">2387</span>
+<span id="2388">2388</span>
+<span id="2389">2389</span>
+<span id="2390">2390</span>
+<span id="2391">2391</span>
+<span id="2392">2392</span>
 </pre><pre class="rust">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib::GString</span>;
 <span class="kw">use</span> <span class="ident">libc::c_uint</span>;
+<span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Key</span>(<span class="ident">u32</span>);
@@ -2414,6 +2441,18 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Key</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_from_name&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_name</span>(<span class="ident">keyval_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="macro">skip_assert_initialized!</span>();
+        <span class="self">Self</span>(<span class="kw">unsafe</span> { <span class="ident">ffi::gdk_keyval_from_name</span>(<span class="ident">keyval_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) })
+    }
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_unicode_to_keyval&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_unicode</span>(<span class="ident">c</span>: <span class="ident">char</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="macro">skip_assert_initialized!</span>();
+        <span class="self">Self</span>(<span class="kw">unsafe</span> { <span class="ident">ffi::gdk_unicode_to_keyval</span>(<span class="ident">u32::from</span>(<span class="ident">c</span>)) })
+    }
+
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_to_unicode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_unicode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> {
         <span class="macro">skip_assert_initialized!</span>();
@@ -2448,6 +2487,19 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_lower</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_keyval_to_lower</span>(<span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span>) }.<span class="ident">into</span>()
+    }
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_convert_case&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">convert_case</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="self">Self</span>, <span class="self">Self</span>) {
+        <span class="macro">skip_assert_initialized!</span>();
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lower</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">upper</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
+            <span class="ident">ffi::gdk_keyval_convert_case</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">lower</span>.<span class="ident">as_mut_ptr</span>(), <span class="ident">upper</span>.<span class="ident">as_mut_ptr</span>());
+            <span class="kw">let</span> <span class="ident">lower</span> <span class="op">=</span> <span class="ident">lower</span>.<span class="ident">assume_init</span>();
+            <span class="kw">let</span> <span class="ident">upper</span> <span class="op">=</span> <span class="ident">upper</span>.<span class="ident">assume_init</span>();
+            (<span class="self">Self</span>(<span class="ident">lower</span>), <span class="self">Self</span>(<span class="ident">upper</span>))
+        }
     }
 }
 
