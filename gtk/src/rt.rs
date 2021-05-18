@@ -116,7 +116,7 @@ pub fn init() -> Result<(), glib::BoolError> {
         let argv = ::std::env::args().take(1).collect::<Vec<_>>();
 
         if from_glib(ffi::gtk_init_check(&mut 1, &mut argv.to_glib_none().0)) {
-            if !glib::MainContext::default().acquire() {
+            if !glib::MainContext::default().is_owner() {
                 return Err(glib::bool_error!("Failed to acquire default main context"));
             }
 
