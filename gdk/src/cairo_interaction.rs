@@ -61,14 +61,19 @@ pub trait GdkContextExt {
     );
 
     #[doc(alias = "get_clip_rectangle")]
+    #[doc(alias = "gdk_cairo_get_clip_rectangle")]
     fn clip_rectangle(&self) -> Option<Rectangle>;
 
+    #[doc(alias = "gdk_cairo_set_source_rgba")]
     fn set_source_rgba(&self, rgba: &RGBA);
 
+    #[doc(alias = "gdk_cairo_set_source_pixbuf")]
     fn set_source_pixbuf(&self, pixbuf: &Pixbuf, x: f64, y: f64);
 
+    #[doc(alias = "gdk_cairo_set_source_window")]
     fn set_source_window<W: IsA<Window>>(&self, window: &W, x: f64, y: f64);
 
+    #[doc(alias = "gdk_cairo_rectangle")]
     fn rectangle(&self, rectangle: &Rectangle);
 
     fn add_region(&self, region: &Region);

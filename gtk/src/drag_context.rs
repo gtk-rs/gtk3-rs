@@ -23,7 +23,7 @@ pub trait DragContextExtManual: 'static {
     #[doc(alias = "gtk_drag_set_icon_name")]
     fn drag_set_icon_name(&self, icon_name: &str, hot_x: i32, hot_y: i32);
 
-    #[doc(alias = "gtk_drag_set_icon_pixubf")]
+    #[doc(alias = "gtk_drag_set_icon_pixbuf")]
     fn drag_set_icon_pixbuf(&self, pixbuf: &gdk_pixbuf::Pixbuf, hot_x: i32, hot_y: i32);
 
     #[doc(alias = "gtk_drag_set_icon_stock")]

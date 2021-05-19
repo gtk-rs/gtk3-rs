@@ -38,6 +38,7 @@ pub trait GtkListStoreExtManual: 'static {
     fn reorder(&self, new_order: &[u32]);
 
     #[doc(alias = "gtk_list_store_set")]
+    #[doc(alias = "gtk_list_store_set_valuesv")]
     fn set(&self, iter: &TreeIter, columns_and_values: &[(u32, &dyn ToValue)]);
 
     #[doc(alias = "gtk_list_store_set_value")]

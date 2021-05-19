@@ -26,6 +26,7 @@ pub trait BuilderExtManual: 'static {
 
     #[doc(alias = "gtk_builder_add_from_file")]
     fn add_from_file<T: AsRef<Path>>(&self, file_path: T) -> Result<(), glib::Error>;
+    #[doc(alias = "gtk_builder_connect_signals_full")]
     fn connect_signals<
         P: FnMut(&Builder, &str) -> Box<dyn Fn(&[glib::Value]) -> Option<glib::Value> + 'static>,
     >(
