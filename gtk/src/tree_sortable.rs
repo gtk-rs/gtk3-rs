@@ -62,14 +62,18 @@ impl fmt::Display for SortColumn {
 }
 
 pub trait TreeSortableExtManual: 'static {
+    #[doc(alias = "gtk_tree_sortable_set_default_sort_func")]
     fn set_default_sort_func<F>(&self, sort_func: F)
     where
         F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering + 'static;
+    #[doc(alias = "gtk_tree_sortable_set_sort_func")]
     fn set_sort_func<F>(&self, sort_column_id: SortColumn, sort_func: F)
     where
         F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering + 'static;
     #[doc(alias = "get_sort_column_id")]
+    #[doc(alias = "gtk_tree_sortable_get_sort_column_id")]
     fn sort_column_id(&self) -> Option<(SortColumn, SortType)>;
+    #[doc(alias = "gtk_tree_sortable_set_sort_column_id")]
     fn set_sort_column_id(&self, sort_column_id: SortColumn, order: SortType);
     fn set_unsorted(&self);
 }

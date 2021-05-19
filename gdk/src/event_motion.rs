@@ -26,6 +26,7 @@ impl EventMotion {
         self.as_ref().time
     }
 
+    #[doc(alias = "gdk_event_request_motions")]
     pub fn request_motions(&self) {
         unsafe { ffi::gdk_event_request_motions(self.as_ref()) }
     }

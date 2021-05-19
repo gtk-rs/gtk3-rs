@@ -65,6 +65,7 @@ pub unsafe fn set_initialized() {
     IS_MAIN_THREAD.with(|c| c.set(true));
 }
 
+#[doc(alias = "gdk_init")]
 pub fn init() {
     assert_not_initialized!();
     unsafe {
