@@ -49,6 +49,12 @@ jobs:
       - run: ./check_init_asserts ../${{matrix.conf.name}}
         working-directory: checker
         if: matrix.rust == 'nightly'
+      - name: Check doc aliases
+        run: |
+          python3 doc_aliases.py ../${{matrix.conf.name}}
+          cd .. && git diff -R --exit-code
+        working-directory: checker
+        if: matrix.rust == 'nightly'
       # tests run
       - name: tests nightly
         run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
