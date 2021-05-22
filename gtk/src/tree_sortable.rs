@@ -13,6 +13,7 @@ use glib::ffi::gpointer;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum SortColumn {
+    #[doc(alias = "GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID")]
     Default,
     Index(u32),
 }
