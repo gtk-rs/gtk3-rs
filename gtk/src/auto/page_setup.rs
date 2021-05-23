@@ -27,7 +27,7 @@ impl PageSetup {
 
     #[doc(alias = "gtk_page_setup_new_from_file")]
     #[doc(alias = "new_from_file")]
-    pub fn from_file<P: AsRef<std::path::Path>>(file_name: P) -> Result<PageSetup, glib::Error> {
+    pub fn from_file(file_name: impl AsRef<std::path::Path>) -> Result<PageSetup, glib::Error> {
         assert_initialized_main_thread!();
         unsafe {
             let mut error = ptr::null_mut();
@@ -142,7 +142,7 @@ impl PageSetup {
     }
 
     #[doc(alias = "gtk_page_setup_load_file")]
-    pub fn load_file<P: AsRef<std::path::Path>>(&self, file_name: P) -> Result<(), glib::Error> {
+    pub fn load_file(&self, file_name: impl AsRef<std::path::Path>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::gtk_page_setup_load_file(
@@ -236,7 +236,7 @@ impl PageSetup {
     }
 
     #[doc(alias = "gtk_page_setup_to_file")]
-    pub fn to_file<P: AsRef<std::path::Path>>(&self, file_name: P) -> Result<(), glib::Error> {
+    pub fn to_file(&self, file_name: impl AsRef<std::path::Path>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::gtk_page_setup_to_file(

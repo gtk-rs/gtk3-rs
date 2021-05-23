@@ -48,9 +48,9 @@ impl StyleContext {
     }
 
     #[doc(alias = "gtk_style_context_add_provider_for_screen")]
-    pub fn add_provider_for_screen<P: IsA<StyleProvider>>(
+    pub fn add_provider_for_screen(
         screen: &gdk::Screen,
-        provider: &P,
+        provider: &impl IsA<StyleProvider>,
         priority: u32,
     ) {
         skip_assert_initialized!();
@@ -64,7 +64,7 @@ impl StyleContext {
     }
 
     #[doc(alias = "gtk_style_context_remove_provider_for_screen")]
-    pub fn remove_provider_for_screen<P: IsA<StyleProvider>>(screen: &gdk::Screen, provider: &P) {
+    pub fn remove_provider_for_screen(screen: &gdk::Screen, provider: &impl IsA<StyleProvider>) {
         skip_assert_initialized!();
         unsafe {
             ffi::gtk_style_context_remove_provider_for_screen(
@@ -138,7 +138,7 @@ impl StyleContextBuilder {
         self
     }
 
-    pub fn parent<P: IsA<StyleContext>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<StyleContext>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -156,7 +156,7 @@ pub trait StyleContextExt: 'static {
     fn add_class(&self, class_name: &str);
 
     #[doc(alias = "gtk_style_context_add_provider")]
-    fn add_provider<P: IsA<StyleProvider>>(&self, provider: &P, priority: u32);
+    fn add_provider(&self, provider: &impl IsA<StyleProvider>, priority: u32);
 
     //#[doc(alias = "gtk_style_context_get")]
     //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
@@ -242,7 +242,7 @@ pub trait StyleContextExt: 'static {
     fn remove_class(&self, class_name: &str);
 
     #[doc(alias = "gtk_style_context_remove_provider")]
-    fn remove_provider<P: IsA<StyleProvider>>(&self, provider: &P);
+    fn remove_provider(&self, provider: &impl IsA<StyleProvider>);
 
     #[doc(alias = "gtk_style_context_restore")]
     fn restore(&self);
@@ -257,7 +257,7 @@ pub trait StyleContextExt: 'static {
     fn set_junction_sides(&self, sides: JunctionSides);
 
     #[doc(alias = "gtk_style_context_set_parent")]
-    fn set_parent<P: IsA<StyleContext>>(&self, parent: Option<&P>);
+    fn set_parent(&self, parent: Option<&impl IsA<StyleContext>>);
 
     #[doc(alias = "gtk_style_context_set_path")]
     fn set_path(&self, path: &WidgetPath);
@@ -312,7 +312,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn add_provider<P: IsA<StyleProvider>>(&self, provider: &P, priority: u32) {
+    fn add_provider(&self, provider: &impl IsA<StyleProvider>, priority: u32) {
         unsafe {
             ffi::gtk_style_context_add_provider(
                 self.as_ref().to_glib_none().0,
@@ -514,7 +514,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn remove_provider<P: IsA<StyleProvider>>(&self, provider: &P) {
+    fn remove_provider(&self, provider: &impl IsA<StyleProvider>) {
         unsafe {
             ffi::gtk_style_context_remove_provider(
                 self.as_ref().to_glib_none().0,
@@ -553,7 +553,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn set_parent<P: IsA<StyleContext>>(&self, parent: Option<&P>) {
+    fn set_parent(&self, parent: Option<&impl IsA<StyleContext>>) {
         unsafe {
             ffi::gtk_style_context_set_parent(
                 self.as_ref().to_glib_none().0,

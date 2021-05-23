@@ -286,7 +286,7 @@ impl VolumeButtonBuilder {
         self
     }
 
-    pub fn adjustment<P: IsA<Adjustment>>(mut self, adjustment: &P) -> Self {
+    pub fn adjustment(mut self, adjustment: &impl IsA<Adjustment>) -> Self {
         self.adjustment = Some(adjustment.clone().upcast());
         self
     }
@@ -311,7 +311,7 @@ impl VolumeButtonBuilder {
         self
     }
 
-    pub fn image<P: IsA<Widget>>(mut self, image: &P) -> Self {
+    pub fn image(mut self, image: &impl IsA<Widget>) -> Self {
         self.image = Some(image.clone().upcast());
         self
     }
@@ -341,7 +341,7 @@ impl VolumeButtonBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -463,7 +463,7 @@ impl VolumeButtonBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }

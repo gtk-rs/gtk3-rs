@@ -34,7 +34,7 @@ glib::wrapper! {
 
 impl MenuToolButton {
     #[doc(alias = "gtk_menu_tool_button_new")]
-    pub fn new<P: IsA<Widget>>(icon_widget: Option<&P>, label: Option<&str>) -> MenuToolButton {
+    pub fn new(icon_widget: Option<&impl IsA<Widget>>, label: Option<&str>) -> MenuToolButton {
         assert_initialized_main_thread!();
         unsafe {
             ToolItem::from_glib_none(ffi::gtk_menu_tool_button_new(
@@ -271,7 +271,7 @@ impl MenuToolButtonBuilder {
             .expect("Failed to create an instance of MenuToolButton")
     }
 
-    pub fn menu<P: IsA<Menu>>(mut self, menu: &P) -> Self {
+    pub fn menu(mut self, menu: &impl IsA<Menu>) -> Self {
         self.menu = Some(menu.clone().upcast());
         self
     }
@@ -281,7 +281,7 @@ impl MenuToolButtonBuilder {
         self
     }
 
-    pub fn icon_widget<P: IsA<Widget>>(mut self, icon_widget: &P) -> Self {
+    pub fn icon_widget(mut self, icon_widget: &impl IsA<Widget>) -> Self {
         self.icon_widget = Some(icon_widget.clone().upcast());
         self
     }
@@ -291,7 +291,7 @@ impl MenuToolButtonBuilder {
         self
     }
 
-    pub fn label_widget<P: IsA<Widget>>(mut self, label_widget: &P) -> Self {
+    pub fn label_widget(mut self, label_widget: &impl IsA<Widget>) -> Self {
         self.label_widget = Some(label_widget.clone().upcast());
         self
     }
@@ -321,7 +321,7 @@ impl MenuToolButtonBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -443,7 +443,7 @@ impl MenuToolButtonBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -518,7 +518,7 @@ pub trait MenuToolButtonExt: 'static {
     fn set_arrow_tooltip_text(&self, text: &str);
 
     #[doc(alias = "gtk_menu_tool_button_set_menu")]
-    fn set_menu<P: IsA<Widget>>(&self, menu: &P);
+    fn set_menu(&self, menu: &impl IsA<Widget>);
 
     #[doc(alias = "show-menu")]
     fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -554,7 +554,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
-    fn set_menu<P: IsA<Widget>>(&self, menu: &P) {
+    fn set_menu(&self, menu: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_menu_tool_button_set_menu(
                 self.as_ref().to_glib_none().0,

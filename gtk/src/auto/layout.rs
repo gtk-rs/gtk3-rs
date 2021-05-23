@@ -33,9 +33,9 @@ glib::wrapper! {
 
 impl Layout {
     #[doc(alias = "gtk_layout_new")]
-    pub fn new<P: IsA<Adjustment>, Q: IsA<Adjustment>>(
-        hadjustment: Option<&P>,
-        vadjustment: Option<&Q>,
+    pub fn new(
+        hadjustment: Option<&impl IsA<Adjustment>>,
+        vadjustment: Option<&impl IsA<Adjustment>>,
     ) -> Layout {
         assert_initialized_main_thread!();
         unsafe {
@@ -267,7 +267,7 @@ impl LayoutBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -389,7 +389,7 @@ impl LayoutBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -439,7 +439,7 @@ impl LayoutBuilder {
         self
     }
 
-    pub fn hadjustment<P: IsA<Adjustment>>(mut self, hadjustment: &P) -> Self {
+    pub fn hadjustment(mut self, hadjustment: &impl IsA<Adjustment>) -> Self {
         self.hadjustment = Some(hadjustment.clone().upcast());
         self
     }
@@ -449,7 +449,7 @@ impl LayoutBuilder {
         self
     }
 
-    pub fn vadjustment<P: IsA<Adjustment>>(mut self, vadjustment: &P) -> Self {
+    pub fn vadjustment(mut self, vadjustment: &impl IsA<Adjustment>) -> Self {
         self.vadjustment = Some(vadjustment.clone().upcast());
         self
     }
@@ -473,10 +473,10 @@ pub trait LayoutExt: 'static {
 
     #[doc(alias = "gtk_layout_move")]
     #[doc(alias = "move")]
-    fn move_<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32);
+    fn move_(&self, child_widget: &impl IsA<Widget>, x: i32, y: i32);
 
     #[doc(alias = "gtk_layout_put")]
-    fn put<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32);
+    fn put(&self, child_widget: &impl IsA<Widget>, x: i32, y: i32);
 
     #[doc(alias = "gtk_layout_set_size")]
     fn set_size(&self, width: u32, height: u32);
@@ -528,7 +528,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn move_<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32) {
+    fn move_(&self, child_widget: &impl IsA<Widget>, x: i32, y: i32) {
         unsafe {
             ffi::gtk_layout_move(
                 self.as_ref().to_glib_none().0,
@@ -539,7 +539,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn put<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32) {
+    fn put(&self, child_widget: &impl IsA<Widget>, x: i32, y: i32) {
         unsafe {
             ffi::gtk_layout_put(
                 self.as_ref().to_glib_none().0,

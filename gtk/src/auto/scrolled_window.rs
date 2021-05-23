@@ -39,9 +39,9 @@ glib::wrapper! {
 
 impl ScrolledWindow {
     #[doc(alias = "gtk_scrolled_window_new")]
-    pub fn new<P: IsA<Adjustment>, Q: IsA<Adjustment>>(
-        hadjustment: Option<&P>,
-        vadjustment: Option<&Q>,
+    pub fn new(
+        hadjustment: Option<&impl IsA<Adjustment>>,
+        vadjustment: Option<&impl IsA<Adjustment>>,
     ) -> ScrolledWindow {
         assert_initialized_main_thread!();
         unsafe {
@@ -303,7 +303,7 @@ impl ScrolledWindowBuilder {
             .expect("Failed to create an instance of ScrolledWindow")
     }
 
-    pub fn hadjustment<P: IsA<Adjustment>>(mut self, hadjustment: &P) -> Self {
+    pub fn hadjustment(mut self, hadjustment: &impl IsA<Adjustment>) -> Self {
         self.hadjustment = Some(hadjustment.clone().upcast());
         self
     }
@@ -366,7 +366,7 @@ impl ScrolledWindowBuilder {
         self
     }
 
-    pub fn vadjustment<P: IsA<Adjustment>>(mut self, vadjustment: &P) -> Self {
+    pub fn vadjustment(mut self, vadjustment: &impl IsA<Adjustment>) -> Self {
         self.vadjustment = Some(vadjustment.clone().upcast());
         self
     }
@@ -386,7 +386,7 @@ impl ScrolledWindowBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -508,7 +508,7 @@ impl ScrolledWindowBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -638,7 +638,7 @@ pub trait ScrolledWindowExt: 'static {
     fn set_capture_button_press(&self, capture_button_press: bool);
 
     #[doc(alias = "gtk_scrolled_window_set_hadjustment")]
-    fn set_hadjustment<P: IsA<Adjustment>>(&self, hadjustment: Option<&P>);
+    fn set_hadjustment(&self, hadjustment: Option<&impl IsA<Adjustment>>);
 
     #[doc(alias = "gtk_scrolled_window_set_kinetic_scrolling")]
     fn set_kinetic_scrolling(&self, kinetic_scrolling: bool);
@@ -682,7 +682,7 @@ pub trait ScrolledWindowExt: 'static {
     fn set_shadow_type(&self, type_: ShadowType);
 
     #[doc(alias = "gtk_scrolled_window_set_vadjustment")]
-    fn set_vadjustment<P: IsA<Adjustment>>(&self, vadjustment: Option<&P>);
+    fn set_vadjustment(&self, vadjustment: Option<&impl IsA<Adjustment>>);
 
     #[doc(alias = "gtk_scrolled_window_unset_placement")]
     fn unset_placement(&self);
@@ -921,7 +921,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn set_hadjustment<P: IsA<Adjustment>>(&self, hadjustment: Option<&P>) {
+    fn set_hadjustment(&self, hadjustment: Option<&impl IsA<Adjustment>>) {
         unsafe {
             ffi::gtk_scrolled_window_set_hadjustment(
                 self.as_ref().to_glib_none().0,
@@ -1026,7 +1026,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    fn set_vadjustment<P: IsA<Adjustment>>(&self, vadjustment: Option<&P>) {
+    fn set_vadjustment(&self, vadjustment: Option<&impl IsA<Adjustment>>) {
         unsafe {
             ffi::gtk_scrolled_window_set_vadjustment(
                 self.as_ref().to_glib_none().0,

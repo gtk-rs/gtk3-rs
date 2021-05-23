@@ -273,7 +273,7 @@ impl ToggleToolButtonBuilder {
         self
     }
 
-    pub fn icon_widget<P: IsA<Widget>>(mut self, icon_widget: &P) -> Self {
+    pub fn icon_widget(mut self, icon_widget: &impl IsA<Widget>) -> Self {
         self.icon_widget = Some(icon_widget.clone().upcast());
         self
     }
@@ -283,7 +283,7 @@ impl ToggleToolButtonBuilder {
         self
     }
 
-    pub fn label_widget<P: IsA<Widget>>(mut self, label_widget: &P) -> Self {
+    pub fn label_widget(mut self, label_widget: &impl IsA<Widget>) -> Self {
         self.label_widget = Some(label_widget.clone().upcast());
         self
     }
@@ -313,7 +313,7 @@ impl ToggleToolButtonBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -435,7 +435,7 @@ impl ToggleToolButtonBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }

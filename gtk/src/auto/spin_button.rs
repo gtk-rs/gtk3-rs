@@ -42,8 +42,8 @@ glib::wrapper! {
 
 impl SpinButton {
     #[doc(alias = "gtk_spin_button_new")]
-    pub fn new<P: IsA<Adjustment>>(
-        adjustment: Option<&P>,
+    pub fn new(
+        adjustment: Option<&impl IsA<Adjustment>>,
         climb_rate: f64,
         digits: u32,
     ) -> SpinButton {
@@ -450,7 +450,7 @@ impl SpinButtonBuilder {
             .expect("Failed to create an instance of SpinButton")
     }
 
-    pub fn adjustment<P: IsA<Adjustment>>(mut self, adjustment: &P) -> Self {
+    pub fn adjustment(mut self, adjustment: &impl IsA<Adjustment>) -> Self {
         self.adjustment = Some(adjustment.clone().upcast());
         self
     }
@@ -500,7 +500,7 @@ impl SpinButtonBuilder {
         self
     }
 
-    pub fn buffer<P: IsA<EntryBuffer>>(mut self, buffer: &P) -> Self {
+    pub fn buffer(mut self, buffer: &impl IsA<EntryBuffer>) -> Self {
         self.buffer = Some(buffer.clone().upcast());
         self
     }
@@ -510,7 +510,7 @@ impl SpinButtonBuilder {
         self
     }
 
-    pub fn completion<P: IsA<EntryCompletion>>(mut self, completion: &P) -> Self {
+    pub fn completion(mut self, completion: &impl IsA<EntryCompletion>) -> Self {
         self.completion = Some(completion.clone().upcast());
         self
     }
@@ -585,7 +585,7 @@ impl SpinButtonBuilder {
         self
     }
 
-    pub fn primary_icon_gicon<P: IsA<gio::Icon>>(mut self, primary_icon_gicon: &P) -> Self {
+    pub fn primary_icon_gicon(mut self, primary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
         self.primary_icon_gicon = Some(primary_icon_gicon.clone().upcast());
         self
     }
@@ -630,7 +630,7 @@ impl SpinButtonBuilder {
         self
     }
 
-    pub fn secondary_icon_gicon<P: IsA<gio::Icon>>(mut self, secondary_icon_gicon: &P) -> Self {
+    pub fn secondary_icon_gicon(mut self, secondary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
         self.secondary_icon_gicon = Some(secondary_icon_gicon.clone().upcast());
         self
     }
@@ -813,7 +813,7 @@ impl SpinButtonBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -878,7 +878,7 @@ pub const NONE_SPIN_BUTTON: Option<&SpinButton> = None;
 
 pub trait SpinButtonExt: 'static {
     #[doc(alias = "gtk_spin_button_configure")]
-    fn configure<P: IsA<Adjustment>>(&self, adjustment: Option<&P>, climb_rate: f64, digits: u32);
+    fn configure(&self, adjustment: Option<&impl IsA<Adjustment>>, climb_rate: f64, digits: u32);
 
     #[doc(alias = "gtk_spin_button_get_adjustment")]
     #[doc(alias = "get_adjustment")]
@@ -921,7 +921,7 @@ pub trait SpinButtonExt: 'static {
     fn wraps(&self) -> bool;
 
     #[doc(alias = "gtk_spin_button_set_adjustment")]
-    fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
+    fn set_adjustment(&self, adjustment: &impl IsA<Adjustment>);
 
     #[doc(alias = "gtk_spin_button_set_digits")]
     fn set_digits(&self, digits: u32);
@@ -985,7 +985,7 @@ pub trait SpinButtonExt: 'static {
 }
 
 impl<O: IsA<SpinButton>> SpinButtonExt for O {
-    fn configure<P: IsA<Adjustment>>(&self, adjustment: Option<&P>, climb_rate: f64, digits: u32) {
+    fn configure(&self, adjustment: Option<&impl IsA<Adjustment>>, climb_rate: f64, digits: u32) {
         unsafe {
             ffi::gtk_spin_button_configure(
                 self.as_ref().to_glib_none().0,
@@ -1078,7 +1078,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: &P) {
+    fn set_adjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_spin_button_set_adjustment(
                 self.as_ref().to_glib_none().0,

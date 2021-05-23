@@ -19,7 +19,7 @@ glib::wrapper! {
 
 impl Tooltip {
     #[doc(alias = "gtk_tooltip_set_custom")]
-    pub fn set_custom<P: IsA<Widget>>(&self, custom_widget: Option<&P>) {
+    pub fn set_custom(&self, custom_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tooltip_set_custom(
                 self.to_glib_none().0,
@@ -36,7 +36,7 @@ impl Tooltip {
     }
 
     #[doc(alias = "gtk_tooltip_set_icon_from_gicon")]
-    pub fn set_icon_from_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>, size: IconSize) {
+    pub fn set_icon_from_gicon(&self, gicon: Option<&impl IsA<gio::Icon>>, size: IconSize) {
         unsafe {
             ffi::gtk_tooltip_set_icon_from_gicon(
                 self.to_glib_none().0,

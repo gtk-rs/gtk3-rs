@@ -298,7 +298,7 @@ impl AccelLabelBuilder {
         self
     }
 
-    pub fn accel_widget<P: IsA<Widget>>(mut self, accel_widget: &P) -> Self {
+    pub fn accel_widget(mut self, accel_widget: &impl IsA<Widget>) -> Self {
         self.accel_widget = Some(accel_widget.clone().upcast());
         self
     }
@@ -338,7 +338,7 @@ impl AccelLabelBuilder {
         self
     }
 
-    pub fn mnemonic_widget<P: IsA<Widget>>(mut self, mnemonic_widget: &P) -> Self {
+    pub fn mnemonic_widget(mut self, mnemonic_widget: &impl IsA<Widget>) -> Self {
         self.mnemonic_widget = Some(mnemonic_widget.clone().upcast());
         self
     }
@@ -510,7 +510,7 @@ impl AccelLabelBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -586,7 +586,7 @@ pub trait AccelLabelExt: 'static {
     fn set_accel_closure(&self, accel_closure: Option<&glib::Closure>);
 
     #[doc(alias = "gtk_accel_label_set_accel_widget")]
-    fn set_accel_widget<P: IsA<Widget>>(&self, accel_widget: Option<&P>);
+    fn set_accel_widget(&self, accel_widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "accel-closure")]
     fn accel_closure(&self) -> Option<glib::Closure>;
@@ -649,7 +649,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
-    fn set_accel_widget<P: IsA<Widget>>(&self, accel_widget: Option<&P>) {
+    fn set_accel_widget(&self, accel_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_accel_label_set_accel_widget(
                 self.as_ref().to_glib_none().0,

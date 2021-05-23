@@ -20,7 +20,7 @@ pub const NONE_OBJECT_FACTORY: Option<&ObjectFactory> = None;
 
 pub trait ObjectFactoryExt: 'static {
     #[doc(alias = "atk_object_factory_create_accessible")]
-    fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object>;
+    fn create_accessible(&self, obj: &impl IsA<glib::Object>) -> Option<Object>;
 
     #[doc(alias = "atk_object_factory_get_accessible_type")]
     #[doc(alias = "get_accessible_type")]
@@ -31,7 +31,7 @@ pub trait ObjectFactoryExt: 'static {
 }
 
 impl<O: IsA<ObjectFactory>> ObjectFactoryExt for O {
-    fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object> {
+    fn create_accessible(&self, obj: &impl IsA<glib::Object>) -> Option<Object> {
         unsafe {
             from_glib_full(ffi::atk_object_factory_create_accessible(
                 self.as_ref().to_glib_none().0,

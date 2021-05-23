@@ -28,7 +28,7 @@ glib::wrapper! {
 
 impl GestureStylus {
     #[doc(alias = "gtk_gesture_stylus_new")]
-    pub fn new<P: IsA<Widget>>(widget: &P) -> GestureStylus {
+    pub fn new(widget: &impl IsA<Widget>) -> GestureStylus {
         skip_assert_initialized!();
         unsafe {
             Gesture::from_glib_full(ffi::gtk_gesture_stylus_new(

@@ -51,7 +51,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_add_shortcut")]
-    pub fn add_shortcut<P: IsA<gio::File>>(&self, location: &P) {
+    pub fn add_shortcut(&self, location: &impl IsA<gio::File>) {
         unsafe {
             ffi::gtk_places_sidebar_add_shortcut(
                 self.to_glib_none().0,
@@ -169,7 +169,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_remove_shortcut")]
-    pub fn remove_shortcut<P: IsA<gio::File>>(&self, location: &P) {
+    pub fn remove_shortcut(&self, location: &impl IsA<gio::File>) {
         unsafe {
             ffi::gtk_places_sidebar_remove_shortcut(
                 self.to_glib_none().0,
@@ -197,7 +197,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_location")]
-    pub fn set_location<P: IsA<gio::File>>(&self, location: Option<&P>) {
+    pub fn set_location(&self, location: Option<&impl IsA<gio::File>>) {
         unsafe {
             ffi::gtk_places_sidebar_set_location(
                 self.to_glib_none().0,
@@ -1153,7 +1153,7 @@ impl PlacesSidebarBuilder {
         self
     }
 
-    pub fn location<P: IsA<gio::File>>(mut self, location: &P) -> Self {
+    pub fn location(mut self, location: &impl IsA<gio::File>) -> Self {
         self.location = Some(location.clone().upcast());
         self
     }
@@ -1205,7 +1205,7 @@ impl PlacesSidebarBuilder {
         self
     }
 
-    pub fn hadjustment<P: IsA<Adjustment>>(mut self, hadjustment: &P) -> Self {
+    pub fn hadjustment(mut self, hadjustment: &impl IsA<Adjustment>) -> Self {
         self.hadjustment = Some(hadjustment.clone().upcast());
         self
     }
@@ -1268,7 +1268,7 @@ impl PlacesSidebarBuilder {
         self
     }
 
-    pub fn vadjustment<P: IsA<Adjustment>>(mut self, vadjustment: &P) -> Self {
+    pub fn vadjustment(mut self, vadjustment: &impl IsA<Adjustment>) -> Self {
         self.vadjustment = Some(vadjustment.clone().upcast());
         self
     }
@@ -1288,7 +1288,7 @@ impl PlacesSidebarBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -1410,7 +1410,7 @@ impl PlacesSidebarBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }

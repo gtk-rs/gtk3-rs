@@ -81,10 +81,10 @@ pub trait WidgetExt: 'static {
     fn activate(&self) -> bool;
 
     #[doc(alias = "gtk_widget_add_accelerator")]
-    fn add_accelerator<P: IsA<AccelGroup>>(
+    fn add_accelerator(
         &self,
         accel_signal: &str,
-        accel_group: &P,
+        accel_group: &impl IsA<AccelGroup>,
         accel_key: u32,
         accel_mods: gdk::ModifierType,
         accel_flags: AccelFlags,
@@ -94,7 +94,7 @@ pub trait WidgetExt: 'static {
     fn add_device_events(&self, device: &gdk::Device, events: gdk::EventMask);
 
     #[doc(alias = "gtk_widget_add_mnemonic_label")]
-    fn add_mnemonic_label<P: IsA<Widget>>(&self, label: &P);
+    fn add_mnemonic_label(&self, label: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_widget_can_activate_accel")]
     fn can_activate_accel(&self, signal_id: u32) -> bool;
@@ -115,7 +115,7 @@ pub trait WidgetExt: 'static {
     fn create_pango_layout(&self, text: Option<&str>) -> pango::Layout;
 
     //#[doc(alias = "gtk_widget_destroyed")]
-    //fn destroyed<P: IsA<Widget>>(&self, widget_pointer: P);
+    //fn destroyed(&self, widget_pointer: impl IsA<Widget>);
 
     #[doc(alias = "gtk_widget_device_is_shadowed")]
     fn device_is_shadowed(&self, device: &gdk::Device) -> bool;
@@ -199,7 +199,7 @@ pub trait WidgetExt: 'static {
     fn drag_source_get_target_list(&self) -> Option<TargetList>;
 
     #[doc(alias = "gtk_drag_source_set_icon_gicon")]
-    fn drag_source_set_icon_gicon<P: IsA<gio::Icon>>(&self, icon: &P);
+    fn drag_source_set_icon_gicon(&self, icon: &impl IsA<gio::Icon>);
 
     #[doc(alias = "gtk_drag_source_set_icon_name")]
     fn drag_source_set_icon_name(&self, icon_name: &str);
@@ -550,10 +550,10 @@ pub trait WidgetExt: 'static {
     fn input_shape_combine_region(&self, region: Option<&cairo::Region>);
 
     #[doc(alias = "gtk_widget_insert_action_group")]
-    fn insert_action_group<P: IsA<gio::ActionGroup>>(&self, name: &str, group: Option<&P>);
+    fn insert_action_group(&self, name: &str, group: Option<&impl IsA<gio::ActionGroup>>);
 
     #[doc(alias = "gtk_widget_is_ancestor")]
-    fn is_ancestor<P: IsA<Widget>>(&self, ancestor: &P) -> bool;
+    fn is_ancestor(&self, ancestor: &impl IsA<Widget>) -> bool;
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_widget_is_composited")]
@@ -622,15 +622,15 @@ pub trait WidgetExt: 'static {
     fn register_window(&self, window: &gdk::Window);
 
     #[doc(alias = "gtk_widget_remove_accelerator")]
-    fn remove_accelerator<P: IsA<AccelGroup>>(
+    fn remove_accelerator(
         &self,
-        accel_group: &P,
+        accel_group: &impl IsA<AccelGroup>,
         accel_key: u32,
         accel_mods: gdk::ModifierType,
     ) -> bool;
 
     #[doc(alias = "gtk_widget_remove_mnemonic_label")]
-    fn remove_mnemonic_label<P: IsA<Widget>>(&self, label: &P);
+    fn remove_mnemonic_label(&self, label: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_widget_reset_style")]
     fn reset_style(&self);
@@ -643,7 +643,7 @@ pub trait WidgetExt: 'static {
     fn send_focus_change(&self, event: &gdk::Event) -> bool;
 
     #[doc(alias = "gtk_widget_set_accel_path")]
-    fn set_accel_path<P: IsA<AccelGroup>>(&self, accel_path: Option<&str>, accel_group: Option<&P>);
+    fn set_accel_path(&self, accel_path: Option<&str>, accel_group: Option<&impl IsA<AccelGroup>>);
 
     #[doc(alias = "gtk_widget_set_allocation")]
     fn set_allocation(&self, allocation: &Allocation);
@@ -678,7 +678,7 @@ pub trait WidgetExt: 'static {
     fn set_focus_on_click(&self, focus_on_click: bool);
 
     #[doc(alias = "gtk_widget_set_font_map")]
-    fn set_font_map<P: IsA<pango::FontMap>>(&self, font_map: Option<&P>);
+    fn set_font_map(&self, font_map: Option<&impl IsA<pango::FontMap>>);
 
     #[doc(alias = "gtk_widget_set_font_options")]
     fn set_font_options(&self, options: Option<&cairo::FontOptions>);
@@ -724,7 +724,7 @@ pub trait WidgetExt: 'static {
     fn set_opacity(&self, opacity: f64);
 
     #[doc(alias = "gtk_widget_set_parent")]
-    fn set_parent<P: IsA<Widget>>(&self, parent: &P);
+    fn set_parent(&self, parent: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_widget_set_parent_window")]
     fn set_parent_window(&self, parent_window: &gdk::Window);
@@ -757,7 +757,7 @@ pub trait WidgetExt: 'static {
     fn set_tooltip_text(&self, text: Option<&str>);
 
     #[doc(alias = "gtk_widget_set_tooltip_window")]
-    fn set_tooltip_window<P: IsA<Window>>(&self, custom_window: Option<&P>);
+    fn set_tooltip_window(&self, custom_window: Option<&impl IsA<Window>>);
 
     #[doc(alias = "gtk_widget_set_valign")]
     fn set_valign(&self, align: Align);
@@ -808,9 +808,9 @@ pub trait WidgetExt: 'static {
     fn thaw_child_notify(&self);
 
     #[doc(alias = "gtk_widget_translate_coordinates")]
-    fn translate_coordinates<P: IsA<Widget>>(
+    fn translate_coordinates(
         &self,
-        dest_widget: &P,
+        dest_widget: &impl IsA<Widget>,
         src_x: i32,
         src_y: i32,
     ) -> Option<(i32, i32)>;
@@ -1351,10 +1351,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe { from_glib(ffi::gtk_widget_activate(self.as_ref().to_glib_none().0)) }
     }
 
-    fn add_accelerator<P: IsA<AccelGroup>>(
+    fn add_accelerator(
         &self,
         accel_signal: &str,
-        accel_group: &P,
+        accel_group: &impl IsA<AccelGroup>,
         accel_key: u32,
         accel_mods: gdk::ModifierType,
         accel_flags: AccelFlags,
@@ -1381,7 +1381,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn add_mnemonic_label<P: IsA<Widget>>(&self, label: &P) {
+    fn add_mnemonic_label(&self, label: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_widget_add_mnemonic_label(
                 self.as_ref().to_glib_none().0,
@@ -1443,7 +1443,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    //fn destroyed<P: IsA<Widget>>(&self, widget_pointer: P) {
+    //fn destroyed(&self, widget_pointer: impl IsA<Widget>) {
     //    unsafe { TODO: call ffi:gtk_widget_destroyed() }
     //}
 
@@ -1627,7 +1627,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn drag_source_set_icon_gicon<P: IsA<gio::Icon>>(&self, icon: &P) {
+    fn drag_source_set_icon_gicon(&self, icon: &impl IsA<gio::Icon>) {
         unsafe {
             ffi::gtk_drag_source_set_icon_gicon(
                 self.as_ref().to_glib_none().0,
@@ -2320,7 +2320,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn insert_action_group<P: IsA<gio::ActionGroup>>(&self, name: &str, group: Option<&P>) {
+    fn insert_action_group(&self, name: &str, group: Option<&impl IsA<gio::ActionGroup>>) {
         unsafe {
             ffi::gtk_widget_insert_action_group(
                 self.as_ref().to_glib_none().0,
@@ -2330,7 +2330,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn is_ancestor<P: IsA<Widget>>(&self, ancestor: &P) -> bool {
+    fn is_ancestor(&self, ancestor: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_widget_is_ancestor(
                 self.as_ref().to_glib_none().0,
@@ -2477,9 +2477,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn remove_accelerator<P: IsA<AccelGroup>>(
+    fn remove_accelerator(
         &self,
-        accel_group: &P,
+        accel_group: &impl IsA<AccelGroup>,
         accel_key: u32,
         accel_mods: gdk::ModifierType,
     ) -> bool {
@@ -2493,7 +2493,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn remove_mnemonic_label<P: IsA<Widget>>(&self, label: &P) {
+    fn remove_mnemonic_label(&self, label: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_widget_remove_mnemonic_label(
                 self.as_ref().to_glib_none().0,
@@ -2526,11 +2526,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn set_accel_path<P: IsA<AccelGroup>>(
-        &self,
-        accel_path: Option<&str>,
-        accel_group: Option<&P>,
-    ) {
+    fn set_accel_path(&self, accel_path: Option<&str>, accel_group: Option<&impl IsA<AccelGroup>>) {
         unsafe {
             ffi::gtk_widget_set_accel_path(
                 self.as_ref().to_glib_none().0,
@@ -2625,7 +2621,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn set_font_map<P: IsA<pango::FontMap>>(&self, font_map: Option<&P>) {
+    fn set_font_map(&self, font_map: Option<&impl IsA<pango::FontMap>>) {
         unsafe {
             ffi::gtk_widget_set_font_map(
                 self.as_ref().to_glib_none().0,
@@ -2727,7 +2723,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn set_parent<P: IsA<Widget>>(&self, parent: &P) {
+    fn set_parent(&self, parent: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_widget_set_parent(
                 self.as_ref().to_glib_none().0,
@@ -2815,7 +2811,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn set_tooltip_window<P: IsA<Window>>(&self, custom_window: Option<&P>) {
+    fn set_tooltip_window(&self, custom_window: Option<&impl IsA<Window>>) {
         unsafe {
             ffi::gtk_widget_set_tooltip_window(
                 self.as_ref().to_glib_none().0,
@@ -2932,9 +2928,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn translate_coordinates<P: IsA<Widget>>(
+    fn translate_coordinates(
         &self,
-        dest_widget: &P,
+        dest_widget: &impl IsA<Widget>,
         src_x: i32,
         src_y: i32,
     ) -> Option<(i32, i32)> {

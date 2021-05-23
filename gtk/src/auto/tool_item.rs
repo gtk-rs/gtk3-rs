@@ -253,7 +253,7 @@ impl ToolItemBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -375,7 +375,7 @@ impl ToolItemBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -505,7 +505,7 @@ pub trait ToolItemExt: 'static {
     fn set_is_important(&self, is_important: bool);
 
     #[doc(alias = "gtk_tool_item_set_proxy_menu_item")]
-    fn set_proxy_menu_item<P: IsA<Widget>>(&self, menu_item_id: &str, menu_item: Option<&P>);
+    fn set_proxy_menu_item(&self, menu_item_id: &str, menu_item: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_tool_item_set_use_drag_window")]
     fn set_use_drag_window(&self, use_drag_window: bool);
@@ -694,7 +694,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    fn set_proxy_menu_item<P: IsA<Widget>>(&self, menu_item_id: &str, menu_item: Option<&P>) {
+    fn set_proxy_menu_item(&self, menu_item_id: &str, menu_item: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tool_item_set_proxy_menu_item(
                 self.as_ref().to_glib_none().0,

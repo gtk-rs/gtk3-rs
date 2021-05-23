@@ -240,7 +240,7 @@ impl SearchBarBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -362,7 +362,7 @@ impl SearchBarBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -417,7 +417,7 @@ pub const NONE_SEARCH_BAR: Option<&SearchBar> = None;
 
 pub trait SearchBarExt: 'static {
     #[doc(alias = "gtk_search_bar_connect_entry")]
-    fn connect_entry<P: IsA<Entry>>(&self, entry: &P);
+    fn connect_entry(&self, entry: &impl IsA<Entry>);
 
     #[doc(alias = "gtk_search_bar_get_search_mode")]
     #[doc(alias = "get_search_mode")]
@@ -450,7 +450,7 @@ pub trait SearchBarExt: 'static {
 }
 
 impl<O: IsA<SearchBar>> SearchBarExt for O {
-    fn connect_entry<P: IsA<Entry>>(&self, entry: &P) {
+    fn connect_entry(&self, entry: &impl IsA<Entry>) {
         unsafe {
             ffi::gtk_search_bar_connect_entry(
                 self.as_ref().to_glib_none().0,

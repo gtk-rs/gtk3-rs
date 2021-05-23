@@ -249,7 +249,7 @@ impl ListBoxRowBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -371,7 +371,7 @@ impl ListBoxRowBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -461,7 +461,7 @@ pub trait ListBoxRowExt: 'static {
     fn set_activatable(&self, activatable: bool);
 
     #[doc(alias = "gtk_list_box_row_set_header")]
-    fn set_header<P: IsA<Widget>>(&self, header: Option<&P>);
+    fn set_header(&self, header: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_list_box_row_set_selectable")]
     fn set_selectable(&self, selectable: bool);
@@ -530,7 +530,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
-    fn set_header<P: IsA<Widget>>(&self, header: Option<&P>) {
+    fn set_header(&self, header: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_list_box_row_set_header(
                 self.as_ref().to_glib_none().0,

@@ -36,7 +36,7 @@ impl EntryCompletion {
 
     #[doc(alias = "gtk_entry_completion_new_with_area")]
     #[doc(alias = "new_with_area")]
-    pub fn with_area<P: IsA<CellArea>>(area: &P) -> EntryCompletion {
+    pub fn with_area(area: &impl IsA<CellArea>) -> EntryCompletion {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gtk_entry_completion_new_with_area(
@@ -119,7 +119,7 @@ impl EntryCompletionBuilder {
             .expect("Failed to create an instance of EntryCompletion")
     }
 
-    pub fn cell_area<P: IsA<CellArea>>(mut self, cell_area: &P) -> Self {
+    pub fn cell_area(mut self, cell_area: &impl IsA<CellArea>) -> Self {
         self.cell_area = Some(cell_area.clone().upcast());
         self
     }
@@ -139,7 +139,7 @@ impl EntryCompletionBuilder {
         self
     }
 
-    pub fn model<P: IsA<TreeModel>>(mut self, model: &P) -> Self {
+    pub fn model(mut self, model: &impl IsA<TreeModel>) -> Self {
         self.model = Some(model.clone().upcast());
         self
     }
@@ -235,7 +235,7 @@ pub trait EntryCompletionExt: 'static {
     fn set_minimum_key_length(&self, length: i32);
 
     #[doc(alias = "gtk_entry_completion_set_model")]
-    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
+    fn set_model(&self, model: Option<&impl IsA<TreeModel>>);
 
     #[doc(alias = "gtk_entry_completion_set_popup_completion")]
     fn set_popup_completion(&self, popup_completion: bool);
@@ -481,7 +481,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
-    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>) {
+    fn set_model(&self, model: Option<&impl IsA<TreeModel>>) {
         unsafe {
             ffi::gtk_entry_completion_set_model(
                 self.as_ref().to_glib_none().0,

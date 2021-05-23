@@ -33,7 +33,7 @@ glib::wrapper! {
 
 impl GesturePan {
     #[doc(alias = "gtk_gesture_pan_new")]
-    pub fn new<P: IsA<Widget>>(widget: &P, orientation: Orientation) -> GesturePan {
+    pub fn new(widget: &impl IsA<Widget>, orientation: Orientation) -> GesturePan {
         skip_assert_initialized!();
         unsafe {
             Gesture::from_glib_full(ffi::gtk_gesture_pan_new(
@@ -210,7 +210,7 @@ impl GesturePanBuilder {
         self
     }
 
-    pub fn widget<P: IsA<Widget>>(mut self, widget: &P) -> Self {
+    pub fn widget(mut self, widget: &impl IsA<Widget>) -> Self {
         self.widget = Some(widget.clone().upcast());
         self
     }

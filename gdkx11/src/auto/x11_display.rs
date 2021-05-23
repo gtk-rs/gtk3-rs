@@ -155,7 +155,7 @@ impl X11Display {
 
     #[doc(alias = "gdk_x11_display_get_glx_version")]
     #[doc(alias = "get_glx_version")]
-    pub fn glx_version<P: IsA<gdk::Display>>(display: &P) -> Option<(i32, i32)> {
+    pub fn glx_version(display: &impl IsA<gdk::Display>) -> Option<(i32, i32)> {
         assert_initialized_main_thread!();
         unsafe {
             let mut major = mem::MaybeUninit::uninit();

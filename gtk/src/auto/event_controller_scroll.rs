@@ -26,8 +26,8 @@ glib::wrapper! {
 
 impl EventControllerScroll {
     #[doc(alias = "gtk_event_controller_scroll_new")]
-    pub fn new<P: IsA<Widget>>(
-        widget: &P,
+    pub fn new(
+        widget: &impl IsA<Widget>,
         flags: EventControllerScrollFlags,
     ) -> EventControllerScroll {
         skip_assert_initialized!();

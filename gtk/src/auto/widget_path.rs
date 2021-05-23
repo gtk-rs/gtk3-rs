@@ -27,7 +27,7 @@ impl WidgetPath {
     }
 
     #[doc(alias = "gtk_widget_path_append_for_widget")]
-    pub fn append_for_widget<P: IsA<Widget>>(&self, widget: &P) -> i32 {
+    pub fn append_for_widget(&self, widget: &impl IsA<Widget>) -> i32 {
         unsafe {
             ffi::gtk_widget_path_append_for_widget(
                 self.to_glib_none().0,

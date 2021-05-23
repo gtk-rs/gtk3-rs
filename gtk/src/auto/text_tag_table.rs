@@ -40,7 +40,7 @@ pub const NONE_TEXT_TAG_TABLE: Option<&TextTagTable> = None;
 
 pub trait TextTagTableExt: 'static {
     #[doc(alias = "gtk_text_tag_table_add")]
-    fn add<P: IsA<TextTag>>(&self, tag: &P) -> bool;
+    fn add(&self, tag: &impl IsA<TextTag>) -> bool;
 
     #[doc(alias = "gtk_text_tag_table_foreach")]
     fn foreach<P: FnMut(&TextTag)>(&self, func: P);
@@ -53,7 +53,7 @@ pub trait TextTagTableExt: 'static {
     fn lookup(&self, name: &str) -> Option<TextTag>;
 
     #[doc(alias = "gtk_text_tag_table_remove")]
-    fn remove<P: IsA<TextTag>>(&self, tag: &P);
+    fn remove(&self, tag: &impl IsA<TextTag>);
 
     #[doc(alias = "tag-added")]
     fn connect_tag_added<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -66,7 +66,7 @@ pub trait TextTagTableExt: 'static {
 }
 
 impl<O: IsA<TextTagTable>> TextTagTableExt for O {
-    fn add<P: IsA<TextTag>>(&self, tag: &P) -> bool {
+    fn add(&self, tag: &impl IsA<TextTag>) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_tag_table_add(
                 self.as_ref().to_glib_none().0,
@@ -109,7 +109,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         }
     }
 
-    fn remove<P: IsA<TextTag>>(&self, tag: &P) {
+    fn remove(&self, tag: &impl IsA<TextTag>) {
         unsafe {
             ffi::gtk_text_tag_table_remove(
                 self.as_ref().to_glib_none().0,

@@ -29,7 +29,7 @@ glib::wrapper! {
 
 impl GestureZoom {
     #[doc(alias = "gtk_gesture_zoom_new")]
-    pub fn new<P: IsA<Widget>>(widget: &P) -> GestureZoom {
+    pub fn new(widget: &impl IsA<Widget>) -> GestureZoom {
         skip_assert_initialized!();
         unsafe {
             Gesture::from_glib_full(ffi::gtk_gesture_zoom_new(widget.as_ref().to_glib_none().0))
@@ -136,7 +136,7 @@ impl GestureZoomBuilder {
         self
     }
 
-    pub fn widget<P: IsA<Widget>>(mut self, widget: &P) -> Self {
+    pub fn widget(mut self, widget: &impl IsA<Widget>) -> Self {
         self.widget = Some(widget.clone().upcast());
         self
     }

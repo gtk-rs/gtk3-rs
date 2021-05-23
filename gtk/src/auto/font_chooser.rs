@@ -89,7 +89,7 @@ pub trait FontChooserExt: 'static {
     fn set_font_desc(&self, font_desc: &pango::FontDescription);
 
     #[doc(alias = "gtk_font_chooser_set_font_map")]
-    fn set_font_map<P: IsA<pango::FontMap>>(&self, fontmap: Option<&P>);
+    fn set_font_map(&self, fontmap: Option<&impl IsA<pango::FontMap>>);
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
@@ -295,7 +295,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
         }
     }
 
-    fn set_font_map<P: IsA<pango::FontMap>>(&self, fontmap: Option<&P>) {
+    fn set_font_map(&self, fontmap: Option<&impl IsA<pango::FontMap>>) {
         unsafe {
             ffi::gtk_font_chooser_set_font_map(
                 self.as_ref().to_glib_none().0,

@@ -48,7 +48,7 @@ pub trait StackSwitcherExt: 'static {
     fn stack(&self) -> Option<Stack>;
 
     #[doc(alias = "gtk_stack_switcher_set_stack")]
-    fn set_stack<P: IsA<Stack>>(&self, stack: Option<&P>);
+    fn set_stack(&self, stack: Option<&impl IsA<Stack>>);
 
     #[doc(alias = "stack")]
     fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -63,7 +63,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
         }
     }
 
-    fn set_stack<P: IsA<Stack>>(&self, stack: Option<&P>) {
+    fn set_stack(&self, stack: Option<&impl IsA<Stack>>) {
         unsafe {
             ffi::gtk_stack_switcher_set_stack(
                 self.as_ref().to_glib_none().0,

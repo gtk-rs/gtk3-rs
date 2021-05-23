@@ -316,7 +316,7 @@ impl FileChooserWidgetBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -438,7 +438,7 @@ impl FileChooserWidgetBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -508,7 +508,7 @@ impl FileChooserWidgetBuilder {
         self
     }
 
-    pub fn extra_widget<P: IsA<Widget>>(mut self, extra_widget: &P) -> Self {
+    pub fn extra_widget(mut self, extra_widget: &impl IsA<Widget>) -> Self {
         self.extra_widget = Some(extra_widget.clone().upcast());
         self
     }
@@ -523,7 +523,7 @@ impl FileChooserWidgetBuilder {
         self
     }
 
-    pub fn preview_widget<P: IsA<Widget>>(mut self, preview_widget: &P) -> Self {
+    pub fn preview_widget(mut self, preview_widget: &impl IsA<Widget>) -> Self {
         self.preview_widget = Some(preview_widget.clone().upcast());
         self
     }

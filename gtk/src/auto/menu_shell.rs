@@ -31,15 +31,15 @@ pub const NONE_MENU_SHELL: Option<&MenuShell> = None;
 
 pub trait MenuShellExt: 'static {
     #[doc(alias = "gtk_menu_shell_activate_item")]
-    fn activate_item<P: IsA<Widget>>(&self, menu_item: &P, force_deactivate: bool);
+    fn activate_item(&self, menu_item: &impl IsA<Widget>, force_deactivate: bool);
 
     #[doc(alias = "gtk_menu_shell_append")]
-    fn append<P: IsA<MenuItem>>(&self, child: &P);
+    fn append(&self, child: &impl IsA<MenuItem>);
 
     #[doc(alias = "gtk_menu_shell_bind_model")]
-    fn bind_model<P: IsA<gio::MenuModel>>(
+    fn bind_model(
         &self,
-        model: Option<&P>,
+        model: Option<&impl IsA<gio::MenuModel>>,
         action_namespace: Option<&str>,
         with_separators: bool,
     );
@@ -66,16 +66,16 @@ pub trait MenuShellExt: 'static {
     fn takes_focus(&self) -> bool;
 
     #[doc(alias = "gtk_menu_shell_insert")]
-    fn insert<P: IsA<Widget>>(&self, child: &P, position: i32);
+    fn insert(&self, child: &impl IsA<Widget>, position: i32);
 
     #[doc(alias = "gtk_menu_shell_prepend")]
-    fn prepend<P: IsA<Widget>>(&self, child: &P);
+    fn prepend(&self, child: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_menu_shell_select_first")]
     fn select_first(&self, search_sensitive: bool);
 
     #[doc(alias = "gtk_menu_shell_select_item")]
-    fn select_item<P: IsA<Widget>>(&self, menu_item: &P);
+    fn select_item(&self, menu_item: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_menu_shell_set_take_focus")]
     fn set_take_focus(&self, take_focus: bool);
@@ -123,7 +123,7 @@ pub trait MenuShellExt: 'static {
 }
 
 impl<O: IsA<MenuShell>> MenuShellExt for O {
-    fn activate_item<P: IsA<Widget>>(&self, menu_item: &P, force_deactivate: bool) {
+    fn activate_item(&self, menu_item: &impl IsA<Widget>, force_deactivate: bool) {
         unsafe {
             ffi::gtk_menu_shell_activate_item(
                 self.as_ref().to_glib_none().0,
@@ -133,7 +133,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn append<P: IsA<MenuItem>>(&self, child: &P) {
+    fn append(&self, child: &impl IsA<MenuItem>) {
         unsafe {
             ffi::gtk_menu_shell_append(
                 self.as_ref().to_glib_none().0,
@@ -142,9 +142,9 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn bind_model<P: IsA<gio::MenuModel>>(
+    fn bind_model(
         &self,
-        model: Option<&P>,
+        model: Option<&impl IsA<gio::MenuModel>>,
         action_namespace: Option<&str>,
         with_separators: bool,
     ) {
@@ -200,7 +200,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn insert<P: IsA<Widget>>(&self, child: &P, position: i32) {
+    fn insert(&self, child: &impl IsA<Widget>, position: i32) {
         unsafe {
             ffi::gtk_menu_shell_insert(
                 self.as_ref().to_glib_none().0,
@@ -210,7 +210,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn prepend<P: IsA<Widget>>(&self, child: &P) {
+    fn prepend(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_menu_shell_prepend(
                 self.as_ref().to_glib_none().0,
@@ -228,7 +228,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    fn select_item<P: IsA<Widget>>(&self, menu_item: &P) {
+    fn select_item(&self, menu_item: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_menu_shell_select_item(
                 self.as_ref().to_glib_none().0,

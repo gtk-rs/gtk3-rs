@@ -18,7 +18,7 @@ glib::wrapper! {
 
 impl GObjectAccessible {
     #[doc(alias = "atk_gobject_accessible_for_object")]
-    pub fn for_object<P: IsA<glib::Object>>(obj: &P) -> Option<Object> {
+    pub fn for_object(obj: &impl IsA<glib::Object>) -> Option<Object> {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::atk_gobject_accessible_for_object(

@@ -45,7 +45,7 @@ impl ComboBox {
 
     #[doc(alias = "gtk_combo_box_new_with_area")]
     #[doc(alias = "new_with_area")]
-    pub fn with_area<P: IsA<CellArea>>(area: &P) -> ComboBox {
+    pub fn with_area(area: &impl IsA<CellArea>) -> ComboBox {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_combo_box_new_with_area(
@@ -57,7 +57,7 @@ impl ComboBox {
 
     #[doc(alias = "gtk_combo_box_new_with_area_and_entry")]
     #[doc(alias = "new_with_area_and_entry")]
-    pub fn with_area_and_entry<P: IsA<CellArea>>(area: &P) -> ComboBox {
+    pub fn with_area_and_entry(area: &impl IsA<CellArea>) -> ComboBox {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_combo_box_new_with_area_and_entry(
@@ -76,7 +76,7 @@ impl ComboBox {
 
     #[doc(alias = "gtk_combo_box_new_with_model")]
     #[doc(alias = "new_with_model")]
-    pub fn with_model<P: IsA<TreeModel>>(model: &P) -> ComboBox {
+    pub fn with_model(model: &impl IsA<TreeModel>) -> ComboBox {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_combo_box_new_with_model(
@@ -88,7 +88,7 @@ impl ComboBox {
 
     #[doc(alias = "gtk_combo_box_new_with_model_and_entry")]
     #[doc(alias = "new_with_model_and_entry")]
-    pub fn with_model_and_entry<P: IsA<TreeModel>>(model: &P) -> ComboBox {
+    pub fn with_model_and_entry(model: &impl IsA<TreeModel>) -> ComboBox {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_combo_box_new_with_model_and_entry(
@@ -350,7 +350,7 @@ impl ComboBoxBuilder {
         self
     }
 
-    pub fn cell_area<P: IsA<CellArea>>(mut self, cell_area: &P) -> Self {
+    pub fn cell_area(mut self, cell_area: &impl IsA<CellArea>) -> Self {
         self.cell_area = Some(cell_area.clone().upcast());
         self
     }
@@ -380,7 +380,7 @@ impl ComboBoxBuilder {
         self
     }
 
-    pub fn model<P: IsA<TreeModel>>(mut self, model: &P) -> Self {
+    pub fn model(mut self, model: &impl IsA<TreeModel>) -> Self {
         self.model = Some(model.clone().upcast());
         self
     }
@@ -405,7 +405,7 @@ impl ComboBoxBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -527,7 +527,7 @@ impl ComboBoxBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -679,7 +679,7 @@ pub trait ComboBoxExt: 'static {
     fn set_id_column(&self, id_column: i32);
 
     #[doc(alias = "gtk_combo_box_set_model")]
-    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
+    fn set_model(&self, model: Option<&impl IsA<TreeModel>>);
 
     #[doc(alias = "gtk_combo_box_set_popup_fixed_width")]
     fn set_popup_fixed_width(&self, fixed: bool);
@@ -937,7 +937,7 @@ impl<O: IsA<ComboBox>> ComboBoxExt for O {
         }
     }
 
-    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>) {
+    fn set_model(&self, model: Option<&impl IsA<TreeModel>>) {
         unsafe {
             ffi::gtk_combo_box_set_model(
                 self.as_ref().to_glib_none().0,

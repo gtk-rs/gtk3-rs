@@ -101,22 +101,22 @@ pub trait TableExt: 'static {
     fn remove_row_selection(&self, row: i32) -> bool;
 
     #[doc(alias = "atk_table_set_caption")]
-    fn set_caption<P: IsA<Object>>(&self, caption: &P);
+    fn set_caption(&self, caption: &impl IsA<Object>);
 
     #[doc(alias = "atk_table_set_column_description")]
     fn set_column_description(&self, column: i32, description: &str);
 
     #[doc(alias = "atk_table_set_column_header")]
-    fn set_column_header<P: IsA<Object>>(&self, column: i32, header: &P);
+    fn set_column_header(&self, column: i32, header: &impl IsA<Object>);
 
     #[doc(alias = "atk_table_set_row_description")]
     fn set_row_description(&self, row: i32, description: &str);
 
     #[doc(alias = "atk_table_set_row_header")]
-    fn set_row_header<P: IsA<Object>>(&self, row: i32, header: &P);
+    fn set_row_header(&self, row: i32, header: &impl IsA<Object>);
 
     #[doc(alias = "atk_table_set_summary")]
-    fn set_summary<P: IsA<Object>>(&self, accessible: &P);
+    fn set_summary(&self, accessible: &impl IsA<Object>);
 
     #[doc(alias = "column-deleted")]
     fn connect_column_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -287,7 +287,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn set_caption<P: IsA<Object>>(&self, caption: &P) {
+    fn set_caption(&self, caption: &impl IsA<Object>) {
         unsafe {
             ffi::atk_table_set_caption(
                 self.as_ref().to_glib_none().0,
@@ -306,7 +306,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn set_column_header<P: IsA<Object>>(&self, column: i32, header: &P) {
+    fn set_column_header(&self, column: i32, header: &impl IsA<Object>) {
         unsafe {
             ffi::atk_table_set_column_header(
                 self.as_ref().to_glib_none().0,
@@ -326,7 +326,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn set_row_header<P: IsA<Object>>(&self, row: i32, header: &P) {
+    fn set_row_header(&self, row: i32, header: &impl IsA<Object>) {
         unsafe {
             ffi::atk_table_set_row_header(
                 self.as_ref().to_glib_none().0,
@@ -336,7 +336,7 @@ impl<O: IsA<Table>> TableExt for O {
         }
     }
 
-    fn set_summary<P: IsA<Object>>(&self, accessible: &P) {
+    fn set_summary(&self, accessible: &impl IsA<Object>) {
         unsafe {
             ffi::atk_table_set_summary(
                 self.as_ref().to_glib_none().0,

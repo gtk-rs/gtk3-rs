@@ -294,7 +294,7 @@ impl ToolPaletteBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -416,7 +416,7 @@ impl ToolPaletteBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -471,7 +471,7 @@ impl ToolPaletteBuilder {
         self
     }
 
-    pub fn hadjustment<P: IsA<Adjustment>>(mut self, hadjustment: &P) -> Self {
+    pub fn hadjustment(mut self, hadjustment: &impl IsA<Adjustment>) -> Self {
         self.hadjustment = Some(hadjustment.clone().upcast());
         self
     }
@@ -481,7 +481,7 @@ impl ToolPaletteBuilder {
         self
     }
 
-    pub fn vadjustment<P: IsA<Adjustment>>(mut self, vadjustment: &P) -> Self {
+    pub fn vadjustment(mut self, vadjustment: &impl IsA<Adjustment>) -> Self {
         self.vadjustment = Some(vadjustment.clone().upcast());
         self
     }
@@ -496,9 +496,9 @@ pub const NONE_TOOL_PALETTE: Option<&ToolPalette> = None;
 
 pub trait ToolPaletteExt: 'static {
     #[doc(alias = "gtk_tool_palette_add_drag_dest")]
-    fn add_drag_dest<P: IsA<Widget>>(
+    fn add_drag_dest(
         &self,
-        widget: &P,
+        widget: &impl IsA<Widget>,
         flags: DestDefaults,
         targets: ToolPaletteDragTargets,
         actions: gdk::DragAction,
@@ -518,15 +518,15 @@ pub trait ToolPaletteExt: 'static {
 
     #[doc(alias = "gtk_tool_palette_get_exclusive")]
     #[doc(alias = "get_exclusive")]
-    fn is_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool;
+    fn is_exclusive(&self, group: &impl IsA<ToolItemGroup>) -> bool;
 
     #[doc(alias = "gtk_tool_palette_get_expand")]
     #[doc(alias = "get_expand")]
-    fn expands<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool;
+    fn expands(&self, group: &impl IsA<ToolItemGroup>) -> bool;
 
     #[doc(alias = "gtk_tool_palette_get_group_position")]
     #[doc(alias = "get_group_position")]
-    fn group_position<P: IsA<ToolItemGroup>>(&self, group: &P) -> i32;
+    fn group_position(&self, group: &impl IsA<ToolItemGroup>) -> i32;
 
     #[doc(alias = "gtk_tool_palette_get_icon_size")]
     #[doc(alias = "get_icon_size")]
@@ -540,13 +540,13 @@ pub trait ToolPaletteExt: 'static {
     fn set_drag_source(&self, targets: ToolPaletteDragTargets);
 
     #[doc(alias = "gtk_tool_palette_set_exclusive")]
-    fn set_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P, exclusive: bool);
+    fn set_exclusive(&self, group: &impl IsA<ToolItemGroup>, exclusive: bool);
 
     #[doc(alias = "gtk_tool_palette_set_expand")]
-    fn set_expand<P: IsA<ToolItemGroup>>(&self, group: &P, expand: bool);
+    fn set_expand(&self, group: &impl IsA<ToolItemGroup>, expand: bool);
 
     #[doc(alias = "gtk_tool_palette_set_group_position")]
-    fn set_group_position<P: IsA<ToolItemGroup>>(&self, group: &P, position: i32);
+    fn set_group_position(&self, group: &impl IsA<ToolItemGroup>, position: i32);
 
     #[doc(alias = "gtk_tool_palette_set_icon_size")]
     fn set_icon_size(&self, icon_size: IconSize);
@@ -583,9 +583,9 @@ pub trait ToolPaletteExt: 'static {
 }
 
 impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
-    fn add_drag_dest<P: IsA<Widget>>(
+    fn add_drag_dest(
         &self,
-        widget: &P,
+        widget: &impl IsA<Widget>,
         flags: DestDefaults,
         targets: ToolPaletteDragTargets,
         actions: gdk::DragAction,
@@ -630,7 +630,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn is_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool {
+    fn is_exclusive(&self, group: &impl IsA<ToolItemGroup>) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_palette_get_exclusive(
                 self.as_ref().to_glib_none().0,
@@ -639,7 +639,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn expands<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool {
+    fn expands(&self, group: &impl IsA<ToolItemGroup>) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_palette_get_expand(
                 self.as_ref().to_glib_none().0,
@@ -648,7 +648,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn group_position<P: IsA<ToolItemGroup>>(&self, group: &P) -> i32 {
+    fn group_position(&self, group: &impl IsA<ToolItemGroup>) -> i32 {
         unsafe {
             ffi::gtk_tool_palette_get_group_position(
                 self.as_ref().to_glib_none().0,
@@ -682,7 +682,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn set_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P, exclusive: bool) {
+    fn set_exclusive(&self, group: &impl IsA<ToolItemGroup>, exclusive: bool) {
         unsafe {
             ffi::gtk_tool_palette_set_exclusive(
                 self.as_ref().to_glib_none().0,
@@ -692,7 +692,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn set_expand<P: IsA<ToolItemGroup>>(&self, group: &P, expand: bool) {
+    fn set_expand(&self, group: &impl IsA<ToolItemGroup>, expand: bool) {
         unsafe {
             ffi::gtk_tool_palette_set_expand(
                 self.as_ref().to_glib_none().0,
@@ -702,7 +702,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    fn set_group_position<P: IsA<ToolItemGroup>>(&self, group: &P, position: i32) {
+    fn set_group_position(&self, group: &impl IsA<ToolItemGroup>, position: i32) {
         unsafe {
             ffi::gtk_tool_palette_set_group_position(
                 self.as_ref().to_glib_none().0,

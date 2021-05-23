@@ -277,7 +277,7 @@ impl StackBuilder {
         self
     }
 
-    pub fn visible_child<P: IsA<Widget>>(mut self, visible_child: &P) -> Self {
+    pub fn visible_child(mut self, visible_child: &impl IsA<Widget>) -> Self {
         self.visible_child = Some(visible_child.clone().upcast());
         self
     }
@@ -292,7 +292,7 @@ impl StackBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -414,7 +414,7 @@ impl StackBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -469,10 +469,10 @@ pub const NONE_STACK: Option<&Stack> = None;
 
 pub trait StackExt: 'static {
     #[doc(alias = "gtk_stack_add_named")]
-    fn add_named<P: IsA<Widget>>(&self, child: &P, name: &str);
+    fn add_named(&self, child: &impl IsA<Widget>, name: &str);
 
     #[doc(alias = "gtk_stack_add_titled")]
-    fn add_titled<P: IsA<Widget>>(&self, child: &P, name: &str, title: &str);
+    fn add_titled(&self, child: &impl IsA<Widget>, name: &str, title: &str);
 
     #[doc(alias = "gtk_stack_get_child_by_name")]
     #[doc(alias = "get_child_by_name")]
@@ -533,7 +533,7 @@ pub trait StackExt: 'static {
     fn set_vhomogeneous(&self, vhomogeneous: bool);
 
     #[doc(alias = "gtk_stack_set_visible_child")]
-    fn set_visible_child<P: IsA<Widget>>(&self, child: &P);
+    fn set_visible_child(&self, child: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_stack_set_visible_child_full")]
     fn set_visible_child_full(&self, name: &str, transition: StackTransitionType);
@@ -594,7 +594,7 @@ pub trait StackExt: 'static {
 }
 
 impl<O: IsA<Stack>> StackExt for O {
-    fn add_named<P: IsA<Widget>>(&self, child: &P, name: &str) {
+    fn add_named(&self, child: &impl IsA<Widget>, name: &str) {
         unsafe {
             ffi::gtk_stack_add_named(
                 self.as_ref().to_glib_none().0,
@@ -604,7 +604,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn add_titled<P: IsA<Widget>>(&self, child: &P, name: &str, title: &str) {
+    fn add_titled(&self, child: &impl IsA<Widget>, name: &str, title: &str) {
         unsafe {
             ffi::gtk_stack_add_titled(
                 self.as_ref().to_glib_none().0,
@@ -740,7 +740,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn set_visible_child<P: IsA<Widget>>(&self, child: &P) {
+    fn set_visible_child(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_stack_set_visible_child(
                 self.as_ref().to_glib_none().0,

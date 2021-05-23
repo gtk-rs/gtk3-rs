@@ -107,18 +107,14 @@ impl Clipboard {
     }
 
     #[doc(alias = "gtk_clipboard_request_rich_text")]
-    pub fn request_rich_text<
-        P: IsA<TextBuffer>,
-        Q: FnOnce(&Clipboard, &gdk::Atom, Option<&str>, usize) + 'static,
-    >(
+    pub fn request_rich_text<P: FnOnce(&Clipboard, &gdk::Atom, Option<&str>, usize) + 'static>(
         &self,
-        buffer: &P,
-        callback: Q,
+        buffer: &impl IsA<TextBuffer>,
+        callback: P,
     ) {
-        let callback_data: Box_<Q> = Box_::new(callback);
+        let callback_data: Box_<P> = Box_::new(callback);
         unsafe extern "C" fn callback_func<
-            P: IsA<TextBuffer>,
-            Q: FnOnce(&Clipboard, &gdk::Atom, Option<&str>, usize) + 'static,
+            P: FnOnce(&Clipboard, &gdk::Atom, Option<&str>, usize) + 'static,
         >(
             clipboard: *mut ffi::GtkClipboard,
             format: gdk::ffi::GdkAtom,
@@ -129,11 +125,11 @@ impl Clipboard {
             let clipboard = from_glib_borrow(clipboard);
             let format = from_glib_borrow(format);
             let text: Borrowed<Option<glib::GString>> = from_glib_borrow(text);
-            let callback: Box_<Q> = Box_::from_raw(data as *mut _);
+            let callback: Box_<P> = Box_::from_raw(data as *mut _);
             (*callback)(&clipboard, &format, text.as_ref().as_deref(), length);
         }
-        let callback = Some(callback_func::<P, Q> as _);
-        let super_callback0: Box_<Q> = callback_data;
+        let callback = Some(callback_func::<P> as _);
+        let super_callback0: Box_<P> = callback_data;
         unsafe {
             ffi::gtk_clipboard_request_rich_text(
                 self.to_glib_none().0,
@@ -206,7 +202,7 @@ impl Clipboard {
     }
 
     #[doc(alias = "gtk_clipboard_wait_for_rich_text")]
-    pub fn wait_for_rich_text<P: IsA<TextBuffer>>(&self, buffer: &P) -> (Vec<u8>, gdk::Atom) {
+    pub fn wait_for_rich_text(&self, buffer: &impl IsA<TextBuffer>) -> (Vec<u8>, gdk::Atom) {
         unsafe {
             let mut format = gdk::Atom::uninitialized();
             let mut length = mem::MaybeUninit::uninit();
@@ -268,7 +264,7 @@ impl Clipboard {
     }
 
     #[doc(alias = "gtk_clipboard_wait_is_rich_text_available")]
-    pub fn wait_is_rich_text_available<P: IsA<TextBuffer>>(&self, buffer: &P) -> bool {
+    pub fn wait_is_rich_text_available(&self, buffer: &impl IsA<TextBuffer>) -> bool {
         unsafe {
             from_glib(ffi::gtk_clipboard_wait_is_rich_text_available(
                 self.to_glib_none().0,

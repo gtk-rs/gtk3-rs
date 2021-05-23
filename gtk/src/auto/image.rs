@@ -38,7 +38,7 @@ impl Image {
 
     #[doc(alias = "gtk_image_new_from_animation")]
     #[doc(alias = "new_from_animation")]
-    pub fn from_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(animation: &P) -> Image {
+    pub fn from_animation(animation: &impl IsA<gdk_pixbuf::PixbufAnimation>) -> Image {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_image_new_from_animation(
@@ -50,7 +50,7 @@ impl Image {
 
     #[doc(alias = "gtk_image_new_from_file")]
     #[doc(alias = "new_from_file")]
-    pub fn from_file<P: AsRef<std::path::Path>>(filename: P) -> Image {
+    pub fn from_file(filename: impl AsRef<std::path::Path>) -> Image {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_image_new_from_file(
@@ -62,7 +62,7 @@ impl Image {
 
     #[doc(alias = "gtk_image_new_from_gicon")]
     #[doc(alias = "new_from_gicon")]
-    pub fn from_gicon<P: IsA<gio::Icon>>(icon: &P, size: IconSize) -> Image {
+    pub fn from_gicon(icon: &impl IsA<gio::Icon>, size: IconSize) -> Image {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_image_new_from_gicon(
@@ -154,13 +154,13 @@ pub trait ImageExt: 'static {
     fn storage_type(&self) -> ImageType;
 
     #[doc(alias = "gtk_image_set_from_animation")]
-    fn set_from_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(&self, animation: &P);
+    fn set_from_animation(&self, animation: &impl IsA<gdk_pixbuf::PixbufAnimation>);
 
     #[doc(alias = "gtk_image_set_from_file")]
-    fn set_from_file<P: AsRef<std::path::Path>>(&self, filename: P);
+    fn set_from_file(&self, filename: impl AsRef<std::path::Path>);
 
     #[doc(alias = "gtk_image_set_from_gicon")]
-    fn set_from_gicon<P: IsA<gio::Icon>>(&self, icon: &P, size: IconSize);
+    fn set_from_gicon(&self, icon: &impl IsA<gio::Icon>, size: IconSize);
 
     #[doc(alias = "gtk_image_set_from_icon_name")]
     fn set_from_icon_name(&self, icon_name: Option<&str>, size: IconSize);
@@ -286,7 +286,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_from_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(&self, animation: &P) {
+    fn set_from_animation(&self, animation: &impl IsA<gdk_pixbuf::PixbufAnimation>) {
         unsafe {
             ffi::gtk_image_set_from_animation(
                 self.as_ref().to_glib_none().0,
@@ -295,7 +295,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_from_file<P: AsRef<std::path::Path>>(&self, filename: P) {
+    fn set_from_file(&self, filename: impl AsRef<std::path::Path>) {
         unsafe {
             ffi::gtk_image_set_from_file(
                 self.as_ref().to_glib_none().0,
@@ -304,7 +304,7 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_from_gicon<P: IsA<gio::Icon>>(&self, icon: &P, size: IconSize) {
+    fn set_from_gicon(&self, icon: &impl IsA<gio::Icon>, size: IconSize) {
         unsafe {
             ffi::gtk_image_set_from_gicon(
                 self.as_ref().to_glib_none().0,

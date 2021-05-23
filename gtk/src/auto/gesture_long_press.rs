@@ -30,7 +30,7 @@ glib::wrapper! {
 
 impl GestureLongPress {
     #[doc(alias = "gtk_gesture_long_press_new")]
-    pub fn new<P: IsA<Widget>>(widget: &P) -> GestureLongPress {
+    pub fn new(widget: &impl IsA<Widget>) -> GestureLongPress {
         skip_assert_initialized!();
         unsafe {
             Gesture::from_glib_full(ffi::gtk_gesture_long_press_new(
@@ -241,7 +241,7 @@ impl GestureLongPressBuilder {
         self
     }
 
-    pub fn widget<P: IsA<Widget>>(mut self, widget: &P) -> Self {
+    pub fn widget(mut self, widget: &impl IsA<Widget>) -> Self {
         self.widget = Some(widget.clone().upcast());
         self
     }

@@ -48,10 +48,10 @@ pub const NONE_ACCEL_GROUP: Option<&AccelGroup> = None;
 
 pub trait AccelGroupExt: 'static {
     #[doc(alias = "gtk_accel_group_activate")]
-    fn activate<P: IsA<glib::Object>>(
+    fn activate(
         &self,
         accel_quark: glib::Quark,
-        acceleratable: &P,
+        acceleratable: &impl IsA<glib::Object>,
         accel_key: u32,
         accel_mods: gdk::ModifierType,
     ) -> bool;
@@ -103,10 +103,10 @@ pub trait AccelGroupExt: 'static {
 }
 
 impl<O: IsA<AccelGroup>> AccelGroupExt for O {
-    fn activate<P: IsA<glib::Object>>(
+    fn activate(
         &self,
         accel_quark: glib::Quark,
-        acceleratable: &P,
+        acceleratable: &impl IsA<glib::Object>,
         accel_key: u32,
         accel_mods: gdk::ModifierType,
     ) -> bool {

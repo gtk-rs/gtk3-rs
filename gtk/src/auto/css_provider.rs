@@ -71,7 +71,7 @@ pub trait CssProviderExt: 'static {
     fn load_from_data(&self, data: &[u8]) -> Result<(), glib::Error>;
 
     #[doc(alias = "gtk_css_provider_load_from_file")]
-    fn load_from_file<P: IsA<gio::File>>(&self, file: &P) -> Result<(), glib::Error>;
+    fn load_from_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error>;
 
     #[doc(alias = "gtk_css_provider_load_from_path")]
     fn load_from_path(&self, path: &str) -> Result<(), glib::Error>;
@@ -109,7 +109,7 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
-    fn load_from_file<P: IsA<gio::File>>(&self, file: &P) -> Result<(), glib::Error> {
+    fn load_from_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::gtk_css_provider_load_from_file(

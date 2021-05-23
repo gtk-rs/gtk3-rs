@@ -24,13 +24,13 @@ pub const NONE_CELL_LAYOUT: Option<&CellLayout> = None;
 
 pub trait CellLayoutExt: 'static {
     #[doc(alias = "gtk_cell_layout_add_attribute")]
-    fn add_attribute<P: IsA<CellRenderer>>(&self, cell: &P, attribute: &str, column: i32);
+    fn add_attribute(&self, cell: &impl IsA<CellRenderer>, attribute: &str, column: i32);
 
     #[doc(alias = "gtk_cell_layout_clear")]
     fn clear(&self);
 
     #[doc(alias = "gtk_cell_layout_clear_attributes")]
-    fn clear_attributes<P: IsA<CellRenderer>>(&self, cell: &P);
+    fn clear_attributes(&self, cell: &impl IsA<CellRenderer>);
 
     #[doc(alias = "gtk_cell_layout_get_area")]
     #[doc(alias = "get_area")]
@@ -41,27 +41,27 @@ pub trait CellLayoutExt: 'static {
     fn cells(&self) -> Vec<CellRenderer>;
 
     #[doc(alias = "gtk_cell_layout_pack_end")]
-    fn pack_end<P: IsA<CellRenderer>>(&self, cell: &P, expand: bool);
+    fn pack_end(&self, cell: &impl IsA<CellRenderer>, expand: bool);
 
     #[doc(alias = "gtk_cell_layout_pack_start")]
-    fn pack_start<P: IsA<CellRenderer>>(&self, cell: &P, expand: bool);
+    fn pack_start(&self, cell: &impl IsA<CellRenderer>, expand: bool);
 
     #[doc(alias = "gtk_cell_layout_reorder")]
-    fn reorder<P: IsA<CellRenderer>>(&self, cell: &P, position: i32);
+    fn reorder(&self, cell: &impl IsA<CellRenderer>, position: i32);
 
     //#[doc(alias = "gtk_cell_layout_set_attributes")]
-    //fn set_attributes<P: IsA<CellRenderer>>(&self, cell: &P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn set_attributes(&self, cell: &impl IsA<CellRenderer>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_cell_layout_set_cell_data_func")]
-    fn set_cell_data_func<P: IsA<CellRenderer>>(
+    fn set_cell_data_func(
         &self,
-        cell: &P,
+        cell: &impl IsA<CellRenderer>,
         func: Option<Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>>,
     );
 }
 
 impl<O: IsA<CellLayout>> CellLayoutExt for O {
-    fn add_attribute<P: IsA<CellRenderer>>(&self, cell: &P, attribute: &str, column: i32) {
+    fn add_attribute(&self, cell: &impl IsA<CellRenderer>, attribute: &str, column: i32) {
         unsafe {
             ffi::gtk_cell_layout_add_attribute(
                 self.as_ref().to_glib_none().0,
@@ -78,7 +78,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
-    fn clear_attributes<P: IsA<CellRenderer>>(&self, cell: &P) {
+    fn clear_attributes(&self, cell: &impl IsA<CellRenderer>) {
         unsafe {
             ffi::gtk_cell_layout_clear_attributes(
                 self.as_ref().to_glib_none().0,
@@ -103,7 +103,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
-    fn pack_end<P: IsA<CellRenderer>>(&self, cell: &P, expand: bool) {
+    fn pack_end(&self, cell: &impl IsA<CellRenderer>, expand: bool) {
         unsafe {
             ffi::gtk_cell_layout_pack_end(
                 self.as_ref().to_glib_none().0,
@@ -113,7 +113,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
-    fn pack_start<P: IsA<CellRenderer>>(&self, cell: &P, expand: bool) {
+    fn pack_start(&self, cell: &impl IsA<CellRenderer>, expand: bool) {
         unsafe {
             ffi::gtk_cell_layout_pack_start(
                 self.as_ref().to_glib_none().0,
@@ -123,7 +123,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
-    fn reorder<P: IsA<CellRenderer>>(&self, cell: &P, position: i32) {
+    fn reorder(&self, cell: &impl IsA<CellRenderer>, position: i32) {
         unsafe {
             ffi::gtk_cell_layout_reorder(
                 self.as_ref().to_glib_none().0,
@@ -133,19 +133,19 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
-    //fn set_attributes<P: IsA<CellRenderer>>(&self, cell: &P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn set_attributes(&self, cell: &impl IsA<CellRenderer>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_cell_layout_set_attributes() }
     //}
 
-    fn set_cell_data_func<P: IsA<CellRenderer>>(
+    fn set_cell_data_func(
         &self,
-        cell: &P,
+        cell: &impl IsA<CellRenderer>,
         func: Option<Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>>,
     ) {
         let func_data: Box_<
             Option<Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>>,
         > = Box_::new(func);
-        unsafe extern "C" fn func_func<P: IsA<CellRenderer>>(
+        unsafe extern "C" fn func_func(
             cell_layout: *mut ffi::GtkCellLayout,
             cell: *mut ffi::GtkCellRenderer,
             tree_model: *mut ffi::GtkTreeModel,
@@ -166,16 +166,16 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
             };
         }
         let func = if func_data.is_some() {
-            Some(func_func::<P> as _)
+            Some(func_func as _)
         } else {
             None
         };
-        unsafe extern "C" fn destroy_func<P: IsA<CellRenderer>>(data: glib::ffi::gpointer) {
+        unsafe extern "C" fn destroy_func(data: glib::ffi::gpointer) {
             let _callback: Box_<
                 Option<Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>>,
             > = Box_::from_raw(data as *mut _);
         }
-        let destroy_call4 = Some(destroy_func::<P> as _);
+        let destroy_call4 = Some(destroy_func as _);
         let super_callback0: Box_<
             Option<Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>>,
         > = func_data;

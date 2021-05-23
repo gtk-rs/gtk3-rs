@@ -29,7 +29,7 @@ glib::wrapper! {
 
 impl GestureRotate {
     #[doc(alias = "gtk_gesture_rotate_new")]
-    pub fn new<P: IsA<Widget>>(widget: &P) -> GestureRotate {
+    pub fn new(widget: &impl IsA<Widget>) -> GestureRotate {
         skip_assert_initialized!();
         unsafe {
             Gesture::from_glib_full(ffi::gtk_gesture_rotate_new(
@@ -139,7 +139,7 @@ impl GestureRotateBuilder {
         self
     }
 
-    pub fn widget<P: IsA<Widget>>(mut self, widget: &P) -> Self {
+    pub fn widget(mut self, widget: &impl IsA<Widget>) -> Self {
         self.widget = Some(widget.clone().upcast());
         self
     }
