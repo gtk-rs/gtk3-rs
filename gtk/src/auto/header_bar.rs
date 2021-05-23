@@ -33,6 +33,13 @@ impl HeaderBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_header_bar_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`HeaderBar`]
+    /// This method returns an instance of [`HeaderBarBuilder`] which can be used to create a [`HeaderBar`].
+    pub fn builder() -> HeaderBarBuilder {
+        HeaderBarBuilder::default()
+    }
 }
 
 impl Default for HeaderBar {
@@ -42,6 +49,8 @@ impl Default for HeaderBar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`HeaderBar`].
 pub struct HeaderBarBuilder {
     custom_title: Option<Widget>,
     decoration_layout: Option<String>,
@@ -91,10 +100,14 @@ pub struct HeaderBarBuilder {
 }
 
 impl HeaderBarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`HeaderBarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`HeaderBar`].
     pub fn build(self) -> HeaderBar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref custom_title) = self.custom_title {

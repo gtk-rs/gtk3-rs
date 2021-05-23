@@ -61,6 +61,13 @@ impl TreeView {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`TreeView`]
+    /// This method returns an instance of [`TreeViewBuilder`] which can be used to create a [`TreeView`].
+    pub fn builder() -> TreeViewBuilder {
+        TreeViewBuilder::default()
+    }
 }
 
 impl Default for TreeView {
@@ -70,6 +77,8 @@ impl Default for TreeView {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`TreeView`].
 pub struct TreeViewBuilder {
     activate_on_single_click: Option<bool>,
     enable_grid_lines: Option<TreeViewGridLines>,
@@ -133,10 +142,14 @@ pub struct TreeViewBuilder {
 }
 
 impl TreeViewBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`TreeViewBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`TreeView`].
     pub fn build(self) -> TreeView {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activate_on_single_click) = self.activate_on_single_click {

@@ -34,6 +34,13 @@ impl SeparatorToolItem {
         assert_initialized_main_thread!();
         unsafe { ToolItem::from_glib_none(ffi::gtk_separator_tool_item_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`SeparatorToolItem`]
+    /// This method returns an instance of [`SeparatorToolItemBuilder`] which can be used to create a [`SeparatorToolItem`].
+    pub fn builder() -> SeparatorToolItemBuilder {
+        SeparatorToolItemBuilder::default()
+    }
 }
 
 impl Default for SeparatorToolItem {
@@ -43,6 +50,8 @@ impl Default for SeparatorToolItem {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`SeparatorToolItem`].
 pub struct SeparatorToolItemBuilder {
     draw: Option<bool>,
     is_important: Option<bool>,
@@ -88,10 +97,14 @@ pub struct SeparatorToolItemBuilder {
 }
 
 impl SeparatorToolItemBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SeparatorToolItemBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`SeparatorToolItem`].
     pub fn build(self) -> SeparatorToolItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref draw) = self.draw {

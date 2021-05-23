@@ -38,9 +38,18 @@ impl Scrollbar {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Scrollbar`]
+    /// This method returns an instance of [`ScrollbarBuilder`] which can be used to create a [`Scrollbar`].
+    pub fn builder() -> ScrollbarBuilder {
+        ScrollbarBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Scrollbar`].
 pub struct ScrollbarBuilder {
     adjustment: Option<Adjustment>,
     fill_level: Option<f64>,
@@ -88,10 +97,14 @@ pub struct ScrollbarBuilder {
 }
 
 impl ScrollbarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ScrollbarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Scrollbar`].
     pub fn build(self) -> Scrollbar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref adjustment) = self.adjustment {

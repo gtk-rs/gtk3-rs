@@ -56,6 +56,13 @@ impl CheckButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CheckButton`]
+    /// This method returns an instance of [`CheckButtonBuilder`] which can be used to create a [`CheckButton`].
+    pub fn builder() -> CheckButtonBuilder {
+        CheckButtonBuilder::default()
+    }
 }
 
 impl Default for CheckButton {
@@ -65,6 +72,8 @@ impl Default for CheckButton {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CheckButton`].
 pub struct CheckButtonBuilder {
     active: Option<bool>,
     draw_indicator: Option<bool>,
@@ -117,10 +126,14 @@ pub struct CheckButtonBuilder {
 }
 
 impl CheckButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CheckButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CheckButton`].
     pub fn build(self) -> CheckButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

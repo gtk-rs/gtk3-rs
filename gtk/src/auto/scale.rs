@@ -59,9 +59,18 @@ impl Scale {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Scale`]
+    /// This method returns an instance of [`ScaleBuilder`] which can be used to create a [`Scale`].
+    pub fn builder() -> ScaleBuilder {
+        ScaleBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Scale`].
 pub struct ScaleBuilder {
     digits: Option<i32>,
     draw_value: Option<bool>,
@@ -113,10 +122,14 @@ pub struct ScaleBuilder {
 }
 
 impl ScaleBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ScaleBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Scale`].
     pub fn build(self) -> Scale {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref digits) = self.digits {

@@ -36,6 +36,13 @@ impl ToggleToolButton {
         assert_initialized_main_thread!();
         unsafe { ToolItem::from_glib_none(ffi::gtk_toggle_tool_button_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ToggleToolButton`]
+    /// This method returns an instance of [`ToggleToolButtonBuilder`] which can be used to create a [`ToggleToolButton`].
+    pub fn builder() -> ToggleToolButtonBuilder {
+        ToggleToolButtonBuilder::default()
+    }
 }
 
 impl Default for ToggleToolButton {
@@ -45,6 +52,8 @@ impl Default for ToggleToolButton {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ToggleToolButton`].
 pub struct ToggleToolButtonBuilder {
     active: Option<bool>,
     icon_name: Option<String>,
@@ -97,10 +106,14 @@ pub struct ToggleToolButtonBuilder {
 }
 
 impl ToggleToolButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ToggleToolButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ToggleToolButton`].
     pub fn build(self) -> ToggleToolButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

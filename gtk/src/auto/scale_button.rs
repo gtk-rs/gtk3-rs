@@ -51,9 +51,18 @@ impl ScaleButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ScaleButton`]
+    /// This method returns an instance of [`ScaleButtonBuilder`] which can be used to create a [`ScaleButton`].
+    pub fn builder() -> ScaleButtonBuilder {
+        ScaleButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ScaleButton`].
 pub struct ScaleButtonBuilder {
     adjustment: Option<Adjustment>,
     icons: Option<Vec<String>>,
@@ -108,10 +117,14 @@ pub struct ScaleButtonBuilder {
 }
 
 impl ScaleButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ScaleButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ScaleButton`].
     pub fn build(self) -> ScaleButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref adjustment) = self.adjustment {

@@ -43,9 +43,18 @@ impl Adjustment {
             ))
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Adjustment`]
+    /// This method returns an instance of [`AdjustmentBuilder`] which can be used to create a [`Adjustment`].
+    pub fn builder() -> AdjustmentBuilder {
+        AdjustmentBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Adjustment`].
 pub struct AdjustmentBuilder {
     lower: Option<f64>,
     page_increment: Option<f64>,
@@ -56,10 +65,14 @@ pub struct AdjustmentBuilder {
 }
 
 impl AdjustmentBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`AdjustmentBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Adjustment`].
     pub fn build(self) -> Adjustment {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref lower) = self.lower {

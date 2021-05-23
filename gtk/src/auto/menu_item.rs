@@ -56,6 +56,13 @@ impl MenuItem {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`MenuItem`]
+    /// This method returns an instance of [`MenuItemBuilder`] which can be used to create a [`MenuItem`].
+    pub fn builder() -> MenuItemBuilder {
+        MenuItemBuilder::default()
+    }
 }
 
 impl Default for MenuItem {
@@ -65,6 +72,8 @@ impl Default for MenuItem {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`MenuItem`].
 pub struct MenuItemBuilder {
     accel_path: Option<String>,
     label: Option<String>,
@@ -113,10 +122,14 @@ pub struct MenuItemBuilder {
 }
 
 impl MenuItemBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`MenuItemBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`MenuItem`].
     pub fn build(self) -> MenuItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_path) = self.accel_path {

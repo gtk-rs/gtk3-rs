@@ -40,6 +40,13 @@ impl PopoverMenu {
         unsafe { Widget::from_glib_none(ffi::gtk_popover_menu_new()).unsafe_cast() }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`PopoverMenu`]
+    /// This method returns an instance of [`PopoverMenuBuilder`] which can be used to create a [`PopoverMenu`].
+    pub fn builder() -> PopoverMenuBuilder {
+        PopoverMenuBuilder::default()
+    }
+
     #[doc(alias = "gtk_popover_menu_open_submenu")]
     pub fn open_submenu(&self, name: &str) {
         unsafe {
@@ -159,6 +166,8 @@ impl Default for PopoverMenu {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`PopoverMenu`].
 pub struct PopoverMenuBuilder {
     visible_submenu: Option<String>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -168,6 +177,7 @@ pub struct PopoverMenuBuilder {
     pointing_to: Option<gdk::Rectangle>,
     position: Option<PositionType>,
     relative_to: Option<Widget>,
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     transitions_enabled: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -209,10 +219,14 @@ pub struct PopoverMenuBuilder {
 }
 
 impl PopoverMenuBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`PopoverMenuBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`PopoverMenu`].
     pub fn build(self) -> PopoverMenu {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref visible_submenu) = self.visible_submenu {
@@ -379,6 +393,7 @@ impl PopoverMenuBuilder {
         self
     }
 
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     pub fn transitions_enabled(mut self, transitions_enabled: bool) -> Self {
         self.transitions_enabled = Some(transitions_enabled);
         self

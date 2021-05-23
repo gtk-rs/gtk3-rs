@@ -51,9 +51,18 @@ impl ScrolledWindow {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ScrolledWindow`]
+    /// This method returns an instance of [`ScrolledWindowBuilder`] which can be used to create a [`ScrolledWindow`].
+    pub fn builder() -> ScrolledWindowBuilder {
+        ScrolledWindowBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ScrolledWindow`].
 pub struct ScrolledWindowBuilder {
     hadjustment: Option<Adjustment>,
     hscrollbar_policy: Option<PolicyType>,
@@ -117,10 +126,14 @@ pub struct ScrolledWindowBuilder {
 }
 
 impl ScrolledWindowBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ScrolledWindowBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ScrolledWindow`].
     pub fn build(self) -> ScrolledWindow {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref hadjustment) = self.hadjustment {

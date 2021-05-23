@@ -52,9 +52,18 @@ impl LinkButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`LinkButton`]
+    /// This method returns an instance of [`LinkButtonBuilder`] which can be used to create a [`LinkButton`].
+    pub fn builder() -> LinkButtonBuilder {
+        LinkButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`LinkButton`].
 pub struct LinkButtonBuilder {
     uri: Option<String>,
     visited: Option<bool>,
@@ -106,10 +115,14 @@ pub struct LinkButtonBuilder {
 }
 
 impl LinkButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`LinkButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`LinkButton`].
     pub fn build(self) -> LinkButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref uri) = self.uri {

@@ -27,6 +27,13 @@ impl DrawingArea {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_drawing_area_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`DrawingArea`]
+    /// This method returns an instance of [`DrawingAreaBuilder`] which can be used to create a [`DrawingArea`].
+    pub fn builder() -> DrawingAreaBuilder {
+        DrawingAreaBuilder::default()
+    }
 }
 
 impl Default for DrawingArea {
@@ -36,6 +43,8 @@ impl Default for DrawingArea {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`DrawingArea`].
 pub struct DrawingAreaBuilder {
     app_paintable: Option<bool>,
     can_default: Option<bool>,
@@ -74,10 +83,14 @@ pub struct DrawingAreaBuilder {
 }
 
 impl DrawingAreaBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`DrawingAreaBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`DrawingArea`].
     pub fn build(self) -> DrawingArea {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref app_paintable) = self.app_paintable {

@@ -51,9 +51,18 @@ impl Plug {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Plug`]
+    /// This method returns an instance of [`PlugBuilder`] which can be used to create a [`Plug`].
+    pub fn builder() -> PlugBuilder {
+        PlugBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Plug`].
 pub struct PlugBuilder {
     accept_focus: Option<bool>,
     application: Option<Application>,
@@ -123,10 +132,14 @@ pub struct PlugBuilder {
 }
 
 impl PlugBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`PlugBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Plug`].
     pub fn build(self) -> Plug {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accept_focus) = self.accept_focus {

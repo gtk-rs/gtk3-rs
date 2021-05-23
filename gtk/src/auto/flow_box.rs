@@ -39,6 +39,13 @@ impl FlowBox {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_flow_box_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FlowBox`]
+    /// This method returns an instance of [`FlowBoxBuilder`] which can be used to create a [`FlowBox`].
+    pub fn builder() -> FlowBoxBuilder {
+        FlowBoxBuilder::default()
+    }
 }
 
 impl Default for FlowBox {
@@ -48,6 +55,8 @@ impl Default for FlowBox {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FlowBox`].
 pub struct FlowBoxBuilder {
     activate_on_single_click: Option<bool>,
     column_spacing: Option<u32>,
@@ -97,10 +106,14 @@ pub struct FlowBoxBuilder {
 }
 
 impl FlowBoxBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FlowBoxBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FlowBox`].
     pub fn build(self) -> FlowBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activate_on_single_click) = self.activate_on_single_click {

@@ -31,6 +31,13 @@ impl Spinner {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_spinner_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Spinner`]
+    /// This method returns an instance of [`SpinnerBuilder`] which can be used to create a [`Spinner`].
+    pub fn builder() -> SpinnerBuilder {
+        SpinnerBuilder::default()
+    }
 }
 
 impl Default for Spinner {
@@ -40,6 +47,8 @@ impl Default for Spinner {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Spinner`].
 pub struct SpinnerBuilder {
     active: Option<bool>,
     app_paintable: Option<bool>,
@@ -79,10 +88,14 @@ pub struct SpinnerBuilder {
 }
 
 impl SpinnerBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SpinnerBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Spinner`].
     pub fn build(self) -> Spinner {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

@@ -42,9 +42,18 @@ impl LockButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`LockButton`]
+    /// This method returns an instance of [`LockButtonBuilder`] which can be used to create a [`LockButton`].
+    pub fn builder() -> LockButtonBuilder {
+        LockButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`LockButton`].
 pub struct LockButtonBuilder {
     permission: Option<gio::Permission>,
     text_lock: Option<String>,
@@ -100,10 +109,14 @@ pub struct LockButtonBuilder {
 }
 
 impl LockButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`LockButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`LockButton`].
     pub fn build(self) -> LockButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref permission) = self.permission {

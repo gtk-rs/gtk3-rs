@@ -35,6 +35,13 @@ glib::wrapper! {
 }
 
 impl ShortcutsShortcut {
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ShortcutsShortcut`]
+    /// This method returns an instance of [`ShortcutsShortcutBuilder`] which can be used to create a [`ShortcutsShortcut`].
+    pub fn builder() -> ShortcutsShortcutBuilder {
+        ShortcutsShortcutBuilder::default()
+    }
+
     #[doc(alias = "accel-size-group")]
     pub fn set_accel_size_group<P: IsA<SizeGroup>>(&self, accel_size_group: Option<&P>) {
         unsafe {
@@ -557,6 +564,8 @@ impl ShortcutsShortcut {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ShortcutsShortcut`].
 pub struct ShortcutsShortcutBuilder {
     accel_size_group: Option<SizeGroup>,
     accelerator: Option<String>,
@@ -615,10 +624,14 @@ pub struct ShortcutsShortcutBuilder {
 }
 
 impl ShortcutsShortcutBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ShortcutsShortcutBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ShortcutsShortcut`].
     pub fn build(self) -> ShortcutsShortcut {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_size_group) = self.accel_size_group {

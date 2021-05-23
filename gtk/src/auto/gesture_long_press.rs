@@ -39,6 +39,13 @@ impl GestureLongPress {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`GestureLongPress`]
+    /// This method returns an instance of [`GestureLongPressBuilder`] which can be used to create a [`GestureLongPress`].
+    pub fn builder() -> GestureLongPressBuilder {
+        GestureLongPressBuilder::default()
+    }
+
     #[doc(alias = "delay-factor")]
     pub fn delay_factor(&self) -> f64 {
         unsafe {
@@ -142,6 +149,8 @@ impl GestureLongPress {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`GestureLongPress`].
 pub struct GestureLongPressBuilder {
     delay_factor: Option<f64>,
     button: Option<u32>,
@@ -154,10 +163,14 @@ pub struct GestureLongPressBuilder {
 }
 
 impl GestureLongPressBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`GestureLongPressBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`GestureLongPress`].
     pub fn build(self) -> GestureLongPress {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref delay_factor) = self.delay_factor {

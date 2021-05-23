@@ -38,6 +38,13 @@ impl GestureRotate {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`GestureRotate`]
+    /// This method returns an instance of [`GestureRotateBuilder`] which can be used to create a [`GestureRotate`].
+    pub fn builder() -> GestureRotateBuilder {
+        GestureRotateBuilder::default()
+    }
+
     #[doc(alias = "gtk_gesture_rotate_get_angle_delta")]
     #[doc(alias = "get_angle_delta")]
     pub fn angle_delta(&self) -> f64 {
@@ -73,6 +80,8 @@ impl GestureRotate {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`GestureRotate`].
 pub struct GestureRotateBuilder {
     n_points: Option<u32>,
     window: Option<gdk::Window>,
@@ -81,10 +90,14 @@ pub struct GestureRotateBuilder {
 }
 
 impl GestureRotateBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`GestureRotateBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`GestureRotate`].
     pub fn build(self) -> GestureRotate {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref n_points) = self.n_points {

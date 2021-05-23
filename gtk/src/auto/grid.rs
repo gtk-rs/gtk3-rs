@@ -36,6 +36,13 @@ impl Grid {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_grid_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Grid`]
+    /// This method returns an instance of [`GridBuilder`] which can be used to create a [`Grid`].
+    pub fn builder() -> GridBuilder {
+        GridBuilder::default()
+    }
 }
 
 impl Default for Grid {
@@ -45,6 +52,8 @@ impl Default for Grid {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Grid`].
 pub struct GridBuilder {
     baseline_row: Option<i32>,
     column_homogeneous: Option<bool>,
@@ -92,10 +101,14 @@ pub struct GridBuilder {
 }
 
 impl GridBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`GridBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Grid`].
     pub fn build(self) -> Grid {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref baseline_row) = self.baseline_row {

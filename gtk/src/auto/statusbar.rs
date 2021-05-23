@@ -36,6 +36,13 @@ impl Statusbar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_statusbar_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Statusbar`]
+    /// This method returns an instance of [`StatusbarBuilder`] which can be used to create a [`Statusbar`].
+    pub fn builder() -> StatusbarBuilder {
+        StatusbarBuilder::default()
+    }
 }
 
 impl Default for Statusbar {
@@ -45,6 +52,8 @@ impl Default for Statusbar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Statusbar`].
 pub struct StatusbarBuilder {
     baseline_position: Option<BaselinePosition>,
     homogeneous: Option<bool>,
@@ -90,10 +99,14 @@ pub struct StatusbarBuilder {
 }
 
 impl StatusbarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`StatusbarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Statusbar`].
     pub fn build(self) -> Statusbar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref baseline_position) = self.baseline_position {

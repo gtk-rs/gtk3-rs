@@ -77,9 +77,18 @@ impl RadioButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`RadioButton`]
+    /// This method returns an instance of [`RadioButtonBuilder`] which can be used to create a [`RadioButton`].
+    pub fn builder() -> RadioButtonBuilder {
+        RadioButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`RadioButton`].
 pub struct RadioButtonBuilder {
     active: Option<bool>,
     draw_indicator: Option<bool>,
@@ -132,10 +141,14 @@ pub struct RadioButtonBuilder {
 }
 
 impl RadioButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`RadioButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`RadioButton`].
     pub fn build(self) -> RadioButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

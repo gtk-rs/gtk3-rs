@@ -38,6 +38,13 @@ impl StyleContext {
         unsafe { from_glib_full(ffi::gtk_style_context_new()) }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`StyleContext`]
+    /// This method returns an instance of [`StyleContextBuilder`] which can be used to create a [`StyleContext`].
+    pub fn builder() -> StyleContextBuilder {
+        StyleContextBuilder::default()
+    }
+
     #[doc(alias = "gtk_style_context_add_provider_for_screen")]
     pub fn add_provider_for_screen<P: IsA<StyleProvider>>(
         screen: &gdk::Screen,
@@ -81,6 +88,8 @@ impl Default for StyleContext {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`StyleContext`].
 pub struct StyleContextBuilder {
     direction: Option<TextDirection>,
     paint_clock: Option<gdk::FrameClock>,
@@ -89,10 +98,14 @@ pub struct StyleContextBuilder {
 }
 
 impl StyleContextBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`StyleContextBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`StyleContext`].
     pub fn build(self) -> StyleContext {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref direction) = self.direction {

@@ -75,9 +75,18 @@ impl RadioMenuItem {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`RadioMenuItem`]
+    /// This method returns an instance of [`RadioMenuItemBuilder`] which can be used to create a [`RadioMenuItem`].
+    pub fn builder() -> RadioMenuItemBuilder {
+        RadioMenuItemBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`RadioMenuItem`].
 pub struct RadioMenuItemBuilder {
     active: Option<bool>,
     draw_as_radio: Option<bool>,
@@ -129,10 +138,14 @@ pub struct RadioMenuItemBuilder {
 }
 
 impl RadioMenuItemBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`RadioMenuItemBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`RadioMenuItem`].
     pub fn build(self) -> RadioMenuItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

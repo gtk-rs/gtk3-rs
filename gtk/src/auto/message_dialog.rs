@@ -45,9 +45,18 @@ impl MessageDialog {
     //pub fn with_markup<P: IsA<Window>>(parent: Option<&P>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> MessageDialog {
     //    unsafe { TODO: call ffi:gtk_message_dialog_new_with_markup() }
     //}
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`MessageDialog`]
+    /// This method returns an instance of [`MessageDialogBuilder`] which can be used to create a [`MessageDialog`].
+    pub fn builder() -> MessageDialogBuilder {
+        MessageDialogBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`MessageDialog`].
 pub struct MessageDialogBuilder {
     buttons: Option<ButtonsType>,
     message_type: Option<MessageType>,
@@ -124,10 +133,14 @@ pub struct MessageDialogBuilder {
 }
 
 impl MessageDialogBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`MessageDialogBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`MessageDialog`].
     pub fn build(self) -> MessageDialog {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref buttons) = self.buttons {

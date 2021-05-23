@@ -37,6 +37,13 @@ impl ListBox {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_list_box_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ListBox`]
+    /// This method returns an instance of [`ListBoxBuilder`] which can be used to create a [`ListBox`].
+    pub fn builder() -> ListBoxBuilder {
+        ListBoxBuilder::default()
+    }
 }
 
 impl Default for ListBox {
@@ -46,6 +53,8 @@ impl Default for ListBox {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ListBox`].
 pub struct ListBoxBuilder {
     activate_on_single_click: Option<bool>,
     selection_mode: Option<SelectionMode>,
@@ -89,10 +98,14 @@ pub struct ListBoxBuilder {
 }
 
 impl ListBoxBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ListBoxBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ListBox`].
     pub fn build(self) -> ListBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activate_on_single_click) = self.activate_on_single_click {

@@ -34,6 +34,13 @@ impl FlowBoxChild {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_flow_box_child_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FlowBoxChild`]
+    /// This method returns an instance of [`FlowBoxChildBuilder`] which can be used to create a [`FlowBoxChild`].
+    pub fn builder() -> FlowBoxChildBuilder {
+        FlowBoxChildBuilder::default()
+    }
 }
 
 impl Default for FlowBoxChild {
@@ -43,6 +50,8 @@ impl Default for FlowBoxChild {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FlowBoxChild`].
 pub struct FlowBoxChildBuilder {
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -84,10 +93,14 @@ pub struct FlowBoxChildBuilder {
 }
 
 impl FlowBoxChildBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FlowBoxChildBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FlowBoxChild`].
     pub fn build(self) -> FlowBoxChild {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref border_width) = self.border_width {

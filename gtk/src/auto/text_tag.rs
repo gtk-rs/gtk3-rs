@@ -31,9 +31,18 @@ impl TextTag {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_text_tag_new(name.to_glib_none().0)) }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`TextTag`]
+    /// This method returns an instance of [`TextTagBuilder`] which can be used to create a [`TextTag`].
+    pub fn builder() -> TextTagBuilder {
+        TextTagBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`TextTag`].
 pub struct TextTagBuilder {
     accumulative_margin: Option<bool>,
     background: Option<String>,
@@ -109,10 +118,14 @@ pub struct TextTagBuilder {
 }
 
 impl TextTagBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`TextTagBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`TextTag`].
     pub fn build(self) -> TextTag {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accumulative_margin) = self.accumulative_margin {

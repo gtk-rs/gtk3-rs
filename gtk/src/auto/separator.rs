@@ -31,9 +31,18 @@ impl Separator {
             Widget::from_glib_none(ffi::gtk_separator_new(orientation.into_glib())).unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Separator`]
+    /// This method returns an instance of [`SeparatorBuilder`] which can be used to create a [`Separator`].
+    pub fn builder() -> SeparatorBuilder {
+        SeparatorBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Separator`].
 pub struct SeparatorBuilder {
     app_paintable: Option<bool>,
     can_default: Option<bool>,
@@ -73,10 +82,14 @@ pub struct SeparatorBuilder {
 }
 
 impl SeparatorBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SeparatorBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Separator`].
     pub fn build(self) -> Separator {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref app_paintable) = self.app_paintable {

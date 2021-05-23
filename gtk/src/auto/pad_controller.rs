@@ -40,6 +40,13 @@ impl PadController {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`PadController`]
+    /// This method returns an instance of [`PadControllerBuilder`] which can be used to create a [`PadController`].
+    pub fn builder() -> PadControllerBuilder {
+        PadControllerBuilder::default()
+    }
+
     #[doc(alias = "gtk_pad_controller_set_action")]
     pub fn set_action(
         &self,
@@ -90,6 +97,8 @@ impl PadController {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`PadController`].
 pub struct PadControllerBuilder {
     action_group: Option<gio::ActionGroup>,
     pad: Option<gdk::Device>,
@@ -98,10 +107,14 @@ pub struct PadControllerBuilder {
 }
 
 impl PadControllerBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`PadControllerBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`PadController`].
     pub fn build(self) -> PadController {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref action_group) = self.action_group {

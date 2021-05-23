@@ -37,6 +37,13 @@ impl Notebook {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_notebook_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Notebook`]
+    /// This method returns an instance of [`NotebookBuilder`] which can be used to create a [`Notebook`].
+    pub fn builder() -> NotebookBuilder {
+        NotebookBuilder::default()
+    }
 }
 
 impl Default for Notebook {
@@ -46,6 +53,8 @@ impl Default for Notebook {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Notebook`].
 pub struct NotebookBuilder {
     enable_popup: Option<bool>,
     group_name: Option<String>,
@@ -94,10 +103,14 @@ pub struct NotebookBuilder {
 }
 
 impl NotebookBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`NotebookBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Notebook`].
     pub fn build(self) -> Notebook {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref enable_popup) = self.enable_popup {

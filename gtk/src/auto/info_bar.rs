@@ -46,6 +46,13 @@ impl InfoBar {
     //pub fn with_buttons(first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> InfoBar {
     //    unsafe { TODO: call ffi:gtk_info_bar_new_with_buttons() }
     //}
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`InfoBar`]
+    /// This method returns an instance of [`InfoBarBuilder`] which can be used to create a [`InfoBar`].
+    pub fn builder() -> InfoBarBuilder {
+        InfoBarBuilder::default()
+    }
 }
 
 impl Default for InfoBar {
@@ -55,6 +62,8 @@ impl Default for InfoBar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`InfoBar`].
 pub struct InfoBarBuilder {
     message_type: Option<MessageType>,
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
@@ -105,10 +114,14 @@ pub struct InfoBarBuilder {
 }
 
 impl InfoBarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`InfoBarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`InfoBar`].
     pub fn build(self) -> InfoBar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref message_type) = self.message_type {

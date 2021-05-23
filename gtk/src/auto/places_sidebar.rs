@@ -41,6 +41,13 @@ impl PlacesSidebar {
         unsafe { Widget::from_glib_none(ffi::gtk_places_sidebar_new()).unsafe_cast() }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`PlacesSidebar`]
+    /// This method returns an instance of [`PlacesSidebarBuilder`] which can be used to create a [`PlacesSidebar`].
+    pub fn builder() -> PlacesSidebarBuilder {
+        PlacesSidebarBuilder::default()
+    }
+
     #[doc(alias = "gtk_places_sidebar_add_shortcut")]
     pub fn add_shortcut<P: IsA<gio::File>>(&self, location: &P) {
         unsafe {
@@ -888,6 +895,8 @@ impl Default for PlacesSidebar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`PlacesSidebar`].
 pub struct PlacesSidebarBuilder {
     local_only: Option<bool>,
     location: Option<gio::File>,
@@ -964,10 +973,14 @@ pub struct PlacesSidebarBuilder {
 }
 
 impl PlacesSidebarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`PlacesSidebarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`PlacesSidebar`].
     pub fn build(self) -> PlacesSidebar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref local_only) = self.local_only {

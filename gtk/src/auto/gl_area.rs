@@ -32,6 +32,13 @@ impl GLArea {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_gl_area_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`GLArea`]
+    /// This method returns an instance of [`GLAreaBuilder`] which can be used to create a [`GLArea`].
+    pub fn builder() -> GLAreaBuilder {
+        GLAreaBuilder::default()
+    }
 }
 
 impl Default for GLArea {
@@ -41,6 +48,8 @@ impl Default for GLArea {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`GLArea`].
 pub struct GLAreaBuilder {
     auto_render: Option<bool>,
     has_alpha: Option<bool>,
@@ -86,10 +95,14 @@ pub struct GLAreaBuilder {
 }
 
 impl GLAreaBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`GLAreaBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`GLArea`].
     pub fn build(self) -> GLArea {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref auto_render) = self.auto_render {

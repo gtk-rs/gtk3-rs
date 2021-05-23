@@ -69,9 +69,18 @@ impl AppChooserDialog {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`AppChooserDialog`]
+    /// This method returns an instance of [`AppChooserDialogBuilder`] which can be used to create a [`AppChooserDialog`].
+    pub fn builder() -> AppChooserDialogBuilder {
+        AppChooserDialogBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`AppChooserDialog`].
 pub struct AppChooserDialogBuilder {
     gfile: Option<gio::File>,
     heading: Option<String>,
@@ -145,10 +154,14 @@ pub struct AppChooserDialogBuilder {
 }
 
 impl AppChooserDialogBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`AppChooserDialogBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`AppChooserDialog`].
     pub fn build(self) -> AppChooserDialog {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref gfile) = self.gfile {

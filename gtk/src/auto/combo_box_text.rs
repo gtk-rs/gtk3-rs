@@ -42,6 +42,13 @@ impl ComboBoxText {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_combo_box_text_new_with_entry()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ComboBoxText`]
+    /// This method returns an instance of [`ComboBoxTextBuilder`] which can be used to create a [`ComboBoxText`].
+    pub fn builder() -> ComboBoxTextBuilder {
+        ComboBoxTextBuilder::default()
+    }
 }
 
 impl Default for ComboBoxText {
@@ -51,6 +58,8 @@ impl Default for ComboBoxText {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ComboBoxText`].
 pub struct ComboBoxTextBuilder {
     active: Option<i32>,
     active_id: Option<String>,
@@ -106,10 +115,14 @@ pub struct ComboBoxTextBuilder {
 }
 
 impl ComboBoxTextBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ComboBoxTextBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ComboBoxText`].
     pub fn build(self) -> ComboBoxText {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

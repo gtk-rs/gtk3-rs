@@ -33,6 +33,13 @@ impl ProgressBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_progress_bar_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ProgressBar`]
+    /// This method returns an instance of [`ProgressBarBuilder`] which can be used to create a [`ProgressBar`].
+    pub fn builder() -> ProgressBarBuilder {
+        ProgressBarBuilder::default()
+    }
 }
 
 impl Default for ProgressBar {
@@ -42,6 +49,8 @@ impl Default for ProgressBar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ProgressBar`].
 pub struct ProgressBarBuilder {
     ellipsize: Option<pango::EllipsizeMode>,
     fraction: Option<f64>,
@@ -87,10 +96,14 @@ pub struct ProgressBarBuilder {
 }
 
 impl ProgressBarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ProgressBarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ProgressBar`].
     pub fn build(self) -> ProgressBar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref ellipsize) = self.ellipsize {

@@ -73,6 +73,13 @@ impl IconView {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`IconView`]
+    /// This method returns an instance of [`IconViewBuilder`] which can be used to create a [`IconView`].
+    pub fn builder() -> IconViewBuilder {
+        IconViewBuilder::default()
+    }
 }
 
 impl Default for IconView {
@@ -82,6 +89,8 @@ impl Default for IconView {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`IconView`].
 pub struct IconViewBuilder {
     activate_on_single_click: Option<bool>,
     cell_area: Option<CellArea>,
@@ -143,10 +152,14 @@ pub struct IconViewBuilder {
 }
 
 impl IconViewBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`IconViewBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`IconView`].
     pub fn build(self) -> IconView {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activate_on_single_click) = self.activate_on_single_click {

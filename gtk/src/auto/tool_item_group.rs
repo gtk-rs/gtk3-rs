@@ -38,9 +38,18 @@ impl ToolItemGroup {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ToolItemGroup`]
+    /// This method returns an instance of [`ToolItemGroupBuilder`] which can be used to create a [`ToolItemGroup`].
+    pub fn builder() -> ToolItemGroupBuilder {
+        ToolItemGroupBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ToolItemGroup`].
 pub struct ToolItemGroupBuilder {
     collapsed: Option<bool>,
     ellipsize: Option<pango::EllipsizeMode>,
@@ -87,10 +96,14 @@ pub struct ToolItemGroupBuilder {
 }
 
 impl ToolItemGroupBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ToolItemGroupBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ToolItemGroup`].
     pub fn build(self) -> ToolItemGroup {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref collapsed) = self.collapsed {

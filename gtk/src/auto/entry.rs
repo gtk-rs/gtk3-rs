@@ -58,6 +58,13 @@ impl Entry {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Entry`]
+    /// This method returns an instance of [`EntryBuilder`] which can be used to create a [`Entry`].
+    pub fn builder() -> EntryBuilder {
+        EntryBuilder::default()
+    }
 }
 
 impl Default for Entry {
@@ -67,6 +74,8 @@ impl Default for Entry {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Entry`].
 pub struct EntryBuilder {
     activates_default: Option<bool>,
     attributes: Option<pango::AttrList>,
@@ -102,6 +111,7 @@ pub struct EntryBuilder {
     secondary_icon_sensitive: Option<bool>,
     secondary_icon_tooltip_markup: Option<String>,
     secondary_icon_tooltip_text: Option<String>,
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     shadow_type: Option<ShadowType>,
     show_emoji_icon: Option<bool>,
     tabs: Option<pango::TabArray>,
@@ -148,10 +158,14 @@ pub struct EntryBuilder {
 }
 
 impl EntryBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`EntryBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Entry`].
     pub fn build(self) -> Entry {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activates_default) = self.activates_default {
@@ -556,6 +570,7 @@ impl EntryBuilder {
         self
     }
 
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     pub fn shadow_type(mut self, shadow_type: ShadowType) -> Self {
         self.shadow_type = Some(shadow_type);
         self

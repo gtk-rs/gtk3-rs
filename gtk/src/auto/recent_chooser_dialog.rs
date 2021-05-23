@@ -42,9 +42,18 @@ impl RecentChooserDialog {
     //pub fn for_manager<P: IsA<Window>, Q: IsA<RecentManager>>(title: Option<&str>, parent: Option<&P>, manager: &Q, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
     //    unsafe { TODO: call ffi:gtk_recent_chooser_dialog_new_for_manager() }
     //}
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`RecentChooserDialog`]
+    /// This method returns an instance of [`RecentChooserDialogBuilder`] which can be used to create a [`RecentChooserDialog`].
+    pub fn builder() -> RecentChooserDialogBuilder {
+        RecentChooserDialogBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`RecentChooserDialog`].
 pub struct RecentChooserDialogBuilder {
     use_header_bar: Option<i32>,
     accept_focus: Option<bool>,
@@ -125,10 +134,14 @@ pub struct RecentChooserDialogBuilder {
 }
 
 impl RecentChooserDialogBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`RecentChooserDialogBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`RecentChooserDialog`].
     pub fn build(self) -> RecentChooserDialog {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref use_header_bar) = self.use_header_bar {

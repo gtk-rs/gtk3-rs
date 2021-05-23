@@ -33,6 +33,13 @@ impl Calendar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_calendar_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Calendar`]
+    /// This method returns an instance of [`CalendarBuilder`] which can be used to create a [`Calendar`].
+    pub fn builder() -> CalendarBuilder {
+        CalendarBuilder::default()
+    }
 }
 
 impl Default for Calendar {
@@ -42,6 +49,8 @@ impl Default for Calendar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Calendar`].
 pub struct CalendarBuilder {
     day: Option<i32>,
     detail_height_rows: Option<i32>,
@@ -90,10 +99,14 @@ pub struct CalendarBuilder {
 }
 
 impl CalendarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CalendarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Calendar`].
     pub fn build(self) -> Calendar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref day) = self.day {

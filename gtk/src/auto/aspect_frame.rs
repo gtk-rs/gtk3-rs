@@ -50,9 +50,18 @@ impl AspectFrame {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`AspectFrame`]
+    /// This method returns an instance of [`AspectFrameBuilder`] which can be used to create a [`AspectFrame`].
+    pub fn builder() -> AspectFrameBuilder {
+        AspectFrameBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`AspectFrame`].
 pub struct AspectFrameBuilder {
     obey_child: Option<bool>,
     ratio: Option<f32>,
@@ -103,10 +112,14 @@ pub struct AspectFrameBuilder {
 }
 
 impl AspectFrameBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`AspectFrameBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`AspectFrame`].
     pub fn build(self) -> AspectFrame {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref obey_child) = self.obey_child {

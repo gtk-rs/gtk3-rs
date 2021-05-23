@@ -43,6 +43,13 @@ impl GesturePan {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`GesturePan`]
+    /// This method returns an instance of [`GesturePanBuilder`] which can be used to create a [`GesturePan`].
+    pub fn builder() -> GesturePanBuilder {
+        GesturePanBuilder::default()
+    }
+
     #[doc(alias = "gtk_gesture_pan_get_orientation")]
     #[doc(alias = "get_orientation")]
     pub fn orientation(&self) -> Orientation {
@@ -111,6 +118,8 @@ impl GesturePan {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`GesturePan`].
 pub struct GesturePanBuilder {
     orientation: Option<Orientation>,
     button: Option<u32>,
@@ -123,10 +132,14 @@ pub struct GesturePanBuilder {
 }
 
 impl GesturePanBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`GesturePanBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`GesturePan`].
     pub fn build(self) -> GesturePan {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref orientation) = self.orientation {

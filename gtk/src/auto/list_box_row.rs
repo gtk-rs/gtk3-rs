@@ -35,6 +35,13 @@ impl ListBoxRow {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_list_box_row_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ListBoxRow`]
+    /// This method returns an instance of [`ListBoxRowBuilder`] which can be used to create a [`ListBoxRow`].
+    pub fn builder() -> ListBoxRowBuilder {
+        ListBoxRowBuilder::default()
+    }
 }
 
 impl Default for ListBoxRow {
@@ -44,6 +51,8 @@ impl Default for ListBoxRow {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ListBoxRow`].
 pub struct ListBoxRowBuilder {
     activatable: Option<bool>,
     selectable: Option<bool>,
@@ -89,10 +98,14 @@ pub struct ListBoxRowBuilder {
 }
 
 impl ListBoxRowBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ListBoxRowBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ListBoxRow`].
     pub fn build(self) -> ListBoxRow {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activatable) = self.activatable {

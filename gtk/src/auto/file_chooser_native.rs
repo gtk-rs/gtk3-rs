@@ -49,6 +49,13 @@ impl FileChooserNative {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FileChooserNative`]
+    /// This method returns an instance of [`FileChooserNativeBuilder`] which can be used to create a [`FileChooserNative`].
+    pub fn builder() -> FileChooserNativeBuilder {
+        FileChooserNativeBuilder::default()
+    }
+
     #[doc(alias = "gtk_file_chooser_native_get_accept_label")]
     #[doc(alias = "get_accept_label")]
     pub fn accept_label(&self) -> Option<glib::GString> {
@@ -195,6 +202,8 @@ impl FileChooserNative {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FileChooserNative`].
 pub struct FileChooserNativeBuilder {
     accept_label: Option<String>,
     cancel_label: Option<String>,
@@ -224,10 +233,14 @@ pub struct FileChooserNativeBuilder {
 }
 
 impl FileChooserNativeBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FileChooserNativeBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FileChooserNative`].
     pub fn build(self) -> FileChooserNative {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accept_label) = self.accept_label {

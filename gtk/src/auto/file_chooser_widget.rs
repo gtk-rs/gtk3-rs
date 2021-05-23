@@ -43,9 +43,18 @@ impl FileChooserWidget {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FileChooserWidget`]
+    /// This method returns an instance of [`FileChooserWidgetBuilder`] which can be used to create a [`FileChooserWidget`].
+    pub fn builder() -> FileChooserWidgetBuilder {
+        FileChooserWidgetBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FileChooserWidget`].
 pub struct FileChooserWidgetBuilder {
     search_mode: Option<bool>,
     baseline_position: Option<BaselinePosition>,
@@ -103,10 +112,14 @@ pub struct FileChooserWidgetBuilder {
 }
 
 impl FileChooserWidgetBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FileChooserWidgetBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FileChooserWidget`].
     pub fn build(self) -> FileChooserWidget {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref search_mode) = self.search_mode {

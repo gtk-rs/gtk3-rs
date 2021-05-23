@@ -30,6 +30,13 @@ impl ActionBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_action_bar_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ActionBar`]
+    /// This method returns an instance of [`ActionBarBuilder`] which can be used to create a [`ActionBar`].
+    pub fn builder() -> ActionBarBuilder {
+        ActionBarBuilder::default()
+    }
 }
 
 impl Default for ActionBar {
@@ -39,6 +46,8 @@ impl Default for ActionBar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ActionBar`].
 pub struct ActionBarBuilder {
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -80,10 +89,14 @@ pub struct ActionBarBuilder {
 }
 
 impl ActionBarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ActionBarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ActionBar`].
     pub fn build(self) -> ActionBar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref border_width) = self.border_width {

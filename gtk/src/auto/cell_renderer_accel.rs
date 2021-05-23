@@ -32,6 +32,13 @@ impl CellRendererAccel {
         assert_initialized_main_thread!();
         unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_accel_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CellRendererAccel`]
+    /// This method returns an instance of [`CellRendererAccelBuilder`] which can be used to create a [`CellRendererAccel`].
+    pub fn builder() -> CellRendererAccelBuilder {
+        CellRendererAccelBuilder::default()
+    }
 }
 
 impl Default for CellRendererAccel {
@@ -41,6 +48,8 @@ impl Default for CellRendererAccel {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CellRendererAccel`].
 pub struct CellRendererAccelBuilder {
     accel_key: Option<u32>,
     accel_mode: Option<CellRendererAccelMode>,
@@ -109,10 +118,14 @@ pub struct CellRendererAccelBuilder {
 }
 
 impl CellRendererAccelBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CellRendererAccelBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CellRendererAccel`].
     pub fn build(self) -> CellRendererAccel {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_key) = self.accel_key {

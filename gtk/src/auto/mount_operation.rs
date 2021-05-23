@@ -33,9 +33,18 @@ impl MountOperation {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`MountOperation`]
+    /// This method returns an instance of [`MountOperationBuilder`] which can be used to create a [`MountOperation`].
+    pub fn builder() -> MountOperationBuilder {
+        MountOperationBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`MountOperation`].
 pub struct MountOperationBuilder {
     parent: Option<Window>,
     screen: Option<gdk::Screen>,
@@ -51,10 +60,14 @@ pub struct MountOperationBuilder {
 }
 
 impl MountOperationBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`MountOperationBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`MountOperation`].
     pub fn build(self) -> MountOperation {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref parent) = self.parent {

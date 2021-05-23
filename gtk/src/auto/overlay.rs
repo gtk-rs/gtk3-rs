@@ -29,6 +29,13 @@ impl Overlay {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_overlay_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Overlay`]
+    /// This method returns an instance of [`OverlayBuilder`] which can be used to create a [`Overlay`].
+    pub fn builder() -> OverlayBuilder {
+        OverlayBuilder::default()
+    }
 }
 
 impl Default for Overlay {
@@ -38,6 +45,8 @@ impl Default for Overlay {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Overlay`].
 pub struct OverlayBuilder {
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -79,10 +88,14 @@ pub struct OverlayBuilder {
 }
 
 impl OverlayBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`OverlayBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Overlay`].
     pub fn build(self) -> Overlay {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref border_width) = self.border_width {
