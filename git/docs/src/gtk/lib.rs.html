@@ -266,6 +266,27 @@
 <span id="263">263</span>
 <span id="264">264</span>
 <span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
 </pre><pre class="rust">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -429,11 +450,32 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">xlib</span>;
 
+<span class="doccomment">/// The priority used for default style information</span>
+<span class="doccomment">/// that is used in the absence of themes.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Note that this is not very useful for providing default</span>
+<span class="doccomment">/// styling for custom style classes - themes are likely to</span>
+<span class="doccomment">/// override styling provided at this priority with</span>
+<span class="doccomment">/// catch-all `* {...}` rules.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_FALLBACK</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="doccomment">/// The priority used for style information provided</span>
+<span class="doccomment">/// by themes.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_THEME</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_THEME</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="doccomment">/// The priority used for style information provided</span>
+<span class="doccomment">/// via [`crate::Settings`].</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This priority is higher than `GTK_STYLE_PROVIDER_PRIORITY_THEME`</span>
+<span class="doccomment">/// to let settings override themes.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_SETTINGS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_SETTINGS</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="doccomment">/// A priority that can be used when adding a [`crate::StyleProvider`]</span>
+<span class="doccomment">/// for application-specific style information.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_APPLICATION</span>: <span class="ident">u32</span> <span class="op">=</span>
     <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="doccomment">/// The priority used for the style information from</span>
+<span class="doccomment">/// `XDG_CONFIG_HOME/gtk-3.0/gtk.css`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// You should not use priorities higher than this, to</span>
+<span class="doccomment">/// give the user the last word.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">STYLE_PROVIDER_PRIORITY_USER</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">ffi::GTK_STYLE_PROVIDER_PRIORITY_USER</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>

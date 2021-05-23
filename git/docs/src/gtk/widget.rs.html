@@ -455,11 +455,6 @@
 <span id="452">452</span>
 <span id="453">453</span>
 <span id="454">454</span>
-<span id="455">455</span>
-<span id="456">456</span>
-<span id="457">457</span>
-<span id="458">458</span>
-<span id="459">459</span>
 </pre><pre class="rust">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -538,8 +533,6 @@
     <span class="doccomment">///  ``GtkTargetEntrys`` indicating the drop types that this `self` will</span>
     <span class="doccomment">///  accept, or [`None`]. Later you can access the list with</span>
     <span class="doccomment">///  [`crate::prelude::WidgetExt::drag_dest_get_target_list()`] and [`crate::prelude::WidgetExt::drag_dest_find_target()`].</span>
-    <span class="doccomment">/// ## `n_targets`</span>
-    <span class="doccomment">/// the number of entries in `targets`</span>
     <span class="doccomment">/// ## `actions`</span>
     <span class="doccomment">/// a bitmask of possible actions for a drop onto this `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_dest_set&quot;</span>)]</span>
@@ -552,8 +545,6 @@
     <span class="doccomment">/// ## `targets`</span>
     <span class="doccomment">/// the table of targets</span>
     <span class="doccomment">///  that the drag will support, may be [`None`]</span>
-    <span class="doccomment">/// ## `n_targets`</span>
-    <span class="doccomment">/// the number of items in `targets`</span>
     <span class="doccomment">/// ## `actions`</span>
     <span class="doccomment">/// the bitmask of possible actions for a drag from this widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_source_set&quot;</span>)]</span>
@@ -570,13 +561,14 @@
     <span class="doccomment">/// interested in whether there was an intersection.</span>
     <span class="doccomment">/// ## `area`</span>
     <span class="doccomment">/// a rectangle</span>
-    <span class="doccomment">/// ## `intersection`</span>
-    <span class="doccomment">/// rectangle to store</span>
-    <span class="doccomment">///  intersection of `self` and `area`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`true`] if there was an intersection</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ## `intersection`</span>
+    <span class="doccomment">/// rectangle to store</span>
+    <span class="doccomment">///  intersection of `self` and `area`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_widget_intersect&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">intersect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">area</span>: <span class="kw-2">&amp;</span><span class="ident">Rectangle</span>, <span class="ident">intersection</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Rectangle</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
@@ -636,8 +628,6 @@
     <span class="doccomment">/// have to worry about when a [`crate::gdk::FrameClock`] is assigned to a widget.</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// function to call for updating animations</span>
-    <span class="doccomment">/// ## `user_data`</span>
-    <span class="doccomment">/// data to pass to `callback`</span>
     <span class="doccomment">/// ## `notify`</span>
     <span class="doccomment">/// function to call to free `user_data` when the callback is removed.</span>
     <span class="doccomment">///</span>
