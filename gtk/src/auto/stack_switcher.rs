@@ -40,6 +40,13 @@ impl StackSwitcher {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_stack_switcher_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`StackSwitcher`]
+    /// This method returns an instance of [`StackSwitcherBuilder`] which can be used to create a [`StackSwitcher`].
+    pub fn builder() -> StackSwitcherBuilder {
+        StackSwitcherBuilder::default()
+    }
 }
 
 impl Default for StackSwitcher {
@@ -49,6 +56,8 @@ impl Default for StackSwitcher {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`StackSwitcher`].
 pub struct StackSwitcherBuilder {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -98,10 +107,14 @@ pub struct StackSwitcherBuilder {
 }
 
 impl StackSwitcherBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`StackSwitcherBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`StackSwitcher`].
     pub fn build(self) -> StackSwitcher {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_20", feature = "dox"))]

@@ -33,6 +33,13 @@ impl CellAreaBox {
         assert_initialized_main_thread!();
         unsafe { CellArea::from_glib_none(ffi::gtk_cell_area_box_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CellAreaBox`]
+    /// This method returns an instance of [`CellAreaBoxBuilder`] which can be used to create a [`CellAreaBox`].
+    pub fn builder() -> CellAreaBoxBuilder {
+        CellAreaBoxBuilder::default()
+    }
 }
 
 impl Default for CellAreaBox {
@@ -42,6 +49,8 @@ impl Default for CellAreaBox {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CellAreaBox`].
 pub struct CellAreaBoxBuilder {
     spacing: Option<i32>,
     focus_cell: Option<CellRenderer>,
@@ -49,10 +58,14 @@ pub struct CellAreaBoxBuilder {
 }
 
 impl CellAreaBoxBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CellAreaBoxBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CellAreaBox`].
     pub fn build(self) -> CellAreaBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref spacing) = self.spacing {

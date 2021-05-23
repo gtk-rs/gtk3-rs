@@ -43,9 +43,18 @@ impl MenuToolButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`MenuToolButton`]
+    /// This method returns an instance of [`MenuToolButtonBuilder`] which can be used to create a [`MenuToolButton`].
+    pub fn builder() -> MenuToolButtonBuilder {
+        MenuToolButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`MenuToolButton`].
 pub struct MenuToolButtonBuilder {
     menu: Option<Menu>,
     icon_name: Option<String>,
@@ -98,10 +107,14 @@ pub struct MenuToolButtonBuilder {
 }
 
 impl MenuToolButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`MenuToolButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`MenuToolButton`].
     pub fn build(self) -> MenuToolButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref menu) = self.menu {

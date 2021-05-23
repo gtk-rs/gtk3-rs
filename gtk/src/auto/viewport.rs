@@ -46,9 +46,18 @@ impl Viewport {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Viewport`]
+    /// This method returns an instance of [`ViewportBuilder`] which can be used to create a [`Viewport`].
+    pub fn builder() -> ViewportBuilder {
+        ViewportBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Viewport`].
 pub struct ViewportBuilder {
     shadow_type: Option<ShadowType>,
     border_width: Option<u32>,
@@ -95,10 +104,14 @@ pub struct ViewportBuilder {
 }
 
 impl ViewportBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ViewportBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Viewport`].
     pub fn build(self) -> Viewport {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref shadow_type) = self.shadow_type {

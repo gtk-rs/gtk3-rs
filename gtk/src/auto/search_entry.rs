@@ -40,6 +40,13 @@ impl SearchEntry {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_search_entry_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`SearchEntry`]
+    /// This method returns an instance of [`SearchEntryBuilder`] which can be used to create a [`SearchEntry`].
+    pub fn builder() -> SearchEntryBuilder {
+        SearchEntryBuilder::default()
+    }
 }
 
 impl Default for SearchEntry {
@@ -49,6 +56,8 @@ impl Default for SearchEntry {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`SearchEntry`].
 pub struct SearchEntryBuilder {
     activates_default: Option<bool>,
     attributes: Option<pango::AttrList>,
@@ -84,6 +93,7 @@ pub struct SearchEntryBuilder {
     secondary_icon_sensitive: Option<bool>,
     secondary_icon_tooltip_markup: Option<String>,
     secondary_icon_tooltip_text: Option<String>,
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     shadow_type: Option<ShadowType>,
     show_emoji_icon: Option<bool>,
     tabs: Option<pango::TabArray>,
@@ -130,10 +140,14 @@ pub struct SearchEntryBuilder {
 }
 
 impl SearchEntryBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SearchEntryBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`SearchEntry`].
     pub fn build(self) -> SearchEntry {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activates_default) = self.activates_default {
@@ -539,6 +553,7 @@ impl SearchEntryBuilder {
         self
     }
 
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     pub fn shadow_type(mut self, shadow_type: ShadowType) -> Self {
         self.shadow_type = Some(shadow_type);
         self

@@ -84,6 +84,13 @@ impl CellView {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CellView`]
+    /// This method returns an instance of [`CellViewBuilder`] which can be used to create a [`CellView`].
+    pub fn builder() -> CellViewBuilder {
+        CellViewBuilder::default()
+    }
 }
 
 impl Default for CellView {
@@ -93,6 +100,8 @@ impl Default for CellView {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CellView`].
 pub struct CellViewBuilder {
     background: Option<String>,
     background_rgba: Option<gdk::RGBA>,
@@ -140,10 +149,14 @@ pub struct CellViewBuilder {
 }
 
 impl CellViewBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CellViewBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CellView`].
     pub fn build(self) -> CellView {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref background) = self.background {

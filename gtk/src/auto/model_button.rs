@@ -40,6 +40,13 @@ impl ModelButton {
         unsafe { Widget::from_glib_none(ffi::gtk_model_button_new()).unsafe_cast() }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ModelButton`]
+    /// This method returns an instance of [`ModelButtonBuilder`] which can be used to create a [`ModelButton`].
+    pub fn builder() -> ModelButtonBuilder {
+        ModelButtonBuilder::default()
+    }
+
     pub fn is_active(&self) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
@@ -484,6 +491,8 @@ impl Default for ModelButton {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ModelButton`].
 pub struct ModelButtonBuilder {
     active: Option<bool>,
     centered: Option<bool>,
@@ -544,10 +553,14 @@ pub struct ModelButtonBuilder {
 }
 
 impl ModelButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ModelButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ModelButton`].
     pub fn build(self) -> ModelButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

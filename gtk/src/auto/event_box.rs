@@ -33,6 +33,13 @@ impl EventBox {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_event_box_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`EventBox`]
+    /// This method returns an instance of [`EventBoxBuilder`] which can be used to create a [`EventBox`].
+    pub fn builder() -> EventBoxBuilder {
+        EventBoxBuilder::default()
+    }
 }
 
 impl Default for EventBox {
@@ -42,6 +49,8 @@ impl Default for EventBox {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`EventBox`].
 pub struct EventBoxBuilder {
     above_child: Option<bool>,
     visible_window: Option<bool>,
@@ -85,10 +94,14 @@ pub struct EventBoxBuilder {
 }
 
 impl EventBoxBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`EventBoxBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`EventBox`].
     pub fn build(self) -> EventBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref above_child) = self.above_child {

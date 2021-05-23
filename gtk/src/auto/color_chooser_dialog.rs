@@ -45,9 +45,18 @@ impl ColorChooserDialog {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ColorChooserDialog`]
+    /// This method returns an instance of [`ColorChooserDialogBuilder`] which can be used to create a [`ColorChooserDialog`].
+    pub fn builder() -> ColorChooserDialogBuilder {
+        ColorChooserDialogBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ColorChooserDialog`].
 pub struct ColorChooserDialogBuilder {
     show_editor: Option<bool>,
     use_header_bar: Option<i32>,
@@ -121,10 +130,14 @@ pub struct ColorChooserDialogBuilder {
 }
 
 impl ColorChooserDialogBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ColorChooserDialogBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ColorChooserDialog`].
     pub fn build(self) -> ColorChooserDialog {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref show_editor) = self.show_editor {

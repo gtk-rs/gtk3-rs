@@ -33,6 +33,13 @@ impl Switch {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_switch_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Switch`]
+    /// This method returns an instance of [`SwitchBuilder`] which can be used to create a [`Switch`].
+    pub fn builder() -> SwitchBuilder {
+        SwitchBuilder::default()
+    }
 }
 
 impl Default for Switch {
@@ -42,6 +49,8 @@ impl Default for Switch {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Switch`].
 pub struct SwitchBuilder {
     active: Option<bool>,
     state: Option<bool>,
@@ -84,10 +93,14 @@ pub struct SwitchBuilder {
 }
 
 impl SwitchBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SwitchBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Switch`].
     pub fn build(self) -> Switch {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

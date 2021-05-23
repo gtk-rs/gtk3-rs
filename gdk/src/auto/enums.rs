@@ -91,17 +91,17 @@ impl FromGlib<ffi::GdkAxisUse> for AxisUse {
     unsafe fn from_glib(value: ffi::GdkAxisUse) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Ignore,
-            1 => Self::X,
-            2 => Self::Y,
-            3 => Self::Pressure,
-            4 => Self::Xtilt,
-            5 => Self::Ytilt,
-            6 => Self::Wheel,
-            7 => Self::Distance,
-            8 => Self::Rotation,
-            9 => Self::Slider,
-            10 => Self::Last,
+            ffi::GDK_AXIS_IGNORE => Self::Ignore,
+            ffi::GDK_AXIS_X => Self::X,
+            ffi::GDK_AXIS_Y => Self::Y,
+            ffi::GDK_AXIS_PRESSURE => Self::Pressure,
+            ffi::GDK_AXIS_XTILT => Self::Xtilt,
+            ffi::GDK_AXIS_YTILT => Self::Ytilt,
+            ffi::GDK_AXIS_WHEEL => Self::Wheel,
+            ffi::GDK_AXIS_DISTANCE => Self::Distance,
+            ffi::GDK_AXIS_ROTATION => Self::Rotation,
+            ffi::GDK_AXIS_SLIDER => Self::Slider,
+            ffi::GDK_AXIS_LAST => Self::Last,
             value => Self::__Unknown(value),
         }
     }
@@ -184,8 +184,8 @@ impl FromGlib<ffi::GdkByteOrder> for ByteOrder {
     unsafe fn from_glib(value: ffi::GdkByteOrder) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::LsbFirst,
-            1 => Self::MsbFirst,
+            ffi::GDK_LSB_FIRST => Self::LsbFirst,
+            ffi::GDK_MSB_FIRST => Self::MsbFirst,
             value => Self::__Unknown(value),
         }
     }
@@ -296,15 +296,15 @@ impl FromGlib<ffi::GdkCrossingMode> for CrossingMode {
     unsafe fn from_glib(value: ffi::GdkCrossingMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Normal,
-            1 => Self::Grab,
-            2 => Self::Ungrab,
-            3 => Self::GtkGrab,
-            4 => Self::GtkUngrab,
-            5 => Self::StateChanged,
-            6 => Self::TouchBegin,
-            7 => Self::TouchEnd,
-            8 => Self::DeviceSwitch,
+            ffi::GDK_CROSSING_NORMAL => Self::Normal,
+            ffi::GDK_CROSSING_GRAB => Self::Grab,
+            ffi::GDK_CROSSING_UNGRAB => Self::Ungrab,
+            ffi::GDK_CROSSING_GTK_GRAB => Self::GtkGrab,
+            ffi::GDK_CROSSING_GTK_UNGRAB => Self::GtkUngrab,
+            ffi::GDK_CROSSING_STATE_CHANGED => Self::StateChanged,
+            ffi::GDK_CROSSING_TOUCH_BEGIN => Self::TouchBegin,
+            ffi::GDK_CROSSING_TOUCH_END => Self::TouchEnd,
+            ffi::GDK_CROSSING_DEVICE_SWITCH => Self::DeviceSwitch,
             value => Self::__Unknown(value),
         }
     }
@@ -699,86 +699,86 @@ impl FromGlib<ffi::GdkCursorType> for CursorType {
     unsafe fn from_glib(value: ffi::GdkCursorType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::XCursor,
-            2 => Self::Arrow,
-            4 => Self::BasedArrowDown,
-            6 => Self::BasedArrowUp,
-            8 => Self::Boat,
-            10 => Self::Bogosity,
-            12 => Self::BottomLeftCorner,
-            14 => Self::BottomRightCorner,
-            16 => Self::BottomSide,
-            18 => Self::BottomTee,
-            20 => Self::BoxSpiral,
-            22 => Self::CenterPtr,
-            24 => Self::Circle,
-            26 => Self::Clock,
-            28 => Self::CoffeeMug,
-            30 => Self::Cross,
-            32 => Self::CrossReverse,
-            34 => Self::Crosshair,
-            36 => Self::DiamondCross,
-            38 => Self::Dot,
-            40 => Self::Dotbox,
-            42 => Self::DoubleArrow,
-            44 => Self::DraftLarge,
-            46 => Self::DraftSmall,
-            48 => Self::DrapedBox,
-            50 => Self::Exchange,
-            52 => Self::Fleur,
-            54 => Self::Gobbler,
-            56 => Self::Gumby,
-            58 => Self::Hand1,
-            60 => Self::Hand2,
-            62 => Self::Heart,
-            64 => Self::Icon,
-            66 => Self::IronCross,
-            68 => Self::LeftPtr,
-            70 => Self::LeftSide,
-            72 => Self::LeftTee,
-            74 => Self::Leftbutton,
-            76 => Self::LlAngle,
-            78 => Self::LrAngle,
-            80 => Self::Man,
-            82 => Self::Middlebutton,
-            84 => Self::Mouse,
-            86 => Self::Pencil,
-            88 => Self::Pirate,
-            90 => Self::Plus,
-            92 => Self::QuestionArrow,
-            94 => Self::RightPtr,
-            96 => Self::RightSide,
-            98 => Self::RightTee,
-            100 => Self::Rightbutton,
-            102 => Self::RtlLogo,
-            104 => Self::Sailboat,
-            106 => Self::SbDownArrow,
-            108 => Self::SbHDoubleArrow,
-            110 => Self::SbLeftArrow,
-            112 => Self::SbRightArrow,
-            114 => Self::SbUpArrow,
-            116 => Self::SbVDoubleArrow,
-            118 => Self::Shuttle,
-            120 => Self::Sizing,
-            122 => Self::Spider,
-            124 => Self::Spraycan,
-            126 => Self::Star,
-            128 => Self::Target,
-            130 => Self::Tcross,
-            132 => Self::TopLeftArrow,
-            134 => Self::TopLeftCorner,
-            136 => Self::TopRightCorner,
-            138 => Self::TopSide,
-            140 => Self::TopTee,
-            142 => Self::Trek,
-            144 => Self::UlAngle,
-            146 => Self::Umbrella,
-            148 => Self::UrAngle,
-            150 => Self::Watch,
-            152 => Self::Xterm,
-            153 => Self::LastCursor,
-            -2 => Self::BlankCursor,
-            -1 => Self::CursorIsPixmap,
+            ffi::GDK_X_CURSOR => Self::XCursor,
+            ffi::GDK_ARROW => Self::Arrow,
+            ffi::GDK_BASED_ARROW_DOWN => Self::BasedArrowDown,
+            ffi::GDK_BASED_ARROW_UP => Self::BasedArrowUp,
+            ffi::GDK_BOAT => Self::Boat,
+            ffi::GDK_BOGOSITY => Self::Bogosity,
+            ffi::GDK_BOTTOM_LEFT_CORNER => Self::BottomLeftCorner,
+            ffi::GDK_BOTTOM_RIGHT_CORNER => Self::BottomRightCorner,
+            ffi::GDK_BOTTOM_SIDE => Self::BottomSide,
+            ffi::GDK_BOTTOM_TEE => Self::BottomTee,
+            ffi::GDK_BOX_SPIRAL => Self::BoxSpiral,
+            ffi::GDK_CENTER_PTR => Self::CenterPtr,
+            ffi::GDK_CIRCLE => Self::Circle,
+            ffi::GDK_CLOCK => Self::Clock,
+            ffi::GDK_COFFEE_MUG => Self::CoffeeMug,
+            ffi::GDK_CROSS => Self::Cross,
+            ffi::GDK_CROSS_REVERSE => Self::CrossReverse,
+            ffi::GDK_CROSSHAIR => Self::Crosshair,
+            ffi::GDK_DIAMOND_CROSS => Self::DiamondCross,
+            ffi::GDK_DOT => Self::Dot,
+            ffi::GDK_DOTBOX => Self::Dotbox,
+            ffi::GDK_DOUBLE_ARROW => Self::DoubleArrow,
+            ffi::GDK_DRAFT_LARGE => Self::DraftLarge,
+            ffi::GDK_DRAFT_SMALL => Self::DraftSmall,
+            ffi::GDK_DRAPED_BOX => Self::DrapedBox,
+            ffi::GDK_EXCHANGE => Self::Exchange,
+            ffi::GDK_FLEUR => Self::Fleur,
+            ffi::GDK_GOBBLER => Self::Gobbler,
+            ffi::GDK_GUMBY => Self::Gumby,
+            ffi::GDK_HAND1 => Self::Hand1,
+            ffi::GDK_HAND2 => Self::Hand2,
+            ffi::GDK_HEART => Self::Heart,
+            ffi::GDK_ICON => Self::Icon,
+            ffi::GDK_IRON_CROSS => Self::IronCross,
+            ffi::GDK_LEFT_PTR => Self::LeftPtr,
+            ffi::GDK_LEFT_SIDE => Self::LeftSide,
+            ffi::GDK_LEFT_TEE => Self::LeftTee,
+            ffi::GDK_LEFTBUTTON => Self::Leftbutton,
+            ffi::GDK_LL_ANGLE => Self::LlAngle,
+            ffi::GDK_LR_ANGLE => Self::LrAngle,
+            ffi::GDK_MAN => Self::Man,
+            ffi::GDK_MIDDLEBUTTON => Self::Middlebutton,
+            ffi::GDK_MOUSE => Self::Mouse,
+            ffi::GDK_PENCIL => Self::Pencil,
+            ffi::GDK_PIRATE => Self::Pirate,
+            ffi::GDK_PLUS => Self::Plus,
+            ffi::GDK_QUESTION_ARROW => Self::QuestionArrow,
+            ffi::GDK_RIGHT_PTR => Self::RightPtr,
+            ffi::GDK_RIGHT_SIDE => Self::RightSide,
+            ffi::GDK_RIGHT_TEE => Self::RightTee,
+            ffi::GDK_RIGHTBUTTON => Self::Rightbutton,
+            ffi::GDK_RTL_LOGO => Self::RtlLogo,
+            ffi::GDK_SAILBOAT => Self::Sailboat,
+            ffi::GDK_SB_DOWN_ARROW => Self::SbDownArrow,
+            ffi::GDK_SB_H_DOUBLE_ARROW => Self::SbHDoubleArrow,
+            ffi::GDK_SB_LEFT_ARROW => Self::SbLeftArrow,
+            ffi::GDK_SB_RIGHT_ARROW => Self::SbRightArrow,
+            ffi::GDK_SB_UP_ARROW => Self::SbUpArrow,
+            ffi::GDK_SB_V_DOUBLE_ARROW => Self::SbVDoubleArrow,
+            ffi::GDK_SHUTTLE => Self::Shuttle,
+            ffi::GDK_SIZING => Self::Sizing,
+            ffi::GDK_SPIDER => Self::Spider,
+            ffi::GDK_SPRAYCAN => Self::Spraycan,
+            ffi::GDK_STAR => Self::Star,
+            ffi::GDK_TARGET => Self::Target,
+            ffi::GDK_TCROSS => Self::Tcross,
+            ffi::GDK_TOP_LEFT_ARROW => Self::TopLeftArrow,
+            ffi::GDK_TOP_LEFT_CORNER => Self::TopLeftCorner,
+            ffi::GDK_TOP_RIGHT_CORNER => Self::TopRightCorner,
+            ffi::GDK_TOP_SIDE => Self::TopSide,
+            ffi::GDK_TOP_TEE => Self::TopTee,
+            ffi::GDK_TREK => Self::Trek,
+            ffi::GDK_UL_ANGLE => Self::UlAngle,
+            ffi::GDK_UMBRELLA => Self::Umbrella,
+            ffi::GDK_UR_ANGLE => Self::UrAngle,
+            ffi::GDK_WATCH => Self::Watch,
+            ffi::GDK_XTERM => Self::Xterm,
+            ffi::GDK_LAST_CURSOR => Self::LastCursor,
+            ffi::GDK_BLANK_CURSOR => Self::BlankCursor,
+            ffi::GDK_CURSOR_IS_PIXMAP => Self::CursorIsPixmap,
             value => Self::__Unknown(value),
         }
     }
@@ -873,9 +873,9 @@ impl FromGlib<ffi::GdkDevicePadFeature> for DevicePadFeature {
     unsafe fn from_glib(value: ffi::GdkDevicePadFeature) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Button,
-            1 => Self::Ring,
-            2 => Self::Strip,
+            ffi::GDK_DEVICE_PAD_FEATURE_BUTTON => Self::Button,
+            ffi::GDK_DEVICE_PAD_FEATURE_RING => Self::Ring,
+            ffi::GDK_DEVICE_PAD_FEATURE_STRIP => Self::Strip,
             value => Self::__Unknown(value),
         }
     }
@@ -998,14 +998,14 @@ impl FromGlib<ffi::GdkDeviceToolType> for DeviceToolType {
     unsafe fn from_glib(value: ffi::GdkDeviceToolType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Unknown,
-            1 => Self::Pen,
-            2 => Self::Eraser,
-            3 => Self::Brush,
-            4 => Self::Pencil,
-            5 => Self::Airbrush,
-            6 => Self::Mouse,
-            7 => Self::Lens,
+            ffi::GDK_DEVICE_TOOL_TYPE_UNKNOWN => Self::Unknown,
+            ffi::GDK_DEVICE_TOOL_TYPE_PEN => Self::Pen,
+            ffi::GDK_DEVICE_TOOL_TYPE_ERASER => Self::Eraser,
+            ffi::GDK_DEVICE_TOOL_TYPE_BRUSH => Self::Brush,
+            ffi::GDK_DEVICE_TOOL_TYPE_PENCIL => Self::Pencil,
+            ffi::GDK_DEVICE_TOOL_TYPE_AIRBRUSH => Self::Airbrush,
+            ffi::GDK_DEVICE_TOOL_TYPE_MOUSE => Self::Mouse,
+            ffi::GDK_DEVICE_TOOL_TYPE_LENS => Self::Lens,
             value => Self::__Unknown(value),
         }
     }
@@ -1100,9 +1100,9 @@ impl FromGlib<ffi::GdkDeviceType> for DeviceType {
     unsafe fn from_glib(value: ffi::GdkDeviceType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Master,
-            1 => Self::Slave,
-            2 => Self::Floating,
+            ffi::GDK_DEVICE_TYPE_MASTER => Self::Master,
+            ffi::GDK_DEVICE_TYPE_SLAVE => Self::Slave,
+            ffi::GDK_DEVICE_TYPE_FLOATING => Self::Floating,
             value => Self::__Unknown(value),
         }
     }
@@ -1197,9 +1197,9 @@ impl FromGlib<ffi::GdkDragCancelReason> for DragCancelReason {
     unsafe fn from_glib(value: ffi::GdkDragCancelReason) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NoTarget,
-            1 => Self::UserCancelled,
-            2 => Self::Error,
+            ffi::GDK_DRAG_CANCEL_NO_TARGET => Self::NoTarget,
+            ffi::GDK_DRAG_CANCEL_USER_CANCELLED => Self::UserCancelled,
+            ffi::GDK_DRAG_CANCEL_ERROR => Self::Error,
             value => Self::__Unknown(value),
         }
     }
@@ -1314,14 +1314,14 @@ impl FromGlib<ffi::GdkDragProtocol> for DragProtocol {
     unsafe fn from_glib(value: ffi::GdkDragProtocol) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Motif,
-            2 => Self::Xdnd,
-            3 => Self::Rootwin,
-            4 => Self::Win32Dropfiles,
-            5 => Self::Ole2,
-            6 => Self::Local,
-            7 => Self::Wayland,
+            ffi::GDK_DRAG_PROTO_NONE => Self::None,
+            ffi::GDK_DRAG_PROTO_MOTIF => Self::Motif,
+            ffi::GDK_DRAG_PROTO_XDND => Self::Xdnd,
+            ffi::GDK_DRAG_PROTO_ROOTWIN => Self::Rootwin,
+            ffi::GDK_DRAG_PROTO_WIN32_DROPFILES => Self::Win32Dropfiles,
+            ffi::GDK_DRAG_PROTO_OLE2 => Self::Ole2,
+            ffi::GDK_DRAG_PROTO_LOCAL => Self::Local,
+            ffi::GDK_DRAG_PROTO_WAYLAND => Self::Wayland,
             value => Self::__Unknown(value),
         }
     }
@@ -1588,54 +1588,54 @@ impl FromGlib<ffi::GdkEventType> for EventType {
     unsafe fn from_glib(value: ffi::GdkEventType) -> Self {
         skip_assert_initialized!();
         match value {
-            -1 => Self::Nothing,
-            0 => Self::Delete,
-            1 => Self::Destroy,
-            2 => Self::Expose,
-            3 => Self::MotionNotify,
-            4 => Self::ButtonPress,
-            5 => Self::DoubleButtonPress,
-            6 => Self::TripleButtonPress,
-            7 => Self::ButtonRelease,
-            8 => Self::KeyPress,
-            9 => Self::KeyRelease,
-            10 => Self::EnterNotify,
-            11 => Self::LeaveNotify,
-            12 => Self::FocusChange,
-            13 => Self::Configure,
-            14 => Self::Map,
-            15 => Self::Unmap,
-            16 => Self::PropertyNotify,
-            17 => Self::SelectionClear,
-            18 => Self::SelectionRequest,
-            19 => Self::SelectionNotify,
-            20 => Self::ProximityIn,
-            21 => Self::ProximityOut,
-            22 => Self::DragEnter,
-            23 => Self::DragLeave,
-            24 => Self::DragMotion,
-            25 => Self::DragStatus,
-            26 => Self::DropStart,
-            27 => Self::DropFinished,
-            28 => Self::ClientEvent,
-            29 => Self::VisibilityNotify,
-            31 => Self::Scroll,
-            32 => Self::WindowState,
-            33 => Self::Setting,
-            34 => Self::OwnerChange,
-            35 => Self::GrabBroken,
-            36 => Self::Damage,
-            37 => Self::TouchBegin,
-            38 => Self::TouchUpdate,
-            39 => Self::TouchEnd,
-            40 => Self::TouchCancel,
-            41 => Self::TouchpadSwipe,
-            42 => Self::TouchpadPinch,
-            43 => Self::PadButtonPress,
-            44 => Self::PadButtonRelease,
-            45 => Self::PadRing,
-            46 => Self::PadStrip,
-            47 => Self::PadGroupMode,
+            ffi::GDK_NOTHING => Self::Nothing,
+            ffi::GDK_DELETE => Self::Delete,
+            ffi::GDK_DESTROY => Self::Destroy,
+            ffi::GDK_EXPOSE => Self::Expose,
+            ffi::GDK_MOTION_NOTIFY => Self::MotionNotify,
+            ffi::GDK_BUTTON_PRESS => Self::ButtonPress,
+            ffi::GDK_DOUBLE_BUTTON_PRESS => Self::DoubleButtonPress,
+            ffi::GDK_TRIPLE_BUTTON_PRESS => Self::TripleButtonPress,
+            ffi::GDK_BUTTON_RELEASE => Self::ButtonRelease,
+            ffi::GDK_KEY_PRESS => Self::KeyPress,
+            ffi::GDK_KEY_RELEASE => Self::KeyRelease,
+            ffi::GDK_ENTER_NOTIFY => Self::EnterNotify,
+            ffi::GDK_LEAVE_NOTIFY => Self::LeaveNotify,
+            ffi::GDK_FOCUS_CHANGE => Self::FocusChange,
+            ffi::GDK_CONFIGURE => Self::Configure,
+            ffi::GDK_MAP => Self::Map,
+            ffi::GDK_UNMAP => Self::Unmap,
+            ffi::GDK_PROPERTY_NOTIFY => Self::PropertyNotify,
+            ffi::GDK_SELECTION_CLEAR => Self::SelectionClear,
+            ffi::GDK_SELECTION_REQUEST => Self::SelectionRequest,
+            ffi::GDK_SELECTION_NOTIFY => Self::SelectionNotify,
+            ffi::GDK_PROXIMITY_IN => Self::ProximityIn,
+            ffi::GDK_PROXIMITY_OUT => Self::ProximityOut,
+            ffi::GDK_DRAG_ENTER => Self::DragEnter,
+            ffi::GDK_DRAG_LEAVE => Self::DragLeave,
+            ffi::GDK_DRAG_MOTION => Self::DragMotion,
+            ffi::GDK_DRAG_STATUS => Self::DragStatus,
+            ffi::GDK_DROP_START => Self::DropStart,
+            ffi::GDK_DROP_FINISHED => Self::DropFinished,
+            ffi::GDK_CLIENT_EVENT => Self::ClientEvent,
+            ffi::GDK_VISIBILITY_NOTIFY => Self::VisibilityNotify,
+            ffi::GDK_SCROLL => Self::Scroll,
+            ffi::GDK_WINDOW_STATE => Self::WindowState,
+            ffi::GDK_SETTING => Self::Setting,
+            ffi::GDK_OWNER_CHANGE => Self::OwnerChange,
+            ffi::GDK_GRAB_BROKEN => Self::GrabBroken,
+            ffi::GDK_DAMAGE => Self::Damage,
+            ffi::GDK_TOUCH_BEGIN => Self::TouchBegin,
+            ffi::GDK_TOUCH_UPDATE => Self::TouchUpdate,
+            ffi::GDK_TOUCH_END => Self::TouchEnd,
+            ffi::GDK_TOUCH_CANCEL => Self::TouchCancel,
+            ffi::GDK_TOUCHPAD_SWIPE => Self::TouchpadSwipe,
+            ffi::GDK_TOUCHPAD_PINCH => Self::TouchpadPinch,
+            ffi::GDK_PAD_BUTTON_PRESS => Self::PadButtonPress,
+            ffi::GDK_PAD_BUTTON_RELEASE => Self::PadButtonRelease,
+            ffi::GDK_PAD_RING => Self::PadRing,
+            ffi::GDK_PAD_STRIP => Self::PadStrip,
+            ffi::GDK_PAD_GROUP_MODE => Self::PadGroupMode,
             value => Self::__Unknown(value),
         }
     }
@@ -1718,8 +1718,8 @@ impl FromGlib<ffi::GdkFullscreenMode> for FullscreenMode {
     unsafe fn from_glib(value: ffi::GdkFullscreenMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::CurrentMonitor,
-            1 => Self::AllMonitors,
+            ffi::GDK_FULLSCREEN_ON_CURRENT_MONITOR => Self::CurrentMonitor,
+            ffi::GDK_FULLSCREEN_ON_ALL_MONITORS => Self::AllMonitors,
             value => Self::__Unknown(value),
         }
     }
@@ -1806,9 +1806,9 @@ impl FromGlib<ffi::GdkGLError> for GLError {
     unsafe fn from_glib(value: ffi::GdkGLError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NotAvailable,
-            1 => Self::UnsupportedFormat,
-            2 => Self::UnsupportedProfile,
+            ffi::GDK_GL_ERROR_NOT_AVAILABLE => Self::NotAvailable,
+            ffi::GDK_GL_ERROR_UNSUPPORTED_FORMAT => Self::UnsupportedFormat,
+            ffi::GDK_GL_ERROR_UNSUPPORTED_PROFILE => Self::UnsupportedProfile,
             value => Self::__Unknown(value),
         }
     }
@@ -1828,9 +1828,9 @@ impl ErrorDomain for GLError {
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(Self::NotAvailable),
-            1 => Some(Self::UnsupportedFormat),
-            2 => Some(Self::UnsupportedProfile),
+            ffi::GDK_GL_ERROR_NOT_AVAILABLE => Some(Self::NotAvailable),
+            ffi::GDK_GL_ERROR_UNSUPPORTED_FORMAT => Some(Self::UnsupportedFormat),
+            ffi::GDK_GL_ERROR_UNSUPPORTED_PROFILE => Some(Self::UnsupportedProfile),
             value => Some(Self::__Unknown(value)),
         }
     }
@@ -1917,9 +1917,9 @@ impl FromGlib<ffi::GdkGrabOwnership> for GrabOwnership {
     unsafe fn from_glib(value: ffi::GdkGrabOwnership) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Window,
-            2 => Self::Application,
+            ffi::GDK_OWNERSHIP_NONE => Self::None,
+            ffi::GDK_OWNERSHIP_WINDOW => Self::Window,
+            ffi::GDK_OWNERSHIP_APPLICATION => Self::Application,
             value => Self::__Unknown(value),
         }
     }
@@ -2018,12 +2018,12 @@ impl FromGlib<ffi::GdkGrabStatus> for GrabStatus {
     unsafe fn from_glib(value: ffi::GdkGrabStatus) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Success,
-            1 => Self::AlreadyGrabbed,
-            2 => Self::InvalidTime,
-            3 => Self::NotViewable,
-            4 => Self::Frozen,
-            5 => Self::Failed,
+            ffi::GDK_GRAB_SUCCESS => Self::Success,
+            ffi::GDK_GRAB_ALREADY_GRABBED => Self::AlreadyGrabbed,
+            ffi::GDK_GRAB_INVALID_TIME => Self::InvalidTime,
+            ffi::GDK_GRAB_NOT_VIEWABLE => Self::NotViewable,
+            ffi::GDK_GRAB_FROZEN => Self::Frozen,
+            ffi::GDK_GRAB_FAILED => Self::Failed,
             value => Self::__Unknown(value),
         }
     }
@@ -2138,16 +2138,16 @@ impl FromGlib<ffi::GdkGravity> for Gravity {
     unsafe fn from_glib(value: ffi::GdkGravity) -> Self {
         skip_assert_initialized!();
         match value {
-            1 => Self::NorthWest,
-            2 => Self::North,
-            3 => Self::NorthEast,
-            4 => Self::West,
-            5 => Self::Center,
-            6 => Self::East,
-            7 => Self::SouthWest,
-            8 => Self::South,
-            9 => Self::SouthEast,
-            10 => Self::Static,
+            ffi::GDK_GRAVITY_NORTH_WEST => Self::NorthWest,
+            ffi::GDK_GRAVITY_NORTH => Self::North,
+            ffi::GDK_GRAVITY_NORTH_EAST => Self::NorthEast,
+            ffi::GDK_GRAVITY_WEST => Self::West,
+            ffi::GDK_GRAVITY_CENTER => Self::Center,
+            ffi::GDK_GRAVITY_EAST => Self::East,
+            ffi::GDK_GRAVITY_SOUTH_WEST => Self::SouthWest,
+            ffi::GDK_GRAVITY_SOUTH => Self::South,
+            ffi::GDK_GRAVITY_SOUTH_EAST => Self::SouthEast,
+            ffi::GDK_GRAVITY_STATIC => Self::Static,
             value => Self::__Unknown(value),
         }
     }
@@ -2234,9 +2234,9 @@ impl FromGlib<ffi::GdkInputMode> for InputMode {
     unsafe fn from_glib(value: ffi::GdkInputMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Disabled,
-            1 => Self::Screen,
-            2 => Self::Window,
+            ffi::GDK_MODE_DISABLED => Self::Disabled,
+            ffi::GDK_MODE_SCREEN => Self::Screen,
+            ffi::GDK_MODE_WINDOW => Self::Window,
             value => Self::__Unknown(value),
         }
     }
@@ -2347,15 +2347,15 @@ impl FromGlib<ffi::GdkInputSource> for InputSource {
     unsafe fn from_glib(value: ffi::GdkInputSource) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Mouse,
-            1 => Self::Pen,
-            2 => Self::Eraser,
-            3 => Self::Cursor,
-            4 => Self::Keyboard,
-            5 => Self::Touchscreen,
-            6 => Self::Touchpad,
-            7 => Self::Trackpoint,
-            8 => Self::TabletPad,
+            ffi::GDK_SOURCE_MOUSE => Self::Mouse,
+            ffi::GDK_SOURCE_PEN => Self::Pen,
+            ffi::GDK_SOURCE_ERASER => Self::Eraser,
+            ffi::GDK_SOURCE_CURSOR => Self::Cursor,
+            ffi::GDK_SOURCE_KEYBOARD => Self::Keyboard,
+            ffi::GDK_SOURCE_TOUCHSCREEN => Self::Touchscreen,
+            ffi::GDK_SOURCE_TOUCHPAD => Self::Touchpad,
+            ffi::GDK_SOURCE_TRACKPOINT => Self::Trackpoint,
+            ffi::GDK_SOURCE_TABLET_PAD => Self::TabletPad,
             value => Self::__Unknown(value),
         }
     }
@@ -2458,13 +2458,13 @@ impl FromGlib<ffi::GdkModifierIntent> for ModifierIntent {
     unsafe fn from_glib(value: ffi::GdkModifierIntent) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::PrimaryAccelerator,
-            1 => Self::ContextMenu,
-            2 => Self::ExtendSelection,
-            3 => Self::ModifySelection,
-            4 => Self::NoTextInput,
-            5 => Self::ShiftGroup,
-            6 => Self::DefaultModMask,
+            ffi::GDK_MODIFIER_INTENT_PRIMARY_ACCELERATOR => Self::PrimaryAccelerator,
+            ffi::GDK_MODIFIER_INTENT_CONTEXT_MENU => Self::ContextMenu,
+            ffi::GDK_MODIFIER_INTENT_EXTEND_SELECTION => Self::ExtendSelection,
+            ffi::GDK_MODIFIER_INTENT_MODIFY_SELECTION => Self::ModifySelection,
+            ffi::GDK_MODIFIER_INTENT_NO_TEXT_INPUT => Self::NoTextInput,
+            ffi::GDK_MODIFIER_INTENT_SHIFT_GROUP => Self::ShiftGroup,
+            ffi::GDK_MODIFIER_INTENT_DEFAULT_MOD_MASK => Self::DefaultModMask,
             value => Self::__Unknown(value),
         }
     }
@@ -2563,12 +2563,12 @@ impl FromGlib<ffi::GdkNotifyType> for NotifyType {
     unsafe fn from_glib(value: ffi::GdkNotifyType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Ancestor,
-            1 => Self::Virtual,
-            2 => Self::Inferior,
-            3 => Self::Nonlinear,
-            4 => Self::NonlinearVirtual,
-            5 => Self::Unknown,
+            ffi::GDK_NOTIFY_ANCESTOR => Self::Ancestor,
+            ffi::GDK_NOTIFY_VIRTUAL => Self::Virtual,
+            ffi::GDK_NOTIFY_INFERIOR => Self::Inferior,
+            ffi::GDK_NOTIFY_NONLINEAR => Self::Nonlinear,
+            ffi::GDK_NOTIFY_NONLINEAR_VIRTUAL => Self::NonlinearVirtual,
+            ffi::GDK_NOTIFY_UNKNOWN => Self::Unknown,
             value => Self::__Unknown(value),
         }
     }
@@ -2655,9 +2655,9 @@ impl FromGlib<ffi::GdkOwnerChange> for OwnerChange {
     unsafe fn from_glib(value: ffi::GdkOwnerChange) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NewOwner,
-            1 => Self::Destroy,
-            2 => Self::Close,
+            ffi::GDK_OWNER_CHANGE_NEW_OWNER => Self::NewOwner,
+            ffi::GDK_OWNER_CHANGE_DESTROY => Self::Destroy,
+            ffi::GDK_OWNER_CHANGE_CLOSE => Self::Close,
             value => Self::__Unknown(value),
         }
     }
@@ -2744,9 +2744,9 @@ impl FromGlib<ffi::GdkPropMode> for PropMode {
     unsafe fn from_glib(value: ffi::GdkPropMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Replace,
-            1 => Self::Prepend,
-            2 => Self::Append,
+            ffi::GDK_PROP_MODE_REPLACE => Self::Replace,
+            ffi::GDK_PROP_MODE_PREPEND => Self::Prepend,
+            ffi::GDK_PROP_MODE_APPEND => Self::Append,
             value => Self::__Unknown(value),
         }
     }
@@ -2829,8 +2829,8 @@ impl FromGlib<ffi::GdkPropertyState> for PropertyState {
     unsafe fn from_glib(value: ffi::GdkPropertyState) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NewValue,
-            1 => Self::Delete,
+            ffi::GDK_PROPERTY_NEW_VALUE => Self::NewValue,
+            ffi::GDK_PROPERTY_DELETE => Self::Delete,
             value => Self::__Unknown(value),
         }
     }
@@ -2925,11 +2925,11 @@ impl FromGlib<ffi::GdkScrollDirection> for ScrollDirection {
     unsafe fn from_glib(value: ffi::GdkScrollDirection) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Up,
-            1 => Self::Down,
-            2 => Self::Left,
-            3 => Self::Right,
-            4 => Self::Smooth,
+            ffi::GDK_SCROLL_UP => Self::Up,
+            ffi::GDK_SCROLL_DOWN => Self::Down,
+            ffi::GDK_SCROLL_LEFT => Self::Left,
+            ffi::GDK_SCROLL_RIGHT => Self::Right,
+            ffi::GDK_SCROLL_SMOOTH => Self::Smooth,
             value => Self::__Unknown(value),
         }
     }
@@ -3016,9 +3016,9 @@ impl FromGlib<ffi::GdkSettingAction> for SettingAction {
     unsafe fn from_glib(value: ffi::GdkSettingAction) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::New,
-            1 => Self::Changed,
-            2 => Self::Deleted,
+            ffi::GDK_SETTING_ACTION_NEW => Self::New,
+            ffi::GDK_SETTING_ACTION_CHANGED => Self::Changed,
+            ffi::GDK_SETTING_ACTION_DELETED => Self::Deleted,
             value => Self::__Unknown(value),
         }
     }
@@ -3125,12 +3125,12 @@ impl FromGlib<ffi::GdkSubpixelLayout> for SubpixelLayout {
     unsafe fn from_glib(value: ffi::GdkSubpixelLayout) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Unknown,
-            1 => Self::None,
-            2 => Self::HorizontalRgb,
-            3 => Self::HorizontalBgr,
-            4 => Self::VerticalRgb,
-            5 => Self::VerticalBgr,
+            ffi::GDK_SUBPIXEL_LAYOUT_UNKNOWN => Self::Unknown,
+            ffi::GDK_SUBPIXEL_LAYOUT_NONE => Self::None,
+            ffi::GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB => Self::HorizontalRgb,
+            ffi::GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR => Self::HorizontalBgr,
+            ffi::GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB => Self::VerticalRgb,
+            ffi::GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR => Self::VerticalBgr,
             value => Self::__Unknown(value),
         }
     }
@@ -3225,9 +3225,9 @@ impl FromGlib<ffi::GdkVisibilityState> for VisibilityState {
     unsafe fn from_glib(value: ffi::GdkVisibilityState) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Unobscured,
-            1 => Self::Partial,
-            2 => Self::FullyObscured,
+            ffi::GDK_VISIBILITY_UNOBSCURED => Self::Unobscured,
+            ffi::GDK_VISIBILITY_PARTIAL => Self::Partial,
+            ffi::GDK_VISIBILITY_FULLY_OBSCURED => Self::FullyObscured,
             value => Self::__Unknown(value),
         }
     }
@@ -3326,12 +3326,12 @@ impl FromGlib<ffi::GdkVisualType> for VisualType {
     unsafe fn from_glib(value: ffi::GdkVisualType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::StaticGray,
-            1 => Self::Grayscale,
-            2 => Self::StaticColor,
-            3 => Self::PseudoColor,
-            4 => Self::TrueColor,
-            5 => Self::DirectColor,
+            ffi::GDK_VISUAL_STATIC_GRAY => Self::StaticGray,
+            ffi::GDK_VISUAL_GRAYSCALE => Self::Grayscale,
+            ffi::GDK_VISUAL_STATIC_COLOR => Self::StaticColor,
+            ffi::GDK_VISUAL_PSEUDO_COLOR => Self::PseudoColor,
+            ffi::GDK_VISUAL_TRUE_COLOR => Self::TrueColor,
+            ffi::GDK_VISUAL_DIRECT_COLOR => Self::DirectColor,
             value => Self::__Unknown(value),
         }
     }
@@ -3438,14 +3438,14 @@ impl FromGlib<ffi::GdkWindowEdge> for WindowEdge {
     unsafe fn from_glib(value: ffi::GdkWindowEdge) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NorthWest,
-            1 => Self::North,
-            2 => Self::NorthEast,
-            3 => Self::West,
-            4 => Self::East,
-            5 => Self::SouthWest,
-            6 => Self::South,
-            7 => Self::SouthEast,
+            ffi::GDK_WINDOW_EDGE_NORTH_WEST => Self::NorthWest,
+            ffi::GDK_WINDOW_EDGE_NORTH => Self::North,
+            ffi::GDK_WINDOW_EDGE_NORTH_EAST => Self::NorthEast,
+            ffi::GDK_WINDOW_EDGE_WEST => Self::West,
+            ffi::GDK_WINDOW_EDGE_EAST => Self::East,
+            ffi::GDK_WINDOW_EDGE_SOUTH_WEST => Self::SouthWest,
+            ffi::GDK_WINDOW_EDGE_SOUTH => Self::South,
+            ffi::GDK_WINDOW_EDGE_SOUTH_EAST => Self::SouthEast,
             value => Self::__Unknown(value),
         }
     }
@@ -3548,13 +3548,13 @@ impl FromGlib<ffi::GdkWindowType> for WindowType {
     unsafe fn from_glib(value: ffi::GdkWindowType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Root,
-            1 => Self::Toplevel,
-            2 => Self::Child,
-            3 => Self::Temp,
-            4 => Self::Foreign,
-            5 => Self::Offscreen,
-            6 => Self::Subsurface,
+            ffi::GDK_WINDOW_ROOT => Self::Root,
+            ffi::GDK_WINDOW_TOPLEVEL => Self::Toplevel,
+            ffi::GDK_WINDOW_CHILD => Self::Child,
+            ffi::GDK_WINDOW_TEMP => Self::Temp,
+            ffi::GDK_WINDOW_FOREIGN => Self::Foreign,
+            ffi::GDK_WINDOW_OFFSCREEN => Self::Offscreen,
+            ffi::GDK_WINDOW_SUBSURFACE => Self::Subsurface,
             value => Self::__Unknown(value),
         }
     }
@@ -3685,20 +3685,20 @@ impl FromGlib<ffi::GdkWindowTypeHint> for WindowTypeHint {
     unsafe fn from_glib(value: ffi::GdkWindowTypeHint) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Normal,
-            1 => Self::Dialog,
-            2 => Self::Menu,
-            3 => Self::Toolbar,
-            4 => Self::Splashscreen,
-            5 => Self::Utility,
-            6 => Self::Dock,
-            7 => Self::Desktop,
-            8 => Self::DropdownMenu,
-            9 => Self::PopupMenu,
-            10 => Self::Tooltip,
-            11 => Self::Notification,
-            12 => Self::Combo,
-            13 => Self::Dnd,
+            ffi::GDK_WINDOW_TYPE_HINT_NORMAL => Self::Normal,
+            ffi::GDK_WINDOW_TYPE_HINT_DIALOG => Self::Dialog,
+            ffi::GDK_WINDOW_TYPE_HINT_MENU => Self::Menu,
+            ffi::GDK_WINDOW_TYPE_HINT_TOOLBAR => Self::Toolbar,
+            ffi::GDK_WINDOW_TYPE_HINT_SPLASHSCREEN => Self::Splashscreen,
+            ffi::GDK_WINDOW_TYPE_HINT_UTILITY => Self::Utility,
+            ffi::GDK_WINDOW_TYPE_HINT_DOCK => Self::Dock,
+            ffi::GDK_WINDOW_TYPE_HINT_DESKTOP => Self::Desktop,
+            ffi::GDK_WINDOW_TYPE_HINT_DROPDOWN_MENU => Self::DropdownMenu,
+            ffi::GDK_WINDOW_TYPE_HINT_POPUP_MENU => Self::PopupMenu,
+            ffi::GDK_WINDOW_TYPE_HINT_TOOLTIP => Self::Tooltip,
+            ffi::GDK_WINDOW_TYPE_HINT_NOTIFICATION => Self::Notification,
+            ffi::GDK_WINDOW_TYPE_HINT_COMBO => Self::Combo,
+            ffi::GDK_WINDOW_TYPE_HINT_DND => Self::Dnd,
             value => Self::__Unknown(value),
         }
     }
@@ -3781,8 +3781,8 @@ impl FromGlib<ffi::GdkWindowWindowClass> for WindowWindowClass {
     unsafe fn from_glib(value: ffi::GdkWindowWindowClass) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::InputOutput,
-            1 => Self::InputOnly,
+            ffi::GDK_INPUT_OUTPUT => Self::InputOutput,
+            ffi::GDK_INPUT_ONLY => Self::InputOnly,
             value => Self::__Unknown(value),
         }
     }

@@ -29,6 +29,13 @@ impl CellRendererPixbuf {
         assert_initialized_main_thread!();
         unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_pixbuf_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CellRendererPixbuf`]
+    /// This method returns an instance of [`CellRendererPixbufBuilder`] which can be used to create a [`CellRendererPixbuf`].
+    pub fn builder() -> CellRendererPixbufBuilder {
+        CellRendererPixbufBuilder::default()
+    }
 }
 
 impl Default for CellRendererPixbuf {
@@ -38,6 +45,8 @@ impl Default for CellRendererPixbuf {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CellRendererPixbuf`].
 pub struct CellRendererPixbufBuilder {
     gicon: Option<gio::Icon>,
     icon_name: Option<String>,
@@ -64,10 +73,14 @@ pub struct CellRendererPixbufBuilder {
 }
 
 impl CellRendererPixbufBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CellRendererPixbufBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CellRendererPixbuf`].
     pub fn build(self) -> CellRendererPixbuf {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref gicon) = self.gicon {

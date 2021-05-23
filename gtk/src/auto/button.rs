@@ -71,6 +71,13 @@ impl Button {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Button`]
+    /// This method returns an instance of [`ButtonBuilder`] which can be used to create a [`Button`].
+    pub fn builder() -> ButtonBuilder {
+        ButtonBuilder::default()
+    }
 }
 
 impl Default for Button {
@@ -80,6 +87,8 @@ impl Default for Button {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Button`].
 pub struct ButtonBuilder {
     always_show_image: Option<bool>,
     image: Option<Widget>,
@@ -129,10 +138,14 @@ pub struct ButtonBuilder {
 }
 
 impl ButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Button`].
     pub fn build(self) -> Button {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref always_show_image) = self.always_show_image {

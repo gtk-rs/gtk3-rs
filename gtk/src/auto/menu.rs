@@ -50,6 +50,13 @@ impl Menu {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Menu`]
+    /// This method returns an instance of [`MenuBuilder`] which can be used to create a [`Menu`].
+    pub fn builder() -> MenuBuilder {
+        MenuBuilder::default()
+    }
+
     #[doc(alias = "gtk_menu_get_for_attach_widget")]
     #[doc(alias = "get_for_attach_widget")]
     pub fn for_attach_widget<P: IsA<Widget>>(widget: &P) -> Vec<Widget> {
@@ -69,6 +76,8 @@ impl Default for Menu {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Menu`].
 pub struct MenuBuilder {
     accel_group: Option<AccelGroup>,
     accel_path: Option<String>,
@@ -129,10 +138,14 @@ pub struct MenuBuilder {
 }
 
 impl MenuBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`MenuBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Menu`].
     pub fn build(self) -> Menu {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_group) = self.accel_group {

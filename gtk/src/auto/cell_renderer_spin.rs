@@ -31,6 +31,13 @@ impl CellRendererSpin {
         assert_initialized_main_thread!();
         unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_spin_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CellRendererSpin`]
+    /// This method returns an instance of [`CellRendererSpinBuilder`] which can be used to create a [`CellRendererSpin`].
+    pub fn builder() -> CellRendererSpinBuilder {
+        CellRendererSpinBuilder::default()
+    }
 }
 
 impl Default for CellRendererSpin {
@@ -40,6 +47,8 @@ impl Default for CellRendererSpin {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CellRendererSpin`].
 pub struct CellRendererSpinBuilder {
     adjustment: Option<Adjustment>,
     climb_rate: Option<f64>,
@@ -107,10 +116,14 @@ pub struct CellRendererSpinBuilder {
 }
 
 impl CellRendererSpinBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CellRendererSpinBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CellRendererSpin`].
     pub fn build(self) -> CellRendererSpin {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref adjustment) = self.adjustment {

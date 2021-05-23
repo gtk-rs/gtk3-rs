@@ -42,6 +42,13 @@ impl VolumeButton {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_volume_button_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`VolumeButton`]
+    /// This method returns an instance of [`VolumeButtonBuilder`] which can be used to create a [`VolumeButton`].
+    pub fn builder() -> VolumeButtonBuilder {
+        VolumeButtonBuilder::default()
+    }
 }
 
 impl Default for VolumeButton {
@@ -51,6 +58,8 @@ impl Default for VolumeButton {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`VolumeButton`].
 pub struct VolumeButtonBuilder {
     use_symbolic: Option<bool>,
     adjustment: Option<Adjustment>,
@@ -106,10 +115,14 @@ pub struct VolumeButtonBuilder {
 }
 
 impl VolumeButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`VolumeButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`VolumeButton`].
     pub fn build(self) -> VolumeButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref use_symbolic) = self.use_symbolic {

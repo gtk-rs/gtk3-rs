@@ -40,6 +40,13 @@ impl FontChooserWidget {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_font_chooser_widget_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FontChooserWidget`]
+    /// This method returns an instance of [`FontChooserWidgetBuilder`] which can be used to create a [`FontChooserWidget`].
+    pub fn builder() -> FontChooserWidgetBuilder {
+        FontChooserWidgetBuilder::default()
+    }
 }
 
 impl Default for FontChooserWidget {
@@ -49,6 +56,8 @@ impl Default for FontChooserWidget {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FontChooserWidget`].
 pub struct FontChooserWidgetBuilder {
     baseline_position: Option<BaselinePosition>,
     homogeneous: Option<bool>,
@@ -104,10 +113,14 @@ pub struct FontChooserWidgetBuilder {
 }
 
 impl FontChooserWidgetBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FontChooserWidgetBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FontChooserWidget`].
     pub fn build(self) -> FontChooserWidget {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref baseline_position) = self.baseline_position {

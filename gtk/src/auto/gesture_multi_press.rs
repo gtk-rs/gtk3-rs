@@ -39,6 +39,13 @@ impl GestureMultiPress {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`GestureMultiPress`]
+    /// This method returns an instance of [`GestureMultiPressBuilder`] which can be used to create a [`GestureMultiPress`].
+    pub fn builder() -> GestureMultiPressBuilder {
+        GestureMultiPressBuilder::default()
+    }
+
     #[doc(alias = "gtk_gesture_multi_press_get_area")]
     #[doc(alias = "get_area")]
     pub fn area(&self) -> Option<gdk::Rectangle> {
@@ -147,6 +154,8 @@ impl GestureMultiPress {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`GestureMultiPress`].
 pub struct GestureMultiPressBuilder {
     button: Option<u32>,
     exclusive: Option<bool>,
@@ -158,10 +167,14 @@ pub struct GestureMultiPressBuilder {
 }
 
 impl GestureMultiPressBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`GestureMultiPressBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`GestureMultiPress`].
     pub fn build(self) -> GestureMultiPress {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref button) = self.button {

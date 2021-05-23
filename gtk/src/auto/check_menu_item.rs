@@ -60,6 +60,13 @@ impl CheckMenuItem {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CheckMenuItem`]
+    /// This method returns an instance of [`CheckMenuItemBuilder`] which can be used to create a [`CheckMenuItem`].
+    pub fn builder() -> CheckMenuItemBuilder {
+        CheckMenuItemBuilder::default()
+    }
 }
 
 impl Default for CheckMenuItem {
@@ -69,6 +76,8 @@ impl Default for CheckMenuItem {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CheckMenuItem`].
 pub struct CheckMenuItemBuilder {
     active: Option<bool>,
     draw_as_radio: Option<bool>,
@@ -120,10 +129,14 @@ pub struct CheckMenuItemBuilder {
 }
 
 impl CheckMenuItemBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CheckMenuItemBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CheckMenuItem`].
     pub fn build(self) -> CheckMenuItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

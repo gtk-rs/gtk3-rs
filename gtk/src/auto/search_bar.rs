@@ -34,6 +34,13 @@ impl SearchBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_search_bar_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`SearchBar`]
+    /// This method returns an instance of [`SearchBarBuilder`] which can be used to create a [`SearchBar`].
+    pub fn builder() -> SearchBarBuilder {
+        SearchBarBuilder::default()
+    }
 }
 
 impl Default for SearchBar {
@@ -43,6 +50,8 @@ impl Default for SearchBar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`SearchBar`].
 pub struct SearchBarBuilder {
     search_mode_enabled: Option<bool>,
     show_close_button: Option<bool>,
@@ -86,10 +95,14 @@ pub struct SearchBarBuilder {
 }
 
 impl SearchBarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SearchBarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`SearchBar`].
     pub fn build(self) -> SearchBar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref search_mode_enabled) = self.search_mode_enabled {

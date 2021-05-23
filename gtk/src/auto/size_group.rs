@@ -30,19 +30,33 @@ impl SizeGroup {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_size_group_new(mode.into_glib())) }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`SizeGroup`]
+    /// This method returns an instance of [`SizeGroupBuilder`] which can be used to create a [`SizeGroup`].
+    pub fn builder() -> SizeGroupBuilder {
+        SizeGroupBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`SizeGroup`].
 pub struct SizeGroupBuilder {
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     ignore_hidden: Option<bool>,
     mode: Option<SizeGroupMode>,
 }
 
 impl SizeGroupBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SizeGroupBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`SizeGroup`].
     pub fn build(self) -> SizeGroup {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref ignore_hidden) = self.ignore_hidden {
@@ -55,6 +69,7 @@ impl SizeGroupBuilder {
             .expect("Failed to create an instance of SizeGroup")
     }
 
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     pub fn ignore_hidden(mut self, ignore_hidden: bool) -> Self {
         self.ignore_hidden = Some(ignore_hidden);
         self

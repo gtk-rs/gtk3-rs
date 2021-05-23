@@ -51,6 +51,13 @@ impl RecentChooserMenu {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`RecentChooserMenu`]
+    /// This method returns an instance of [`RecentChooserMenuBuilder`] which can be used to create a [`RecentChooserMenu`].
+    pub fn builder() -> RecentChooserMenuBuilder {
+        RecentChooserMenuBuilder::default()
+    }
 }
 
 impl Default for RecentChooserMenu {
@@ -60,6 +67,8 @@ impl Default for RecentChooserMenu {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`RecentChooserMenu`].
 pub struct RecentChooserMenuBuilder {
     show_numbers: Option<bool>,
     accel_group: Option<AccelGroup>,
@@ -131,10 +140,14 @@ pub struct RecentChooserMenuBuilder {
 }
 
 impl RecentChooserMenuBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`RecentChooserMenuBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`RecentChooserMenu`].
     pub fn build(self) -> RecentChooserMenu {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref show_numbers) = self.show_numbers {

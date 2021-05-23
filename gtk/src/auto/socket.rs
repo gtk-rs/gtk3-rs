@@ -33,6 +33,13 @@ impl Socket {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_socket_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Socket`]
+    /// This method returns an instance of [`SocketBuilder`] which can be used to create a [`Socket`].
+    pub fn builder() -> SocketBuilder {
+        SocketBuilder::default()
+    }
 }
 
 impl Default for Socket {
@@ -42,6 +49,8 @@ impl Default for Socket {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Socket`].
 pub struct SocketBuilder {
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -83,10 +92,14 @@ pub struct SocketBuilder {
 }
 
 impl SocketBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SocketBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Socket`].
     pub fn build(self) -> Socket {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref border_width) = self.border_width {

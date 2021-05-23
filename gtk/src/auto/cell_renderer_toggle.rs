@@ -30,6 +30,13 @@ impl CellRendererToggle {
         assert_initialized_main_thread!();
         unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_toggle_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CellRendererToggle`]
+    /// This method returns an instance of [`CellRendererToggleBuilder`] which can be used to create a [`CellRendererToggle`].
+    pub fn builder() -> CellRendererToggleBuilder {
+        CellRendererToggleBuilder::default()
+    }
 }
 
 impl Default for CellRendererToggle {
@@ -39,6 +46,8 @@ impl Default for CellRendererToggle {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CellRendererToggle`].
 pub struct CellRendererToggleBuilder {
     activatable: Option<bool>,
     active: Option<bool>,
@@ -62,10 +71,14 @@ pub struct CellRendererToggleBuilder {
 }
 
 impl CellRendererToggleBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CellRendererToggleBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CellRendererToggle`].
     pub fn build(self) -> CellRendererToggle {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activatable) = self.activatable {

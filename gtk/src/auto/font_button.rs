@@ -53,6 +53,13 @@ impl FontButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FontButton`]
+    /// This method returns an instance of [`FontButtonBuilder`] which can be used to create a [`FontButton`].
+    pub fn builder() -> FontButtonBuilder {
+        FontButtonBuilder::default()
+    }
 }
 
 impl Default for FontButton {
@@ -62,7 +69,10 @@ impl Default for FontButton {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FontButton`].
 pub struct FontButtonBuilder {
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     font_name: Option<String>,
     show_size: Option<bool>,
     show_style: Option<bool>,
@@ -127,10 +137,14 @@ pub struct FontButtonBuilder {
 }
 
 impl FontButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FontButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FontButton`].
     pub fn build(self) -> FontButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref font_name) = self.font_name {
@@ -305,6 +319,7 @@ impl FontButtonBuilder {
             .expect("Failed to create an instance of FontButton")
     }
 
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     pub fn font_name(mut self, font_name: &str) -> Self {
         self.font_name = Some(font_name.to_string());
         self

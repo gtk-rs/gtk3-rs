@@ -39,9 +39,18 @@ impl ButtonBox {
             Widget::from_glib_none(ffi::gtk_button_box_new(orientation.into_glib())).unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ButtonBox`]
+    /// This method returns an instance of [`ButtonBoxBuilder`] which can be used to create a [`ButtonBox`].
+    pub fn builder() -> ButtonBoxBuilder {
+        ButtonBoxBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ButtonBox`].
 pub struct ButtonBoxBuilder {
     layout_style: Option<ButtonBoxStyle>,
     baseline_position: Option<BaselinePosition>,
@@ -88,10 +97,14 @@ pub struct ButtonBoxBuilder {
 }
 
 impl ButtonBoxBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ButtonBoxBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ButtonBox`].
     pub fn build(self) -> ButtonBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref layout_style) = self.layout_style {

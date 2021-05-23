@@ -33,6 +33,13 @@ impl OffscreenWindow {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_offscreen_window_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`OffscreenWindow`]
+    /// This method returns an instance of [`OffscreenWindowBuilder`] which can be used to create a [`OffscreenWindow`].
+    pub fn builder() -> OffscreenWindowBuilder {
+        OffscreenWindowBuilder::default()
+    }
 }
 
 impl Default for OffscreenWindow {
@@ -42,6 +49,8 @@ impl Default for OffscreenWindow {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`OffscreenWindow`].
 pub struct OffscreenWindowBuilder {
     accept_focus: Option<bool>,
     application: Option<Application>,
@@ -111,10 +120,14 @@ pub struct OffscreenWindowBuilder {
 }
 
 impl OffscreenWindowBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`OffscreenWindowBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`OffscreenWindow`].
     pub fn build(self) -> OffscreenWindow {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accept_focus) = self.accept_focus {

@@ -46,15 +46,25 @@ impl Expander {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Expander`]
+    /// This method returns an instance of [`ExpanderBuilder`] which can be used to create a [`Expander`].
+    pub fn builder() -> ExpanderBuilder {
+        ExpanderBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Expander`].
 pub struct ExpanderBuilder {
     expanded: Option<bool>,
     label: Option<String>,
     label_fill: Option<bool>,
     label_widget: Option<Widget>,
     resize_toplevel: Option<bool>,
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     spacing: Option<i32>,
     use_markup: Option<bool>,
     use_underline: Option<bool>,
@@ -98,10 +108,14 @@ pub struct ExpanderBuilder {
 }
 
 impl ExpanderBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ExpanderBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Expander`].
     pub fn build(self) -> Expander {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref expanded) = self.expanded {
@@ -263,6 +277,7 @@ impl ExpanderBuilder {
         self
     }
 
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     pub fn spacing(mut self, spacing: i32) -> Self {
         self.spacing = Some(spacing);
         self

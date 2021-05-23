@@ -48,6 +48,13 @@ impl RecentChooserWidget {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`RecentChooserWidget`]
+    /// This method returns an instance of [`RecentChooserWidgetBuilder`] which can be used to create a [`RecentChooserWidget`].
+    pub fn builder() -> RecentChooserWidgetBuilder {
+        RecentChooserWidgetBuilder::default()
+    }
 }
 
 impl Default for RecentChooserWidget {
@@ -57,6 +64,8 @@ impl Default for RecentChooserWidget {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`RecentChooserWidget`].
 pub struct RecentChooserWidgetBuilder {
     baseline_position: Option<BaselinePosition>,
     homogeneous: Option<bool>,
@@ -112,10 +121,14 @@ pub struct RecentChooserWidgetBuilder {
 }
 
 impl RecentChooserWidgetBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`RecentChooserWidgetBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`RecentChooserWidget`].
     pub fn build(self) -> RecentChooserWidget {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref baseline_position) = self.baseline_position {

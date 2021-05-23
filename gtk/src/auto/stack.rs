@@ -33,6 +33,13 @@ impl Stack {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_stack_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Stack`]
+    /// This method returns an instance of [`StackBuilder`] which can be used to create a [`Stack`].
+    pub fn builder() -> StackBuilder {
+        StackBuilder::default()
+    }
 }
 
 impl Default for Stack {
@@ -42,6 +49,8 @@ impl Default for Stack {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Stack`].
 pub struct StackBuilder {
     hhomogeneous: Option<bool>,
     homogeneous: Option<bool>,
@@ -91,10 +100,14 @@ pub struct StackBuilder {
 }
 
 impl StackBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`StackBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Stack`].
     pub fn build(self) -> Stack {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref hhomogeneous) = self.hhomogeneous {

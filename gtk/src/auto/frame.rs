@@ -35,9 +35,18 @@ impl Frame {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_frame_new(label.to_glib_none().0)).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Frame`]
+    /// This method returns an instance of [`FrameBuilder`] which can be used to create a [`Frame`].
+    pub fn builder() -> FrameBuilder {
+        FrameBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Frame`].
 pub struct FrameBuilder {
     label: Option<String>,
     label_widget: Option<Widget>,
@@ -84,10 +93,14 @@ pub struct FrameBuilder {
 }
 
 impl FrameBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FrameBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Frame`].
     pub fn build(self) -> Frame {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref label) = self.label {

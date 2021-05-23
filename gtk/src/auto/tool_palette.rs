@@ -46,6 +46,13 @@ impl ToolPalette {
         unsafe { Widget::from_glib_none(ffi::gtk_tool_palette_new()).unsafe_cast() }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ToolPalette`]
+    /// This method returns an instance of [`ToolPaletteBuilder`] which can be used to create a [`ToolPalette`].
+    pub fn builder() -> ToolPaletteBuilder {
+        ToolPaletteBuilder::default()
+    }
+
     #[doc(alias = "gtk_tool_palette_get_drag_target_group")]
     #[doc(alias = "get_drag_target_group")]
     pub fn drag_target_group() -> Option<TargetEntry> {
@@ -68,6 +75,8 @@ impl Default for ToolPalette {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ToolPalette`].
 pub struct ToolPaletteBuilder {
     icon_size: Option<IconSize>,
     icon_size_set: Option<bool>,
@@ -117,10 +126,14 @@ pub struct ToolPaletteBuilder {
 }
 
 impl ToolPaletteBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ToolPaletteBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ToolPalette`].
     pub fn build(self) -> ToolPalette {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref icon_size) = self.icon_size {

@@ -36,6 +36,13 @@ impl GestureZoom {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`GestureZoom`]
+    /// This method returns an instance of [`GestureZoomBuilder`] which can be used to create a [`GestureZoom`].
+    pub fn builder() -> GestureZoomBuilder {
+        GestureZoomBuilder::default()
+    }
+
     #[doc(alias = "gtk_gesture_zoom_get_scale_delta")]
     #[doc(alias = "get_scale_delta")]
     pub fn scale_delta(&self) -> f64 {
@@ -70,6 +77,8 @@ impl GestureZoom {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`GestureZoom`].
 pub struct GestureZoomBuilder {
     n_points: Option<u32>,
     window: Option<gdk::Window>,
@@ -78,10 +87,14 @@ pub struct GestureZoomBuilder {
 }
 
 impl GestureZoomBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`GestureZoomBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`GestureZoom`].
     pub fn build(self) -> GestureZoom {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref n_points) = self.n_points {

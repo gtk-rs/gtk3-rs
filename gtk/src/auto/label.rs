@@ -47,9 +47,18 @@ impl Label {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Label`]
+    /// This method returns an instance of [`LabelBuilder`] which can be used to create a [`Label`].
+    pub fn builder() -> LabelBuilder {
+        LabelBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Label`].
 pub struct LabelBuilder {
     angle: Option<f64>,
     attributes: Option<pango::AttrList>,
@@ -107,10 +116,14 @@ pub struct LabelBuilder {
 }
 
 impl LabelBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`LabelBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Label`].
     pub fn build(self) -> Label {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref angle) = self.angle {

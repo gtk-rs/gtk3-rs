@@ -45,9 +45,18 @@ impl Layout {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Layout`]
+    /// This method returns an instance of [`LayoutBuilder`] which can be used to create a [`Layout`].
+    pub fn builder() -> LayoutBuilder {
+        LayoutBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Layout`].
 pub struct LayoutBuilder {
     height: Option<u32>,
     width: Option<u32>,
@@ -95,10 +104,14 @@ pub struct LayoutBuilder {
 }
 
 impl LayoutBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`LayoutBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Layout`].
     pub fn build(self) -> Layout {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref height) = self.height {

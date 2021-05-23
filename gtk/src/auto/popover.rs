@@ -58,9 +58,18 @@ impl Popover {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Popover`]
+    /// This method returns an instance of [`PopoverBuilder`] which can be used to create a [`Popover`].
+    pub fn builder() -> PopoverBuilder {
+        PopoverBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Popover`].
 pub struct PopoverBuilder {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -69,6 +78,7 @@ pub struct PopoverBuilder {
     pointing_to: Option<gdk::Rectangle>,
     position: Option<PositionType>,
     relative_to: Option<Widget>,
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     transitions_enabled: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -110,10 +120,14 @@ pub struct PopoverBuilder {
 }
 
 impl PopoverBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`PopoverBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Popover`].
     pub fn build(self) -> Popover {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -271,6 +285,7 @@ impl PopoverBuilder {
         self
     }
 
+    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     pub fn transitions_enabled(mut self, transitions_enabled: bool) -> Self {
         self.transitions_enabled = Some(transitions_enabled);
         self

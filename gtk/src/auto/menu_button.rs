@@ -41,6 +41,13 @@ impl MenuButton {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_menu_button_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`MenuButton`]
+    /// This method returns an instance of [`MenuButtonBuilder`] which can be used to create a [`MenuButton`].
+    pub fn builder() -> MenuButtonBuilder {
+        MenuButtonBuilder::default()
+    }
 }
 
 impl Default for MenuButton {
@@ -50,6 +57,8 @@ impl Default for MenuButton {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`MenuButton`].
 pub struct MenuButtonBuilder {
     align_widget: Option<Container>,
     direction: Option<ArrowType>,
@@ -108,10 +117,14 @@ pub struct MenuButtonBuilder {
 }
 
 impl MenuButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`MenuButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`MenuButton`].
     pub fn build(self) -> MenuButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref align_widget) = self.align_widget {

@@ -37,6 +37,13 @@ impl ColorChooserWidget {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_color_chooser_widget_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ColorChooserWidget`]
+    /// This method returns an instance of [`ColorChooserWidgetBuilder`] which can be used to create a [`ColorChooserWidget`].
+    pub fn builder() -> ColorChooserWidgetBuilder {
+        ColorChooserWidgetBuilder::default()
+    }
 }
 
 impl Default for ColorChooserWidget {
@@ -46,6 +53,8 @@ impl Default for ColorChooserWidget {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ColorChooserWidget`].
 pub struct ColorChooserWidgetBuilder {
     show_editor: Option<bool>,
     baseline_position: Option<BaselinePosition>,
@@ -94,10 +103,14 @@ pub struct ColorChooserWidgetBuilder {
 }
 
 impl ColorChooserWidgetBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ColorChooserWidgetBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ColorChooserWidget`].
     pub fn build(self) -> ColorChooserWidget {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref show_editor) = self.show_editor {

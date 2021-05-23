@@ -58,9 +58,18 @@ impl FileChooserButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FileChooserButton`]
+    /// This method returns an instance of [`FileChooserButtonBuilder`] which can be used to create a [`FileChooserButton`].
+    pub fn builder() -> FileChooserButtonBuilder {
+        FileChooserButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FileChooserButton`].
 pub struct FileChooserButtonBuilder {
     dialog: Option<FileChooser>,
     title: Option<String>,
@@ -120,10 +129,14 @@ pub struct FileChooserButtonBuilder {
 }
 
 impl FileChooserButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FileChooserButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FileChooserButton`].
     pub fn build(self) -> FileChooserButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref dialog) = self.dialog {

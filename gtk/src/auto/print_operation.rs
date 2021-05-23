@@ -38,6 +38,13 @@ impl PrintOperation {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_print_operation_new()) }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`PrintOperation`]
+    /// This method returns an instance of [`PrintOperationBuilder`] which can be used to create a [`PrintOperation`].
+    pub fn builder() -> PrintOperationBuilder {
+        PrintOperationBuilder::default()
+    }
 }
 
 impl Default for PrintOperation {
@@ -47,6 +54,8 @@ impl Default for PrintOperation {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`PrintOperation`].
 pub struct PrintOperationBuilder {
     allow_async: Option<bool>,
     current_page: Option<i32>,
@@ -66,10 +75,14 @@ pub struct PrintOperationBuilder {
 }
 
 impl PrintOperationBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`PrintOperationBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`PrintOperation`].
     pub fn build(self) -> PrintOperation {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref allow_async) = self.allow_async {

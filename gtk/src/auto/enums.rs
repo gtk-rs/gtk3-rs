@@ -68,11 +68,11 @@ impl FromGlib<ffi::GtkAlign> for Align {
     unsafe fn from_glib(value: ffi::GtkAlign) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Fill,
-            1 => Self::Start,
-            2 => Self::End,
-            3 => Self::Center,
-            4 => Self::Baseline,
+            ffi::GTK_ALIGN_FILL => Self::Fill,
+            ffi::GTK_ALIGN_START => Self::Start,
+            ffi::GTK_ALIGN_END => Self::End,
+            ffi::GTK_ALIGN_CENTER => Self::Center,
+            ffi::GTK_ALIGN_BASELINE => Self::Baseline,
             value => Self::__Unknown(value),
         }
     }
@@ -167,11 +167,11 @@ impl FromGlib<ffi::GtkArrowType> for ArrowType {
     unsafe fn from_glib(value: ffi::GtkArrowType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Up,
-            1 => Self::Down,
-            2 => Self::Left,
-            3 => Self::Right,
-            4 => Self::None,
+            ffi::GTK_ARROW_UP => Self::Up,
+            ffi::GTK_ARROW_DOWN => Self::Down,
+            ffi::GTK_ARROW_LEFT => Self::Left,
+            ffi::GTK_ARROW_RIGHT => Self::Right,
+            ffi::GTK_ARROW_NONE => Self::None,
             value => Self::__Unknown(value),
         }
     }
@@ -270,12 +270,12 @@ impl FromGlib<ffi::GtkAssistantPageType> for AssistantPageType {
     unsafe fn from_glib(value: ffi::GtkAssistantPageType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Content,
-            1 => Self::Intro,
-            2 => Self::Confirm,
-            3 => Self::Summary,
-            4 => Self::Progress,
-            5 => Self::Custom,
+            ffi::GTK_ASSISTANT_PAGE_CONTENT => Self::Content,
+            ffi::GTK_ASSISTANT_PAGE_INTRO => Self::Intro,
+            ffi::GTK_ASSISTANT_PAGE_CONFIRM => Self::Confirm,
+            ffi::GTK_ASSISTANT_PAGE_SUMMARY => Self::Summary,
+            ffi::GTK_ASSISTANT_PAGE_PROGRESS => Self::Progress,
+            ffi::GTK_ASSISTANT_PAGE_CUSTOM => Self::Custom,
             value => Self::__Unknown(value),
         }
     }
@@ -362,9 +362,9 @@ impl FromGlib<ffi::GtkBaselinePosition> for BaselinePosition {
     unsafe fn from_glib(value: ffi::GtkBaselinePosition) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Top,
-            1 => Self::Center,
-            2 => Self::Bottom,
+            ffi::GTK_BASELINE_POSITION_TOP => Self::Top,
+            ffi::GTK_BASELINE_POSITION_CENTER => Self::Center,
+            ffi::GTK_BASELINE_POSITION_BOTTOM => Self::Bottom,
             value => Self::__Unknown(value),
         }
     }
@@ -479,16 +479,16 @@ impl FromGlib<ffi::GtkBorderStyle> for BorderStyle {
     unsafe fn from_glib(value: ffi::GtkBorderStyle) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Solid,
-            2 => Self::Inset,
-            3 => Self::Outset,
-            4 => Self::Hidden,
-            5 => Self::Dotted,
-            6 => Self::Dashed,
-            7 => Self::Double,
-            8 => Self::Groove,
-            9 => Self::Ridge,
+            ffi::GTK_BORDER_STYLE_NONE => Self::None,
+            ffi::GTK_BORDER_STYLE_SOLID => Self::Solid,
+            ffi::GTK_BORDER_STYLE_INSET => Self::Inset,
+            ffi::GTK_BORDER_STYLE_OUTSET => Self::Outset,
+            ffi::GTK_BORDER_STYLE_HIDDEN => Self::Hidden,
+            ffi::GTK_BORDER_STYLE_DOTTED => Self::Dotted,
+            ffi::GTK_BORDER_STYLE_DASHED => Self::Dashed,
+            ffi::GTK_BORDER_STYLE_DOUBLE => Self::Double,
+            ffi::GTK_BORDER_STYLE_GROOVE => Self::Groove,
+            ffi::GTK_BORDER_STYLE_RIDGE => Self::Ridge,
             value => Self::__Unknown(value),
         }
     }
@@ -619,20 +619,20 @@ impl FromGlib<ffi::GtkBuilderError> for BuilderError {
     unsafe fn from_glib(value: ffi::GtkBuilderError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::InvalidTypeFunction,
-            1 => Self::UnhandledTag,
-            2 => Self::MissingAttribute,
-            3 => Self::InvalidAttribute,
-            4 => Self::InvalidTag,
-            5 => Self::MissingPropertyValue,
-            6 => Self::InvalidValue,
-            7 => Self::VersionMismatch,
-            8 => Self::DuplicateId,
-            9 => Self::ObjectTypeRefused,
-            10 => Self::TemplateMismatch,
-            11 => Self::InvalidProperty,
-            12 => Self::InvalidSignal,
-            13 => Self::InvalidId,
+            ffi::GTK_BUILDER_ERROR_INVALID_TYPE_FUNCTION => Self::InvalidTypeFunction,
+            ffi::GTK_BUILDER_ERROR_UNHANDLED_TAG => Self::UnhandledTag,
+            ffi::GTK_BUILDER_ERROR_MISSING_ATTRIBUTE => Self::MissingAttribute,
+            ffi::GTK_BUILDER_ERROR_INVALID_ATTRIBUTE => Self::InvalidAttribute,
+            ffi::GTK_BUILDER_ERROR_INVALID_TAG => Self::InvalidTag,
+            ffi::GTK_BUILDER_ERROR_MISSING_PROPERTY_VALUE => Self::MissingPropertyValue,
+            ffi::GTK_BUILDER_ERROR_INVALID_VALUE => Self::InvalidValue,
+            ffi::GTK_BUILDER_ERROR_VERSION_MISMATCH => Self::VersionMismatch,
+            ffi::GTK_BUILDER_ERROR_DUPLICATE_ID => Self::DuplicateId,
+            ffi::GTK_BUILDER_ERROR_OBJECT_TYPE_REFUSED => Self::ObjectTypeRefused,
+            ffi::GTK_BUILDER_ERROR_TEMPLATE_MISMATCH => Self::TemplateMismatch,
+            ffi::GTK_BUILDER_ERROR_INVALID_PROPERTY => Self::InvalidProperty,
+            ffi::GTK_BUILDER_ERROR_INVALID_SIGNAL => Self::InvalidSignal,
+            ffi::GTK_BUILDER_ERROR_INVALID_ID => Self::InvalidId,
             value => Self::__Unknown(value),
         }
     }
@@ -652,20 +652,20 @@ impl ErrorDomain for BuilderError {
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(Self::InvalidTypeFunction),
-            1 => Some(Self::UnhandledTag),
-            2 => Some(Self::MissingAttribute),
-            3 => Some(Self::InvalidAttribute),
-            4 => Some(Self::InvalidTag),
-            5 => Some(Self::MissingPropertyValue),
-            6 => Some(Self::InvalidValue),
-            7 => Some(Self::VersionMismatch),
-            8 => Some(Self::DuplicateId),
-            9 => Some(Self::ObjectTypeRefused),
-            10 => Some(Self::TemplateMismatch),
-            11 => Some(Self::InvalidProperty),
-            12 => Some(Self::InvalidSignal),
-            13 => Some(Self::InvalidId),
+            ffi::GTK_BUILDER_ERROR_INVALID_TYPE_FUNCTION => Some(Self::InvalidTypeFunction),
+            ffi::GTK_BUILDER_ERROR_UNHANDLED_TAG => Some(Self::UnhandledTag),
+            ffi::GTK_BUILDER_ERROR_MISSING_ATTRIBUTE => Some(Self::MissingAttribute),
+            ffi::GTK_BUILDER_ERROR_INVALID_ATTRIBUTE => Some(Self::InvalidAttribute),
+            ffi::GTK_BUILDER_ERROR_INVALID_TAG => Some(Self::InvalidTag),
+            ffi::GTK_BUILDER_ERROR_MISSING_PROPERTY_VALUE => Some(Self::MissingPropertyValue),
+            ffi::GTK_BUILDER_ERROR_INVALID_VALUE => Some(Self::InvalidValue),
+            ffi::GTK_BUILDER_ERROR_VERSION_MISMATCH => Some(Self::VersionMismatch),
+            ffi::GTK_BUILDER_ERROR_DUPLICATE_ID => Some(Self::DuplicateId),
+            ffi::GTK_BUILDER_ERROR_OBJECT_TYPE_REFUSED => Some(Self::ObjectTypeRefused),
+            ffi::GTK_BUILDER_ERROR_TEMPLATE_MISMATCH => Some(Self::TemplateMismatch),
+            ffi::GTK_BUILDER_ERROR_INVALID_PROPERTY => Some(Self::InvalidProperty),
+            ffi::GTK_BUILDER_ERROR_INVALID_SIGNAL => Some(Self::InvalidSignal),
+            ffi::GTK_BUILDER_ERROR_INVALID_ID => Some(Self::InvalidId),
             value => Some(Self::__Unknown(value)),
         }
     }
@@ -764,12 +764,12 @@ impl FromGlib<ffi::GtkButtonBoxStyle> for ButtonBoxStyle {
     unsafe fn from_glib(value: ffi::GtkButtonBoxStyle) -> Self {
         skip_assert_initialized!();
         match value {
-            1 => Self::Spread,
-            2 => Self::Edge,
-            3 => Self::Start,
-            4 => Self::End,
-            5 => Self::Center,
-            6 => Self::Expand,
+            ffi::GTK_BUTTONBOX_SPREAD => Self::Spread,
+            ffi::GTK_BUTTONBOX_EDGE => Self::Edge,
+            ffi::GTK_BUTTONBOX_START => Self::Start,
+            ffi::GTK_BUTTONBOX_END => Self::End,
+            ffi::GTK_BUTTONBOX_CENTER => Self::Center,
+            ffi::GTK_BUTTONBOX_EXPAND => Self::Expand,
             value => Self::__Unknown(value),
         }
     }
@@ -856,9 +856,9 @@ impl FromGlib<ffi::GtkButtonRole> for ButtonRole {
     unsafe fn from_glib(value: ffi::GtkButtonRole) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Normal,
-            1 => Self::Check,
-            2 => Self::Radio,
+            ffi::GTK_BUTTON_ROLE_NORMAL => Self::Normal,
+            ffi::GTK_BUTTON_ROLE_CHECK => Self::Check,
+            ffi::GTK_BUTTON_ROLE_RADIO => Self::Radio,
             value => Self::__Unknown(value),
         }
     }
@@ -957,12 +957,12 @@ impl FromGlib<ffi::GtkButtonsType> for ButtonsType {
     unsafe fn from_glib(value: ffi::GtkButtonsType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Ok,
-            2 => Self::Close,
-            3 => Self::Cancel,
-            4 => Self::YesNo,
-            5 => Self::OkCancel,
+            ffi::GTK_BUTTONS_NONE => Self::None,
+            ffi::GTK_BUTTONS_OK => Self::Ok,
+            ffi::GTK_BUTTONS_CLOSE => Self::Close,
+            ffi::GTK_BUTTONS_CANCEL => Self::Cancel,
+            ffi::GTK_BUTTONS_YES_NO => Self::YesNo,
+            ffi::GTK_BUTTONS_OK_CANCEL => Self::OkCancel,
             value => Self::__Unknown(value),
         }
     }
@@ -1049,9 +1049,9 @@ impl FromGlib<ffi::GtkCellRendererAccelMode> for CellRendererAccelMode {
     unsafe fn from_glib(value: ffi::GtkCellRendererAccelMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Gtk,
-            1 => Self::Other,
-            2 => Self::ModifierTap,
+            ffi::GTK_CELL_RENDERER_ACCEL_MODE_GTK => Self::Gtk,
+            ffi::GTK_CELL_RENDERER_ACCEL_MODE_OTHER => Self::Other,
+            ffi::GTK_CELL_RENDERER_ACCEL_MODE_MODIFIER_TAP => Self::ModifierTap,
             value => Self::__Unknown(value),
         }
     }
@@ -1138,9 +1138,9 @@ impl FromGlib<ffi::GtkCellRendererMode> for CellRendererMode {
     unsafe fn from_glib(value: ffi::GtkCellRendererMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Inert,
-            1 => Self::Activatable,
-            2 => Self::Editable,
+            ffi::GTK_CELL_RENDERER_MODE_INERT => Self::Inert,
+            ffi::GTK_CELL_RENDERER_MODE_ACTIVATABLE => Self::Activatable,
+            ffi::GTK_CELL_RENDERER_MODE_EDITABLE => Self::Editable,
             value => Self::__Unknown(value),
         }
     }
@@ -1231,10 +1231,10 @@ impl FromGlib<ffi::GtkCornerType> for CornerType {
     unsafe fn from_glib(value: ffi::GtkCornerType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::TopLeft,
-            1 => Self::BottomLeft,
-            2 => Self::TopRight,
-            3 => Self::BottomRight,
+            ffi::GTK_CORNER_TOP_LEFT => Self::TopLeft,
+            ffi::GTK_CORNER_BOTTOM_LEFT => Self::BottomLeft,
+            ffi::GTK_CORNER_TOP_RIGHT => Self::TopRight,
+            ffi::GTK_CORNER_BOTTOM_RIGHT => Self::BottomRight,
             value => Self::__Unknown(value),
         }
     }
@@ -1333,12 +1333,12 @@ impl FromGlib<ffi::GtkCssProviderError> for CssProviderError {
     unsafe fn from_glib(value: ffi::GtkCssProviderError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Failed,
-            1 => Self::Syntax,
-            2 => Self::Import,
-            3 => Self::Name,
-            4 => Self::Deprecated,
-            5 => Self::UnknownValue,
+            ffi::GTK_CSS_PROVIDER_ERROR_FAILED => Self::Failed,
+            ffi::GTK_CSS_PROVIDER_ERROR_SYNTAX => Self::Syntax,
+            ffi::GTK_CSS_PROVIDER_ERROR_IMPORT => Self::Import,
+            ffi::GTK_CSS_PROVIDER_ERROR_NAME => Self::Name,
+            ffi::GTK_CSS_PROVIDER_ERROR_DEPRECATED => Self::Deprecated,
+            ffi::GTK_CSS_PROVIDER_ERROR_UNKNOWN_VALUE => Self::UnknownValue,
             value => Self::__Unknown(value),
         }
     }
@@ -1358,12 +1358,12 @@ impl ErrorDomain for CssProviderError {
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(Self::Failed),
-            1 => Some(Self::Syntax),
-            2 => Some(Self::Import),
-            3 => Some(Self::Name),
-            4 => Some(Self::Deprecated),
-            5 => Some(Self::UnknownValue),
+            ffi::GTK_CSS_PROVIDER_ERROR_FAILED => Some(Self::Failed),
+            ffi::GTK_CSS_PROVIDER_ERROR_SYNTAX => Some(Self::Syntax),
+            ffi::GTK_CSS_PROVIDER_ERROR_IMPORT => Some(Self::Import),
+            ffi::GTK_CSS_PROVIDER_ERROR_NAME => Some(Self::Name),
+            ffi::GTK_CSS_PROVIDER_ERROR_DEPRECATED => Some(Self::Deprecated),
+            ffi::GTK_CSS_PROVIDER_ERROR_UNKNOWN_VALUE => Some(Self::UnknownValue),
             _ => Some(Self::Failed),
         }
     }
@@ -1474,15 +1474,15 @@ impl FromGlib<ffi::GtkCssSectionType> for CssSectionType {
     unsafe fn from_glib(value: ffi::GtkCssSectionType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Document,
-            1 => Self::Import,
-            2 => Self::ColorDefinition,
-            3 => Self::BindingSet,
-            4 => Self::Ruleset,
-            5 => Self::Selector,
-            6 => Self::Declaration,
-            7 => Self::Value,
-            8 => Self::Keyframes,
+            ffi::GTK_CSS_SECTION_DOCUMENT => Self::Document,
+            ffi::GTK_CSS_SECTION_IMPORT => Self::Import,
+            ffi::GTK_CSS_SECTION_COLOR_DEFINITION => Self::ColorDefinition,
+            ffi::GTK_CSS_SECTION_BINDING_SET => Self::BindingSet,
+            ffi::GTK_CSS_SECTION_RULESET => Self::Ruleset,
+            ffi::GTK_CSS_SECTION_SELECTOR => Self::Selector,
+            ffi::GTK_CSS_SECTION_DECLARATION => Self::Declaration,
+            ffi::GTK_CSS_SECTION_VALUE => Self::Value,
+            ffi::GTK_CSS_SECTION_KEYFRAMES => Self::Keyframes,
             value => Self::__Unknown(value),
         }
     }
@@ -1589,14 +1589,14 @@ impl FromGlib<ffi::GtkDeleteType> for DeleteType {
     unsafe fn from_glib(value: ffi::GtkDeleteType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Chars,
-            1 => Self::WordEnds,
-            2 => Self::Words,
-            3 => Self::DisplayLines,
-            4 => Self::DisplayLineEnds,
-            5 => Self::ParagraphEnds,
-            6 => Self::Paragraphs,
-            7 => Self::Whitespace,
+            ffi::GTK_DELETE_CHARS => Self::Chars,
+            ffi::GTK_DELETE_WORD_ENDS => Self::WordEnds,
+            ffi::GTK_DELETE_WORDS => Self::Words,
+            ffi::GTK_DELETE_DISPLAY_LINES => Self::DisplayLines,
+            ffi::GTK_DELETE_DISPLAY_LINE_ENDS => Self::DisplayLineEnds,
+            ffi::GTK_DELETE_PARAGRAPH_ENDS => Self::ParagraphEnds,
+            ffi::GTK_DELETE_PARAGRAPHS => Self::Paragraphs,
+            ffi::GTK_DELETE_WHITESPACE => Self::Whitespace,
             value => Self::__Unknown(value),
         }
     }
@@ -1695,12 +1695,12 @@ impl FromGlib<ffi::GtkDirectionType> for DirectionType {
     unsafe fn from_glib(value: ffi::GtkDirectionType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::TabForward,
-            1 => Self::TabBackward,
-            2 => Self::Up,
-            3 => Self::Down,
-            4 => Self::Left,
-            5 => Self::Right,
+            ffi::GTK_DIR_TAB_FORWARD => Self::TabForward,
+            ffi::GTK_DIR_TAB_BACKWARD => Self::TabBackward,
+            ffi::GTK_DIR_UP => Self::Up,
+            ffi::GTK_DIR_DOWN => Self::Down,
+            ffi::GTK_DIR_LEFT => Self::Left,
+            ffi::GTK_DIR_RIGHT => Self::Right,
             value => Self::__Unknown(value),
         }
     }
@@ -1799,12 +1799,12 @@ impl FromGlib<ffi::GtkDragResult> for DragResult {
     unsafe fn from_glib(value: ffi::GtkDragResult) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Success,
-            1 => Self::NoTarget,
-            2 => Self::UserCancelled,
-            3 => Self::TimeoutExpired,
-            4 => Self::GrabBroken,
-            5 => Self::Error,
+            ffi::GTK_DRAG_RESULT_SUCCESS => Self::Success,
+            ffi::GTK_DRAG_RESULT_NO_TARGET => Self::NoTarget,
+            ffi::GTK_DRAG_RESULT_USER_CANCELLED => Self::UserCancelled,
+            ffi::GTK_DRAG_RESULT_TIMEOUT_EXPIRED => Self::TimeoutExpired,
+            ffi::GTK_DRAG_RESULT_GRAB_BROKEN => Self::GrabBroken,
+            ffi::GTK_DRAG_RESULT_ERROR => Self::Error,
             value => Self::__Unknown(value),
         }
     }
@@ -1887,8 +1887,8 @@ impl FromGlib<ffi::GtkEntryIconPosition> for EntryIconPosition {
     unsafe fn from_glib(value: ffi::GtkEntryIconPosition) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Primary,
-            1 => Self::Secondary,
+            ffi::GTK_ENTRY_ICON_PRIMARY => Self::Primary,
+            ffi::GTK_ENTRY_ICON_SECONDARY => Self::Secondary,
             value => Self::__Unknown(value),
         }
     }
@@ -1975,9 +1975,9 @@ impl FromGlib<ffi::GtkEventSequenceState> for EventSequenceState {
     unsafe fn from_glib(value: ffi::GtkEventSequenceState) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Claimed,
-            2 => Self::Denied,
+            ffi::GTK_EVENT_SEQUENCE_NONE => Self::None,
+            ffi::GTK_EVENT_SEQUENCE_CLAIMED => Self::Claimed,
+            ffi::GTK_EVENT_SEQUENCE_DENIED => Self::Denied,
             value => Self::__Unknown(value),
         }
     }
@@ -2068,10 +2068,10 @@ impl FromGlib<ffi::GtkFileChooserAction> for FileChooserAction {
     unsafe fn from_glib(value: ffi::GtkFileChooserAction) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Open,
-            1 => Self::Save,
-            2 => Self::SelectFolder,
-            3 => Self::CreateFolder,
+            ffi::GTK_FILE_CHOOSER_ACTION_OPEN => Self::Open,
+            ffi::GTK_FILE_CHOOSER_ACTION_SAVE => Self::Save,
+            ffi::GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER => Self::SelectFolder,
+            ffi::GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER => Self::CreateFolder,
             value => Self::__Unknown(value),
         }
     }
@@ -2158,9 +2158,9 @@ impl FromGlib<ffi::GtkFileChooserConfirmation> for FileChooserConfirmation {
     unsafe fn from_glib(value: ffi::GtkFileChooserConfirmation) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Confirm,
-            1 => Self::AcceptFilename,
-            2 => Self::SelectAgain,
+            ffi::GTK_FILE_CHOOSER_CONFIRMATION_CONFIRM => Self::Confirm,
+            ffi::GTK_FILE_CHOOSER_CONFIRMATION_ACCEPT_FILENAME => Self::AcceptFilename,
+            ffi::GTK_FILE_CHOOSER_CONFIRMATION_SELECT_AGAIN => Self::SelectAgain,
             value => Self::__Unknown(value),
         }
     }
@@ -2251,10 +2251,10 @@ impl FromGlib<ffi::GtkFileChooserError> for FileChooserError {
     unsafe fn from_glib(value: ffi::GtkFileChooserError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Nonexistent,
-            1 => Self::BadFilename,
-            2 => Self::AlreadyExists,
-            3 => Self::IncompleteHostname,
+            ffi::GTK_FILE_CHOOSER_ERROR_NONEXISTENT => Self::Nonexistent,
+            ffi::GTK_FILE_CHOOSER_ERROR_BAD_FILENAME => Self::BadFilename,
+            ffi::GTK_FILE_CHOOSER_ERROR_ALREADY_EXISTS => Self::AlreadyExists,
+            ffi::GTK_FILE_CHOOSER_ERROR_INCOMPLETE_HOSTNAME => Self::IncompleteHostname,
             value => Self::__Unknown(value),
         }
     }
@@ -2274,10 +2274,10 @@ impl ErrorDomain for FileChooserError {
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(Self::Nonexistent),
-            1 => Some(Self::BadFilename),
-            2 => Some(Self::AlreadyExists),
-            3 => Some(Self::IncompleteHostname),
+            ffi::GTK_FILE_CHOOSER_ERROR_NONEXISTENT => Some(Self::Nonexistent),
+            ffi::GTK_FILE_CHOOSER_ERROR_BAD_FILENAME => Some(Self::BadFilename),
+            ffi::GTK_FILE_CHOOSER_ERROR_ALREADY_EXISTS => Some(Self::AlreadyExists),
+            ffi::GTK_FILE_CHOOSER_ERROR_INCOMPLETE_HOSTNAME => Some(Self::IncompleteHostname),
             value => Some(Self::__Unknown(value)),
         }
     }
@@ -2403,13 +2403,13 @@ impl FromGlib<ffi::GtkIconSize> for IconSize {
     unsafe fn from_glib(value: ffi::GtkIconSize) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Invalid,
-            1 => Self::Menu,
-            2 => Self::SmallToolbar,
-            3 => Self::LargeToolbar,
-            4 => Self::Button,
-            5 => Self::Dnd,
-            6 => Self::Dialog,
+            ffi::GTK_ICON_SIZE_INVALID => Self::Invalid,
+            ffi::GTK_ICON_SIZE_MENU => Self::Menu,
+            ffi::GTK_ICON_SIZE_SMALL_TOOLBAR => Self::SmallToolbar,
+            ffi::GTK_ICON_SIZE_LARGE_TOOLBAR => Self::LargeToolbar,
+            ffi::GTK_ICON_SIZE_BUTTON => Self::Button,
+            ffi::GTK_ICON_SIZE_DND => Self::Dnd,
+            ffi::GTK_ICON_SIZE_DIALOG => Self::Dialog,
             value => Self::__Unknown(value),
         }
     }
@@ -2492,8 +2492,8 @@ impl FromGlib<ffi::GtkIconThemeError> for IconThemeError {
     unsafe fn from_glib(value: ffi::GtkIconThemeError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NotFound,
-            1 => Self::Failed,
+            ffi::GTK_ICON_THEME_NOT_FOUND => Self::NotFound,
+            ffi::GTK_ICON_THEME_FAILED => Self::Failed,
             value => Self::__Unknown(value),
         }
     }
@@ -2513,8 +2513,8 @@ impl ErrorDomain for IconThemeError {
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(Self::NotFound),
-            1 => Some(Self::Failed),
+            ffi::GTK_ICON_THEME_NOT_FOUND => Some(Self::NotFound),
+            ffi::GTK_ICON_THEME_FAILED => Some(Self::Failed),
             _ => Some(Self::Failed),
         }
     }
@@ -2613,12 +2613,12 @@ impl FromGlib<ffi::GtkIconViewDropPosition> for IconViewDropPosition {
     unsafe fn from_glib(value: ffi::GtkIconViewDropPosition) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NoDrop,
-            1 => Self::DropInto,
-            2 => Self::DropLeft,
-            3 => Self::DropRight,
-            4 => Self::DropAbove,
-            5 => Self::DropBelow,
+            ffi::GTK_ICON_VIEW_NO_DROP => Self::NoDrop,
+            ffi::GTK_ICON_VIEW_DROP_INTO => Self::DropInto,
+            ffi::GTK_ICON_VIEW_DROP_LEFT => Self::DropLeft,
+            ffi::GTK_ICON_VIEW_DROP_RIGHT => Self::DropRight,
+            ffi::GTK_ICON_VIEW_DROP_ABOVE => Self::DropAbove,
+            ffi::GTK_ICON_VIEW_DROP_BELOW => Self::DropBelow,
             value => Self::__Unknown(value),
         }
     }
@@ -2725,14 +2725,14 @@ impl FromGlib<ffi::GtkImageType> for ImageType {
     unsafe fn from_glib(value: ffi::GtkImageType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Empty,
-            1 => Self::Pixbuf,
-            2 => Self::Stock,
-            3 => Self::IconSet,
-            4 => Self::Animation,
-            5 => Self::IconName,
-            6 => Self::Gicon,
-            7 => Self::Surface,
+            ffi::GTK_IMAGE_EMPTY => Self::Empty,
+            ffi::GTK_IMAGE_PIXBUF => Self::Pixbuf,
+            ffi::GTK_IMAGE_STOCK => Self::Stock,
+            ffi::GTK_IMAGE_ICON_SET => Self::IconSet,
+            ffi::GTK_IMAGE_ANIMATION => Self::Animation,
+            ffi::GTK_IMAGE_ICON_NAME => Self::IconName,
+            ffi::GTK_IMAGE_GICON => Self::Gicon,
+            ffi::GTK_IMAGE_SURFACE => Self::Surface,
             value => Self::__Unknown(value),
         }
     }
@@ -2851,17 +2851,17 @@ impl FromGlib<ffi::GtkInputPurpose> for InputPurpose {
     unsafe fn from_glib(value: ffi::GtkInputPurpose) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::FreeForm,
-            1 => Self::Alpha,
-            2 => Self::Digits,
-            3 => Self::Number,
-            4 => Self::Phone,
-            5 => Self::Url,
-            6 => Self::Email,
-            7 => Self::Name,
-            8 => Self::Password,
-            9 => Self::Pin,
-            10 => Self::Terminal,
+            ffi::GTK_INPUT_PURPOSE_FREE_FORM => Self::FreeForm,
+            ffi::GTK_INPUT_PURPOSE_ALPHA => Self::Alpha,
+            ffi::GTK_INPUT_PURPOSE_DIGITS => Self::Digits,
+            ffi::GTK_INPUT_PURPOSE_NUMBER => Self::Number,
+            ffi::GTK_INPUT_PURPOSE_PHONE => Self::Phone,
+            ffi::GTK_INPUT_PURPOSE_URL => Self::Url,
+            ffi::GTK_INPUT_PURPOSE_EMAIL => Self::Email,
+            ffi::GTK_INPUT_PURPOSE_NAME => Self::Name,
+            ffi::GTK_INPUT_PURPOSE_PASSWORD => Self::Password,
+            ffi::GTK_INPUT_PURPOSE_PIN => Self::Pin,
+            ffi::GTK_INPUT_PURPOSE_TERMINAL => Self::Terminal,
             value => Self::__Unknown(value),
         }
     }
@@ -2952,10 +2952,10 @@ impl FromGlib<ffi::GtkJustification> for Justification {
     unsafe fn from_glib(value: ffi::GtkJustification) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Left,
-            1 => Self::Right,
-            2 => Self::Center,
-            3 => Self::Fill,
+            ffi::GTK_JUSTIFY_LEFT => Self::Left,
+            ffi::GTK_JUSTIFY_RIGHT => Self::Right,
+            ffi::GTK_JUSTIFY_CENTER => Self::Center,
+            ffi::GTK_JUSTIFY_FILL => Self::Fill,
             value => Self::__Unknown(value),
         }
     }
@@ -3038,8 +3038,8 @@ impl FromGlib<ffi::GtkLevelBarMode> for LevelBarMode {
     unsafe fn from_glib(value: ffi::GtkLevelBarMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Continuous,
-            1 => Self::Discrete,
+            ffi::GTK_LEVEL_BAR_MODE_CONTINUOUS => Self::Continuous,
+            ffi::GTK_LEVEL_BAR_MODE_DISCRETE => Self::Discrete,
             value => Self::__Unknown(value),
         }
     }
@@ -3186,24 +3186,24 @@ impl FromGlib<ffi::GtkLicense> for License {
     unsafe fn from_glib(value: ffi::GtkLicense) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Unknown,
-            1 => Self::Custom,
-            2 => Self::Gpl20,
-            3 => Self::Gpl30,
-            4 => Self::Lgpl21,
-            5 => Self::Lgpl30,
-            6 => Self::Bsd,
-            7 => Self::MitX11,
-            8 => Self::Artistic,
-            9 => Self::Gpl20Only,
-            10 => Self::Gpl30Only,
-            11 => Self::Lgpl21Only,
-            12 => Self::Lgpl30Only,
-            13 => Self::Agpl30,
-            14 => Self::Agpl30Only,
-            15 => Self::Bsd3,
-            16 => Self::Apache20,
-            17 => Self::Mpl20,
+            ffi::GTK_LICENSE_UNKNOWN => Self::Unknown,
+            ffi::GTK_LICENSE_CUSTOM => Self::Custom,
+            ffi::GTK_LICENSE_GPL_2_0 => Self::Gpl20,
+            ffi::GTK_LICENSE_GPL_3_0 => Self::Gpl30,
+            ffi::GTK_LICENSE_LGPL_2_1 => Self::Lgpl21,
+            ffi::GTK_LICENSE_LGPL_3_0 => Self::Lgpl30,
+            ffi::GTK_LICENSE_BSD => Self::Bsd,
+            ffi::GTK_LICENSE_MIT_X11 => Self::MitX11,
+            ffi::GTK_LICENSE_ARTISTIC => Self::Artistic,
+            ffi::GTK_LICENSE_GPL_2_0_ONLY => Self::Gpl20Only,
+            ffi::GTK_LICENSE_GPL_3_0_ONLY => Self::Gpl30Only,
+            ffi::GTK_LICENSE_LGPL_2_1_ONLY => Self::Lgpl21Only,
+            ffi::GTK_LICENSE_LGPL_3_0_ONLY => Self::Lgpl30Only,
+            ffi::GTK_LICENSE_AGPL_3_0 => Self::Agpl30,
+            ffi::GTK_LICENSE_AGPL_3_0_ONLY => Self::Agpl30Only,
+            ffi::GTK_LICENSE_BSD_3 => Self::Bsd3,
+            ffi::GTK_LICENSE_APACHE_2_0 => Self::Apache20,
+            ffi::GTK_LICENSE_MPL_2_0 => Self::Mpl20,
             value => Self::__Unknown(value),
         }
     }
@@ -3294,10 +3294,10 @@ impl FromGlib<ffi::GtkMenuDirectionType> for MenuDirectionType {
     unsafe fn from_glib(value: ffi::GtkMenuDirectionType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Parent,
-            1 => Self::Child,
-            2 => Self::Next,
-            3 => Self::Prev,
+            ffi::GTK_MENU_DIR_PARENT => Self::Parent,
+            ffi::GTK_MENU_DIR_CHILD => Self::Child,
+            ffi::GTK_MENU_DIR_NEXT => Self::Next,
+            ffi::GTK_MENU_DIR_PREV => Self::Prev,
             value => Self::__Unknown(value),
         }
     }
@@ -3392,11 +3392,11 @@ impl FromGlib<ffi::GtkMessageType> for MessageType {
     unsafe fn from_glib(value: ffi::GtkMessageType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Info,
-            1 => Self::Warning,
-            2 => Self::Question,
-            3 => Self::Error,
-            4 => Self::Other,
+            ffi::GTK_MESSAGE_INFO => Self::Info,
+            ffi::GTK_MESSAGE_WARNING => Self::Warning,
+            ffi::GTK_MESSAGE_QUESTION => Self::Question,
+            ffi::GTK_MESSAGE_ERROR => Self::Error,
+            ffi::GTK_MESSAGE_OTHER => Self::Other,
             value => Self::__Unknown(value),
         }
     }
@@ -3511,16 +3511,16 @@ impl FromGlib<ffi::GtkMovementStep> for MovementStep {
     unsafe fn from_glib(value: ffi::GtkMovementStep) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::LogicalPositions,
-            1 => Self::VisualPositions,
-            2 => Self::Words,
-            3 => Self::DisplayLines,
-            4 => Self::DisplayLineEnds,
-            5 => Self::Paragraphs,
-            6 => Self::ParagraphEnds,
-            7 => Self::Pages,
-            8 => Self::BufferEnds,
-            9 => Self::HorizontalPages,
+            ffi::GTK_MOVEMENT_LOGICAL_POSITIONS => Self::LogicalPositions,
+            ffi::GTK_MOVEMENT_VISUAL_POSITIONS => Self::VisualPositions,
+            ffi::GTK_MOVEMENT_WORDS => Self::Words,
+            ffi::GTK_MOVEMENT_DISPLAY_LINES => Self::DisplayLines,
+            ffi::GTK_MOVEMENT_DISPLAY_LINE_ENDS => Self::DisplayLineEnds,
+            ffi::GTK_MOVEMENT_PARAGRAPHS => Self::Paragraphs,
+            ffi::GTK_MOVEMENT_PARAGRAPH_ENDS => Self::ParagraphEnds,
+            ffi::GTK_MOVEMENT_PAGES => Self::Pages,
+            ffi::GTK_MOVEMENT_BUFFER_ENDS => Self::BufferEnds,
+            ffi::GTK_MOVEMENT_HORIZONTAL_PAGES => Self::HorizontalPages,
             value => Self::__Unknown(value),
         }
     }
@@ -3603,8 +3603,8 @@ impl FromGlib<ffi::GtkNotebookTab> for NotebookTab {
     unsafe fn from_glib(value: ffi::GtkNotebookTab) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::First,
-            1 => Self::Last,
+            ffi::GTK_NOTEBOOK_TAB_FIRST => Self::First,
+            ffi::GTK_NOTEBOOK_TAB_LAST => Self::Last,
             value => Self::__Unknown(value),
         }
     }
@@ -3711,14 +3711,14 @@ impl FromGlib<ffi::GtkNumberUpLayout> for NumberUpLayout {
     unsafe fn from_glib(value: ffi::GtkNumberUpLayout) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Lrtb,
-            1 => Self::Lrbt,
-            2 => Self::Rltb,
-            3 => Self::Rlbt,
-            4 => Self::Tblr,
-            5 => Self::Tbrl,
-            6 => Self::Btlr,
-            7 => Self::Btrl,
+            ffi::GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_TOP_TO_BOTTOM => Self::Lrtb,
+            ffi::GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_BOTTOM_TO_TOP => Self::Lrbt,
+            ffi::GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_TOP_TO_BOTTOM => Self::Rltb,
+            ffi::GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_BOTTOM_TO_TOP => Self::Rlbt,
+            ffi::GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_LEFT_TO_RIGHT => Self::Tblr,
+            ffi::GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_RIGHT_TO_LEFT => Self::Tbrl,
+            ffi::GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_LEFT_TO_RIGHT => Self::Btlr,
+            ffi::GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_RIGHT_TO_LEFT => Self::Btrl,
             value => Self::__Unknown(value),
         }
     }
@@ -3801,8 +3801,8 @@ impl FromGlib<ffi::GtkOrientation> for Orientation {
     unsafe fn from_glib(value: ffi::GtkOrientation) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Horizontal,
-            1 => Self::Vertical,
+            ffi::GTK_ORIENTATION_HORIZONTAL => Self::Horizontal,
+            ffi::GTK_ORIENTATION_VERTICAL => Self::Vertical,
             value => Self::__Unknown(value),
         }
     }
@@ -3893,10 +3893,10 @@ impl FromGlib<ffi::GtkPackDirection> for PackDirection {
     unsafe fn from_glib(value: ffi::GtkPackDirection) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Ltr,
-            1 => Self::Rtl,
-            2 => Self::Ttb,
-            3 => Self::Btt,
+            ffi::GTK_PACK_DIRECTION_LTR => Self::Ltr,
+            ffi::GTK_PACK_DIRECTION_RTL => Self::Rtl,
+            ffi::GTK_PACK_DIRECTION_TTB => Self::Ttb,
+            ffi::GTK_PACK_DIRECTION_BTT => Self::Btt,
             value => Self::__Unknown(value),
         }
     }
@@ -3979,8 +3979,8 @@ impl FromGlib<ffi::GtkPackType> for PackType {
     unsafe fn from_glib(value: ffi::GtkPackType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Start,
-            1 => Self::End,
+            ffi::GTK_PACK_START => Self::Start,
+            ffi::GTK_PACK_END => Self::End,
             value => Self::__Unknown(value),
         }
     }
@@ -4075,9 +4075,9 @@ impl FromGlib<ffi::GtkPadActionType> for PadActionType {
     unsafe fn from_glib(value: ffi::GtkPadActionType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Button,
-            1 => Self::Ring,
-            2 => Self::Strip,
+            ffi::GTK_PAD_ACTION_BUTTON => Self::Button,
+            ffi::GTK_PAD_ACTION_RING => Self::Ring,
+            ffi::GTK_PAD_ACTION_STRIP => Self::Strip,
             value => Self::__Unknown(value),
         }
     }
@@ -4176,10 +4176,10 @@ impl FromGlib<ffi::GtkPageOrientation> for PageOrientation {
     unsafe fn from_glib(value: ffi::GtkPageOrientation) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Portrait,
-            1 => Self::Landscape,
-            2 => Self::ReversePortrait,
-            3 => Self::ReverseLandscape,
+            ffi::GTK_PAGE_ORIENTATION_PORTRAIT => Self::Portrait,
+            ffi::GTK_PAGE_ORIENTATION_LANDSCAPE => Self::Landscape,
+            ffi::GTK_PAGE_ORIENTATION_REVERSE_PORTRAIT => Self::ReversePortrait,
+            ffi::GTK_PAGE_ORIENTATION_REVERSE_LANDSCAPE => Self::ReverseLandscape,
             value => Self::__Unknown(value),
         }
     }
@@ -4266,9 +4266,9 @@ impl FromGlib<ffi::GtkPageSet> for PageSet {
     unsafe fn from_glib(value: ffi::GtkPageSet) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::All,
-            1 => Self::Even,
-            2 => Self::Odd,
+            ffi::GTK_PAGE_SET_ALL => Self::All,
+            ffi::GTK_PAGE_SET_EVEN => Self::Even,
+            ffi::GTK_PAGE_SET_ODD => Self::Odd,
             value => Self::__Unknown(value),
         }
     }
@@ -4359,10 +4359,10 @@ impl FromGlib<ffi::GtkPanDirection> for PanDirection {
     unsafe fn from_glib(value: ffi::GtkPanDirection) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Left,
-            1 => Self::Right,
-            2 => Self::Up,
-            3 => Self::Down,
+            ffi::GTK_PAN_DIRECTION_LEFT => Self::Left,
+            ffi::GTK_PAN_DIRECTION_RIGHT => Self::Right,
+            ffi::GTK_PAN_DIRECTION_UP => Self::Up,
+            ffi::GTK_PAN_DIRECTION_DOWN => Self::Down,
             value => Self::__Unknown(value),
         }
     }
@@ -4453,10 +4453,10 @@ impl FromGlib<ffi::GtkPolicyType> for PolicyType {
     unsafe fn from_glib(value: ffi::GtkPolicyType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Always,
-            1 => Self::Automatic,
-            2 => Self::Never,
-            3 => Self::External,
+            ffi::GTK_POLICY_ALWAYS => Self::Always,
+            ffi::GTK_POLICY_AUTOMATIC => Self::Automatic,
+            ffi::GTK_POLICY_NEVER => Self::Never,
+            ffi::GTK_POLICY_EXTERNAL => Self::External,
             value => Self::__Unknown(value),
         }
     }
@@ -4547,8 +4547,8 @@ impl FromGlib<ffi::GtkPopoverConstraint> for PopoverConstraint {
     unsafe fn from_glib(value: ffi::GtkPopoverConstraint) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Window,
+            ffi::GTK_POPOVER_CONSTRAINT_NONE => Self::None,
+            ffi::GTK_POPOVER_CONSTRAINT_WINDOW => Self::Window,
             value => Self::__Unknown(value),
         }
     }
@@ -4647,10 +4647,10 @@ impl FromGlib<ffi::GtkPositionType> for PositionType {
     unsafe fn from_glib(value: ffi::GtkPositionType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Left,
-            1 => Self::Right,
-            2 => Self::Top,
-            3 => Self::Bottom,
+            ffi::GTK_POS_LEFT => Self::Left,
+            ffi::GTK_POS_RIGHT => Self::Right,
+            ffi::GTK_POS_TOP => Self::Top,
+            ffi::GTK_POS_BOTTOM => Self::Bottom,
             value => Self::__Unknown(value),
         }
     }
@@ -4737,9 +4737,9 @@ impl FromGlib<ffi::GtkPrintDuplex> for PrintDuplex {
     unsafe fn from_glib(value: ffi::GtkPrintDuplex) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Simplex,
-            1 => Self::Horizontal,
-            2 => Self::Vertical,
+            ffi::GTK_PRINT_DUPLEX_SIMPLEX => Self::Simplex,
+            ffi::GTK_PRINT_DUPLEX_HORIZONTAL => Self::Horizontal,
+            ffi::GTK_PRINT_DUPLEX_VERTICAL => Self::Vertical,
             value => Self::__Unknown(value),
         }
     }
@@ -4830,10 +4830,10 @@ impl FromGlib<ffi::GtkPrintError> for PrintError {
     unsafe fn from_glib(value: ffi::GtkPrintError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::General,
-            1 => Self::InternalError,
-            2 => Self::Nomem,
-            3 => Self::InvalidFile,
+            ffi::GTK_PRINT_ERROR_GENERAL => Self::General,
+            ffi::GTK_PRINT_ERROR_INTERNAL_ERROR => Self::InternalError,
+            ffi::GTK_PRINT_ERROR_NOMEM => Self::Nomem,
+            ffi::GTK_PRINT_ERROR_INVALID_FILE => Self::InvalidFile,
             value => Self::__Unknown(value),
         }
     }
@@ -4853,10 +4853,10 @@ impl ErrorDomain for PrintError {
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(Self::General),
-            1 => Some(Self::InternalError),
-            2 => Some(Self::Nomem),
-            3 => Some(Self::InvalidFile),
+            ffi::GTK_PRINT_ERROR_GENERAL => Some(Self::General),
+            ffi::GTK_PRINT_ERROR_INTERNAL_ERROR => Some(Self::InternalError),
+            ffi::GTK_PRINT_ERROR_NOMEM => Some(Self::Nomem),
+            ffi::GTK_PRINT_ERROR_INVALID_FILE => Some(Self::InvalidFile),
             value => Some(Self::__Unknown(value)),
         }
     }
@@ -4947,10 +4947,10 @@ impl FromGlib<ffi::GtkPrintOperationAction> for PrintOperationAction {
     unsafe fn from_glib(value: ffi::GtkPrintOperationAction) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::PrintDialog,
-            1 => Self::Print,
-            2 => Self::Preview,
-            3 => Self::Export,
+            ffi::GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG => Self::PrintDialog,
+            ffi::GTK_PRINT_OPERATION_ACTION_PRINT => Self::Print,
+            ffi::GTK_PRINT_OPERATION_ACTION_PREVIEW => Self::Preview,
+            ffi::GTK_PRINT_OPERATION_ACTION_EXPORT => Self::Export,
             value => Self::__Unknown(value),
         }
     }
@@ -5041,10 +5041,10 @@ impl FromGlib<ffi::GtkPrintOperationResult> for PrintOperationResult {
     unsafe fn from_glib(value: ffi::GtkPrintOperationResult) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Error,
-            1 => Self::Apply,
-            2 => Self::Cancel,
-            3 => Self::InProgress,
+            ffi::GTK_PRINT_OPERATION_RESULT_ERROR => Self::Error,
+            ffi::GTK_PRINT_OPERATION_RESULT_APPLY => Self::Apply,
+            ffi::GTK_PRINT_OPERATION_RESULT_CANCEL => Self::Cancel,
+            ffi::GTK_PRINT_OPERATION_RESULT_IN_PROGRESS => Self::InProgress,
             value => Self::__Unknown(value),
         }
     }
@@ -5135,10 +5135,10 @@ impl FromGlib<ffi::GtkPrintPages> for PrintPages {
     unsafe fn from_glib(value: ffi::GtkPrintPages) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::All,
-            1 => Self::Current,
-            2 => Self::Ranges,
-            3 => Self::Selection,
+            ffi::GTK_PRINT_PAGES_ALL => Self::All,
+            ffi::GTK_PRINT_PAGES_CURRENT => Self::Current,
+            ffi::GTK_PRINT_PAGES_RANGES => Self::Ranges,
+            ffi::GTK_PRINT_PAGES_SELECTION => Self::Selection,
             value => Self::__Unknown(value),
         }
     }
@@ -5229,10 +5229,10 @@ impl FromGlib<ffi::GtkPrintQuality> for PrintQuality {
     unsafe fn from_glib(value: ffi::GtkPrintQuality) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Low,
-            1 => Self::Normal,
-            2 => Self::High,
-            3 => Self::Draft,
+            ffi::GTK_PRINT_QUALITY_LOW => Self::Low,
+            ffi::GTK_PRINT_QUALITY_NORMAL => Self::Normal,
+            ffi::GTK_PRINT_QUALITY_HIGH => Self::High,
+            ffi::GTK_PRINT_QUALITY_DRAFT => Self::Draft,
             value => Self::__Unknown(value),
         }
     }
@@ -5343,15 +5343,15 @@ impl FromGlib<ffi::GtkPrintStatus> for PrintStatus {
     unsafe fn from_glib(value: ffi::GtkPrintStatus) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Initial,
-            1 => Self::Preparing,
-            2 => Self::GeneratingData,
-            3 => Self::SendingData,
-            4 => Self::Pending,
-            5 => Self::PendingIssue,
-            6 => Self::Printing,
-            7 => Self::Finished,
-            8 => Self::FinishedAborted,
+            ffi::GTK_PRINT_STATUS_INITIAL => Self::Initial,
+            ffi::GTK_PRINT_STATUS_PREPARING => Self::Preparing,
+            ffi::GTK_PRINT_STATUS_GENERATING_DATA => Self::GeneratingData,
+            ffi::GTK_PRINT_STATUS_SENDING_DATA => Self::SendingData,
+            ffi::GTK_PRINT_STATUS_PENDING => Self::Pending,
+            ffi::GTK_PRINT_STATUS_PENDING_ISSUE => Self::PendingIssue,
+            ffi::GTK_PRINT_STATUS_PRINTING => Self::Printing,
+            ffi::GTK_PRINT_STATUS_FINISHED => Self::Finished,
+            ffi::GTK_PRINT_STATUS_FINISHED_ABORTED => Self::FinishedAborted,
             value => Self::__Unknown(value),
         }
     }
@@ -5442,10 +5442,10 @@ impl FromGlib<ffi::GtkPropagationPhase> for PropagationPhase {
     unsafe fn from_glib(value: ffi::GtkPropagationPhase) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Capture,
-            2 => Self::Bubble,
-            3 => Self::Target,
+            ffi::GTK_PHASE_NONE => Self::None,
+            ffi::GTK_PHASE_CAPTURE => Self::Capture,
+            ffi::GTK_PHASE_BUBBLE => Self::Bubble,
+            ffi::GTK_PHASE_TARGET => Self::Target,
             value => Self::__Unknown(value),
         }
     }
@@ -5528,8 +5528,8 @@ impl FromGlib<ffi::GtkRecentChooserError> for RecentChooserError {
     unsafe fn from_glib(value: ffi::GtkRecentChooserError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NotFound,
-            1 => Self::InvalidUri,
+            ffi::GTK_RECENT_CHOOSER_ERROR_NOT_FOUND => Self::NotFound,
+            ffi::GTK_RECENT_CHOOSER_ERROR_INVALID_URI => Self::InvalidUri,
             value => Self::__Unknown(value),
         }
     }
@@ -5549,8 +5549,8 @@ impl ErrorDomain for RecentChooserError {
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(Self::NotFound),
-            1 => Some(Self::InvalidUri),
+            ffi::GTK_RECENT_CHOOSER_ERROR_NOT_FOUND => Some(Self::NotFound),
+            ffi::GTK_RECENT_CHOOSER_ERROR_INVALID_URI => Some(Self::InvalidUri),
             value => Some(Self::__Unknown(value)),
         }
     }
@@ -5653,13 +5653,13 @@ impl FromGlib<ffi::GtkRecentManagerError> for RecentManagerError {
     unsafe fn from_glib(value: ffi::GtkRecentManagerError) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::NotFound,
-            1 => Self::InvalidUri,
-            2 => Self::InvalidEncoding,
-            3 => Self::NotRegistered,
-            4 => Self::Read,
-            5 => Self::Write,
-            6 => Self::Unknown,
+            ffi::GTK_RECENT_MANAGER_ERROR_NOT_FOUND => Self::NotFound,
+            ffi::GTK_RECENT_MANAGER_ERROR_INVALID_URI => Self::InvalidUri,
+            ffi::GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING => Self::InvalidEncoding,
+            ffi::GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED => Self::NotRegistered,
+            ffi::GTK_RECENT_MANAGER_ERROR_READ => Self::Read,
+            ffi::GTK_RECENT_MANAGER_ERROR_WRITE => Self::Write,
+            ffi::GTK_RECENT_MANAGER_ERROR_UNKNOWN => Self::Unknown,
             value => Self::__Unknown(value),
         }
     }
@@ -5679,13 +5679,13 @@ impl ErrorDomain for RecentManagerError {
     fn from(code: i32) -> Option<Self> {
         skip_assert_initialized!();
         match code {
-            0 => Some(Self::NotFound),
-            1 => Some(Self::InvalidUri),
-            2 => Some(Self::InvalidEncoding),
-            3 => Some(Self::NotRegistered),
-            4 => Some(Self::Read),
-            5 => Some(Self::Write),
-            6 => Some(Self::Unknown),
+            ffi::GTK_RECENT_MANAGER_ERROR_NOT_FOUND => Some(Self::NotFound),
+            ffi::GTK_RECENT_MANAGER_ERROR_INVALID_URI => Some(Self::InvalidUri),
+            ffi::GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING => Some(Self::InvalidEncoding),
+            ffi::GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED => Some(Self::NotRegistered),
+            ffi::GTK_RECENT_MANAGER_ERROR_READ => Some(Self::Read),
+            ffi::GTK_RECENT_MANAGER_ERROR_WRITE => Some(Self::Write),
+            ffi::GTK_RECENT_MANAGER_ERROR_UNKNOWN => Some(Self::Unknown),
             value => Some(Self::__Unknown(value)),
         }
     }
@@ -5776,10 +5776,10 @@ impl FromGlib<ffi::GtkRecentSortType> for RecentSortType {
     unsafe fn from_glib(value: ffi::GtkRecentSortType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Mru,
-            2 => Self::Lru,
-            3 => Self::Custom,
+            ffi::GTK_RECENT_SORT_NONE => Self::None,
+            ffi::GTK_RECENT_SORT_MRU => Self::Mru,
+            ffi::GTK_RECENT_SORT_LRU => Self::Lru,
+            ffi::GTK_RECENT_SORT_CUSTOM => Self::Custom,
             value => Self::__Unknown(value),
         }
     }
@@ -5866,9 +5866,9 @@ impl FromGlib<ffi::GtkReliefStyle> for ReliefStyle {
     unsafe fn from_glib(value: ffi::GtkReliefStyle) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Normal,
-            1 => Self::Half,
-            2 => Self::None,
+            ffi::GTK_RELIEF_NORMAL => Self::Normal,
+            ffi::GTK_RELIEF_HALF => Self::Half,
+            ffi::GTK_RELIEF_NONE => Self::None,
             value => Self::__Unknown(value),
         }
     }
@@ -5955,9 +5955,9 @@ impl FromGlib<ffi::GtkResizeMode> for ResizeMode {
     unsafe fn from_glib(value: ffi::GtkResizeMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Parent,
-            1 => Self::Queue,
-            2 => Self::Immediate,
+            ffi::GTK_RESIZE_PARENT => Self::Parent,
+            ffi::GTK_RESIZE_QUEUE => Self::Queue,
+            ffi::GTK_RESIZE_IMMEDIATE => Self::Immediate,
             value => Self::__Unknown(value),
         }
     }
@@ -6056,12 +6056,12 @@ impl FromGlib<ffi::GtkRevealerTransitionType> for RevealerTransitionType {
     unsafe fn from_glib(value: ffi::GtkRevealerTransitionType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Crossfade,
-            2 => Self::SlideRight,
-            3 => Self::SlideLeft,
-            4 => Self::SlideUp,
-            5 => Self::SlideDown,
+            ffi::GTK_REVEALER_TRANSITION_TYPE_NONE => Self::None,
+            ffi::GTK_REVEALER_TRANSITION_TYPE_CROSSFADE => Self::Crossfade,
+            ffi::GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT => Self::SlideRight,
+            ffi::GTK_REVEALER_TRANSITION_TYPE_SLIDE_LEFT => Self::SlideLeft,
+            ffi::GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP => Self::SlideUp,
+            ffi::GTK_REVEALER_TRANSITION_TYPE_SLIDE_DOWN => Self::SlideDown,
             value => Self::__Unknown(value),
         }
     }
@@ -6160,12 +6160,12 @@ impl FromGlib<ffi::GtkScrollStep> for ScrollStep {
     unsafe fn from_glib(value: ffi::GtkScrollStep) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Steps,
-            1 => Self::Pages,
-            2 => Self::Ends,
-            3 => Self::HorizontalSteps,
-            4 => Self::HorizontalPages,
-            5 => Self::HorizontalEnds,
+            ffi::GTK_SCROLL_STEPS => Self::Steps,
+            ffi::GTK_SCROLL_PAGES => Self::Pages,
+            ffi::GTK_SCROLL_ENDS => Self::Ends,
+            ffi::GTK_SCROLL_HORIZONTAL_STEPS => Self::HorizontalSteps,
+            ffi::GTK_SCROLL_HORIZONTAL_PAGES => Self::HorizontalPages,
+            ffi::GTK_SCROLL_HORIZONTAL_ENDS => Self::HorizontalEnds,
             value => Self::__Unknown(value),
         }
     }
@@ -6304,22 +6304,22 @@ impl FromGlib<ffi::GtkScrollType> for ScrollType {
     unsafe fn from_glib(value: ffi::GtkScrollType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Jump,
-            2 => Self::StepBackward,
-            3 => Self::StepForward,
-            4 => Self::PageBackward,
-            5 => Self::PageForward,
-            6 => Self::StepUp,
-            7 => Self::StepDown,
-            8 => Self::PageUp,
-            9 => Self::PageDown,
-            10 => Self::StepLeft,
-            11 => Self::StepRight,
-            12 => Self::PageLeft,
-            13 => Self::PageRight,
-            14 => Self::Start,
-            15 => Self::End,
+            ffi::GTK_SCROLL_NONE => Self::None,
+            ffi::GTK_SCROLL_JUMP => Self::Jump,
+            ffi::GTK_SCROLL_STEP_BACKWARD => Self::StepBackward,
+            ffi::GTK_SCROLL_STEP_FORWARD => Self::StepForward,
+            ffi::GTK_SCROLL_PAGE_BACKWARD => Self::PageBackward,
+            ffi::GTK_SCROLL_PAGE_FORWARD => Self::PageForward,
+            ffi::GTK_SCROLL_STEP_UP => Self::StepUp,
+            ffi::GTK_SCROLL_STEP_DOWN => Self::StepDown,
+            ffi::GTK_SCROLL_PAGE_UP => Self::PageUp,
+            ffi::GTK_SCROLL_PAGE_DOWN => Self::PageDown,
+            ffi::GTK_SCROLL_STEP_LEFT => Self::StepLeft,
+            ffi::GTK_SCROLL_STEP_RIGHT => Self::StepRight,
+            ffi::GTK_SCROLL_PAGE_LEFT => Self::PageLeft,
+            ffi::GTK_SCROLL_PAGE_RIGHT => Self::PageRight,
+            ffi::GTK_SCROLL_START => Self::Start,
+            ffi::GTK_SCROLL_END => Self::End,
             value => Self::__Unknown(value),
         }
     }
@@ -6402,8 +6402,8 @@ impl FromGlib<ffi::GtkScrollablePolicy> for ScrollablePolicy {
     unsafe fn from_glib(value: ffi::GtkScrollablePolicy) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Minimum,
-            1 => Self::Natural,
+            ffi::GTK_SCROLL_MINIMUM => Self::Minimum,
+            ffi::GTK_SCROLL_NATURAL => Self::Natural,
             value => Self::__Unknown(value),
         }
     }
@@ -6494,10 +6494,10 @@ impl FromGlib<ffi::GtkSelectionMode> for SelectionMode {
     unsafe fn from_glib(value: ffi::GtkSelectionMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Single,
-            2 => Self::Browse,
-            3 => Self::Multiple,
+            ffi::GTK_SELECTION_NONE => Self::None,
+            ffi::GTK_SELECTION_SINGLE => Self::Single,
+            ffi::GTK_SELECTION_BROWSE => Self::Browse,
+            ffi::GTK_SELECTION_MULTIPLE => Self::Multiple,
             value => Self::__Unknown(value),
         }
     }
@@ -6584,9 +6584,9 @@ impl FromGlib<ffi::GtkSensitivityType> for SensitivityType {
     unsafe fn from_glib(value: ffi::GtkSensitivityType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Auto,
-            1 => Self::On,
-            2 => Self::Off,
+            ffi::GTK_SENSITIVITY_AUTO => Self::Auto,
+            ffi::GTK_SENSITIVITY_ON => Self::On,
+            ffi::GTK_SENSITIVITY_OFF => Self::Off,
             value => Self::__Unknown(value),
         }
     }
@@ -6681,11 +6681,11 @@ impl FromGlib<ffi::GtkShadowType> for ShadowType {
     unsafe fn from_glib(value: ffi::GtkShadowType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::In,
-            2 => Self::Out,
-            3 => Self::EtchedIn,
-            4 => Self::EtchedOut,
+            ffi::GTK_SHADOW_NONE => Self::None,
+            ffi::GTK_SHADOW_IN => Self::In,
+            ffi::GTK_SHADOW_OUT => Self::Out,
+            ffi::GTK_SHADOW_ETCHED_IN => Self::EtchedIn,
+            ffi::GTK_SHADOW_ETCHED_OUT => Self::EtchedOut,
             value => Self::__Unknown(value),
         }
     }
@@ -6802,14 +6802,16 @@ impl FromGlib<ffi::GtkShortcutType> for ShortcutType {
     unsafe fn from_glib(value: ffi::GtkShortcutType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Accelerator,
-            1 => Self::GesturePinch,
-            2 => Self::GestureStretch,
-            3 => Self::GestureRotateClockwise,
-            4 => Self::GestureRotateCounterclockwise,
-            5 => Self::GestureTwoFingerSwipeLeft,
-            6 => Self::GestureTwoFingerSwipeRight,
-            7 => Self::Gesture,
+            ffi::GTK_SHORTCUT_ACCELERATOR => Self::Accelerator,
+            ffi::GTK_SHORTCUT_GESTURE_PINCH => Self::GesturePinch,
+            ffi::GTK_SHORTCUT_GESTURE_STRETCH => Self::GestureStretch,
+            ffi::GTK_SHORTCUT_GESTURE_ROTATE_CLOCKWISE => Self::GestureRotateClockwise,
+            ffi::GTK_SHORTCUT_GESTURE_ROTATE_COUNTERCLOCKWISE => {
+                Self::GestureRotateCounterclockwise
+            }
+            ffi::GTK_SHORTCUT_GESTURE_TWO_FINGER_SWIPE_LEFT => Self::GestureTwoFingerSwipeLeft,
+            ffi::GTK_SHORTCUT_GESTURE_TWO_FINGER_SWIPE_RIGHT => Self::GestureTwoFingerSwipeRight,
+            ffi::GTK_SHORTCUT_GESTURE => Self::Gesture,
             value => Self::__Unknown(value),
         }
     }
@@ -6908,10 +6910,10 @@ impl FromGlib<ffi::GtkSizeGroupMode> for SizeGroupMode {
     unsafe fn from_glib(value: ffi::GtkSizeGroupMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Horizontal,
-            2 => Self::Vertical,
-            3 => Self::Both,
+            ffi::GTK_SIZE_GROUP_NONE => Self::None,
+            ffi::GTK_SIZE_GROUP_HORIZONTAL => Self::Horizontal,
+            ffi::GTK_SIZE_GROUP_VERTICAL => Self::Vertical,
+            ffi::GTK_SIZE_GROUP_BOTH => Self::Both,
             value => Self::__Unknown(value),
         }
     }
@@ -6998,9 +7000,9 @@ impl FromGlib<ffi::GtkSizeRequestMode> for SizeRequestMode {
     unsafe fn from_glib(value: ffi::GtkSizeRequestMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::HeightForWidth,
-            1 => Self::WidthForHeight,
-            2 => Self::ConstantSize,
+            ffi::GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH => Self::HeightForWidth,
+            ffi::GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT => Self::WidthForHeight,
+            ffi::GTK_SIZE_REQUEST_CONSTANT_SIZE => Self::ConstantSize,
             value => Self::__Unknown(value),
         }
     }
@@ -7083,8 +7085,8 @@ impl FromGlib<ffi::GtkSortType> for SortType {
     unsafe fn from_glib(value: ffi::GtkSortType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Ascending,
-            1 => Self::Descending,
+            ffi::GTK_SORT_ASCENDING => Self::Ascending,
+            ffi::GTK_SORT_DESCENDING => Self::Descending,
             value => Self::__Unknown(value),
         }
     }
@@ -7167,8 +7169,8 @@ impl FromGlib<ffi::GtkSpinButtonUpdatePolicy> for SpinButtonUpdatePolicy {
     unsafe fn from_glib(value: ffi::GtkSpinButtonUpdatePolicy) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Always,
-            1 => Self::IfValid,
+            ffi::GTK_UPDATE_ALWAYS => Self::Always,
+            ffi::GTK_UPDATE_IF_VALID => Self::IfValid,
             value => Self::__Unknown(value),
         }
     }
@@ -7271,13 +7273,13 @@ impl FromGlib<ffi::GtkSpinType> for SpinType {
     unsafe fn from_glib(value: ffi::GtkSpinType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::StepForward,
-            1 => Self::StepBackward,
-            2 => Self::PageForward,
-            3 => Self::PageBackward,
-            4 => Self::Home,
-            5 => Self::End,
-            6 => Self::UserDefined,
+            ffi::GTK_SPIN_STEP_FORWARD => Self::StepForward,
+            ffi::GTK_SPIN_STEP_BACKWARD => Self::StepBackward,
+            ffi::GTK_SPIN_PAGE_FORWARD => Self::PageForward,
+            ffi::GTK_SPIN_PAGE_BACKWARD => Self::PageBackward,
+            ffi::GTK_SPIN_HOME => Self::Home,
+            ffi::GTK_SPIN_END => Self::End,
+            ffi::GTK_SPIN_USER_DEFINED => Self::UserDefined,
             value => Self::__Unknown(value),
         }
     }
@@ -7432,26 +7434,26 @@ impl FromGlib<ffi::GtkStackTransitionType> for StackTransitionType {
     unsafe fn from_glib(value: ffi::GtkStackTransitionType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Crossfade,
-            2 => Self::SlideRight,
-            3 => Self::SlideLeft,
-            4 => Self::SlideUp,
-            5 => Self::SlideDown,
-            6 => Self::SlideLeftRight,
-            7 => Self::SlideUpDown,
-            8 => Self::OverUp,
-            9 => Self::OverDown,
-            10 => Self::OverLeft,
-            11 => Self::OverRight,
-            12 => Self::UnderUp,
-            13 => Self::UnderDown,
-            14 => Self::UnderLeft,
-            15 => Self::UnderRight,
-            16 => Self::OverUpDown,
-            17 => Self::OverDownUp,
-            18 => Self::OverLeftRight,
-            19 => Self::OverRightLeft,
+            ffi::GTK_STACK_TRANSITION_TYPE_NONE => Self::None,
+            ffi::GTK_STACK_TRANSITION_TYPE_CROSSFADE => Self::Crossfade,
+            ffi::GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT => Self::SlideRight,
+            ffi::GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT => Self::SlideLeft,
+            ffi::GTK_STACK_TRANSITION_TYPE_SLIDE_UP => Self::SlideUp,
+            ffi::GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN => Self::SlideDown,
+            ffi::GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT => Self::SlideLeftRight,
+            ffi::GTK_STACK_TRANSITION_TYPE_SLIDE_UP_DOWN => Self::SlideUpDown,
+            ffi::GTK_STACK_TRANSITION_TYPE_OVER_UP => Self::OverUp,
+            ffi::GTK_STACK_TRANSITION_TYPE_OVER_DOWN => Self::OverDown,
+            ffi::GTK_STACK_TRANSITION_TYPE_OVER_LEFT => Self::OverLeft,
+            ffi::GTK_STACK_TRANSITION_TYPE_OVER_RIGHT => Self::OverRight,
+            ffi::GTK_STACK_TRANSITION_TYPE_UNDER_UP => Self::UnderUp,
+            ffi::GTK_STACK_TRANSITION_TYPE_UNDER_DOWN => Self::UnderDown,
+            ffi::GTK_STACK_TRANSITION_TYPE_UNDER_LEFT => Self::UnderLeft,
+            ffi::GTK_STACK_TRANSITION_TYPE_UNDER_RIGHT => Self::UnderRight,
+            ffi::GTK_STACK_TRANSITION_TYPE_OVER_UP_DOWN => Self::OverUpDown,
+            ffi::GTK_STACK_TRANSITION_TYPE_OVER_DOWN_UP => Self::OverDownUp,
+            ffi::GTK_STACK_TRANSITION_TYPE_OVER_LEFT_RIGHT => Self::OverLeftRight,
+            ffi::GTK_STACK_TRANSITION_TYPE_OVER_RIGHT_LEFT => Self::OverRightLeft,
             value => Self::__Unknown(value),
         }
     }
@@ -7538,9 +7540,9 @@ impl FromGlib<ffi::GtkTextDirection> for TextDirection {
     unsafe fn from_glib(value: ffi::GtkTextDirection) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Ltr,
-            2 => Self::Rtl,
+            ffi::GTK_TEXT_DIR_NONE => Self::None,
+            ffi::GTK_TEXT_DIR_LTR => Self::Ltr,
+            ffi::GTK_TEXT_DIR_RTL => Self::Rtl,
             value => Self::__Unknown(value),
         }
     }
@@ -7623,8 +7625,8 @@ impl FromGlib<ffi::GtkTextExtendSelection> for TextExtendSelection {
     unsafe fn from_glib(value: ffi::GtkTextExtendSelection) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Word,
-            1 => Self::Line,
+            ffi::GTK_TEXT_EXTEND_SELECTION_WORD => Self::Word,
+            ffi::GTK_TEXT_EXTEND_SELECTION_LINE => Self::Line,
             value => Self::__Unknown(value),
         }
     }
@@ -7715,10 +7717,10 @@ impl FromGlib<ffi::GtkTextViewLayer> for TextViewLayer {
     unsafe fn from_glib(value: ffi::GtkTextViewLayer) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Below,
-            1 => Self::Above,
-            2 => Self::BelowText,
-            3 => Self::AboveText,
+            ffi::GTK_TEXT_VIEW_LAYER_BELOW => Self::Below,
+            ffi::GTK_TEXT_VIEW_LAYER_ABOVE => Self::Above,
+            ffi::GTK_TEXT_VIEW_LAYER_BELOW_TEXT => Self::BelowText,
+            ffi::GTK_TEXT_VIEW_LAYER_ABOVE_TEXT => Self::AboveText,
             value => Self::__Unknown(value),
         }
     }
@@ -7821,13 +7823,13 @@ impl FromGlib<ffi::GtkTextWindowType> for TextWindowType {
     unsafe fn from_glib(value: ffi::GtkTextWindowType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Private,
-            1 => Self::Widget,
-            2 => Self::Text,
-            3 => Self::Left,
-            4 => Self::Right,
-            5 => Self::Top,
-            6 => Self::Bottom,
+            ffi::GTK_TEXT_WINDOW_PRIVATE => Self::Private,
+            ffi::GTK_TEXT_WINDOW_WIDGET => Self::Widget,
+            ffi::GTK_TEXT_WINDOW_TEXT => Self::Text,
+            ffi::GTK_TEXT_WINDOW_LEFT => Self::Left,
+            ffi::GTK_TEXT_WINDOW_RIGHT => Self::Right,
+            ffi::GTK_TEXT_WINDOW_TOP => Self::Top,
+            ffi::GTK_TEXT_WINDOW_BOTTOM => Self::Bottom,
             value => Self::__Unknown(value),
         }
     }
@@ -7918,10 +7920,10 @@ impl FromGlib<ffi::GtkToolbarStyle> for ToolbarStyle {
     unsafe fn from_glib(value: ffi::GtkToolbarStyle) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Icons,
-            1 => Self::Text,
-            2 => Self::Both,
-            3 => Self::BothHoriz,
+            ffi::GTK_TOOLBAR_ICONS => Self::Icons,
+            ffi::GTK_TOOLBAR_TEXT => Self::Text,
+            ffi::GTK_TOOLBAR_BOTH => Self::Both,
+            ffi::GTK_TOOLBAR_BOTH_HORIZ => Self::BothHoriz,
             value => Self::__Unknown(value),
         }
     }
@@ -8008,9 +8010,9 @@ impl FromGlib<ffi::GtkTreeViewColumnSizing> for TreeViewColumnSizing {
     unsafe fn from_glib(value: ffi::GtkTreeViewColumnSizing) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::GrowOnly,
-            1 => Self::Autosize,
-            2 => Self::Fixed,
+            ffi::GTK_TREE_VIEW_COLUMN_GROW_ONLY => Self::GrowOnly,
+            ffi::GTK_TREE_VIEW_COLUMN_AUTOSIZE => Self::Autosize,
+            ffi::GTK_TREE_VIEW_COLUMN_FIXED => Self::Fixed,
             value => Self::__Unknown(value),
         }
     }
@@ -8101,10 +8103,10 @@ impl FromGlib<ffi::GtkTreeViewDropPosition> for TreeViewDropPosition {
     unsafe fn from_glib(value: ffi::GtkTreeViewDropPosition) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Before,
-            1 => Self::After,
-            2 => Self::IntoOrBefore,
-            3 => Self::IntoOrAfter,
+            ffi::GTK_TREE_VIEW_DROP_BEFORE => Self::Before,
+            ffi::GTK_TREE_VIEW_DROP_AFTER => Self::After,
+            ffi::GTK_TREE_VIEW_DROP_INTO_OR_BEFORE => Self::IntoOrBefore,
+            ffi::GTK_TREE_VIEW_DROP_INTO_OR_AFTER => Self::IntoOrAfter,
             value => Self::__Unknown(value),
         }
     }
@@ -8195,10 +8197,10 @@ impl FromGlib<ffi::GtkTreeViewGridLines> for TreeViewGridLines {
     unsafe fn from_glib(value: ffi::GtkTreeViewGridLines) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Horizontal,
-            2 => Self::Vertical,
-            3 => Self::Both,
+            ffi::GTK_TREE_VIEW_GRID_LINES_NONE => Self::None,
+            ffi::GTK_TREE_VIEW_GRID_LINES_HORIZONTAL => Self::Horizontal,
+            ffi::GTK_TREE_VIEW_GRID_LINES_VERTICAL => Self::Vertical,
+            ffi::GTK_TREE_VIEW_GRID_LINES_BOTH => Self::Both,
             value => Self::__Unknown(value),
         }
     }
@@ -8289,10 +8291,10 @@ impl FromGlib<ffi::GtkUnit> for Unit {
     unsafe fn from_glib(value: ffi::GtkUnit) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Points,
-            2 => Self::Inch,
-            3 => Self::Mm,
+            ffi::GTK_UNIT_NONE => Self::None,
+            ffi::GTK_UNIT_POINTS => Self::Points,
+            ffi::GTK_UNIT_INCH => Self::Inch,
+            ffi::GTK_UNIT_MM => Self::Mm,
             value => Self::__Unknown(value),
         }
     }
@@ -8375,8 +8377,8 @@ impl FromGlib<ffi::GtkWidgetHelpType> for WidgetHelpType {
     unsafe fn from_glib(value: ffi::GtkWidgetHelpType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Tooltip,
-            1 => Self::WhatsThis,
+            ffi::GTK_WIDGET_HELP_TOOLTIP => Self::Tooltip,
+            ffi::GTK_WIDGET_HELP_WHATS_THIS => Self::WhatsThis,
             value => Self::__Unknown(value),
         }
     }
@@ -8471,11 +8473,11 @@ impl FromGlib<ffi::GtkWindowPosition> for WindowPosition {
     unsafe fn from_glib(value: ffi::GtkWindowPosition) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Center,
-            2 => Self::Mouse,
-            3 => Self::CenterAlways,
-            4 => Self::CenterOnParent,
+            ffi::GTK_WIN_POS_NONE => Self::None,
+            ffi::GTK_WIN_POS_CENTER => Self::Center,
+            ffi::GTK_WIN_POS_MOUSE => Self::Mouse,
+            ffi::GTK_WIN_POS_CENTER_ALWAYS => Self::CenterAlways,
+            ffi::GTK_WIN_POS_CENTER_ON_PARENT => Self::CenterOnParent,
             value => Self::__Unknown(value),
         }
     }
@@ -8558,8 +8560,8 @@ impl FromGlib<ffi::GtkWindowType> for WindowType {
     unsafe fn from_glib(value: ffi::GtkWindowType) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::Toplevel,
-            1 => Self::Popup,
+            ffi::GTK_WINDOW_TOPLEVEL => Self::Toplevel,
+            ffi::GTK_WINDOW_POPUP => Self::Popup,
             value => Self::__Unknown(value),
         }
     }
@@ -8650,10 +8652,10 @@ impl FromGlib<ffi::GtkWrapMode> for WrapMode {
     unsafe fn from_glib(value: ffi::GtkWrapMode) -> Self {
         skip_assert_initialized!();
         match value {
-            0 => Self::None,
-            1 => Self::Char,
-            2 => Self::Word,
-            3 => Self::WordChar,
+            ffi::GTK_WRAP_NONE => Self::None,
+            ffi::GTK_WRAP_CHAR => Self::Char,
+            ffi::GTK_WRAP_WORD => Self::Word,
+            ffi::GTK_WRAP_WORD_CHAR => Self::WordChar,
             value => Self::__Unknown(value),
         }
     }

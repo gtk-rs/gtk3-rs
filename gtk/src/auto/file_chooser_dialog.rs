@@ -35,9 +35,18 @@ impl FileChooserDialog {
     //pub fn new<P: IsA<Window>>(title: Option<&str>, parent: Option<&P>, action: FileChooserAction, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> FileChooserDialog {
     //    unsafe { TODO: call ffi:gtk_file_chooser_dialog_new() }
     //}
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FileChooserDialog`]
+    /// This method returns an instance of [`FileChooserDialogBuilder`] which can be used to create a [`FileChooserDialog`].
+    pub fn builder() -> FileChooserDialogBuilder {
+        FileChooserDialogBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FileChooserDialog`].
 pub struct FileChooserDialogBuilder {
     use_header_bar: Option<i32>,
     accept_focus: Option<bool>,
@@ -119,10 +128,14 @@ pub struct FileChooserDialogBuilder {
 }
 
 impl FileChooserDialogBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FileChooserDialogBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FileChooserDialog`].
     pub fn build(self) -> FileChooserDialog {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref use_header_bar) = self.use_header_bar {

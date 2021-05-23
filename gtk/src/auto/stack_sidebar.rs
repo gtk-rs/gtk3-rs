@@ -34,6 +34,13 @@ impl StackSidebar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_stack_sidebar_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`StackSidebar`]
+    /// This method returns an instance of [`StackSidebarBuilder`] which can be used to create a [`StackSidebar`].
+    pub fn builder() -> StackSidebarBuilder {
+        StackSidebarBuilder::default()
+    }
 }
 
 impl Default for StackSidebar {
@@ -43,6 +50,8 @@ impl Default for StackSidebar {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`StackSidebar`].
 pub struct StackSidebarBuilder {
     stack: Option<Stack>,
     border_width: Option<u32>,
@@ -85,10 +94,14 @@ pub struct StackSidebarBuilder {
 }
 
 impl StackSidebarBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`StackSidebarBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`StackSidebar`].
     pub fn build(self) -> StackSidebar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref stack) = self.stack {

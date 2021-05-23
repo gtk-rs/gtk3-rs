@@ -44,9 +44,18 @@ impl FontChooserDialog {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`FontChooserDialog`]
+    /// This method returns an instance of [`FontChooserDialogBuilder`] which can be used to create a [`FontChooserDialog`].
+    pub fn builder() -> FontChooserDialogBuilder {
+        FontChooserDialogBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`FontChooserDialog`].
 pub struct FontChooserDialogBuilder {
     use_header_bar: Option<i32>,
     accept_focus: Option<bool>,
@@ -127,10 +136,14 @@ pub struct FontChooserDialogBuilder {
 }
 
 impl FontChooserDialogBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`FontChooserDialogBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FontChooserDialog`].
     pub fn build(self) -> FontChooserDialog {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref use_header_bar) = self.use_header_bar {

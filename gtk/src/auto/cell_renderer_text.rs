@@ -30,6 +30,13 @@ impl CellRendererText {
         assert_initialized_main_thread!();
         unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_text_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`CellRendererText`]
+    /// This method returns an instance of [`CellRendererTextBuilder`] which can be used to create a [`CellRendererText`].
+    pub fn builder() -> CellRendererTextBuilder {
+        CellRendererTextBuilder::default()
+    }
 }
 
 impl Default for CellRendererText {
@@ -39,6 +46,8 @@ impl Default for CellRendererText {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`CellRendererText`].
 pub struct CellRendererTextBuilder {
     align_set: Option<bool>,
     alignment: Option<pango::Alignment>,
@@ -103,10 +112,14 @@ pub struct CellRendererTextBuilder {
 }
 
 impl CellRendererTextBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`CellRendererTextBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`CellRendererText`].
     pub fn build(self) -> CellRendererText {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref align_set) = self.align_set {

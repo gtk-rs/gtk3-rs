@@ -33,6 +33,13 @@ glib::wrapper! {
 }
 
 impl ShortcutsSection {
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ShortcutsSection`]
+    /// This method returns an instance of [`ShortcutsSectionBuilder`] which can be used to create a [`ShortcutsSection`].
+    pub fn builder() -> ShortcutsSectionBuilder {
+        ShortcutsSectionBuilder::default()
+    }
+
     #[doc(alias = "max-height")]
     pub fn max_height(&self) -> u32 {
         unsafe {
@@ -280,6 +287,8 @@ impl ShortcutsSection {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ShortcutsSection`].
 pub struct ShortcutsSectionBuilder {
     max_height: Option<u32>,
     section_name: Option<String>,
@@ -329,10 +338,14 @@ pub struct ShortcutsSectionBuilder {
 }
 
 impl ShortcutsSectionBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ShortcutsSectionBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ShortcutsSection`].
     pub fn build(self) -> ShortcutsSection {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref max_height) = self.max_height {

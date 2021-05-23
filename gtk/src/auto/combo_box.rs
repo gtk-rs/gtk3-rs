@@ -96,6 +96,13 @@ impl ComboBox {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ComboBox`]
+    /// This method returns an instance of [`ComboBoxBuilder`] which can be used to create a [`ComboBox`].
+    pub fn builder() -> ComboBoxBuilder {
+        ComboBoxBuilder::default()
+    }
 }
 
 impl Default for ComboBox {
@@ -105,6 +112,8 @@ impl Default for ComboBox {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ComboBox`].
 pub struct ComboBoxBuilder {
     active: Option<i32>,
     active_id: Option<String>,
@@ -160,10 +169,14 @@ pub struct ComboBoxBuilder {
 }
 
 impl ComboBoxBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ComboBoxBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ComboBox`].
     pub fn build(self) -> ComboBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

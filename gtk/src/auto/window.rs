@@ -42,6 +42,13 @@ impl Window {
         unsafe { Widget::from_glib_none(ffi::gtk_window_new(type_.into_glib())).unsafe_cast() }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Window`]
+    /// This method returns an instance of [`WindowBuilder`] which can be used to create a [`Window`].
+    pub fn builder() -> WindowBuilder {
+        WindowBuilder::default()
+    }
+
     #[doc(alias = "gtk_window_get_default_icon_list")]
     #[doc(alias = "get_default_icon_list")]
     pub fn default_icon_list() -> Vec<gdk_pixbuf::Pixbuf> {
@@ -125,6 +132,8 @@ impl Window {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Window`].
 pub struct WindowBuilder {
     accept_focus: Option<bool>,
     application: Option<Application>,
@@ -194,10 +203,14 @@ pub struct WindowBuilder {
 }
 
 impl WindowBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`WindowBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Window`].
     pub fn build(self) -> Window {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accept_focus) = self.accept_focus {

@@ -42,9 +42,18 @@ impl ToolButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ToolButton`]
+    /// This method returns an instance of [`ToolButtonBuilder`] which can be used to create a [`ToolButton`].
+    pub fn builder() -> ToolButtonBuilder {
+        ToolButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ToolButton`].
 pub struct ToolButtonBuilder {
     icon_name: Option<String>,
     icon_widget: Option<Widget>,
@@ -96,10 +105,14 @@ pub struct ToolButtonBuilder {
 }
 
 impl ToolButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ToolButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ToolButton`].
     pub fn build(self) -> ToolButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref icon_name) = self.icon_name {

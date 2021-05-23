@@ -40,19 +40,32 @@ impl TextBuffer {
             ))
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`TextBuffer`]
+    /// This method returns an instance of [`TextBufferBuilder`] which can be used to create a [`TextBuffer`].
+    pub fn builder() -> TextBufferBuilder {
+        TextBufferBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`TextBuffer`].
 pub struct TextBufferBuilder {
     tag_table: Option<TextTagTable>,
     text: Option<String>,
 }
 
 impl TextBufferBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`TextBufferBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`TextBuffer`].
     pub fn build(self) -> TextBuffer {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref tag_table) = self.tag_table {

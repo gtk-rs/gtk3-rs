@@ -45,9 +45,18 @@ impl AppChooserButton {
             .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`AppChooserButton`]
+    /// This method returns an instance of [`AppChooserButtonBuilder`] which can be used to create a [`AppChooserButton`].
+    pub fn builder() -> AppChooserButtonBuilder {
+        AppChooserButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`AppChooserButton`].
 pub struct AppChooserButtonBuilder {
     heading: Option<String>,
     show_default_item: Option<bool>,
@@ -107,10 +116,14 @@ pub struct AppChooserButtonBuilder {
 }
 
 impl AppChooserButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`AppChooserButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`AppChooserButton`].
     pub fn build(self) -> AppChooserButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref heading) = self.heading {

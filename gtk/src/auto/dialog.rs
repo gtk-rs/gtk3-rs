@@ -47,6 +47,13 @@ impl Dialog {
     //pub fn with_buttons<P: IsA<Window>>(title: Option<&str>, parent: Option<&P>, flags: DialogFlags, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Dialog {
     //    unsafe { TODO: call ffi:gtk_dialog_new_with_buttons() }
     //}
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Dialog`]
+    /// This method returns an instance of [`DialogBuilder`] which can be used to create a [`Dialog`].
+    pub fn builder() -> DialogBuilder {
+        DialogBuilder::default()
+    }
 }
 
 impl Default for Dialog {
@@ -56,6 +63,8 @@ impl Default for Dialog {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Dialog`].
 pub struct DialogBuilder {
     use_header_bar: Option<i32>,
     accept_focus: Option<bool>,
@@ -126,10 +135,14 @@ pub struct DialogBuilder {
 }
 
 impl DialogBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`DialogBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Dialog`].
     pub fn build(self) -> Dialog {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref use_header_bar) = self.use_header_bar {

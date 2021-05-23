@@ -19,6 +19,13 @@ glib::wrapper! {
 }
 
 impl X11DeviceXI2 {
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`X11DeviceXI2`]
+    /// This method returns an instance of [`X11DeviceXI2Builder`] which can be used to create a [`X11DeviceXI2`].
+    pub fn builder() -> X11DeviceXI2Builder {
+        X11DeviceXI2Builder::default()
+    }
+
     #[doc(alias = "device-id")]
     pub fn device_id(&self) -> i32 {
         unsafe {
@@ -36,6 +43,8 @@ impl X11DeviceXI2 {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`X11DeviceXI2`].
 pub struct X11DeviceXI2Builder {
     device_id: Option<i32>,
     device_manager: Option<gdk::DeviceManager>,
@@ -54,10 +63,14 @@ pub struct X11DeviceXI2Builder {
 }
 
 impl X11DeviceXI2Builder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`X11DeviceXI2Builder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`X11DeviceXI2`].
     pub fn build(self) -> X11DeviceXI2 {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref device_id) = self.device_id {

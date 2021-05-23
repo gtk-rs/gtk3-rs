@@ -38,6 +38,13 @@ impl GestureSwipe {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`GestureSwipe`]
+    /// This method returns an instance of [`GestureSwipeBuilder`] which can be used to create a [`GestureSwipe`].
+    pub fn builder() -> GestureSwipeBuilder {
+        GestureSwipeBuilder::default()
+    }
+
     #[doc(alias = "gtk_gesture_swipe_get_velocity")]
     #[doc(alias = "get_velocity")]
     pub fn velocity(&self) -> Option<(f64, f64)> {
@@ -85,6 +92,8 @@ impl GestureSwipe {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`GestureSwipe`].
 pub struct GestureSwipeBuilder {
     button: Option<u32>,
     exclusive: Option<bool>,
@@ -96,10 +105,14 @@ pub struct GestureSwipeBuilder {
 }
 
 impl GestureSwipeBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`GestureSwipeBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`GestureSwipe`].
     pub fn build(self) -> GestureSwipe {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref button) = self.button {

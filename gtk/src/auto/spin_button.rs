@@ -66,9 +66,18 @@ impl SpinButton {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`SpinButton`]
+    /// This method returns an instance of [`SpinButtonBuilder`] which can be used to create a [`SpinButton`].
+    pub fn builder() -> SpinButtonBuilder {
+        SpinButtonBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`SpinButton`].
 pub struct SpinButtonBuilder {
     adjustment: Option<Adjustment>,
     climb_rate: Option<f64>,
@@ -112,6 +121,7 @@ pub struct SpinButtonBuilder {
     secondary_icon_sensitive: Option<bool>,
     secondary_icon_tooltip_markup: Option<String>,
     secondary_icon_tooltip_text: Option<String>,
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     shadow_type: Option<ShadowType>,
     show_emoji_icon: Option<bool>,
     tabs: Option<pango::TabArray>,
@@ -159,10 +169,14 @@ pub struct SpinButtonBuilder {
 }
 
 impl SpinButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`SpinButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`SpinButton`].
     pub fn build(self) -> SpinButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref adjustment) = self.adjustment {
@@ -635,6 +649,7 @@ impl SpinButtonBuilder {
         self
     }
 
+    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     pub fn shadow_type(mut self, shadow_type: ShadowType) -> Self {
         self.shadow_type = Some(shadow_type);
         self

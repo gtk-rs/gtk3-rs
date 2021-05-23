@@ -41,6 +41,13 @@ impl Invisible {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Invisible`]
+    /// This method returns an instance of [`InvisibleBuilder`] which can be used to create a [`Invisible`].
+    pub fn builder() -> InvisibleBuilder {
+        InvisibleBuilder::default()
+    }
 }
 
 impl Default for Invisible {
@@ -50,6 +57,8 @@ impl Default for Invisible {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Invisible`].
 pub struct InvisibleBuilder {
     screen: Option<gdk::Screen>,
     app_paintable: Option<bool>,
@@ -89,10 +98,14 @@ pub struct InvisibleBuilder {
 }
 
 impl InvisibleBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`InvisibleBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Invisible`].
     pub fn build(self) -> Invisible {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref screen) = self.screen {

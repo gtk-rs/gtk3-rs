@@ -34,6 +34,13 @@ impl Revealer {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_revealer_new()).unsafe_cast() }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`Revealer`]
+    /// This method returns an instance of [`RevealerBuilder`] which can be used to create a [`Revealer`].
+    pub fn builder() -> RevealerBuilder {
+        RevealerBuilder::default()
+    }
 }
 
 impl Default for Revealer {
@@ -43,6 +50,8 @@ impl Default for Revealer {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`Revealer`].
 pub struct RevealerBuilder {
     reveal_child: Option<bool>,
     transition_duration: Option<u32>,
@@ -87,10 +96,14 @@ pub struct RevealerBuilder {
 }
 
 impl RevealerBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`RevealerBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Revealer`].
     pub fn build(self) -> Revealer {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref reveal_child) = self.reveal_child {

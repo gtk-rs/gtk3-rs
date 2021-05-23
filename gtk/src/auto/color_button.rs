@@ -48,6 +48,13 @@ impl ColorButton {
                 .unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ColorButton`]
+    /// This method returns an instance of [`ColorButtonBuilder`] which can be used to create a [`ColorButton`].
+    pub fn builder() -> ColorButtonBuilder {
+        ColorButtonBuilder::default()
+    }
 }
 
 impl Default for ColorButton {
@@ -57,6 +64,8 @@ impl Default for ColorButton {
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`ColorButton`].
 pub struct ColorButtonBuilder {
     alpha: Option<u32>,
     rgba: Option<gdk::RGBA>,
@@ -113,10 +122,14 @@ pub struct ColorButtonBuilder {
 }
 
 impl ColorButtonBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ColorButtonBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ColorButton`].
     pub fn build(self) -> ColorButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref alpha) = self.alpha {

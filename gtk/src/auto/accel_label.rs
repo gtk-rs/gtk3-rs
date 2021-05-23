@@ -37,9 +37,18 @@ impl AccelLabel {
             Widget::from_glib_none(ffi::gtk_accel_label_new(string.to_glib_none().0)).unsafe_cast()
         }
     }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`AccelLabel`]
+    /// This method returns an instance of [`AccelLabelBuilder`] which can be used to create a [`AccelLabel`].
+    pub fn builder() -> AccelLabelBuilder {
+        AccelLabelBuilder::default()
+    }
 }
 
 #[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+/// A builder for generating a [`AccelLabel`].
 pub struct AccelLabelBuilder {
     accel_closure: Option<glib::Closure>,
     accel_widget: Option<Widget>,
@@ -99,10 +108,14 @@ pub struct AccelLabelBuilder {
 }
 
 impl AccelLabelBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`AccelLabelBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Build the [`AccelLabel`].
     pub fn build(self) -> AccelLabel {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_closure) = self.accel_closure {
