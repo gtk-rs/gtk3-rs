@@ -87,6 +87,7 @@ generate = [
     "Gtk.RecentChooser",
     "Gtk.RecentChooserError",
     "Gtk.RecentFilter",
+    "Gtk.RecentFilterInfo",
     "Gtk.RecentFilterFlags",
     "Gtk.RecentInfo",
     "Gtk.RecentManagerError",
@@ -322,6 +323,21 @@ status = "generate"
     [[object.function]]
     name = "disable_setlocale"
     assertion = "not-initialized"
+    [[object.function]]
+    name = "test_init"
+    ignore = true # TODO: manually implement
+    [[object.function]]
+    name = "parse_args"
+    ignore = true # TODO: manually implement
+    [[object.function]]
+    name = "init_with_args"
+    ignore = true # TODO: manually implement
+    [[object.function]]
+    name = "init_check"
+    ignore = true # TODO: manually implement
+    [[object.function]]
+    name = "accelerator_parse_with_keycode"
+    ignore = true # TODO: manually implement
 
 [[object]]
 name = "Gtk.AboutDialog"
@@ -350,10 +366,12 @@ manual_traits = ["AccelGroupExtManual"]
     name = "connect"
     # More convenient implementation
     manual = true
+    rename = "connect_accel_group"
     [[object.function]]
     name = "connect_by_path"
     # More convenient implementation
     manual = true
+    rename = "connect_accel_group_by_path"
 
 [[object]]
 name = "Gtk.AccelLabel"
@@ -827,6 +845,9 @@ name = "Gtk.Dialog"
 status = "generate"
 generate_builder = true
 manual_traits = ["DialogExtManual"]
+    [[object.function]]
+    name = "add_buttons"
+    manual = true
     [[object.function]]
     name = "add_button"
         [object.function.return]
@@ -1410,6 +1431,10 @@ manual_traits = ["GtkListStoreExtManual"]
     manual = true
     doc_trait_name = "GtkListStoreExtManual"
     [[object.function]]
+    name = "set"
+    manual = true
+    doc_trait_name = "GtkListStoreExtManual"
+    [[object.function]]
     name = "set_value"
     manual = true
     doc_trait_name = "GtkListStoreExtManual"
@@ -1442,6 +1467,9 @@ manual_traits = ["GtkMenuExtManual"]
     [[object.function]]
     name = "place_on_monitor"
     version = "3.22"
+    [[object.function]]
+    name = "attach_to_widget"
+    ignore = true # TODO: figure out
 
 [[object]]
 name = "Gtk.MenuBar"
@@ -2089,6 +2117,9 @@ manual_traits = ["StyleContextExtManual"]
     [[object.function]]
     name = "get_property"
     rename = "style_property_for_state" # avoid collision with ObjectExt::property
+    [[object.function]]
+    name = "get"
+    ignore = true # TODO: manually implement
 
 [[object]]
 name = "Gtk.StyleContextPrintFlags"
@@ -2173,16 +2204,25 @@ manual_traits = ["TextBufferExtManual"]
     # needs mutable TextIters
     ignore = true
     doc_trait_name = "TextBufferExtManual"
+    [[object.function]]
+    name = "create_tag"
+    ignore = true # TODO: figure out once we have varargs
+    [[object.function]]
+    name = "insert_with_tags"
+    ignore = true # TODO: figure out once we have varargs
+    [[object.function]]
+    name = "register_deserialize_format"
+    ignore = true # TODO: manually implement
 
 [[object]]
 name = "Gtk.TextIter"
 status = "generate"
 init_function_expression = "|_ptr| ()"
 clear_function_expression = "|_ptr| ()"
-
     [[object.function]]
     name = "get_attributes"
     manual = true
+    rename = "is_attributes"
     [[object.function]]
     name = "get_char"
     manual = true
@@ -2558,6 +2598,10 @@ manual_traits = ["TreeStoreExtManual"]
         const = true
     [[object.function]]
     name = "reorder"
+    manual = true
+    doc_trait_name = "TreeStoreExtManual"
+    [[object.function]]
+    name = "set"
     manual = true
     doc_trait_name = "TreeStoreExtManual"
     [[object.function]]
