@@ -71,9 +71,6 @@ pub trait GtkListStoreExt: 'static {
     #[doc(alias = "gtk_list_store_remove")]
     fn remove(&self, iter: &TreeIter) -> bool;
 
-    //#[doc(alias = "gtk_list_store_set")]
-    //fn set(&self, iter: &TreeIter, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
-
     //#[doc(alias = "gtk_list_store_set_column_types")]
     //fn set_column_types(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 30 });
 
@@ -191,10 +188,6 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
             ))
         }
     }
-
-    //fn set(&self, iter: &TreeIter, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_list_store_set() }
-    //}
 
     //fn set_column_types(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 30 }) {
     //    unsafe { TODO: call ffi:gtk_list_store_set_column_types() }

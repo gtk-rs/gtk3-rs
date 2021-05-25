@@ -8,6 +8,13 @@ use glib::object::IsA;
 use glib::translate::*;
 
 impl ApplicationWindow {
+    /// Creates a new [ApplicationWindow](crate::ApplicationWindow).
+    /// ## `application`
+    /// a [Application](crate::Application)
+    ///
+    /// # Returns
+    ///
+    /// a newly created [ApplicationWindow](crate::ApplicationWindow)
     #[doc(alias = "gtk_application_window_new")]
     pub fn new<P: IsA<Application>>(application: &P) -> ApplicationWindow {
         skip_assert_initialized!();

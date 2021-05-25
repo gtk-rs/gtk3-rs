@@ -551,13 +551,14 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
 
     #[doc(alias = "layout-style")]
     fn connect_layout_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_layout_style_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_layout_style_trampoline<
+            P: IsA<ButtonBox>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkButtonBox,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ButtonBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ButtonBox::from_glib_borrow(this).unsafe_cast_ref())
         }

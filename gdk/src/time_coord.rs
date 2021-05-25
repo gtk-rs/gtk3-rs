@@ -3,6 +3,7 @@
 use glib::translate::*;
 use std::mem;
 
+/// A [TimeCoord](crate::TimeCoord) stores a single event in a motion history.
 #[derive(Clone)]
 #[repr(C)]
 pub struct TimeCoord {

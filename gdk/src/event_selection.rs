@@ -2,6 +2,8 @@
 
 use glib::translate::*;
 
+/// Generated when a selection is requested or ownership of a selection
+/// is taken over by another client application.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventSelection(crate::Event);
 

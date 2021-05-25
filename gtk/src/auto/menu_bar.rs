@@ -490,13 +490,14 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
 
     #[doc(alias = "child-pack-direction")]
     fn connect_child_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_child_pack_direction_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_child_pack_direction_trampoline<
+            P: IsA<MenuBar>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMenuBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -515,13 +516,14 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
 
     #[doc(alias = "pack-direction")]
     fn connect_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_pack_direction_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_pack_direction_trampoline<
+            P: IsA<MenuBar>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMenuBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuBar::from_glib_borrow(this).unsafe_cast_ref())
         }

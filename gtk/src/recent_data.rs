@@ -3,6 +3,8 @@
 use glib::translate::*;
 use libc::c_char;
 
+/// Meta-data to be passed to [RecentManagerExt::add_full](crate::prelude::RecentManagerExt::add_full) when
+/// registering a recently used resource.
 pub struct RecentData {
     pub display_name: Option<String>,
     pub description: Option<String>,

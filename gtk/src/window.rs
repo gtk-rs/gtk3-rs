@@ -5,6 +5,9 @@ use glib::object::IsA;
 use glib::translate::*;
 
 pub trait GtkWindowExtManual: 'static {
+    /// Presents a window to the user. This function should not be used
+    /// as when it is called, it is too late to gather a valid timestamp
+    /// to allow focus stealing prevention to work correctly.
     #[doc(alias = "gtk_window_present")]
     fn present(&self);
 }

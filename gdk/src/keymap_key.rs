@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// A [KeymapKey](crate::KeymapKey) is a hardware key that can be mapped to a keyval.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(C)]
 pub struct KeymapKey {

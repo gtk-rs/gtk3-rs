@@ -3,6 +3,7 @@
 use glib::translate::*;
 use glib::GString;
 
+/// Generated when a setting is modified.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventSetting(crate::Event);
 

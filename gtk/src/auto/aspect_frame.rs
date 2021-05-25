@@ -630,13 +630,14 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
 
     #[doc(alias = "obey-child")]
     fn connect_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_obey_child_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_obey_child_trampoline<
+            P: IsA<AspectFrame>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAspectFrame,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AspectFrame>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AspectFrame::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -655,13 +656,11 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
 
     #[doc(alias = "ratio")]
     fn connect_ratio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_ratio_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_ratio_trampoline<P: IsA<AspectFrame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AspectFrame>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AspectFrame::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -680,13 +679,11 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
 
     #[doc(alias = "xalign")]
     fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_xalign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_xalign_trampoline<P: IsA<AspectFrame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AspectFrame>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AspectFrame::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -705,13 +702,11 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
 
     #[doc(alias = "yalign")]
     fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_yalign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_yalign_trampoline<P: IsA<AspectFrame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AspectFrame>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AspectFrame::from_glib_borrow(this).unsafe_cast_ref())
         }

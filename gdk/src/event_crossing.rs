@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated when the pointer enters or leaves a window.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventCrossing(crate::Event);
 

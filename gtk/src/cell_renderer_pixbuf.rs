@@ -11,6 +11,7 @@ pub trait CellRendererPixbufExtManual: 'static {
     #[doc(alias = "get_property_stock_size")]
     fn property_stock_size(&self) -> IconSize;
 
+    /// The GtkIconSize value that specifies the size of the rendered icon.
     fn set_property_stock_size(&self, stock_size: IconSize);
 }
 

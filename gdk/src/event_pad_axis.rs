@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated during [InputSource::TabletPad](crate::InputSource::TabletPad) interaction with tactile sensors.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventPadAxis(crate::Event);
 

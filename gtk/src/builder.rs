@@ -24,6 +24,27 @@ pub trait BuilderExtManual: 'static {
     #[doc(alias = "get_object")]
     fn object<T: IsA<Object>>(&self, name: &str) -> Option<T>;
 
+    /// Parses a file containing a [GtkBuilder UI definition][BUILDER-UI]
+    /// and merges it with the current contents of `self`.
+    ///
+    /// Most users will probably want to use `gtk_builder_new_from_file`.
+    ///
+    /// If an error occurs, 0 will be returned and `error` will be assigned a
+    /// [glib::Error](crate::glib::Error) from the GTK_BUILDER_ERROR, G_MARKUP_ERROR or G_FILE_ERROR
+    /// domain.
+    ///
+    /// It’s not really reasonable to attempt to handle failures of this
+    /// call. You should not use this function with untrusted files (ie:
+    /// files that are not part of your application). Broken [Builder](crate::Builder)
+    /// files can easily crash your program, and it’s possible that memory
+    /// was leaked leading up to the reported failure. The only reasonable
+    /// thing to do when an error is detected is to call `g_error`.
+    /// ## `filename`
+    /// the name of the file to parse
+    ///
+    /// # Returns
+    ///
+    /// A positive value on success, 0 if an error occurred
     #[doc(alias = "gtk_builder_add_from_file")]
     fn add_from_file<T: AsRef<Path>>(&self, file_path: T) -> Result<(), glib::Error>;
     #[doc(alias = "gtk_builder_connect_signals_full")]

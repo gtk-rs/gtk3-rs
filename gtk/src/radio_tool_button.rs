@@ -8,6 +8,14 @@ use glib::ToValue;
 use std::ptr;
 
 impl RadioToolButton {
+    /// Creates a new [RadioToolButton](crate::RadioToolButton), adding it to `group`.
+    /// ## `group`
+    /// An
+    ///  existing radio button group, or [`None`] if you are creating a new group
+    ///
+    /// # Returns
+    ///
+    /// The new [RadioToolButton](crate::RadioToolButton)
     #[doc(alias = "gtk_radio_tool_button_new")]
     pub fn new() -> Self {
         assert_initialized_main_thread!();

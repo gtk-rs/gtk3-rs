@@ -2,6 +2,14 @@
 
 use glib::translate::*;
 
+/// Generated from button presses for the buttons 4 to 7. Wheel mice are
+/// usually configured to generate button press events for buttons 4 and 5
+/// when the wheel is turned.
+///
+/// Some GDK backends can also generate “smooth” scroll events, which
+/// can be recognized by the [ScrollDirection::Smooth](crate::ScrollDirection::Smooth) scroll direction. For
+/// these, the scroll deltas can be obtained with
+/// `gdk_event_get_scroll_deltas`.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventScroll(crate::Event);
 

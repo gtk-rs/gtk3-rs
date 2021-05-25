@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated during [InputSource::TabletPad](crate::InputSource::TabletPad) button presses and releases.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventPadButton(crate::Event);
 

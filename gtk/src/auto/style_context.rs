@@ -154,9 +154,6 @@ pub trait StyleContextExt: 'static {
     #[doc(alias = "gtk_style_context_add_provider")]
     fn add_provider<P: IsA<StyleProvider>>(&self, provider: &P, priority: u32);
 
-    //#[doc(alias = "gtk_style_context_get")]
-    //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
-
     #[doc(alias = "gtk_style_context_get_border")]
     #[doc(alias = "get_border")]
     fn border(&self, state: StateFlags) -> Border;
@@ -317,10 +314,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             );
         }
     }
-
-    //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_style_context_get() }
-    //}
 
     fn border(&self, state: StateFlags) -> Border {
         unsafe {
@@ -646,12 +639,10 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn changed_trampoline<P: IsA<StyleContext>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStyleContext,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<StyleContext>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&StyleContext::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -670,13 +661,14 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     #[doc(alias = "direction")]
     fn connect_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_direction_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_direction_trampoline<
+            P: IsA<StyleContext>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<StyleContext>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&StyleContext::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -695,13 +687,14 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     #[doc(alias = "paint-clock")]
     fn connect_paint_clock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_paint_clock_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_paint_clock_trampoline<
+            P: IsA<StyleContext>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<StyleContext>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&StyleContext::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -720,13 +713,11 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     #[doc(alias = "parent")]
     fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_parent_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_parent_trampoline<P: IsA<StyleContext>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<StyleContext>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&StyleContext::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -745,13 +736,11 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     #[doc(alias = "screen")]
     fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_screen_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_screen_trampoline<P: IsA<StyleContext>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<StyleContext>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&StyleContext::from_glib_borrow(this).unsafe_cast_ref())
         }

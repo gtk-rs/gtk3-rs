@@ -108,12 +108,13 @@ impl<O: IsA<Selection>> SelectionExt for O {
 
     #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn selection_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn selection_changed_trampoline<
+            P: IsA<Selection>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkSelection,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Selection>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Selection::from_glib_borrow(this).unsafe_cast_ref())
         }

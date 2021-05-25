@@ -719,12 +719,10 @@ impl<O: IsA<Plug>> PlugExt for O {
 
     #[doc(alias = "embedded")]
     fn connect_embedded<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn embedded_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn embedded_trampoline<P: IsA<Plug>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPlug,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Plug>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Plug::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -743,13 +741,11 @@ impl<O: IsA<Plug>> PlugExt for O {
 
     #[doc(alias = "embedded")]
     fn connect_embedded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_embedded_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_embedded_trampoline<P: IsA<Plug>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPlug,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Plug>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Plug::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -768,13 +764,11 @@ impl<O: IsA<Plug>> PlugExt for O {
 
     #[doc(alias = "socket-window")]
     fn connect_socket_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_socket_window_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_socket_window_trampoline<P: IsA<Plug>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPlug,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Plug>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Plug::from_glib_borrow(this).unsafe_cast_ref())
         }

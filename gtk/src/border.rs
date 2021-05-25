@@ -5,6 +5,8 @@ use std::fmt;
 use std::ops;
 
 glib::wrapper! {
+    /// A struct that specifies a border around a rectangular area
+    /// that can be of different width on each side.
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Border(Boxed<ffi::GtkBorder>);
 
@@ -32,6 +34,12 @@ impl ops::DerefMut for Border {
 }
 
 impl Border {
+    /// Allocates a new [Border](crate::Border)-struct and initializes its elements to zero.
+    ///
+    /// # Returns
+    ///
+    /// a newly allocated [Border](crate::Border)-struct.
+    ///  Free with `gtk_border_free`
     #[doc(alias = "gtk_border_new")]
     pub fn new() -> Self {
         assert_initialized_main_thread!();

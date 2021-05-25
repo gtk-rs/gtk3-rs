@@ -4,6 +4,12 @@ use crate::Screen;
 use glib::translate::*;
 
 impl Screen {
+    /// Gets any options previously set with [Screen::set_font_options](crate::Screen::set_font_options).
+    ///
+    /// # Returns
+    ///
+    /// the current font options, or [`None`] if no
+    ///  default font options have been set.
     #[doc(alias = "gdk_screen_get_font_options")]
     #[doc(alias = "get_font_options")]
     pub fn font_options(&self) -> Option<cairo::FontOptions> {

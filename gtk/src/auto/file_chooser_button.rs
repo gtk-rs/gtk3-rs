@@ -662,12 +662,10 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
 
     #[doc(alias = "file-set")]
     fn connect_file_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn file_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn file_set_trampoline<P: IsA<FileChooserButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooserButton,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FileChooserButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FileChooserButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -686,13 +684,14 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
 
     #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_title_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_title_trampoline<
+            P: IsA<FileChooserButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkFileChooserButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FileChooserButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FileChooserButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -711,13 +710,14 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
 
     #[doc(alias = "width-chars")]
     fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_width_chars_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_width_chars_trampoline<
+            P: IsA<FileChooserButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkFileChooserButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FileChooserButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FileChooserButton::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -507,14 +507,15 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
 
     #[doc(alias = "text-popped")]
     fn connect_text_popped<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn text_popped_trampoline<P, F: Fn(&P, u32, &str) + 'static>(
+        unsafe extern "C" fn text_popped_trampoline<
+            P: IsA<Statusbar>,
+            F: Fn(&P, u32, &str) + 'static,
+        >(
             this: *mut ffi::GtkStatusbar,
             context_id: libc::c_uint,
             text: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Statusbar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Statusbar::from_glib_borrow(this).unsafe_cast_ref(),
@@ -537,14 +538,15 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
 
     #[doc(alias = "text-pushed")]
     fn connect_text_pushed<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn text_pushed_trampoline<P, F: Fn(&P, u32, &str) + 'static>(
+        unsafe extern "C" fn text_pushed_trampoline<
+            P: IsA<Statusbar>,
+            F: Fn(&P, u32, &str) + 'static,
+        >(
             this: *mut ffi::GtkStatusbar,
             context_id: libc::c_uint,
             text: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Statusbar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Statusbar::from_glib_borrow(this).unsafe_cast_ref(),

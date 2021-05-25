@@ -641,12 +641,10 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[doc(alias = "color-set")]
     fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn color_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn color_set_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ColorButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ColorButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -665,13 +663,11 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[doc(alias = "alpha")]
     fn connect_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_alpha_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_alpha_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ColorButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ColorButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -690,13 +686,11 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[doc(alias = "rgba")]
     fn connect_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_rgba_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_rgba_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ColorButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ColorButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -717,13 +711,14 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "show-editor")]
     fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_editor_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_editor_trampoline<
+            P: IsA<ColorButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ColorButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ColorButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -742,13 +737,11 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_title_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_title_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ColorButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ColorButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -767,13 +760,14 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[doc(alias = "use-alpha")]
     fn connect_use_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_use_alpha_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_use_alpha_trampoline<
+            P: IsA<ColorButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkColorButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ColorButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ColorButton::from_glib_borrow(this).unsafe_cast_ref())
         }

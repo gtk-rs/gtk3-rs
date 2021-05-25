@@ -247,13 +247,14 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     #[doc(alias = "activate-current")]
     fn connect_activate_current<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn activate_current_trampoline<P, F: Fn(&P, bool) + 'static>(
+        unsafe extern "C" fn activate_current_trampoline<
+            P: IsA<MenuShell>,
+            F: Fn(&P, bool) + 'static,
+        >(
             this: *mut ffi::GtkMenuShell,
             force_hide: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuShell>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
@@ -283,12 +284,10 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn cancel_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn cancel_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuShell>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuShell::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -315,13 +314,14 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     #[doc(alias = "cycle-focus")]
     fn connect_cycle_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn cycle_focus_trampoline<P, F: Fn(&P, DirectionType) + 'static>(
+        unsafe extern "C" fn cycle_focus_trampoline<
+            P: IsA<MenuShell>,
+            F: Fn(&P, DirectionType) + 'static,
+        >(
             this: *mut ffi::GtkMenuShell,
             direction: ffi::GtkDirectionType,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuShell>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
@@ -351,12 +351,10 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     #[doc(alias = "deactivate")]
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn deactivate_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn deactivate_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuShell>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuShell::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -375,14 +373,15 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     #[doc(alias = "insert")]
     fn connect_insert<F: Fn(&Self, &Widget, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn insert_trampoline<P, F: Fn(&P, &Widget, i32) + 'static>(
+        unsafe extern "C" fn insert_trampoline<
+            P: IsA<MenuShell>,
+            F: Fn(&P, &Widget, i32) + 'static,
+        >(
             this: *mut ffi::GtkMenuShell,
             child: *mut ffi::GtkWidget,
             position: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuShell>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
@@ -408,13 +407,14 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn move_current_trampoline<P, F: Fn(&P, MenuDirectionType) + 'static>(
+        unsafe extern "C" fn move_current_trampoline<
+            P: IsA<MenuShell>,
+            F: Fn(&P, MenuDirectionType) + 'static,
+        >(
             this: *mut ffi::GtkMenuShell,
             direction: ffi::GtkMenuDirectionType,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuShell>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
@@ -448,16 +448,13 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn move_selected_trampoline<
-            P,
+            P: IsA<MenuShell>,
             F: Fn(&P, i32) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkMenuShell,
             distance: libc::c_int,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<MenuShell>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
@@ -480,12 +477,10 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     #[doc(alias = "selection-done")]
     fn connect_selection_done<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn selection_done_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn selection_done_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuShell>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuShell::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -504,13 +499,14 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     #[doc(alias = "take-focus")]
     fn connect_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_take_focus_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_take_focus_trampoline<
+            P: IsA<MenuShell>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMenuShell,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuShell>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuShell::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -3,6 +3,8 @@
 use crate::Rectangle;
 use glib::translate::*;
 
+/// Generated when all or part of a window becomes visible and needs to be
+/// redrawn.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventExpose(crate::Event);
 

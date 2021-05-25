@@ -12,6 +12,24 @@ use libc::c_char;
 use std::ptr;
 
 impl MessageDialog {
+    /// Creates a new message dialog, which is a simple dialog with some text
+    /// the user may want to see. When the user clicks a button a “response”
+    /// signal is emitted with response IDs from GtkResponseType. See
+    /// [Dialog](crate::Dialog) for more details.
+    /// ## `parent`
+    /// transient parent, or [`None`] for none
+    /// ## `flags`
+    /// flags
+    /// ## `type_`
+    /// type of message
+    /// ## `buttons`
+    /// set of buttons to use
+    /// ## `message_format`
+    /// `printf`-style format string, or [`None`]
+    ///
+    /// # Returns
+    ///
+    /// a new [MessageDialog](crate::MessageDialog)
     #[doc(alias = "gtk_message_dialog_new")]
     pub fn new<T: IsA<Window>>(
         parent: Option<&T>,

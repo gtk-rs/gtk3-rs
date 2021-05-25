@@ -464,12 +464,13 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "item-activated")]
     fn connect_item_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn item_activated_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn item_activated_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -488,12 +489,13 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn selection_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn selection_changed_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -512,13 +514,14 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "filter")]
     fn connect_filter_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_filter_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_filter_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -537,13 +540,11 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "limit")]
     fn connect_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_limit_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_limit_trampoline<P: IsA<RecentChooser>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -562,13 +563,14 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "local-only")]
     fn connect_local_only_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_local_only_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_local_only_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -587,13 +589,14 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "select-multiple")]
     fn connect_select_multiple_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_select_multiple_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_select_multiple_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -612,13 +615,14 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "show-icons")]
     fn connect_show_icons_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_icons_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_icons_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -637,13 +641,14 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "show-not-found")]
     fn connect_show_not_found_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_not_found_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_not_found_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -662,13 +667,14 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "show-private")]
     fn connect_show_private_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_private_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_private_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -687,13 +693,14 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "show-tips")]
     fn connect_show_tips_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_tips_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_tips_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -712,13 +719,14 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
     #[doc(alias = "sort-type")]
     fn connect_sort_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_sort_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_sort_type_trampoline<
+            P: IsA<RecentChooser>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRecentChooser,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RecentChooser>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
         }

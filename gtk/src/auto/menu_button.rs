@@ -720,13 +720,14 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     #[doc(alias = "align-widget")]
     fn connect_align_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_align_widget_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_align_widget_trampoline<
+            P: IsA<MenuButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMenuButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -745,13 +746,14 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     #[doc(alias = "direction")]
     fn connect_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_direction_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_direction_trampoline<
+            P: IsA<MenuButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMenuButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -770,13 +772,14 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     #[doc(alias = "menu-model")]
     fn connect_menu_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_menu_model_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_menu_model_trampoline<
+            P: IsA<MenuButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMenuButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -795,13 +798,11 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     #[doc(alias = "popover")]
     fn connect_popover_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_popover_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_popover_trampoline<P: IsA<MenuButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -820,13 +821,11 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     #[doc(alias = "popup")]
     fn connect_popup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_popup_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_popup_trampoline<P: IsA<MenuButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -845,13 +844,14 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     #[doc(alias = "use-popover")]
     fn connect_use_popover_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_use_popover_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_use_popover_trampoline<
+            P: IsA<MenuButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMenuButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuButton::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -24,6 +24,32 @@ impl Device {
         }
     }
 
+    /// Obtains the motion history for a pointer device; given a starting and
+    /// ending timestamp, return all events in the motion history for
+    /// the device in the given range of time. Some windowing systems
+    /// do not support motion history, in which case, [`false`] will
+    /// be returned. (This is not distinguishable from the case where
+    /// motion history is supported and no events were found.)
+    ///
+    /// Note that there is also [Window::set_event_compression](crate::Window::set_event_compression) to get
+    /// more motion events delivered directly, independent of the windowing
+    /// system.
+    /// ## `window`
+    /// the window with respect to which which the event coordinates will be reported
+    /// ## `start`
+    /// starting timestamp for range of events to return
+    /// ## `stop`
+    /// ending timestamp for the range of events to return
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the windowing system supports motion history and
+    ///  at least one event was found.
+    ///
+    /// ## `events`
+    ///
+    ///  location to store a newly-allocated array of [TimeCoord](crate::TimeCoord), or
+    ///  [`None`]
     #[doc(alias = "gdk_device_get_history")]
     #[doc(alias = "get_history")]
     pub fn history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32) -> Vec<TimeCoord> {

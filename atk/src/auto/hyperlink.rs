@@ -122,12 +122,10 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
 
     #[doc(alias = "link-activated")]
     fn connect_link_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn link_activated_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn link_activated_trampoline<P: IsA<Hyperlink>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkHyperlink,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Hyperlink>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -146,13 +144,11 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
 
     #[doc(alias = "end-index")]
     fn connect_end_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_end_index_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_end_index_trampoline<P: IsA<Hyperlink>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkHyperlink,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Hyperlink>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -171,13 +167,14 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
 
     #[doc(alias = "number-of-anchors")]
     fn connect_number_of_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_number_of_anchors_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_number_of_anchors_trampoline<
+            P: IsA<Hyperlink>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkHyperlink,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Hyperlink>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -196,13 +193,14 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
 
     #[doc(alias = "start-index")]
     fn connect_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_start_index_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_start_index_trampoline<
+            P: IsA<Hyperlink>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkHyperlink,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Hyperlink>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
         }

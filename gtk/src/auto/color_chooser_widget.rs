@@ -497,13 +497,14 @@ impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
 
     #[doc(alias = "show-editor")]
     fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_editor_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_editor_trampoline<
+            P: IsA<ColorChooserWidget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkColorChooserWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ColorChooserWidget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ColorChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
         }

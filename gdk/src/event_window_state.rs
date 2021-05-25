@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated when the state of a toplevel window changes.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventWindowState(crate::Event);
 

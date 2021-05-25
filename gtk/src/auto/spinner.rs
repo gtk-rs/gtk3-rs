@@ -425,13 +425,11 @@ impl<O: IsA<Spinner>> SpinnerExt for O {
 
     #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_active_trampoline<P: IsA<Spinner>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinner,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Spinner>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Spinner::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -6,6 +6,8 @@ use glib::StaticType;
 use std::convert::{AsRef, From};
 use std::mem;
 
+/// Defines the position and size of a rectangle. It is identical to
+/// cairo_rectangle_int_t.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(C)]
 pub struct Rectangle {
@@ -16,6 +18,22 @@ pub struct Rectangle {
 }
 
 impl Rectangle {
+    /// Calculates the intersection of two rectangles. It is allowed for
+    /// `dest` to be the same as either `self` or `src2`. If the rectangles
+    /// do not intersect, `dest`’s width and height is set to 0 and its x
+    /// and y values are undefined. If you are only interested in whether
+    /// the rectangles intersect, but not in the intersecting area itself,
+    /// pass [`None`] for `dest`.
+    /// ## `src2`
+    /// a [Rectangle](crate::Rectangle)
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the rectangles intersect.
+    ///
+    /// ## `dest`
+    /// return location for the
+    /// intersection of `self` and `src2`, or [`None`]
     #[doc(alias = "gdk_rectangle_intersect")]
     pub fn intersect(&self, other: &Rectangle) -> Option<Rectangle> {
         unsafe {
@@ -32,6 +50,21 @@ impl Rectangle {
         }
     }
 
+    /// Calculates the union of two rectangles.
+    /// The union of rectangles `self` and `src2` is the smallest rectangle which
+    /// includes both `self` and `src2` within it.
+    /// It is allowed for `dest` to be the same as either `self` or `src2`.
+    ///
+    /// Note that this function does not ignore 'empty' rectangles (ie. with
+    /// zero width or height).
+    /// ## `src2`
+    /// a [Rectangle](crate::Rectangle)
+    ///
+    /// # Returns
+    ///
+    ///
+    /// ## `dest`
+    /// return location for the union of `self` and `src2`
     #[doc(alias = "gdk_rectangle_union")]
     pub fn union(&self, other: &Rectangle) -> Rectangle {
         unsafe {

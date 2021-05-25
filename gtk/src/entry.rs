@@ -7,6 +7,13 @@ use std::convert::TryFrom;
 use crate::Entry;
 
 pub trait EntryExtManual: 'static {
+    /// Retrieves the character displayed in place of the real characters
+    /// for entries with visibility set to false. See [EntryExt::set_invisible_char](crate::prelude::EntryExt::set_invisible_char).
+    ///
+    /// # Returns
+    ///
+    /// the current invisible char, or 0, if the entry does not
+    ///  show invisible text at all.
     #[doc(alias = "gtk_entry_get_invisible_char")]
     #[doc(alias = "get_invisible_char")]
     fn invisible_char(&self) -> Option<char>;

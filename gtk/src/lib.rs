@@ -160,11 +160,32 @@ pub use gtk3_macros::*;
 
 pub mod xlib;
 
+/// The priority used for default style information
+/// that is used in the absence of themes.
+///
+/// Note that this is not very useful for providing default
+/// styling for custom style classes - themes are likely to
+/// override styling provided at this priority with
+/// catch-all `* {...}` rules.
 pub const STYLE_PROVIDER_PRIORITY_FALLBACK: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_FALLBACK as u32;
+/// The priority used for style information provided
+/// by themes.
 pub const STYLE_PROVIDER_PRIORITY_THEME: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_THEME as u32;
+/// The priority used for style information provided
+/// via [Settings](crate::Settings).
+///
+/// This priority is higher than GTK_STYLE_PROVIDER_PRIORITY_THEME
+/// to let settings override themes.
 pub const STYLE_PROVIDER_PRIORITY_SETTINGS: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_SETTINGS as u32;
+/// A priority that can be used when adding a [StyleProvider](crate::StyleProvider)
+/// for application-specific style information.
 pub const STYLE_PROVIDER_PRIORITY_APPLICATION: u32 =
     ffi::GTK_STYLE_PROVIDER_PRIORITY_APPLICATION as u32;
+/// The priority used for the style information from
+/// `XDG_CONFIG_HOME/gtk-3.0/gtk.css`.
+///
+/// You should not use priorities higher than this, to
+/// give the user the last word.
 pub const STYLE_PROVIDER_PRIORITY_USER: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_USER as u32;
 
 #[macro_use]

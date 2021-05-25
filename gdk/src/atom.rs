@@ -5,6 +5,8 @@ use glib::GString;
 use std::mem;
 use std::ptr;
 
+/// An opaque type representing a string as an index into a table
+/// of strings on the X server.
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Atom(ffi::GdkAtom);
 
@@ -27,6 +29,18 @@ pub const SELECTION_TYPE_WINDOW: Atom = Atom(33 as *mut _);
 pub const SELECTION_TYPE_STRING: Atom = Atom(31 as *mut _);
 
 impl Atom {
+    /// Finds or creates an atom corresponding to a given string.
+    /// ## `atom_name`
+    /// a string.
+    /// ## `only_if_exists`
+    /// if [`true`], GDK is allowed to not create a new atom, but
+    ///  just return `GDK_NONE` if the requested atom doesn’t already
+    ///  exists. Currently, the flag is ignored, since checking the
+    ///  existance of an atom is as expensive as creating it.
+    ///
+    /// # Returns
+    ///
+    /// the atom corresponding to `atom_name`.
     #[doc(alias = "gdk_atom_intern")]
     pub fn intern(atom_name: &str) -> Atom {
         assert_initialized_main_thread!();
@@ -38,6 +52,13 @@ impl Atom {
         }
     }
 
+    /// Determines the string corresponding to an atom.
+    ///
+    /// # Returns
+    ///
+    /// a newly-allocated string containing the string
+    ///  corresponding to `self`. When you are done with the
+    ///  return value, you should free it using `g_free`.
     #[doc(alias = "gdk_atom_name")]
     pub fn name(self) -> GString {
         unsafe { from_glib_full(ffi::gdk_atom_name(self.0)) }

@@ -72,11 +72,6 @@ impl RecentFilter {
         }
     }
 
-    //#[doc(alias = "gtk_recent_filter_filter")]
-    //pub fn filter(&self, filter_info: /*Ignored*/&RecentFilterInfo) -> bool {
-    //    unsafe { TODO: call ffi:gtk_recent_filter_filter() }
-    //}
-
     #[doc(alias = "gtk_recent_filter_get_name")]
     #[doc(alias = "get_name")]
     pub fn name(&self) -> Option<glib::GString> {

@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Describes a property change on a window.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventProperty(crate::Event);
 

@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated during DND operations.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventDND(crate::Event);
 

@@ -663,13 +663,14 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
 
     #[doc(alias = "accel-closure")]
     fn connect_accel_closure_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accel_closure_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accel_closure_trampoline<
+            P: IsA<AccelLabel>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAccelLabel,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AccelLabel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AccelLabel::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -688,13 +689,14 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
 
     #[doc(alias = "accel-widget")]
     fn connect_accel_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accel_widget_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accel_widget_trampoline<
+            P: IsA<AccelLabel>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAccelLabel,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AccelLabel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AccelLabel::from_glib_borrow(this).unsafe_cast_ref())
         }

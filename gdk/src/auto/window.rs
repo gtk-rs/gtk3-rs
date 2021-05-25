@@ -1363,7 +1363,7 @@ impl Window {
     }
 
     #[doc(alias = "create-surface")]
-    pub fn connect_create_surface<F: Fn(&Window, i32, i32) -> cairo::Surface + 'static>(
+    pub fn connect_create_surface<F: Fn(&Self, i32, i32) -> cairo::Surface + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1406,7 +1406,7 @@ impl Window {
     //}
 
     #[doc(alias = "pick-embedded-child")]
-    pub fn connect_pick_embedded_child<F: Fn(&Window, f64, f64) -> Option<Window> + 'static>(
+    pub fn connect_pick_embedded_child<F: Fn(&Self, f64, f64) -> Option<Window> + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -1443,7 +1443,7 @@ impl Window {
     //}
 
     #[doc(alias = "cursor")]
-    pub fn connect_cursor_notify<F: Fn(&Window) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_cursor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cursor_trampoline<F: Fn(&Window) + 'static>(
             this: *mut ffi::GdkWindow,
             _param_spec: glib::ffi::gpointer,

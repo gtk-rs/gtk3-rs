@@ -550,12 +550,13 @@ impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
 
     #[doc(alias = "group-changed")]
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn group_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn group_changed_trampoline<
+            P: IsA<RadioMenuItem>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkRadioMenuItem,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RadioMenuItem>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RadioMenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }

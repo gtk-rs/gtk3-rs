@@ -5,6 +5,10 @@ use crate::PadController;
 use glib::translate::*;
 
 impl PadController {
+    /// This is a convenience function to add a group of action entries on
+    /// `self`. See [PadActionEntry](crate::PadActionEntry) and [PadController::set_action](crate::PadController::set_action).
+    /// ## `entries`
+    /// the action entries to set on `self`
     #[doc(alias = "gtk_pad_controller_set_action_entries")]
     pub fn set_action_entries(&self, entries: &[PadActionEntry]) {
         let n_entries = entries.len() as i32;

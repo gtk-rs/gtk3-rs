@@ -6,6 +6,14 @@ use glib::translate::*;
 use std::ptr;
 
 impl TargetList {
+    /// Creates a new [TargetList](crate::TargetList) from an array of [TargetEntry](crate::TargetEntry).
+    /// ## `targets`
+    /// Pointer to an array
+    ///  of [TargetEntry](crate::TargetEntry)
+    ///
+    /// # Returns
+    ///
+    /// the new [TargetList](crate::TargetList).
     #[doc(alias = "gtk_target_list_new")]
     pub fn new(targets: &[TargetEntry]) -> Self {
         skip_assert_initialized!();

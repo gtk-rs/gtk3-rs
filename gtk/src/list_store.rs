@@ -10,6 +10,19 @@ use libc::c_int;
 use std::ptr;
 
 impl ListStore {
+    /// Creates a new list store as with `n_columns` columns each of the types passed
+    /// in. Note that only types derived from standard GObject fundamental types
+    /// are supported.
+    ///
+    /// As an example, `gtk_list_store_new (3, G_TYPE_INT, G_TYPE_STRING,
+    /// GDK_TYPE_PIXBUF);` will create a new [ListStore](crate::ListStore) with three columns, of type
+    /// int, string and [gdk_pixbuf::Pixbuf](crate::gdk_pixbuf::Pixbuf) respectively.
+    /// ## `n_columns`
+    /// number of columns in the list store
+    ///
+    /// # Returns
+    ///
+    /// a new [ListStore](crate::ListStore)
     #[doc(alias = "gtk_list_store_newv")]
     pub fn new(column_types: &[Type]) -> ListStore {
         assert_initialized_main_thread!();
@@ -34,6 +47,13 @@ pub trait GtkListStoreExtManual: 'static {
         columns_and_values: &[(u32, &dyn ToValue)],
     ) -> TreeIter;
 
+    /// Reorders `self` to follow the order indicated by `new_order`. Note that
+    /// this function only works with unsorted stores.
+    /// ## `new_order`
+    /// an array of integers mapping the new
+    ///  position of each child to its old position before the re-ordering,
+    ///  i.e. `new_order``[newpos] = oldpos`. It must have
+    ///  exactly as many items as the list store’s length.
     #[doc(alias = "gtk_list_store_reorder")]
     fn reorder(&self, new_order: &[u32]);
 
@@ -41,6 +61,15 @@ pub trait GtkListStoreExtManual: 'static {
     #[doc(alias = "gtk_list_store_set_valuesv")]
     fn set(&self, iter: &TreeIter, columns_and_values: &[(u32, &dyn ToValue)]);
 
+    /// Sets the data in the cell specified by `iter` and `column`.
+    /// The type of `value` must be convertible to the type of the
+    /// column.
+    /// ## `iter`
+    /// A valid [TreeIter](crate::TreeIter) for the row being modified
+    /// ## `column`
+    /// column number to modify
+    /// ## `value`
+    /// new value for the cell
     #[doc(alias = "gtk_list_store_set_value")]
     fn set_value(&self, iter: &TreeIter, column: u32, value: &Value);
 }

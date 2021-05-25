@@ -2590,12 +2590,10 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn activate_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2622,12 +2620,10 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "backspace")]
     fn connect_backspace<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn backspace_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn backspace_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2654,12 +2650,10 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "copy-clipboard")]
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn copy_clipboard_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn copy_clipboard_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2686,12 +2680,10 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "cut-clipboard")]
     fn connect_cut_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn cut_clipboard_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn cut_clipboard_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2722,16 +2714,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn delete_from_cursor_trampoline<
-            P,
+            P: IsA<Entry>,
             F: Fn(&P, DeleteType, i32) + 'static,
         >(
             this: *mut ffi::GtkEntry,
             type_: ffi::GtkDeleteType,
             count: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Entry::from_glib_borrow(this).unsafe_cast_ref(),
@@ -2766,16 +2756,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn icon_press_trampoline<
-            P,
+            P: IsA<Entry>,
             F: Fn(&P, EntryIconPosition, &gdk::Event) + 'static,
         >(
             this: *mut ffi::GtkEntry,
             icon_pos: ffi::GtkEntryIconPosition,
             event: *mut gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Entry::from_glib_borrow(this).unsafe_cast_ref(),
@@ -2802,16 +2790,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn icon_release_trampoline<
-            P,
+            P: IsA<Entry>,
             F: Fn(&P, EntryIconPosition, &gdk::Event) + 'static,
         >(
             this: *mut ffi::GtkEntry,
             icon_pos: ffi::GtkEntryIconPosition,
             event: *mut gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Entry::from_glib_borrow(this).unsafe_cast_ref(),
@@ -2834,13 +2820,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "insert-at-cursor")]
     fn connect_insert_at_cursor<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn insert_at_cursor_trampoline<P, F: Fn(&P, &str) + 'static>(
+        unsafe extern "C" fn insert_at_cursor_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P, &str) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             string: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Entry::from_glib_borrow(this).unsafe_cast_ref(),
@@ -2872,12 +2859,10 @@ impl<O: IsA<Entry>> EntryExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
     #[doc(alias = "insert-emoji")]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn insert_emoji_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn insert_emoji_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2910,7 +2895,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn move_cursor_trampoline<
-            P,
+            P: IsA<Entry>,
             F: Fn(&P, MovementStep, i32, bool) + 'static,
         >(
             this: *mut ffi::GtkEntry,
@@ -2918,9 +2903,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             count: libc::c_int,
             extend_selection: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Entry::from_glib_borrow(this).unsafe_cast_ref(),
@@ -2952,12 +2935,10 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "paste-clipboard")]
     fn connect_paste_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn paste_clipboard_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn paste_clipboard_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2984,13 +2965,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "populate-popup")]
     fn connect_populate_popup<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn populate_popup_trampoline<P, F: Fn(&P, &Widget) + 'static>(
+        unsafe extern "C" fn populate_popup_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P, &Widget) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             widget: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Entry::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3012,13 +2994,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "preedit-changed")]
     fn connect_preedit_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn preedit_changed_trampoline<P, F: Fn(&P, &str) + 'static>(
+        unsafe extern "C" fn preedit_changed_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P, &str) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             preedit: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Entry::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3048,12 +3031,10 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "toggle-overwrite")]
     fn connect_toggle_overwrite<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn toggle_overwrite_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn toggle_overwrite_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3080,13 +3061,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "activates-default")]
     fn connect_activates_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_activates_default_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_activates_default_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3105,13 +3087,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "attributes")]
     fn connect_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_attributes_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_attributes_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3130,13 +3110,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "buffer")]
     fn connect_buffer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_buffer_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_buffer_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3155,13 +3133,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "caps-lock-warning")]
     fn connect_caps_lock_warning_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_caps_lock_warning_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_caps_lock_warning_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3180,13 +3159,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "completion")]
     fn connect_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_completion_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_completion_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3205,13 +3182,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "cursor-position")]
     fn connect_cursor_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_cursor_position_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_cursor_position_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3230,13 +3208,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "editable")]
     fn connect_editable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_editable_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_editable_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3258,13 +3234,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_enable_emoji_completion_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_enable_emoji_completion_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3283,13 +3260,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "has-frame")]
     fn connect_has_frame_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_has_frame_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_has_frame_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3308,13 +3283,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "im-module")]
     fn connect_im_module_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_im_module_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_im_module_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3333,13 +3306,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "input-hints")]
     fn connect_input_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_input_hints_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_input_hints_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3358,13 +3329,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "input-purpose")]
     fn connect_input_purpose_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_input_purpose_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_input_purpose_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3383,13 +3352,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "invisible-char")]
     fn connect_invisible_char_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_invisible_char_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_invisible_char_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3408,13 +3378,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "invisible-char-set")]
     fn connect_invisible_char_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_invisible_char_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_invisible_char_set_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3433,13 +3404,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "max-length")]
     fn connect_max_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_max_length_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_max_length_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3458,13 +3427,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "max-width-chars")]
     fn connect_max_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_max_width_chars_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_max_width_chars_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3483,13 +3453,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "overwrite-mode")]
     fn connect_overwrite_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_overwrite_mode_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_overwrite_mode_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3508,13 +3479,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "placeholder-text")]
     fn connect_placeholder_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_placeholder_text_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_placeholder_text_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3533,13 +3505,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "populate-all")]
     fn connect_populate_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_populate_all_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_populate_all_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3561,13 +3531,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_primary_icon_activatable_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_primary_icon_activatable_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3586,13 +3557,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "primary-icon-gicon")]
     fn connect_primary_icon_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_primary_icon_gicon_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_primary_icon_gicon_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3611,13 +3583,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "primary-icon-name")]
     fn connect_primary_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_primary_icon_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_primary_icon_name_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3636,13 +3609,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "primary-icon-pixbuf")]
     fn connect_primary_icon_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_primary_icon_pixbuf_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_primary_icon_pixbuf_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3664,13 +3638,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_primary_icon_sensitive_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_primary_icon_sensitive_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3692,13 +3667,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_primary_icon_storage_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_primary_icon_storage_type_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3720,13 +3696,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_primary_icon_tooltip_markup_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_primary_icon_tooltip_markup_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3748,13 +3725,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_primary_icon_tooltip_text_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_primary_icon_tooltip_text_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3773,13 +3751,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "progress-fraction")]
     fn connect_progress_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_progress_fraction_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_progress_fraction_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3798,13 +3777,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "progress-pulse-step")]
     fn connect_progress_pulse_step_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_progress_pulse_step_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_progress_pulse_step_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3823,13 +3803,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "scroll-offset")]
     fn connect_scroll_offset_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_scroll_offset_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_scroll_offset_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3851,13 +3829,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_icon_activatable_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_icon_activatable_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3876,13 +3855,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "secondary-icon-gicon")]
     fn connect_secondary_icon_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_icon_gicon_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_icon_gicon_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3901,13 +3881,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "secondary-icon-name")]
     fn connect_secondary_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_icon_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_icon_name_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3929,13 +3910,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_icon_pixbuf_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_icon_pixbuf_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3957,13 +3939,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_icon_sensitive_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_icon_sensitive_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3985,13 +3968,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_icon_storage_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_icon_storage_type_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4014,15 +3998,13 @@ impl<O: IsA<Entry>> EntryExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_secondary_icon_tooltip_markup_trampoline<
-            P,
+            P: IsA<Entry>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4044,13 +4026,14 @@ impl<O: IsA<Entry>> EntryExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_icon_tooltip_text_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_icon_tooltip_text_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4069,13 +4052,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "selection-bound")]
     fn connect_selection_bound_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_selection_bound_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_selection_bound_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4094,13 +4078,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "shadow-type")]
     fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_shadow_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_shadow_type_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4119,13 +4101,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "show-emoji-icon")]
     fn connect_show_emoji_icon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_emoji_icon_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_emoji_icon_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4144,13 +4127,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "tabs")]
     fn connect_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_tabs_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_tabs_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4169,13 +4150,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "text")]
     fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_text_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_text_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4194,13 +4173,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "text-length")]
     fn connect_text_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_text_length_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_text_length_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4219,13 +4196,14 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "truncate-multiline")]
     fn connect_truncate_multiline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_truncate_multiline_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_truncate_multiline_trampoline<
+            P: IsA<Entry>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4244,13 +4222,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "visibility")]
     fn connect_visibility_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_visibility_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_visibility_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4269,13 +4245,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "width-chars")]
     fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_width_chars_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_width_chars_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4294,13 +4268,11 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     #[doc(alias = "xalign")]
     fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_xalign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_xalign_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Entry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
         }

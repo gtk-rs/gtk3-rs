@@ -5,28 +5,43 @@ use glib::value::{FromValue, ToValue, ValueType};
 use glib::{StaticType, Type};
 use std::fmt;
 
+/// Predefined values for use as response ids in [DialogExt::add_button](crate::prelude::DialogExt::add_button).
+/// All predefined values are negative; GTK+ leaves values of 0 or greater for
+/// application-defined response ids.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum ResponseType {
+    /// Returned if an action widget has no response id,
+    ///  or if the dialog gets programmatically hidden or destroyed
     #[doc(alias = "GTK_RESPONSE_NONE")]
     None,
+    /// Generic response id, not used by GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_REJECT")]
     Reject,
+    /// Generic response id, not used by GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_ACCEPT")]
     Accept,
+    /// Returned if the dialog is deleted
     #[doc(alias = "GTK_RESPONSE_DELETE_EVENT")]
     DeleteEvent,
+    /// Returned by OK buttons in GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_OK")]
     Ok,
+    /// Returned by Cancel buttons in GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_CANCEL")]
     Cancel,
+    /// Returned by Close buttons in GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_CLOSE")]
     Close,
+    /// Returned by Yes buttons in GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_YES")]
     Yes,
+    /// Returned by No buttons in GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_NO")]
     No,
+    /// Returned by Apply buttons in GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_APPLY")]
     Apply,
+    /// Returned by Help buttons in GTK+ dialogs
     #[doc(alias = "GTK_RESPONSE_HELP")]
     Help,
     Other(u16),

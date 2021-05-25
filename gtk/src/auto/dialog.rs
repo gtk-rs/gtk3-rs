@@ -673,9 +673,6 @@ pub trait DialogExt: 'static {
     #[doc(alias = "gtk_dialog_add_button")]
     fn add_button(&self, button_text: &str, response_id: ResponseType) -> Widget;
 
-    //#[doc(alias = "gtk_dialog_add_buttons")]
-    //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
-
     #[doc(alias = "gtk_dialog_get_content_area")]
     #[doc(alias = "get_content_area")]
     fn content_area(&self) -> Box;
@@ -736,10 +733,6 @@ impl<O: IsA<Dialog>> DialogExt for O {
             ))
         }
     }
-
-    //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_dialog_add_buttons() }
-    //}
 
     fn content_area(&self) -> Box {
         unsafe {
@@ -820,12 +813,10 @@ impl<O: IsA<Dialog>> DialogExt for O {
 
     #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn close_trampoline<P: IsA<Dialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkDialog,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Dialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Dialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -852,13 +843,14 @@ impl<O: IsA<Dialog>> DialogExt for O {
 
     #[doc(alias = "response")]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn response_trampoline<P, F: Fn(&P, ResponseType) + 'static>(
+        unsafe extern "C" fn response_trampoline<
+            P: IsA<Dialog>,
+            F: Fn(&P, ResponseType) + 'static,
+        >(
             this: *mut ffi::GtkDialog,
             response_id: ffi::GtkResponseType,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Dialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Dialog::from_glib_borrow(this).unsafe_cast_ref(),

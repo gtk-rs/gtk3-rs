@@ -434,13 +434,11 @@ impl<O: IsA<StackSidebar>> StackSidebarExt for O {
 
     #[doc(alias = "stack")]
     fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_stack_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_stack_trampoline<P: IsA<StackSidebar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSidebar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<StackSidebar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&StackSidebar::from_glib_borrow(this).unsafe_cast_ref())
         }

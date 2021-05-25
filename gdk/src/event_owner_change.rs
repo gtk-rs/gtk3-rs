@@ -2,6 +2,9 @@
 
 use glib::translate::*;
 
+/// Generated when the owner of a selection changes. On X11, this
+/// information is only available if the X server supports the XFIXES
+/// extension.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventOwnerChange(crate::Event);
 

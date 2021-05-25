@@ -3,6 +3,7 @@
 use glib::translate::*;
 use std::ptr;
 
+/// See also [PrintSettings::set_page_ranges](crate::PrintSettings::set_page_ranges).
 #[repr(C)]
 pub struct PageRange(ffi::GtkPageRange);
 

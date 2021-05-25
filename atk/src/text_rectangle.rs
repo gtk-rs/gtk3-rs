@@ -3,6 +3,7 @@
 use glib::translate::*;
 use std::fmt;
 
+/// A structure used to store a rectangle used by AtkText.
 #[derive(Debug)]
 pub struct TextRectangle {
     pub x: i32,

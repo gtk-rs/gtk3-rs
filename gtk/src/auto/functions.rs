@@ -135,11 +135,6 @@ pub fn accelerator_parse(accelerator: &str) -> (u32, gdk::ModifierType) {
     }
 }
 
-//#[doc(alias = "gtk_accelerator_parse_with_keycode")]
-//pub fn accelerator_parse_with_keycode(accelerator: &str, accelerator_codes: Vec<u32>) -> (u32, gdk::ModifierType) {
-//    unsafe { TODO: call ffi:gtk_accelerator_parse_with_keycode() }
-//}
-
 #[doc(alias = "gtk_accelerator_set_default_mod_mask")]
 pub fn accelerator_set_default_mod_mask(default_mod_mask: gdk::ModifierType) {
     assert_initialized_main_thread!();
@@ -385,16 +380,6 @@ pub fn grab_get_current() -> Option<Widget> {
     unsafe { from_glib_none(ffi::gtk_grab_get_current()) }
 }
 
-//#[doc(alias = "gtk_init_check")]
-//pub fn init_check(argv: /*Unimplemented*/Vec<glib::GString>) -> bool {
-//    unsafe { TODO: call ffi:gtk_init_check() }
-//}
-
-//#[doc(alias = "gtk_init_with_args")]
-//pub fn init_with_args(argv: /*Unimplemented*/Vec<glib::GString>, parameter_string: Option<&str>, entries: /*Ignored*/&[&glib::OptionEntry], translation_domain: Option<&str>) -> Result<(), glib::Error> {
-//    unsafe { TODO: call ffi:gtk_init_with_args() }
-//}
-
 #[doc(alias = "gtk_main")]
 pub fn main() {
     assert_initialized_main_thread!();
@@ -428,11 +413,6 @@ pub fn main_level() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_main_level() }
 }
-
-//#[doc(alias = "gtk_parse_args")]
-//pub fn parse_args(argv: /*Unimplemented*/Vec<glib::GString>) -> bool {
-//    unsafe { TODO: call ffi:gtk_parse_args() }
-//}
 
 #[doc(alias = "gtk_print_run_page_setup_dialog")]
 pub fn print_run_page_setup_dialog<P: IsA<Window>>(
@@ -1179,11 +1159,6 @@ pub fn test_find_widget<P: IsA<Widget>>(
         ))
     }
 }
-
-//#[doc(alias = "gtk_test_init")]
-//pub fn test_init(argvp: /*Unimplemented*/Vec<glib::GString>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi:gtk_test_init() }
-//}
 
 //#[doc(alias = "gtk_test_list_all_types")]
 //pub fn test_list_all_types() -> /*Unimplemented*/CArray TypeId { ns_id: 0, id: 30 } {

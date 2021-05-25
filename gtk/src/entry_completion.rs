@@ -8,6 +8,11 @@ use glib::translate::*;
 use glib::Cast;
 
 pub trait EntryCompletionExtManual: 'static {
+    /// Gets the entry `self` has been attached to.
+    ///
+    /// # Returns
+    ///
+    /// The entry `self` has been attached to
     #[doc(alias = "gtk_entry_completion_get_entry")]
     #[doc(alias = "get_entry")]
     fn entry(&self) -> Option<Entry>;

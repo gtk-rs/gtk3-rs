@@ -2,6 +2,7 @@
 
 use crate::PadActionType;
 
+/// Struct defining a pad action entry.
 #[derive(Debug, Clone)]
 pub struct PadActionEntry {
     type_: PadActionType,

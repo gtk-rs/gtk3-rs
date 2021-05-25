@@ -7,12 +7,50 @@ use glib::signal::SignalHandlerId;
 use crate::{ScrollType, Widget};
 
 pub trait EditableSignals: 'static {
+    /// The ::changed signal is emitted at the end of a single
+    /// user-visible operation on the contents of the [Editable](crate::Editable).
+    ///
+    /// E.g., a paste operation that replaces the contents of the
+    /// selection will cause only one signal emission (even though it
+    /// is implemented by first deleting the selection, then inserting
+    /// the new content, and may cause multiple ::notify::text signals
+    /// to be emitted).
     fn connect_changed<F>(&self, changed_func: F) -> SignalHandlerId
     where
         F: Fn(&Self) + 'static;
+    /// This signal is emitted when text is deleted from
+    /// the widget by the user. The default handler for
+    /// this signal will normally be responsible for deleting
+    /// the text, so by connecting to this signal and then
+    /// stopping the signal with `g_signal_stop_emission`, it
+    /// is possible to modify the range of deleted text, or
+    /// prevent it from being deleted entirely. The `start_pos`
+    /// and `end_pos` parameters are interpreted as for
+    /// [EditableExt::delete_text](crate::prelude::EditableExt::delete_text).
+    /// ## `start_pos`
+    /// the starting position
+    /// ## `end_pos`
+    /// the end position
     fn connect_delete_text<F>(&self, delete_text_func: F) -> SignalHandlerId
     where
         F: Fn(&Self, i32, i32) + 'static;
+    /// This signal is emitted when text is inserted into
+    /// the widget by the user. The default handler for
+    /// this signal will normally be responsible for inserting
+    /// the text, so by connecting to this signal and then
+    /// stopping the signal with `g_signal_stop_emission`, it
+    /// is possible to modify the inserted text, or prevent
+    /// it from being inserted entirely.
+    /// ## `new_text`
+    /// the new text to insert
+    /// ## `new_text_length`
+    /// the length of the new text, in bytes,
+    ///  or -1 if new_text is nul-terminated
+    /// ## `position`
+    /// the position, in characters,
+    ///  at which to insert the new text. this is an in-out
+    ///  parameter. After the signal emission is finished, it
+    ///  should point after the newly inserted text.
     fn connect_insert_text<F>(&self, insert_text_func: F) -> SignalHandlerId
     where
         F: Fn(&Self, &str, &mut i32) + 'static;

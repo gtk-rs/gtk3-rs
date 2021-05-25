@@ -13,6 +13,20 @@ use std::ptr;
 impl FileChooserDialog {
     // TODO: Keep the other constructor with buttons support as the only constructor (this one was
     //       left for compatibility) and rename it to `new` for consistency.
+    /// Creates a new [FileChooserDialog](crate::FileChooserDialog). This function is analogous to
+    /// [Dialog::with_buttons](crate::Dialog::with_buttons).
+    /// ## `title`
+    /// Title of the dialog, or [`None`]
+    /// ## `parent`
+    /// Transient parent of the dialog, or [`None`]
+    /// ## `action`
+    /// Open or save mode for the dialog
+    /// ## `first_button_text`
+    /// stock ID or text to go in the first button, or [`None`]
+    ///
+    /// # Returns
+    ///
+    /// a new [FileChooserDialog](crate::FileChooserDialog)
     #[doc(alias = "gtk_file_chooser_dialog_new")]
     pub fn new<T: IsA<Window>>(
         title: Option<&str>,

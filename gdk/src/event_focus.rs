@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Describes a change of keyboard focus.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventFocus(crate::Event);
 

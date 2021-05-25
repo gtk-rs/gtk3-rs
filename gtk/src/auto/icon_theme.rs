@@ -369,12 +369,10 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
 
     #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn changed_trampoline<P: IsA<IconTheme>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkIconTheme,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<IconTheme>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&IconTheme::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated during touchpad swipe gestures.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventTouchpadSwipe(crate::Event);
 

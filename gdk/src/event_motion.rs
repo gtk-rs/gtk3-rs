@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated when the pointer moves.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventMotion(crate::Event);
 

@@ -86,8 +86,6 @@ generate = [
     "Gtk.PropagationPhase",
     "Gtk.RecentChooser",
     "Gtk.RecentChooserError",
-    "Gtk.RecentFilter",
-    "Gtk.RecentFilterInfo",
     "Gtk.RecentFilterFlags",
     "Gtk.RecentInfo",
     "Gtk.RecentManagerError",
@@ -1874,6 +1872,14 @@ generate_builder = true
 name = "Gtk.RecentChooserWidget"
 status = "generate"
 generate_builder = true
+
+
+[[object]]
+name = "Gtk.RecentFilter"
+status = "generate"
+    [[object.function]]
+    name = "filter"
+    ignore = true # TODO: renable once RecentFilterInfo is implemented
 
 [[object]]
 name = "Gtk.RecentManager"

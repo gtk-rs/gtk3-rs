@@ -5,6 +5,9 @@ use glib::translate::*;
 use libc::c_char;
 use std::ffi::CStr;
 
+/// A [TargetEntry](crate::TargetEntry) represents a single type of
+/// data than can be supplied for by a widget for a selection
+/// or for supplied or received during drag-and-drop.
 #[derive(Clone, Debug)]
 #[repr(C)]
 pub struct TargetEntry {
@@ -14,6 +17,18 @@ pub struct TargetEntry {
 }
 
 impl TargetEntry {
+    /// Makes a new [TargetEntry](crate::TargetEntry).
+    /// ## `target`
+    /// String identifier for target
+    /// ## `flags`
+    /// Set of flags, see GtkTargetFlags
+    /// ## `info`
+    /// an ID that will be passed back to the application
+    ///
+    /// # Returns
+    ///
+    /// a pointer to a new [TargetEntry](crate::TargetEntry).
+    ///  Free with `gtk_target_entry_free`
     pub fn new(target: &str, flags: TargetFlags, info: u32) -> TargetEntry {
         assert_initialized_main_thread!();
         Self {

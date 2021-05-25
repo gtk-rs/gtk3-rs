@@ -4,6 +4,21 @@ use glib::translate::*;
 use libc::{c_int, c_uint};
 
 glib::wrapper! {
+    /// The [EntryBuffer](crate::EntryBuffer) class contains the actual text displayed in a
+    /// [Entry](crate::Entry) widget.
+    ///
+    /// A single [EntryBuffer](crate::EntryBuffer) object can be shared by multiple [Entry](crate::Entry)
+    /// widgets which will then share the same text content, but not the cursor
+    /// position, visibility attributes, icon etc.
+    ///
+    /// [EntryBuffer](crate::EntryBuffer) may be derived from. Such a derived class might allow
+    /// text to be stored in an alternate location, such as non-pageable memory,
+    /// useful in the case of important passwords. Or a derived class could
+    /// integrate with an application’s concept of undo/redo.
+    ///
+    /// # Implements
+    ///
+    /// [EntryBufferExt](crate::prelude::EntryBufferExt), [glib::ObjectExt](trait@glib::ObjectExt)
     pub struct EntryBuffer(Object<ffi::GtkEntryBuffer, ffi::GtkEntryBufferClass>);
 
     match fn {

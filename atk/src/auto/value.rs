@@ -159,14 +159,15 @@ impl<O: IsA<Value>> ValueExt for O {
 
     #[doc(alias = "value-changed")]
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(
+        unsafe extern "C" fn value_changed_trampoline<
+            P: IsA<Value>,
+            F: Fn(&P, f64, &str) + 'static,
+        >(
             this: *mut ffi::AtkValue,
             value: libc::c_double,
             text: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Value>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Value::from_glib_borrow(this).unsafe_cast_ref(),

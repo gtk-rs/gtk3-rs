@@ -3,6 +3,9 @@
 use glib::translate::*;
 use std::mem;
 
+/// A [Requisition](crate::Requisition)-struct represents the desired size of a widget. See
+/// [GtkWidget’s geometry management section][geometry-management] for
+/// more information.
 #[repr(C)]
 pub struct Requisition {
     pub width: i32,

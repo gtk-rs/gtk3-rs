@@ -846,12 +846,13 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "editing-canceled")]
     fn connect_editing_canceled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn editing_canceled_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn editing_canceled_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -874,16 +875,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn editing_started_trampoline<
-            P,
+            P: IsA<CellRenderer>,
             F: Fn(&P, &CellEditable, TreePath) + 'static,
         >(
             this: *mut ffi::GtkCellRenderer,
             editable: *mut ffi::GtkCellEditable,
             path: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path));
             f(
@@ -907,13 +906,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "cell-background")]
     fn connect_cell_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_cell_background_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_cell_background_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -932,13 +932,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "cell-background-rgba")]
     fn connect_cell_background_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_cell_background_rgba_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_cell_background_rgba_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -957,13 +958,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "cell-background-set")]
     fn connect_cell_background_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_cell_background_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_cell_background_set_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -982,13 +984,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "editing")]
     fn connect_editing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_editing_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_editing_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1007,13 +1010,11 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "height")]
     fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_height_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_height_trampoline<P: IsA<CellRenderer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1032,13 +1033,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "is-expanded")]
     fn connect_is_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_is_expanded_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_is_expanded_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1057,13 +1059,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "is-expander")]
     fn connect_is_expander_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_is_expander_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_is_expander_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1082,13 +1085,11 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "mode")]
     fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_mode_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_mode_trampoline<P: IsA<CellRenderer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1107,13 +1108,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "sensitive")]
     fn connect_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_sensitive_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_sensitive_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1132,13 +1134,14 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "visible")]
     fn connect_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_visible_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_visible_trampoline<
+            P: IsA<CellRenderer>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1157,13 +1160,11 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "width")]
     fn connect_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_width_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_width_trampoline<P: IsA<CellRenderer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1182,13 +1183,11 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "xalign")]
     fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_xalign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_xalign_trampoline<P: IsA<CellRenderer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1207,13 +1206,11 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "xpad")]
     fn connect_xpad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_xpad_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_xpad_trampoline<P: IsA<CellRenderer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1232,13 +1229,11 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "yalign")]
     fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_yalign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_yalign_trampoline<P: IsA<CellRenderer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1257,13 +1252,11 @@ impl<O: IsA<CellRenderer>> CellRendererExt for O {
 
     #[doc(alias = "ypad")]
     fn connect_ypad_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_ypad_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_ypad_trampoline<P: IsA<CellRenderer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellRenderer,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRenderer>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRenderer::from_glib_borrow(this).unsafe_cast_ref())
         }

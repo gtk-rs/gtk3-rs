@@ -9,6 +9,24 @@ use libc::{c_char, c_uint};
 use std::boxed::Box as Box_;
 
 impl Clipboard {
+    /// Virtually sets the contents of the specified clipboard by providing
+    /// a list of supported formats for the clipboard data and a function
+    /// to call to get the actual data when it is requested.
+    /// ## `targets`
+    /// array containing information
+    ///  about the available forms for the clipboard data
+    /// ## `get_func`
+    /// function to call to get the actual clipboard data
+    /// ## `clear_func`
+    /// when the clipboard contents are set again,
+    ///  this function will be called, and `get_func` will not be subsequently
+    ///  called.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if setting the clipboard data succeeded.
+    ///  If setting the clipboard data failed the provided callback
+    ///  functions will be ignored.
     #[doc(alias = "gtk_clipboard_set_with_data")]
     pub fn set_with_data<F: Fn(&Clipboard, &SelectionData, u32) + 'static>(
         &self,
@@ -67,6 +85,16 @@ impl Clipboard {
         success
     }
 
+    /// Requests the contents of the clipboard as URIs. When the URIs are
+    /// later received `callback` will be called.
+    ///
+    /// The `uris` parameter to `callback` will contain the resulting array of
+    /// URIs if the request succeeded, or [`None`] if it failed. This could happen
+    /// for various reasons, in particular if the clipboard was empty or if the
+    /// contents of the clipboard could not be converted into URI form.
+    /// ## `callback`
+    /// a function to call when the URIs are received,
+    ///  or the retrieval fails. (It will always be called one way or the other.)
     #[doc(alias = "gtk_clipboard_request_uris")]
     pub fn request_uris<P: FnOnce(&Clipboard, &[glib::GString]) + 'static>(&self, callback: P) {
         let callback_data: Box_<P> = Box_::new(callback);

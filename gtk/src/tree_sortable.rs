@@ -63,17 +63,63 @@ impl fmt::Display for SortColumn {
 }
 
 pub trait TreeSortableExtManual: 'static {
+    /// Sets the default comparison function used when sorting to be `sort_func`.
+    /// If the current sort column id of `self` is
+    /// `GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID`, then the model will sort using
+    /// this function.
+    ///
+    /// If `sort_func` is [`None`], then there will be no default comparison function.
+    /// This means that once the model has been sorted, it can’t go back to the
+    /// default state. In this case, when the current sort column id of `self`
+    /// is `GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID`, the model will be unsorted.
+    /// ## `sort_func`
+    /// The comparison function
     #[doc(alias = "gtk_tree_sortable_set_default_sort_func")]
     fn set_default_sort_func<F>(&self, sort_func: F)
     where
         F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering + 'static;
+    /// Sets the comparison function used when sorting to be `sort_func`. If the
+    /// current sort column id of `self` is the same as `sort_column_id`, then
+    /// the model will sort using this function.
+    /// ## `sort_column_id`
+    /// the sort column id to set the function for
+    /// ## `sort_func`
+    /// The comparison function
     #[doc(alias = "gtk_tree_sortable_set_sort_func")]
     fn set_sort_func<F>(&self, sort_column_id: SortColumn, sort_func: F)
     where
         F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering + 'static;
+    /// Fills in `sort_column_id` and `order` with the current sort column and the
+    /// order. It returns [`true`] unless the `sort_column_id` is
+    /// `GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID` or
+    /// `GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID`.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the sort column is not one of the special sort
+    ///  column ids.
+    ///
+    /// ## `sort_column_id`
+    /// The sort column id to be filled in
+    ///
+    /// ## `order`
+    /// The GtkSortType to be filled in
     #[doc(alias = "get_sort_column_id")]
     #[doc(alias = "gtk_tree_sortable_get_sort_column_id")]
     fn sort_column_id(&self) -> Option<(SortColumn, SortType)>;
+    /// Sets the current sort column to be `sort_column_id`. The `self` will
+    /// resort itself to reflect this change, after emitting a
+    /// `GtkTreeSortable::::sort-column-changed` signal. `sort_column_id` may either be
+    /// a regular column id, or one of the following special values:
+    ///
+    /// - `GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID`: the default sort function
+    ///  will be used, if it is set
+    ///
+    /// - `GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID`: no sorting will occur
+    /// ## `sort_column_id`
+    /// the sort column id to set
+    /// ## `order`
+    /// The sort order of the column
     #[doc(alias = "gtk_tree_sortable_set_sort_column_id")]
     fn set_sort_column_id(&self, sort_column_id: SortColumn, order: SortType);
     fn set_unsorted(&self);

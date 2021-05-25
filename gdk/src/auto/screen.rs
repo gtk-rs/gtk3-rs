@@ -282,7 +282,7 @@ impl Screen {
     }
 
     #[doc(alias = "composited-changed")]
-    pub fn connect_composited_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn composited_changed_trampoline<F: Fn(&Screen) + 'static>(
             this: *mut ffi::GdkScreen,
             f: glib::ffi::gpointer,
@@ -304,7 +304,7 @@ impl Screen {
     }
 
     #[doc(alias = "monitors-changed")]
-    pub fn connect_monitors_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_monitors_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn monitors_changed_trampoline<F: Fn(&Screen) + 'static>(
             this: *mut ffi::GdkScreen,
             f: glib::ffi::gpointer,
@@ -326,7 +326,7 @@ impl Screen {
     }
 
     #[doc(alias = "size-changed")]
-    pub fn connect_size_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_size_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn size_changed_trampoline<F: Fn(&Screen) + 'static>(
             this: *mut ffi::GdkScreen,
             f: glib::ffi::gpointer,
@@ -348,7 +348,7 @@ impl Screen {
     }
 
     #[doc(alias = "font-options")]
-    pub fn connect_font_options_notify<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_font_options_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_options_trampoline<F: Fn(&Screen) + 'static>(
             this: *mut ffi::GdkScreen,
             _param_spec: glib::ffi::gpointer,
@@ -371,7 +371,7 @@ impl Screen {
     }
 
     #[doc(alias = "resolution")]
-    pub fn connect_resolution_notify<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_resolution_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_resolution_trampoline<F: Fn(&Screen) + 'static>(
             this: *mut ffi::GdkScreen,
             _param_spec: glib::ffi::gpointer,

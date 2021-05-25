@@ -714,13 +714,11 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
     #[doc(alias = "background")]
     fn connect_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_background_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_background_trampoline<P: IsA<CellView>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellView>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellView::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -739,13 +737,14 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
     #[doc(alias = "background-rgba")]
     fn connect_background_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_background_rgba_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_background_rgba_trampoline<
+            P: IsA<CellView>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellView>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellView::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -764,13 +763,14 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
     #[doc(alias = "background-set")]
     fn connect_background_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_background_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_background_set_trampoline<
+            P: IsA<CellView>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellView>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellView::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -789,13 +789,14 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
     #[doc(alias = "draw-sensitive")]
     fn connect_draw_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_draw_sensitive_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_draw_sensitive_trampoline<
+            P: IsA<CellView>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellView>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellView::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -814,13 +815,11 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
     #[doc(alias = "fit-model")]
     fn connect_fit_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_fit_model_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_fit_model_trampoline<P: IsA<CellView>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellView>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellView::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -839,13 +838,11 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
     #[doc(alias = "model")]
     fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_model_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_model_trampoline<P: IsA<CellView>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellView,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellView>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellView::from_glib_borrow(this).unsafe_cast_ref())
         }

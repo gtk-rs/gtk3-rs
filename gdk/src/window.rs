@@ -112,6 +112,22 @@ impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for WindowAttr {
 }
 
 impl Window {
+    /// Creates a new [Window](crate::Window) using the attributes from
+    /// `attributes`. See GdkWindowAttr and GdkWindowAttributesType for
+    /// more details. Note: to use this on displays other than the default
+    /// display, `parent` must be specified.
+    /// ## `parent`
+    /// a [Window](crate::Window), or [`None`] to create the window as a child of
+    ///  the default root window for the default display.
+    /// ## `attributes`
+    /// attributes of the new window
+    /// ## `attributes_mask`
+    /// mask indicating which
+    ///  fields in `attributes` are valid
+    ///
+    /// # Returns
+    ///
+    /// the new [Window](crate::Window)
     #[doc(alias = "gdk_window_new")]
     pub fn new(parent: Option<&Window>, attributes: &WindowAttr) -> Window {
         assert_initialized_main_thread!();
@@ -124,6 +140,31 @@ impl Window {
         }
     }
 
+    /// Create a new surface that is as compatible as possible with the
+    /// given `self`. For example the new surface will have the same
+    /// fallback resolution and font options as `self`. Generally, the new
+    /// surface will also use the same backend as `self`, unless that is
+    /// not possible for some reason. The type of the returned surface may
+    /// be examined with `cairo_surface_get_type`.
+    ///
+    /// Initially the surface contents are all 0 (transparent if contents
+    /// have transparency, black otherwise.)
+    /// ## `content`
+    /// the content for the new surface
+    /// ## `width`
+    /// width of the new surface
+    /// ## `height`
+    /// height of the new surface
+    ///
+    /// # Returns
+    ///
+    /// a pointer to the newly allocated surface. The caller
+    /// owns the surface and should call `cairo_surface_destroy` when done
+    /// with it.
+    ///
+    /// This function always returns a valid pointer, but it will return a
+    /// pointer to a “nil” surface if `other` is already in an error state
+    /// or any other error occurs.
     #[doc(alias = "gdk_window_create_similar_surface")]
     pub fn create_similar_surface(
         &self,
@@ -141,6 +182,53 @@ impl Window {
         }
     }
 
+    /// Create a new image surface that is efficient to draw on the
+    /// given `self`.
+    ///
+    /// Initially the surface contents are all 0 (transparent if contents
+    /// have transparency, black otherwise.)
+    ///
+    /// The `width` and `height` of the new surface are not affected by
+    /// the scaling factor of the `self`, or by the `scale` argument; they
+    /// are the size of the surface in device pixels. If you wish to create
+    /// an image surface capable of holding the contents of `self` you can
+    /// use:
+    ///
+    ///
+    /// ```C
+    ///   int scale = gdk_window_get_scale_factor (window);
+    ///   int width = gdk_window_get_width (window) * scale;
+    ///   int height = gdk_window_get_height (window) * scale;
+    ///
+    ///   // format is set elsewhere
+    ///   cairo_surface_t *surface =
+    ///     gdk_window_create_similar_image_surface (window,
+    ///                                              format,
+    ///                                              width, height,
+    ///                                              scale);
+    /// ```
+    ///
+    /// Note that unlike `cairo_surface_create_similar_image`, the new
+    /// surface's device scale is set to `scale`, or to the scale factor of
+    /// `self` if `scale` is 0.
+    /// ## `format`
+    /// the format for the new surface
+    /// ## `width`
+    /// width of the new surface
+    /// ## `height`
+    /// height of the new surface
+    /// ## `scale`
+    /// the scale of the new surface, or 0 to use same as `self`
+    ///
+    /// # Returns
+    ///
+    /// a pointer to the newly allocated surface. The caller
+    /// owns the surface and should call `cairo_surface_destroy` when done
+    /// with it.
+    ///
+    /// This function always returns a valid pointer, but it will return a
+    /// pointer to a “nil” surface if `other` is already in an error state
+    /// or any other error occurs.
     #[doc(alias = "gdk_window_create_similar_image_surface")]
     pub fn create_similar_image_surface(
         &self,

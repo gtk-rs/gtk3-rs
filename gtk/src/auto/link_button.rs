@@ -554,15 +554,12 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn activate_link_trampoline<
-            P,
+            P: IsA<LinkButton>,
             F: Fn(&P) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkLinkButton,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<LinkButton>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(&LinkButton::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
@@ -581,13 +578,11 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
 
     #[doc(alias = "uri")]
     fn connect_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_uri_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_uri_trampoline<P: IsA<LinkButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLinkButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<LinkButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&LinkButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -606,13 +601,11 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
 
     #[doc(alias = "visited")]
     fn connect_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_visited_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_visited_trampoline<P: IsA<LinkButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLinkButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<LinkButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&LinkButton::from_glib_borrow(this).unsafe_cast_ref())
         }

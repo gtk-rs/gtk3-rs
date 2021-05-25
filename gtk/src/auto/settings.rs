@@ -1860,15 +1860,13 @@ impl<O: IsA<Settings>> SettingsExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_gtk_alternative_button_order_trampoline<
-            P,
+            P: IsA<Settings>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1890,13 +1888,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_alternative_sort_arrows_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_alternative_sort_arrows_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1919,15 +1918,13 @@ impl<O: IsA<Settings>> SettingsExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_gtk_application_prefer_dark_theme_trampoline<
-            P,
+            P: IsA<Settings>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1951,13 +1948,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_cursor_aspect_ratio_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_cursor_aspect_ratio_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1976,13 +1974,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-cursor-blink")]
     fn connect_gtk_cursor_blink_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_cursor_blink_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_cursor_blink_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2004,13 +2003,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_cursor_blink_time_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_cursor_blink_time_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2032,13 +2032,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_cursor_blink_timeout_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_cursor_blink_timeout_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2060,13 +2061,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_cursor_theme_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_cursor_theme_name_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2088,13 +2090,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_cursor_theme_size_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_cursor_theme_size_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2116,13 +2119,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_decoration_layout_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_decoration_layout_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2144,13 +2148,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_dialogs_use_header_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_dialogs_use_header_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2172,13 +2177,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_dnd_drag_threshold_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_dnd_drag_threshold_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2200,13 +2206,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_double_click_distance_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_double_click_distance_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2228,13 +2235,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_double_click_time_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_double_click_time_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2253,13 +2261,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-enable-accels")]
     fn connect_gtk_enable_accels_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_enable_accels_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_enable_accels_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2281,13 +2290,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_enable_animations_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_enable_animations_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2309,13 +2319,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_enable_event_sounds_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_enable_event_sounds_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2338,15 +2349,13 @@ impl<O: IsA<Settings>> SettingsExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_gtk_enable_input_feedback_sounds_trampoline<
-            P,
+            P: IsA<Settings>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2368,13 +2377,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_enable_primary_paste_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_enable_primary_paste_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2397,15 +2407,13 @@ impl<O: IsA<Settings>> SettingsExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_gtk_entry_password_hint_timeout_trampoline<
-            P,
+            P: IsA<Settings>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2427,13 +2435,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_entry_select_on_focus_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_entry_select_on_focus_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2452,13 +2461,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-error-bell")]
     fn connect_gtk_error_bell_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_error_bell_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_error_bell_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2477,13 +2487,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-font-name")]
     fn connect_gtk_font_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_font_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_font_name_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2505,13 +2516,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_fontconfig_timestamp_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_fontconfig_timestamp_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2530,13 +2542,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-icon-theme-name")]
     fn connect_gtk_icon_theme_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_icon_theme_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_icon_theme_name_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2555,13 +2568,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-im-module")]
     fn connect_gtk_im_module_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_im_module_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_im_module_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2580,13 +2594,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-key-theme-name")]
     fn connect_gtk_key_theme_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_key_theme_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_key_theme_name_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2607,13 +2622,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk-keynav-use-caret")]
     fn connect_gtk_keynav_use_caret_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_keynav_use_caret_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_keynav_use_caret_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2635,13 +2651,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_label_select_on_focus_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_label_select_on_focus_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2660,13 +2677,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-long-press-time")]
     fn connect_gtk_long_press_time_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_long_press_time_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_long_press_time_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2685,13 +2703,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-modules")]
     fn connect_gtk_modules_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_modules_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_modules_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2715,13 +2734,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_overlay_scrolling_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_overlay_scrolling_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2744,15 +2764,13 @@ impl<O: IsA<Settings>> SettingsExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_gtk_primary_button_warps_slider_trampoline<
-            P,
+            P: IsA<Settings>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2771,13 +2789,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-print-backends")]
     fn connect_gtk_print_backends_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_print_backends_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_print_backends_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2799,13 +2818,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_print_preview_command_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_print_preview_command_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2827,13 +2847,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_recent_files_enabled_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_recent_files_enabled_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2855,13 +2876,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_recent_files_max_age_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_recent_files_max_age_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2883,13 +2905,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_shell_shows_app_menu_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_shell_shows_app_menu_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2911,13 +2934,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_shell_shows_desktop_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_shell_shows_desktop_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2939,13 +2963,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_shell_shows_menubar_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_shell_shows_menubar_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2964,13 +2989,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-sound-theme-name")]
     fn connect_gtk_sound_theme_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_sound_theme_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_sound_theme_name_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -2989,13 +3015,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-split-cursor")]
     fn connect_gtk_split_cursor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_split_cursor_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_split_cursor_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3014,13 +3041,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-theme-name")]
     fn connect_gtk_theme_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_theme_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_theme_name_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3042,13 +3070,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_titlebar_double_click_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_titlebar_double_click_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3070,13 +3099,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_titlebar_middle_click_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_titlebar_middle_click_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3098,13 +3128,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_titlebar_right_click_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_titlebar_right_click_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3123,13 +3154,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-xft-antialias")]
     fn connect_gtk_xft_antialias_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_xft_antialias_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_xft_antialias_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3148,13 +3180,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-xft-dpi")]
     fn connect_gtk_xft_dpi_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_xft_dpi_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_xft_dpi_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3173,13 +3206,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-xft-hinting")]
     fn connect_gtk_xft_hinting_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_xft_hinting_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_xft_hinting_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3198,13 +3232,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-xft-hintstyle")]
     fn connect_gtk_xft_hintstyle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_xft_hintstyle_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_xft_hintstyle_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3223,13 +3258,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     #[doc(alias = "gtk-xft-rgba")]
     fn connect_gtk_xft_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gtk_xft_rgba_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gtk_xft_rgba_trampoline<
+            P: IsA<Settings>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSettings,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Settings>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Settings::from_glib_borrow(this).unsafe_cast_ref())
         }

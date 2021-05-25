@@ -524,13 +524,14 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
 
     #[doc(alias = "search-mode-enabled")]
     fn connect_search_mode_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_search_mode_enabled_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_search_mode_enabled_trampoline<
+            P: IsA<SearchBar>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSearchBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<SearchBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&SearchBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -549,13 +550,14 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
 
     #[doc(alias = "show-close-button")]
     fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_close_button_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_close_button_trampoline<
+            P: IsA<SearchBar>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSearchBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<SearchBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&SearchBar::from_glib_borrow(this).unsafe_cast_ref())
         }

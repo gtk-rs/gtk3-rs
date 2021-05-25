@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Describes a key press or key release event.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventKey(crate::Event);
 

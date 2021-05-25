@@ -403,12 +403,13 @@ impl<O: IsA<Text>> TextExt for O {
 
     #[doc(alias = "text-attributes-changed")]
     fn connect_text_attributes_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn text_attributes_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn text_attributes_changed_trampoline<
+            P: IsA<Text>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkText,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Text>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Text::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -427,13 +428,11 @@ impl<O: IsA<Text>> TextExt for O {
 
     #[doc(alias = "text-caret-moved")]
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn text_caret_moved_trampoline<P, F: Fn(&P, i32) + 'static>(
+        unsafe extern "C" fn text_caret_moved_trampoline<P: IsA<Text>, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::AtkText,
             arg1: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Text>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Text::from_glib_borrow(this).unsafe_cast_ref(), arg1)
         }
@@ -456,15 +455,16 @@ impl<O: IsA<Text>> TextExt for O {
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn text_insert_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(
+        unsafe extern "C" fn text_insert_trampoline<
+            P: IsA<Text>,
+            F: Fn(&P, i32, i32, &str) + 'static,
+        >(
             this: *mut ffi::AtkText,
             arg1: libc::c_int,
             arg2: libc::c_int,
             arg3: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Text>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Text::from_glib_borrow(this).unsafe_cast_ref(),
@@ -496,15 +496,16 @@ impl<O: IsA<Text>> TextExt for O {
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn text_remove_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(
+        unsafe extern "C" fn text_remove_trampoline<
+            P: IsA<Text>,
+            F: Fn(&P, i32, i32, &str) + 'static,
+        >(
             this: *mut ffi::AtkText,
             arg1: libc::c_int,
             arg2: libc::c_int,
             arg3: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Text>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Text::from_glib_borrow(this).unsafe_cast_ref(),
@@ -532,12 +533,13 @@ impl<O: IsA<Text>> TextExt for O {
 
     #[doc(alias = "text-selection-changed")]
     fn connect_text_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn text_selection_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn text_selection_changed_trampoline<
+            P: IsA<Text>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkText,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Text>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Text::from_glib_borrow(this).unsafe_cast_ref())
         }

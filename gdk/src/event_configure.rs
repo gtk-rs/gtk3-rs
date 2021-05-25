@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated when a window size or position has changed.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventConfigure(crate::Event);
 

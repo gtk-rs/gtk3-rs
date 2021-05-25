@@ -554,12 +554,10 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
 
     #[doc(alias = "show-menu")]
     fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn show_menu_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn show_menu_trampoline<P: IsA<MenuToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuToolButton,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuToolButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuToolButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -578,13 +576,11 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
 
     #[doc(alias = "menu")]
     fn connect_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_menu_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_menu_trampoline<P: IsA<MenuToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuToolButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MenuToolButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MenuToolButton::from_glib_borrow(this).unsafe_cast_ref())
         }

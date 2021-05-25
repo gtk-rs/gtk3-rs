@@ -4,6 +4,26 @@ use crate::FrameClock;
 use glib::translate::*;
 
 impl FrameClock {
+    /// Using the frame history stored in the frame clock, finds the last
+    /// known presentation time and refresh interval, and assuming that
+    /// presentation times are separated by the refresh interval,
+    /// predicts a presentation time that is a multiple of the refresh
+    /// interval after the last presentation time, and later than `base_time`.
+    /// ## `base_time`
+    /// base time for determining a presentaton time
+    ///
+    /// # Returns
+    ///
+    ///
+    /// ## `refresh_interval_return`
+    /// a location to store the
+    /// determined refresh interval, or [`None`]. A default refresh interval of
+    /// 1/60th of a second will be stored if no history is present.
+    ///
+    /// ## `presentation_time_return`
+    /// a location to store the next
+    ///  candidate presentation time after the given base time.
+    ///  0 will be will be stored if no history is present.
     #[doc(alias = "gdk_frame_clock_get_refresh_info")]
     #[doc(alias = "get_refresh_info")]
     pub fn refresh_info(&self, base_time: i64) -> (i64, i64) {

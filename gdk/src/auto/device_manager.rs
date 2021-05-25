@@ -51,10 +51,7 @@ impl DeviceManager {
     }
 
     #[doc(alias = "device-added")]
-    pub fn connect_device_added<F: Fn(&DeviceManager, &Device) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_device_added<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn device_added_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(
             this: *mut ffi::GdkDeviceManager,
             device: *mut ffi::GdkDevice,
@@ -77,10 +74,7 @@ impl DeviceManager {
     }
 
     #[doc(alias = "device-changed")]
-    pub fn connect_device_changed<F: Fn(&DeviceManager, &Device) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_device_changed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn device_changed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(
             this: *mut ffi::GdkDeviceManager,
             device: *mut ffi::GdkDevice,
@@ -103,10 +97,7 @@ impl DeviceManager {
     }
 
     #[doc(alias = "device-removed")]
-    pub fn connect_device_removed<F: Fn(&DeviceManager, &Device) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_device_removed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn device_removed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(
             this: *mut ffi::GdkDeviceManager,
             device: *mut ffi::GdkDevice,

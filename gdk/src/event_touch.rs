@@ -2,6 +2,16 @@
 
 use glib::translate::*;
 
+/// Used for touch events.
+/// `type` field will be one of [EventType::TouchBegin](crate::EventType::TouchBegin), [EventType::TouchUpdate](crate::EventType::TouchUpdate),
+/// [EventType::TouchEnd](crate::EventType::TouchEnd) or [EventType::TouchCancel](crate::EventType::TouchCancel).
+///
+/// Touch events are grouped into sequences by means of the `sequence`
+/// field, which can also be obtained with `gdk_event_get_event_sequence`.
+/// Each sequence begins with a [EventType::TouchBegin](crate::EventType::TouchBegin) event, followed by
+/// any number of [EventType::TouchUpdate](crate::EventType::TouchUpdate) events, and ends with a [EventType::TouchEnd](crate::EventType::TouchEnd)
+/// (or [EventType::TouchCancel](crate::EventType::TouchCancel)) event. With multitouch devices, there may be
+/// several active sequences at the same time.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventTouch(crate::Event);
 

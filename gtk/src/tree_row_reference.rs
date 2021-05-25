@@ -10,6 +10,18 @@ use libc::c_int;
 impl TreeRowReference {
     // rustdoc-stripper-ignore-next
     /// This is unsafe because new_order bounds can't be checked.
+    // rustdoc-stripper-ignore-next-stop
+    /// Lets a set of row reference created by
+    /// [TreeRowReference::new_proxy](crate::TreeRowReference::new_proxy) know that the
+    /// model emitted the `GtkTreeModel::::rows-reordered` signal.
+    /// ## `proxy`
+    /// a [glib::Object](crate::glib::Object)
+    /// ## `path`
+    /// the parent path of the reordered signal
+    /// ## `iter`
+    /// the iter pointing to the parent of the reordered
+    /// ## `new_order`
+    /// the new order of rows
     #[allow(clippy::missing_safety_doc)]
     #[doc(alias = "gtk_tree_row_reference_reordered")]
     pub unsafe fn reordered<T: IsA<glib::Object>>(

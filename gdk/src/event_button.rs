@@ -2,6 +2,39 @@
 
 use glib::translate::*;
 
+/// Used for button press and button release events. The
+/// `type` field will be one of [EventType::ButtonPress](crate::EventType::ButtonPress),
+/// [EventType::_2buttonPress](crate::EventType::_2buttonPress), [EventType::_3buttonPress](crate::EventType::_3buttonPress) or [EventType::ButtonRelease](crate::EventType::ButtonRelease),
+///
+/// Double and triple-clicks result in a sequence of events being received.
+/// For double-clicks the order of events will be:
+///
+/// - [EventType::ButtonPress](crate::EventType::ButtonPress)
+/// - [EventType::ButtonRelease](crate::EventType::ButtonRelease)
+/// - [EventType::ButtonPress](crate::EventType::ButtonPress)
+/// - [EventType::_2buttonPress](crate::EventType::_2buttonPress)
+/// - [EventType::ButtonRelease](crate::EventType::ButtonRelease)
+///
+/// Note that the first click is received just like a normal
+/// button press, while the second click results in a [EventType::_2buttonPress](crate::EventType::_2buttonPress)
+/// being received just after the [EventType::ButtonPress](crate::EventType::ButtonPress).
+///
+/// Triple-clicks are very similar to double-clicks, except that
+/// [EventType::_3buttonPress](crate::EventType::_3buttonPress) is inserted after the third click. The order of the
+/// events is:
+///
+/// - [EventType::ButtonPress](crate::EventType::ButtonPress)
+/// - [EventType::ButtonRelease](crate::EventType::ButtonRelease)
+/// - [EventType::ButtonPress](crate::EventType::ButtonPress)
+/// - [EventType::_2buttonPress](crate::EventType::_2buttonPress)
+/// - [EventType::ButtonRelease](crate::EventType::ButtonRelease)
+/// - [EventType::ButtonPress](crate::EventType::ButtonPress)
+/// - [EventType::_3buttonPress](crate::EventType::_3buttonPress)
+/// - [EventType::ButtonRelease](crate::EventType::ButtonRelease)
+///
+/// For a double click to occur, the second button press must occur within
+/// 1/4 of a second of the first. For a triple click to occur, the third
+/// button press must also occur within 1/2 second of the first button press.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventButton(crate::Event);
 

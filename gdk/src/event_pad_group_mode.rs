@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+/// Generated during [InputSource::TabletPad](crate::InputSource::TabletPad) mode switches in a group.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventPadGroupMode(crate::Event);
 

@@ -13,6 +13,51 @@ use std::pin::Pin;
 use std::ptr;
 
 impl Dialog {
+    /// Creates a new [Dialog](crate::Dialog) with title `title` (or [`None`] for the default
+    /// title; see [GtkWindowExt::set_title](crate::prelude::GtkWindowExt::set_title)) and transient parent `parent` (or
+    /// [`None`] for none; see [GtkWindowExt::set_transient_for](crate::prelude::GtkWindowExt::set_transient_for)). The `flags`
+    /// argument can be used to make the dialog modal (GTK_DIALOG_MODAL)
+    /// and/or to have it destroyed along with its transient parent
+    /// (GTK_DIALOG_DESTROY_WITH_PARENT). After `flags`, button
+    /// text/response ID pairs should be listed, with a [`None`] pointer ending
+    /// the list. Button text can be arbitrary text. A response ID can be
+    /// any positive number, or one of the values in the GtkResponseType
+    /// enumeration. If the user clicks one of these dialog buttons,
+    /// [Dialog](crate::Dialog) will emit the `GtkDialog::::response` signal with the corresponding
+    /// response ID. If a [Dialog](crate::Dialog) receives the `GtkWidget::::delete-event` signal,
+    /// it will emit ::response with a response ID of GTK_RESPONSE_DELETE_EVENT.
+    /// However, destroying a dialog does not emit the ::response signal;
+    /// so be careful relying on ::response when using the
+    /// GTK_DIALOG_DESTROY_WITH_PARENT flag. Buttons are from left to right,
+    /// so the first button in the list will be the leftmost button in the dialog.
+    ///
+    /// Here’s a simple example:
+    ///
+    /// ```C
+    ///  GtkWidget *main_app_window; // Window the dialog should show up on
+    ///  GtkWidget *dialog;
+    ///  GtkDialogFlags flags = GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT;
+    ///  dialog = gtk_dialog_new_with_buttons ("My dialog",
+    ///                                        main_app_window,
+    ///                                        flags,
+    ///                                        _("_OK"),
+    ///                                        GTK_RESPONSE_ACCEPT,
+    ///                                        _("_Cancel"),
+    ///                                        GTK_RESPONSE_REJECT,
+    ///                                        NULL);
+    /// ```
+    /// ## `title`
+    /// Title of the dialog, or [`None`]
+    /// ## `parent`
+    /// Transient parent of the dialog, or [`None`]
+    /// ## `flags`
+    /// from GtkDialogFlags
+    /// ## `first_button_text`
+    /// text to go in first button, or [`None`]
+    ///
+    /// # Returns
+    ///
+    /// a new [Dialog](crate::Dialog)
     #[doc(alias = "gtk_dialog_new_with_buttons")]
     pub fn with_buttons<T: IsA<Window>>(
         title: Option<&str>,

@@ -9,6 +9,19 @@ use glib::{ToValue, Type, Value};
 use libc::c_int;
 
 impl TreeStore {
+    /// Creates a new tree store as with `n_columns` columns each of the types passed
+    /// in. Note that only types derived from standard GObject fundamental types
+    /// are supported.
+    ///
+    /// As an example, `gtk_tree_store_new (3, G_TYPE_INT, G_TYPE_STRING,
+    /// GDK_TYPE_PIXBUF);` will create a new [TreeStore](crate::TreeStore) with three columns, of type
+    /// gint, gchararray, and [gdk_pixbuf::Pixbuf](crate::gdk_pixbuf::Pixbuf) respectively.
+    /// ## `n_columns`
+    /// number of columns in the tree store
+    ///
+    /// # Returns
+    ///
+    /// a new [TreeStore](crate::TreeStore)
     #[doc(alias = "gtk_tree_store_newv")]
     pub fn new(column_types: &[Type]) -> TreeStore {
         assert_initialized_main_thread!();
@@ -34,13 +47,42 @@ pub trait TreeStoreExtManual: 'static {
         columns_and_values: &[(u32, &dyn ToValue)],
     ) -> TreeIter;
 
+    /// Reorders the children of `parent` in `self` to follow the order
+    /// indicated by `new_order`. Note that this function only works with
+    /// unsorted stores.
+    /// ## `parent`
+    /// A [TreeIter](crate::TreeIter), or [`None`]
+    /// ## `new_order`
+    /// an array of integers mapping the new position of each child
+    ///  to its old position before the re-ordering,
+    ///  i.e. `new_order``[newpos] = oldpos`.
     #[doc(alias = "gtk_tree_store_reorder")]
     fn reorder(&self, parent: &TreeIter, new_order: &[u32]);
 
+    /// Sets the value of one or more cells in the row referenced by `iter`.
+    /// The variable argument list should contain integer column numbers,
+    /// each column number followed by the value to be set.
+    /// The list is terminated by a -1. For example, to set column 0 with type
+    /// `G_TYPE_STRING` to “Foo”, you would write
+    /// `gtk_tree_store_set (store, iter, 0, "Foo", -1)`.
+    ///
+    /// The value will be referenced by the store if it is a `G_TYPE_OBJECT`, and it
+    /// will be copied if it is a `G_TYPE_STRING` or `G_TYPE_BOXED`.
+    /// ## `iter`
+    /// A valid [TreeIter](crate::TreeIter) for the row being modified
     #[doc(alias = "gtk_tree_store_set")]
     #[doc(alias = "gtk_tree_store_set_valuesv")]
     fn set(&self, iter: &TreeIter, columns_and_values: &[(u32, &dyn ToValue)]);
 
+    /// Sets the data in the cell specified by `iter` and `column`.
+    /// The type of `value` must be convertible to the type of the
+    /// column.
+    /// ## `iter`
+    /// A valid [TreeIter](crate::TreeIter) for the row being modified
+    /// ## `column`
+    /// column number to modify
+    /// ## `value`
+    /// new value for the cell
     #[doc(alias = "gtk_tree_store_set_value")]
     fn set_value(&self, iter: &TreeIter, column: u32, value: &Value);
 }

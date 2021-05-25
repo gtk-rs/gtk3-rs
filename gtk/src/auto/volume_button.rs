@@ -565,13 +565,14 @@ impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
 
     #[doc(alias = "use-symbolic")]
     fn connect_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_use_symbolic_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_use_symbolic_trampoline<
+            P: IsA<VolumeButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkVolumeButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<VolumeButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&VolumeButton::from_glib_borrow(this).unsafe_cast_ref())
         }

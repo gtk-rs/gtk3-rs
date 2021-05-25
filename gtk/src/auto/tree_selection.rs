@@ -333,12 +333,10 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
 
     #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn changed_trampoline<P: IsA<TreeSelection>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTreeSelection,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TreeSelection>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&TreeSelection::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -357,13 +355,11 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
 
     #[doc(alias = "mode")]
     fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_mode_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_mode_trampoline<P: IsA<TreeSelection>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTreeSelection,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TreeSelection>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&TreeSelection::from_glib_borrow(this).unsafe_cast_ref())
         }

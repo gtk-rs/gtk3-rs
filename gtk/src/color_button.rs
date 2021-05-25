@@ -15,6 +15,13 @@ pub trait ColorButtonExtManual: 'static {
     #[doc(alias = "get_color")]
     fn color(&self) -> gdk::Color;
 
+    /// Sets the current color to be `color`.
+    ///
+    /// # Deprecated
+    ///
+    /// Use [ColorChooserExt::set_rgba](crate::prelude::ColorChooserExt::set_rgba) instead.
+    /// ## `color`
+    /// A GdkColor to set the current color with
     #[doc(alias = "gtk_color_button_set_color")]
     fn set_color(&self, color: &gdk::Color);
 }

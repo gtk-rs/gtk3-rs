@@ -9,6 +9,18 @@ use glib::translate::*;
 use std::ptr;
 
 impl RecentChooserDialog {
+    /// Creates a new [RecentChooserDialog](crate::RecentChooserDialog). This function is analogous to
+    /// [Dialog::with_buttons](crate::Dialog::with_buttons).
+    /// ## `title`
+    /// Title of the dialog, or [`None`]
+    /// ## `parent`
+    /// Transient parent of the dialog, or [`None`],
+    /// ## `first_button_text`
+    /// stock ID or text to go in the first button, or [`None`]
+    ///
+    /// # Returns
+    ///
+    /// a new [RecentChooserDialog](crate::RecentChooserDialog)
     #[doc(alias = "gtk_recent_chooser_dialog_new")]
     pub fn new<T: IsA<Window>>(title: Option<&str>, parent: Option<&T>) -> RecentChooserDialog {
         assert_initialized_main_thread!();
@@ -22,6 +34,22 @@ impl RecentChooserDialog {
         }
     }
 
+    /// Creates a new [RecentChooserDialog](crate::RecentChooserDialog) with a specified recent manager.
+    ///
+    /// This is useful if you have implemented your own recent manager, or if you
+    /// have a customized instance of a [RecentManager](crate::RecentManager) object.
+    /// ## `title`
+    /// Title of the dialog, or [`None`]
+    /// ## `parent`
+    /// Transient parent of the dialog, or [`None`],
+    /// ## `manager`
+    /// a [RecentManager](crate::RecentManager)
+    /// ## `first_button_text`
+    /// stock ID or text to go in the first button, or [`None`]
+    ///
+    /// # Returns
+    ///
+    /// a new [RecentChooserDialog](crate::RecentChooserDialog)
     #[doc(alias = "gtk_recent_chooser_dialog_new_for_manager")]
     #[doc(alias = "new_for_manager")]
     pub fn for_manager<T: IsA<Window>>(

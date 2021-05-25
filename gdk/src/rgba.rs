@@ -11,6 +11,8 @@ use std::str::FromStr;
 #[derive(Debug)]
 pub struct RgbaParseError;
 
+/// A [RGBA](crate::RGBA) is used to represent a (possibly translucent)
+/// color, in a way that is compatible with cairo’s notion of color.
 #[derive(Clone, Copy, Debug)]
 #[repr(C)]
 pub struct RGBA {
