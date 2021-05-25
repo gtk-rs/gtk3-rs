@@ -12,7 +12,6 @@ single_version_file = true
 generate = [
     "Atk.Component",
     "Atk.CoordType",
-    "Atk.Document",
     "Atk.EventListener",
     "Atk.EventListenerInit",
     "Atk.FocusHandler",
@@ -68,6 +67,13 @@ status = "generate"
 trait_name = "AtkActionExt" # duplicate with gio
 
 [[object]]
+name = "Atk.Document"
+status = "generate"
+    [[object.function]]
+    name = "get_attributes"
+    ignore = true # TODO: re-enable once AttributeSet is properly handled
+
+[[object]]
 name = "Atk.EditableText"
 status = "generate"
 manual_traits = ["EditableTextExtManual"]
@@ -90,6 +96,9 @@ trait_name = "AtkMiscExt" # duplicate with gtk
 name = "Atk.Object"
 status = "generate"
 trait_name = "AtkObjectExt"
+    [[object.function]]
+    name = "get_attributes"
+    ignore = true # TODO: re-enable once AttributeSet is properly handled
 
 [[object]]
 name = "Atk.Range"
@@ -113,6 +122,9 @@ status = "generate"
     [[object.function]]
     name = "free_ranges"
     ignore = true # don't know yet how to give back memory...
+    [[object.function]]
+    name = "get_default_attributes"
+    ignore = true # TODO: re-enable once AttributeSet is properly handled
 
 [[object]]
 name = "Atk.Window"
