@@ -213,6 +213,12 @@ status = "generate"
     pattern = "threads_add_timeout.*"
     #use glib::source::timeout_add() instead
     ignore = true
+    [[object.function]]
+    name = "parse_args"
+    ignore = true # TODO: manually implement
+    [[object.function]]
+    name = "init_check"
+    ignore = true # TODO: manually implement
 
 [[object]]
 name = "Gdk.Cursor"
