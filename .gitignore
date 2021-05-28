@@ -11,3 +11,4 @@ config.status
 *.swp
 **Cargo.lock
 gtk/tests/*
+**~
