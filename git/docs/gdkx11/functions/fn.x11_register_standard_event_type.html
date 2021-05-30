@@ -6,7 +6,7 @@ between <code>event_base</code> and <code>event_base + n_events - 1</code>.
 The registered events must have the window field in the same place
 as core X events (this is not the case for e.g. XKB extension events).</p>
 <p>If an event type is registered, events of this type will go through
-global and window-specific filters (see [<code>crate::gdk::prelude::WindowExt::add_filter()</code>]).
+global and window-specific filters (see [<code>crate::gdk::Window::add_filter()</code>]).
 Unregistered events will only go through global filters.
 GDK may register the events of some X extensions on its own.</p>
 <p>This function should only be needed in unusual circumstances, e.g.

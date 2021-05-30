@@ -689,7 +689,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the rendered icon; this may be a newly</span>
     <span class="doccomment">///  created icon or a new reference to an internal icon, so you must</span>
-    <span class="doccomment">///  not modify the icon. Use [`crate::glib::object::ObjectExt::unref()`] to release your reference</span>
+    <span class="doccomment">///  not modify the icon. Use [`crate::glib::object::Object::unref()`] to release your reference</span>
     <span class="doccomment">///  to the icon.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_icon_info_load_icon&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_icon</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span>, <span class="ident">glib::Error</span><span class="op">&gt;</span> {

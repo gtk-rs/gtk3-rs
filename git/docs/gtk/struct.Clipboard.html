@@ -151,7 +151,7 @@ the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>a newly-allocated [<code>crate::gdk_pixbuf::Pixbuf</code>]
-object which must be disposed with [<code>crate::glib::object::ObjectExt::unref()</code>], or
+object which must be disposed with [<code>crate::glib::object::Object::unref()</code>], or
 <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if retrieving the selection data failed. (This could
 happen for various reasons, in particular if the clipboard
 was empty or if the contents of the clipboard could not be
