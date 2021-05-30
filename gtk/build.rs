@@ -1,16 +1,5 @@
 fn main() {
-    #[cfg(target_os = "macos")]
-    build_foreground();
     check_features();
-}
-
-#[cfg(target_os = "macos")]
-fn build_foreground() {
-    cc::Build::new()
-        .file("src/foreground.m")
-        .compile("foreground");
-    println!("cargo:rustc-link-lib=framework=AppKit");
-    println!("cargo:rustc-link-lib=framework=CoreFoundation");
 }
 
 fn check_features() {

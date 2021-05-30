@@ -924,6 +924,9 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_parse_geometry")]
     fn parse_geometry(&self, geometry: &str) -> bool;
 
+    #[doc(alias = "gtk_window_present")]
+    fn present(&self);
+
     #[doc(alias = "gtk_window_present_with_time")]
     fn present_with_time(&self, timestamp: u32);
 
@@ -1620,6 +1623,12 @@ impl<O: IsA<Window>> GtkWindowExt for O {
                 self.as_ref().to_glib_none().0,
                 geometry.to_glib_none().0,
             ))
+        }
+    }
+
+    fn present(&self) {
+        unsafe {
+            ffi::gtk_window_present(self.as_ref().to_glib_none().0);
         }
     }
 
