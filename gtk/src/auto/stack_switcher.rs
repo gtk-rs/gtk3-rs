@@ -535,13 +535,14 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "icon-size")]
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_icon_size_trampoline<
+            P: IsA<StackSwitcher>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkStackSwitcher,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<StackSwitcher>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&StackSwitcher::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -560,13 +561,11 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
 
     #[doc(alias = "stack")]
     fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_stack_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_stack_trampoline<P: IsA<StackSwitcher>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSwitcher,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<StackSwitcher>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&StackSwitcher::from_glib_borrow(this).unsafe_cast_ref())
         }

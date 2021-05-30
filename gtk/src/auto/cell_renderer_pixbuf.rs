@@ -505,13 +505,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     #[doc(alias = "gicon")]
     fn connect_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_gicon_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_gicon_trampoline<
+            P: IsA<CellRendererPixbuf>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -530,13 +531,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     #[doc(alias = "icon-name")]
     fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_icon_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_icon_name_trampoline<
+            P: IsA<CellRendererPixbuf>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -555,13 +557,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     #[doc(alias = "pixbuf")]
     fn connect_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_pixbuf_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_pixbuf_trampoline<
+            P: IsA<CellRendererPixbuf>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -583,13 +586,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_pixbuf_expander_closed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_pixbuf_expander_closed_trampoline<
+            P: IsA<CellRendererPixbuf>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -608,13 +612,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     #[doc(alias = "pixbuf-expander-open")]
     fn connect_pixbuf_expander_open_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_pixbuf_expander_open_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_pixbuf_expander_open_trampoline<
+            P: IsA<CellRendererPixbuf>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -633,13 +638,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     #[doc(alias = "stock-detail")]
     fn connect_stock_detail_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_stock_detail_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_stock_detail_trampoline<
+            P: IsA<CellRendererPixbuf>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -658,13 +664,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     #[doc(alias = "stock-size")]
     fn connect_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_stock_size_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_stock_size_trampoline<
+            P: IsA<CellRendererPixbuf>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -683,13 +690,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     #[doc(alias = "surface")]
     fn connect_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_surface_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_surface_trampoline<
+            P: IsA<CellRendererPixbuf>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererPixbuf,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererPixbuf>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererPixbuf::from_glib_borrow(this).unsafe_cast_ref())
         }

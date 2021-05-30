@@ -418,14 +418,15 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn row_changed_trampoline<P, F: Fn(&P, &TreePath, &TreeIter) + 'static>(
+        unsafe extern "C" fn row_changed_trampoline<
+            P: IsA<TreeModel>,
+            F: Fn(&P, &TreePath, &TreeIter) + 'static,
+        >(
             this: *mut ffi::GtkTreeModel,
             path: *mut ffi::GtkTreePath,
             iter: *mut ffi::GtkTreeIter,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TreeModel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &TreeModel::from_glib_borrow(this).unsafe_cast_ref(),
@@ -448,13 +449,14 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
 
     #[doc(alias = "row-deleted")]
     fn connect_row_deleted<F: Fn(&Self, &TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn row_deleted_trampoline<P, F: Fn(&P, &TreePath) + 'static>(
+        unsafe extern "C" fn row_deleted_trampoline<
+            P: IsA<TreeModel>,
+            F: Fn(&P, &TreePath) + 'static,
+        >(
             this: *mut ffi::GtkTreeModel,
             path: *mut ffi::GtkTreePath,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TreeModel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &TreeModel::from_glib_borrow(this).unsafe_cast_ref(),
@@ -480,16 +482,14 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn row_has_child_toggled_trampoline<
-            P,
+            P: IsA<TreeModel>,
             F: Fn(&P, &TreePath, &TreeIter) + 'static,
         >(
             this: *mut ffi::GtkTreeModel,
             path: *mut ffi::GtkTreePath,
             iter: *mut ffi::GtkTreeIter,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TreeModel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &TreeModel::from_glib_borrow(this).unsafe_cast_ref(),
@@ -515,14 +515,15 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn row_inserted_trampoline<P, F: Fn(&P, &TreePath, &TreeIter) + 'static>(
+        unsafe extern "C" fn row_inserted_trampoline<
+            P: IsA<TreeModel>,
+            F: Fn(&P, &TreePath, &TreeIter) + 'static,
+        >(
             this: *mut ffi::GtkTreeModel,
             path: *mut ffi::GtkTreePath,
             iter: *mut ffi::GtkTreeIter,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TreeModel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &TreeModel::from_glib_borrow(this).unsafe_cast_ref(),

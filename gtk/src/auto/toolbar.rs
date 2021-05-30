@@ -730,14 +730,14 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn focus_home_or_end_trampoline<P, F: Fn(&P, bool) -> bool + 'static>(
+        unsafe extern "C" fn focus_home_or_end_trampoline<
+            P: IsA<Toolbar>,
+            F: Fn(&P, bool) -> bool + 'static,
+        >(
             this: *mut ffi::GtkToolbar,
             focus_home: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Toolbar>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
@@ -774,13 +774,14 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn orientation_changed_trampoline<P, F: Fn(&P, Orientation) + 'static>(
+        unsafe extern "C" fn orientation_changed_trampoline<
+            P: IsA<Toolbar>,
+            F: Fn(&P, Orientation) + 'static,
+        >(
             this: *mut ffi::GtkToolbar,
             orientation: ffi::GtkOrientation,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Toolbar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
@@ -808,7 +809,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn popup_context_menu_trampoline<
-            P,
+            P: IsA<Toolbar>,
             F: Fn(&P, i32, i32, i32) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkToolbar,
@@ -816,10 +817,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             y: libc::c_int,
             button: libc::c_int,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Toolbar>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
@@ -844,13 +842,14 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     #[doc(alias = "style-changed")]
     fn connect_style_changed<F: Fn(&Self, ToolbarStyle) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn style_changed_trampoline<P, F: Fn(&P, ToolbarStyle) + 'static>(
+        unsafe extern "C" fn style_changed_trampoline<
+            P: IsA<Toolbar>,
+            F: Fn(&P, ToolbarStyle) + 'static,
+        >(
             this: *mut ffi::GtkToolbar,
             style: ffi::GtkToolbarStyle,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Toolbar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
@@ -872,13 +871,11 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     #[doc(alias = "icon-size")]
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_icon_size_trampoline<P: IsA<Toolbar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolbar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Toolbar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Toolbar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -897,13 +894,14 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     #[doc(alias = "icon-size-set")]
     fn connect_icon_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_icon_size_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_icon_size_set_trampoline<
+            P: IsA<Toolbar>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolbar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Toolbar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Toolbar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -922,13 +920,11 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     #[doc(alias = "show-arrow")]
     fn connect_show_arrow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_arrow_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_arrow_trampoline<P: IsA<Toolbar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolbar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Toolbar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Toolbar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -947,13 +943,14 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     #[doc(alias = "toolbar-style")]
     fn connect_toolbar_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_toolbar_style_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_toolbar_style_trampoline<
+            P: IsA<Toolbar>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolbar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Toolbar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Toolbar::from_glib_borrow(this).unsafe_cast_ref())
         }

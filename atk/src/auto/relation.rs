@@ -123,13 +123,14 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     #[doc(alias = "relation-type")]
     fn connect_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_relation_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_relation_type_trampoline<
+            P: IsA<Relation>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkRelation,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Relation>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Relation::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -148,13 +149,11 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     #[doc(alias = "target")]
     fn connect_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_target_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_target_trampoline<P: IsA<Relation>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkRelation,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Relation>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Relation::from_glib_borrow(this).unsafe_cast_ref())
         }

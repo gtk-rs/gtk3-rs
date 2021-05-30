@@ -34,6 +34,15 @@ glib::wrapper! {
     }
 }
 
+impl ApplicationWindow {
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ApplicationWindow`]
+    /// This method returns an instance of [`ApplicationWindowBuilder`] which can be used to create a [`ApplicationWindow`].
+    pub fn builder() -> ApplicationWindowBuilder {
+        ApplicationWindowBuilder::default()
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A builder for generating a [`ApplicationWindow`].
@@ -711,13 +720,14 @@ impl<O: IsA<ApplicationWindow>> ApplicationWindowExt for O {
 
     #[doc(alias = "show-menubar")]
     fn connect_show_menubar_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_menubar_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_menubar_trampoline<
+            P: IsA<ApplicationWindow>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkApplicationWindow,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ApplicationWindow>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ApplicationWindow::from_glib_borrow(this).unsafe_cast_ref())
         }

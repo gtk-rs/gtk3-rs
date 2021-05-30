@@ -597,13 +597,14 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn offset_changed_trampoline<P, F: Fn(&P, &str) + 'static>(
+        unsafe extern "C" fn offset_changed_trampoline<
+            P: IsA<LevelBar>,
+            F: Fn(&P, &str) + 'static,
+        >(
             this: *mut ffi::GtkLevelBar,
             name: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<LevelBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &LevelBar::from_glib_borrow(this).unsafe_cast_ref(),
@@ -629,13 +630,11 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     #[doc(alias = "inverted")]
     fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_inverted_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_inverted_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<LevelBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -654,13 +653,11 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     #[doc(alias = "max-value")]
     fn connect_max_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_max_value_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_max_value_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<LevelBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -679,13 +676,11 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     #[doc(alias = "min-value")]
     fn connect_min_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_min_value_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_min_value_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<LevelBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -704,13 +699,11 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     #[doc(alias = "mode")]
     fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_mode_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_mode_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<LevelBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -729,13 +722,11 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     #[doc(alias = "value")]
     fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_value_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_value_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<LevelBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }

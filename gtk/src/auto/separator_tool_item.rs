@@ -458,13 +458,14 @@ impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
 
     #[doc(alias = "draw")]
     fn connect_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_draw_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_draw_trampoline<
+            P: IsA<SeparatorToolItem>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkSeparatorToolItem,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<SeparatorToolItem>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&SeparatorToolItem::from_glib_borrow(this).unsafe_cast_ref())
         }

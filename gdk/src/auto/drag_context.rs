@@ -140,7 +140,7 @@ impl DragContext {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "action-changed")]
-    pub fn connect_action_changed<F: Fn(&DragContext, DragAction) + 'static>(
+    pub fn connect_action_changed<F: Fn(&Self, DragAction) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -170,7 +170,7 @@ impl DragContext {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "cancel")]
-    pub fn connect_cancel<F: Fn(&DragContext, DragCancelReason) + 'static>(
+    pub fn connect_cancel<F: Fn(&Self, DragCancelReason) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -198,7 +198,7 @@ impl DragContext {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "dnd-finished")]
-    pub fn connect_dnd_finished<F: Fn(&DragContext) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_dnd_finished<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn dnd_finished_trampoline<F: Fn(&DragContext) + 'static>(
             this: *mut ffi::GdkDragContext,
             f: glib::ffi::gpointer,
@@ -222,10 +222,7 @@ impl DragContext {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "drop-performed")]
-    pub fn connect_drop_performed<F: Fn(&DragContext, i32) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_drop_performed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drop_performed_trampoline<F: Fn(&DragContext, i32) + 'static>(
             this: *mut ffi::GdkDragContext,
             time: libc::c_int,

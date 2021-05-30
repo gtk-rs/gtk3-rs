@@ -1192,14 +1192,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn change_current_page_trampoline<P, F: Fn(&P, i32) -> bool + 'static>(
+        unsafe extern "C" fn change_current_page_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P, i32) -> bool + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             object: libc::c_int,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Notebook>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(&Notebook::from_glib_borrow(this).unsafe_cast_ref(), object).into_glib()
         }
@@ -1233,7 +1233,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn create_window_trampoline<
-            P,
+            P: IsA<Notebook>,
             F: Fn(&P, &Widget, i32, i32) -> Notebook + 'static,
         >(
             this: *mut ffi::GtkNotebook,
@@ -1241,10 +1241,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             x: libc::c_int,
             y: libc::c_int,
             f: glib::ffi::gpointer,
-        ) -> *mut ffi::GtkNotebook
-        where
-            P: IsA<Notebook>,
-        {
+        ) -> *mut ffi::GtkNotebook {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1273,14 +1270,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn focus_tab_trampoline<P, F: Fn(&P, NotebookTab) -> bool + 'static>(
+        unsafe extern "C" fn focus_tab_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P, NotebookTab) -> bool + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             object: ffi::GtkNotebookTab,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Notebook>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1317,13 +1314,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn move_focus_out_trampoline<P, F: Fn(&P, DirectionType) + 'static>(
+        unsafe extern "C" fn move_focus_out_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P, DirectionType) + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             object: ffi::GtkDirectionType,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1353,14 +1351,15 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "page-added")]
     fn connect_page_added<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn page_added_trampoline<P, F: Fn(&P, &Widget, u32) + 'static>(
+        unsafe extern "C" fn page_added_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P, &Widget, u32) + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             child: *mut ffi::GtkWidget,
             page_num: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1383,14 +1382,15 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "page-removed")]
     fn connect_page_removed<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn page_removed_trampoline<P, F: Fn(&P, &Widget, u32) + 'static>(
+        unsafe extern "C" fn page_removed_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P, &Widget, u32) + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             child: *mut ffi::GtkWidget,
             page_num: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1416,14 +1416,15 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn page_reordered_trampoline<P, F: Fn(&P, &Widget, u32) + 'static>(
+        unsafe extern "C" fn page_reordered_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P, &Widget, u32) + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             child: *mut ffi::GtkWidget,
             page_num: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1450,17 +1451,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn reorder_tab_trampoline<
-            P,
+            P: IsA<Notebook>,
             F: Fn(&P, DirectionType, bool) -> bool + 'static,
         >(
             this: *mut ffi::GtkNotebook,
             object: ffi::GtkDirectionType,
             p0: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Notebook>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1495,14 +1493,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "select-page")]
     fn connect_select_page<F: Fn(&Self, bool) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn select_page_trampoline<P, F: Fn(&P, bool) -> bool + 'static>(
+        unsafe extern "C" fn select_page_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P, bool) -> bool + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             object: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Notebook>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1536,14 +1534,15 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "switch-page")]
     fn connect_switch_page<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn switch_page_trampoline<P, F: Fn(&P, &Widget, u32) + 'static>(
+        unsafe extern "C" fn switch_page_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P, &Widget, u32) + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             page: *mut ffi::GtkWidget,
             page_num: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Notebook::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1566,13 +1565,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "enable-popup")]
     fn connect_enable_popup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_enable_popup_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_enable_popup_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Notebook::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1591,13 +1591,11 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "group-name")]
     fn connect_group_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_group_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_group_name_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Notebook::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1616,13 +1614,11 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "page")]
     fn connect_page_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_page_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_page_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Notebook::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1641,13 +1637,11 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "scrollable")]
     fn connect_scrollable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_scrollable_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_scrollable_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Notebook::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1666,13 +1660,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "show-border")]
     fn connect_show_border_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_border_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_border_trampoline<
+            P: IsA<Notebook>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkNotebook,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Notebook::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1691,13 +1686,11 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "show-tabs")]
     fn connect_show_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_tabs_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_tabs_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Notebook::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1716,13 +1709,11 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(alias = "tab-pos")]
     fn connect_tab_pos_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_tab_pos_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_tab_pos_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Notebook>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Notebook::from_glib_borrow(this).unsafe_cast_ref())
         }

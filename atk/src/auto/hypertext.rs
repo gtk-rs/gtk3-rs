@@ -59,13 +59,14 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
 
     #[doc(alias = "link-selected")]
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn link_selected_trampoline<P, F: Fn(&P, i32) + 'static>(
+        unsafe extern "C" fn link_selected_trampoline<
+            P: IsA<Hypertext>,
+            F: Fn(&P, i32) + 'static,
+        >(
             this: *mut ffi::AtkHypertext,
             arg1: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Hypertext>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Hypertext::from_glib_borrow(this).unsafe_cast_ref(), arg1)
         }

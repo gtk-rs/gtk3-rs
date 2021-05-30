@@ -715,12 +715,10 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn activate_trampoline<P: IsA<Button>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkButton,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Button>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Button::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -747,12 +745,10 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[doc(alias = "clicked")]
     fn connect_clicked<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn clicked_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn clicked_trampoline<P: IsA<Button>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkButton,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Button>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Button::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -779,13 +775,14 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[doc(alias = "always-show-image")]
     fn connect_always_show_image_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_always_show_image_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_always_show_image_trampoline<
+            P: IsA<Button>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Button>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Button::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -804,13 +801,11 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[doc(alias = "image")]
     fn connect_image_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_image_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_image_trampoline<P: IsA<Button>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Button>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Button::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -829,13 +824,14 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[doc(alias = "image-position")]
     fn connect_image_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_image_position_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_image_position_trampoline<
+            P: IsA<Button>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Button>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Button::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -854,13 +850,11 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_label_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_label_trampoline<P: IsA<Button>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Button>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Button::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -879,13 +873,11 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[doc(alias = "relief")]
     fn connect_relief_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_relief_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_relief_trampoline<P: IsA<Button>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Button>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Button::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -904,13 +896,14 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     #[doc(alias = "use-underline")]
     fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_use_underline_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_use_underline_trampoline<
+            P: IsA<Button>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Button>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Button::from_glib_borrow(this).unsafe_cast_ref())
         }

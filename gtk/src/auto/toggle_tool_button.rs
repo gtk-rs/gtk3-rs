@@ -529,12 +529,10 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
 
     #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn toggled_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn toggled_trampoline<P: IsA<ToggleToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToggleToolButton,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToggleToolButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToggleToolButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -553,13 +551,14 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
 
     #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_active_trampoline<
+            P: IsA<ToggleToolButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToggleToolButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToggleToolButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToggleToolButton::from_glib_borrow(this).unsafe_cast_ref())
         }

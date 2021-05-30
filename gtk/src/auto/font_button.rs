@@ -768,12 +768,10 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     #[doc(alias = "font-set")]
     fn connect_font_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn font_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn font_set_trampoline<P: IsA<FontButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontButton,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FontButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FontButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -792,13 +790,14 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     #[doc(alias = "font-name")]
     fn connect_font_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_font_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_font_name_trampoline<
+            P: IsA<FontButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FontButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FontButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -817,13 +816,14 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     #[doc(alias = "show-size")]
     fn connect_show_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_size_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_size_trampoline<
+            P: IsA<FontButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FontButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FontButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -842,13 +842,14 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     #[doc(alias = "show-style")]
     fn connect_show_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_style_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_style_trampoline<
+            P: IsA<FontButton>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FontButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FontButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -867,13 +868,11 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_title_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_title_trampoline<P: IsA<FontButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FontButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FontButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -892,13 +891,11 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     #[doc(alias = "use-font")]
     fn connect_use_font_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_use_font_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_use_font_trampoline<P: IsA<FontButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FontButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FontButton::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -917,13 +914,11 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     #[doc(alias = "use-size")]
     fn connect_use_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_use_size_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_use_size_trampoline<P: IsA<FontButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FontButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&FontButton::from_glib_borrow(this).unsafe_cast_ref())
         }

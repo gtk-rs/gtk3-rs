@@ -770,13 +770,14 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
 
     #[doc(alias = "heading")]
     fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_heading_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_heading_trampoline<
+            P: IsA<AppChooserDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAppChooserDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AppChooserDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AppChooserDialog::from_glib_borrow(this).unsafe_cast_ref())
         }

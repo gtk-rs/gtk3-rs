@@ -180,7 +180,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn accel_activate_trampoline<
-            P,
+            P: IsA<AccelGroup>,
             F: Fn(&P, &glib::Object, u32, gdk::ModifierType) -> bool + 'static,
         >(
             this: *mut ffi::GtkAccelGroup,
@@ -188,10 +188,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
             keyval: libc::c_uint,
             modifier: gdk::ffi::GdkModifierType,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<AccelGroup>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
@@ -225,7 +222,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn accel_changed_trampoline<
-            P,
+            P: IsA<AccelGroup>,
             F: Fn(&P, u32, gdk::ModifierType, &glib::Closure) + 'static,
         >(
             this: *mut ffi::GtkAccelGroup,
@@ -233,9 +230,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
             modifier: gdk::ffi::GdkModifierType,
             accel_closure: *mut glib::gobject_ffi::GClosure,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AccelGroup>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
@@ -263,13 +258,14 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
 
     #[doc(alias = "is-locked")]
     fn connect_is_locked_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_is_locked_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_is_locked_trampoline<
+            P: IsA<AccelGroup>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAccelGroup,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AccelGroup>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -288,13 +284,14 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
 
     #[doc(alias = "modifier-mask")]
     fn connect_modifier_mask_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_modifier_mask_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_modifier_mask_trampoline<
+            P: IsA<AccelGroup>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAccelGroup,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AccelGroup>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
         }

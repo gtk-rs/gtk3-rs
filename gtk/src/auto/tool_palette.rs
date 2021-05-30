@@ -785,13 +785,14 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     #[doc(alias = "icon-size")]
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_icon_size_trampoline<
+            P: IsA<ToolPalette>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolPalette,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToolPalette>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -810,13 +811,14 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     #[doc(alias = "icon-size-set")]
     fn connect_icon_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_icon_size_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_icon_size_set_trampoline<
+            P: IsA<ToolPalette>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolPalette,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToolPalette>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -835,13 +837,14 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     #[doc(alias = "toolbar-style")]
     fn connect_toolbar_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_toolbar_style_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_toolbar_style_trampoline<
+            P: IsA<ToolPalette>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolPalette,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToolPalette>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
         }

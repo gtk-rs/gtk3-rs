@@ -108,12 +108,10 @@ impl<O: IsA<Document>> DocumentExt for O {
 
     #[doc(alias = "load-complete")]
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn load_complete_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn load_complete_trampoline<P: IsA<Document>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkDocument,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Document>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Document::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -132,12 +130,10 @@ impl<O: IsA<Document>> DocumentExt for O {
 
     #[doc(alias = "load-stopped")]
     fn connect_load_stopped<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn load_stopped_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn load_stopped_trampoline<P: IsA<Document>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkDocument,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Document>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Document::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -156,13 +152,11 @@ impl<O: IsA<Document>> DocumentExt for O {
 
     #[doc(alias = "page-changed")]
     fn connect_page_changed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn page_changed_trampoline<P, F: Fn(&P, i32) + 'static>(
+        unsafe extern "C" fn page_changed_trampoline<P: IsA<Document>, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::AtkDocument,
             page_number: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Document>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Document::from_glib_borrow(this).unsafe_cast_ref(),
@@ -184,12 +178,10 @@ impl<O: IsA<Document>> DocumentExt for O {
 
     #[doc(alias = "reload")]
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn reload_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn reload_trampoline<P: IsA<Document>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkDocument,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Document>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Document::from_glib_borrow(this).unsafe_cast_ref())
         }

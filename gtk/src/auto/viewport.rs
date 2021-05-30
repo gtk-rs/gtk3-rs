@@ -497,13 +497,14 @@ impl<O: IsA<Viewport>> ViewportExt for O {
 
     #[doc(alias = "shadow-type")]
     fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_shadow_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_shadow_type_trampoline<
+            P: IsA<Viewport>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkViewport,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Viewport>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Viewport::from_glib_borrow(this).unsafe_cast_ref())
         }

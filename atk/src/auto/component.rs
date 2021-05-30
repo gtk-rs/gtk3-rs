@@ -242,13 +242,14 @@ impl<O: IsA<Component>> ComponentExt for O {
 
     #[doc(alias = "bounds-changed")]
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(
+        unsafe extern "C" fn bounds_changed_trampoline<
+            P: IsA<Component>,
+            F: Fn(&P, &Rectangle) + 'static,
+        >(
             this: *mut ffi::AtkComponent,
             arg1: *mut ffi::AtkRectangle,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Component>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Component::from_glib_borrow(this).unsafe_cast_ref(),

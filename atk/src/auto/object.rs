@@ -830,13 +830,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn active_descendant_changed_trampoline<P, F: Fn(&P, &Object) + 'static>(
+        unsafe extern "C" fn active_descendant_changed_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P, &Object) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             arg1: *mut ffi::AtkObject,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Object::from_glib_borrow(this).unsafe_cast_ref(),
@@ -867,14 +868,15 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn children_changed_trampoline<P, F: Fn(&P, u32, &Object) + 'static>(
+        unsafe extern "C" fn children_changed_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P, u32, &Object) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             arg1: libc::c_uint,
             arg2: *mut ffi::AtkObject,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Object::from_glib_borrow(this).unsafe_cast_ref(),
@@ -910,14 +912,15 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn state_change_trampoline<P, F: Fn(&P, &str, bool) + 'static>(
+        unsafe extern "C" fn state_change_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P, &str, bool) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             arg1: *mut libc::c_char,
             arg2: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Object::from_glib_borrow(this).unsafe_cast_ref(),
@@ -944,12 +947,13 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     #[doc(alias = "visible-data-changed")]
     fn connect_visible_data_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn visible_data_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn visible_data_changed_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -971,13 +975,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_component_layer_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_component_layer_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1000,15 +1005,13 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_component_mdi_zorder_trampoline<
-            P,
+            P: IsA<Object>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1030,13 +1033,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_description_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_description_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1058,13 +1062,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_hypertext_nlinks_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_hypertext_nlinks_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1083,13 +1088,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     #[doc(alias = "accessible-name")]
     fn connect_accessible_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_name_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1108,13 +1114,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     #[doc(alias = "accessible-parent")]
     fn connect_accessible_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_parent_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_parent_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1133,13 +1140,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     #[doc(alias = "accessible-role")]
     fn connect_accessible_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_role_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_role_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1161,13 +1169,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_table_caption_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_table_caption_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1190,15 +1199,13 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_table_caption_object_trampoline<
-            P,
+            P: IsA<Object>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1221,15 +1228,13 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_table_column_description_trampoline<
-            P,
+            P: IsA<Object>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1252,15 +1257,13 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_table_column_header_trampoline<
-            P,
+            P: IsA<Object>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1283,15 +1286,13 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_table_row_description_trampoline<
-            P,
+            P: IsA<Object>,
             F: Fn(&P) + 'static,
         >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1313,13 +1314,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_table_row_header_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_table_row_header_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1341,13 +1343,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_table_summary_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_table_summary_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1366,13 +1369,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     #[doc(alias = "accessible-value")]
     fn connect_accessible_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accessible_value_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accessible_value_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Object>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }

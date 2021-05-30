@@ -1224,16 +1224,13 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn activate_link_trampoline<
-            P,
+            P: IsA<AboutDialog>,
             F: Fn(&P, &str) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkAboutDialog,
             uri: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<AboutDialog>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &AboutDialog::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1256,13 +1253,11 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "artists")]
     fn connect_artists_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_artists_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_artists_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1281,13 +1276,11 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "authors")]
     fn connect_authors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_authors_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_authors_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1306,13 +1299,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "comments")]
     fn connect_comments_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_comments_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_comments_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1331,13 +1325,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "copyright")]
     fn connect_copyright_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_copyright_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_copyright_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1356,13 +1351,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "documenters")]
     fn connect_documenters_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_documenters_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_documenters_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1381,13 +1377,11 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "license")]
     fn connect_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_license_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_license_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1406,13 +1400,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "license-type")]
     fn connect_license_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_license_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_license_type_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1431,13 +1426,11 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "logo")]
     fn connect_logo_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_logo_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_logo_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1456,13 +1449,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "logo-icon-name")]
     fn connect_logo_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_logo_icon_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_logo_icon_name_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1481,13 +1475,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "program-name")]
     fn connect_program_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_program_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_program_name_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1506,13 +1501,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "translator-credits")]
     fn connect_translator_credits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_translator_credits_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_translator_credits_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1531,13 +1527,11 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "version")]
     fn connect_version_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_version_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_version_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1556,13 +1550,11 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "website")]
     fn connect_website_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_website_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_website_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1581,13 +1573,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "website-label")]
     fn connect_website_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_website_label_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_website_label_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1606,13 +1599,14 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
     #[doc(alias = "wrap-license")]
     fn connect_wrap_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_wrap_license_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_wrap_license_trampoline<
+            P: IsA<AboutDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<AboutDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }

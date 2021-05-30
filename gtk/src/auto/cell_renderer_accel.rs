@@ -793,13 +793,14 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
 
     #[doc(alias = "accel-cleared")]
     fn connect_accel_cleared<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn accel_cleared_trampoline<P, F: Fn(&P, TreePath) + 'static>(
+        unsafe extern "C" fn accel_cleared_trampoline<
+            P: IsA<CellRendererAccel>,
+            F: Fn(&P, TreePath) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererAccel,
             path_string: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererAccel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path_string));
             f(
@@ -826,7 +827,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn accel_edited_trampoline<
-            P,
+            P: IsA<CellRendererAccel>,
             F: Fn(&P, TreePath, u32, gdk::ModifierType, u32) + 'static,
         >(
             this: *mut ffi::GtkCellRendererAccel,
@@ -835,9 +836,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
             accel_mods: gdk::ffi::GdkModifierType,
             hardware_keycode: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererAccel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path_string));
             f(
@@ -863,13 +862,14 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
 
     #[doc(alias = "accel-key")]
     fn connect_accel_key_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accel_key_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accel_key_trampoline<
+            P: IsA<CellRendererAccel>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererAccel,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererAccel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -888,13 +888,14 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
 
     #[doc(alias = "accel-mode")]
     fn connect_accel_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accel_mode_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accel_mode_trampoline<
+            P: IsA<CellRendererAccel>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererAccel,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererAccel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -913,13 +914,14 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
 
     #[doc(alias = "accel-mods")]
     fn connect_accel_mods_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accel_mods_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accel_mods_trampoline<
+            P: IsA<CellRendererAccel>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererAccel,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererAccel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -938,13 +940,14 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
 
     #[doc(alias = "keycode")]
     fn connect_keycode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_keycode_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_keycode_trampoline<
+            P: IsA<CellRendererAccel>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererAccel,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererAccel>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref())
         }

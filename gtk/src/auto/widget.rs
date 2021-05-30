@@ -3139,12 +3139,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "accel-closures-changed")]
     fn connect_accel_closures_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn accel_closures_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn accel_closures_changed_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3169,16 +3170,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn button_press_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventButton,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3207,16 +3205,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn button_release_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventButton,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3242,14 +3237,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn can_activate_accel_trampoline<P, F: Fn(&P, u32) -> bool + 'static>(
+        unsafe extern "C" fn can_activate_accel_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, u32) -> bool + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             signal_id: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref(), signal_id).into_glib()
         }
@@ -3272,13 +3267,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn child_notify_trampoline<P, F: Fn(&P, &glib::ParamSpec) + 'static>(
+        unsafe extern "C" fn child_notify_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, &glib::ParamSpec) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             child_property: *mut glib::gobject_ffi::GParamSpec,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3304,12 +3300,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "composited-changed")]
     fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn composited_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn composited_changed_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3340,16 +3334,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn configure_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventConfigure) -> bool + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventConfigure,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3376,16 +3367,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn damage_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventExpose) -> bool + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventExpose,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3412,16 +3400,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn delete_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3444,12 +3429,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "destroy")]
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn destroy_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn destroy_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -3472,16 +3455,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn destroy_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3507,13 +3487,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn direction_changed_trampoline<P, F: Fn(&P, TextDirection) + 'static>(
+        unsafe extern "C" fn direction_changed_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, TextDirection) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             previous_direction: ffi::GtkTextDirection,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3538,13 +3519,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn drag_begin_trampoline<P, F: Fn(&P, &gdk::DragContext) + 'static>(
+        unsafe extern "C" fn drag_begin_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, &gdk::DragContext) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             context: *mut gdk::ffi::GdkDragContext,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3570,15 +3552,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_data_delete_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::DragContext) + 'static,
         >(
             this: *mut ffi::GtkWidget,
             context: *mut gdk::ffi::GdkDragContext,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3606,7 +3586,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_data_get_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::DragContext, &SelectionData, u32, u32) + 'static,
         >(
             this: *mut ffi::GtkWidget,
@@ -3615,9 +3595,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             info: libc::c_uint,
             time: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3648,7 +3626,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_data_received_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::DragContext, i32, i32, &SelectionData, u32, u32) + 'static,
         >(
             this: *mut ffi::GtkWidget,
@@ -3659,9 +3637,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             info: libc::c_uint,
             time: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3692,7 +3668,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_drop_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::DragContext, i32, i32, u32) -> bool + 'static,
         >(
             this: *mut ffi::GtkWidget,
@@ -3701,10 +3677,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             y: libc::c_int,
             time: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3730,13 +3703,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "drag-end")]
     fn connect_drag_end<F: Fn(&Self, &gdk::DragContext) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn drag_end_trampoline<P, F: Fn(&P, &gdk::DragContext) + 'static>(
+        unsafe extern "C" fn drag_end_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, &gdk::DragContext) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             context: *mut gdk::ffi::GdkDragContext,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3764,17 +3738,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_failed_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::DragContext, DragResult) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             context: *mut gdk::ffi::GdkDragContext,
             result: ffi::GtkDragResult,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3801,14 +3772,15 @@ impl<O: IsA<Widget>> WidgetExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn drag_leave_trampoline<P, F: Fn(&P, &gdk::DragContext, u32) + 'static>(
+        unsafe extern "C" fn drag_leave_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, &gdk::DragContext, u32) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             context: *mut gdk::ffi::GdkDragContext,
             time: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3835,7 +3807,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_motion_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::DragContext, i32, i32, u32) -> bool + 'static,
         >(
             this: *mut ffi::GtkWidget,
@@ -3844,10 +3816,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             y: libc::c_int,
             time: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3877,16 +3846,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn draw_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &cairo::Context) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             cr: *mut cairo::ffi::cairo_t,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3915,16 +3881,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn enter_notify_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventCrossing,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3951,16 +3914,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -3983,13 +3943,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "event-after")]
     fn connect_event_after<F: Fn(&Self, &gdk::Event) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn event_after_trampoline<P, F: Fn(&P, &gdk::Event) + 'static>(
+        unsafe extern "C" fn event_after_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, &gdk::Event) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4015,16 +3976,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn focus_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, DirectionType) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             direction: ffi::GtkDirectionType,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4051,16 +4009,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn focus_in_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventFocus) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventFocus,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4089,16 +4044,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn focus_out_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventFocus) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventFocus,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4127,16 +4079,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn grab_broken_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventGrabBroken) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventGrabBroken,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4159,12 +4108,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "grab-focus")]
     fn connect_grab_focus<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn grab_focus_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn grab_focus_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4191,13 +4138,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "grab-notify")]
     fn connect_grab_notify<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn grab_notify_trampoline<P, F: Fn(&P, bool) + 'static>(
+        unsafe extern "C" fn grab_notify_trampoline<P: IsA<Widget>, F: Fn(&P, bool) + 'static>(
             this: *mut ffi::GtkWidget,
             was_grabbed: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4219,12 +4164,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "hide")]
     fn connect_hide<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn hide_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn hide_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4246,13 +4189,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn hierarchy_changed_trampoline<P, F: Fn(&P, Option<&Widget>) + 'static>(
+        unsafe extern "C" fn hierarchy_changed_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, Option<&Widget>) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             previous_toplevel: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4280,16 +4224,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn key_press_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventKey) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventKey,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4318,16 +4259,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn key_release_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventKey) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventKey,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4354,16 +4292,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn keynav_failed_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, DirectionType) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             direction: ffi::GtkDirectionType,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4392,16 +4327,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn leave_notify_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventCrossing,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4424,12 +4356,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "map")]
     fn connect_map<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn map_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn map_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4452,16 +4382,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn mnemonic_activate_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, bool) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             group_cycling: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4490,16 +4417,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn motion_notify_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventMotion) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventMotion,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4522,13 +4446,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "move-focus")]
     fn connect_move_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn move_focus_trampoline<P, F: Fn(&P, DirectionType) + 'static>(
+        unsafe extern "C" fn move_focus_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, DirectionType) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             direction: ffi::GtkDirectionType,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4558,13 +4483,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "parent-set")]
     fn connect_parent_set<F: Fn(&Self, Option<&Widget>) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn parent_set_trampoline<P, F: Fn(&P, Option<&Widget>) + 'static>(
+        unsafe extern "C" fn parent_set_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, Option<&Widget>) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             old_parent: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4588,13 +4514,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "popup-menu")]
     fn connect_popup_menu<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn popup_menu_trampoline<P, F: Fn(&P) -> bool + 'static>(
+        unsafe extern "C" fn popup_menu_trampoline<P: IsA<Widget>, F: Fn(&P) -> bool + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
@@ -4630,16 +4553,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn property_notify_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventProperty) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventProperty,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4668,16 +4588,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn proximity_in_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventProximity,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4706,16 +4623,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn proximity_out_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventProximity,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4742,7 +4656,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn query_tooltip_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, i32, i32, bool, &Tooltip) -> bool + 'static,
         >(
             this: *mut ffi::GtkWidget,
@@ -4751,10 +4665,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             keyboard_mode: glib::ffi::gboolean,
             tooltip: *mut ffi::GtkTooltip,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4780,12 +4691,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "realize")]
     fn connect_realize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn realize_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn realize_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -4808,15 +4717,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn screen_changed_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, Option<&gdk::Screen>) + 'static,
         >(
             this: *mut ffi::GtkWidget,
             previous_screen: *mut gdk::ffi::GdkScreen,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4844,16 +4751,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn scroll_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventScroll) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventScroll,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4882,16 +4786,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn selection_clear_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventSelection,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4918,7 +4819,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn selection_get_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &SelectionData, u32, u32) + 'static,
         >(
             this: *mut ffi::GtkWidget,
@@ -4926,9 +4827,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             info: libc::c_uint,
             time: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4958,16 +4857,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn selection_notify_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventSelection,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -4994,16 +4890,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn selection_received_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &SelectionData, u32) + 'static,
         >(
             this: *mut ffi::GtkWidget,
             data: *mut ffi::GtkSelectionData,
             time: libc::c_uint,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -5032,16 +4926,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn selection_request_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventSelection,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -5064,12 +4955,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "show")]
     fn connect_show<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn show_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn show_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5091,14 +4980,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn show_help_trampoline<P, F: Fn(&P, WidgetHelpType) -> bool + 'static>(
+        unsafe extern "C" fn show_help_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, WidgetHelpType) -> bool + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             help_type: ffi::GtkWidgetHelpType,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -5132,13 +5021,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "size-allocate")]
     fn connect_size_allocate<F: Fn(&Self, &Allocation) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn size_allocate_trampoline<P, F: Fn(&P, &Allocation) + 'static>(
+        unsafe extern "C" fn size_allocate_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, &Allocation) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             allocation: *mut ffi::GtkAllocation,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -5163,13 +5053,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn state_flags_changed_trampoline<P, F: Fn(&P, StateFlags) + 'static>(
+        unsafe extern "C" fn state_flags_changed_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, StateFlags) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             flags: ffi::GtkStateFlags,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -5191,12 +5082,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "style-updated")]
     fn connect_style_updated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn style_updated_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn style_updated_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5219,16 +5108,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn touch_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             object: *mut gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -5251,12 +5137,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "unmap")]
     fn connect_unmap<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn unmap_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn unmap_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5275,12 +5159,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "unrealize")]
     fn connect_unrealize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn unrealize_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn unrealize_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5305,16 +5187,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn window_state_event_trampoline<
-            P,
+            P: IsA<Widget>,
             F: Fn(&P, &gdk::EventWindowState) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventWindowState,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Widget>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Widget::from_glib_borrow(this).unsafe_cast_ref(),
@@ -5337,13 +5216,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "app-paintable")]
     fn connect_app_paintable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_app_paintable_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_app_paintable_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5362,13 +5242,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "can-default")]
     fn connect_can_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_can_default_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_can_default_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5387,13 +5265,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "can-focus")]
     fn connect_can_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_can_focus_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_can_focus_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5412,13 +5288,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "composite-child")]
     fn connect_composite_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_composite_child_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_composite_child_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5437,13 +5314,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "events")]
     fn connect_events_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_events_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_events_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5462,13 +5337,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "expand")]
     fn connect_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_expand_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_expand_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5489,13 +5362,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "focus-on-click")]
     fn connect_focus_on_click_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_focus_on_click_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_focus_on_click_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5514,13 +5388,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "halign")]
     fn connect_halign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_halign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_halign_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5539,13 +5411,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "has-default")]
     fn connect_has_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_has_default_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_has_default_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5564,13 +5434,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "has-focus")]
     fn connect_has_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_has_focus_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_has_focus_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5589,13 +5457,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "has-tooltip")]
     fn connect_has_tooltip_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_has_tooltip_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_has_tooltip_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5614,13 +5480,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "height-request")]
     fn connect_height_request_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_height_request_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_height_request_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5639,13 +5506,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "hexpand")]
     fn connect_hexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_hexpand_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_hexpand_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5664,13 +5529,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "hexpand-set")]
     fn connect_hexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_hexpand_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_hexpand_set_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5689,13 +5552,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "is-focus")]
     fn connect_is_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_is_focus_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_is_focus_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5714,13 +5575,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "margin")]
     fn connect_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_margin_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_margin_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5739,13 +5598,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "margin-bottom")]
     fn connect_margin_bottom_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_margin_bottom_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_margin_bottom_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5764,13 +5624,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "margin-end")]
     fn connect_margin_end_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_margin_end_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_margin_end_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5789,13 +5647,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "margin-start")]
     fn connect_margin_start_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_margin_start_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_margin_start_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5814,13 +5670,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "margin-top")]
     fn connect_margin_top_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_margin_top_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_margin_top_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5839,13 +5693,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "name")]
     fn connect_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_name_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5864,13 +5716,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "no-show-all")]
     fn connect_no_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_no_show_all_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_no_show_all_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5889,13 +5739,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "opacity")]
     fn connect_opacity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_opacity_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_opacity_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5914,13 +5762,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "parent")]
     fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_parent_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_parent_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5939,13 +5785,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "receives-default")]
     fn connect_receives_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_receives_default_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_receives_default_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5964,13 +5811,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "scale-factor")]
     fn connect_scale_factor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_scale_factor_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_scale_factor_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -5989,13 +5834,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "sensitive")]
     fn connect_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_sensitive_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_sensitive_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -6014,13 +5857,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "tooltip-markup")]
     fn connect_tooltip_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_tooltip_markup_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_tooltip_markup_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -6039,13 +5883,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "tooltip-text")]
     fn connect_tooltip_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_tooltip_text_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_tooltip_text_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -6064,13 +5906,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "valign")]
     fn connect_valign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_valign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_valign_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -6089,13 +5929,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "vexpand")]
     fn connect_vexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_vexpand_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_vexpand_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -6114,13 +5952,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "vexpand-set")]
     fn connect_vexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_vexpand_set_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_vexpand_set_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -6139,13 +5975,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "visible")]
     fn connect_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_visible_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_visible_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -6164,13 +5998,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "width-request")]
     fn connect_width_request_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_width_request_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_width_request_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -6189,13 +6024,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[doc(alias = "window")]
     fn connect_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_window_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_window_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWidget,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Widget>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Widget::from_glib_borrow(this).unsafe_cast_ref())
         }

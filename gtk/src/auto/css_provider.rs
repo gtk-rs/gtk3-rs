@@ -163,16 +163,14 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn parsing_error_trampoline<
-            P,
+            P: IsA<CssProvider>,
             F: Fn(&P, &CssSection, &glib::Error) + 'static,
         >(
             this: *mut ffi::GtkCssProvider,
             section: *mut ffi::GtkCssSection,
             error: *mut glib::ffi::GError,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CssProvider>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &CssProvider::from_glib_borrow(this).unsafe_cast_ref(),

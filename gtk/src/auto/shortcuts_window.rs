@@ -32,6 +32,15 @@ glib::wrapper! {
     }
 }
 
+impl ShortcutsWindow {
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-style object to construct a [`ShortcutsWindow`]
+    /// This method returns an instance of [`ShortcutsWindowBuilder`] which can be used to create a [`ShortcutsWindow`].
+    pub fn builder() -> ShortcutsWindowBuilder {
+        ShortcutsWindowBuilder::default()
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A builder for generating a [`ShortcutsWindow`].
@@ -727,12 +736,10 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn close_trampoline<P: IsA<ShortcutsWindow>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkShortcutsWindow,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ShortcutsWindow>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ShortcutsWindow::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -759,12 +766,10 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     #[doc(alias = "search")]
     fn connect_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn search_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn search_trampoline<P: IsA<ShortcutsWindow>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkShortcutsWindow,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ShortcutsWindow>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ShortcutsWindow::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -791,13 +796,14 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     #[doc(alias = "section-name")]
     fn connect_section_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_section_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_section_name_trampoline<
+            P: IsA<ShortcutsWindow>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkShortcutsWindow,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ShortcutsWindow>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ShortcutsWindow::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -816,13 +822,14 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     #[doc(alias = "view-name")]
     fn connect_view_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_view_name_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_view_name_trampoline<
+            P: IsA<ShortcutsWindow>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkShortcutsWindow,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ShortcutsWindow>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ShortcutsWindow::from_glib_borrow(this).unsafe_cast_ref())
         }
