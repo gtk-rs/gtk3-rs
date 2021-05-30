@@ -236,7 +236,6 @@ mod tree_row_reference;
 mod tree_sortable;
 mod tree_store;
 mod widget;
-mod window;
 
 #[macro_use]
 pub mod subclass;

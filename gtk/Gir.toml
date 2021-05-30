@@ -2893,10 +2893,6 @@ manual_traits = ["GtkWindowExtManual"]
         name = "event"
         const = true
     [[object.function]]
-    name = "present"
-    manual = true
-    doc_trait_name = "GtkWindowExtManual"
-    [[object.function]]
     name = "set_geometry_hints"
         [[object.function.parameter]]
         name = "geometry"
