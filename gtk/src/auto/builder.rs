@@ -372,13 +372,14 @@ impl<O: IsA<Builder>> BuilderExt for O {
 
     #[doc(alias = "translation-domain")]
     fn connect_translation_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_translation_domain_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_translation_domain_trampoline<
+            P: IsA<Builder>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkBuilder,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Builder>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Builder::from_glib_borrow(this).unsafe_cast_ref())
         }

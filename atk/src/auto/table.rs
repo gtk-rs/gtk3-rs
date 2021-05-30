@@ -346,14 +346,15 @@ impl<O: IsA<Table>> TableExt for O {
 
     #[doc(alias = "column-deleted")]
     fn connect_column_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn column_deleted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
+        unsafe extern "C" fn column_deleted_trampoline<
+            P: IsA<Table>,
+            F: Fn(&P, i32, i32) + 'static,
+        >(
             this: *mut ffi::AtkTable,
             arg1: libc::c_int,
             arg2: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Table>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
         }
@@ -372,14 +373,15 @@ impl<O: IsA<Table>> TableExt for O {
 
     #[doc(alias = "column-inserted")]
     fn connect_column_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn column_inserted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
+        unsafe extern "C" fn column_inserted_trampoline<
+            P: IsA<Table>,
+            F: Fn(&P, i32, i32) + 'static,
+        >(
             this: *mut ffi::AtkTable,
             arg1: libc::c_int,
             arg2: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Table>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
         }
@@ -398,12 +400,10 @@ impl<O: IsA<Table>> TableExt for O {
 
     #[doc(alias = "column-reordered")]
     fn connect_column_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn column_reordered_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn column_reordered_trampoline<P: IsA<Table>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkTable,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Table>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Table::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -422,12 +422,10 @@ impl<O: IsA<Table>> TableExt for O {
 
     #[doc(alias = "model-changed")]
     fn connect_model_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn model_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn model_changed_trampoline<P: IsA<Table>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkTable,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Table>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Table::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -446,14 +444,15 @@ impl<O: IsA<Table>> TableExt for O {
 
     #[doc(alias = "row-deleted")]
     fn connect_row_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn row_deleted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
+        unsafe extern "C" fn row_deleted_trampoline<
+            P: IsA<Table>,
+            F: Fn(&P, i32, i32) + 'static,
+        >(
             this: *mut ffi::AtkTable,
             arg1: libc::c_int,
             arg2: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Table>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
         }
@@ -472,14 +471,15 @@ impl<O: IsA<Table>> TableExt for O {
 
     #[doc(alias = "row-inserted")]
     fn connect_row_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn row_inserted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
+        unsafe extern "C" fn row_inserted_trampoline<
+            P: IsA<Table>,
+            F: Fn(&P, i32, i32) + 'static,
+        >(
             this: *mut ffi::AtkTable,
             arg1: libc::c_int,
             arg2: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Table>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
         }
@@ -498,12 +498,10 @@ impl<O: IsA<Table>> TableExt for O {
 
     #[doc(alias = "row-reordered")]
     fn connect_row_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn row_reordered_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn row_reordered_trampoline<P: IsA<Table>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkTable,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Table>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Table::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -922,13 +922,14 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
 
     #[doc(alias = "message-area")]
     fn connect_message_area_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_message_area_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_message_area_trampoline<
+            P: IsA<MessageDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMessageDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MessageDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -947,13 +948,14 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
 
     #[doc(alias = "message-type")]
     fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_message_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_message_type_trampoline<
+            P: IsA<MessageDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMessageDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MessageDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -972,13 +974,14 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
 
     #[doc(alias = "secondary-text")]
     fn connect_secondary_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_text_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_text_trampoline<
+            P: IsA<MessageDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMessageDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MessageDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -997,13 +1000,14 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
 
     #[doc(alias = "secondary-use-markup")]
     fn connect_secondary_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_secondary_use_markup_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_secondary_use_markup_trampoline<
+            P: IsA<MessageDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMessageDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MessageDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1022,13 +1026,11 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
 
     #[doc(alias = "text")]
     fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_text_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_text_trampoline<P: IsA<MessageDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMessageDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MessageDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1047,13 +1049,14 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
 
     #[doc(alias = "use-markup")]
     fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_use_markup_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_use_markup_trampoline<
+            P: IsA<MessageDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMessageDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<MessageDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -1197,13 +1197,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[doc(alias = "move-scroll")]
     fn connect_move_scroll<F: Fn(&Self, ScrollType) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn move_scroll_trampoline<P, F: Fn(&P, ScrollType) + 'static>(
+        unsafe extern "C" fn move_scroll_trampoline<
+            P: IsA<Menu>,
+            F: Fn(&P, ScrollType) + 'static,
+        >(
             this: *mut ffi::GtkMenu,
             scroll_type: ffi::GtkScrollType,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Menu::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1241,13 +1242,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[doc(alias = "accel-group")]
     fn connect_accel_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accel_group_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accel_group_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1266,13 +1265,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[doc(alias = "accel-path")]
     fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_accel_path_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_accel_path_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1291,13 +1288,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_active_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1318,13 +1313,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "anchor-hints")]
     fn connect_anchor_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_anchor_hints_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_anchor_hints_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1343,13 +1336,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[doc(alias = "attach-widget")]
     fn connect_attach_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_attach_widget_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_attach_widget_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1370,13 +1361,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "menu-type-hint")]
     fn connect_menu_type_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_menu_type_hint_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_menu_type_hint_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1395,13 +1384,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[doc(alias = "monitor")]
     fn connect_monitor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_monitor_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_monitor_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1422,13 +1409,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "rect-anchor-dx")]
     fn connect_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_rect_anchor_dx_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_rect_anchor_dx_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1449,13 +1434,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "rect-anchor-dy")]
     fn connect_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_rect_anchor_dy_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_rect_anchor_dy_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1474,13 +1457,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[doc(alias = "reserve-toggle-size")]
     fn connect_reserve_toggle_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_reserve_toggle_size_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_reserve_toggle_size_trampoline<
+            P: IsA<Menu>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkMenu,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Menu>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Menu::from_glib_borrow(this).unsafe_cast_ref())
         }

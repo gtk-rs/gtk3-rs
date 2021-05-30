@@ -119,13 +119,14 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
 
     #[doc(alias = "tag-added")]
     fn connect_tag_added<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn tag_added_trampoline<P, F: Fn(&P, &TextTag) + 'static>(
+        unsafe extern "C" fn tag_added_trampoline<
+            P: IsA<TextTagTable>,
+            F: Fn(&P, &TextTag) + 'static,
+        >(
             this: *mut ffi::GtkTextTagTable,
             tag: *mut ffi::GtkTextTag,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TextTagTable>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
@@ -147,14 +148,15 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
 
     #[doc(alias = "tag-changed")]
     fn connect_tag_changed<F: Fn(&Self, &TextTag, bool) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn tag_changed_trampoline<P, F: Fn(&P, &TextTag, bool) + 'static>(
+        unsafe extern "C" fn tag_changed_trampoline<
+            P: IsA<TextTagTable>,
+            F: Fn(&P, &TextTag, bool) + 'static,
+        >(
             this: *mut ffi::GtkTextTagTable,
             tag: *mut ffi::GtkTextTag,
             size_changed: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TextTagTable>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
@@ -177,13 +179,14 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
 
     #[doc(alias = "tag-removed")]
     fn connect_tag_removed<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn tag_removed_trampoline<P, F: Fn(&P, &TextTag) + 'static>(
+        unsafe extern "C" fn tag_removed_trampoline<
+            P: IsA<TextTagTable>,
+            F: Fn(&P, &TextTag) + 'static,
+        >(
             this: *mut ffi::GtkTextTagTable,
             tag: *mut ffi::GtkTextTag,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<TextTagTable>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),

@@ -11,7 +11,9 @@ use glib::Type;
 use std::fmt;
 
 bitflags! {
+    #[doc(alias = "AtkHyperlinkStateFlags")]
     pub struct HyperlinkStateFlags: u32 {
+        #[doc(alias = "ATK_HYPERLINK_IS_INLINE")]
         const INLINE = 1;
     }
 }

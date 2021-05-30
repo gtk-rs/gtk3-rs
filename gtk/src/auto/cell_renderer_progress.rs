@@ -454,13 +454,14 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     #[doc(alias = "inverted")]
     fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_inverted_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_inverted_trampoline<
+            P: IsA<CellRendererProgress>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererProgress>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererProgress::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -479,13 +480,14 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     #[doc(alias = "pulse")]
     fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_pulse_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_pulse_trampoline<
+            P: IsA<CellRendererProgress>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererProgress>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererProgress::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -504,13 +506,14 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     #[doc(alias = "text")]
     fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_text_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_text_trampoline<
+            P: IsA<CellRendererProgress>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererProgress>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererProgress::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -529,13 +532,14 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     #[doc(alias = "text-xalign")]
     fn connect_text_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_text_xalign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_text_xalign_trampoline<
+            P: IsA<CellRendererProgress>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererProgress>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererProgress::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -554,13 +558,14 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     #[doc(alias = "text-yalign")]
     fn connect_text_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_text_yalign_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_text_yalign_trampoline<
+            P: IsA<CellRendererProgress>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererProgress>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererProgress::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -579,13 +584,14 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     #[doc(alias = "value")]
     fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_value_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_value_trampoline<
+            P: IsA<CellRendererProgress>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererProgress,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererProgress>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererProgress::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -456,12 +456,10 @@ impl<O: IsA<Switch>> SwitchExt for O {
 
     #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn activate_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Switch>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Switch::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -492,16 +490,13 @@ impl<O: IsA<Switch>> SwitchExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn state_set_trampoline<
-            P,
+            P: IsA<Switch>,
             F: Fn(&P, bool) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkSwitch,
             state: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Switch>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &Switch::from_glib_borrow(this).unsafe_cast_ref(),
@@ -524,13 +519,11 @@ impl<O: IsA<Switch>> SwitchExt for O {
 
     #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_active_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Switch>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Switch::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -549,13 +542,11 @@ impl<O: IsA<Switch>> SwitchExt for O {
 
     #[doc(alias = "state")]
     fn connect_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_state_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_state_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Switch>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Switch::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -11,9 +11,13 @@ use glib::Type;
 use std::fmt;
 
 bitflags! {
+    #[doc(alias = "GtkAccelFlags")]
     pub struct AccelFlags: u32 {
+        #[doc(alias = "GTK_ACCEL_VISIBLE")]
         const VISIBLE = 1;
+        #[doc(alias = "GTK_ACCEL_LOCKED")]
         const LOCKED = 2;
+        #[doc(alias = "GTK_ACCEL_MASK")]
         const MASK = 7;
     }
 }
@@ -75,10 +79,15 @@ impl ToValue for AccelFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkApplicationInhibitFlags")]
     pub struct ApplicationInhibitFlags: u32 {
+        #[doc(alias = "GTK_APPLICATION_INHIBIT_LOGOUT")]
         const LOGOUT = 1;
+        #[doc(alias = "GTK_APPLICATION_INHIBIT_SWITCH")]
         const SWITCH = 2;
+        #[doc(alias = "GTK_APPLICATION_INHIBIT_SUSPEND")]
         const SUSPEND = 4;
+        #[doc(alias = "GTK_APPLICATION_INHIBIT_IDLE")]
         const IDLE = 8;
     }
 }
@@ -140,11 +149,17 @@ impl ToValue for ApplicationInhibitFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkCalendarDisplayOptions")]
     pub struct CalendarDisplayOptions: u32 {
+        #[doc(alias = "GTK_CALENDAR_SHOW_HEADING")]
         const SHOW_HEADING = 1;
+        #[doc(alias = "GTK_CALENDAR_SHOW_DAY_NAMES")]
         const SHOW_DAY_NAMES = 2;
+        #[doc(alias = "GTK_CALENDAR_NO_MONTH_CHANGE")]
         const NO_MONTH_CHANGE = 4;
+        #[doc(alias = "GTK_CALENDAR_SHOW_WEEK_NUMBERS")]
         const SHOW_WEEK_NUMBERS = 8;
+        #[doc(alias = "GTK_CALENDAR_SHOW_DETAILS")]
         const SHOW_DETAILS = 32;
     }
 }
@@ -206,13 +221,21 @@ impl ToValue for CalendarDisplayOptions {
 }
 
 bitflags! {
+    #[doc(alias = "GtkCellRendererState")]
     pub struct CellRendererState: u32 {
+        #[doc(alias = "GTK_CELL_RENDERER_SELECTED")]
         const SELECTED = 1;
+        #[doc(alias = "GTK_CELL_RENDERER_PRELIT")]
         const PRELIT = 2;
+        #[doc(alias = "GTK_CELL_RENDERER_INSENSITIVE")]
         const INSENSITIVE = 4;
+        #[doc(alias = "GTK_CELL_RENDERER_SORTED")]
         const SORTED = 8;
+        #[doc(alias = "GTK_CELL_RENDERER_FOCUSED")]
         const FOCUSED = 16;
+        #[doc(alias = "GTK_CELL_RENDERER_EXPANDABLE")]
         const EXPANDABLE = 32;
+        #[doc(alias = "GTK_CELL_RENDERER_EXPANDED")]
         const EXPANDED = 64;
     }
 }
@@ -274,10 +297,15 @@ impl ToValue for CellRendererState {
 }
 
 bitflags! {
+    #[doc(alias = "GtkDestDefaults")]
     pub struct DestDefaults: u32 {
+        #[doc(alias = "GTK_DEST_DEFAULT_MOTION")]
         const MOTION = 1;
+        #[doc(alias = "GTK_DEST_DEFAULT_HIGHLIGHT")]
         const HIGHLIGHT = 2;
+        #[doc(alias = "GTK_DEST_DEFAULT_DROP")]
         const DROP = 4;
+        #[doc(alias = "GTK_DEST_DEFAULT_ALL")]
         const ALL = 7;
     }
 }
@@ -339,9 +367,13 @@ impl ToValue for DestDefaults {
 }
 
 bitflags! {
+    #[doc(alias = "GtkDialogFlags")]
     pub struct DialogFlags: u32 {
+        #[doc(alias = "GTK_DIALOG_MODAL")]
         const MODAL = 1;
+        #[doc(alias = "GTK_DIALOG_DESTROY_WITH_PARENT")]
         const DESTROY_WITH_PARENT = 2;
+        #[doc(alias = "GTK_DIALOG_USE_HEADER_BAR")]
         const USE_HEADER_BAR = 4;
     }
 }
@@ -405,12 +437,19 @@ impl ToValue for DialogFlags {
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 bitflags! {
+    #[doc(alias = "GtkEventControllerScrollFlags")]
     pub struct EventControllerScrollFlags: u32 {
+        #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_NONE")]
         const NONE = 0;
+        #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_VERTICAL")]
         const VERTICAL = 1;
+        #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL")]
         const HORIZONTAL = 2;
+        #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_DISCRETE")]
         const DISCRETE = 4;
+        #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_KINETIC")]
         const KINETIC = 8;
+        #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES")]
         const BOTH_AXES = 3;
     }
 }
@@ -486,10 +525,15 @@ impl ToValue for EventControllerScrollFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkFileFilterFlags")]
     pub struct FileFilterFlags: u32 {
+        #[doc(alias = "GTK_FILE_FILTER_FILENAME")]
         const FILENAME = 1;
+        #[doc(alias = "GTK_FILE_FILTER_URI")]
         const URI = 2;
+        #[doc(alias = "GTK_FILE_FILTER_DISPLAY_NAME")]
         const DISPLAY_NAME = 4;
+        #[doc(alias = "GTK_FILE_FILTER_MIME_TYPE")]
         const MIME_TYPE = 8;
     }
 }
@@ -553,11 +597,17 @@ impl ToValue for FileFilterFlags {
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 bitflags! {
+    #[doc(alias = "GtkFontChooserLevel")]
     pub struct FontChooserLevel: u32 {
+        #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_FAMILY")]
         const FAMILY = 0;
+        #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_STYLE")]
         const STYLE = 1;
+        #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_SIZE")]
         const SIZE = 2;
+        #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_VARIATIONS")]
         const VARIATIONS = 4;
+        #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_FEATURES")]
         const FEATURES = 8;
     }
 }
@@ -633,15 +683,25 @@ impl ToValue for FontChooserLevel {
 }
 
 bitflags! {
+    #[doc(alias = "GtkIconLookupFlags")]
     pub struct IconLookupFlags: u32 {
+        #[doc(alias = "GTK_ICON_LOOKUP_NO_SVG")]
         const NO_SVG = 1;
+        #[doc(alias = "GTK_ICON_LOOKUP_FORCE_SVG")]
         const FORCE_SVG = 2;
+        #[doc(alias = "GTK_ICON_LOOKUP_USE_BUILTIN")]
         const USE_BUILTIN = 4;
+        #[doc(alias = "GTK_ICON_LOOKUP_GENERIC_FALLBACK")]
         const GENERIC_FALLBACK = 8;
+        #[doc(alias = "GTK_ICON_LOOKUP_FORCE_SIZE")]
         const FORCE_SIZE = 16;
+        #[doc(alias = "GTK_ICON_LOOKUP_FORCE_REGULAR")]
         const FORCE_REGULAR = 32;
+        #[doc(alias = "GTK_ICON_LOOKUP_FORCE_SYMBOLIC")]
         const FORCE_SYMBOLIC = 64;
+        #[doc(alias = "GTK_ICON_LOOKUP_DIR_LTR")]
         const DIR_LTR = 128;
+        #[doc(alias = "GTK_ICON_LOOKUP_DIR_RTL")]
         const DIR_RTL = 256;
     }
 }
@@ -703,22 +763,35 @@ impl ToValue for IconLookupFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkInputHints")]
     pub struct InputHints: u32 {
+        #[doc(alias = "GTK_INPUT_HINT_NONE")]
         const NONE = 0;
+        #[doc(alias = "GTK_INPUT_HINT_SPELLCHECK")]
         const SPELLCHECK = 1;
+        #[doc(alias = "GTK_INPUT_HINT_NO_SPELLCHECK")]
         const NO_SPELLCHECK = 2;
+        #[doc(alias = "GTK_INPUT_HINT_WORD_COMPLETION")]
         const WORD_COMPLETION = 4;
+        #[doc(alias = "GTK_INPUT_HINT_LOWERCASE")]
         const LOWERCASE = 8;
+        #[doc(alias = "GTK_INPUT_HINT_UPPERCASE_CHARS")]
         const UPPERCASE_CHARS = 16;
+        #[doc(alias = "GTK_INPUT_HINT_UPPERCASE_WORDS")]
         const UPPERCASE_WORDS = 32;
+        #[doc(alias = "GTK_INPUT_HINT_UPPERCASE_SENTENCES")]
         const UPPERCASE_SENTENCES = 64;
+        #[doc(alias = "GTK_INPUT_HINT_INHIBIT_OSK")]
         const INHIBIT_OSK = 128;
+        #[doc(alias = "GTK_INPUT_HINT_VERTICAL_WRITING")]
         const VERTICAL_WRITING = 256;
         #[cfg(any(feature = "v3_22_20", feature = "dox"))]
         #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_20")))]
+        #[doc(alias = "GTK_INPUT_HINT_EMOJI")]
         const EMOJI = 512;
         #[cfg(any(feature = "v3_22_20", feature = "dox"))]
         #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_20")))]
+        #[doc(alias = "GTK_INPUT_HINT_NO_EMOJI")]
         const NO_EMOJI = 1024;
     }
 }
@@ -780,15 +853,25 @@ impl ToValue for InputHints {
 }
 
 bitflags! {
+    #[doc(alias = "GtkJunctionSides")]
     pub struct JunctionSides: u32 {
+        #[doc(alias = "GTK_JUNCTION_NONE")]
         const NONE = 0;
+        #[doc(alias = "GTK_JUNCTION_CORNER_TOPLEFT")]
         const CORNER_TOPLEFT = 1;
+        #[doc(alias = "GTK_JUNCTION_CORNER_TOPRIGHT")]
         const CORNER_TOPRIGHT = 2;
+        #[doc(alias = "GTK_JUNCTION_CORNER_BOTTOMLEFT")]
         const CORNER_BOTTOMLEFT = 4;
+        #[doc(alias = "GTK_JUNCTION_CORNER_BOTTOMRIGHT")]
         const CORNER_BOTTOMRIGHT = 8;
+        #[doc(alias = "GTK_JUNCTION_TOP")]
         const TOP = 3;
+        #[doc(alias = "GTK_JUNCTION_BOTTOM")]
         const BOTTOM = 12;
+        #[doc(alias = "GTK_JUNCTION_LEFT")]
         const LEFT = 5;
+        #[doc(alias = "GTK_JUNCTION_RIGHT")]
         const RIGHT = 10;
     }
 }
@@ -850,9 +933,13 @@ impl ToValue for JunctionSides {
 }
 
 bitflags! {
+    #[doc(alias = "GtkPlacesOpenFlags")]
     pub struct PlacesOpenFlags: u32 {
+        #[doc(alias = "GTK_PLACES_OPEN_NORMAL")]
         const NORMAL = 1;
+        #[doc(alias = "GTK_PLACES_OPEN_NEW_TAB")]
         const NEW_TAB = 2;
+        #[doc(alias = "GTK_PLACES_OPEN_NEW_WINDOW")]
         const NEW_WINDOW = 4;
     }
 }
@@ -914,12 +1001,19 @@ impl ToValue for PlacesOpenFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkRecentFilterFlags")]
     pub struct RecentFilterFlags: u32 {
+        #[doc(alias = "GTK_RECENT_FILTER_URI")]
         const URI = 1;
+        #[doc(alias = "GTK_RECENT_FILTER_DISPLAY_NAME")]
         const DISPLAY_NAME = 2;
+        #[doc(alias = "GTK_RECENT_FILTER_MIME_TYPE")]
         const MIME_TYPE = 4;
+        #[doc(alias = "GTK_RECENT_FILTER_APPLICATION")]
         const APPLICATION = 8;
+        #[doc(alias = "GTK_RECENT_FILTER_GROUP")]
         const GROUP = 16;
+        #[doc(alias = "GTK_RECENT_FILTER_AGE")]
         const AGE = 32;
     }
 }
@@ -981,12 +1075,19 @@ impl ToValue for RecentFilterFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkRegionFlags")]
     pub struct RegionFlags: u32 {
+        #[doc(alias = "GTK_REGION_EVEN")]
         const EVEN = 1;
+        #[doc(alias = "GTK_REGION_ODD")]
         const ODD = 2;
+        #[doc(alias = "GTK_REGION_FIRST")]
         const FIRST = 4;
+        #[doc(alias = "GTK_REGION_LAST")]
         const LAST = 8;
+        #[doc(alias = "GTK_REGION_ONLY")]
         const ONLY = 16;
+        #[doc(alias = "GTK_REGION_SORTED")]
         const SORTED = 32;
     }
 }
@@ -1048,20 +1149,35 @@ impl ToValue for RegionFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkStateFlags")]
     pub struct StateFlags: u32 {
+        #[doc(alias = "GTK_STATE_FLAG_NORMAL")]
         const NORMAL = 0;
+        #[doc(alias = "GTK_STATE_FLAG_ACTIVE")]
         const ACTIVE = 1;
+        #[doc(alias = "GTK_STATE_FLAG_PRELIGHT")]
         const PRELIGHT = 2;
+        #[doc(alias = "GTK_STATE_FLAG_SELECTED")]
         const SELECTED = 4;
+        #[doc(alias = "GTK_STATE_FLAG_INSENSITIVE")]
         const INSENSITIVE = 8;
+        #[doc(alias = "GTK_STATE_FLAG_INCONSISTENT")]
         const INCONSISTENT = 16;
+        #[doc(alias = "GTK_STATE_FLAG_FOCUSED")]
         const FOCUSED = 32;
+        #[doc(alias = "GTK_STATE_FLAG_BACKDROP")]
         const BACKDROP = 64;
+        #[doc(alias = "GTK_STATE_FLAG_DIR_LTR")]
         const DIR_LTR = 128;
+        #[doc(alias = "GTK_STATE_FLAG_DIR_RTL")]
         const DIR_RTL = 256;
+        #[doc(alias = "GTK_STATE_FLAG_LINK")]
         const LINK = 512;
+        #[doc(alias = "GTK_STATE_FLAG_VISITED")]
         const VISITED = 1024;
+        #[doc(alias = "GTK_STATE_FLAG_CHECKED")]
         const CHECKED = 2048;
+        #[doc(alias = "GTK_STATE_FLAG_DROP_ACTIVE")]
         const DROP_ACTIVE = 4096;
     }
 }
@@ -1125,9 +1241,13 @@ impl ToValue for StateFlags {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 bitflags! {
+    #[doc(alias = "GtkStyleContextPrintFlags")]
     pub struct StyleContextPrintFlags: u32 {
+        #[doc(alias = "GTK_STYLE_CONTEXT_PRINT_NONE")]
         const NONE = 0;
+        #[doc(alias = "GTK_STYLE_CONTEXT_PRINT_RECURSE")]
         const RECURSE = 1;
+        #[doc(alias = "GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE")]
         const SHOW_STYLE = 2;
     }
 }
@@ -1203,10 +1323,15 @@ impl ToValue for StyleContextPrintFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkTargetFlags")]
     pub struct TargetFlags: u32 {
+        #[doc(alias = "GTK_TARGET_SAME_APP")]
         const SAME_APP = 1;
+        #[doc(alias = "GTK_TARGET_SAME_WIDGET")]
         const SAME_WIDGET = 2;
+        #[doc(alias = "GTK_TARGET_OTHER_APP")]
         const OTHER_APP = 4;
+        #[doc(alias = "GTK_TARGET_OTHER_WIDGET")]
         const OTHER_WIDGET = 8;
     }
 }
@@ -1268,9 +1393,13 @@ impl ToValue for TargetFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkTextSearchFlags")]
     pub struct TextSearchFlags: u32 {
+        #[doc(alias = "GTK_TEXT_SEARCH_VISIBLE_ONLY")]
         const VISIBLE_ONLY = 1;
+        #[doc(alias = "GTK_TEXT_SEARCH_TEXT_ONLY")]
         const TEXT_ONLY = 2;
+        #[doc(alias = "GTK_TEXT_SEARCH_CASE_INSENSITIVE")]
         const CASE_INSENSITIVE = 4;
     }
 }
@@ -1332,8 +1461,11 @@ impl ToValue for TextSearchFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GtkToolPaletteDragTargets")]
     pub struct ToolPaletteDragTargets: u32 {
+        #[doc(alias = "GTK_TOOL_PALETTE_DRAG_ITEMS")]
         const ITEMS = 1;
+        #[doc(alias = "GTK_TOOL_PALETTE_DRAG_GROUPS")]
         const GROUPS = 2;
     }
 }
@@ -1395,8 +1527,11 @@ impl ToValue for ToolPaletteDragTargets {
 }
 
 bitflags! {
+    #[doc(alias = "GtkTreeModelFlags")]
     pub struct TreeModelFlags: u32 {
+        #[doc(alias = "GTK_TREE_MODEL_ITERS_PERSIST")]
         const ITERS_PERSIST = 1;
+        #[doc(alias = "GTK_TREE_MODEL_LIST_ONLY")]
         const LIST_ONLY = 2;
     }
 }

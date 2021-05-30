@@ -664,12 +664,10 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn close_trampoline<P: IsA<InfoBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<InfoBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&InfoBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -696,13 +694,14 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     #[doc(alias = "response")]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn response_trampoline<P, F: Fn(&P, ResponseType) + 'static>(
+        unsafe extern "C" fn response_trampoline<
+            P: IsA<InfoBar>,
+            F: Fn(&P, ResponseType) + 'static,
+        >(
             this: *mut ffi::GtkInfoBar,
             response_id: ffi::GtkResponseType,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<InfoBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &InfoBar::from_glib_borrow(this).unsafe_cast_ref(),
@@ -724,13 +723,14 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     #[doc(alias = "message-type")]
     fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_message_type_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_message_type_trampoline<
+            P: IsA<InfoBar>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkInfoBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<InfoBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&InfoBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -751,13 +751,11 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     #[doc(alias = "revealed")]
     fn connect_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_revealed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_revealed_trampoline<P: IsA<InfoBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<InfoBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&InfoBar::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -776,13 +774,14 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     #[doc(alias = "show-close-button")]
     fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_close_button_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_close_button_trampoline<
+            P: IsA<InfoBar>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkInfoBar,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<InfoBar>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&InfoBar::from_glib_borrow(this).unsafe_cast_ref())
         }

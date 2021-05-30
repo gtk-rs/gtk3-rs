@@ -356,7 +356,7 @@ impl Display {
     }
 
     #[doc(alias = "closed")]
-    pub fn connect_closed<F: Fn(&Display, bool) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_closed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn closed_trampoline<F: Fn(&Display, bool) + 'static>(
             this: *mut ffi::GdkDisplay,
             is_error: glib::ffi::gboolean,
@@ -381,10 +381,7 @@ impl Display {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "monitor-added")]
-    pub fn connect_monitor_added<F: Fn(&Display, &Monitor) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_monitor_added<F: Fn(&Self, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn monitor_added_trampoline<F: Fn(&Display, &Monitor) + 'static>(
             this: *mut ffi::GdkDisplay,
             monitor: *mut ffi::GdkMonitor,
@@ -409,7 +406,7 @@ impl Display {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "monitor-removed")]
-    pub fn connect_monitor_removed<F: Fn(&Display, &Monitor) + 'static>(
+    pub fn connect_monitor_removed<F: Fn(&Self, &Monitor) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -435,7 +432,7 @@ impl Display {
     }
 
     #[doc(alias = "opened")]
-    pub fn connect_opened<F: Fn(&Display) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_opened<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn opened_trampoline<F: Fn(&Display) + 'static>(
             this: *mut ffi::GdkDisplay,
             f: glib::ffi::gpointer,
@@ -459,7 +456,7 @@ impl Display {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "seat-added")]
-    pub fn connect_seat_added<F: Fn(&Display, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_seat_added<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn seat_added_trampoline<F: Fn(&Display, &Seat) + 'static>(
             this: *mut ffi::GdkDisplay,
             seat: *mut ffi::GdkSeat,
@@ -484,7 +481,7 @@ impl Display {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "seat-removed")]
-    pub fn connect_seat_removed<F: Fn(&Display, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_seat_removed<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn seat_removed_trampoline<F: Fn(&Display, &Seat) + 'static>(
             this: *mut ffi::GdkDisplay,
             seat: *mut ffi::GdkSeat,

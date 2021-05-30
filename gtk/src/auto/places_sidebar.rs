@@ -320,7 +320,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "drag-action-ask")]
-    pub fn connect_drag_action_ask<F: Fn(&PlacesSidebar, i32) -> i32 + 'static>(
+    pub fn connect_drag_action_ask<F: Fn(&Self, i32) -> i32 + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -350,7 +350,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "mount")]
-    pub fn connect_mount<F: Fn(&PlacesSidebar, &gio::MountOperation) + 'static>(
+    pub fn connect_mount<F: Fn(&Self, &gio::MountOperation) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -378,7 +378,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "open-location")]
-    pub fn connect_open_location<F: Fn(&PlacesSidebar, &gio::File, PlacesOpenFlags) + 'static>(
+    pub fn connect_open_location<F: Fn(&Self, &gio::File, PlacesOpenFlags) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -416,10 +416,7 @@ impl PlacesSidebar {
     //}
 
     #[doc(alias = "show-enter-location")]
-    pub fn connect_show_enter_location<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_show_enter_location<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn show_enter_location_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             f: glib::ffi::gpointer,
@@ -441,7 +438,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "show-error-message")]
-    pub fn connect_show_error_message<F: Fn(&PlacesSidebar, &str, &str) + 'static>(
+    pub fn connect_show_error_message<F: Fn(&Self, &str, &str) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -475,10 +472,7 @@ impl PlacesSidebar {
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "show-other-locations")]
-    pub fn connect_show_other_locations<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_show_other_locations<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn show_other_locations_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             f: glib::ffi::gpointer,
@@ -502,9 +496,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "show-other-locations-with-flags")]
-    pub fn connect_show_other_locations_with_flags<
-        F: Fn(&PlacesSidebar, PlacesOpenFlags) + 'static,
-    >(
+    pub fn connect_show_other_locations_with_flags<F: Fn(&Self, PlacesOpenFlags) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -534,7 +526,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     #[doc(alias = "show-starred-location")]
-    pub fn connect_show_starred_location<F: Fn(&PlacesSidebar, PlacesOpenFlags) + 'static>(
+    pub fn connect_show_starred_location<F: Fn(&Self, PlacesOpenFlags) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -564,7 +556,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "unmount")]
-    pub fn connect_unmount<F: Fn(&PlacesSidebar, &gio::MountOperation) + 'static>(
+    pub fn connect_unmount<F: Fn(&Self, &gio::MountOperation) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -592,10 +584,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "local-only")]
-    pub fn connect_local_only_notify<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_local_only_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_local_only_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             _param_spec: glib::ffi::gpointer,
@@ -618,10 +607,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "location")]
-    pub fn connect_location_notify<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_location_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_location_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             _param_spec: glib::ffi::gpointer,
@@ -644,10 +630,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "open-flags")]
-    pub fn connect_open_flags_notify<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_open_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_open_flags_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             _param_spec: glib::ffi::gpointer,
@@ -670,10 +653,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "populate-all")]
-    pub fn connect_populate_all_notify<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_populate_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_populate_all_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             _param_spec: glib::ffi::gpointer,
@@ -696,7 +676,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "show-connect-to-server")]
-    pub fn connect_show_connect_to_server_notify<F: Fn(&PlacesSidebar) + 'static>(
+    pub fn connect_show_connect_to_server_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -724,10 +704,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "show-desktop")]
-    pub fn connect_show_desktop_notify<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_show_desktop_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_desktop_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             _param_spec: glib::ffi::gpointer,
@@ -750,7 +727,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "show-enter-location")]
-    pub fn connect_show_enter_location_notify<F: Fn(&PlacesSidebar) + 'static>(
+    pub fn connect_show_enter_location_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -778,7 +755,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "show-other-locations")]
-    pub fn connect_show_other_locations_notify<F: Fn(&PlacesSidebar) + 'static>(
+    pub fn connect_show_other_locations_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -806,10 +783,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "show-recent")]
-    pub fn connect_show_recent_notify<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_show_recent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_recent_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             _param_spec: glib::ffi::gpointer,
@@ -834,7 +808,7 @@ impl PlacesSidebar {
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     #[doc(alias = "show-starred-location")]
-    pub fn connect_show_starred_location_notify<F: Fn(&PlacesSidebar) + 'static>(
+    pub fn connect_show_starred_location_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -862,10 +836,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "show-trash")]
-    pub fn connect_show_trash_notify<F: Fn(&PlacesSidebar) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    pub fn connect_show_trash_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_trash_trampoline<F: Fn(&PlacesSidebar) + 'static>(
             this: *mut ffi::GtkPlacesSidebar,
             _param_spec: glib::ffi::gpointer,

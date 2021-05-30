@@ -772,13 +772,14 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     #[doc(alias = "collapsed")]
     fn connect_collapsed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_collapsed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_collapsed_trampoline<
+            P: IsA<ToolItemGroup>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolItemGroup,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToolItemGroup>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -797,13 +798,14 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     #[doc(alias = "ellipsize")]
     fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_ellipsize_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_ellipsize_trampoline<
+            P: IsA<ToolItemGroup>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolItemGroup,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToolItemGroup>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -822,13 +824,14 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     #[doc(alias = "header-relief")]
     fn connect_header_relief_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_header_relief_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_header_relief_trampoline<
+            P: IsA<ToolItemGroup>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolItemGroup,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToolItemGroup>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -847,13 +850,11 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_label_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_label_trampoline<P: IsA<ToolItemGroup>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolItemGroup,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToolItemGroup>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -872,13 +873,14 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     #[doc(alias = "label-widget")]
     fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_label_widget_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_label_widget_trampoline<
+            P: IsA<ToolItemGroup>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkToolItemGroup,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ToolItemGroup>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
         }

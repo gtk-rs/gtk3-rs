@@ -561,12 +561,10 @@ impl<O: IsA<RadioButton>> RadioButtonExt for O {
 
     #[doc(alias = "group-changed")]
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn group_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn group_changed_trampoline<P: IsA<RadioButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRadioButton,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<RadioButton>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&RadioButton::from_glib_borrow(this).unsafe_cast_ref())
         }

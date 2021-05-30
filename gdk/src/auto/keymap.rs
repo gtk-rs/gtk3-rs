@@ -124,7 +124,7 @@ impl Keymap {
     }
 
     #[doc(alias = "direction-changed")]
-    pub fn connect_direction_changed<F: Fn(&Keymap) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_direction_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn direction_changed_trampoline<F: Fn(&Keymap) + 'static>(
             this: *mut ffi::GdkKeymap,
             f: glib::ffi::gpointer,
@@ -146,7 +146,7 @@ impl Keymap {
     }
 
     #[doc(alias = "keys-changed")]
-    pub fn connect_keys_changed<F: Fn(&Keymap) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_keys_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn keys_changed_trampoline<F: Fn(&Keymap) + 'static>(
             this: *mut ffi::GdkKeymap,
             f: glib::ffi::gpointer,
@@ -168,7 +168,7 @@ impl Keymap {
     }
 
     #[doc(alias = "state-changed")]
-    pub fn connect_state_changed<F: Fn(&Keymap) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_state_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn state_changed_trampoline<F: Fn(&Keymap) + 'static>(
             this: *mut ffi::GdkKeymap,
             f: glib::ffi::gpointer,

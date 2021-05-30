@@ -166,13 +166,11 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
 
     #[doc(alias = "spacing")]
     fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_spacing_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_spacing_trampoline<P: IsA<CellAreaBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellAreaBox,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellAreaBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellAreaBox::from_glib_borrow(this).unsafe_cast_ref())
         }

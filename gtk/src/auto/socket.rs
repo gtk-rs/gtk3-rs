@@ -431,12 +431,10 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
 
     #[doc(alias = "plug-added")]
     fn connect_plug_added<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn plug_added_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn plug_added_trampoline<P: IsA<Socket>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSocket,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Socket>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Socket::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -455,13 +453,13 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
 
     #[doc(alias = "plug-removed")]
     fn connect_plug_removed<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn plug_removed_trampoline<P, F: Fn(&P) -> bool + 'static>(
+        unsafe extern "C" fn plug_removed_trampoline<
+            P: IsA<Socket>,
+            F: Fn(&P) -> bool + 'static,
+        >(
             this: *mut ffi::GtkSocket,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<Socket>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(&Socket::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }

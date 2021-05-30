@@ -1109,12 +1109,10 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
     #[doc(alias = "apply")]
     fn connect_apply<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn apply_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn apply_trampoline<P: IsA<Assistant>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAssistant,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Assistant>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Assistant::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1133,12 +1131,10 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
     #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn cancel_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn cancel_trampoline<P: IsA<Assistant>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAssistant,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Assistant>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Assistant::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1157,12 +1153,10 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
     #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn close_trampoline<P: IsA<Assistant>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAssistant,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Assistant>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Assistant::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1181,12 +1175,10 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
     #[doc(alias = "escape")]
     fn connect_escape<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn escape_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn escape_trampoline<P: IsA<Assistant>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAssistant,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Assistant>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Assistant::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1213,13 +1205,11 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
     #[doc(alias = "prepare")]
     fn connect_prepare<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn prepare_trampoline<P, F: Fn(&P, &Widget) + 'static>(
+        unsafe extern "C" fn prepare_trampoline<P: IsA<Assistant>, F: Fn(&P, &Widget) + 'static>(
             this: *mut ffi::GtkAssistant,
             page: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Assistant>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &Assistant::from_glib_borrow(this).unsafe_cast_ref(),

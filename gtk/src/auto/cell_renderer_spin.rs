@@ -737,13 +737,14 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
 
     #[doc(alias = "adjustment")]
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_adjustment_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_adjustment_trampoline<
+            P: IsA<CellRendererSpin>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererSpin,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererSpin>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -762,13 +763,14 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
 
     #[doc(alias = "climb-rate")]
     fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_climb_rate_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_climb_rate_trampoline<
+            P: IsA<CellRendererSpin>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererSpin,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererSpin>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -787,13 +789,14 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
 
     #[doc(alias = "digits")]
     fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_digits_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_digits_trampoline<
+            P: IsA<CellRendererSpin>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkCellRendererSpin,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<CellRendererSpin>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
         }

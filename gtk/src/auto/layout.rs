@@ -643,13 +643,11 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     #[doc(alias = "height")]
     fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_height_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_height_trampoline<P: IsA<Layout>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLayout,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Layout>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Layout::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -668,13 +666,11 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     #[doc(alias = "width")]
     fn connect_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_width_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_width_trampoline<P: IsA<Layout>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLayout,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<Layout>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&Layout::from_glib_borrow(this).unsafe_cast_ref())
         }

@@ -724,13 +724,14 @@ impl<O: IsA<ColorChooserDialog>> ColorChooserDialogExt for O {
 
     #[doc(alias = "show-editor")]
     fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_show_editor_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_show_editor_trampoline<
+            P: IsA<ColorChooserDialog>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkColorChooserDialog,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ColorChooserDialog>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ColorChooserDialog::from_glib_borrow(this).unsafe_cast_ref())
         }

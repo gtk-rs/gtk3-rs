@@ -799,12 +799,10 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
 
     #[doc(alias = "next-match")]
     fn connect_next_match<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn next_match_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn next_match_trampoline<P: IsA<SearchEntry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<SearchEntry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&SearchEntry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -831,12 +829,10 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
 
     #[doc(alias = "previous-match")]
     fn connect_previous_match<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn previous_match_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn previous_match_trampoline<P: IsA<SearchEntry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<SearchEntry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&SearchEntry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -863,12 +859,10 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
 
     #[doc(alias = "search-changed")]
     fn connect_search_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn search_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn search_changed_trampoline<P: IsA<SearchEntry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<SearchEntry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&SearchEntry::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -887,12 +881,10 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
 
     #[doc(alias = "stop-search")]
     fn connect_stop_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn stop_search_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn stop_search_trampoline<P: IsA<SearchEntry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSearchEntry,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<SearchEntry>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&SearchEntry::from_glib_borrow(this).unsafe_cast_ref())
         }

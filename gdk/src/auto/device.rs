@@ -450,7 +450,7 @@ impl Device {
     }
 
     #[doc(alias = "changed")]
-    pub fn connect_changed<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
             f: glib::ffi::gpointer,
@@ -474,7 +474,7 @@ impl Device {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "tool-changed")]
-    pub fn connect_tool_changed<F: Fn(&Device, &DeviceTool) + 'static>(
+    pub fn connect_tool_changed<F: Fn(&Self, &DeviceTool) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -500,7 +500,7 @@ impl Device {
     }
 
     #[doc(alias = "associated-device")]
-    pub fn connect_associated_device_notify<F: Fn(&Device) + 'static>(
+    pub fn connect_associated_device_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
@@ -528,7 +528,7 @@ impl Device {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "axes")]
-    pub fn connect_axes_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_axes_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
             _param_spec: glib::ffi::gpointer,
@@ -551,7 +551,7 @@ impl Device {
     }
 
     #[doc(alias = "input-mode")]
-    pub fn connect_input_mode_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_input_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_input_mode_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
             _param_spec: glib::ffi::gpointer,
@@ -574,7 +574,7 @@ impl Device {
     }
 
     #[doc(alias = "n-axes")]
-    pub fn connect_n_axes_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_n_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_n_axes_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
             _param_spec: glib::ffi::gpointer,
@@ -599,7 +599,7 @@ impl Device {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "seat")]
-    pub fn connect_seat_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_seat_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_seat_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
             _param_spec: glib::ffi::gpointer,
@@ -624,7 +624,7 @@ impl Device {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "tool")]
-    pub fn connect_tool_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_tool_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tool_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
             _param_spec: glib::ffi::gpointer,
@@ -647,7 +647,7 @@ impl Device {
     }
 
     #[doc(alias = "type")]
-    pub fn connect_type_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_type_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
             _param_spec: glib::ffi::gpointer,

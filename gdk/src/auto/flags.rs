@@ -13,15 +13,25 @@ use std::fmt;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 bitflags! {
+    #[doc(alias = "GdkAnchorHints")]
     pub struct AnchorHints: u32 {
+        #[doc(alias = "GDK_ANCHOR_FLIP_X")]
         const FLIP_X = 1;
+        #[doc(alias = "GDK_ANCHOR_FLIP_Y")]
         const FLIP_Y = 2;
+        #[doc(alias = "GDK_ANCHOR_SLIDE_X")]
         const SLIDE_X = 4;
+        #[doc(alias = "GDK_ANCHOR_SLIDE_Y")]
         const SLIDE_Y = 8;
+        #[doc(alias = "GDK_ANCHOR_RESIZE_X")]
         const RESIZE_X = 16;
+        #[doc(alias = "GDK_ANCHOR_RESIZE_Y")]
         const RESIZE_Y = 32;
+        #[doc(alias = "GDK_ANCHOR_FLIP")]
         const FLIP = 3;
+        #[doc(alias = "GDK_ANCHOR_SLIDE")]
         const SLIDE = 12;
+        #[doc(alias = "GDK_ANCHOR_RESIZE")]
         const RESIZE = 48;
     }
 }
@@ -99,15 +109,25 @@ impl ToValue for AnchorHints {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 bitflags! {
+    #[doc(alias = "GdkAxisFlags")]
     pub struct AxisFlags: u32 {
+        #[doc(alias = "GDK_AXIS_FLAG_X")]
         const X = 2;
+        #[doc(alias = "GDK_AXIS_FLAG_Y")]
         const Y = 4;
+        #[doc(alias = "GDK_AXIS_FLAG_PRESSURE")]
         const PRESSURE = 8;
+        #[doc(alias = "GDK_AXIS_FLAG_XTILT")]
         const XTILT = 16;
+        #[doc(alias = "GDK_AXIS_FLAG_YTILT")]
         const YTILT = 32;
+        #[doc(alias = "GDK_AXIS_FLAG_WHEEL")]
         const WHEEL = 64;
+        #[doc(alias = "GDK_AXIS_FLAG_DISTANCE")]
         const DISTANCE = 128;
+        #[doc(alias = "GDK_AXIS_FLAG_ROTATION")]
         const ROTATION = 256;
+        #[doc(alias = "GDK_AXIS_FLAG_SLIDER")]
         const SLIDER = 512;
     }
 }
@@ -183,12 +203,19 @@ impl ToValue for AxisFlags {
 }
 
 bitflags! {
+    #[doc(alias = "GdkDragAction")]
     pub struct DragAction: u32 {
+        #[doc(alias = "GDK_ACTION_DEFAULT")]
         const DEFAULT = 1;
+        #[doc(alias = "GDK_ACTION_COPY")]
         const COPY = 2;
+        #[doc(alias = "GDK_ACTION_MOVE")]
         const MOVE = 4;
+        #[doc(alias = "GDK_ACTION_LINK")]
         const LINK = 8;
+        #[doc(alias = "GDK_ACTION_PRIVATE")]
         const PRIVATE = 16;
+        #[doc(alias = "GDK_ACTION_ASK")]
         const ASK = 32;
     }
 }
@@ -250,32 +277,59 @@ impl ToValue for DragAction {
 }
 
 bitflags! {
+    #[doc(alias = "GdkEventMask")]
     pub struct EventMask: u32 {
+        #[doc(alias = "GDK_EXPOSURE_MASK")]
         const EXPOSURE_MASK = 2;
+        #[doc(alias = "GDK_POINTER_MOTION_MASK")]
         const POINTER_MOTION_MASK = 4;
+        #[doc(alias = "GDK_POINTER_MOTION_HINT_MASK")]
         const POINTER_MOTION_HINT_MASK = 8;
+        #[doc(alias = "GDK_BUTTON_MOTION_MASK")]
         const BUTTON_MOTION_MASK = 16;
+        #[doc(alias = "GDK_BUTTON1_MOTION_MASK")]
         const BUTTON1_MOTION_MASK = 32;
+        #[doc(alias = "GDK_BUTTON2_MOTION_MASK")]
         const BUTTON2_MOTION_MASK = 64;
+        #[doc(alias = "GDK_BUTTON3_MOTION_MASK")]
         const BUTTON3_MOTION_MASK = 128;
+        #[doc(alias = "GDK_BUTTON_PRESS_MASK")]
         const BUTTON_PRESS_MASK = 256;
+        #[doc(alias = "GDK_BUTTON_RELEASE_MASK")]
         const BUTTON_RELEASE_MASK = 512;
+        #[doc(alias = "GDK_KEY_PRESS_MASK")]
         const KEY_PRESS_MASK = 1024;
+        #[doc(alias = "GDK_KEY_RELEASE_MASK")]
         const KEY_RELEASE_MASK = 2048;
+        #[doc(alias = "GDK_ENTER_NOTIFY_MASK")]
         const ENTER_NOTIFY_MASK = 4096;
+        #[doc(alias = "GDK_LEAVE_NOTIFY_MASK")]
         const LEAVE_NOTIFY_MASK = 8192;
+        #[doc(alias = "GDK_FOCUS_CHANGE_MASK")]
         const FOCUS_CHANGE_MASK = 16384;
+        #[doc(alias = "GDK_STRUCTURE_MASK")]
         const STRUCTURE_MASK = 32768;
+        #[doc(alias = "GDK_PROPERTY_CHANGE_MASK")]
         const PROPERTY_CHANGE_MASK = 65536;
+        #[doc(alias = "GDK_VISIBILITY_NOTIFY_MASK")]
         const VISIBILITY_NOTIFY_MASK = 131072;
+        #[doc(alias = "GDK_PROXIMITY_IN_MASK")]
         const PROXIMITY_IN_MASK = 262144;
+        #[doc(alias = "GDK_PROXIMITY_OUT_MASK")]
         const PROXIMITY_OUT_MASK = 524288;
+        #[doc(alias = "GDK_SUBSTRUCTURE_MASK")]
         const SUBSTRUCTURE_MASK = 1048576;
+        #[doc(alias = "GDK_SCROLL_MASK")]
         const SCROLL_MASK = 2097152;
+        #[doc(alias = "GDK_TOUCH_MASK")]
         const TOUCH_MASK = 4194304;
+        #[doc(alias = "GDK_SMOOTH_SCROLL_MASK")]
         const SMOOTH_SCROLL_MASK = 8388608;
+        #[doc(alias = "GDK_TOUCHPAD_GESTURE_MASK")]
         const TOUCHPAD_GESTURE_MASK = 16777216;
+        #[doc(alias = "GDK_TABLET_PAD_MASK")]
         const TABLET_PAD_MASK = 33554432;
+        #[doc(alias = "GDK_ALL_EVENTS_MASK")]
         const ALL_EVENTS_MASK = 67108862;
     }
 }
@@ -337,14 +391,23 @@ impl ToValue for EventMask {
 }
 
 bitflags! {
+    #[doc(alias = "GdkFrameClockPhase")]
     pub struct FrameClockPhase: u32 {
+        #[doc(alias = "GDK_FRAME_CLOCK_PHASE_NONE")]
         const NONE = 0;
+        #[doc(alias = "GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS")]
         const FLUSH_EVENTS = 1;
+        #[doc(alias = "GDK_FRAME_CLOCK_PHASE_BEFORE_PAINT")]
         const BEFORE_PAINT = 2;
+        #[doc(alias = "GDK_FRAME_CLOCK_PHASE_UPDATE")]
         const UPDATE = 4;
+        #[doc(alias = "GDK_FRAME_CLOCK_PHASE_LAYOUT")]
         const LAYOUT = 8;
+        #[doc(alias = "GDK_FRAME_CLOCK_PHASE_PAINT")]
         const PAINT = 16;
+        #[doc(alias = "GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS")]
         const RESUME_EVENTS = 32;
+        #[doc(alias = "GDK_FRAME_CLOCK_PHASE_AFTER_PAINT")]
         const AFTER_PAINT = 64;
     }
 }
@@ -406,38 +469,71 @@ impl ToValue for FrameClockPhase {
 }
 
 bitflags! {
+    #[doc(alias = "GdkModifierType")]
     pub struct ModifierType: u32 {
+        #[doc(alias = "GDK_SHIFT_MASK")]
         const SHIFT_MASK = 1;
+        #[doc(alias = "GDK_LOCK_MASK")]
         const LOCK_MASK = 2;
+        #[doc(alias = "GDK_CONTROL_MASK")]
         const CONTROL_MASK = 4;
+        #[doc(alias = "GDK_MOD1_MASK")]
         const MOD1_MASK = 8;
+        #[doc(alias = "GDK_MOD2_MASK")]
         const MOD2_MASK = 16;
+        #[doc(alias = "GDK_MOD3_MASK")]
         const MOD3_MASK = 32;
+        #[doc(alias = "GDK_MOD4_MASK")]
         const MOD4_MASK = 64;
+        #[doc(alias = "GDK_MOD5_MASK")]
         const MOD5_MASK = 128;
+        #[doc(alias = "GDK_BUTTON1_MASK")]
         const BUTTON1_MASK = 256;
+        #[doc(alias = "GDK_BUTTON2_MASK")]
         const BUTTON2_MASK = 512;
+        #[doc(alias = "GDK_BUTTON3_MASK")]
         const BUTTON3_MASK = 1024;
+        #[doc(alias = "GDK_BUTTON4_MASK")]
         const BUTTON4_MASK = 2048;
+        #[doc(alias = "GDK_BUTTON5_MASK")]
         const BUTTON5_MASK = 4096;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_13_MASK")]
         const MODIFIER_RESERVED_13_MASK = 8192;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_14_MASK")]
         const MODIFIER_RESERVED_14_MASK = 16384;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_15_MASK")]
         const MODIFIER_RESERVED_15_MASK = 32768;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_16_MASK")]
         const MODIFIER_RESERVED_16_MASK = 65536;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_17_MASK")]
         const MODIFIER_RESERVED_17_MASK = 131072;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_18_MASK")]
         const MODIFIER_RESERVED_18_MASK = 262144;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_19_MASK")]
         const MODIFIER_RESERVED_19_MASK = 524288;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_20_MASK")]
         const MODIFIER_RESERVED_20_MASK = 1048576;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_21_MASK")]
         const MODIFIER_RESERVED_21_MASK = 2097152;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_22_MASK")]
         const MODIFIER_RESERVED_22_MASK = 4194304;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_23_MASK")]
         const MODIFIER_RESERVED_23_MASK = 8388608;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_24_MASK")]
         const MODIFIER_RESERVED_24_MASK = 16777216;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_25_MASK")]
         const MODIFIER_RESERVED_25_MASK = 33554432;
+        #[doc(alias = "GDK_SUPER_MASK")]
         const SUPER_MASK = 67108864;
+        #[doc(alias = "GDK_HYPER_MASK")]
         const HYPER_MASK = 134217728;
+        #[doc(alias = "GDK_META_MASK")]
         const META_MASK = 268435456;
+        #[doc(alias = "GDK_MODIFIER_RESERVED_29_MASK")]
         const MODIFIER_RESERVED_29_MASK = 536870912;
+        #[doc(alias = "GDK_RELEASE_MASK")]
         const RELEASE_MASK = 1073741824;
+        #[doc(alias = "GDK_MODIFIER_MASK")]
         const MODIFIER_MASK = 1543512063;
     }
 }
@@ -501,13 +597,21 @@ impl ToValue for ModifierType {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 bitflags! {
+    #[doc(alias = "GdkSeatCapabilities")]
     pub struct SeatCapabilities: u32 {
+        #[doc(alias = "GDK_SEAT_CAPABILITY_NONE")]
         const NONE = 0;
+        #[doc(alias = "GDK_SEAT_CAPABILITY_POINTER")]
         const POINTER = 1;
+        #[doc(alias = "GDK_SEAT_CAPABILITY_TOUCH")]
         const TOUCH = 2;
+        #[doc(alias = "GDK_SEAT_CAPABILITY_TABLET_STYLUS")]
         const TABLET_STYLUS = 4;
+        #[doc(alias = "GDK_SEAT_CAPABILITY_KEYBOARD")]
         const KEYBOARD = 8;
+        #[doc(alias = "GDK_SEAT_CAPABILITY_ALL_POINTING")]
         const ALL_POINTING = 7;
+        #[doc(alias = "GDK_SEAT_CAPABILITY_ALL")]
         const ALL = 15;
     }
 }
@@ -583,13 +687,21 @@ impl ToValue for SeatCapabilities {
 }
 
 bitflags! {
+    #[doc(alias = "GdkWMDecoration")]
     pub struct WMDecoration: u32 {
+        #[doc(alias = "GDK_DECOR_ALL")]
         const ALL = 1;
+        #[doc(alias = "GDK_DECOR_BORDER")]
         const BORDER = 2;
+        #[doc(alias = "GDK_DECOR_RESIZEH")]
         const RESIZEH = 4;
+        #[doc(alias = "GDK_DECOR_TITLE")]
         const TITLE = 8;
+        #[doc(alias = "GDK_DECOR_MENU")]
         const MENU = 16;
+        #[doc(alias = "GDK_DECOR_MINIMIZE")]
         const MINIMIZE = 32;
+        #[doc(alias = "GDK_DECOR_MAXIMIZE")]
         const MAXIMIZE = 64;
     }
 }
@@ -651,12 +763,19 @@ impl ToValue for WMDecoration {
 }
 
 bitflags! {
+    #[doc(alias = "GdkWMFunction")]
     pub struct WMFunction: u32 {
+        #[doc(alias = "GDK_FUNC_ALL")]
         const ALL = 1;
+        #[doc(alias = "GDK_FUNC_RESIZE")]
         const RESIZE = 2;
+        #[doc(alias = "GDK_FUNC_MOVE")]
         const MOVE = 4;
+        #[doc(alias = "GDK_FUNC_MINIMIZE")]
         const MINIMIZE = 8;
+        #[doc(alias = "GDK_FUNC_MAXIMIZE")]
         const MAXIMIZE = 16;
+        #[doc(alias = "GDK_FUNC_CLOSE")]
         const CLOSE = 32;
     }
 }
@@ -718,15 +837,25 @@ impl ToValue for WMFunction {
 }
 
 bitflags! {
+    #[doc(alias = "GdkWindowHints")]
     pub struct WindowHints: u32 {
+        #[doc(alias = "GDK_HINT_POS")]
         const POS = 1;
+        #[doc(alias = "GDK_HINT_MIN_SIZE")]
         const MIN_SIZE = 2;
+        #[doc(alias = "GDK_HINT_MAX_SIZE")]
         const MAX_SIZE = 4;
+        #[doc(alias = "GDK_HINT_BASE_SIZE")]
         const BASE_SIZE = 8;
+        #[doc(alias = "GDK_HINT_ASPECT")]
         const ASPECT = 16;
+        #[doc(alias = "GDK_HINT_RESIZE_INC")]
         const RESIZE_INC = 32;
+        #[doc(alias = "GDK_HINT_WIN_GRAVITY")]
         const WIN_GRAVITY = 64;
+        #[doc(alias = "GDK_HINT_USER_POS")]
         const USER_POS = 128;
+        #[doc(alias = "GDK_HINT_USER_SIZE")]
         const USER_SIZE = 256;
     }
 }
@@ -788,23 +917,41 @@ impl ToValue for WindowHints {
 }
 
 bitflags! {
+    #[doc(alias = "GdkWindowState")]
     pub struct WindowState: u32 {
+        #[doc(alias = "GDK_WINDOW_STATE_WITHDRAWN")]
         const WITHDRAWN = 1;
+        #[doc(alias = "GDK_WINDOW_STATE_ICONIFIED")]
         const ICONIFIED = 2;
+        #[doc(alias = "GDK_WINDOW_STATE_MAXIMIZED")]
         const MAXIMIZED = 4;
+        #[doc(alias = "GDK_WINDOW_STATE_STICKY")]
         const STICKY = 8;
+        #[doc(alias = "GDK_WINDOW_STATE_FULLSCREEN")]
         const FULLSCREEN = 16;
+        #[doc(alias = "GDK_WINDOW_STATE_ABOVE")]
         const ABOVE = 32;
+        #[doc(alias = "GDK_WINDOW_STATE_BELOW")]
         const BELOW = 64;
+        #[doc(alias = "GDK_WINDOW_STATE_FOCUSED")]
         const FOCUSED = 128;
+        #[doc(alias = "GDK_WINDOW_STATE_TILED")]
         const TILED = 256;
+        #[doc(alias = "GDK_WINDOW_STATE_TOP_TILED")]
         const TOP_TILED = 512;
+        #[doc(alias = "GDK_WINDOW_STATE_TOP_RESIZABLE")]
         const TOP_RESIZABLE = 1024;
+        #[doc(alias = "GDK_WINDOW_STATE_RIGHT_TILED")]
         const RIGHT_TILED = 2048;
+        #[doc(alias = "GDK_WINDOW_STATE_RIGHT_RESIZABLE")]
         const RIGHT_RESIZABLE = 4096;
+        #[doc(alias = "GDK_WINDOW_STATE_BOTTOM_TILED")]
         const BOTTOM_TILED = 8192;
+        #[doc(alias = "GDK_WINDOW_STATE_BOTTOM_RESIZABLE")]
         const BOTTOM_RESIZABLE = 16384;
+        #[doc(alias = "GDK_WINDOW_STATE_LEFT_TILED")]
         const LEFT_TILED = 32768;
+        #[doc(alias = "GDK_WINDOW_STATE_LEFT_RESIZABLE")]
         const LEFT_RESIZABLE = 65536;
     }
 }

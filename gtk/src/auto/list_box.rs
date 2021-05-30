@@ -929,12 +929,13 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
     #[doc(alias = "activate-cursor-row")]
     fn connect_activate_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn activate_cursor_row_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn activate_cursor_row_trampoline<
+            P: IsA<ListBox>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkListBox,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ListBox::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -964,14 +965,15 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn move_cursor_trampoline<P, F: Fn(&P, MovementStep, i32) + 'static>(
+        unsafe extern "C" fn move_cursor_trampoline<
+            P: IsA<ListBox>,
+            F: Fn(&P, MovementStep, i32) + 'static,
+        >(
             this: *mut ffi::GtkListBox,
             object: ffi::GtkMovementStep,
             p0: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &ListBox::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1002,13 +1004,14 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
     #[doc(alias = "row-activated")]
     fn connect_row_activated<F: Fn(&Self, &ListBoxRow) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn row_activated_trampoline<P, F: Fn(&P, &ListBoxRow) + 'static>(
+        unsafe extern "C" fn row_activated_trampoline<
+            P: IsA<ListBox>,
+            F: Fn(&P, &ListBoxRow) + 'static,
+        >(
             this: *mut ffi::GtkListBox,
             row: *mut ffi::GtkListBoxRow,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &ListBox::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1033,13 +1036,14 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn row_selected_trampoline<P, F: Fn(&P, Option<&ListBoxRow>) + 'static>(
+        unsafe extern "C" fn row_selected_trampoline<
+            P: IsA<ListBox>,
+            F: Fn(&P, Option<&ListBoxRow>) + 'static,
+        >(
             this: *mut ffi::GtkListBox,
             row: *mut ffi::GtkListBoxRow,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &ListBox::from_glib_borrow(this).unsafe_cast_ref(),
@@ -1063,12 +1067,10 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
     #[doc(alias = "select-all")]
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn select_all_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn select_all_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ListBox::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1095,12 +1097,13 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
     #[doc(alias = "selected-rows-changed")]
     fn connect_selected_rows_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn selected_rows_changed_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn selected_rows_changed_trampoline<
+            P: IsA<ListBox>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkListBox,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ListBox::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1119,12 +1122,10 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
     #[doc(alias = "toggle-cursor-row")]
     fn connect_toggle_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn toggle_cursor_row_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn toggle_cursor_row_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ListBox::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1151,12 +1152,10 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
     #[doc(alias = "unselect-all")]
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn unselect_all_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn unselect_all_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ListBox::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1186,13 +1185,14 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_activate_on_single_click_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_activate_on_single_click_trampoline<
+            P: IsA<ListBox>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkListBox,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ListBox::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -1211,13 +1211,14 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
     #[doc(alias = "selection-mode")]
     fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_selection_mode_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_selection_mode_trampoline<
+            P: IsA<ListBox>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkListBox,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ListBox>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&ListBox::from_glib_borrow(this).unsafe_cast_ref())
         }

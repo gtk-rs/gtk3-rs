@@ -535,13 +535,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "action-activated")]
     fn connect_action_activated<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn action_activated_trampoline<P, F: Fn(&P, i32) + 'static>(
+        unsafe extern "C" fn action_activated_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P, i32) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             index: libc::c_int,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(
                 &EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
@@ -569,17 +570,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn cursor_on_match_trampoline<
-            P,
+            P: IsA<EntryCompletion>,
             F: Fn(&P, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkEntryCompletion,
             model: *mut ffi::GtkTreeModel,
             iter: *mut ffi::GtkTreeIter,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<EntryCompletion>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
@@ -607,16 +605,13 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn insert_prefix_trampoline<
-            P,
+            P: IsA<EntryCompletion>,
             F: Fn(&P, &str) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkEntryCompletion,
             prefix: *mut libc::c_char,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<EntryCompletion>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
@@ -645,17 +640,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn match_selected_trampoline<
-            P,
+            P: IsA<EntryCompletion>,
             F: Fn(&P, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut ffi::GtkEntryCompletion,
             model: *mut ffi::GtkTreeModel,
             iter: *mut ffi::GtkTreeIter,
             f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean
-        where
-            P: IsA<EntryCompletion>,
-        {
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
@@ -679,12 +671,10 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "no-matches")]
     fn connect_no_matches<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn no_matches_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn no_matches_trampoline<P: IsA<EntryCompletion>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntryCompletion,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -703,13 +693,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "inline-completion")]
     fn connect_inline_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_inline_completion_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_inline_completion_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -728,13 +719,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "inline-selection")]
     fn connect_inline_selection_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_inline_selection_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_inline_selection_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -753,13 +745,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "minimum-key-length")]
     fn connect_minimum_key_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_minimum_key_length_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_minimum_key_length_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -778,13 +771,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "model")]
     fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_model_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_model_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -803,13 +797,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "popup-completion")]
     fn connect_popup_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_popup_completion_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_popup_completion_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -828,13 +823,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "popup-set-width")]
     fn connect_popup_set_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_popup_set_width_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_popup_set_width_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -853,13 +849,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "popup-single-match")]
     fn connect_popup_single_match_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_popup_single_match_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_popup_single_match_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
@@ -878,13 +875,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
 
     #[doc(alias = "text-column")]
     fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_text_column_trampoline<P, F: Fn(&P) + 'static>(
+        unsafe extern "C" fn notify_text_column_trampoline<
+            P: IsA<EntryCompletion>,
+            F: Fn(&P) + 'static,
+        >(
             this: *mut ffi::GtkEntryCompletion,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<EntryCompletion>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
             f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
