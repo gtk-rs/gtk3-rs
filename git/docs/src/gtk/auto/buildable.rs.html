@@ -212,22 +212,22 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `Buildable` allows objects to extend and customize their deserialization</span>
-    <span class="doccomment">/// from [`Builder` UI descriptions][BUILDER-UI].</span>
+    <span class="doccomment">/// GtkBuildable allows objects to extend and customize their deserialization</span>
+    <span class="doccomment">/// from [GtkBuilder UI descriptions][BUILDER-UI].</span>
     <span class="doccomment">/// The interface includes methods for setting names and properties of objects,</span>
     <span class="doccomment">/// parsing custom tags and constructing child objects.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Buildable` interface is implemented by all widgets and</span>
+    <span class="doccomment">/// The GtkBuildable interface is implemented by all widgets and</span>
     <span class="doccomment">/// many of the non-widget objects that are provided by GTK+. The</span>
-    <span class="doccomment">/// main user of this interface is [`crate::Builder`]. There should be</span>
+    <span class="doccomment">/// main user of this interface is [`Builder`][crate::Builder]. There should be</span>
     <span class="doccomment">/// very little need for applications to call any of these functions directly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An object only needs to implement this interface if it needs to extend the</span>
-    <span class="doccomment">/// [`crate::Builder`] format or run any extra routines at deserialization time.</span>
+    <span class="doccomment">/// [`Builder`][crate::Builder] format or run any extra routines at deserialization time.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`BuildableExt`][trait@crate::prelude::BuildableExt], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Buildable</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkBuildable</span>, <span class="ident">ffi::GtkBuildableIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -241,12 +241,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::AboutDialog`], [`struct@crate::AccelLabel`], [`struct@crate::ActionBar`], [`struct@crate::AppChooserButton`], [`struct@crate::AppChooserDialog`], [`struct@crate::AppChooserWidget`], [`struct@crate::ApplicationWindow`], [`struct@crate::AspectFrame`], [`struct@crate::Assistant`], [`struct@crate::Bin`], [`struct@crate::Box`], [`struct@crate::Buildable`], [`struct@crate::ButtonBox`], [`struct@crate::Button`], [`struct@crate::Calendar`], [`struct@crate::CellAreaBox`], [`struct@crate::CellArea`], [`struct@crate::CellView`], [`struct@crate::CheckButton`], [`struct@crate::CheckMenuItem`], [`struct@crate::ColorButton`], [`struct@crate::ColorChooserDialog`], [`struct@crate::ColorChooserWidget`], [`struct@crate::ComboBoxText`], [`struct@crate::ComboBox`], [`struct@crate::Container`], [`struct@crate::Dialog`], [`struct@crate::DrawingArea`], [`struct@crate::EntryCompletion`], [`struct@crate::Entry`], [`struct@crate::EventBox`], [`struct@crate::Expander`], [`struct@crate::FileChooserButton`], [`struct@crate::FileChooserDialog`], [`struct@crate::FileChooserWidget`], [`struct@crate::FileFilter`], [`struct@crate::Fixed`], [`struct@crate::FlowBoxChild`], [`struct@crate::FlowBox`], [`struct@crate::FontButton`], [`struct@crate::FontChooserDialog`], [`struct@crate::FontChooserWidget`], [`struct@crate::Frame`], [`struct@crate::GLArea`], [`struct@crate::Grid`], [`struct@crate::HeaderBar`], [`struct@crate::IconView`], [`struct@crate::Image`], [`struct@crate::InfoBar`], [`struct@crate::Invisible`], [`struct@crate::Label`], [`struct@crate::Layout`], [`struct@crate::LevelBar`], [`struct@crate::LinkButton`], [`struct@crate::ListBoxRow`], [`struct@crate::ListBox`], [`struct@crate::ListStore`], [`struct@crate::LockButton`], [`struct@crate::MenuBar`], [`struct@crate::MenuButton`], [`struct@crate::MenuItem`], [`struct@crate::MenuShell`], [`struct@crate::MenuToolButton`], [`struct@crate::Menu`], [`struct@crate::MessageDialog`], [`struct@crate::Misc`], [`struct@crate::ModelButton`], [`struct@crate::Notebook`], [`struct@crate::OffscreenWindow`], [`struct@crate::Overlay`], [`struct@crate::Paned`], [`struct@crate::PlacesSidebar`], [`struct@crate::Plug`], [`struct@crate::PopoverMenu`], [`struct@crate::Popover`], [`struct@crate::ProgressBar`], [`struct@crate::RadioButton`], [`struct@crate::RadioMenuItem`], [`struct@crate::RadioToolButton`], [`struct@crate::Range`], [`struct@crate::RecentChooserDialog`], [`struct@crate::RecentChooserMenu`], [`struct@crate::RecentChooserWidget`], [`struct@crate::RecentFilter`], [`struct@crate::Revealer`], [`struct@crate::ScaleButton`], [`struct@crate::Scale`], [`struct@crate::Scrollbar`], [`struct@crate::ScrolledWindow`], [`struct@crate::SearchBar`], [`struct@crate::SearchEntry`], [`struct@crate::SeparatorMenuItem`], [`struct@crate::SeparatorToolItem`], [`struct@crate::Separator`], [`struct@crate::ShortcutLabel`], [`struct@crate::ShortcutsGroup`], [`struct@crate::ShortcutsSection`], [`struct@crate::ShortcutsShortcut`], [`struct@crate::ShortcutsWindow`], [`struct@crate::SizeGroup`], [`struct@crate::Socket`], [`struct@crate::SpinButton`], [`struct@crate::Spinner`], [`struct@crate::StackSidebar`], [`struct@crate::StackSwitcher`], [`struct@crate::Stack`], [`struct@crate::Statusbar`], [`struct@crate::Switch`], [`struct@crate::TextTagTable`], [`struct@crate::TextView`], [`struct@crate::ToggleButton`], [`struct@crate::ToggleToolButton`], [`struct@crate::ToolButton`], [`struct@crate::ToolItemGroup`], [`struct@crate::ToolItem`], [`struct@crate::ToolPalette`], [`struct@crate::Toolbar`], [`struct@crate::TreeStore`], [`struct@crate::TreeViewColumn`], [`struct@crate::TreeView`], [`struct@crate::Viewport`], [`struct@crate::VolumeButton`], [`struct@crate::Widget`], [`struct@crate::Window`]</span>
+<span class="doccomment">/// [`AboutDialog`][struct@crate::AboutDialog], [`AccelLabel`][struct@crate::AccelLabel], [`ActionBar`][struct@crate::ActionBar], [`AppChooserButton`][struct@crate::AppChooserButton], [`AppChooserDialog`][struct@crate::AppChooserDialog], [`AppChooserWidget`][struct@crate::AppChooserWidget], [`ApplicationWindow`][struct@crate::ApplicationWindow], [`AspectFrame`][struct@crate::AspectFrame], [`Assistant`][struct@crate::Assistant], [`Bin`][struct@crate::Bin], [`Box`][struct@crate::Box], [`Buildable`][struct@crate::Buildable], [`ButtonBox`][struct@crate::ButtonBox], [`Button`][struct@crate::Button], [`Calendar`][struct@crate::Calendar], [`CellAreaBox`][struct@crate::CellAreaBox], [`CellArea`][struct@crate::CellArea], [`CellView`][struct@crate::CellView], [`CheckButton`][struct@crate::CheckButton], [`CheckMenuItem`][struct@crate::CheckMenuItem], [`ColorButton`][struct@crate::ColorButton], [`ColorChooserDialog`][struct@crate::ColorChooserDialog], [`ColorChooserWidget`][struct@crate::ColorChooserWidget], [`ComboBoxText`][struct@crate::ComboBoxText], [`ComboBox`][struct@crate::ComboBox], [`Container`][struct@crate::Container], [`Dialog`][struct@crate::Dialog], [`DrawingArea`][struct@crate::DrawingArea], [`EntryCompletion`][struct@crate::EntryCompletion], [`Entry`][struct@crate::Entry], [`EventBox`][struct@crate::EventBox], [`Expander`][struct@crate::Expander], [`FileChooserButton`][struct@crate::FileChooserButton], [`FileChooserDialog`][struct@crate::FileChooserDialog], [`FileChooserWidget`][struct@crate::FileChooserWidget], [`FileFilter`][struct@crate::FileFilter], [`Fixed`][struct@crate::Fixed], [`FlowBoxChild`][struct@crate::FlowBoxChild], [`FlowBox`][struct@crate::FlowBox], [`FontButton`][struct@crate::FontButton], [`FontChooserDialog`][struct@crate::FontChooserDialog], [`FontChooserWidget`][struct@crate::FontChooserWidget], [`Frame`][struct@crate::Frame], [`GLArea`][struct@crate::GLArea], [`Grid`][struct@crate::Grid], [`HeaderBar`][struct@crate::HeaderBar], [`IconView`][struct@crate::IconView], [`Image`][struct@crate::Image], [`InfoBar`][struct@crate::InfoBar], [`Invisible`][struct@crate::Invisible], [`Label`][struct@crate::Label], [`Layout`][struct@crate::Layout], [`LevelBar`][struct@crate::LevelBar], [`LinkButton`][struct@crate::LinkButton], [`ListBoxRow`][struct@crate::ListBoxRow], [`ListBox`][struct@crate::ListBox], [`ListStore`][struct@crate::ListStore], [`LockButton`][struct@crate::LockButton], [`MenuBar`][struct@crate::MenuBar], [`MenuButton`][struct@crate::MenuButton], [`MenuItem`][struct@crate::MenuItem], [`MenuShell`][struct@crate::MenuShell], [`MenuToolButton`][struct@crate::MenuToolButton], [`Menu`][struct@crate::Menu], [`MessageDialog`][struct@crate::MessageDialog], [`Misc`][struct@crate::Misc], [`ModelButton`][struct@crate::ModelButton], [`Notebook`][struct@crate::Notebook], [`OffscreenWindow`][struct@crate::OffscreenWindow], [`Overlay`][struct@crate::Overlay], [`Paned`][struct@crate::Paned], [`PlacesSidebar`][struct@crate::PlacesSidebar], [`Plug`][struct@crate::Plug], [`PopoverMenu`][struct@crate::PopoverMenu], [`Popover`][struct@crate::Popover], [`ProgressBar`][struct@crate::ProgressBar], [`RadioButton`][struct@crate::RadioButton], [`RadioMenuItem`][struct@crate::RadioMenuItem], [`RadioToolButton`][struct@crate::RadioToolButton], [`Range`][struct@crate::Range], [`RecentChooserDialog`][struct@crate::RecentChooserDialog], [`RecentChooserMenu`][struct@crate::RecentChooserMenu], [`RecentChooserWidget`][struct@crate::RecentChooserWidget], [`RecentFilter`][struct@crate::RecentFilter], [`Revealer`][struct@crate::Revealer], [`ScaleButton`][struct@crate::ScaleButton], [`Scale`][struct@crate::Scale], [`Scrollbar`][struct@crate::Scrollbar], [`ScrolledWindow`][struct@crate::ScrolledWindow], [`SearchBar`][struct@crate::SearchBar], [`SearchEntry`][struct@crate::SearchEntry], [`SeparatorMenuItem`][struct@crate::SeparatorMenuItem], [`SeparatorToolItem`][struct@crate::SeparatorToolItem], [`Separator`][struct@crate::Separator], [`ShortcutLabel`][struct@crate::ShortcutLabel], [`ShortcutsGroup`][struct@crate::ShortcutsGroup], [`ShortcutsSection`][struct@crate::ShortcutsSection], [`ShortcutsShortcut`][struct@crate::ShortcutsShortcut], [`ShortcutsWindow`][struct@crate::ShortcutsWindow], [`SizeGroup`][struct@crate::SizeGroup], [`Socket`][struct@crate::Socket], [`SpinButton`][struct@crate::SpinButton], [`Spinner`][struct@crate::Spinner], [`StackSidebar`][struct@crate::StackSidebar], [`StackSwitcher`][struct@crate::StackSwitcher], [`Stack`][struct@crate::Stack], [`Statusbar`][struct@crate::Statusbar], [`Switch`][struct@crate::Switch], [`TextTagTable`][struct@crate::TextTagTable], [`TextView`][struct@crate::TextView], [`ToggleButton`][struct@crate::ToggleButton], [`ToggleToolButton`][struct@crate::ToggleToolButton], [`ToolButton`][struct@crate::ToolButton], [`ToolItemGroup`][struct@crate::ToolItemGroup], [`ToolItem`][struct@crate::ToolItem], [`ToolPalette`][struct@crate::ToolPalette], [`Toolbar`][struct@crate::Toolbar], [`TreeStore`][struct@crate::TreeStore], [`TreeViewColumn`][struct@crate::TreeViewColumn], [`TreeView`][struct@crate::TreeView], [`Viewport`][struct@crate::Viewport], [`VolumeButton`][struct@crate::VolumeButton], [`Widget`][struct@crate::Widget], [`Window`][struct@crate::Window]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">BuildableExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds a child to `self`. `type_` is an optional string</span>
     <span class="doccomment">/// describing how the child should be added.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// a [`crate::Builder`]</span>
+    <span class="doccomment">/// a [`Builder`][crate::Builder]</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// child to add</span>
     <span class="doccomment">/// ## `type_`</span>
@@ -261,10 +261,10 @@
 
     <span class="doccomment">/// Constructs a child of `self` with the name `name`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`crate::Builder`] calls this function if a “constructor” has been</span>
+    <span class="doccomment">/// [`Builder`][crate::Builder] calls this function if a “constructor” has been</span>
     <span class="doccomment">/// specified in the UI definition.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// [`crate::Builder`] used to construct this object</span>
+    <span class="doccomment">/// [`Builder`][crate::Builder] used to construct this object</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// name of child to construct</span>
     <span class="doccomment">///</span>
@@ -285,7 +285,7 @@
 
     <span class="doccomment">/// Get the internal child called `childname` of the `self` object.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// a [`crate::Builder`]</span>
+    <span class="doccomment">/// a [`Builder`][crate::Builder]</span>
     <span class="doccomment">/// ## `childname`</span>
     <span class="doccomment">/// name of child</span>
     <span class="doccomment">///</span>
@@ -298,18 +298,18 @@
         <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Called when the builder finishes the parsing of a</span>
-    <span class="doccomment">/// [`Builder` UI definition][BUILDER-UI].</span>
+    <span class="doccomment">/// [GtkBuilder UI definition][BUILDER-UI].</span>
     <span class="doccomment">/// Note that this will be called once for each time</span>
-    <span class="doccomment">/// [`crate::Builder::add_from_file()`] or [`crate::prelude::BuilderExt::add_from_string()`]</span>
+    <span class="doccomment">/// `gtk_builder_add_from_file()` or [`BuilderExt::add_from_string()`][crate::prelude::BuilderExt::add_from_string()]</span>
     <span class="doccomment">/// is called on a builder.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// a [`crate::Builder`]</span>
+    <span class="doccomment">/// a [`Builder`][crate::Builder]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_buildable_parser_finished&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">parser_finished</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Builder</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">builder</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Sets the property name `name` to `value` on the `self` object.</span>
     <span class="doccomment">/// ## `builder`</span>
-    <span class="doccomment">/// a [`crate::Builder`]</span>
+    <span class="doccomment">/// a [`Builder`][crate::Builder]</span>
     <span class="doccomment">/// ## `name`</span>
     <span class="doccomment">/// name of property</span>
     <span class="doccomment">/// ## `value`</span>

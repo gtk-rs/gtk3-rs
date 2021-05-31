@@ -492,11 +492,11 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`crate::Value`] should be implemented for components which either display</span>
+    <span class="doccomment">/// [`Value`][crate::Value] should be implemented for components which either display</span>
     <span class="doccomment">/// a value from a bounded range, or which allow the user to specify a</span>
     <span class="doccomment">/// value from a bounded range, or both. For instance, most sliders and</span>
-    <span class="doccomment">/// range controls, as well as dials, should have [`crate::Object`]</span>
-    <span class="doccomment">/// representations which implement [`crate::Value`] on the component&#39;s</span>
+    <span class="doccomment">/// range controls, as well as dials, should have [`Object`][crate::Object]</span>
+    <span class="doccomment">/// representations which implement [`Value`][crate::Value] on the component&#39;s</span>
     <span class="doccomment">/// behalf. `AtKValues` may be read-only, in which case attempts to</span>
     <span class="doccomment">/// alter the value return would fail.</span>
     <span class="doccomment">///</span>
@@ -542,11 +542,11 @@
     <span class="doccomment">/// `&lt;/para&gt;`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `&lt;para&gt;`</span>
-    <span class="doccomment">/// [`crate::Value`] should NOT be implemented for widgets whose displayed</span>
+    <span class="doccomment">/// [`Value`][crate::Value] should NOT be implemented for widgets whose displayed</span>
     <span class="doccomment">/// value is not reflective of a meaningful amount. For instance, a</span>
     <span class="doccomment">/// progress pulse indicator whose value alternates between 0.0 and 1.0</span>
     <span class="doccomment">/// to indicate that some process is still taking place should not</span>
-    <span class="doccomment">/// implement [`crate::Value`] because the current value does not reflect</span>
+    <span class="doccomment">/// implement [`Value`][crate::Value] because the current value does not reflect</span>
     <span class="doccomment">/// progress towards completion.</span>
     <span class="doccomment">/// `&lt;/para&gt;`</span>
     <span class="doccomment">/// `&lt;/refsect2&gt;`</span>
@@ -594,7 +594,7 @@
     <span class="doccomment">/// implementors are expected to provide localized strings which can be</span>
     <span class="doccomment">/// directly presented to end users via their assistive technology. In</span>
     <span class="doccomment">/// order to simplify this for implementors, implementors can use</span>
-    <span class="doccomment">/// [`crate::ValueType::get_localized_name()`] with the following</span>
+    <span class="doccomment">/// `atk_value_type_get_localized_name()` with the following</span>
     <span class="doccomment">/// already-localized constants for commonly-needed values can be used:</span>
     <span class="doccomment">/// `&lt;/para&gt;`</span>
     <span class="doccomment">///</span>
@@ -635,7 +635,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::ValueExt`]</span>
+    <span class="doccomment">/// [`ValueExt`][trait@crate::prelude::ValueExt]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Value</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkValue</span>, <span class="ident">ffi::AtkValueIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -649,20 +649,20 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::NoOpObject`], [`struct@crate::Value`]</span>
+<span class="doccomment">/// [`NoOpObject`][struct@crate::NoOpObject], [`Value`][struct@crate::Value]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ValueExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Gets the value of this object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since 2.12. Use [`crate::Value::get_value_and_text()`]</span>
+    <span class="doccomment">/// Since 2.12. Use [`value_and_text()`][Self::value_and_text()]</span>
     <span class="doccomment">/// instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// a [`crate::glib::object::Value`] representing the current accessible value</span>
+    <span class="doccomment">/// a [`glib::Value`][crate::glib::Value] representing the current accessible value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_current_value&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_current_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">current_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span>;
@@ -684,13 +684,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since 2.12. Use [`crate::Value::get_range()`] instead.</span>
+    <span class="doccomment">/// Since 2.12. Use [`range()`][Self::range()] instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// a [`crate::glib::object::Value`] representing the maximum accessible value</span>
+    <span class="doccomment">/// a [`glib::Value`][crate::glib::Value] representing the maximum accessible value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_maximum_value&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_maximum_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">maximum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span>;
@@ -701,13 +701,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since 2.12. Use [`crate::Value::get_increment()`] instead.</span>
+    <span class="doccomment">/// Since 2.12. Use [`increment()`][Self::increment()] instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// a [`crate::glib::object::Value`] representing the minimum increment by which the accessible value may be changed</span>
+    <span class="doccomment">/// a [`glib::Value`][crate::glib::Value] representing the minimum increment by which the accessible value may be changed</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_minimum_increment&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_minimum_increment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">minimum_increment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span>;
@@ -716,13 +716,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since 2.12. Use [`crate::Value::get_range()`] instead.</span>
+    <span class="doccomment">/// Since 2.12. Use [`range()`][Self::range()] instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// a [`crate::glib::object::Value`] representing the minimum accessible value</span>
+    <span class="doccomment">/// a [`glib::Value`][crate::glib::Value] representing the minimum accessible value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_minimum_value&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_minimum_value&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">minimum_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::Value</span>;
@@ -731,21 +731,21 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly allocated [`crate::Range`]</span>
+    <span class="doccomment">/// a newly allocated [`Range`][crate::Range]</span>
     <span class="doccomment">/// that represents the minimum, maximum and descriptor (if available)</span>
     <span class="doccomment">/// of `self`. NULL if that range is not defined.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_range&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_range&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Range</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Gets the list of subranges defined for this object. See [`crate::Value`]</span>
+    <span class="doccomment">/// Gets the list of subranges defined for this object. See [`Value`][crate::Value]</span>
     <span class="doccomment">/// introduction for examples of subranges and when to expose them.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`crate::glib::SList`] of</span>
-    <span class="doccomment">/// [`crate::Range`] which each of the subranges defined for this object. Free</span>
-    <span class="doccomment">/// the returns list with [`crate::glib::SList::free()`].</span>
+    <span class="doccomment">/// an `GSList` of</span>
+    <span class="doccomment">/// [`Range`][crate::Range] which each of the subranges defined for this object. Free</span>
+    <span class="doccomment">/// the returns list with `g_slist_free()`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_value_get_sub_ranges&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_sub_ranges&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">sub_ranges</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Range</span><span class="op">&gt;</span>;
@@ -771,9 +771,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since 2.12. Use [`crate::Value::set_value()`] instead.</span>
+    <span class="doccomment">/// Since 2.12. Use [`set_value()`][Self::set_value()] instead.</span>
     <span class="doccomment">/// ## `value`</span>
-    <span class="doccomment">/// a [`crate::glib::object::Value`] which is the desired new accessible value.</span>
+    <span class="doccomment">/// a [`glib::Value`][crate::glib::Value] which is the desired new accessible value.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -787,9 +787,9 @@
     <span class="doccomment">/// object. In any case, it is possible that the value can&#39;t be</span>
     <span class="doccomment">/// modified (ie: a read-only component). If the value changes due this</span>
     <span class="doccomment">/// call, it is possible that the text could change, and will trigger</span>
-    <span class="doccomment">/// an [`crate::Value::value-changed`] signal emission.</span>
+    <span class="doccomment">/// an `signal::Value::value-changed` signal emission.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note for implementors: the deprecated [`crate::Value::set_current_value()`]</span>
+    <span class="doccomment">/// Note for implementors: the deprecated [`set_current_value()`][Self::set_current_value()]</span>
     <span class="doccomment">/// method returned TRUE or FALSE depending if the value was assigned</span>
     <span class="doccomment">/// or not. In the practice several implementors were not able to</span>
     <span class="doccomment">/// decide it, and returned TRUE in any case. For that reason it is not</span>

@@ -686,14 +686,14 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Together with [`crate::Plug`], [`crate::Socket`] provides the ability to embed</span>
+    <span class="doccomment">/// Together with [`Plug`][crate::Plug], [`Socket`][crate::Socket] provides the ability to embed</span>
     <span class="doccomment">/// widgets from one process into another process in a fashion that</span>
-    <span class="doccomment">/// is transparent to the user. One process creates a [`crate::Socket`] widget</span>
+    <span class="doccomment">/// is transparent to the user. One process creates a [`Socket`][crate::Socket] widget</span>
     <span class="doccomment">/// and passes that widget’s window ID to the other process, which then</span>
-    <span class="doccomment">/// creates a [`crate::Plug`] with that window ID. Any widgets contained in the</span>
-    <span class="doccomment">/// [`crate::Plug`] then will appear inside the first application’s window.</span>
+    <span class="doccomment">/// creates a [`Plug`][crate::Plug] with that window ID. Any widgets contained in the</span>
+    <span class="doccomment">/// [`Plug`][crate::Plug] then will appear inside the first application’s window.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The socket’s window ID is obtained by using [`crate::prelude::`GtkSocketExt`::get_id()`].</span>
+    <span class="doccomment">/// The socket’s window ID is obtained by using [`GtkSocketExt::id()`][crate::prelude::GtkSocketExt::id()].</span>
     <span class="doccomment">/// Before using this function, the socket must have been realized,</span>
     <span class="doccomment">/// and for hence, have been added to its parent.</span>
     <span class="doccomment">///</span>
@@ -718,7 +718,7 @@
     <span class="doccomment">/// is created. Violating this rule will cause unpredictable</span>
     <span class="doccomment">/// consequences, the most likely consequence being that the plug</span>
     <span class="doccomment">/// will appear as a separate toplevel window. You can check if</span>
-    <span class="doccomment">/// the plug has been created by using [`crate::prelude::`GtkSocketExt`::get_plug_window()`].</span>
+    <span class="doccomment">/// the plug has been created by using [`GtkSocketExt::plug_window()`][crate::prelude::GtkSocketExt::plug_window()].</span>
     <span class="doccomment">/// If it returns a non-[`None`] value, then the plug has been</span>
     <span class="doccomment">/// successfully created inside of the socket.</span>
     <span class="doccomment">///</span>
@@ -726,22 +726,22 @@
     <span class="doccomment">/// then it will destroy the socket as well. You should always,</span>
     <span class="doccomment">/// therefore, be prepared for your sockets to be destroyed at any</span>
     <span class="doccomment">/// time when the main event loop is running. To prevent this from</span>
-    <span class="doccomment">/// happening, you can connect to the [`crate::Socket::plug-removed`] signal.</span>
+    <span class="doccomment">/// happening, you can connect to the `signal::Socket::plug-removed` signal.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The communication between a [`crate::Socket`] and a [`crate::Plug`] follows the</span>
+    <span class="doccomment">/// The communication between a [`Socket`][crate::Socket] and a [`Plug`][crate::Plug] follows the</span>
     <span class="doccomment">/// [XEmbed Protocol](http://www.freedesktop.org/Standards/xembed-spec).</span>
     <span class="doccomment">/// This protocol has also been implemented in other toolkits, e.g. Qt,</span>
     <span class="doccomment">/// allowing the same level of integration when embedding a Qt widget</span>
     <span class="doccomment">/// in GTK or vice versa.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`crate::Plug`] and [`crate::Socket`] widgets are only available when GTK+</span>
+    <span class="doccomment">/// The [`Plug`][crate::Plug] and [`Socket`][crate::Socket] widgets are only available when GTK+</span>
     <span class="doccomment">/// is compiled for the X11 platform and `GDK_WINDOWING_X11` is defined.</span>
-    <span class="doccomment">/// They can only be used on a ``GdkX11Display``. To use [`crate::Plug`] and</span>
-    <span class="doccomment">/// [`crate::Socket`], you need to include the `gtk/gtkx.h` header.</span>
+    <span class="doccomment">/// They can only be used on a `GdkX11Display`. To use [`Plug`][crate::Plug] and</span>
+    <span class="doccomment">/// [`Socket`][crate::Socket], you need to include the `gtk/gtkx.h` header.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::GtkSocketExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`GtkSocketExt`][trait@crate::prelude::GtkSocketExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Socket</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkSocket</span>, <span class="ident">ffi::GtkSocketClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -750,11 +750,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Socket</span> {
-    <span class="doccomment">/// Create a new empty [`crate::Socket`].</span>
+    <span class="doccomment">/// Create a new empty [`Socket`][crate::Socket].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the new [`crate::Socket`].</span>
+    <span class="doccomment">/// the new [`Socket`][crate::Socket].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_socket_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Socket</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -973,7 +973,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`crate::Widget:hexpand`] and [`crate::Widget:vexpand`]</span>
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">expand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expand</span>);
         <span class="self">self</span>
@@ -983,8 +983,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property is only relevant for widgets that can take focus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.20, several widgets (`Button`, `FileChooserButton`,</span>
-    <span class="doccomment">/// `ComboBox`) implemented this property individually.</span>
+    <span class="doccomment">/// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,</span>
+    <span class="doccomment">/// GtkComboBox) implemented this property individually.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">focus_on_click</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -992,7 +992,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">halign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">halign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">halign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">halign</span>);
         <span class="self">self</span>
@@ -1008,13 +1008,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Enables or disables the emission of [`crate::Widget::query-tooltip`] on `widget`.</span>
+    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.</span>
     <span class="doccomment">/// A value of [`true`] indicates that `widget` can have a tooltip, in this case</span>
-    <span class="doccomment">/// the widget will be queried using [`crate::Widget::query-tooltip`] to determine</span>
+    <span class="doccomment">/// the widget will be queried using `signal::Widget::query-tooltip` to determine</span>
     <span class="doccomment">/// whether it will provide a tooltip or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that setting this property to [`true`] for the first time will change</span>
-    <span class="doccomment">/// the event masks of the `GdkWindows` of this widget to include leave-notify</span>
+    <span class="doccomment">/// the event masks of the GdkWindows of this widget to include leave-notify</span>
     <span class="doccomment">/// and motion-notify events. This cannot and will not be undone when the</span>
     <span class="doccomment">/// property is set to [`false`] again.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_tooltip</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_tooltip</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1027,13 +1027,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand horizontally. See [`crate::prelude::WidgetExt::set_hexpand()`].</span>
+    <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:hexpand`] property. See [`crate::prelude::WidgetExt::get_hexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand_set</span>);
         <span class="self">self</span>
@@ -1055,7 +1055,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_bottom</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_bottom</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_bottom</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_bottom</span>);
         <span class="self">self</span>
@@ -1066,7 +1066,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_end</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_end</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_end</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_end</span>);
         <span class="self">self</span>
@@ -1077,7 +1077,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_start</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_start</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_start</span>);
         <span class="self">self</span>
@@ -1087,7 +1087,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_top</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_top</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_top</span>);
         <span class="self">self</span>
@@ -1103,10 +1103,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The requested opacity of the widget. See [`crate::prelude::WidgetExt::set_opacity()`] for</span>
+    <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for</span>
     <span class="doccomment">/// more details about window opacity.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.8 this was only available in `Window`</span>
+    <span class="doccomment">/// Before 3.8 this was only available in GtkWindow</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">opacity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opacity</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">opacity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">opacity</span>);
         <span class="self">self</span>
@@ -1129,14 +1129,14 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_markup()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_markup</span>.<span class="ident">to_string</span>());
@@ -1145,33 +1145,33 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_text()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">valign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">valign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">valign</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand vertically. See [`crate::prelude::WidgetExt::set_vexpand()`].</span>
+    <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:vexpand`] property. See [`crate::prelude::WidgetExt::get_vexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand_set</span>);
         <span class="self">self</span>
@@ -1194,30 +1194,30 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::Socket`]</span>
+<span class="doccomment">/// [`Socket`][struct@crate::Socket]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">GtkSocketExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Adds an XEMBED client, such as a [`crate::Plug`], to the [`crate::Socket`]. The</span>
+    <span class="doccomment">/// Adds an XEMBED client, such as a [`Plug`][crate::Plug], to the [`Socket`][crate::Socket]. The</span>
     <span class="doccomment">/// client may be in the same process or in a different process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To embed a [`crate::Plug`] in a [`crate::Socket`], you can either create the</span>
-    <span class="doccomment">/// [`crate::Plug`] with `gtk_plug_new (0)`, call</span>
-    <span class="doccomment">/// [`crate::prelude::PlugExt::get_id()`] to get the window ID of the plug, and then pass that to the</span>
-    <span class="doccomment">/// [`Self::add_id()`], or you can call [`Self::get_id()`] to get the</span>
-    <span class="doccomment">/// window ID for the socket, and call [`crate::Plug::new()`] passing in that</span>
+    <span class="doccomment">/// To embed a [`Plug`][crate::Plug] in a [`Socket`][crate::Socket], you can either create the</span>
+    <span class="doccomment">/// [`Plug`][crate::Plug] with `gtk_plug_new (0)`, call</span>
+    <span class="doccomment">/// [`PlugExt::id()`][crate::prelude::PlugExt::id()] to get the window ID of the plug, and then pass that to the</span>
+    <span class="doccomment">/// [`add_id()`][Self::add_id()], or you can call [`id()`][Self::id()] to get the</span>
+    <span class="doccomment">/// window ID for the socket, and call [`Plug::new()`][crate::Plug::new()] passing in that</span>
     <span class="doccomment">/// ID.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`crate::Socket`] must have already be added into a toplevel window</span>
+    <span class="doccomment">/// The [`Socket`][crate::Socket] must have already be added into a toplevel window</span>
     <span class="doccomment">///  before you can make this call.</span>
     <span class="doccomment">/// ## `window`</span>
     <span class="doccomment">/// the Window of a client participating in the XEMBED protocol.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_socket_add_id&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">window</span>: <span class="ident">xlib::Window</span>);
 
-    <span class="doccomment">/// Gets the window ID of a [`crate::Socket`] widget, which can then</span>
+    <span class="doccomment">/// Gets the window ID of a [`Socket`][crate::Socket] widget, which can then</span>
     <span class="doccomment">/// be used to create a client embedded inside the socket, for</span>
-    <span class="doccomment">/// instance with [`crate::Plug::new()`].</span>
+    <span class="doccomment">/// instance with [`Plug::new()`][crate::Plug::new()].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`crate::Socket`] must have already be added into a toplevel window</span>
+    <span class="doccomment">/// The [`Socket`][crate::Socket] must have already be added into a toplevel window</span>
     <span class="doccomment">/// before you can make this call.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -1244,7 +1244,7 @@
     <span class="kw">fn</span> <span class="ident">connect_plug_added</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
     <span class="doccomment">/// This signal is emitted when a client is removed from the socket.</span>
-    <span class="doccomment">/// The default action is to destroy the [`crate::Socket`] widget, so if you</span>
+    <span class="doccomment">/// The default action is to destroy the [`Socket`][crate::Socket] widget, so if you</span>
     <span class="doccomment">/// want to reuse it you must add a signal handler that returns [`true`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>

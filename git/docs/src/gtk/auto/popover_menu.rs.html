@@ -786,21 +786,21 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `PopoverMenu` is a subclass of [`crate::Popover`] that treats its</span>
+    <span class="doccomment">/// GtkPopoverMenu is a subclass of [`Popover`][crate::Popover] that treats its</span>
     <span class="doccomment">/// children like menus and allows switching between them. It is</span>
-    <span class="doccomment">/// meant to be used primarily together with [`crate::ModelButton`], but</span>
-    <span class="doccomment">/// any widget can be used, such as [`crate::SpinButton`] or [`crate::Scale`].</span>
-    <span class="doccomment">/// In this respect, `PopoverMenu` is more flexible than popovers</span>
-    <span class="doccomment">/// that are created from a [`crate::gio::MenuModel`] with [`crate::Popover::new_from_model()`].</span>
+    <span class="doccomment">/// meant to be used primarily together with [`ModelButton`][crate::ModelButton], but</span>
+    <span class="doccomment">/// any widget can be used, such as [`SpinButton`][crate::SpinButton] or [`Scale`][crate::Scale].</span>
+    <span class="doccomment">/// In this respect, GtkPopoverMenu is more flexible than popovers</span>
+    <span class="doccomment">/// that are created from a [`gio::MenuModel`][crate::gio::MenuModel] with [`Popover::from_model()`][crate::Popover::from_model()].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To add a child as a submenu, set the [`crate::PopoverMenu:submenu`]</span>
+    <span class="doccomment">/// To add a child as a submenu, set the `property::PopoverMenu::submenu`</span>
     <span class="doccomment">/// child property to the name of the submenu. To let the user open</span>
-    <span class="doccomment">/// this submenu, add a [`crate::ModelButton`] whose [`crate::ModelButton:menu-name`]</span>
+    <span class="doccomment">/// this submenu, add a [`ModelButton`][crate::ModelButton] whose `property::ModelButton::menu-name`</span>
     <span class="doccomment">/// property is set to the name you&#39;ve given to the submenu.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// By convention, the first child of a submenu should be a [`crate::ModelButton`]</span>
+    <span class="doccomment">/// By convention, the first child of a submenu should be a [`ModelButton`][crate::ModelButton]</span>
     <span class="doccomment">/// to switch back to the parent menu. Such a button should use the</span>
-    <span class="doccomment">/// [`crate::ModelButton:inverted`] and [`crate::ModelButton:centered`] properties</span>
+    <span class="doccomment">/// `property::ModelButton::inverted` and `property::ModelButton::centered` properties</span>
     <span class="doccomment">/// to achieve a title-like appearance and place the submenu indicator</span>
     <span class="doccomment">/// at the opposite side. To switch back to the main menu, use &quot;main&quot;</span>
     <span class="doccomment">/// as the menu name.</span>
@@ -857,12 +857,12 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Just like normal popovers created using gtk_popover_new_from_model,</span>
-    <span class="doccomment">/// [`crate::PopoverMenu`] instances have a single css node called &quot;popover&quot;</span>
+    <span class="doccomment">/// [`PopoverMenu`][crate::PopoverMenu] instances have a single css node called &quot;popover&quot;</span>
     <span class="doccomment">/// and get the .menu style class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::PopoverExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`PopoverExt`][trait@crate::prelude::PopoverExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PopoverMenu</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkPopoverMenu</span>, <span class="ident">ffi::GtkPopoverMenuClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Popover</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -875,7 +875,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::PopoverMenu`]</span>
+    <span class="doccomment">/// a new [`PopoverMenu`][crate::PopoverMenu]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_popover_menu_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PopoverMenu</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -891,11 +891,11 @@
 
     <span class="doccomment">/// Opens a submenu of the `self`. The `name`</span>
     <span class="doccomment">/// must be one of the names given to the submenus</span>
-    <span class="doccomment">/// of `self` with [`crate::PopoverMenu:submenu`], or</span>
+    <span class="doccomment">/// of `self` with `property::PopoverMenu::submenu`, or</span>
     <span class="doccomment">/// &quot;main&quot; to switch back to the main menu.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`crate::ModelButton`] will open submenus automatically</span>
-    <span class="doccomment">/// when the [`crate::ModelButton:menu-name`] property is set,</span>
+    <span class="doccomment">/// [`ModelButton`][crate::ModelButton] will open submenus automatically</span>
+    <span class="doccomment">/// when the `property::ModelButton::menu-name` property is set,</span>
     <span class="doccomment">/// so this function is only needed when you are using</span>
     <span class="doccomment">/// other kinds of widgets to initiate menu changes.</span>
     <span class="doccomment">/// ## `name`</span>
@@ -1251,8 +1251,8 @@
 
     <span class="doccomment">/// Whether show/hide transitions are enabled for this popover.</span>
     <span class="doccomment">/// You can show or hide the popover without transitions</span>
-    <span class="doccomment">///  using [`crate::prelude::WidgetExt::show()`] and [`crate::prelude::WidgetExt::hide()`] while [`crate::prelude::PopoverExt::popup()`]</span>
-    <span class="doccomment">///  and [`crate::prelude::PopoverExt::popdown()`] will use transitions.</span>
+    <span class="doccomment">///  using [`WidgetExt::show()`][crate::prelude::WidgetExt::show()] and [`WidgetExt::hide()`][crate::prelude::WidgetExt::hide()] while [`PopoverExt::popup()`][crate::prelude::PopoverExt::popup()]</span>
+    <span class="doccomment">///  and [`PopoverExt::popdown()`][crate::prelude::PopoverExt::popdown()] will use transitions.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transitions_enabled</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">transitions_enabled</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">transitions_enabled</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">transitions_enabled</span>);
@@ -1294,7 +1294,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`crate::Widget:hexpand`] and [`crate::Widget:vexpand`]</span>
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">expand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expand</span>);
         <span class="self">self</span>
@@ -1304,8 +1304,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property is only relevant for widgets that can take focus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.20, several widgets (`Button`, `FileChooserButton`,</span>
-    <span class="doccomment">/// `ComboBox`) implemented this property individually.</span>
+    <span class="doccomment">/// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,</span>
+    <span class="doccomment">/// GtkComboBox) implemented this property individually.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">focus_on_click</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1313,7 +1313,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">halign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">halign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">halign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">halign</span>);
         <span class="self">self</span>
@@ -1329,13 +1329,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Enables or disables the emission of [`crate::Widget::query-tooltip`] on `widget`.</span>
+    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.</span>
     <span class="doccomment">/// A value of [`true`] indicates that `widget` can have a tooltip, in this case</span>
-    <span class="doccomment">/// the widget will be queried using [`crate::Widget::query-tooltip`] to determine</span>
+    <span class="doccomment">/// the widget will be queried using `signal::Widget::query-tooltip` to determine</span>
     <span class="doccomment">/// whether it will provide a tooltip or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that setting this property to [`true`] for the first time will change</span>
-    <span class="doccomment">/// the event masks of the `GdkWindows` of this widget to include leave-notify</span>
+    <span class="doccomment">/// the event masks of the GdkWindows of this widget to include leave-notify</span>
     <span class="doccomment">/// and motion-notify events. This cannot and will not be undone when the</span>
     <span class="doccomment">/// property is set to [`false`] again.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_tooltip</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_tooltip</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1348,13 +1348,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand horizontally. See [`crate::prelude::WidgetExt::set_hexpand()`].</span>
+    <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:hexpand`] property. See [`crate::prelude::WidgetExt::get_hexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand_set</span>);
         <span class="self">self</span>
@@ -1376,7 +1376,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_bottom</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_bottom</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_bottom</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_bottom</span>);
         <span class="self">self</span>
@@ -1387,7 +1387,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_end</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_end</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_end</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_end</span>);
         <span class="self">self</span>
@@ -1398,7 +1398,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_start</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_start</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_start</span>);
         <span class="self">self</span>
@@ -1408,7 +1408,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_top</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_top</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_top</span>);
         <span class="self">self</span>
@@ -1424,10 +1424,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The requested opacity of the widget. See [`crate::prelude::WidgetExt::set_opacity()`] for</span>
+    <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for</span>
     <span class="doccomment">/// more details about window opacity.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.8 this was only available in `Window`</span>
+    <span class="doccomment">/// Before 3.8 this was only available in GtkWindow</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">opacity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opacity</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">opacity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">opacity</span>);
         <span class="self">self</span>
@@ -1450,14 +1450,14 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_markup()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_markup</span>.<span class="ident">to_string</span>());
@@ -1466,33 +1466,33 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_text()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">valign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">valign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">valign</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand vertically. See [`crate::prelude::WidgetExt::set_vexpand()`].</span>
+    <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:vexpand`] property. See [`crate::prelude::WidgetExt::get_vexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand_set</span>);
         <span class="self">self</span>

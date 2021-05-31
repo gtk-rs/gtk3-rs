@@ -109,13 +109,13 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// This class is the base object class for a factory used to create an</span>
     <span class="doccomment">/// accessible object for a specific GType. The function</span>
-    <span class="doccomment">/// [`crate::prelude::RegistryExt::set_factory_type()`] is normally called to store in the</span>
+    <span class="doccomment">/// [`RegistryExt::set_factory_type()`][crate::prelude::RegistryExt::set_factory_type()] is normally called to store in the</span>
     <span class="doccomment">/// registry the factory type to be used to create an accessible of a</span>
     <span class="doccomment">/// particular GType.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::ObjectFactoryExt`], [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`ObjectFactoryExt`][trait@crate::prelude::ObjectFactoryExt], [`trait@glib::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ObjectFactory</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkObjectFactory</span>, <span class="ident">ffi::AtkObjectFactoryClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -129,16 +129,16 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::NoOpObjectFactory`], [`struct@crate::ObjectFactory`]</span>
+<span class="doccomment">/// [`NoOpObjectFactory`][struct@crate::NoOpObjectFactory], [`ObjectFactory`][struct@crate::ObjectFactory]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ObjectFactoryExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Provides an [`crate::Object`] that implements an accessibility interface</span>
+    <span class="doccomment">/// Provides an [`Object`][crate::Object] that implements an accessibility interface</span>
     <span class="doccomment">/// on behalf of `obj`</span>
     <span class="doccomment">/// ## `obj`</span>
-    <span class="doccomment">/// a [`crate::glib::object::Object`]</span>
+    <span class="doccomment">/// a [`glib::Object`][crate::glib::Object]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`crate::Object`] that implements an accessibility</span>
+    <span class="doccomment">/// an [`Object`][crate::Object] that implements an accessibility</span>
     <span class="doccomment">/// interface on behalf of `obj`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_object_factory_create_accessible&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">create_accessible</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib::Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>;

@@ -6,13 +6,13 @@ between <code>event_base</code> and <code>event_base + n_events - 1</code>.
 The registered events must have the window field in the same place
 as core X events (this is not the case for e.g. XKB extension events).</p>
 <p>If an event type is registered, events of this type will go through
-global and window-specific filters (see [<code>crate::gdk::Window::add_filter()</code>]).
+global and window-specific filters (see [<code>WindowExtManual::add_filter()</code>][crate::gdk::prelude::WindowExtManual::add_filter()]).
 Unregistered events will only go through global filters.
 GDK may register the events of some X extensions on its own.</p>
 <p>This function should only be needed in unusual circumstances, e.g.
 when filtering XInput extension events on the root window.</p>
 <h2 id="display" class="section-header"><a href="#display"><code>display</code></a></h2>
-<p>a <a href="../../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>crate::gdk::Display</code></a></p>
+<p>a <a href="../../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a></p>
 <h2 id="event_base" class="section-header"><a href="#event_base"><code>event_base</code></a></h2>
 <p>first event type code to register</p>
 <h2 id="n_events" class="section-header"><a href="#n_events"><code>n_events</code></a></h2>

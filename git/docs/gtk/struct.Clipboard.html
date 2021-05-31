@@ -1,11 +1,11 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The [`crate::Clipboard`] object represents a clipboard of data shared between different processes or between different widgets in the same process. Each clipboard is identified by a name encoded as a [`crate::gdk::Atom`]. (Conversion to and from strings can be done with [`crate::gdk::Atom::intern()`] and [`crate::gdk::Atom::name()`].) The default clipboard corresponds to the “CLIPBOARD” atom; another commonly used clipboard is the “PRIMARY” clipboard, which, in X, traditionally contains the currently selected text."><meta name="keywords" content="rust, rustlang, rust-lang, Clipboard"><title>Clipboard in gtk - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The [`Clipboard`][crate::Clipboard] object represents a clipboard of data shared between different processes or between different widgets in the same process. Each clipboard is identified by a name encoded as a [`gdk::Atom`][crate::gdk::Atom]. (Conversion to and from strings can be done with [`gdk::Atom::intern()`][crate::gdk::Atom::intern()] and [`gdk::Atom::name()`][crate::gdk::Atom::name()].) The default clipboard corresponds to the “CLIPBOARD” atom; another commonly used clipboard is the “PRIMARY” clipboard, which, in X, traditionally contains the currently selected text."><meta name="keywords" content="rust, rustlang, rust-lang, Clipboard"><title>Clipboard in gtk - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc struct"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../gtk/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Struct Clipboard</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#implementations">Methods</a><div class="sidebar-links"><a href="#method.clear">clear</a><a href="#method.default">default</a><a href="#method.display">display</a><a href="#method.for_display">for_display</a><a href="#method.get">get</a><a href="#method.owner">owner</a><a href="#method.request_contents">request_contents</a><a href="#method.request_image">request_image</a><a href="#method.request_rich_text">request_rich_text</a><a href="#method.request_text">request_text</a><a href="#method.request_uris">request_uris</a><a href="#method.selection">selection</a><a href="#method.set_image">set_image</a><a href="#method.set_text">set_text</a><a href="#method.set_with_data">set_with_data</a><a href="#method.store">store</a><a href="#method.wait_for_contents">wait_for_contents</a><a href="#method.wait_for_image">wait_for_image</a><a href="#method.wait_for_rich_text">wait_for_rich_text</a><a href="#method.wait_for_targets">wait_for_targets</a><a href="#method.wait_for_text">wait_for_text</a><a href="#method.wait_for_uris">wait_for_uris</a><a href="#method.wait_is_image_available">wait_is_image_available</a><a href="#method.wait_is_rich_text_available">wait_is_rich_text_available</a><a href="#method.wait_is_target_available">wait_is_target_available</a><a href="#method.wait_is_text_available">wait_is_text_available</a><a href="#method.wait_is_uris_available">wait_is_uris_available</a></div><a class="sidebar-title" href="#trait-implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-Debug">Debug</a><a href="#impl-Display">Display</a><a href="#impl-Eq">Eq</a><a href="#impl-Hash">Hash</a><a href="#impl-Ord">Ord</a><a href="#impl-ParentClassIs">ParentClassIs</a><a href="#impl-PartialEq%3CT%3E">PartialEq&lt;T&gt;</a><a href="#impl-PartialOrd%3CT%3E">PartialOrd&lt;T&gt;</a><a href="#impl-StaticType">StaticType</a><a href="#impl-StructuralEq">StructuralEq</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-RefUnwindSafe">RefUnwindSafe</a><a href="#impl-Send">!Send</a><a href="#impl-Sync">!Sync</a><a href="#impl-Unpin">Unpin</a><a href="#impl-UnwindSafe">UnwindSafe</a></div><a class="sidebar-title" href="#blanket-implementations">Blanket Implementations</a><div class="sidebar-links"><a href="#impl-Any">Any</a><a href="#impl-Borrow%3CT%3E">Borrow&lt;T&gt;</a><a href="#impl-BorrowMut%3CT%3E">BorrowMut&lt;T&gt;</a><a href="#impl-CanDowncast%3CSub%3E">CanDowncast&lt;Sub&gt;</a><a href="#impl-Cast">Cast</a><a href="#impl-From%3CT%3E">From&lt;T&gt;</a><a href="#impl-FromValueOptional%3C%27a%3E">FromValueOptional&lt;&#39;a&gt;</a><a href="#impl-Into%3CU%3E">Into&lt;U&gt;</a><a href="#impl-ObjectExt">ObjectExt</a><a href="#impl-ToOwned">ToOwned</a><a href="#impl-ToSendValue">ToSendValue</a><a href="#impl-ToString">ToString</a><a href="#impl-TryFrom%3CU%3E">TryFrom&lt;U&gt;</a><a href="#impl-TryInto%3CU%3E">TryInto&lt;U&gt;</a></div></div><p class="location"><a href="index.html">gtk</a></p><div id="sidebar-vars" data-name="Clipboard" data-ty="struct" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gtk</a>::<wbr><a class="struct" href="">Clipboard</a><button id="copy-path" onclick="copy_path(this)"><img src="../clipboard.svg" width="19" height="18" alt="Copy item import"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#14-81" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct Clipboard(_);</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The <a href="struct.Clipboard.html" title="crate::Clipboard"><code>crate::Clipboard</code></a> object represents a clipboard of data shared
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gtk</a>::<wbr><a class="struct" href="">Clipboard</a><button id="copy-path" onclick="copy_path(this)"><img src="../clipboard.svg" width="19" height="18" alt="Copy item import"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#14-81" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct Clipboard(_);</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The <a href="struct.Clipboard.html" title="crate::Clipboard"><code>Clipboard</code></a> object represents a clipboard of data shared
 between different processes or between different widgets in
 the same process. Each clipboard is identified by a name encoded as a
-<a href="../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>crate::gdk::Atom</code></a>. (Conversion to and from strings can be done with
-<a href="../gdk/atom/struct.Atom.html#method.intern" title="crate::gdk::Atom::intern()"><code>crate::gdk::Atom::intern()</code></a> and <a href="../gdk/atom/struct.Atom.html#method.name" title="crate::gdk::Atom::name()"><code>crate::gdk::Atom::name()</code></a>.) The default clipboard
+<a href="../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a>. (Conversion to and from strings can be done with
+<a href="../gdk/atom/struct.Atom.html#method.intern" title="crate::gdk::Atom::intern()"><code>gdk::Atom::intern()</code></a> and <a href="../gdk/atom/struct.Atom.html#method.name" title="crate::gdk::Atom::name()"><code>gdk::Atom::name()</code></a>.) The default clipboard
 corresponds to the “CLIPBOARD” atom; another commonly used clipboard
 is the “PRIMARY” clipboard, which, in X, traditionally contains
 the currently selected text.</p>
@@ -13,23 +13,23 @@ the currently selected text.</p>
 at the same time, the clipboard mechanism allows providing
 callbacks instead of the actual data. When you set the contents
 of the clipboard, you can either supply the data directly (via
-functions like <a href="struct.Clipboard.html#method.set_text" title="Self::set_text()"><code>Self::set_text()</code></a>), or you can supply a
+functions like <a href="struct.Clipboard.html#method.set_text" title="Self::set_text()"><code>set_text()</code></a>), or you can supply a
 callback to be called at a later time when the data is needed (via
-<a href="struct.Clipboard.html#method.set_with_data" title="Self::set_with_data()"><code>Self::set_with_data()</code></a> or [<code>Self::set_with_owner()</code>].)
+<code>gtk_clipboard_set_with_data()</code> or <code>gtk_clipboard_set_with_owner()</code>.)
 Providing a callback also avoids having to make copies of the data
 when it is not needed.</p>
-<p><a href="struct.Clipboard.html#method.set_with_data" title="Self::set_with_data()"><code>Self::set_with_data()</code></a> and [<code>Self::set_with_owner()</code>]
+<p><code>gtk_clipboard_set_with_data()</code> and <code>gtk_clipboard_set_with_owner()</code>
 are quite similar; the choice between the two depends mostly on
 which is more convenient in a particular situation.
 The former is most useful when you want to have a blob of data
 with callbacks to convert it into the various data types that you
 advertise. When the <code>clear_func</code> you provided is called, you
 simply free the data blob. The latter is more useful when the
-contents of clipboard reflect the internal state of a [<code>crate::glib::object::Object</code>]
+contents of clipboard reflect the internal state of a [<code>glib::Object</code>][crate::glib::Object]
 (As an example, for the PRIMARY clipboard, when an entry widget
 provides the clipboard’s contents the contents are simply the
 text within the selected region.) If the contents change, the
-entry widget can call [<code>Self::set_with_owner()</code>] to update
+entry widget can call <code>gtk_clipboard_set_with_owner()</code> to update
 the timestamp for clipboard ownership, without having to worry
 about <code>clear_func</code> being called.</p>
 <p>Requesting the data from the clipboard is essentially
@@ -38,36 +38,36 @@ the same process, then a direct function call will be made to
 retrieve the data, but if they are provided by another process,
 then the data needs to be retrieved from the other process, which
 may take some time. To avoid blocking the user interface, the call
-to request the selection, <a href="struct.Clipboard.html#method.request_contents" title="Self::request_contents()"><code>Self::request_contents()</code></a> takes a
+to request the selection, <a href="struct.Clipboard.html#method.request_contents" title="Self::request_contents()"><code>request_contents()</code></a> takes a
 callback that will be called when the contents are received (or
 when the request fails.) If you don’t want to deal with providing
-a separate callback, you can also use <a href="struct.Clipboard.html#method.wait_for_contents" title="Self::wait_for_contents()"><code>Self::wait_for_contents()</code></a>.
+a separate callback, you can also use <a href="struct.Clipboard.html#method.wait_for_contents" title="Self::wait_for_contents()"><code>wait_for_contents()</code></a>.
 What this does is run the GLib main loop recursively waiting for
 the contents. This can simplify the code flow, but you still have
 to be aware that other callbacks in your program can be called
 while this recursive mainloop is running.</p>
 <p>Along with the functions to get the clipboard contents as an
 arbitrary data chunk, there are also functions to retrieve
-it as text, <a href="struct.Clipboard.html#method.request_text" title="Self::request_text()"><code>Self::request_text()</code></a> and
-<a href="struct.Clipboard.html#method.wait_for_text" title="Self::wait_for_text()"><code>Self::wait_for_text()</code></a>. These functions take care of
+it as text, <a href="struct.Clipboard.html#method.request_text" title="Self::request_text()"><code>request_text()</code></a> and
+<a href="struct.Clipboard.html#method.wait_for_text" title="Self::wait_for_text()"><code>wait_for_text()</code></a>. These functions take care of
 determining which formats are advertised by the clipboard
 provider, asking for the clipboard in the best available format
 and converting the results into the UTF-8 encoding. (The standard
 form for representing strings in GTK+.)</p>
 <h1 id="implements" class="section-header"><a href="#implements">Implements</a></h1>
-<p>[<code>trait@glib::object::ObjectExt</code>]</p>
+<p>[<code>trait@glib::ObjectExt</code>]</p>
 </div></details><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle" open><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.Clipboard.html" title="struct gtk::Clipboard">Clipboard</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#83-685" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.clear" class="method"><code>pub fn <a href="#method.clear" class="fnname">clear</a>(&amp;self)</code><a href="#method.clear" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#90-94" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Clears the contents of the clipboard. Generally this should only
-be called between the time you call [<code>Self::set_with_owner()</code>]
-or <a href="struct.Clipboard.html#method.set_with_data" title="Self::set_with_data()"><code>Self::set_with_data()</code></a>,
+be called between the time you call <code>gtk_clipboard_set_with_owner()</code>
+or <code>gtk_clipboard_set_with_data()</code>,
 and when the <code>clear_func</code> you supplied is called. Otherwise, the
 clipboard may be owned by someone else.</p>
-</div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.display" class="method"><code>pub fn <a href="#method.display" class="fnname">display</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gdk/auto/display/struct.Display.html" title="struct gdk::auto::display::Display">Display</a>&gt;</code><a href="#method.display" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#103-105" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Gets the <a href="../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>crate::gdk::Display</code></a> associated with <code>self</code></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.display" class="method"><code>pub fn <a href="#method.display" class="fnname">display</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gdk/auto/display/struct.Display.html" title="struct gdk::auto::display::Display">Display</a>&gt;</code><a href="#method.display" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#103-105" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Gets the <a href="../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a> associated with <code>self</code></p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
-<p>the <a href="../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>crate::gdk::Display</code></a> associated with <code>self</code></p>
+<p>the <a href="../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a> associated with <code>self</code></p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.owner" class="method"><code>pub fn <a href="#method.owner" class="fnname">owner</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;Object&gt;</code><a href="#method.owner" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#118-120" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>If the clipboard contents callbacks were set with
-[<code>Self::set_with_owner()</code>], and the <a href="struct.Clipboard.html#method.set_with_data" title="Self::set_with_data()"><code>Self::set_with_data()</code></a> or
-<a href="struct.Clipboard.html#method.clear" title="Self::clear()"><code>Self::clear()</code></a> has not subsequently called, returns the owner set
-by [<code>Self::set_with_owner()</code>].</p>
+<code>gtk_clipboard_set_with_owner()</code>, and the <code>gtk_clipboard_set_with_data()</code> or
+<a href="struct.Clipboard.html#method.clear" title="Self::clear()"><code>clear()</code></a> has not subsequently called, returns the owner set
+by <code>gtk_clipboard_set_with_owner()</code>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the owner of the clipboard, if any;
 otherwise <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
@@ -85,10 +85,10 @@ owner should convert the selection.</p>
 (or the retrieval fails). If the retrieval fails the length field of
 <code>selection_data</code> will be negative.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.request_image" class="method"><code>pub fn <a href="#method.request_image" class="fnname">request_image</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="trait core::ops::function::FnOnce">FnOnce</a>(&amp;<a class="struct" href="struct.Clipboard.html" title="struct gtk::Clipboard">Clipboard</a>, &amp;Pixbuf) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;callback: P<br>)</code><a href="#method.request_image" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#187-208" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Requests the contents of the clipboard as image. When the image is
-later received, it will be converted to a [<code>crate::gdk_pixbuf::Pixbuf</code>], and
+later received, it will be converted to a [<code>gdk_pixbuf::Pixbuf</code>][crate::gdk_pixbuf::Pixbuf], and
 <code>callback</code> will be called.</p>
 <p>The <code>pixbuf</code> parameter to <code>callback</code> will contain the resulting
-[<code>crate::gdk_pixbuf::Pixbuf</code>] if the request succeeded, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if it failed. This
+[<code>gdk_pixbuf::Pixbuf</code>][crate::gdk_pixbuf::Pixbuf] if the request succeeded, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if it failed. This
 could happen for various reasons, in particular if the clipboard
 was empty or if the contents of the clipboard could not be
 converted into an image.</p>
@@ -103,7 +103,7 @@ parameter will contain <code>text</code>’s length. This function can fail for
 various reasons, in particular if the clipboard was empty or if the
 contents of the clipboard could not be converted into rich text form.</p>
 <h2 id="buffer" class="section-header"><a href="#buffer"><code>buffer</code></a></h2>
-<p>a <a href="struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a></p>
+<p>a <a href="struct.TextBuffer.html" title="crate::TextBuffer"><code>TextBuffer</code></a></p>
 <h2 id="callback-2" class="section-header"><a href="#callback-2"><code>callback</code></a></h2>
 <p>a function to call when the text is received,
 or the retrieval fails. (It will always be called one way or the other.)</p>
@@ -117,12 +117,12 @@ contents of the clipboard could not be converted into text form.</p>
 <h2 id="callback-3" class="section-header"><a href="#callback-3"><code>callback</code></a></h2>
 <p>a function to call when the text is received,
 or the retrieval fails. (It will always be called one way or the other.)</p>
-</div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.set_image" class="method"><code>pub fn <a href="#method.set_image" class="fnname">set_image</a>(&amp;self, pixbuf: &amp;Pixbuf)</code><a href="#method.set_image" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#303-307" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Sets the contents of the clipboard to the given [<code>crate::gdk_pixbuf::Pixbuf</code>].
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.set_image" class="method"><code>pub fn <a href="#method.set_image" class="fnname">set_image</a>(&amp;self, pixbuf: &amp;Pixbuf)</code><a href="#method.set_image" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#303-307" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Sets the contents of the clipboard to the given [<code>gdk_pixbuf::Pixbuf</code>][crate::gdk_pixbuf::Pixbuf].
 GTK+ will take responsibility for responding for requests
 for the image, and for converting the image into the
 requested format.</p>
 <h2 id="pixbuf" class="section-header"><a href="#pixbuf"><code>pixbuf</code></a></h2>
-<p>a [<code>crate::gdk_pixbuf::Pixbuf</code>]</p>
+<p>a [<code>gdk_pixbuf::Pixbuf</code>][crate::gdk_pixbuf::Pixbuf]</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.set_text" class="method"><code>pub fn <a href="#method.set_text" class="fnname">set_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a href="#method.set_text" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#319-324" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Sets the contents of the clipboard to the given UTF-8 string. GTK+ will
 make a copy of the text and take responsibility for responding
 for requests for the text, and for converting the text into
@@ -141,17 +141,17 @@ loop, so events, timeouts, etc, may be dispatched during the wait.</p>
 <p>an atom representing the form into which the clipboard
 owner should convert the selection.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p>a newly-allocated <a href="struct.SelectionData.html" title="crate::SelectionData"><code>crate::SelectionData</code></a> object or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
+<p>a newly-allocated <a href="struct.SelectionData.html" title="crate::SelectionData"><code>SelectionData</code></a> object or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
 if retrieving the given target failed. If non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>,
-this value must be freed with [<code>crate::SelectionData::free()</code>]
+this value must be freed with <code>gtk_selection_data_free()</code>
 when you are finished with it.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.wait_for_image" class="method"><code>pub fn <a href="#method.wait_for_image" class="fnname">wait_for_image</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;Pixbuf&gt;</code><a href="#method.wait_for_image" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#372-374" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Requests the contents of the clipboard as image and converts
-the result to a [<code>crate::gdk_pixbuf::Pixbuf</code>]. This function waits for
+the result to a [<code>gdk_pixbuf::Pixbuf</code>][crate::gdk_pixbuf::Pixbuf]. This function waits for
 the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
-<p>a newly-allocated [<code>crate::gdk_pixbuf::Pixbuf</code>]
-object which must be disposed with [<code>crate::glib::object::Object::unref()</code>], or
+<p>a newly-allocated [<code>gdk_pixbuf::Pixbuf</code>][crate::gdk_pixbuf::Pixbuf]
+object which must be disposed with <code>g_object_unref()</code>, or
 <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if retrieving the selection data failed. (This could
 happen for various reasons, in particular if the clipboard
 was empty or if the contents of the clipboard could not be
@@ -160,7 +160,7 @@ converted into an image.)</p>
 waits for the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.</p>
 <h2 id="buffer-1" class="section-header"><a href="#buffer-1"><code>buffer</code></a></h2>
-<p>a <a href="struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a></p>
+<p>a <a href="struct.TextBuffer.html" title="crate::TextBuffer"><code>TextBuffer</code></a></p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>a
 newly-allocated binary block of data which must be
@@ -209,7 +209,7 @@ if it contains any of the supported image targets. This function
 waits for the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.</p>
 <p>This function is a little faster than calling
-<a href="struct.Clipboard.html#method.wait_for_image" title="Self::wait_for_image()"><code>Self::wait_for_image()</code></a> since it doesn’t need to retrieve
+<a href="struct.Clipboard.html#method.wait_for_image" title="Self::wait_for_image()"><code>wait_for_image()</code></a> since it doesn’t need to retrieve
 the actual image data.</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> is there is an image available, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
@@ -219,10 +219,10 @@ if it contains any of the supported rich text targets. This function
 waits for the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.</p>
 <p>This function is a little faster than calling
-<a href="struct.Clipboard.html#method.wait_for_rich_text" title="Self::wait_for_rich_text()"><code>Self::wait_for_rich_text()</code></a> since it doesn’t need to retrieve
+<a href="struct.Clipboard.html#method.wait_for_rich_text" title="Self::wait_for_rich_text()"><code>wait_for_rich_text()</code></a> since it doesn’t need to retrieve
 the actual text.</p>
 <h2 id="buffer-2" class="section-header"><a href="#buffer-2"><code>buffer</code></a></h2>
-<p>a <a href="struct.TextBuffer.html" title="crate::TextBuffer"><code>crate::TextBuffer</code></a></p>
+<p>a <a href="struct.TextBuffer.html" title="crate::TextBuffer"><code>TextBuffer</code></a></p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> is there is rich text available, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.wait_is_target_available" class="method"><code>pub fn <a href="#method.wait_is_target_available" class="fnname">wait_is_target_available</a>(&amp;self, target: &amp;<a class="struct" href="../gdk/atom/struct.Atom.html" title="struct gdk::atom::Atom">Atom</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.wait_is_target_available" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#547-554" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Checks if a clipboard supports pasting data of a given type. This
@@ -231,7 +231,7 @@ insensitive or not.</p>
 <p>If you want to see if there’s text available on the clipboard, use
 gtk_clipboard_wait_is_text_available () instead.</p>
 <h2 id="target-2" class="section-header"><a href="#target-2"><code>target</code></a></h2>
-<p>A <a href="../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>crate::gdk::Atom</code></a> indicating which target to look for.</p>
+<p>A <a href="../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a> indicating which target to look for.</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the target is available, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.wait_is_text_available" class="method"><code>pub fn <a href="#method.wait_is_text_available" class="fnname">wait_is_text_available</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a href="#method.wait_is_text_available" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#570-576" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Test to see if there is text available to be pasted
@@ -240,7 +240,7 @@ if it contains any of the supported text targets. This function
 waits for the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.</p>
 <p>This function is a little faster than calling
-<a href="struct.Clipboard.html#method.wait_for_text" title="Self::wait_for_text()"><code>Self::wait_for_text()</code></a> since it doesn’t need to retrieve
+<a href="struct.Clipboard.html#method.wait_for_text" title="Self::wait_for_text()"><code>wait_for_text()</code></a> since it doesn’t need to retrieve
 the actual text.</p>
 <h1 id="returns-12" class="section-header"><a href="#returns-12">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> is there is text available, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
@@ -250,14 +250,14 @@ if it contains the URI targets. This function
 waits for the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.</p>
 <p>This function is a little faster than calling
-<a href="struct.Clipboard.html#method.wait_for_uris" title="Self::wait_for_uris()"><code>Self::wait_for_uris()</code></a> since it doesn’t need to retrieve
+<a href="struct.Clipboard.html#method.wait_for_uris" title="Self::wait_for_uris()"><code>wait_for_uris()</code></a> since it doesn’t need to retrieve
 the actual URI data.</p>
 <h1 id="returns-13" class="section-header"><a href="#returns-13">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> is there is an URI list available, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.get" class="method"><code>pub fn <a href="#method.get" class="fnname">get</a>(selection: &amp;<a class="struct" href="../gdk/atom/struct.Atom.html" title="struct gdk::atom::Atom">Atom</a>) -&gt; <a class="struct" href="struct.Clipboard.html" title="struct gtk::Clipboard">Clipboard</a></code><a href="#method.get" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#612-615" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Returns the clipboard object for the given selection.
-See [<code>Self::get_for_display()</code>] for complete details.</p>
+See <a href="struct.Clipboard.html#method.for_display" title="Self::for_display()"><code>for_display()</code></a> for complete details.</p>
 <h2 id="selection" class="section-header"><a href="#selection"><code>selection</code></a></h2>
-<p>a <a href="../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>crate::gdk::Atom</code></a> which identifies the clipboard to use</p>
+<p>a <a href="../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a> which identifies the clipboard to use</p>
 <h1 id="returns-14" class="section-header"><a href="#returns-14">Returns</a></h1>
 <p>the appropriate clipboard object. If no clipboard
 already exists, a new one will be created. Once a clipboard
@@ -266,7 +266,7 @@ owned by GTK+, must not be freed or unreffed.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.default" class="method"><code>pub fn <a href="#method.default" class="fnname">default</a>(display: &amp;<a class="struct" href="../gdk/auto/display/struct.Display.html" title="struct gdk::auto::display::Display">Display</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.Clipboard.html" title="struct gtk::Clipboard">Clipboard</a>&gt;</code><a href="#method.default" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#627-630" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Returns the default clipboard object for use with cut/copy/paste menu items
 and keyboard shortcuts.</p>
 <h2 id="display" class="section-header"><a href="#display"><code>display</code></a></h2>
-<p>the <a href="../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>crate::gdk::Display</code></a> for which the clipboard is to be retrieved.</p>
+<p>the <a href="../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a> for which the clipboard is to be retrieved.</p>
 <h1 id="returns-15" class="section-header"><a href="#returns-15">Returns</a></h1>
 <p>the default clipboard object.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.for_display" class="method"><code>pub fn <a href="#method.for_display" class="fnname">for_display</a>(display: &amp;<a class="struct" href="../gdk/auto/display/struct.Display.html" title="struct gdk::auto::display::Display">Display</a>, selection: &amp;<a class="struct" href="../gdk/atom/struct.Atom.html" title="struct gdk::atom::Atom">Atom</a>) -&gt; <a class="struct" href="struct.Clipboard.html" title="struct gtk::Clipboard">Clipboard</a></code><a href="#method.for_display" class="anchor"></a><a class="srclink" href="../src/gtk/auto/clipboard.rs.html#671-679" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Returns the clipboard object for the given selection.
@@ -292,9 +292,9 @@ underscore-prefixed), and namespace it as well. For example,
 if your application called “Foo” has a special-purpose
 clipboard, you might call it “_FOO_SPECIAL_CLIPBOARD”.</p>
 <h2 id="display-1" class="section-header"><a href="#display-1"><code>display</code></a></h2>
-<p>the <a href="../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>crate::gdk::Display</code></a> for which the clipboard is to be retrieved or created.</p>
+<p>the <a href="../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a> for which the clipboard is to be retrieved or created.</p>
 <h2 id="selection-1" class="section-header"><a href="#selection-1"><code>selection</code></a></h2>
-<p>a <a href="../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>crate::gdk::Atom</code></a> which identifies the clipboard to use.</p>
+<p>a <a href="../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a> which identifies the clipboard to use.</p>
 <h1 id="returns-16" class="section-header"><a href="#returns-16">Returns</a></h1>
 <p>the appropriate clipboard object. If no
 clipboard already exists, a new one will be created. Once a clipboard
@@ -384,7 +384,7 @@ runtime, while <code>downcast</code> and <code>upcast</code> will do many checks
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.clone_into" class="method trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into" class="fnname">clone_into</a>(&amp;self, target: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>T)</code><a href="#method.clone_into" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#93" title="goto source code">[src]</a></h4></summary><div class="item-info"><div class="stab unstable"><details><summary><span class="emoji">🔬</span> This is a nightly-only experimental API. (<code>toowned_clone_into</code>)</summary><p>recently added</p>
 </details></div></div><div class='docblock'><p>Uses borrowed data to replace owned data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into">Read more</a></p>
 </div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToSendValue" class="impl"><code class="in-band">impl&lt;T&gt; ToSendValue for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + ToValue + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToSendValue" class="anchor"></a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.to_send_value" class="method trait-impl"><code>pub fn <a href="#tymethod.to_send_value" class="fnname">to_send_value</a>(&amp;self) -&gt; SendValue</code><a href="#method.to_send_value" class="anchor"></a></h4></summary><div class='docblock'><p>Returns a <code>SendValue</code> clone of <code>self</code>.</p>
-</div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToString" class="impl"><code class="in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html" title="trait alloc::string::ToString">ToString</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToString" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2319-2333" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.to_string" class="method trait-impl"><code>pub default fn <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string" class="fnname">to_string</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code><a href="#method.to_string" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2325" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Converts the given value to a <code>String</code>. <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">Read more</a></p>
+</div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToString" class="impl"><code class="in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html" title="trait alloc::string::ToString">ToString</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToString" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2355-2369" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.to_string" class="method trait-impl"><code>pub default fn <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string" class="fnname">to_string</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code><a href="#method.to_string" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2361" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Converts the given value to a <code>String</code>. <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">Read more</a></p>
 </div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-TryFrom%3CU%3E" class="impl"><code class="in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,&nbsp;</span></code><a href="#impl-TryFrom%3CU%3E" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle" open><summary><h4 id="associatedtype.Error" class="type trait-impl"><code>type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="type">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></code><a href="#associatedtype.Error" class="anchor"></a></h4></summary><div class='docblock'><p>The type returned in the event of a conversion error.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.try_from" class="method trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</code><a href="#method.try_from" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Performs the conversion.</p>
 </div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-TryInto%3CU%3E" class="impl"><code class="in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html" title="trait core::convert::TryInto">TryInto</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;,&nbsp;</span></code><a href="#impl-TryInto%3CU%3E" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle" open><summary><h4 id="associatedtype.Error-1" class="type trait-impl"><code>type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error" class="type">Error</a> = &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a></code><a href="#associatedtype.Error-1" class="anchor"></a></h4></summary><div class='docblock'><p>The type returned in the event of a conversion error.</p>

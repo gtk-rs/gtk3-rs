@@ -1174,49 +1174,49 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The `Box` widget arranges child widgets into a single row or column,</span>
-    <span class="doccomment">/// depending upon the value of its [`crate::Orientable:orientation`] property. Within</span>
+    <span class="doccomment">/// The GtkBox widget arranges child widgets into a single row or column,</span>
+    <span class="doccomment">/// depending upon the value of its `property::Orientable::orientation` property. Within</span>
     <span class="doccomment">/// the other dimension, all children are allocated the same size. Of course,</span>
-    <span class="doccomment">/// the [`crate::Widget:halign`] and [`crate::Widget:valign`] properties can be used on</span>
+    <span class="doccomment">/// the `property::Widget::halign` and `property::Widget::valign` properties can be used on</span>
     <span class="doccomment">/// the children to influence their allocation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Box` uses a notion of packing. Packing refers</span>
+    <span class="doccomment">/// GtkBox uses a notion of packing. Packing refers</span>
     <span class="doccomment">/// to adding widgets with reference to a particular position in a</span>
-    <span class="doccomment">/// [`crate::Container`]. For a `Box`, there are two reference positions: the</span>
+    <span class="doccomment">/// [`Container`][crate::Container]. For a GtkBox, there are two reference positions: the</span>
     <span class="doccomment">/// start and the end of the box.</span>
-    <span class="doccomment">/// For a vertical [`crate::Box`], the start is defined as the top of the box and</span>
-    <span class="doccomment">/// the end is defined as the bottom. For a horizontal [`crate::Box`] the start</span>
+    <span class="doccomment">/// For a vertical [`Box`][crate::Box], the start is defined as the top of the box and</span>
+    <span class="doccomment">/// the end is defined as the bottom. For a horizontal [`Box`][crate::Box] the start</span>
     <span class="doccomment">/// is defined as the left side and the end is defined as the right side.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use repeated calls to [`crate::prelude::BoxExt::pack_start()`] to pack widgets into a</span>
-    <span class="doccomment">/// `Box` from start to end. Use [`crate::prelude::BoxExt::pack_end()`] to add widgets from</span>
+    <span class="doccomment">/// Use repeated calls to [`BoxExt::pack_start()`][crate::prelude::BoxExt::pack_start()] to pack widgets into a</span>
+    <span class="doccomment">/// GtkBox from start to end. Use [`BoxExt::pack_end()`][crate::prelude::BoxExt::pack_end()] to add widgets from</span>
     <span class="doccomment">/// end to start. You may intersperse these calls and add widgets from</span>
-    <span class="doccomment">/// both ends of the same `Box`.</span>
+    <span class="doccomment">/// both ends of the same GtkBox.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Because `Box` is a [`crate::Container`], you may also use [`crate::prelude::ContainerExt::add()`]</span>
+    <span class="doccomment">/// Because GtkBox is a [`Container`][crate::Container], you may also use [`ContainerExt::add()`][crate::prelude::ContainerExt::add()]</span>
     <span class="doccomment">/// to insert widgets into the box, and they will be packed with the default</span>
-    <span class="doccomment">/// values for expand and fill child properties. Use [`crate::prelude::ContainerExt::remove()`]</span>
-    <span class="doccomment">/// to remove widgets from the `Box`.</span>
+    <span class="doccomment">/// values for expand and fill child properties. Use [`ContainerExt::remove()`][crate::prelude::ContainerExt::remove()]</span>
+    <span class="doccomment">/// to remove widgets from the GtkBox.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::prelude::BoxExt::set_homogeneous()`] to specify whether or not all children</span>
-    <span class="doccomment">/// of the `Box` are forced to get the same amount of space.</span>
+    <span class="doccomment">/// Use [`BoxExt::set_homogeneous()`][crate::prelude::BoxExt::set_homogeneous()] to specify whether or not all children</span>
+    <span class="doccomment">/// of the GtkBox are forced to get the same amount of space.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::prelude::BoxExt::set_spacing()`] to determine how much space will be</span>
-    <span class="doccomment">/// minimally placed between all children in the `Box`. Note that</span>
+    <span class="doccomment">/// Use [`BoxExt::set_spacing()`][crate::prelude::BoxExt::set_spacing()] to determine how much space will be</span>
+    <span class="doccomment">/// minimally placed between all children in the GtkBox. Note that</span>
     <span class="doccomment">/// spacing is added between the children, while</span>
-    <span class="doccomment">/// padding added by [`crate::prelude::BoxExt::pack_start()`] or [`crate::prelude::BoxExt::pack_end()`] is added</span>
+    <span class="doccomment">/// padding added by [`BoxExt::pack_start()`][crate::prelude::BoxExt::pack_start()] or [`BoxExt::pack_end()`][crate::prelude::BoxExt::pack_end()] is added</span>
     <span class="doccomment">/// on either side of the widget it belongs to.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::prelude::BoxExt::reorder_child()`] to move a `Box` child to a different</span>
+    <span class="doccomment">/// Use [`BoxExt::reorder_child()`][crate::prelude::BoxExt::reorder_child()] to move a GtkBox child to a different</span>
     <span class="doccomment">/// place in the box.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::prelude::BoxExt::set_child_packing()`] to reset the expand,</span>
+    <span class="doccomment">/// Use [`BoxExt::set_child_packing()`][crate::prelude::BoxExt::set_child_packing()] to reset the expand,</span>
     <span class="doccomment">/// fill and padding child properties.</span>
-    <span class="doccomment">/// Use [`crate::prelude::BoxExt::query_child_packing()`] to query these fields.</span>
+    <span class="doccomment">/// Use [`BoxExt::query_child_packing()`][crate::prelude::BoxExt::query_child_packing()] to query these fields.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Box` uses a single CSS node with name box.</span>
+    <span class="doccomment">/// GtkBox uses a single CSS node with name box.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In horizontal orientation, the nodes of the children are always arranged</span>
     <span class="doccomment">/// from left to right. So :first-child will always select the leftmost child,</span>
@@ -1224,7 +1224,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::BoxExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::OrientableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`BoxExt`][trait@crate::prelude::BoxExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`OrientableExt`][trait@crate::prelude::OrientableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Box</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkBox</span>, <span class="ident">ffi::GtkBoxClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1233,7 +1233,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Box</span> {
-    <span class="doccomment">/// Creates a new [`crate::Box`].</span>
+    <span class="doccomment">/// Creates a new [`Box`][crate::Box].</span>
     <span class="doccomment">/// ## `orientation`</span>
     <span class="doccomment">/// the box’s orientation.</span>
     <span class="doccomment">/// ## `spacing`</span>
@@ -1241,7 +1241,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::Box`].</span>
+    <span class="doccomment">/// a new [`Box`][crate::Box].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_box_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">orientation</span>: <span class="ident">Orientation</span>, <span class="ident">spacing</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1487,7 +1487,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`crate::Widget:hexpand`] and [`crate::Widget:vexpand`]</span>
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">expand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expand</span>);
         <span class="self">self</span>
@@ -1497,8 +1497,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property is only relevant for widgets that can take focus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.20, several widgets (`Button`, `FileChooserButton`,</span>
-    <span class="doccomment">/// `ComboBox`) implemented this property individually.</span>
+    <span class="doccomment">/// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,</span>
+    <span class="doccomment">/// GtkComboBox) implemented this property individually.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">focus_on_click</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1506,7 +1506,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">halign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">halign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">halign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">halign</span>);
         <span class="self">self</span>
@@ -1522,13 +1522,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Enables or disables the emission of [`crate::Widget::query-tooltip`] on `widget`.</span>
+    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.</span>
     <span class="doccomment">/// A value of [`true`] indicates that `widget` can have a tooltip, in this case</span>
-    <span class="doccomment">/// the widget will be queried using [`crate::Widget::query-tooltip`] to determine</span>
+    <span class="doccomment">/// the widget will be queried using `signal::Widget::query-tooltip` to determine</span>
     <span class="doccomment">/// whether it will provide a tooltip or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that setting this property to [`true`] for the first time will change</span>
-    <span class="doccomment">/// the event masks of the `GdkWindows` of this widget to include leave-notify</span>
+    <span class="doccomment">/// the event masks of the GdkWindows of this widget to include leave-notify</span>
     <span class="doccomment">/// and motion-notify events. This cannot and will not be undone when the</span>
     <span class="doccomment">/// property is set to [`false`] again.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_tooltip</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_tooltip</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1541,13 +1541,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand horizontally. See [`crate::prelude::WidgetExt::set_hexpand()`].</span>
+    <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:hexpand`] property. See [`crate::prelude::WidgetExt::get_hexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand_set</span>);
         <span class="self">self</span>
@@ -1569,7 +1569,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_bottom</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_bottom</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_bottom</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_bottom</span>);
         <span class="self">self</span>
@@ -1580,7 +1580,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_end</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_end</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_end</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_end</span>);
         <span class="self">self</span>
@@ -1591,7 +1591,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_start</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_start</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_start</span>);
         <span class="self">self</span>
@@ -1601,7 +1601,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_top</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_top</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_top</span>);
         <span class="self">self</span>
@@ -1617,10 +1617,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The requested opacity of the widget. See [`crate::prelude::WidgetExt::set_opacity()`] for</span>
+    <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for</span>
     <span class="doccomment">/// more details about window opacity.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.8 this was only available in `Window`</span>
+    <span class="doccomment">/// Before 3.8 this was only available in GtkWindow</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">opacity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opacity</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">opacity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">opacity</span>);
         <span class="self">self</span>
@@ -1643,14 +1643,14 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_markup()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_markup</span>.<span class="ident">to_string</span>());
@@ -1659,33 +1659,33 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_text()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">valign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">valign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">valign</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand vertically. See [`crate::prelude::WidgetExt::set_vexpand()`].</span>
+    <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:vexpand`] property. See [`crate::prelude::WidgetExt::get_vexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand_set</span>);
         <span class="self">self</span>
@@ -1714,9 +1714,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::AppChooserWidget`], [`struct@crate::Box`], [`struct@crate::ButtonBox`], [`struct@crate::ColorChooserWidget`], [`struct@crate::FileChooserButton`], [`struct@crate::FileChooserWidget`], [`struct@crate::FontChooserWidget`], [`struct@crate::InfoBar`], [`struct@crate::RecentChooserWidget`], [`struct@crate::ShortcutLabel`], [`struct@crate::ShortcutsGroup`], [`struct@crate::ShortcutsSection`], [`struct@crate::ShortcutsShortcut`], [`struct@crate::StackSwitcher`], [`struct@crate::Statusbar`]</span>
+<span class="doccomment">/// [`AppChooserWidget`][struct@crate::AppChooserWidget], [`Box`][struct@crate::Box], [`ButtonBox`][struct@crate::ButtonBox], [`ColorChooserWidget`][struct@crate::ColorChooserWidget], [`FileChooserButton`][struct@crate::FileChooserButton], [`FileChooserWidget`][struct@crate::FileChooserWidget], [`FontChooserWidget`][struct@crate::FontChooserWidget], [`InfoBar`][struct@crate::InfoBar], [`RecentChooserWidget`][struct@crate::RecentChooserWidget], [`ShortcutLabel`][struct@crate::ShortcutLabel], [`ShortcutsGroup`][struct@crate::ShortcutsGroup], [`ShortcutsSection`][struct@crate::ShortcutsSection], [`ShortcutsShortcut`][struct@crate::ShortcutsShortcut], [`StackSwitcher`][struct@crate::StackSwitcher], [`Statusbar`][struct@crate::Statusbar]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">BoxExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Gets the value set by [`Self::set_baseline_position()`].</span>
+    <span class="doccomment">/// Gets the value set by [`set_baseline_position()`][Self::set_baseline_position()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1736,7 +1736,7 @@
     <span class="kw">fn</span> <span class="ident">center_widget</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Returns whether the box is homogeneous (all children are the</span>
-    <span class="doccomment">/// same size). See [`Self::set_homogeneous()`].</span>
+    <span class="doccomment">/// same size). See [`set_homogeneous()`][Self::set_homogeneous()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1745,7 +1745,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_homogeneous&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_homogeneous</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Gets the value set by [`Self::set_spacing()`].</span>
+    <span class="doccomment">/// Gets the value set by [`set_spacing()`][Self::set_spacing()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1758,7 +1758,7 @@
     <span class="doccomment">/// The `child` is packed after (away from end of) any other child</span>
     <span class="doccomment">/// packed with reference to the end of `self`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the [`crate::Widget`] to be added to `self`</span>
+    <span class="doccomment">/// the [`Widget`][crate::Widget] to be added to `self`</span>
     <span class="doccomment">/// ## `expand`</span>
     <span class="doccomment">/// [`true`] if the new child is to be given extra space allocated</span>
     <span class="doccomment">///  to `self`. The extra space will be divided evenly between all children</span>
@@ -1767,12 +1767,12 @@
     <span class="doccomment">/// [`true`] if space given to `child` by the `expand` option is</span>
     <span class="doccomment">///  actually allocated to `child`, rather than just padding it. This</span>
     <span class="doccomment">///  parameter has no effect if `expand` is set to [`false`]. A child is</span>
-    <span class="doccomment">///  always allocated the full height of a horizontal [`crate::Box`] and the full width</span>
-    <span class="doccomment">///  of a vertical [`crate::Box`]. This option affects the other dimension</span>
+    <span class="doccomment">///  always allocated the full height of a horizontal [`Box`][crate::Box] and the full width</span>
+    <span class="doccomment">///  of a vertical [`Box`][crate::Box]. This option affects the other dimension</span>
     <span class="doccomment">/// ## `padding`</span>
     <span class="doccomment">/// extra space in pixels to put between this child and its</span>
     <span class="doccomment">///  neighbors, over and above the global amount specified by</span>
-    <span class="doccomment">///  [`crate::Box:spacing`] property. If `child` is a widget at one of the</span>
+    <span class="doccomment">///  `property::Box::spacing` property. If `child` is a widget at one of the</span>
     <span class="doccomment">///  reference ends of `self`, then `padding` pixels are also put between</span>
     <span class="doccomment">///  `child` and the reference edge of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_box_pack_end&quot;</span>)]</span>
@@ -1782,7 +1782,7 @@
     <span class="doccomment">/// The `child` is packed after any other child packed with reference</span>
     <span class="doccomment">/// to the start of `self`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the [`crate::Widget`] to be added to `self`</span>
+    <span class="doccomment">/// the [`Widget`][crate::Widget] to be added to `self`</span>
     <span class="doccomment">/// ## `expand`</span>
     <span class="doccomment">/// [`true`] if the new child is to be given extra space allocated</span>
     <span class="doccomment">///  to `self`. The extra space will be divided evenly between all children</span>
@@ -1791,12 +1791,12 @@
     <span class="doccomment">/// [`true`] if space given to `child` by the `expand` option is</span>
     <span class="doccomment">///  actually allocated to `child`, rather than just padding it. This</span>
     <span class="doccomment">///  parameter has no effect if `expand` is set to [`false`]. A child is</span>
-    <span class="doccomment">///  always allocated the full height of a horizontal [`crate::Box`] and the full width</span>
-    <span class="doccomment">///  of a vertical [`crate::Box`]. This option affects the other dimension</span>
+    <span class="doccomment">///  always allocated the full height of a horizontal [`Box`][crate::Box] and the full width</span>
+    <span class="doccomment">///  of a vertical [`Box`][crate::Box]. This option affects the other dimension</span>
     <span class="doccomment">/// ## `padding`</span>
     <span class="doccomment">/// extra space in pixels to put between this child and its</span>
     <span class="doccomment">///  neighbors, over and above the global amount specified by</span>
-    <span class="doccomment">///  [`crate::Box:spacing`] property. If `child` is a widget at one of the</span>
+    <span class="doccomment">///  `property::Box::spacing` property. If `child` is a widget at one of the</span>
     <span class="doccomment">///  reference ends of `self`, then `padding` pixels are also put between</span>
     <span class="doccomment">///  `child` and the reference edge of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_box_pack_start&quot;</span>)]</span>
@@ -1804,7 +1804,7 @@
 
     <span class="doccomment">/// Obtains information about how `child` is packed into `self`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the [`crate::Widget`] of the child to query</span>
+    <span class="doccomment">/// the [`Widget`][crate::Widget] of the child to query</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1828,8 +1828,8 @@
     <span class="kw">fn</span> <span class="ident">query_child_packing</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">bool</span>, <span class="ident">bool</span>, <span class="ident">u32</span>, <span class="ident">PackType</span>);
 
     <span class="doccomment">/// Moves `child` to a new `position` in the list of `self` children.</span>
-    <span class="doccomment">/// The list contains widgets packed [`crate::PackType::Start`]</span>
-    <span class="doccomment">/// as well as widgets packed [`crate::PackType::End`], in the order that these</span>
+    <span class="doccomment">/// The list contains widgets packed [`PackType::Start`][crate::PackType::Start]</span>
+    <span class="doccomment">/// as well as widgets packed [`PackType::End`][crate::PackType::End], in the order that these</span>
     <span class="doccomment">/// widgets were added to `self`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A widget’s position in the `self` children list determines where</span>
@@ -1837,7 +1837,7 @@
     <span class="doccomment">/// in the list will be packed just after all other widgets of the</span>
     <span class="doccomment">/// same packing type that appear earlier in the list.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the [`crate::Widget`] to move</span>
+    <span class="doccomment">/// the [`Widget`][crate::Widget] to move</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the new position for `child` in the list of children</span>
     <span class="doccomment">///  of `self`, starting from 0. If negative, indicates the end of</span>
@@ -1852,7 +1852,7 @@
     <span class="doccomment">/// `position` is used to allocate the baseline wrt the</span>
     <span class="doccomment">/// extra space available.</span>
     <span class="doccomment">/// ## `position`</span>
-    <span class="doccomment">/// a [`crate::BaselinePosition`]</span>
+    <span class="doccomment">/// a [`BaselinePosition`][crate::BaselinePosition]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_box_set_baseline_position&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_baseline_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position</span>: <span class="ident">BaselinePosition</span>);
 
@@ -1867,7 +1867,7 @@
 
     <span class="doccomment">/// Sets the way `child` is packed into `self`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the [`crate::Widget`] of the child to set</span>
+    <span class="doccomment">/// the [`Widget`][crate::Widget] of the child to set</span>
     <span class="doccomment">/// ## `expand`</span>
     <span class="doccomment">/// the new value of the expand child property</span>
     <span class="doccomment">/// ## `fill`</span>
@@ -1886,7 +1886,7 @@
         <span class="ident">pack_type</span>: <span class="ident">PackType</span>,
     );
 
-    <span class="doccomment">/// Sets the [`crate::Box:homogeneous`] property of `self`, controlling</span>
+    <span class="doccomment">/// Sets the `property::Box::homogeneous` property of `self`, controlling</span>
     <span class="doccomment">/// whether or not all children of `self` are given equal space</span>
     <span class="doccomment">/// in the box.</span>
     <span class="doccomment">/// ## `homogeneous`</span>
@@ -1895,7 +1895,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_box_set_homogeneous&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_homogeneous</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">homogeneous</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Sets the [`crate::Box:spacing`] property of `self`, which is the</span>
+    <span class="doccomment">/// Sets the `property::Box::spacing` property of `self`, which is the</span>
     <span class="doccomment">/// number of pixels to place between children of `self`.</span>
     <span class="doccomment">/// ## `spacing`</span>
     <span class="doccomment">/// the number of pixels to put between children</span>

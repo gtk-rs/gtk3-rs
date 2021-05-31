@@ -10,7 +10,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_parsing_error" class="fnname">connect_parsing_error</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../struct.CssSection.html" title="struct gtk::CssSection">CssSection</a>, &amp;Error) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; SignalHandlerId;
 }</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.CssProvider.html" title="CssProvider"><code>CssProvider</code></a> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.CssProvider.html" title="crate::CssProvider"><code>struct@crate::CssProvider</code></a></p>
+<p><a href="../struct.CssProvider.html" title="crate::CssProvider"><code>CssProvider</code></a></p>
 </div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.load_from_data" class="method"><code>fn <a href="#tymethod.load_from_data" class="fnname">load_from_data</a>(&amp;self, data: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Error&gt;</code><a class="srclink" href="../../src/gtk/auto/css_provider.rs.html#140" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Loads <code>data</code> into <code>self</code>, and by doing so clears any previously loaded
 information.</p>
 <h2 id="data" class="section-header"><a href="#data"><code>data</code></a></h2>
@@ -19,16 +19,16 @@ information.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>. The return value is deprecated and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> will only be
 returned for backwards compatibility reasons if an <code>error</code> is not
 <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> and a loading error occurred. To track errors while loading
-CSS, connect to the [<code>crate::CssProvider::parsing-error</code>] signal.</p>
+CSS, connect to the <code>signal::CssProvider::parsing-error</code> signal.</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.load_from_file" class="method"><code>fn <a href="#tymethod.load_from_file" class="fnname">load_from_file</a>&lt;P:&nbsp;IsA&lt;File&gt;&gt;(&amp;self, file: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Error&gt;</code><a class="srclink" href="../../src/gtk/auto/css_provider.rs.html#154" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Loads the data contained in <code>file</code> into <code>self</code>, making it
 clear any previously loaded information.</p>
 <h2 id="file" class="section-header"><a href="#file"><code>file</code></a></h2>
-<p>[<code>crate::gio::File</code>] pointing to a file to load</p>
+<p>[<code>gio::File</code>][crate::gio::File] pointing to a file to load</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>. The return value is deprecated and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> will only be
 returned for backwards compatibility reasons if an <code>error</code> is not
 <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> and a loading error occurred. To track errors while loading
-CSS, connect to the [<code>crate::CssProvider::parsing-error</code>] signal.</p>
+CSS, connect to the <code>signal::CssProvider::parsing-error</code> signal.</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.load_from_path" class="method"><code>fn <a href="#tymethod.load_from_path" class="fnname">load_from_path</a>(&amp;self, path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, Error&gt;</code><a class="srclink" href="../../src/gtk/auto/css_provider.rs.html#168" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Loads the data contained in <code>path</code> into <code>self</code>, making it clear
 any previously loaded information.</p>
 <h2 id="path" class="section-header"><a href="#path"><code>path</code></a></h2>
@@ -37,13 +37,13 @@ any previously loaded information.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>. The return value is deprecated and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> will only be
 returned for backwards compatibility reasons if an <code>error</code> is not
 <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> and a loading error occurred. To track errors while loading
-CSS, connect to the [<code>crate::CssProvider::parsing-error</code>] signal.</p>
+CSS, connect to the <code>signal::CssProvider::parsing-error</code> signal.</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.load_from_resource" class="method"><code>fn <a href="#tymethod.load_from_resource" class="fnname">load_from_resource</a>(&amp;self, resource_path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/css_provider.rs.html#178" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Loads the data contained in the resource at <code>resource_path</code> into
-the <a href="../struct.CssProvider.html" title="crate::CssProvider"><code>crate::CssProvider</code></a>, clearing any previously loaded information.</p>
+the <a href="../struct.CssProvider.html" title="crate::CssProvider"><code>CssProvider</code></a>, clearing any previously loaded information.</p>
 <p>To track errors while loading CSS, connect to the
-[<code>crate::CssProvider::parsing-error</code>] signal.</p>
+<code>signal::CssProvider::parsing-error</code> signal.</p>
 <h2 id="resource_path" class="section-header"><a href="#resource_path"><code>resource_path</code></a></h2>
-<p>a [<code>crate::gio::Resource</code>] resource path</p>
+<p>a <code>GResource</code> resource path</p>
 </div></details><h3 id="tymethod.to_str" class="method"><code>fn <a href="#tymethod.to_str" class="fnname">to_str</a>(&amp;self) -&gt; GString</code><a class="srclink" href="../../src/gtk/auto/css_provider.rs.html#182" title="goto source code">[src]</a></h3><details class="rustdoc-toggle" open><summary><h3 id="tymethod.connect_parsing_error" class="method"><code>fn <a href="#tymethod.connect_parsing_error" class="fnname">connect_parsing_error</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../struct.CssSection.html" title="struct gtk::CssSection">CssSection</a>, &amp;Error) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; SignalHandlerId</code><a class="srclink" href="../../src/gtk/auto/css_provider.rs.html#200-203" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Signals that a parsing error occurred. the <code>path</code>, <code>line</code> and <code>position</code>
 describe the actual location of the error as accurately as possible.</p>
 <p>Parsing errors are never fatal, so the parsing will resume after

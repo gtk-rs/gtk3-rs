@@ -98,16 +98,16 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`crate::DrawingContext`] is an object that represents the current drawing</span>
-    <span class="doccomment">/// state of a [`crate::Window`].</span>
+    <span class="doccomment">/// [`DrawingContext`][crate::DrawingContext] is an object that represents the current drawing</span>
+    <span class="doccomment">/// state of a [`Window`][crate::Window].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It&#39;s possible to use a [`crate::DrawingContext`] to draw on a [`crate::Window`]</span>
+    <span class="doccomment">/// It&#39;s possible to use a [`DrawingContext`][crate::DrawingContext] to draw on a [`Window`][crate::Window]</span>
     <span class="doccomment">/// via rendering API like Cairo or OpenGL.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`crate::DrawingContext`] can only be created by calling [`crate::Window::begin_draw_frame()`]</span>
-    <span class="doccomment">/// and will be valid until a call to [`crate::Window::end_draw_frame()`].</span>
+    <span class="doccomment">/// A [`DrawingContext`][crate::DrawingContext] can only be created by calling [`Window::begin_draw_frame()`][crate::Window::begin_draw_frame()]</span>
+    <span class="doccomment">/// and will be valid until a call to [`Window::end_draw_frame()`][crate::Window::end_draw_frame()].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`crate::DrawingContext`] is available since GDK 3.22</span>
+    <span class="doccomment">/// [`DrawingContext`][crate::DrawingContext] is available since GDK 3.22</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DrawingContext</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkDrawingContext</span>, <span class="ident">ffi::GdkDrawingContextClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -116,18 +116,18 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DrawingContext</span> {
-    <span class="doccomment">/// Retrieves a Cairo context to be used to draw on the [`crate::Window`]</span>
-    <span class="doccomment">/// that created the [`crate::DrawingContext`].</span>
+    <span class="doccomment">/// Retrieves a Cairo context to be used to draw on the [`Window`][crate::Window]</span>
+    <span class="doccomment">/// that created the [`DrawingContext`][crate::DrawingContext].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned context is guaranteed to be valid as long as the</span>
-    <span class="doccomment">/// [`crate::DrawingContext`] is valid, that is between a call to</span>
-    <span class="doccomment">/// [`crate::Window::begin_draw_frame()`] and [`crate::Window::end_draw_frame()`].</span>
+    <span class="doccomment">/// [`DrawingContext`][crate::DrawingContext] is valid, that is between a call to</span>
+    <span class="doccomment">/// [`Window::begin_draw_frame()`][crate::Window::begin_draw_frame()] and [`Window::end_draw_frame()`][crate::Window::end_draw_frame()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a Cairo context to be used to draw</span>
-    <span class="doccomment">///  the contents of the [`crate::Window`]. The context is owned by the</span>
-    <span class="doccomment">///  [`crate::DrawingContext`] and should not be destroyed</span>
+    <span class="doccomment">///  the contents of the [`Window`][crate::Window]. The context is owned by the</span>
+    <span class="doccomment">///  [`DrawingContext`][crate::DrawingContext] and should not be destroyed</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drawing_context_get_cairo_context&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_cairo_context&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cairo_context</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cairo::Context</span><span class="op">&gt;</span> {
@@ -153,14 +153,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::Window`]</span>
+    <span class="doccomment">/// a [`Window`][crate::Window]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drawing_context_get_window&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_window&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_drawing_context_get_window</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Checks whether the given [`crate::DrawingContext`] is valid.</span>
+    <span class="doccomment">/// Checks whether the given [`DrawingContext`][crate::DrawingContext] is valid.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

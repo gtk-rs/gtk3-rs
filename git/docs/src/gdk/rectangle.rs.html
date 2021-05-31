@@ -236,7 +236,7 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="doccomment">/// Defines the position and size of a rectangle. It is identical to</span>
-<span class="doccomment">/// [`crate::cairo::RectangleInt`].</span>
+<span class="doccomment">/// `cairo_rectangle_int_t`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Rectangle</span> {
@@ -254,7 +254,7 @@
     <span class="doccomment">/// the rectangles intersect, but not in the intersecting area itself,</span>
     <span class="doccomment">/// pass [`None`] for `dest`.</span>
     <span class="doccomment">/// ## `src2`</span>
-    <span class="doccomment">/// a [`crate::Rectangle`]</span>
+    <span class="doccomment">/// a [`Rectangle`][crate::Rectangle]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -287,7 +287,7 @@
     <span class="doccomment">/// Note that this function does not ignore &#39;empty&#39; rectangles (ie. with</span>
     <span class="doccomment">/// zero width or height).</span>
     <span class="doccomment">/// ## `src2`</span>
-    <span class="doccomment">/// a [`crate::Rectangle`]</span>
+    <span class="doccomment">/// a [`Rectangle`][crate::Rectangle]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

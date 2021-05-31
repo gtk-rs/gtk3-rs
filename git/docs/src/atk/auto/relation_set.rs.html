@@ -249,7 +249,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::RelationSetExt`], [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`RelationSetExt`][trait@crate::prelude::RelationSetExt], [`trait@glib::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RelationSet</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkRelationSet</span>, <span class="ident">ffi::AtkRelationSetClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -262,7 +262,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::RelationSet`]</span>
+    <span class="doccomment">/// a new [`RelationSet`][crate::RelationSet]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_set_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RelationSet</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -282,7 +282,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::RelationSet`]</span>
+<span class="doccomment">/// [`RelationSet`][struct@crate::RelationSet]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RelationSetExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Add a new relation to the current relation set if it is not already</span>
     <span class="doccomment">/// present.</span>
@@ -290,7 +290,7 @@
     <span class="doccomment">/// should unref it to ensure that it will be destroyed when the AtkRelationSet</span>
     <span class="doccomment">/// is destroyed.</span>
     <span class="doccomment">/// ## `relation`</span>
-    <span class="doccomment">/// an [`crate::Relation`]</span>
+    <span class="doccomment">/// an [`Relation`][crate::Relation]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_set_add&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">relation</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -299,16 +299,16 @@
     <span class="doccomment">/// of that type. If it is does contain a relation of that typea the target</span>
     <span class="doccomment">/// is added to the relation.</span>
     <span class="doccomment">/// ## `relationship`</span>
-    <span class="doccomment">/// an [`crate::RelationType`]</span>
+    <span class="doccomment">/// an [`RelationType`][crate::RelationType]</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// an [`crate::Object`]</span>
+    <span class="doccomment">/// an [`Object`][crate::Object]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_set_add_relation_by_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_relation_by_type</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">relationship</span>: <span class="ident">RelationType</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
     <span class="doccomment">/// Determines whether the relation set contains a relation that matches the</span>
     <span class="doccomment">/// specified type.</span>
     <span class="doccomment">/// ## `relationship`</span>
-    <span class="doccomment">/// an [`crate::RelationType`]</span>
+    <span class="doccomment">/// an [`RelationType`][crate::RelationType]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -321,9 +321,9 @@
     <span class="doccomment">/// matches the specified pair formed by type `relationship` and object</span>
     <span class="doccomment">/// `target`.</span>
     <span class="doccomment">/// ## `relationship`</span>
-    <span class="doccomment">/// an [`crate::RelationType`]</span>
+    <span class="doccomment">/// an [`RelationType`][crate::RelationType]</span>
     <span class="doccomment">/// ## `target`</span>
-    <span class="doccomment">/// an [`crate::Object`]</span>
+    <span class="doccomment">/// an [`Object`][crate::Object]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -347,7 +347,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::Relation`], which is the relation at</span>
+    <span class="doccomment">/// a [`Relation`][crate::Relation], which is the relation at</span>
     <span class="doccomment">/// position i in the set.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_set_get_relation&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_relation&quot;</span>)]</span>
@@ -355,21 +355,21 @@
 
     <span class="doccomment">/// Finds a relation that matches the specified type.</span>
     <span class="doccomment">/// ## `relationship`</span>
-    <span class="doccomment">/// an [`crate::RelationType`]</span>
+    <span class="doccomment">/// an [`RelationType`][crate::RelationType]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`crate::Relation`], which is a relation matching the</span>
+    <span class="doccomment">/// an [`Relation`][crate::Relation], which is a relation matching the</span>
     <span class="doccomment">/// specified type.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_set_get_relation_by_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_relation_by_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">relation_by_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">relationship</span>: <span class="ident">RelationType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Removes a relation from the relation set.</span>
-    <span class="doccomment">/// This function unref&#39;s the [`crate::Relation`] so it will be deleted unless there</span>
+    <span class="doccomment">/// This function unref&#39;s the [`Relation`][crate::Relation] so it will be deleted unless there</span>
     <span class="doccomment">/// is another reference to it.</span>
     <span class="doccomment">/// ## `relation`</span>
-    <span class="doccomment">/// an [`crate::Relation`]</span>
+    <span class="doccomment">/// an [`Relation`][crate::Relation]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_relation_set_remove&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">remove</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">relation</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 }

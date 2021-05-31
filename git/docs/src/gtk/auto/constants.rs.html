@@ -1264,7 +1264,7 @@
 
 <span class="kw">use</span> <span class="ident">std::ffi::CStr</span>;
 
-<span class="doccomment">/// The name used for the stock full offset included by [`crate::LevelBar`].</span>
+<span class="doccomment">/// The name used for the stock full offset included by [`LevelBar`][crate::LevelBar].</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_LEVEL_BAR_OFFSET_FULL&quot;</span>)]</span>
@@ -1274,7 +1274,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// The name used for the stock high offset included by [`crate::LevelBar`].</span>
+<span class="doccomment">/// The name used for the stock high offset included by [`LevelBar`][crate::LevelBar].</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_LEVEL_BAR_OFFSET_HIGH&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">LEVEL_BAR_OFFSET_HIGH</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -1282,7 +1282,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// The name used for the stock low offset included by [`crate::LevelBar`].</span>
+<span class="doccomment">/// The name used for the stock low offset included by [`LevelBar`][crate::LevelBar].</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_LEVEL_BAR_OFFSET_LOW&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">LEVEL_BAR_OFFSET_LOW</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -1767,7 +1767,7 @@
         <span class="ident">CStr::from_ptr</span>(<span class="ident">ffi::GTK_STYLE_CLASS_FLAT</span>).<span class="ident">to_str</span>().<span class="ident">unwrap</span>()
     });
 <span class="doccomment">/// A CSS class defining a frame delimiting content, such as</span>
-<span class="doccomment">/// [`crate::Frame`] or the scrolled window frame around the</span>
+<span class="doccomment">/// [`Frame`][crate::Frame] or the scrolled window frame around the</span>
 <span class="doccomment">/// scrollable area.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Refer to individual widget documentation for used style classes.</span>
@@ -2009,7 +2009,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// A CSS class for a pane separator, such as those in [`crate::Paned`].</span>
+<span class="doccomment">/// A CSS class for a pane separator, such as those in [`Paned`][crate::Paned].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Refer to individual widget documentation for used style classes.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_CLASS_PANE_SEPARATOR&quot;</span>)]</span>
@@ -2143,8 +2143,8 @@
         <span class="ident">CStr::from_ptr</span>(<span class="ident">ffi::GTK_STYLE_CLASS_SCALE</span>).<span class="ident">to_str</span>().<span class="ident">unwrap</span>()
     });
 <span class="doccomment">/// A CSS class to match scale widgets with marks attached,</span>
-<span class="doccomment">/// all the marks are above for horizontal [`crate::Scale`].</span>
-<span class="doccomment">/// left for vertical [`crate::Scale`].</span>
+<span class="doccomment">/// all the marks are above for horizontal [`Scale`][crate::Scale].</span>
+<span class="doccomment">/// left for vertical [`Scale`][crate::Scale].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Refer to individual widget documentation for used style classes.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_CLASS_SCALE_HAS_MARKS_ABOVE&quot;</span>)]</span>
@@ -2155,8 +2155,8 @@
             .<span class="ident">unwrap</span>()
     });
 <span class="doccomment">/// A CSS class to match scale widgets with marks attached,</span>
-<span class="doccomment">/// all the marks are below for horizontal [`crate::Scale`],</span>
-<span class="doccomment">/// right for vertical [`crate::Scale`].</span>
+<span class="doccomment">/// all the marks are below for horizontal [`Scale`][crate::Scale],</span>
+<span class="doccomment">/// right for vertical [`Scale`][crate::Scale].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Refer to individual widget documentation for used style classes.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_CLASS_SCALE_HAS_MARKS_BELOW&quot;</span>)]</span>
@@ -2380,7 +2380,7 @@
             .<span class="ident">unwrap</span>()
     });
 <span class="doccomment">/// A CSS class to indicate that a UI element should be &#39;wide&#39;.</span>
-<span class="doccomment">/// Used by [`crate::Paned`].</span>
+<span class="doccomment">/// Used by [`Paned`][crate::Paned].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Refer to individual widget documentation for used style classes.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_CLASS_WIDE&quot;</span>)]</span>
@@ -2388,7 +2388,7 @@
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
         <span class="ident">CStr::from_ptr</span>(<span class="ident">ffi::GTK_STYLE_CLASS_WIDE</span>).<span class="ident">to_str</span>().<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// A property holding the background color of rendered elements as a [`crate::gdk::RGBA`].</span>
+<span class="doccomment">/// A property holding the background color of rendered elements as a [`gdk::RGBA`][crate::gdk::RGBA].</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_PROPERTY_BACKGROUND_COLOR&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">STYLE_PROPERTY_BACKGROUND_COLOR</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -2396,7 +2396,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// A property holding the element’s background as a [`crate::cairo::Pattern`].</span>
+<span class="doccomment">/// A property holding the element’s background as a `cairo_pattern_t`.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_PROPERTY_BACKGROUND_IMAGE&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">STYLE_PROPERTY_BACKGROUND_IMAGE</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -2404,7 +2404,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// A property holding the element’s border color as a [`crate::gdk::RGBA`].</span>
+<span class="doccomment">/// A property holding the element’s border color as a [`gdk::RGBA`][crate::gdk::RGBA].</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_PROPERTY_BORDER_COLOR&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">STYLE_PROPERTY_BORDER_COLOR</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -2420,7 +2420,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// A property holding the element’s border style as a [`crate::BorderStyle`].</span>
+<span class="doccomment">/// A property holding the element’s border style as a [`BorderStyle`][crate::BorderStyle].</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_PROPERTY_BORDER_STYLE&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">STYLE_PROPERTY_BORDER_STYLE</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -2429,11 +2429,11 @@
             .<span class="ident">unwrap</span>()
     });
 <span class="doccomment">/// A property holding the rendered element’s border width in pixels as</span>
-<span class="doccomment">/// a [`crate::Border`]. The border is the intermediary spacing property of the</span>
+<span class="doccomment">/// a [`Border`][crate::Border]. The border is the intermediary spacing property of the</span>
 <span class="doccomment">/// padding/border/margin series.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `gtk_render_frame()` uses this property to find out the frame line width,</span>
-<span class="doccomment">/// so ``GtkWidgets`` rendering frames may need to add up this padding when</span>
+<span class="doccomment">/// [`render_frame()`][crate::render_frame()] uses this property to find out the frame line width,</span>
+<span class="doccomment">/// so `GtkWidgets` rendering frames may need to add up this padding when</span>
 <span class="doccomment">/// requesting size</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_PROPERTY_BORDER_WIDTH&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">STYLE_PROPERTY_BORDER_WIDTH</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
@@ -2442,7 +2442,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// A property holding the foreground color of rendered elements as a [`crate::gdk::RGBA`].</span>
+<span class="doccomment">/// A property holding the foreground color of rendered elements as a [`gdk::RGBA`][crate::gdk::RGBA].</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_PROPERTY_COLOR&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">STYLE_PROPERTY_COLOR</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -2451,7 +2451,7 @@
             .<span class="ident">unwrap</span>()
     });
 <span class="doccomment">/// A property holding the font properties used when rendering text</span>
-<span class="doccomment">/// as a [`crate::pango::FontDescription`].</span>
+<span class="doccomment">/// as a [`pango::FontDescription`][crate::pango::FontDescription].</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_PROPERTY_FONT&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">STYLE_PROPERTY_FONT</span>: <span class="ident">once_cell::sync::Lazy</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">once_cell::sync::Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> {
@@ -2459,9 +2459,9 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// A property holding the rendered element’s margin as a [`crate::Border`]. The</span>
+<span class="doccomment">/// A property holding the rendered element’s margin as a [`Border`][crate::Border]. The</span>
 <span class="doccomment">/// margin is defined as the spacing between the border of the element</span>
-<span class="doccomment">/// and its surrounding elements. It is external to [`crate::Widget`]&#39;s</span>
+<span class="doccomment">/// and its surrounding elements. It is external to [`Widget`][crate::Widget]&#39;s</span>
 <span class="doccomment">/// size allocations, and the most external spacing property of the</span>
 <span class="doccomment">/// padding/border/margin series.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GTK_STYLE_PROPERTY_MARGIN&quot;</span>)]</span>
@@ -2471,7 +2471,7 @@
             .<span class="ident">to_str</span>()
             .<span class="ident">unwrap</span>()
     });
-<span class="doccomment">/// A property holding the rendered element’s padding as a [`crate::Border`]. The</span>
+<span class="doccomment">/// A property holding the rendered element’s padding as a [`Border`][crate::Border]. The</span>
 <span class="doccomment">/// padding is defined as the spacing between the inner part of the element border</span>
 <span class="doccomment">/// and its child. It’s the innermost spacing property of the padding/border/margin</span>
 <span class="doccomment">/// series.</span>

@@ -455,12 +455,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`crate::AccelGroup`] represents a group of keyboard accelerators,</span>
-    <span class="doccomment">/// typically attached to a toplevel [`crate::Window`] (with</span>
-    <span class="doccomment">/// [`crate::prelude::`GtkWindowExt`::add_accel_group()`]). Usually you won’t need to create a</span>
-    <span class="doccomment">/// [`crate::AccelGroup`] directly; instead, when using [`crate::UIManager`], GTK+</span>
+    <span class="doccomment">/// A [`AccelGroup`][crate::AccelGroup] represents a group of keyboard accelerators,</span>
+    <span class="doccomment">/// typically attached to a toplevel [`Window`][crate::Window] (with</span>
+    <span class="doccomment">/// [`GtkWindowExt::add_accel_group()`][crate::prelude::GtkWindowExt::add_accel_group()]). Usually you won’t need to create a</span>
+    <span class="doccomment">/// [`AccelGroup`][crate::AccelGroup] directly; instead, when using `GtkUIManager`, GTK+</span>
     <span class="doccomment">/// automatically sets up the accelerators for your menus in the ui</span>
-    <span class="doccomment">/// manager’s [`crate::AccelGroup`].</span>
+    <span class="doccomment">/// manager’s [`AccelGroup`][crate::AccelGroup].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that “accelerators” are different from</span>
     <span class="doccomment">/// “mnemonics”. Accelerators are shortcuts for</span>
@@ -468,12 +468,12 @@
     <span class="doccomment">/// shortcut for. For example “Ctrl+Q” might appear alongside the “Quit”</span>
     <span class="doccomment">/// menu item. Mnemonics are shortcuts for GUI elements such as text</span>
     <span class="doccomment">/// entries or buttons; they appear as underlined characters. See</span>
-    <span class="doccomment">/// [`crate::Label::new_with_mnemonic()`]. Menu items can have both accelerators</span>
+    <span class="doccomment">/// [`Label::with_mnemonic()`][crate::Label::with_mnemonic()]. Menu items can have both accelerators</span>
     <span class="doccomment">/// and mnemonics, of course.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::AccelGroupExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::AccelGroupExtManual`]</span>
+    <span class="doccomment">/// [`AccelGroupExt`][trait@crate::prelude::AccelGroupExt], [`trait@glib::ObjectExt`], [`AccelGroupExtManual`][trait@crate::prelude::AccelGroupExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AccelGroup</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkAccelGroup</span>, <span class="ident">ffi::GtkAccelGroupClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -482,25 +482,25 @@
 }
 
 <span class="kw">impl</span> <span class="ident">AccelGroup</span> {
-    <span class="doccomment">/// Creates a new [`crate::AccelGroup`].</span>
+    <span class="doccomment">/// Creates a new [`AccelGroup`][crate::AccelGroup].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::AccelGroup`] object</span>
+    <span class="doccomment">/// a new [`AccelGroup`][crate::AccelGroup] object</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_accel_group_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AccelGroup</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gtk_accel_group_new</span>()) }
     }
 
-    <span class="doccomment">/// Finds the [`crate::AccelGroup`] to which `closure` is connected;</span>
-    <span class="doccomment">/// see [`Self::connect()`].</span>
+    <span class="doccomment">/// Finds the [`AccelGroup`][crate::AccelGroup] to which `closure` is connected;</span>
+    <span class="doccomment">/// see [`AccelGroupExtManual::connect()`][crate::prelude::AccelGroupExtManual::connect()].</span>
     <span class="doccomment">/// ## `closure`</span>
-    <span class="doccomment">/// a [`crate::glib::object::Closure`]</span>
+    <span class="doccomment">/// a [`glib::Closure`][crate::glib::Closure]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`crate::AccelGroup`] to which `closure`</span>
+    <span class="doccomment">/// the [`AccelGroup`][crate::AccelGroup] to which `closure`</span>
     <span class="doccomment">///  is connected, or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_accel_group_from_accel_closure&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_accel_closure</span>(<span class="ident">closure</span>: <span class="kw-2">&amp;</span><span class="ident">glib::Closure</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AccelGroup</span><span class="op">&gt;</span> {
@@ -525,14 +525,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::AccelGroup`]</span>
+<span class="doccomment">/// [`AccelGroup`][struct@crate::AccelGroup]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AccelGroupExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Finds the first accelerator in `self` that matches</span>
     <span class="doccomment">/// `accel_key` and `accel_mods`, and activates it.</span>
     <span class="doccomment">/// ## `accel_quark`</span>
     <span class="doccomment">/// the quark for the accelerator name</span>
     <span class="doccomment">/// ## `acceleratable`</span>
-    <span class="doccomment">/// the [`crate::glib::object::Object`], usually a [`crate::Window`], on which</span>
+    <span class="doccomment">/// the [`glib::Object`][crate::glib::Object], usually a [`Window`][crate::Window], on which</span>
     <span class="doccomment">///  to activate the accelerator</span>
     <span class="doccomment">/// ## `accel_key`</span>
     <span class="doccomment">/// accelerator keyval from a key event</span>
@@ -553,7 +553,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Removes an accelerator previously installed through</span>
-    <span class="doccomment">/// [`crate::AccelGroup::connect()`].</span>
+    <span class="doccomment">/// [`AccelGroupExtManual::connect()`][crate::prelude::AccelGroupExtManual::connect()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Since 2.20 `closure` can be [`None`].</span>
     <span class="doccomment">/// ## `closure`</span>
@@ -567,7 +567,7 @@
     <span class="kw">fn</span> <span class="ident">disconnect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">closure</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">glib::Closure</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Removes an accelerator previously installed through</span>
-    <span class="doccomment">/// [`crate::AccelGroup::connect()`].</span>
+    <span class="doccomment">/// [`AccelGroupExtManual::connect()`][crate::prelude::AccelGroupExtManual::connect()].</span>
     <span class="doccomment">/// ## `accel_key`</span>
     <span class="doccomment">/// key value of the accelerator</span>
     <span class="doccomment">/// ## `accel_mods`</span>
@@ -583,8 +583,8 @@
     <span class="comment">//#[doc(alias = &quot;gtk_accel_group_find&quot;)]</span>
     <span class="comment">//fn find(&amp;self, find_func: /*Unimplemented*/FnMut(/*Ignored*/AccelKey, &amp;glib::Closure) -&gt; bool, data: /*Unimplemented*/Option&lt;Fundamental: Pointer&gt;) -&gt; /*Ignored*/Option&lt;AccelKey&gt;;</span>
 
-    <span class="doccomment">/// Locks are added and removed using [`Self::lock()`] and</span>
-    <span class="doccomment">/// [`Self::unlock()`].</span>
+    <span class="doccomment">/// Locks are added and removed using [`lock()`][Self::lock()] and</span>
+    <span class="doccomment">/// [`unlock()`][Self::unlock()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -594,8 +594,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_is_locked&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_locked</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Gets a [`crate::gdk::ModifierType`] representing the mask for this</span>
-    <span class="doccomment">/// `self`. For example, [`crate::gdk::ModifierType::ControlMask`], [`crate::gdk::ModifierType::ShiftMask`], etc.</span>
+    <span class="doccomment">/// Gets a [`gdk::ModifierType`][crate::gdk::ModifierType] representing the mask for this</span>
+    <span class="doccomment">/// `self`. For example, [`gdk::ModifierType::CONTROL_MASK`][crate::gdk::ModifierType::CONTROL_MASK], [`gdk::ModifierType::SHIFT_MASK`][crate::gdk::ModifierType::SHIFT_MASK], etc.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -608,20 +608,20 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Locking an acelerator group prevents the accelerators contained</span>
     <span class="doccomment">/// within it to be changed during runtime. Refer to</span>
-    <span class="doccomment">/// [`crate::AccelMap::change_entry()`] about runtime accelerator changes.</span>
+    <span class="doccomment">/// `gtk_accel_map_change_entry()` about runtime accelerator changes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If called more than once, `self` remains locked until</span>
-    <span class="doccomment">/// [`Self::unlock()`] has been called an equivalent number</span>
+    <span class="doccomment">/// [`unlock()`][Self::unlock()] has been called an equivalent number</span>
     <span class="doccomment">/// of times.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_accel_group_lock&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">lock</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Undoes the last call to [`Self::lock()`] on this `self`.</span>
+    <span class="doccomment">/// Undoes the last call to [`lock()`][Self::lock()] on this `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_accel_group_unlock&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unlock</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// The accel-activate signal is an implementation detail of</span>
-    <span class="doccomment">/// [`crate::AccelGroup`] and not meant to be used by applications.</span>
+    <span class="doccomment">/// [`AccelGroup`][crate::AccelGroup] and not meant to be used by applications.</span>
     <span class="doccomment">/// ## `acceleratable`</span>
     <span class="doccomment">/// the object on which the accelerator was activated</span>
     <span class="doccomment">/// ## `keyval`</span>
@@ -644,7 +644,7 @@
     <span class="doccomment">/// The accel-changed signal is emitted when an entry</span>
     <span class="doccomment">/// is added to or removed from the accel group.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Widgets like [`crate::AccelLabel`] which display an associated</span>
+    <span class="doccomment">/// Widgets like [`AccelLabel`][crate::AccelLabel] which display an associated</span>
     <span class="doccomment">/// accelerator should connect to this signal, and rebuild</span>
     <span class="doccomment">/// their visual representation if the `accel_closure` is theirs.</span>
     <span class="doccomment">/// ## `keyval`</span>
@@ -652,7 +652,7 @@
     <span class="doccomment">/// ## `modifier`</span>
     <span class="doccomment">/// the modifier combination of the accelerator</span>
     <span class="doccomment">/// ## `accel_closure`</span>
-    <span class="doccomment">/// the [`crate::glib::object::Closure`] of the accelerator</span>
+    <span class="doccomment">/// the [`glib::Closure`][crate::glib::Closure] of the accelerator</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;accel-changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_accel_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">u32</span>, <span class="ident">gdk::ModifierType</span>, <span class="kw-2">&amp;</span><span class="ident">glib::Closure</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,

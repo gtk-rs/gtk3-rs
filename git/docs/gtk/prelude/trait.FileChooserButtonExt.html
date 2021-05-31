@@ -13,11 +13,11 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_width_chars_notify" class="fnname">connect_width_chars_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; SignalHandlerId;
 }</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.FileChooserButton.html" title="FileChooserButton"><code>FileChooserButton</code></a> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.FileChooserButton.html" title="crate::FileChooserButton"><code>struct@crate::FileChooserButton</code></a></p>
+<p><a href="../struct.FileChooserButton.html" title="crate::FileChooserButton"><code>FileChooserButton</code></a></p>
 </div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.gets_focus_on_click" class="method"><code>fn <a href="#tymethod.gets_focus_on_click" class="fnname">gets_focus_on_click</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#743" title="goto source code">[src]</a></h3></summary><div class="item-info"><div class="stab portability">This is supported on <strong>non-crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Returns whether the button grabs focus when it is clicked with the mouse.
-See <a href="trait.FileChooserButtonExt.html#tymethod.set_focus_on_click" title="Self::set_focus_on_click()"><code>Self::set_focus_on_click()</code></a>.</p>
+See <a href="trait.FileChooserButtonExt.html#tymethod.set_focus_on_click" title="Self::set_focus_on_click()"><code>set_focus_on_click()</code></a>.</p>
 <h1 id="deprecated-since-320" class="section-header"><a href="#deprecated-since-320">Deprecated since 3.20</a></h1>
-<p>Use [<code>crate::prelude::WidgetExt::get_focus_on_click()</code>] instead</p>
+<p>Use <a href="trait.WidgetExt.html#tymethod.gets_focus_on_click" title="crate::prelude::WidgetExt::gets_focus_on_click()"><code>WidgetExt::gets_focus_on_click()</code></a> instead</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the button grabs focus when it is clicked with
 the mouse.</p>
@@ -33,7 +33,7 @@ Making mouse clicks not grab focus is useful in places like toolbars where
 you don’t want the keyboard focus removed from the main area of the
 application.</p>
 <h1 id="deprecated-since-320-1" class="section-header"><a href="#deprecated-since-320-1">Deprecated since 3.20</a></h1>
-<p>Use <a href="trait.WidgetExt.html#tymethod.set_focus_on_click" title="crate::prelude::WidgetExt::set_focus_on_click()"><code>crate::prelude::WidgetExt::set_focus_on_click()</code></a> instead</p>
+<p>Use <a href="trait.WidgetExt.html#tymethod.set_focus_on_click" title="crate::prelude::WidgetExt::set_focus_on_click()"><code>WidgetExt::set_focus_on_click()</code></a> instead</p>
 <h2 id="focus_on_click" class="section-header"><a href="#focus_on_click"><code>focus_on_click</code></a></h2>
 <p>whether the button grabs focus when clicked with the mouse</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.set_title" class="method"><code>fn <a href="#tymethod.set_title" class="fnname">set_title</a>(&amp;self, title: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#784" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Modifies the <code>title</code> of the browse dialog used by <code>self</code>.</p>

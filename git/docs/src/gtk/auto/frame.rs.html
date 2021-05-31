@@ -932,16 +932,16 @@
     <span class="doccomment">/// The frame widget is a bin that surrounds its child with a decorative</span>
     <span class="doccomment">/// frame and an optional label. If present, the label is drawn in a gap</span>
     <span class="doccomment">/// in the top side of the frame. The position of the label can be</span>
-    <span class="doccomment">/// controlled with [`crate::prelude::FrameExt::set_label_align()`].</span>
+    <span class="doccomment">/// controlled with [`FrameExt::set_label_align()`][crate::prelude::FrameExt::set_label_align()].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # `Frame` as `Buildable`</span>
+    <span class="doccomment">/// # GtkFrame as GtkBuildable</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Frame` implementation of the `Buildable` interface supports</span>
+    <span class="doccomment">/// The GtkFrame implementation of the GtkBuildable interface supports</span>
     <span class="doccomment">/// placing a child in the label position by specifying “label” as the</span>
     <span class="doccomment">/// “type” attribute of a `&lt;child&gt;` element. A normal content child can</span>
     <span class="doccomment">/// be specified without specifying a `&lt;child&gt;` type attribute.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// An example of a UI definition fragment with `Frame`:</span>
+    <span class="doccomment">/// An example of a UI definition fragment with GtkFrame:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```plain</span>
     <span class="doccomment">/// frame</span>
@@ -950,18 +950,18 @@
     <span class="doccomment">/// ╰── &lt;child&gt;</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Frame` has a main CSS node named “frame” and a subnode named “border”. The</span>
+    <span class="doccomment">/// GtkFrame has a main CSS node named “frame” and a subnode named “border”. The</span>
     <span class="doccomment">/// “border” node is used to draw the visible border. You can set the appearance</span>
     <span class="doccomment">/// of the border using CSS properties like “border-style” on the “border” node.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The border node can be given the style class “.flat”, which is used by themes</span>
     <span class="doccomment">/// to disable drawing of the border. To do this from code, call</span>
-    <span class="doccomment">/// [`crate::prelude::FrameExt::set_shadow_type()`] with [`crate::ShadowType::None`] to add the “.flat” class or</span>
+    <span class="doccomment">/// [`FrameExt::set_shadow_type()`][crate::prelude::FrameExt::set_shadow_type()] with [`ShadowType::None`][crate::ShadowType::None] to add the “.flat” class or</span>
     <span class="doccomment">/// any other shadow type to remove it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::FrameExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`FrameExt`][trait@crate::prelude::FrameExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Frame</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkFrame</span>, <span class="ident">ffi::GtkFrameClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -970,14 +970,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Frame</span> {
-    <span class="doccomment">/// Creates a new [`crate::Frame`], with optional label `label`.</span>
+    <span class="doccomment">/// Creates a new [`Frame`][crate::Frame], with optional label `label`.</span>
     <span class="doccomment">/// If `label` is [`None`], the label is omitted.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// the text to use as the label of the frame</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::Frame`] widget</span>
+    <span class="doccomment">/// a new [`Frame`][crate::Frame] widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Frame</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1235,7 +1235,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`crate::Widget:hexpand`] and [`crate::Widget:vexpand`]</span>
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">expand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expand</span>);
         <span class="self">self</span>
@@ -1245,8 +1245,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property is only relevant for widgets that can take focus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.20, several widgets (`Button`, `FileChooserButton`,</span>
-    <span class="doccomment">/// `ComboBox`) implemented this property individually.</span>
+    <span class="doccomment">/// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,</span>
+    <span class="doccomment">/// GtkComboBox) implemented this property individually.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">focus_on_click</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1254,7 +1254,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">halign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">halign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">halign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">halign</span>);
         <span class="self">self</span>
@@ -1270,13 +1270,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Enables or disables the emission of [`crate::Widget::query-tooltip`] on `widget`.</span>
+    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.</span>
     <span class="doccomment">/// A value of [`true`] indicates that `widget` can have a tooltip, in this case</span>
-    <span class="doccomment">/// the widget will be queried using [`crate::Widget::query-tooltip`] to determine</span>
+    <span class="doccomment">/// the widget will be queried using `signal::Widget::query-tooltip` to determine</span>
     <span class="doccomment">/// whether it will provide a tooltip or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that setting this property to [`true`] for the first time will change</span>
-    <span class="doccomment">/// the event masks of the `GdkWindows` of this widget to include leave-notify</span>
+    <span class="doccomment">/// the event masks of the GdkWindows of this widget to include leave-notify</span>
     <span class="doccomment">/// and motion-notify events. This cannot and will not be undone when the</span>
     <span class="doccomment">/// property is set to [`false`] again.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_tooltip</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_tooltip</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1289,13 +1289,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand horizontally. See [`crate::prelude::WidgetExt::set_hexpand()`].</span>
+    <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:hexpand`] property. See [`crate::prelude::WidgetExt::get_hexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand_set</span>);
         <span class="self">self</span>
@@ -1317,7 +1317,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_bottom</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_bottom</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_bottom</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_bottom</span>);
         <span class="self">self</span>
@@ -1328,7 +1328,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_end</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_end</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_end</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_end</span>);
         <span class="self">self</span>
@@ -1339,7 +1339,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_start</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_start</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_start</span>);
         <span class="self">self</span>
@@ -1349,7 +1349,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_top</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_top</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_top</span>);
         <span class="self">self</span>
@@ -1365,10 +1365,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The requested opacity of the widget. See [`crate::prelude::WidgetExt::set_opacity()`] for</span>
+    <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for</span>
     <span class="doccomment">/// more details about window opacity.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.8 this was only available in `Window`</span>
+    <span class="doccomment">/// Before 3.8 this was only available in GtkWindow</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">opacity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opacity</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">opacity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">opacity</span>);
         <span class="self">self</span>
@@ -1391,14 +1391,14 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_markup()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_markup</span>.<span class="ident">to_string</span>());
@@ -1407,33 +1407,33 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_text()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">valign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">valign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">valign</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand vertically. See [`crate::prelude::WidgetExt::set_vexpand()`].</span>
+    <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:vexpand`] property. See [`crate::prelude::WidgetExt::get_vexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand_set</span>);
         <span class="self">self</span>
@@ -1456,25 +1456,25 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::AspectFrame`], [`struct@crate::Frame`]</span>
+<span class="doccomment">/// [`AspectFrame`][struct@crate::AspectFrame], [`Frame`][struct@crate::Frame]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FrameExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// If the frame’s label widget is a [`crate::Label`], returns the</span>
-    <span class="doccomment">/// text in the label widget. (The frame will have a [`crate::Label`]</span>
+    <span class="doccomment">/// If the frame’s label widget is a [`Label`][crate::Label], returns the</span>
+    <span class="doccomment">/// text in the label widget. (The frame will have a [`Label`][crate::Label]</span>
     <span class="doccomment">/// for the label widget if a non-[`None`] argument was passed</span>
-    <span class="doccomment">/// to [`crate::Frame::new()`].)</span>
+    <span class="doccomment">/// to [`Frame::new()`][crate::Frame::new()].)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the text in the label, or [`None`] if there</span>
     <span class="doccomment">///  was no label widget or the lable widget was not</span>
-    <span class="doccomment">///  a [`crate::Label`]. This string is owned by GTK+ and</span>
+    <span class="doccomment">///  a [`Label`][crate::Label]. This string is owned by GTK+ and</span>
     <span class="doccomment">///  must not be modified or freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_get_label&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_label&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">label</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Retrieves the X and Y alignment of the frame’s label. See</span>
-    <span class="doccomment">/// [`Self::set_label_align()`].</span>
+    <span class="doccomment">/// [`set_label_align()`][Self::set_label_align()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1491,7 +1491,7 @@
     <span class="kw">fn</span> <span class="ident">label_align</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f32</span>, <span class="ident">f32</span>);
 
     <span class="doccomment">/// Retrieves the label widget for the frame. See</span>
-    <span class="doccomment">/// [`Self::set_label_widget()`].</span>
+    <span class="doccomment">/// [`set_label_widget()`][Self::set_label_widget()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1502,7 +1502,7 @@
     <span class="kw">fn</span> <span class="ident">label_widget</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Retrieves the shadow type of the frame. See</span>
-    <span class="doccomment">/// [`Self::set_shadow_type()`].</span>
+    <span class="doccomment">/// [`set_shadow_type()`][Self::set_shadow_type()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1511,8 +1511,8 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_shadow_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shadow_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ShadowType</span>;
 
-    <span class="doccomment">/// Removes the current [`crate::Frame:label-widget`]. If `label` is not [`None`], creates a</span>
-    <span class="doccomment">/// new [`crate::Label`] with that text and adds it as the [`crate::Frame:label-widget`].</span>
+    <span class="doccomment">/// Removes the current `property::Frame::label-widget`. If `label` is not [`None`], creates a</span>
+    <span class="doccomment">/// new [`Label`][crate::Label] with that text and adds it as the `property::Frame::label-widget`.</span>
     <span class="doccomment">/// ## `label`</span>
     <span class="doccomment">/// the text to use as the label of the frame</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_set_label&quot;</span>)]</span>
@@ -1532,19 +1532,19 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_set_label_align&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_label_align</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">xalign</span>: <span class="ident">f32</span>, <span class="ident">yalign</span>: <span class="ident">f32</span>);
 
-    <span class="doccomment">/// Sets the [`crate::Frame:label-widget`] for the frame. This is the widget that</span>
+    <span class="doccomment">/// Sets the `property::Frame::label-widget` for the frame. This is the widget that</span>
     <span class="doccomment">/// will appear embedded in the top edge of the frame as a title.</span>
     <span class="doccomment">/// ## `label_widget`</span>
     <span class="doccomment">/// the new label widget</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_set_label_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_label_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label_widget</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
-    <span class="doccomment">/// Sets the [`crate::Frame:shadow-type`] for `self`, i.e. whether it is drawn without</span>
-    <span class="doccomment">/// ([`crate::ShadowType::None`]) or with (other values) a visible border. Values other than</span>
-    <span class="doccomment">/// [`crate::ShadowType::None`] are treated identically by `Frame`. The chosen type is</span>
+    <span class="doccomment">/// Sets the `property::Frame::shadow-type` for `self`, i.e. whether it is drawn without</span>
+    <span class="doccomment">/// ([`ShadowType::None`][crate::ShadowType::None]) or with (other values) a visible border. Values other than</span>
+    <span class="doccomment">/// [`ShadowType::None`][crate::ShadowType::None] are treated identically by GtkFrame. The chosen type is</span>
     <span class="doccomment">/// applied by removing or adding the .flat class to the CSS node named border.</span>
     <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// the new [`crate::ShadowType`]</span>
+    <span class="doccomment">/// the new [`ShadowType`][crate::ShadowType]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_frame_set_shadow_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_shadow_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">ShadowType</span>);
 

@@ -404,26 +404,26 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_selection_data_get_length</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the contents of the selection data as a [`crate::gdk_pixbuf::Pixbuf`].</span>
+    <span class="doccomment">/// Gets the contents of the selection data as a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// if the selection data</span>
     <span class="doccomment">///  contained a recognized image type and it could be converted to a</span>
-    <span class="doccomment">///  [`crate::gdk_pixbuf::Pixbuf`], a newly allocated pixbuf is returned, otherwise</span>
+    <span class="doccomment">///  [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf], a newly allocated pixbuf is returned, otherwise</span>
     <span class="doccomment">///  [`None`]. If the result is non-[`None`] it must be freed with</span>
-    <span class="doccomment">///  [`crate::glib::object::Object::unref()`].</span>
+    <span class="doccomment">///  `g_object_unref()`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_get_pixbuf&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_pixbuf&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pixbuf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gtk_selection_data_get_pixbuf</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Retrieves the selection [`crate::gdk::Atom`] of the selection data.</span>
+    <span class="doccomment">/// Retrieves the selection [`gdk::Atom`][crate::gdk::Atom] of the selection data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the selection [`crate::gdk::Atom`] of the selection data.</span>
+    <span class="doccomment">/// the selection [`gdk::Atom`][crate::gdk::Atom] of the selection data.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_selection_data_get_selection&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_selection&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">selection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gdk::Atom</span> {
@@ -510,7 +510,7 @@
         }
     }
 
-    <span class="doccomment">/// Stores new data into a [`crate::SelectionData`] object. Should</span>
+    <span class="doccomment">/// Stores new data into a [`SelectionData`][crate::SelectionData] object. Should</span>
     <span class="doccomment">/// only be called from a selection handler callback.</span>
     <span class="doccomment">/// Zero-terminates the stored data.</span>
     <span class="doccomment">/// ## `type_`</span>
@@ -533,11 +533,11 @@
         }
     }
 
-    <span class="doccomment">/// Sets the contents of the selection from a [`crate::gdk_pixbuf::Pixbuf`]</span>
+    <span class="doccomment">/// Sets the contents of the selection from a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]</span>
     <span class="doccomment">/// The pixbuf is converted to the form determined by</span>
     <span class="doccomment">/// `self`-&gt;target.</span>
     <span class="doccomment">/// ## `pixbuf`</span>
-    <span class="doccomment">/// a [`crate::gdk_pixbuf::Pixbuf`]</span>
+    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -598,9 +598,9 @@
         }
     }
 
-    <span class="doccomment">/// Given a [`crate::SelectionData`] object holding a list of targets,</span>
+    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,</span>
     <span class="doccomment">/// determines if any of the targets in `targets` can be used to</span>
-    <span class="doccomment">/// provide a [`crate::gdk_pixbuf::Pixbuf`].</span>
+    <span class="doccomment">/// provide a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf].</span>
     <span class="doccomment">/// ## `writable`</span>
     <span class="doccomment">/// whether to accept only targets for which GTK+ knows</span>
     <span class="doccomment">///  how to convert a pixbuf into the format</span>
@@ -619,11 +619,11 @@
         }
     }
 
-    <span class="doccomment">/// Given a [`crate::SelectionData`] object holding a list of targets,</span>
+    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,</span>
     <span class="doccomment">/// determines if any of the targets in `targets` can be used to</span>
     <span class="doccomment">/// provide rich text.</span>
     <span class="doccomment">/// ## `buffer`</span>
-    <span class="doccomment">/// a [`crate::TextBuffer`]</span>
+    <span class="doccomment">/// a [`TextBuffer`][crate::TextBuffer]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -640,7 +640,7 @@
         }
     }
 
-    <span class="doccomment">/// Given a [`crate::SelectionData`] object holding a list of targets,</span>
+    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,</span>
     <span class="doccomment">/// determines if any of the targets in `targets` can be used to</span>
     <span class="doccomment">/// provide text.</span>
     <span class="doccomment">///</span>
@@ -657,7 +657,7 @@
         }
     }
 
-    <span class="doccomment">/// Given a [`crate::SelectionData`] object holding a list of targets,</span>
+    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,</span>
     <span class="doccomment">/// determines if any of the targets in `targets` can be used to</span>
     <span class="doccomment">/// provide a list or URIs.</span>
     <span class="doccomment">///</span>

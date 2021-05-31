@@ -283,20 +283,20 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The [`crate::gdk::DeviceManager`] the [`crate::gdk::Device`] pertains to.</span>
+    <span class="doccomment">/// The [`gdk::DeviceManager`][crate::gdk::DeviceManager] the [`gdk::Device`][crate::gdk::Device] pertains to.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_manager</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gdk::DeviceManager</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">device_manager</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">device_manager</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">device_manager</span>.<span class="ident">clone</span>().<span class="ident">upcast</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The [`crate::gdk::Display`] the [`crate::gdk::Device`] pertains to.</span>
+    <span class="doccomment">/// The [`gdk::Display`][crate::gdk::Display] the [`gdk::Device`][crate::gdk::Device] pertains to.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">display</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gdk::Display</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">display</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">display</span>.<span class="ident">clone</span>().<span class="ident">upcast</span>());
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Whether the device is represented by a cursor on the screen. Devices of type</span>
-    <span class="doccomment">/// [`crate::gdk::DeviceType::Master`] will have [`true`] here.</span>
+    <span class="doccomment">/// `GDK_DEVICE_TYPE_MASTER` will have [`true`] here.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_cursor</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_cursor</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">has_cursor</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">has_cursor</span>);
         <span class="self">self</span>
@@ -318,13 +318,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Product ID of this device, see [`crate::gdk::Device::get_product_id()`].</span>
+    <span class="doccomment">/// Product ID of this device, see [`DeviceExtManual::product_id()`][crate::gdk::prelude::DeviceExtManual::product_id()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">product_id</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">product_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">product_id</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">product_id</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Vendor ID of this device, see [`crate::gdk::Device::get_vendor_id()`].</span>
+    <span class="doccomment">/// Vendor ID of this device, see [`DeviceExtManual::vendor_id()`][crate::gdk::prelude::DeviceExtManual::vendor_id()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vendor_id</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vendor_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vendor_id</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vendor_id</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>

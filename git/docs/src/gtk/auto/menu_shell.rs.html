@@ -755,12 +755,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`crate::MenuShell`] is the abstract base class used to derive the</span>
-    <span class="doccomment">/// [`crate::Menu`] and [`crate::MenuBar`] subclasses.</span>
+    <span class="doccomment">/// A [`MenuShell`][crate::MenuShell] is the abstract base class used to derive the</span>
+    <span class="doccomment">/// [`Menu`][crate::Menu] and [`MenuBar`][crate::MenuBar] subclasses.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`crate::MenuShell`] is a container of [`crate::MenuItem`] objects arranged</span>
+    <span class="doccomment">/// A [`MenuShell`][crate::MenuShell] is a container of [`MenuItem`][crate::MenuItem] objects arranged</span>
     <span class="doccomment">/// in a list which can be navigated, selected, and activated by the</span>
-    <span class="doccomment">/// user to perform application functions. A [`crate::MenuItem`] can have a</span>
+    <span class="doccomment">/// user to perform application functions. A [`MenuItem`][crate::MenuItem] can have a</span>
     <span class="doccomment">/// submenu associated with it, allowing for nested hierarchical menus.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Terminology</span>
@@ -787,7 +787,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::MenuShellExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`MenuShellExt`][trait@crate::prelude::MenuShellExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MenuShell</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkMenuShell</span>, <span class="ident">ffi::GtkMenuShellClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -801,25 +801,25 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::MenuBar`], [`struct@crate::MenuShell`], [`struct@crate::Menu`]</span>
+<span class="doccomment">/// [`MenuBar`][struct@crate::MenuBar], [`MenuShell`][struct@crate::MenuShell], [`Menu`][struct@crate::Menu]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MenuShellExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Activates the menu item within the menu shell.</span>
     <span class="doccomment">/// ## `menu_item`</span>
-    <span class="doccomment">/// the [`crate::MenuItem`] to activate</span>
+    <span class="doccomment">/// the [`MenuItem`][crate::MenuItem] to activate</span>
     <span class="doccomment">/// ## `force_deactivate`</span>
     <span class="doccomment">/// if [`true`], force the deactivation of the</span>
     <span class="doccomment">///  menu shell after the menu item is activated</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_activate_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">activate_item</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">menu_item</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">force_deactivate</span>: <span class="ident">bool</span>);
 
-    <span class="doccomment">/// Adds a new [`crate::MenuItem`] to the end of the menu shell&#39;s</span>
+    <span class="doccomment">/// Adds a new [`MenuItem`][crate::MenuItem] to the end of the menu shell&#39;s</span>
     <span class="doccomment">/// item list.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// The [`crate::MenuItem`] to add</span>
+    <span class="doccomment">/// The [`MenuItem`][crate::MenuItem] to add</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_append&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">append</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">MenuItem</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// Establishes a binding between a [`crate::MenuShell`] and a [`crate::gio::MenuModel`].</span>
+    <span class="doccomment">/// Establishes a binding between a [`MenuShell`][crate::MenuShell] and a [`gio::MenuModel`][crate::gio::MenuModel].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The contents of `shell` are removed and then refilled with menu items</span>
     <span class="doccomment">/// according to `model`. When `model` changes, `shell` is updated.</span>
@@ -838,22 +838,22 @@
     <span class="doccomment">/// mentioned and `action_namespace` is “app” then the effective action</span>
     <span class="doccomment">/// name is “app.quit”.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function uses [`crate::Actionable`] to define the action name and</span>
+    <span class="doccomment">/// This function uses [`Actionable`][crate::Actionable] to define the action name and</span>
     <span class="doccomment">/// target values on the created menu items. If you want to use an</span>
     <span class="doccomment">/// action group other than “app” and “win”, or if you want to use a</span>
-    <span class="doccomment">/// [`crate::MenuShell`] outside of a [`crate::ApplicationWindow`], then you will need</span>
+    <span class="doccomment">/// [`MenuShell`][crate::MenuShell] outside of a [`ApplicationWindow`][crate::ApplicationWindow], then you will need</span>
     <span class="doccomment">/// to attach your own action group to the widget hierarchy using</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::insert_action_group()`]. As an example, if you created a</span>
+    <span class="doccomment">/// [`WidgetExt::insert_action_group()`][crate::prelude::WidgetExt::insert_action_group()]. As an example, if you created a</span>
     <span class="doccomment">/// group with a “quit” action and inserted it with the name “mygroup”</span>
     <span class="doccomment">/// then you would use the action name “mygroup.quit” in your</span>
-    <span class="doccomment">/// [`crate::gio::MenuModel`].</span>
+    <span class="doccomment">/// [`gio::MenuModel`][crate::gio::MenuModel].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For most cases you are probably better off using</span>
-    <span class="doccomment">/// [`crate::Menu::new_from_model()`] or [`crate::MenuBar::new_from_model()`] or just</span>
-    <span class="doccomment">/// directly passing the [`crate::gio::MenuModel`] to [`crate::prelude::`GtkApplicationExt`::set_app_menu()`] or</span>
-    <span class="doccomment">/// [`crate::prelude::`GtkApplicationExt`::set_menubar()`].</span>
+    <span class="doccomment">/// [`Menu::from_model()`][crate::Menu::from_model()] or [`MenuBar::from_model()`][crate::MenuBar::from_model()] or just</span>
+    <span class="doccomment">/// directly passing the [`gio::MenuModel`][crate::gio::MenuModel] to [`GtkApplicationExt::set_app_menu()`][crate::prelude::GtkApplicationExt::set_app_menu()] or</span>
+    <span class="doccomment">/// [`GtkApplicationExt::set_menubar()`][crate::prelude::GtkApplicationExt::set_menubar()].</span>
     <span class="doccomment">/// ## `model`</span>
-    <span class="doccomment">/// the [`crate::gio::MenuModel`] to bind to or [`None`] to remove</span>
+    <span class="doccomment">/// the [`gio::MenuModel`][crate::gio::MenuModel] to bind to or [`None`] to remove</span>
     <span class="doccomment">///  binding</span>
     <span class="doccomment">/// ## `action_namespace`</span>
     <span class="doccomment">/// the namespace for actions in `model`</span>
@@ -886,12 +886,12 @@
 
     <span class="doccomment">/// Gets the parent menu shell.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The parent menu shell of a submenu is the [`crate::Menu`] or [`crate::MenuBar`]</span>
+    <span class="doccomment">/// The parent menu shell of a submenu is the [`Menu`][crate::Menu] or [`MenuBar`][crate::MenuBar]</span>
     <span class="doccomment">/// from which it was opened up.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the parent [`crate::MenuShell`]</span>
+    <span class="doccomment">/// the parent [`MenuShell`][crate::MenuShell]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_get_parent_shell&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_parent_shell&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">parent_shell</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
@@ -914,20 +914,20 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_take_focus&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">takes_focus</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Adds a new [`crate::MenuItem`] to the menu shell’s item list</span>
+    <span class="doccomment">/// Adds a new [`MenuItem`][crate::MenuItem] to the menu shell’s item list</span>
     <span class="doccomment">/// at the position indicated by `position`.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// The [`crate::MenuItem`] to add</span>
+    <span class="doccomment">/// The [`MenuItem`][crate::MenuItem] to add</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// The position in the item list where `child`</span>
     <span class="doccomment">///  is added. Positions are numbered from 0 to n-1</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_insert&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">insert</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">position</span>: <span class="ident">i32</span>);
 
-    <span class="doccomment">/// Adds a new [`crate::MenuItem`] to the beginning of the menu shell&#39;s</span>
+    <span class="doccomment">/// Adds a new [`MenuItem`][crate::MenuItem] to the beginning of the menu shell&#39;s</span>
     <span class="doccomment">/// item list.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// The [`crate::MenuItem`] to add</span>
+    <span class="doccomment">/// The [`MenuItem`][crate::MenuItem] to add</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_prepend&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">prepend</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -945,7 +945,7 @@
 
     <span class="doccomment">/// Selects the menu item from the menu shell.</span>
     <span class="doccomment">/// ## `menu_item`</span>
-    <span class="doccomment">/// The [`crate::MenuItem`] to select</span>
+    <span class="doccomment">/// The [`MenuItem`][crate::MenuItem] to select</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_shell_select_item&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">select_item</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">menu_item</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -991,7 +991,7 @@
     <span class="kw">fn</span> <span class="ident">emit_activate_current</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">force_hide</span>: <span class="ident">bool</span>);
 
     <span class="doccomment">/// An action signal which cancels the selection within the menu shell.</span>
-    <span class="doccomment">/// Causes the [`crate::MenuShell::selection-done`] signal to be emitted.</span>
+    <span class="doccomment">/// Causes the `signal::MenuShell::selection-done` signal to be emitted.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cancel&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_cancel</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
@@ -1010,14 +1010,14 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;deactivate&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_deactivate</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
-    <span class="doccomment">/// The ::insert signal is emitted when a new [`crate::MenuItem`] is added to</span>
-    <span class="doccomment">/// a [`crate::MenuShell`]. A separate signal is used instead of</span>
-    <span class="doccomment">/// `Container`::add because of the need for an additional position</span>
+    <span class="doccomment">/// The ::insert signal is emitted when a new [`MenuItem`][crate::MenuItem] is added to</span>
+    <span class="doccomment">/// a [`MenuShell`][crate::MenuShell]. A separate signal is used instead of</span>
+    <span class="doccomment">/// GtkContainer::add because of the need for an additional position</span>
     <span class="doccomment">/// parameter.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The inverse of this signal is the `Container`::removed signal.</span>
+    <span class="doccomment">/// The inverse of this signal is the GtkContainer::removed signal.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// the [`crate::MenuItem`] that is being inserted</span>
+    <span class="doccomment">/// the [`MenuItem`][crate::MenuItem] that is being inserted</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// the position at which the insert occurs</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;insert&quot;</span>)]</span>

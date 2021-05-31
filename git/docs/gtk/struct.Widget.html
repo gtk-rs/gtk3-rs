@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`Widget` is the base class all widgets in GTK+ derive from. It manages the widget lifecycle, states and style."><meta name="keywords" content="rust, rustlang, rust-lang, Widget"><title>Widget in gtk - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="GtkWidget is the base class all widgets in GTK+ derive from. It manages the widget lifecycle, states and style."><meta name="keywords" content="rust, rustlang, rust-lang, Widget"><title>Widget in gtk - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc struct"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../gtk/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Struct Widget</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#implementations">Methods</a><div class="sidebar-links"><a href="#method.default_direction">default_direction</a><a href="#method.set_default_direction">set_default_direction</a></div><a class="sidebar-title" href="#trait-implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-Debug">Debug</a><a href="#impl-Display">Display</a><a href="#impl-Eq">Eq</a><a href="#impl-Hash">Hash</a><a href="#impl-IsA%3CBuildable%3E">IsA&lt;Buildable&gt;</a><a href="#impl-IsA%3CWidget%3E">IsA&lt;Widget&gt;</a><a href="#impl-IsSubclassable%3CT%3E">IsSubclassable&lt;T&gt;</a><a href="#impl-Ord">Ord</a><a href="#impl-ParentClassIs">ParentClassIs</a><a href="#impl-PartialEq%3CT%3E">PartialEq&lt;T&gt;</a><a href="#impl-PartialOrd%3CT%3E">PartialOrd&lt;T&gt;</a><a href="#impl-StaticType">StaticType</a><a href="#impl-StructuralEq">StructuralEq</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-RefUnwindSafe">RefUnwindSafe</a><a href="#impl-Send">!Send</a><a href="#impl-Sync">!Sync</a><a href="#impl-Unpin">Unpin</a><a href="#impl-UnwindSafe">UnwindSafe</a></div><a class="sidebar-title" href="#blanket-implementations">Blanket Implementations</a><div class="sidebar-links"><a href="#impl-Any">Any</a><a href="#impl-Borrow%3CT%3E">Borrow&lt;T&gt;</a><a href="#impl-BorrowMut%3CT%3E">BorrowMut&lt;T&gt;</a><a href="#impl-CanDowncast%3CSub%3E">CanDowncast&lt;Sub&gt;</a><a href="#impl-Cast">Cast</a><a href="#impl-From%3CT%3E">From&lt;T&gt;</a><a href="#impl-FromValueOptional%3C%27a%3E">FromValueOptional&lt;&#39;a&gt;</a><a href="#impl-Into%3CU%3E">Into&lt;U&gt;</a><a href="#impl-ObjectExt">ObjectExt</a><a href="#impl-ToOwned">ToOwned</a><a href="#impl-ToSendValue">ToSendValue</a><a href="#impl-ToString">ToString</a><a href="#impl-TryFrom%3CU%3E">TryFrom&lt;U&gt;</a><a href="#impl-TryInto%3CU%3E">TryInto&lt;U&gt;</a></div></div><p class="location"><a href="index.html">gtk</a></p><div id="sidebar-vars" data-name="Widget" data-ty="struct" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gtk</a>::<wbr><a class="struct" href="">Widget</a><button id="copy-path" onclick="copy_path(this)"><img src="../clipboard.svg" width="19" height="18" alt="Copy item import"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gtk/auto/widget.rs.html#39-338" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct Widget(_);</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><code>Widget</code> is the base class all widgets in GTK+ derive from. It manages the
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="index.html">gtk</a>::<wbr><a class="struct" href="">Widget</a><button id="copy-path" onclick="copy_path(this)"><img src="../clipboard.svg" width="19" height="18" alt="Copy item import"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/gtk/auto/widget.rs.html#39-338" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust struct">pub struct Widget(_);</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>GtkWidget is the base class all widgets in GTK+ derive from. It manages the
 widget lifecycle, states and style.</p>
 <h1 id="height-for-width-geometry-management--geometry-management" class="section-header"><a href="#height-for-width-geometry-management--geometry-management">Height-for-width Geometry Management # {<code>geometry</code>-management}</a></h1>
 <p>GTK+ uses a height-for-width (and width-for-height) geometry management
@@ -13,62 +13,62 @@ to fewer lines, and therefore needs less height.</p>
 <p>Height-for-width geometry management is implemented in GTK+ by way
 of five virtual methods:</p>
 <ul>
-<li>[<code>crate::</code>WidgetClass<code>.get_request_mode()</code>]</li>
-<li>[<code>crate::</code>WidgetClass<code>.get_preferred_width()</code>]</li>
-<li>[<code>crate::</code>WidgetClass<code>.get_preferred_height()</code>]</li>
-<li>[<code>crate::</code>WidgetClass<code>.get_preferred_height_for_width()</code>]</li>
-<li>[<code>crate::</code>WidgetClass<code>.get_preferred_width_for_height()</code>]</li>
-<li>[<code>crate::</code>WidgetClass<code>.get_preferred_height_and_baseline_for_width()</code>]</li>
+<li><code>GtkWidgetClass.get_request_mode()</code></li>
+<li><code>GtkWidgetClass.get_preferred_width()</code></li>
+<li><code>GtkWidgetClass.get_preferred_height()</code></li>
+<li><code>GtkWidgetClass.get_preferred_height_for_width()</code></li>
+<li><code>GtkWidgetClass.get_preferred_width_for_height()</code></li>
+<li><code>GtkWidgetClass.get_preferred_height_and_baseline_for_width()</code></li>
 </ul>
 <p>There are some important things to keep in mind when implementing
 height-for-width and when using it in container implementations.</p>
 <p>The geometry management system will query a widget hierarchy in
 only one orientation at a time. When widgets are initially queried
 for their minimum sizes it is generally done in two initial passes
-in the <a href="enum.SizeRequestMode.html" title="crate::SizeRequestMode"><code>crate::SizeRequestMode</code></a> chosen by the toplevel.</p>
+in the <a href="enum.SizeRequestMode.html" title="crate::SizeRequestMode"><code>SizeRequestMode</code></a> chosen by the toplevel.</p>
 <p>For example, when queried in the normal
-<a href="enum.SizeRequestMode.html#variant.HeightForWidth" title="crate::SizeRequestMode::HeightForWidth"><code>crate::SizeRequestMode::HeightForWidth</code></a> mode:
+<a href="enum.SizeRequestMode.html#variant.HeightForWidth" title="crate::SizeRequestMode::HeightForWidth"><code>SizeRequestMode::HeightForWidth</code></a> mode:
 First, the default minimum and natural width for each widget
-in the interface will be computed using [<code>crate::prelude::WidgetExt::get_preferred_width()</code>].
+in the interface will be computed using <a href="prelude/trait.WidgetExt.html#tymethod.preferred_width" title="crate::prelude::WidgetExt::preferred_width()"><code>WidgetExt::preferred_width()</code></a>.
 Because the preferred widths for each container depend on the preferred
 widths of their children, this information propagates up the hierarchy,
 and finally a minimum and natural width is determined for the entire
 toplevel. Next, the toplevel will use the minimum width to query for the
 minimum height contextual to that width using
-[<code>crate::prelude::WidgetExt::get_preferred_height_for_width()</code>], which will also be a highly
+<a href="prelude/trait.WidgetExt.html#tymethod.preferred_height_for_width" title="crate::prelude::WidgetExt::preferred_height_for_width()"><code>WidgetExt::preferred_height_for_width()</code></a>, which will also be a highly
 recursive operation. The minimum height for the minimum width is normally
 used to set the minimum size constraint on the toplevel
-(unless <a href="prelude/trait.GtkWindowExt.html#tymethod.set_geometry_hints" title="crate::prelude::GtkWindowExt::set_geometry_hints()"><code>crate::prelude::</code>GtkWindowExt<code>::set_geometry_hints()</code></a> is explicitly used instead).</p>
+(unless <a href="prelude/trait.GtkWindowExt.html#tymethod.set_geometry_hints" title="crate::prelude::GtkWindowExt::set_geometry_hints()"><code>GtkWindowExt::set_geometry_hints()</code></a> is explicitly used instead).</p>
 <p>After the toplevel window has initially requested its size in both
 dimensions it can go on to allocate itself a reasonable size (or a size
-previously specified with <a href="prelude/trait.GtkWindowExt.html#tymethod.set_default_size" title="crate::prelude::GtkWindowExt::set_default_size()"><code>crate::prelude::</code>GtkWindowExt<code>::set_default_size()</code></a>). During the
+previously specified with <a href="prelude/trait.GtkWindowExt.html#tymethod.set_default_size" title="crate::prelude::GtkWindowExt::set_default_size()"><code>GtkWindowExt::set_default_size()</code></a>). During the
 recursive allocation process it’s important to note that request cycles
 will be recursively executed while container widgets allocate their children.
 Each container widget, once allocated a size, will go on to first share the
 space in one orientation among its children and then request each child’s
 height for its target allocated width or its width for allocated height,
-depending. In this way a <a href="struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> will typically be requested its size
+depending. In this way a <a href="struct.Widget.html" title="crate::Widget"><code>Widget</code></a> will typically be requested its size
 a number of times before actually being allocated a size. The size a
 widget is finally allocated can of course differ from the size it has
-requested. For this reason, <a href="struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> caches a small number of results
+requested. For this reason, <a href="struct.Widget.html" title="crate::Widget"><code>Widget</code></a> caches a small number of results
 to avoid re-querying for the same sizes in one allocation cycle.</p>
 <p>See
-[<code>Container</code>’s geometry management section][container-geometry-management]
+[GtkContainer’s geometry management section][container-geometry-management]
 to learn more about how height-for-width allocations are performed
 by container widgets.</p>
 <p>If a widget does move content around to intelligently use up the
 allocated size then it must support the request in both
 <code>GtkSizeRequestModes</code> even if the widget in question only
 trades sizes in a single orientation.</p>
-<p>For instance, a <a href="struct.Label.html" title="crate::Label"><code>crate::Label</code></a> that does height-for-width word wrapping
-will not expect to have [<code>crate::</code>WidgetClass<code>.get_preferred_height()</code>] called
+<p>For instance, a <a href="struct.Label.html" title="crate::Label"><code>Label</code></a> that does height-for-width word wrapping
+will not expect to have <code>GtkWidgetClass.get_preferred_height()</code> called
 because that call is specific to a width-for-height request. In this
 case the label must return the height required for its own minimum
 possible width. By following this rule any widget that handles
 height-for-width or width-for-height requests will always be allocated
 at least enough space to fit its own content.</p>
-<p>Here are some examples of how a <a href="enum.SizeRequestMode.html#variant.HeightForWidth" title="crate::SizeRequestMode::HeightForWidth"><code>crate::SizeRequestMode::HeightForWidth</code></a> widget
-generally deals with width-for-height requests, for [<code>crate::</code>WidgetClass<code>.get_preferred_height()</code>]
+<p>Here are some examples of how a <a href="enum.SizeRequestMode.html#variant.HeightForWidth" title="crate::SizeRequestMode::HeightForWidth"><code>SizeRequestMode::HeightForWidth</code></a> widget
+generally deals with width-for-height requests, for <code>GtkWidgetClass.get_preferred_height()</code>
 it will do:</p>
 <pre><code class="language-C">static void
 foo_widget_get_preferred_height (GtkWidget *widget,
@@ -96,7 +96,7 @@ foo_widget_get_preferred_height (GtkWidget *widget,
      }
 }
 </code></pre>
-<p>And in [<code>crate::</code>WidgetClass<code>.get_preferred_width_for_height()</code>] it will simply return
+<p>And in <code>GtkWidgetClass.get_preferred_width_for_height()</code> it will simply return
 the minimum and natural width:</p>
 <pre><code class="language-C">static void
 foo_widget_get_preferred_width_for_height (GtkWidget *widget,
@@ -128,9 +128,9 @@ be careful to call its virtual methods directly, like this:</p>
                                                    &amp;natural);
 </code></pre>
 <p>It will not work to use the wrapper functions, such as
-[<code>crate::prelude::WidgetExt::get_preferred_width()</code>] inside your own size request
-implementation. These return a request adjusted by <a href="struct.SizeGroup.html" title="crate::SizeGroup"><code>crate::SizeGroup</code></a>
-and by the [<code>crate::</code>WidgetClass<code>.adjust_size_request()</code>] virtual method. If a
+<a href="prelude/trait.WidgetExt.html#tymethod.preferred_width" title="crate::prelude::WidgetExt::preferred_width()"><code>WidgetExt::preferred_width()</code></a> inside your own size request
+implementation. These return a request adjusted by <a href="struct.SizeGroup.html" title="crate::SizeGroup"><code>SizeGroup</code></a>
+and by the <code>GtkWidgetClass.adjust_size_request()</code> virtual method. If a
 widget used the wrappers inside its virtual method implementations,
 then the adjustments (such as widget margins) would be applied
 twice. GTK+ therefore does not allow this and will warn if you try
@@ -139,38 +139,38 @@ to do it.</p>
 another widget, such as a child of a
 container, you must use the wrapper APIs.
 Otherwise, you would not properly consider widget margins,
-<a href="struct.SizeGroup.html" title="crate::SizeGroup"><code>crate::SizeGroup</code></a>, and so forth.</p>
+<a href="struct.SizeGroup.html" title="crate::SizeGroup"><code>SizeGroup</code></a>, and so forth.</p>
 <p>Since 3.10 GTK+ also supports baseline vertical alignment of widgets. This
 means that widgets are positioned such that the typographical baseline of
 widgets in the same row are aligned. This happens if a widget supports baselines,
-has a vertical alignment of <a href="enum.Align.html#variant.Baseline" title="crate::Align::Baseline"><code>crate::Align::Baseline</code></a>, and is inside a container
+has a vertical alignment of <a href="enum.Align.html#variant.Baseline" title="crate::Align::Baseline"><code>Align::Baseline</code></a>, and is inside a container
 that supports baselines and has a natural “row” that it aligns to the baseline,
 or a baseline assigned to it by the grandparent.</p>
-<p>Baseline alignment support for a widget is done by the [<code>crate::</code>WidgetClass<code>.get_preferred_height_and_baseline_for_width()</code>]
+<p>Baseline alignment support for a widget is done by the <code>GtkWidgetClass.get_preferred_height_and_baseline_for_width()</code>
 virtual function. It allows you to report a baseline in combination with the
 minimum and natural height. If there is no baseline you can return -1 to indicate
 this. The default implementation of this virtual function calls into the
-[<code>crate::</code>WidgetClass<code>.get_preferred_height()</code>] and [<code>crate::</code>WidgetClass<code>.get_preferred_height_for_width()</code>],
+<code>GtkWidgetClass.get_preferred_height()</code> and <code>GtkWidgetClass.get_preferred_height_for_width()</code>,
 so if baselines are not supported it doesn’t need to be implemented.</p>
 <p>If a widget ends up baseline aligned it will be allocated all the space in the parent
-as if it was <a href="enum.Align.html#variant.Fill" title="crate::Align::Fill"><code>crate::Align::Fill</code></a>, but the selected baseline can be found via [<code>crate::prelude::WidgetExt::get_allocated_baseline()</code>].
+as if it was <a href="enum.Align.html#variant.Fill" title="crate::Align::Fill"><code>Align::Fill</code></a>, but the selected baseline can be found via <a href="prelude/trait.WidgetExt.html#tymethod.allocated_baseline" title="crate::prelude::WidgetExt::allocated_baseline()"><code>WidgetExt::allocated_baseline()</code></a>.
 If this has a value other than -1 you need to align the widget such that the baseline
 appears at the position.</p>
 <h1 id="style-properties" class="section-header"><a href="#style-properties">Style Properties</a></h1>
-<p><a href="struct.Widget.html" title="crate::Widget"><code>crate::Widget</code></a> introduces “style
+<p><a href="struct.Widget.html" title="crate::Widget"><code>Widget</code></a> introduces “style
 properties” - these are basically object properties that are stored
 not on the object, but in the style object associated to the widget. Style
 properties are set in [resource files][gtk3-Resource-Files].
 This mechanism is used for configuring such things as the location of the
 scrollbar arrows through the theme, giving theme authors more control over the
 look of applications without the need to write a theme engine in C.</p>
-<p>Use [<code>crate::WidgetClass::install_style_property()</code>] to install style properties for
-a widget class, [<code>crate::WidgetClass::find_style_property()</code>] or
-[<code>crate::WidgetClass::list_style_properties()</code>] to get information about existing
-style properties and <a href="prelude/trait.WidgetExt.html#tymethod.style_get_property" title="crate::prelude::WidgetExt::style_get_property()"><code>crate::prelude::WidgetExt::style_get_property()</code></a>, [<code>crate::prelude::WidgetExt::style_get()</code>] or
-[<code>crate::prelude::WidgetExt::style_get_valist()</code>] to obtain the value of a style property.</p>
-<h1 id="widget-as-buildable" class="section-header"><a href="#widget-as-buildable"><code>Widget</code> as <code>Buildable</code></a></h1>
-<p>The <code>Widget</code> implementation of the <code>Buildable</code> interface supports a
+<p>Use <code>gtk_widget_class_install_style_property()</code> to install style properties for
+a widget class, <code>gtk_widget_class_find_style_property()</code> or
+<code>gtk_widget_class_list_style_properties()</code> to get information about existing
+style properties and <a href="prelude/trait.WidgetExt.html#tymethod.style_get_property" title="crate::prelude::WidgetExt::style_get_property()"><code>WidgetExt::style_get_property()</code></a>, [<code>WidgetExt::style_get()</code>][crate::prelude::WidgetExt::style_get()] or
+[<code>WidgetExt::style_get_valist()</code>][crate::prelude::WidgetExt::style_get_valist()] to obtain the value of a style property.</p>
+<h1 id="gtkwidget-as-gtkbuildable" class="section-header"><a href="#gtkwidget-as-gtkbuildable">GtkWidget as GtkBuildable</a></h1>
+<p>The GtkWidget implementation of the GtkBuildable interface supports a
 custom <code>&lt;accelerator&gt;</code> element, which has attributes named ”key”, ”modifiers”
 and ”signal” and allows to specify accelerators.</p>
 <p>An example of a UI definition fragment specifying an accelerator:</p>
@@ -183,7 +183,7 @@ foo_widget_class_init (FooWidgetClass *klass)
                                                &quot;/com/example/ui/foowidget.ui&quot;);
 }
 </code></pre>
-<p>You will also need to call <a href="prelude/trait.WidgetExt.html#tymethod.init_template" title="crate::prelude::WidgetExt::init_template()"><code>crate::prelude::WidgetExt::init_template()</code></a> from the instance
+<p>You will also need to call <a href="prelude/trait.WidgetExt.html#tymethod.init_template" title="crate::prelude::WidgetExt::init_template()"><code>WidgetExt::init_template()</code></a> from the instance
 initialization function:</p>
 <pre><code class="language-C">static void
 foo_widget_init (FooWidget *self)
@@ -193,7 +193,7 @@ foo_widget_init (FooWidget *self)
 }
 </code></pre>
 <p>You can access widgets defined in the template using the
-[<code>crate::prelude::WidgetExt::get_template_child()</code>] function, but you will typically declare
+<a href="prelude/trait.WidgetExt.html#tymethod.template_child" title="crate::prelude::WidgetExt::template_child()"><code>WidgetExt::template_child()</code></a> function, but you will typically declare
 a pointer in the instance private data structure of your type using the same
 name as the widget in the template definition, and call
 <code>gtk_widget_class_bind_template_child_private()</code> with that name, e.g.</p>
@@ -245,16 +245,16 @@ foo_widget_class_init (FooWidgetClass *klass)
 </code></pre>
 <p>This is an Abstract Base Class, you cannot instantiate it.</p>
 <h1 id="implements" class="section-header"><a href="#implements">Implements</a></h1>
-<p><a href="prelude/trait.WidgetExt.html" title="crate::prelude::WidgetExt"><code>crate::prelude::WidgetExt</code></a>, [<code>trait@glib::object::ObjectExt</code>], <a href="prelude/trait.BuildableExt.html" title="crate::prelude::BuildableExt"><code>crate::prelude::BuildableExt</code></a>, <a href="prelude/trait.WidgetExtManual.html" title="crate::prelude::WidgetExtManual"><code>crate::prelude::WidgetExtManual</code></a>, <a href="prelude/trait.BuildableExtManual.html" title="crate::prelude::BuildableExtManual"><code>crate::prelude::BuildableExtManual</code></a></p>
+<p><a href="prelude/trait.WidgetExt.html" title="crate::prelude::WidgetExt"><code>WidgetExt</code></a>, [<code>trait@glib::ObjectExt</code>], <a href="prelude/trait.BuildableExt.html" title="crate::prelude::BuildableExt"><code>BuildableExt</code></a>, <a href="prelude/trait.WidgetExtManual.html" title="crate::prelude::WidgetExtManual"><code>WidgetExtManual</code></a>, <a href="prelude/trait.BuildableExtManual.html" title="crate::prelude::BuildableExtManual"><code>BuildableExtManual</code></a></p>
 </div></details><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle" open><summary><h3 id="impl" class="impl"><code class="in-band">impl <a class="struct" href="struct.Widget.html" title="struct gtk::Widget">Widget</a></code><a href="#impl" class="anchor"></a><a class="srclink" href="../src/gtk/auto/widget.rs.html#340-371" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.default_direction" class="method"><code>pub fn <a href="#method.default_direction" class="fnname">default_direction</a>() -&gt; <a class="enum" href="enum.TextDirection.html" title="enum gtk::TextDirection">TextDirection</a></code><a href="#method.default_direction" class="anchor"></a><a class="srclink" href="../src/gtk/auto/widget.rs.html#354-357" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Obtains the current default reading direction. See
-<a href="struct.Widget.html#method.set_default_direction" title="Self::set_default_direction()"><code>Self::set_default_direction()</code></a>.</p>
+<a href="struct.Widget.html#method.set_default_direction" title="Self::set_default_direction()"><code>set_default_direction()</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the current default direction.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.set_default_direction" class="method"><code>pub fn <a href="#method.set_default_direction" class="fnname">set_default_direction</a>(dir: <a class="enum" href="enum.TextDirection.html" title="enum gtk::TextDirection">TextDirection</a>)</code><a href="#method.set_default_direction" class="anchor"></a><a class="srclink" href="../src/gtk/auto/widget.rs.html#365-370" title="goto source code">[src]</a></h4></summary><div class="docblock"><p>Sets the default reading direction for widgets where the
-direction has not been explicitly set by <a href="prelude/trait.WidgetExt.html#tymethod.set_direction" title="crate::prelude::WidgetExt::set_direction()"><code>crate::prelude::WidgetExt::set_direction()</code></a>.</p>
+direction has not been explicitly set by <a href="prelude/trait.WidgetExt.html#tymethod.set_direction" title="crate::prelude::WidgetExt::set_direction()"><code>WidgetExt::set_direction()</code></a>.</p>
 <h2 id="dir" class="section-header"><a href="#dir"><code>dir</code></a></h2>
 <p>the new default direction. This cannot be
-<a href="enum.TextDirection.html#variant.None" title="crate::TextDirection::None"><code>crate::TextDirection::None</code></a>.</p>
+<a href="enum.TextDirection.html#variant.None" title="crate::TextDirection::None"><code>TextDirection::None</code></a>.</p>
 </div></details></div></details><h2 id="trait-implementations" class="small-section-header">Trait Implementations<a href="#trait-implementations" class="anchor"></a></h2><div id="trait-implementations-list"><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Clone" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="struct.Widget.html" title="struct gtk::Widget">Widget</a></code><a href="#impl-Clone" class="anchor"></a><a class="srclink" href="../src/gtk/auto/widget.rs.html#39-338" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.clone" class="method trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone" class="fnname">clone</a>(&amp;self) -&gt; <a class="struct" href="struct.Widget.html" title="struct gtk::Widget">Widget</a></code><a href="#method.clone" class="anchor"></a><a class="srclink" href="../src/gtk/auto/widget.rs.html#39-338" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.clone_from" class="method trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from" class="fnname">clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a href="#method.clone_from" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
 </div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-Debug" class="impl"><code class="in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="struct.Widget.html" title="struct gtk::Widget">Widget</a></code><a href="#impl-Debug" class="anchor"></a><a class="srclink" href="../src/gtk/auto/widget.rs.html#39-338" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.fmt" class="method trait-impl"><code>fn <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt" class="fnname">fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>&lt;'_&gt;) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code><a href="#method.fmt" class="anchor"></a><a class="srclink" href="../src/gtk/auto/widget.rs.html#39-338" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
@@ -317,7 +317,7 @@ runtime, while <code>downcast</code> and <code>upcast</code> will do many checks
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.clone_into" class="method trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into" class="fnname">clone_into</a>(&amp;self, target: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>T)</code><a href="#method.clone_into" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#93" title="goto source code">[src]</a></h4></summary><div class="item-info"><div class="stab unstable"><details><summary><span class="emoji">🔬</span> This is a nightly-only experimental API. (<code>toowned_clone_into</code>)</summary><p>recently added</p>
 </details></div></div><div class='docblock'><p>Uses borrowed data to replace owned data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into">Read more</a></p>
 </div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToSendValue" class="impl"><code class="in-band">impl&lt;T&gt; ToSendValue for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + ToValue + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToSendValue" class="anchor"></a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.to_send_value" class="method trait-impl"><code>pub fn <a href="#tymethod.to_send_value" class="fnname">to_send_value</a>(&amp;self) -&gt; SendValue</code><a href="#method.to_send_value" class="anchor"></a></h4></summary><div class='docblock'><p>Returns a <code>SendValue</code> clone of <code>self</code>.</p>
-</div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToString" class="impl"><code class="in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html" title="trait alloc::string::ToString">ToString</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToString" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2319-2333" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.to_string" class="method trait-impl"><code>pub default fn <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string" class="fnname">to_string</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code><a href="#method.to_string" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2325" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Converts the given value to a <code>String</code>. <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">Read more</a></p>
+</div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-ToString" class="impl"><code class="in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html" title="trait alloc::string::ToString">ToString</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html" title="trait core::fmt::Display">Display</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code><a href="#impl-ToString" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2355-2369" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.to_string" class="method trait-impl"><code>pub default fn <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string" class="fnname">to_string</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code><a href="#method.to_string" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/string.rs.html#2361" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Converts the given value to a <code>String</code>. <a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html#tymethod.to_string">Read more</a></p>
 </div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-TryFrom%3CU%3E" class="impl"><code class="in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,&nbsp;</span></code><a href="#impl-TryFrom%3CU%3E" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#581-590" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle" open><summary><h4 id="associatedtype.Error" class="type trait-impl"><code>type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="type">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></code><a href="#associatedtype.Error" class="anchor"></a></h4></summary><div class='docblock'><p>The type returned in the event of a conversion error.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><h4 id="method.try_from" class="method trait-impl"><code>pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</code><a href="#method.try_from" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587" title="goto source code">[src]</a></h4></summary><div class='docblock'><p>Performs the conversion.</p>
 </div></details></div></details></details><details class="rustdoc-toggle implementors-toggle"><summary><h3 id="impl-TryInto%3CU%3E" class="impl"><code class="in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html" title="trait core::convert::TryInto">TryInto</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;,&nbsp;</span></code><a href="#impl-TryInto%3CU%3E" class="anchor"></a><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#567-576" title="goto source code">[src]</a></h3></summary><div class="impl-items"><details class="undocumented"><summary></summary><details class="rustdoc-toggle" open><summary><h4 id="associatedtype.Error-1" class="type trait-impl"><code>type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error" class="type">Error</a> = &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a></code><a href="#associatedtype.Error-1" class="anchor"></a></h4></summary><div class='docblock'><p>The type returned in the event of a conversion error.</p>

@@ -410,11 +410,11 @@
 
 <span class="kw">impl</span> <span class="ident">DragContext</span> {
     <span class="doccomment">/// Determines the bitmask of actions proposed by the source if</span>
-    <span class="doccomment">/// [`Self::get_suggested_action()`] returns [`crate::DragAction::Ask`].</span>
+    <span class="doccomment">/// [`suggested_action()`][Self::suggested_action()] returns [`DragAction::ASK`][crate::DragAction::ASK].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`crate::DragAction`] flags</span>
+    <span class="doccomment">/// the [`DragAction`][crate::DragAction] flags</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_get_actions&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_actions&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">actions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DragAction</span> {
@@ -425,18 +425,18 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::Window`]</span>
+    <span class="doccomment">/// a [`Window`][crate::Window]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_get_dest_window&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_dest_window&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dest_window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Window</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_drag_context_get_dest_window</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Returns the [`crate::Device`] associated to the drag context.</span>
+    <span class="doccomment">/// Returns the [`Device`][crate::Device] associated to the drag context.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`crate::Device`] associated to `self`.</span>
+    <span class="doccomment">/// The [`Device`][crate::Device] associated to `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_get_device&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_device&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Device</span> {
@@ -476,7 +476,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::DragAction`] value</span>
+    <span class="doccomment">/// a [`DragAction`][crate::DragAction] value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_get_selected_action&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_selected_action&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">selected_action</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DragAction</span> {
@@ -487,11 +487,11 @@
         }
     }
 
-    <span class="doccomment">/// Returns the [`crate::Window`] where the DND operation started.</span>
+    <span class="doccomment">/// Returns the [`Window`][crate::Window] where the DND operation started.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::Window`]</span>
+    <span class="doccomment">/// a [`Window`][crate::Window]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_get_source_window&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_source_window&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">source_window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Window</span> {
@@ -506,7 +506,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::DragAction`] value</span>
+    <span class="doccomment">/// a [`DragAction`][crate::DragAction] value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_get_suggested_action&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_suggested_action&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">suggested_action</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DragAction</span> {
@@ -521,7 +521,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::glib::List`] of targets</span>
+    <span class="doccomment">/// a `GList` of targets</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_list_targets&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_targets</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Atom</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -532,19 +532,19 @@
     }
 
     <span class="doccomment">/// Requests the drag and drop operation to be managed by `self`.</span>
-    <span class="doccomment">/// When a drag and drop operation becomes managed, the [`crate::DragContext`]</span>
-    <span class="doccomment">/// will internally handle all input and source-side [`crate::EventDND`] events</span>
+    <span class="doccomment">/// When a drag and drop operation becomes managed, the [`DragContext`][crate::DragContext]</span>
+    <span class="doccomment">/// will internally handle all input and source-side [`EventDND`][crate::EventDND] events</span>
     <span class="doccomment">/// as required by the windowing system.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Once the drag and drop operation is managed, the drag context will</span>
     <span class="doccomment">/// emit the following signals:</span>
-    <span class="doccomment">/// - The [`crate::DragContext::action-changed`] signal whenever the final action</span>
+    <span class="doccomment">/// - The `signal::DragContext::action-changed` signal whenever the final action</span>
     <span class="doccomment">///  to be performed by the drag and drop operation changes.</span>
-    <span class="doccomment">/// - The [`crate::DragContext::drop-performed`] signal after the user performs</span>
+    <span class="doccomment">/// - The `signal::DragContext::drop-performed` signal after the user performs</span>
     <span class="doccomment">///  the drag and drop gesture (typically by releasing the mouse button).</span>
-    <span class="doccomment">/// - The [`crate::DragContext::dnd-finished`] signal after the drag and drop</span>
-    <span class="doccomment">///  operation concludes (after all ``GdkSelection`` transfers happen).</span>
-    <span class="doccomment">/// - The [`crate::DragContext::cancel`] signal if the drag and drop operation is</span>
+    <span class="doccomment">/// - The `signal::DragContext::dnd-finished` signal after the drag and drop</span>
+    <span class="doccomment">///  operation concludes (after all `GdkSelection` transfers happen).</span>
+    <span class="doccomment">/// - The `signal::DragContext::cancel` signal if the drag and drop operation is</span>
     <span class="doccomment">///  finished but doesn&#39;t happen over an accepting destination, or is</span>
     <span class="doccomment">///  cancelled through other means.</span>
     <span class="doccomment">/// ## `ipc_window`</span>
@@ -554,7 +554,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`crate::true`] if the drag and drop operation is managed.</span>
+    <span class="doccomment">/// [`true`] if the drag and drop operation is managed.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_manage_dnd&quot;</span>)]</span>
@@ -568,10 +568,10 @@
         }
     }
 
-    <span class="doccomment">/// Associates a [`crate::Device`] to `self`, so all Drag and Drop events</span>
+    <span class="doccomment">/// Associates a [`Device`][crate::Device] to `self`, so all Drag and Drop events</span>
     <span class="doccomment">/// for `self` are emitted as if they came from this device.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// a [`crate::Device`]</span>
+    <span class="doccomment">/// a [`Device`][crate::Device]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_drag_context_set_device&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_device</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) {
         <span class="kw">unsafe</span> {
@@ -597,8 +597,8 @@
 
     <span class="doccomment">/// A new action is being chosen for the drag and drop operation.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This signal will only be emitted if the [`crate::DragContext`] manages</span>
-    <span class="doccomment">/// the drag and drop operation. See [`Self::manage_dnd()`]</span>
+    <span class="doccomment">/// This signal will only be emitted if the [`DragContext`][crate::DragContext] manages</span>
+    <span class="doccomment">/// the drag and drop operation. See [`manage_dnd()`][Self::manage_dnd()]</span>
     <span class="doccomment">/// for more information.</span>
     <span class="doccomment">/// ## `action`</span>
     <span class="doccomment">/// The action currently chosen</span>
@@ -634,8 +634,8 @@
 
     <span class="doccomment">/// The drag and drop operation was cancelled.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This signal will only be emitted if the [`crate::DragContext`] manages</span>
-    <span class="doccomment">/// the drag and drop operation. See [`Self::manage_dnd()`]</span>
+    <span class="doccomment">/// This signal will only be emitted if the [`DragContext`][crate::DragContext] manages</span>
+    <span class="doccomment">/// the drag and drop operation. See [`manage_dnd()`][Self::manage_dnd()]</span>
     <span class="doccomment">/// for more information.</span>
     <span class="doccomment">/// ## `reason`</span>
     <span class="doccomment">/// The reason the context was cancelled</span>
@@ -671,8 +671,8 @@
     <span class="doccomment">/// finished reading all data. The drag source can now free all</span>
     <span class="doccomment">/// miscellaneous data.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This signal will only be emitted if the [`crate::DragContext`] manages</span>
-    <span class="doccomment">/// the drag and drop operation. See [`Self::manage_dnd()`]</span>
+    <span class="doccomment">/// This signal will only be emitted if the [`DragContext`][crate::DragContext] manages</span>
+    <span class="doccomment">/// the drag and drop operation. See [`manage_dnd()`][Self::manage_dnd()]</span>
     <span class="doccomment">/// for more information.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
@@ -700,8 +700,8 @@
 
     <span class="doccomment">/// The drag and drop operation was performed on an accepting client.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This signal will only be emitted if the [`crate::DragContext`] manages</span>
-    <span class="doccomment">/// the drag and drop operation. See [`Self::manage_dnd()`]</span>
+    <span class="doccomment">/// This signal will only be emitted if the [`DragContext`][crate::DragContext] manages</span>
+    <span class="doccomment">/// the drag and drop operation. See [`manage_dnd()`][Self::manage_dnd()]</span>
     <span class="doccomment">/// for more information.</span>
     <span class="doccomment">/// ## `time`</span>
     <span class="doccomment">/// the time at which the drop happened.</span>

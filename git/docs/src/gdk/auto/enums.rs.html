@@ -4540,7 +4540,7 @@
     }
 }
 
-<span class="doccomment">/// Specifies the crossing mode for [`crate::EventCrossing`].</span>
+<span class="doccomment">/// Specifies the crossing mode for [`EventCrossing`][crate::EventCrossing].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkCrossingMode&quot;</span>)]</span>
@@ -4679,7 +4679,7 @@
 <span class="doccomment">/// Note that these IDs are directly taken from the X cursor font, and many</span>
 <span class="doccomment">/// of these cursors are either not useful, or are not available on other platforms.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The recommended way to create cursors is to use [`crate::Cursor::new_from_name()`].</span>
+<span class="doccomment">/// The recommended way to create cursors is to use [`Cursor::from_name()`][crate::Cursor::from_name()].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkCursorType&quot;</span>)]</span>
@@ -4922,7 +4922,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_BLANK_CURSOR&quot;</span>)]</span>
     <span class="ident">BlankCursor</span>,
     <span class="doccomment">/// type of cursors constructed with</span>
-    <span class="doccomment">///  [`crate::Cursor::new_from_pixbuf()`]</span>
+    <span class="doccomment">///  [`Cursor::from_pixbuf()`][crate::Cursor::from_pixbuf()]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_CURSOR_IS_PIXMAP&quot;</span>)]</span>
     <span class="ident">CursorIsPixmap</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -5484,7 +5484,7 @@
     }
 }
 
-<span class="doccomment">/// Indicates the device type. See [above][`DeviceManager`.description]</span>
+<span class="doccomment">/// Indicates the device type. See [above][GdkDeviceManager.description]</span>
 <span class="doccomment">/// for more information about the meaning of these device types.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -5580,7 +5580,7 @@
     }
 }
 
-<span class="doccomment">/// Used in [`crate::DragContext`] to the reason of a cancelled DND operation.</span>
+<span class="doccomment">/// Used in [`DragContext`][crate::DragContext] to the reason of a cancelled DND operation.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
@@ -5689,7 +5689,7 @@
     }
 }
 
-<span class="doccomment">/// Used in [`crate::DragContext`] to indicate the protocol according to</span>
+<span class="doccomment">/// Used in [`DragContext`][crate::DragContext] to indicate the protocol according to</span>
 <span class="doccomment">/// which DND is done.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -5820,11 +5820,11 @@
 <span class="doccomment">/// Although many of these events result in corresponding signals being emitted,</span>
 <span class="doccomment">/// the events are often transformed or filtered along the way.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// In some language bindings, the values [`Self::2buttonPress`] and</span>
-<span class="doccomment">/// [`Self::3buttonPress`] would translate into something syntactically</span>
+<span class="doccomment">/// In some language bindings, the values [`_2buttonPress`][Self::_2buttonPress] and</span>
+<span class="doccomment">/// [`_3buttonPress`][Self::_3buttonPress] would translate into something syntactically</span>
 <span class="doccomment">/// invalid (eg `Gdk.EventType.2ButtonPress`, where a</span>
 <span class="doccomment">/// symbol is not allowed to start with a number). In that case, the</span>
-<span class="doccomment">/// aliases [`Self::DoubleButtonPress`] and [`Self::TripleButtonPress`] can</span>
+<span class="doccomment">/// aliases [`DoubleButtonPress`][Self::DoubleButtonPress] and [`TripleButtonPress`][Self::TripleButtonPress] can</span>
 <span class="doccomment">/// be used instead.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -5851,10 +5851,10 @@
     <span class="doccomment">/// a mouse button has been pressed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_BUTTON_PRESS&quot;</span>)]</span>
     <span class="ident">ButtonPress</span>,
-    <span class="doccomment">/// alias for [`Self::2buttonPress`], added in 3.6.</span>
+    <span class="doccomment">/// alias for [`_2buttonPress`][Self::_2buttonPress], added in 3.6.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_DOUBLE_BUTTON_PRESS&quot;</span>)]</span>
     <span class="ident">DoubleButtonPress</span>,
-    <span class="doccomment">/// alias for [`Self::3buttonPress`], added in 3.6.</span>
+    <span class="doccomment">/// alias for [`_3buttonPress`][Self::_3buttonPress], added in 3.6.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_TRIPLE_BUTTON_PRESS&quot;</span>)]</span>
     <span class="ident">TripleButtonPress</span>,
     <span class="doccomment">/// a mouse button has been released.</span>
@@ -5876,7 +5876,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_FOCUS_CHANGE&quot;</span>)]</span>
     <span class="ident">FocusChange</span>,
     <span class="doccomment">/// the size, position or stacking order of the window has changed.</span>
-    <span class="doccomment">///  Note that GTK+ discards these events for [`crate::WindowType::Child`] windows.</span>
+    <span class="doccomment">///  Note that GTK+ discards these events for [`WindowType::Child`][crate::WindowType::Child] windows.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_CONFIGURE&quot;</span>)]</span>
     <span class="ident">Configure</span>,
     <span class="doccomment">/// the window has been mapped.</span>
@@ -5934,7 +5934,7 @@
     <span class="doccomment">/// the scroll wheel was turned</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_SCROLL&quot;</span>)]</span>
     <span class="ident">Scroll</span>,
-    <span class="doccomment">/// the state of a window has changed. See [`crate::WindowState`]</span>
+    <span class="doccomment">/// the state of a window has changed. See [`WindowState`][crate::WindowState]</span>
     <span class="doccomment">///  for the possible window states</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_WINDOW_STATE&quot;</span>)]</span>
     <span class="ident">WindowState</span>,
@@ -6299,7 +6299,7 @@
     }
 }
 
-<span class="doccomment">/// Error enumeration for [`crate::GLContext`].</span>
+<span class="doccomment">/// Error enumeration for [`GLContext`][crate::GLContext].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkGLError&quot;</span>)]</span>
@@ -6507,7 +6507,7 @@
     }
 }
 
-<span class="doccomment">/// Returned by [`crate::Device::grab()`], `gdk_pointer_grab()` and `gdk_keyboard_grab()` to</span>
+<span class="doccomment">/// Returned by [`Device::grab()`][crate::Device::grab()], `gdk_pointer_grab()` and `gdk_keyboard_grab()` to</span>
 <span class="doccomment">/// indicate success or the reason for the failure of the grab attempt.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -6994,13 +6994,13 @@
     }
 }
 
-<span class="doccomment">/// This enum is used with [`crate::Keymap::get_modifier_mask()`]</span>
+<span class="doccomment">/// This enum is used with [`Keymap::modifier_mask()`][crate::Keymap::modifier_mask()]</span>
 <span class="doccomment">/// in order to determine what modifiers the</span>
 <span class="doccomment">/// currently used windowing system backend uses for particular</span>
 <span class="doccomment">/// purposes. For example, on X11/Windows, the Control key is used for</span>
 <span class="doccomment">/// invoking menu shortcuts (accelerators), whereas on Apple computers</span>
-<span class="doccomment">/// it’s the Command key (which correspond to [`crate::ModifierType::ControlMask`] and</span>
-<span class="doccomment">/// [`crate::ModifierType::Mod2Mask`], respectively).</span>
+<span class="doccomment">/// it’s the Command key (which correspond to [`ModifierType::CONTROL_MASK`][crate::ModifierType::CONTROL_MASK] and</span>
+<span class="doccomment">/// [`ModifierType::MOD2_MASK`][crate::ModifierType::MOD2_MASK], respectively).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkModifierIntent&quot;</span>)]</span>
@@ -7129,7 +7129,7 @@
     }
 }
 
-<span class="doccomment">/// Specifies the kind of crossing for [`crate::EventCrossing`].</span>
+<span class="doccomment">/// Specifies the kind of crossing for [`EventCrossing`][crate::EventCrossing].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// See the X11 protocol specification of LeaveNotify for</span>
 <span class="doccomment">/// full details of crossing event generation.</span>
@@ -7437,7 +7437,7 @@
     }
 }
 
-<span class="doccomment">/// Specifies the type of a property change for a [`crate::EventProperty`].</span>
+<span class="doccomment">/// Specifies the type of a property change for a [`EventProperty`][crate::EventProperty].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkPropertyState&quot;</span>)]</span>
@@ -7524,7 +7524,7 @@
     }
 }
 
-<span class="doccomment">/// Specifies the direction for [`crate::EventScroll`].</span>
+<span class="doccomment">/// Specifies the direction for [`EventScroll`][crate::EventScroll].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkScrollDirection&quot;</span>)]</span>
@@ -7542,7 +7542,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_SCROLL_RIGHT&quot;</span>)]</span>
     <span class="ident">Right</span>,
     <span class="doccomment">/// the scrolling is determined by the delta values</span>
-    <span class="doccomment">///  in [`crate::EventScroll`]. See `gdk_event_get_scroll_deltas()`. Since: 3.4</span>
+    <span class="doccomment">///  in [`EventScroll`][crate::EventScroll]. See `gdk_event_get_scroll_deltas()`. Since: 3.4</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_SCROLL_SMOOTH&quot;</span>)]</span>
     <span class="ident">Smooth</span>,
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -7631,7 +7631,7 @@
 }
 
 <span class="doccomment">/// Specifies the kind of modification applied to a setting in a</span>
-<span class="doccomment">/// [`crate::EventSetting`].</span>
+<span class="doccomment">/// [`EventSetting`][crate::EventSetting].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkSettingAction&quot;</span>)]</span>
@@ -7852,7 +7852,7 @@
     }
 }
 
-<span class="doccomment">/// Specifies the visiblity status of a window for a [`crate::EventVisibility`].</span>
+<span class="doccomment">/// Specifies the visiblity status of a window for a [`EventVisibility`][crate::EventVisibility].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkVisibilityState&quot;</span>)]</span>
@@ -7970,13 +7970,13 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_VISUAL_PSEUDO_COLOR&quot;</span>)]</span>
     <span class="ident">PseudoColor</span>,
     <span class="doccomment">/// Each pixel value directly contains red, green,</span>
-    <span class="doccomment">///  and blue components. Use [`crate::Visual::get_red_pixel_details()`], etc,</span>
+    <span class="doccomment">///  and blue components. Use [`Visual::red_pixel_details()`][crate::Visual::red_pixel_details()], etc,</span>
     <span class="doccomment">///  to obtain information about how the components are assembled into</span>
     <span class="doccomment">///  a pixel value.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_VISUAL_TRUE_COLOR&quot;</span>)]</span>
     <span class="ident">TrueColor</span>,
     <span class="doccomment">/// Each pixel value contains red, green, and blue</span>
-    <span class="doccomment">///  components as for [`Self::TrueColor`], but the components are</span>
+    <span class="doccomment">///  components as for [`TrueColor`][Self::TrueColor], but the components are</span>
     <span class="doccomment">///  mapped via a color table into the final output table instead of</span>
     <span class="doccomment">///  being converted directly.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_VISUAL_DIRECT_COLOR&quot;</span>)]</span>
@@ -8201,14 +8201,14 @@
     <span class="doccomment">///  screen, and is created by the window system</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_WINDOW_ROOT&quot;</span>)]</span>
     <span class="ident">Root</span>,
-    <span class="doccomment">/// toplevel window (used to implement ``GtkWindow``)</span>
+    <span class="doccomment">/// toplevel window (used to implement `GtkWindow`)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_WINDOW_TOPLEVEL&quot;</span>)]</span>
     <span class="ident">Toplevel</span>,
-    <span class="doccomment">/// child window (used to implement e.g. ``GtkEntry``)</span>
+    <span class="doccomment">/// child window (used to implement e.g. `GtkEntry`)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_WINDOW_CHILD&quot;</span>)]</span>
     <span class="ident">Child</span>,
     <span class="doccomment">/// override redirect temporary window (used to implement</span>
-    <span class="doccomment">///  ``GtkMenu``)</span>
+    <span class="doccomment">///  `GtkMenu`)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_WINDOW_TEMP&quot;</span>)]</span>
     <span class="ident">Temp</span>,
     <span class="doccomment">/// foreign window (see `gdk_window_foreign_new()`)</span>
@@ -8331,7 +8331,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_WINDOW_TYPE_HINT_DIALOG&quot;</span>)]</span>
     <span class="ident">Dialog</span>,
     <span class="doccomment">/// Window used to implement a menu; GTK+ uses</span>
-    <span class="doccomment">///  this hint only for torn-off menus, see ``GtkTearoffMenuItem``.</span>
+    <span class="doccomment">///  this hint only for torn-off menus, see `GtkTearoffMenuItem`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GDK_WINDOW_TYPE_HINT_MENU&quot;</span>)]</span>
     <span class="ident">Menu</span>,
     <span class="doccomment">/// Window used to implement toolbars.</span>
@@ -8484,11 +8484,11 @@
     }
 }
 
-<span class="doccomment">/// [`Self::InputOutput`] windows are the standard kind of window you might expect.</span>
+<span class="doccomment">/// [`InputOutput`][Self::InputOutput] windows are the standard kind of window you might expect.</span>
 <span class="doccomment">/// Such windows receive events and are also displayed on screen.</span>
-<span class="doccomment">/// [`Self::InputOnly`] windows are invisible; they are usually placed above other</span>
+<span class="doccomment">/// [`InputOnly`][Self::InputOnly] windows are invisible; they are usually placed above other</span>
 <span class="doccomment">/// windows in order to trap or filter the events. You can’t draw on</span>
-<span class="doccomment">/// [`Self::InputOnly`] windows.</span>
+<span class="doccomment">/// [`InputOnly`][Self::InputOnly] windows.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Ord</span>, <span class="ident">PartialOrd</span>, <span class="ident">Hash</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkWindowWindowClass&quot;</span>)]</span>

@@ -31,22 +31,22 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_use_es_notify" class="fnname">connect_use_es_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; SignalHandlerId;
 </details>}</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.GLArea.html" title="GLArea"><code>GLArea</code></a> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.GLArea.html" title="crate::GLArea"><code>struct@crate::GLArea</code></a></p>
+<p><a href="../struct.GLArea.html" title="crate::GLArea"><code>GLArea</code></a></p>
 </div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.attach_buffers" class="method"><code>fn <a href="#tymethod.attach_buffers" class="fnname">attach_buffers</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#636" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Ensures that the <code>self</code> framebuffer object is made the current draw
 and read target, and that all the required buffers for the <code>self</code>
 are created and bound to the frambuffer.</p>
 <p>This function is automatically called before emitting the
-[<code>crate::GLArea::render</code>] signal, and doesn’t normally need to be called
+<code>signal::GLArea::render</code> signal, and doesn’t normally need to be called
 by application code.</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.is_auto_render" class="method"><code>fn <a href="#tymethod.is_auto_render" class="fnname">is_auto_render</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#645" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Returns whether the area is in auto render mode or not.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the <code>self</code> is auto rendering, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
-</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.context" class="method"><code>fn <a href="#tymethod.context" class="fnname">context</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/gl_context/struct.GLContext.html" title="struct gdk::auto::gl_context::GLContext">GLContext</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#654" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Retrieves the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>crate::gdk::GLContext</code></a> used by <code>self</code>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.context" class="method"><code>fn <a href="#tymethod.context" class="fnname">context</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/gl_context/struct.GLContext.html" title="struct gdk::auto::gl_context::GLContext">GLContext</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#654" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Retrieves the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>gdk::GLContext</code></a> used by <code>self</code>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>crate::gdk::GLContext</code></a></p>
+<p>the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>gdk::GLContext</code></a></p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.error" class="method"><code>fn <a href="#tymethod.error" class="fnname">error</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;Error&gt;</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#663" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Gets the current error set on the <code>self</code>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
-<p>the [<code>crate::glib::Error</code>] or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<p>the [<code>glib::Error</code>][crate::glib::Error] or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.has_alpha" class="method"><code>fn <a href="#tymethod.has_alpha" class="fnname">has_alpha</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#672" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Returns whether the area has an alpha component.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the <code>self</code> has an alpha component, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
@@ -57,41 +57,41 @@ by application code.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the <code>self</code> has a stencil buffer, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.required_version" class="method"><code>fn <a href="#tymethod.required_version" class="fnname">required_version</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#705" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Retrieves the required version of OpenGL set
-using <a href="trait.GLAreaExt.html#tymethod.set_required_version" title="Self::set_required_version()"><code>Self::set_required_version()</code></a>.</p>
+using <a href="trait.GLAreaExt.html#tymethod.set_required_version" title="Self::set_required_version()"><code>set_required_version()</code></a>.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1><h2 id="major" class="section-header"><a href="#major"><code>major</code></a></h2>
 <p>return location for the required major version</p>
 <h2 id="minor" class="section-header"><a href="#minor"><code>minor</code></a></h2>
 <p>return location for the required minor version</p>
-</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.uses_es" class="method"><code>fn <a href="#tymethod.uses_es" class="fnname">uses_es</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#717" title="goto source code">[src]</a></h3></summary><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_22</code></strong> only.</div></div><div class="docblock"><p>Retrieves the value set by <a href="trait.GLAreaExt.html#tymethod.set_use_es" title="Self::set_use_es()"><code>Self::set_use_es()</code></a>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.uses_es" class="method"><code>fn <a href="#tymethod.uses_es" class="fnname">uses_es</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#717" title="goto source code">[src]</a></h3></summary><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_22</code></strong> only.</div></div><div class="docblock"><p>Retrieves the value set by <a href="trait.GLAreaExt.html#tymethod.set_use_es" title="Self::set_use_es()"><code>set_use_es()</code></a>.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
-<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the <a href="../struct.GLArea.html" title="crate::GLArea"><code>crate::GLArea</code></a> should create an OpenGL ES context
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the <a href="../struct.GLArea.html" title="crate::GLArea"><code>GLArea</code></a> should create an OpenGL ES context
 and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise</p>
-</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.make_current" class="method"><code>fn <a href="#tymethod.make_current" class="fnname">make_current</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#726" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Ensures that the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>crate::gdk::GLContext</code></a> used by <code>self</code> is associated with
-the <a href="../struct.GLArea.html" title="crate::GLArea"><code>crate::GLArea</code></a>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.make_current" class="method"><code>fn <a href="#tymethod.make_current" class="fnname">make_current</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#726" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Ensures that the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>gdk::GLContext</code></a> used by <code>self</code> is associated with
+the <a href="../struct.GLArea.html" title="crate::GLArea"><code>GLArea</code></a>.</p>
 <p>This function is automatically called before emitting the
-[<code>crate::GLArea::render</code>] signal, and doesn’t normally need to be called
+<code>signal::GLArea::render</code> signal, and doesn’t normally need to be called
 by application code.</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.queue_render" class="method"><code>fn <a href="#tymethod.queue_render" class="fnname">queue_render</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#736" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Marks the currently rendered data (if any) as invalid, and queues
-a redraw of the widget, ensuring that the [<code>crate::GLArea::render</code>] signal
+a redraw of the widget, ensuring that the <code>signal::GLArea::render</code> signal
 is emitted during the draw.</p>
-<p>This is only needed when the <a href="trait.GLAreaExt.html#tymethod.set_auto_render" title="Self::set_auto_render()"><code>Self::set_auto_render()</code></a> has
+<p>This is only needed when the <a href="trait.GLAreaExt.html#tymethod.set_auto_render" title="Self::set_auto_render()"><code>set_auto_render()</code></a> has
 been called with a <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> value. The default behaviour is to
-emit [<code>crate::GLArea::render</code>] on each draw.</p>
-</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.set_auto_render" class="method"><code>fn <a href="#tymethod.set_auto_render" class="fnname">set_auto_render</a>(&amp;self, auto_render: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#750" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>If <code>auto_render</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> the [<code>crate::GLArea::render</code>] signal will be
+emit <code>signal::GLArea::render</code> on each draw.</p>
+</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.set_auto_render" class="method"><code>fn <a href="#tymethod.set_auto_render" class="fnname">set_auto_render</a>(&amp;self, auto_render: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#750" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>If <code>auto_render</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> the <code>signal::GLArea::render</code> signal will be
 emitted every time the widget draws. This is the default and is
 useful if drawing the widget is faster.</p>
 <p>If <code>auto_render</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> the data from previous rendering is kept
 around and will be used for drawing the widget the next time,
 unless the window is resized. In order to force a rendering
-<a href="trait.GLAreaExt.html#tymethod.queue_render" title="Self::queue_render()"><code>Self::queue_render()</code></a> must be called. This mode is useful when
+<a href="trait.GLAreaExt.html#tymethod.queue_render" title="Self::queue_render()"><code>queue_render()</code></a> must be called. This mode is useful when
 the scene changes seldomly, but takes a long time to redraw.</p>
 <h2 id="auto_render" class="section-header"><a href="#auto_render"><code>auto_render</code></a></h2>
 <p>a boolean</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.set_error" class="method"><code>fn <a href="#tymethod.set_error" class="fnname">set_error</a>(&amp;self, error: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;Error&gt;)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#758" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Sets an error on the area which will be shown instead of the
-GL rendering. This is useful in the [<code>crate::GLArea::create-context</code>]
+GL rendering. This is useful in the <code>signal::GLArea::create-context</code>
 signal if GL context creation fails.</p>
 <h2 id="error" class="section-header"><a href="#error"><code>error</code></a></h2>
-<p>a new [<code>crate::glib::Error</code>], or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to unset the error</p>
+<p>a new [<code>glib::Error</code>][crate::glib::Error], or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> to unset the error</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.set_has_alpha" class="method"><code>fn <a href="#tymethod.set_has_alpha" class="fnname">set_has_alpha</a>(&amp;self, has_alpha: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#769" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>If <code>has_alpha</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> the buffer allocated by the widget will have
 an alpha channel component, and when rendering to the window the
 result will be composited over whatever is below the widget.</p>
@@ -117,7 +117,7 @@ for the widget.</p>
 <h2 id="minor-1" class="section-header"><a href="#minor-1"><code>minor</code></a></h2>
 <p>the minor version</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.set_use_es" class="method"><code>fn <a href="#tymethod.set_use_es" class="fnname">set_use_es</a>(&amp;self, use_es: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#807" title="goto source code">[src]</a></h3></summary><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_22</code></strong> only.</div></div><div class="docblock"><p>Sets whether the <code>self</code> should create an OpenGL or an OpenGL ES context.</p>
-<p>You should check the capabilities of the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>crate::gdk::GLContext</code></a> before drawing
+<p>You should check the capabilities of the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>gdk::GLContext</code></a> before drawing
 with either API.</p>
 <h2 id="use_es" class="section-header"><a href="#use_es"><code>use_es</code></a></h2>
 <p>whether to use OpenGL or OpenGL ES</p>
@@ -127,17 +127,17 @@ created. This is useful when you want to reuse an existing GL
 context, or if you want to try creating different kinds of GL
 options.</p>
 <p>If context creation fails then the signal handler can use
-<a href="trait.GLAreaExt.html#tymethod.set_error" title="Self::set_error()"><code>Self::set_error()</code></a> to register a more detailed error
+<a href="trait.GLAreaExt.html#tymethod.set_error" title="Self::set_error()"><code>set_error()</code></a> to register a more detailed error
 of how the construction failed.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
-<p>a newly created <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>crate::gdk::GLContext</code></a>;
-the <a href="../struct.GLArea.html" title="crate::GLArea"><code>crate::GLArea</code></a> widget will take ownership of the returned value.</p>
+<p>a newly created <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>gdk::GLContext</code></a>;
+the <a href="../struct.GLArea.html" title="crate::GLArea"><code>GLArea</code></a> widget will take ownership of the returned value.</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.connect_render" class="method"><code>fn <a href="#tymethod.connect_render" class="fnname">connect_render</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/auto/gl_context/struct.GLContext.html" title="struct gdk::auto::gl_context::GLContext">GLContext</a>) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; SignalHandlerId</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#842-845" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>The ::render signal is emitted every time the contents
-of the <a href="../struct.GLArea.html" title="crate::GLArea"><code>crate::GLArea</code></a> should be redrawn.</p>
+of the <a href="../struct.GLArea.html" title="crate::GLArea"><code>GLArea</code></a> should be redrawn.</p>
 <p>The <code>context</code> is bound to the <code>area</code> prior to emitting this function,
 and the buffers are painted to the window once the emission terminates.</p>
 <h2 id="context" class="section-header"><a href="#context"><code>context</code></a></h2>
-<p>the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>crate::gdk::GLContext</code></a> used by <code>area</code></p>
+<p>the <a href="../../gdk/auto/gl_context/struct.GLContext.html" title="crate::gdk::GLContext"><code>gdk::GLContext</code></a> used by <code>area</code></p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to stop other handlers from being invoked for the event.
 <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> to propagate the event further.</p>

@@ -100,12 +100,12 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `StyleProvider` is an interface used to provide style information to a [`crate::StyleContext`].</span>
-    <span class="doccomment">/// See [`crate::prelude::StyleContextExt::add_provider()`] and [`crate::StyleContext::add_provider_for_screen()`].</span>
+    <span class="doccomment">/// GtkStyleProvider is an interface used to provide style information to a [`StyleContext`][crate::StyleContext].</span>
+    <span class="doccomment">/// See [`StyleContextExt::add_provider()`][crate::prelude::StyleContextExt::add_provider()] and [`StyleContext::add_provider_for_screen()`][crate::StyleContext::add_provider_for_screen()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::StyleProviderExt`]</span>
+    <span class="doccomment">/// [`StyleProviderExt`][trait@crate::prelude::StyleProviderExt]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StyleProvider</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::GtkStyleProvider</span>, <span class="ident">ffi::GtkStyleProviderIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -119,16 +119,16 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::CssProvider`], [`struct@crate::Settings`], [`struct@crate::StyleProperties`], [`struct@crate::StyleProvider`]</span>
+<span class="doccomment">/// [`CssProvider`][struct@crate::CssProvider], [`Settings`][struct@crate::Settings], [`StyleProperties`][struct@crate::StyleProperties], [`StyleProvider`][struct@crate::StyleProvider]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StyleProviderExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Looks up a widget style property as defined by `self` for</span>
     <span class="doccomment">/// the widget represented by `path`.</span>
     <span class="doccomment">/// ## `path`</span>
-    <span class="doccomment">/// [`crate::WidgetPath`] to query</span>
+    <span class="doccomment">/// [`WidgetPath`][crate::WidgetPath] to query</span>
     <span class="doccomment">/// ## `state`</span>
     <span class="doccomment">/// state to query the style property for</span>
     <span class="doccomment">/// ## `pspec`</span>
-    <span class="doccomment">/// The [`crate::glib::object::ParamSpec`] to query</span>
+    <span class="doccomment">/// The [`glib::ParamSpec`][crate::glib::ParamSpec] to query</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

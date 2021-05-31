@@ -200,7 +200,7 @@
 <span class="doccomment">/// the clip region. The clip region is mainly useful for highlightling parts</span>
 <span class="doccomment">/// of text, such as when text is selected.</span>
 <span class="doccomment">/// ## `line`</span>
-<span class="doccomment">/// a [`crate::pango::LayoutLine`]</span>
+<span class="doccomment">/// a [`pango::LayoutLine`][crate::pango::LayoutLine]</span>
 <span class="doccomment">/// ## `x_origin`</span>
 <span class="doccomment">/// X pixel where you intend to draw the layout line with this clip</span>
 <span class="doccomment">/// ## `y_origin`</span>
@@ -246,7 +246,7 @@
 <span class="doccomment">/// the clip region. The clip region is mainly useful for highlightling parts</span>
 <span class="doccomment">/// of text, such as when text is selected.</span>
 <span class="doccomment">/// ## `layout`</span>
-<span class="doccomment">/// a [`crate::pango::Layout`]</span>
+<span class="doccomment">/// a [`pango::Layout`][crate::pango::Layout]</span>
 <span class="doccomment">/// ## `x_origin`</span>
 <span class="doccomment">/// X pixel where you intend to draw the layout with this clip</span>
 <span class="doccomment">/// ## `y_origin`</span>
@@ -281,7 +281,7 @@
 }
 
 <span class="doccomment">/// Obtains a desktop-wide setting, such as the double-click time,</span>
-<span class="doccomment">/// for the default screen. See [`crate::Screen::get_setting()`].</span>
+<span class="doccomment">/// for the default screen. See [`Screen::is_setting()`][crate::Screen::is_setting()].</span>
 <span class="doccomment">/// ## `name`</span>
 <span class="doccomment">/// the name of the setting.</span>
 <span class="doccomment">/// ## `value`</span>
@@ -310,16 +310,16 @@
 
 <span class="doccomment">/// Changes the contents of a property on a window.</span>
 <span class="doccomment">/// ## `window`</span>
-<span class="doccomment">/// a [`crate::Window`]</span>
+<span class="doccomment">/// a [`Window`][crate::Window]</span>
 <span class="doccomment">/// ## `property`</span>
 <span class="doccomment">/// the property to change</span>
 <span class="doccomment">/// ## `type_`</span>
 <span class="doccomment">/// the new type for the property. If `mode` is</span>
-<span class="doccomment">///  [`crate::PropMode::Prepend`] or [`crate::PropMode::Append`], then this</span>
+<span class="doccomment">///  [`PropMode::Prepend`][crate::PropMode::Prepend] or [`PropMode::Append`][crate::PropMode::Append], then this</span>
 <span class="doccomment">///  must match the existing type or an error will occur.</span>
 <span class="doccomment">/// ## `format`</span>
 <span class="doccomment">/// the new format for the property. If `mode` is</span>
-<span class="doccomment">///  [`crate::PropMode::Prepend`] or [`crate::PropMode::Append`], then this</span>
+<span class="doccomment">///  [`PropMode::Prepend`][crate::PropMode::Prepend] or [`PropMode::Append`][crate::PropMode::Append], then this</span>
 <span class="doccomment">///  must match the existing format or an error will occur.</span>
 <span class="doccomment">/// ## `mode`</span>
 <span class="doccomment">/// a value describing how the new data is to be combined</span>

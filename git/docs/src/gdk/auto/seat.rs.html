@@ -363,7 +363,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`crate::Seat`] object represents a collection of input devices</span>
+    <span class="doccomment">/// The [`Seat`][crate::Seat] object represents a collection of input devices</span>
     <span class="doccomment">/// that belong to a user.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
@@ -375,7 +375,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Seat</span> {
-    <span class="doccomment">/// Returns the capabilities this [`crate::Seat`] currently has.</span>
+    <span class="doccomment">/// Returns the capabilities this [`Seat`][crate::Seat] currently has.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -386,11 +386,11 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_seat_get_capabilities</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Returns the [`crate::Display`] this seat belongs to.</span>
+    <span class="doccomment">/// Returns the [`Display`][crate::Display] this seat belongs to.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::Display`]. This object is owned by GTK+</span>
+    <span class="doccomment">/// a [`Display`][crate::Display]. This object is owned by GTK+</span>
     <span class="doccomment">///  and must not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_seat_get_display&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_display&quot;</span>)]</span>
@@ -402,7 +402,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a master [`crate::Device`] with keyboard</span>
+    <span class="doccomment">/// a master [`Device`][crate::Device] with keyboard</span>
     <span class="doccomment">///  capabilities. This object is owned by GTK+ and must not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_seat_get_keyboard&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_keyboard&quot;</span>)]</span>
@@ -414,7 +414,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a master [`crate::Device`] with pointer</span>
+    <span class="doccomment">/// a master [`Device`][crate::Device] with pointer</span>
     <span class="doccomment">///  capabilities. This object is owned by GTK+ and must not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_seat_get_pointer&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_pointer&quot;</span>)]</span>
@@ -428,8 +428,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A list of ``GdkDevices``.</span>
-    <span class="doccomment">///  The list must be freed with [`crate::glib::List::free()`], the elements are owned</span>
+    <span class="doccomment">/// A list of `GdkDevices`.</span>
+    <span class="doccomment">///  The list must be freed with `g_list_free()`, the elements are owned</span>
     <span class="doccomment">///  by GDK and must not be freed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_seat_get_slaves&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_slaves&quot;</span>)]</span>
@@ -443,31 +443,31 @@
     }
 
     <span class="doccomment">/// Grabs the seat so that all events corresponding to the given `capabilities`</span>
-    <span class="doccomment">/// are passed to this application until the seat is ungrabbed with [`Self::ungrab()`],</span>
+    <span class="doccomment">/// are passed to this application until the seat is ungrabbed with [`ungrab()`][Self::ungrab()],</span>
     <span class="doccomment">/// or the window becomes hidden. This overrides any previous grab on the</span>
     <span class="doccomment">/// seat by this client.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As a rule of thumb, if a grab is desired over [`crate::SeatCapabilities::Pointer`],</span>
-    <span class="doccomment">/// all other &quot;pointing&quot; capabilities (eg. [`crate::SeatCapabilities::Touch`]) should</span>
+    <span class="doccomment">/// As a rule of thumb, if a grab is desired over [`SeatCapabilities::POINTER`][crate::SeatCapabilities::POINTER],</span>
+    <span class="doccomment">/// all other &quot;pointing&quot; capabilities (eg. [`SeatCapabilities::TOUCH`][crate::SeatCapabilities::TOUCH]) should</span>
     <span class="doccomment">/// be grabbed too, so the user is able to interact with all of those while</span>
-    <span class="doccomment">/// the grab holds, you should thus use [`crate::SeatCapabilities::AllPointing`] most</span>
+    <span class="doccomment">/// the grab holds, you should thus use [`SeatCapabilities::ALL_POINTING`][crate::SeatCapabilities::ALL_POINTING] most</span>
     <span class="doccomment">/// commonly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Grabs are used for operations which need complete control over the</span>
     <span class="doccomment">/// events corresponding to the given capabilities. For example in GTK+ this</span>
     <span class="doccomment">/// is used for Drag and Drop operations, popup menus and such.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if the event mask of a [`crate::Window`] has selected both button press</span>
+    <span class="doccomment">/// Note that if the event mask of a [`Window`][crate::Window] has selected both button press</span>
     <span class="doccomment">/// and button release events, or touch begin and touch end, then a press event</span>
     <span class="doccomment">/// will cause an automatic grab until the button is released, equivalent to a</span>
     <span class="doccomment">/// grab on the window with `owner_events` set to [`true`]. This is done because most</span>
     <span class="doccomment">/// applications expect to receive paired press and release events.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you set up anything at the time you take the grab that needs to be</span>
-    <span class="doccomment">/// cleaned up when the grab ends, you should handle the [`crate::EventGrabBroken`]</span>
+    <span class="doccomment">/// cleaned up when the grab ends, you should handle the [`EventGrabBroken`][crate::EventGrabBroken]</span>
     <span class="doccomment">/// events that are emitted when the grab ends unvoluntarily.</span>
     <span class="doccomment">/// ## `window`</span>
-    <span class="doccomment">/// the [`crate::Window`] which will own the grab</span>
+    <span class="doccomment">/// the [`Window`][crate::Window] which will own the grab</span>
     <span class="doccomment">/// ## `capabilities`</span>
     <span class="doccomment">/// capabilities that will be grabbed</span>
     <span class="doccomment">/// ## `owner_events`</span>
@@ -494,7 +494,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`crate::GrabStatus::Success`] if the grab was successful.</span>
+    <span class="doccomment">/// [`GrabStatus::Success`][crate::GrabStatus::Success] if the grab was successful.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_seat_grab&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">grab</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -541,7 +541,7 @@
         }
     }
 
-    <span class="doccomment">/// Releases a grab added through [`Self::grab()`].</span>
+    <span class="doccomment">/// Releases a grab added through [`grab()`][Self::grab()].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_seat_ungrab&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ungrab</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> {
@@ -552,7 +552,7 @@
     <span class="doccomment">/// The ::device-added signal is emitted when a new input</span>
     <span class="doccomment">/// device is related to this seat.</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// the newly added [`crate::Device`].</span>
+    <span class="doccomment">/// the newly added [`Device`][crate::Device].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;device-added&quot;</span>)]</span>
@@ -581,7 +581,7 @@
     <span class="doccomment">/// The ::device-removed signal is emitted when an</span>
     <span class="doccomment">/// input device is removed (e.g. unplugged).</span>
     <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// the just removed [`crate::Device`].</span>
+    <span class="doccomment">/// the just removed [`Device`][crate::Device].</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;device-removed&quot;</span>)]</span>
@@ -610,11 +610,11 @@
     <span class="doccomment">/// The ::tool-added signal is emitted whenever a new tool</span>
     <span class="doccomment">/// is made known to the seat. The tool may later be assigned</span>
     <span class="doccomment">/// to a device (i.e. on proximity with a tablet). The device</span>
-    <span class="doccomment">/// will emit the [`crate::Device::tool-changed`] signal accordingly.</span>
+    <span class="doccomment">/// will emit the `signal::Device::tool-changed` signal accordingly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A same tool may be used by several devices.</span>
     <span class="doccomment">/// ## `tool`</span>
-    <span class="doccomment">/// the new [`crate::DeviceTool`] known to the seat</span>
+    <span class="doccomment">/// the new [`DeviceTool`][crate::DeviceTool] known to the seat</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;tool-added&quot;</span>)]</span>
@@ -643,7 +643,7 @@
     <span class="doccomment">/// This signal is emitted whenever a tool is no longer known</span>
     <span class="doccomment">/// to this `seat`.</span>
     <span class="doccomment">/// ## `tool`</span>
-    <span class="doccomment">/// the just removed [`crate::DeviceTool`]</span>
+    <span class="doccomment">/// the just removed [`DeviceTool`][crate::DeviceTool]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;tool-removed&quot;</span>)]</span>

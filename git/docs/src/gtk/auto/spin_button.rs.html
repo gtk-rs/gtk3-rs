@@ -1867,19 +1867,19 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`crate::SpinButton`] is an ideal way to allow the user to set the value of</span>
+    <span class="doccomment">/// A [`SpinButton`][crate::SpinButton] is an ideal way to allow the user to set the value of</span>
     <span class="doccomment">/// some attribute. Rather than having to directly type a number into a</span>
-    <span class="doccomment">/// [`crate::Entry`], `SpinButton` allows the user to click on one of two arrows</span>
+    <span class="doccomment">/// [`Entry`][crate::Entry], GtkSpinButton allows the user to click on one of two arrows</span>
     <span class="doccomment">/// to increment or decrement the displayed value. A value can still be</span>
     <span class="doccomment">/// typed in, with the bonus that it can be checked to ensure it is in a</span>
     <span class="doccomment">/// given range.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The main properties of a `SpinButton` are through an adjustment.</span>
-    <span class="doccomment">/// See the [`crate::Adjustment`] section for more details about an adjustment&#39;s</span>
-    <span class="doccomment">/// properties. Note that `SpinButton` will by default make its entry</span>
+    <span class="doccomment">/// The main properties of a GtkSpinButton are through an adjustment.</span>
+    <span class="doccomment">/// See the [`Adjustment`][crate::Adjustment] section for more details about an adjustment&#39;s</span>
+    <span class="doccomment">/// properties. Note that GtkSpinButton will by default make its entry</span>
     <span class="doccomment">/// large enough to accomodate the lower and upper bounds of the adjustment,</span>
     <span class="doccomment">/// which can lead to surprising results. Best practice is to set both</span>
-    <span class="doccomment">/// the [`crate::Entry:width-chars`] and [`crate::Entry:max-width-chars`] poperties</span>
+    <span class="doccomment">/// the `property::Entry::width-chars` and `property::Entry::max-width-chars` poperties</span>
     <span class="doccomment">/// to the desired number of characters to display in the entry.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
@@ -1906,13 +1906,13 @@
     <span class="doccomment">/// ╰── button.down</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `GtkSpinButtons` main CSS node has the name spinbutton. It creates subnodes</span>
+    <span class="doccomment">/// GtkSpinButtons main CSS node has the name spinbutton. It creates subnodes</span>
     <span class="doccomment">/// for the entry and the two buttons, with these names. The button nodes have</span>
-    <span class="doccomment">/// the style classes .up and .down. The `Entry` subnodes (if present) are put</span>
+    <span class="doccomment">/// the style classes .up and .down. The GtkEntry subnodes (if present) are put</span>
     <span class="doccomment">/// below the entry node. The orientation of the spin button is reflected in</span>
     <span class="doccomment">/// the .vertical or .horizontal style class on the main node.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Using a `SpinButton` to get an integer</span>
+    <span class="doccomment">/// ## Using a GtkSpinButton to get an integer</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -1946,7 +1946,7 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Using a `SpinButton` to get a floating point value</span>
+    <span class="doccomment">/// ## Using a GtkSpinButton to get a floating point value</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -1981,7 +1981,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::SpinButtonExt`], [`trait@crate::prelude::EntryExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::CellEditableExt`], [`trait@crate::prelude::EditableExt`], [`trait@crate::prelude::OrientableExt`], [`trait@crate::prelude::SpinButtonSignals`], [`trait@crate::prelude::EntryExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`], [`trait@crate::prelude::EditableSignals`]</span>
+    <span class="doccomment">/// [`SpinButtonExt`][trait@crate::prelude::SpinButtonExt], [`EntryExt`][trait@crate::prelude::EntryExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`CellEditableExt`][trait@crate::prelude::CellEditableExt], [`EditableExt`][trait@crate::prelude::EditableExt], [`OrientableExt`][trait@crate::prelude::OrientableExt], [`SpinButtonSignals`][trait@crate::prelude::SpinButtonSignals], [`EntryExtManual`][trait@crate::prelude::EntryExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual], [`EditableSignals`][trait@crate::prelude::EditableSignals]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SpinButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkSpinButton</span>, <span class="ident">ffi::GtkSpinButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Entry</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">CellEditable</span>, <span class="ident">Editable</span>, <span class="ident">Orientable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1990,9 +1990,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SpinButton</span> {
-    <span class="doccomment">/// Creates a new [`crate::SpinButton`].</span>
+    <span class="doccomment">/// Creates a new [`SpinButton`][crate::SpinButton].</span>
     <span class="doccomment">/// ## `adjustment`</span>
-    <span class="doccomment">/// the [`crate::Adjustment`] object that this spin</span>
+    <span class="doccomment">/// the [`Adjustment`][crate::Adjustment] object that this spin</span>
     <span class="doccomment">///  button should use, or [`None`]</span>
     <span class="doccomment">/// ## `climb_rate`</span>
     <span class="doccomment">/// specifies by how much the rate of change in the value will</span>
@@ -2002,7 +2002,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The new spin button as a [`crate::Widget`]</span>
+    <span class="doccomment">/// The new spin button as a [`Widget`][crate::Widget]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">adjustment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
@@ -2021,14 +2021,14 @@
     }
 
     <span class="doccomment">/// This is a convenience constructor that allows creation of a numeric</span>
-    <span class="doccomment">/// [`crate::SpinButton`] without manually creating an adjustment. The value is</span>
+    <span class="doccomment">/// [`SpinButton`][crate::SpinButton] without manually creating an adjustment. The value is</span>
     <span class="doccomment">/// initially set to the minimum value and a page increment of 10 * `step`</span>
     <span class="doccomment">/// is the default. The precision of the spin button is equivalent to the</span>
     <span class="doccomment">/// precision of `step`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the way in which the precision is derived works best if `step`</span>
     <span class="doccomment">/// is a power of ten. If the resulting precision is not suitable for your</span>
-    <span class="doccomment">/// needs, use [`crate::prelude::SpinButtonExt::set_digits()`] to correct it.</span>
+    <span class="doccomment">/// needs, use [`SpinButtonExt::set_digits()`][crate::prelude::SpinButtonExt::set_digits()] to correct it.</span>
     <span class="doccomment">/// ## `min`</span>
     <span class="doccomment">/// Minimum allowable value</span>
     <span class="doccomment">/// ## `max`</span>
@@ -2038,7 +2038,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The new spin button as a [`crate::Widget`]</span>
+    <span class="doccomment">/// The new spin button as a [`Widget`][crate::Widget]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_new_with_range&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_range&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_range</span>(<span class="ident">min</span>: <span class="ident">f64</span>, <span class="ident">max</span>: <span class="ident">f64</span>, <span class="ident">step</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SpinButton</span> {
@@ -2470,8 +2470,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is mainly useful to change the size or weight of the text.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`crate::pango::Attribute`]&#39;s `start_index` and `end_index` must refer to the</span>
-    <span class="doccomment">/// [`crate::EntryBuffer`] text, i.e. without the preedit string.</span>
+    <span class="doccomment">/// The `PangoAttribute`&#39;s `start_index` and `end_index` must refer to the</span>
+    <span class="doccomment">/// [`EntryBuffer`][crate::EntryBuffer] text, i.e. without the preedit string.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attributes</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">attributes</span>: <span class="kw-2">&amp;</span><span class="ident">pango::AttrList</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">attributes</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">attributes</span>.<span class="ident">clone</span>());
         <span class="self">self</span>
@@ -2514,17 +2514,17 @@
     }
 
     <span class="doccomment">/// Which IM (input method) module should be used for this entry.</span>
-    <span class="doccomment">/// See [`crate::IMContext`].</span>
+    <span class="doccomment">/// See [`IMContext`][crate::IMContext].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Setting this to a non-[`None`] value overrides the</span>
-    <span class="doccomment">/// system-wide IM module setting. See the `Settings`</span>
-    <span class="doccomment">/// [`crate::Settings:gtk-im-module`] property.</span>
+    <span class="doccomment">/// system-wide IM module setting. See the GtkSettings</span>
+    <span class="doccomment">/// `property::Settings::gtk-im-module` property.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">im_module</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">im_module</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">im_module</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">im_module</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Additional hints (beyond [`crate::Entry:input-purpose`]) that</span>
+    <span class="doccomment">/// Additional hints (beyond `property::Entry::input-purpose`) that</span>
     <span class="doccomment">/// allow input methods to fine-tune their behaviour.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">input_hints</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">input_hints</span>: <span class="ident">InputHints</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">input_hints</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">input_hints</span>);
@@ -2536,9 +2536,9 @@
     <span class="doccomment">/// This property can be used by on-screen keyboards and other input</span>
     <span class="doccomment">/// methods to adjust their behaviour.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that setting the purpose to [`crate::InputPurpose::Password`] or</span>
-    <span class="doccomment">/// [`crate::InputPurpose::Pin`] is independent from setting</span>
-    <span class="doccomment">/// [`crate::Entry:visibility`].</span>
+    <span class="doccomment">/// Note that setting the purpose to [`InputPurpose::Password`][crate::InputPurpose::Password] or</span>
+    <span class="doccomment">/// [`InputPurpose::Pin`][crate::InputPurpose::Pin] is independent from setting</span>
+    <span class="doccomment">/// `property::Entry::visibility`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">input_purpose</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">input_purpose</span>: <span class="ident">InputPurpose</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">input_purpose</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">input_purpose</span>);
         <span class="self">self</span>
@@ -2546,7 +2546,7 @@
 
     <span class="doccomment">/// The invisible character is used when masking entry contents (in</span>
     <span class="doccomment">/// \&quot;password mode\&quot;)&quot;). When it is not explicitly set with the</span>
-    <span class="doccomment">/// [`crate::Entry:invisible-char`] property, GTK+ determines the character</span>
+    <span class="doccomment">/// `property::Entry::invisible-char` property, GTK+ determines the character</span>
     <span class="doccomment">/// to use from a list of possible candidates, depending on availability</span>
     <span class="doccomment">/// in the current font.</span>
     <span class="doccomment">///</span>
@@ -2557,7 +2557,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether the invisible char has been set for the [`crate::Entry`].</span>
+    <span class="doccomment">/// Whether the invisible char has been set for the [`Entry`][crate::Entry].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invisible_char_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">invisible_char_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">invisible_char_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">invisible_char_set</span>);
         <span class="self">self</span>
@@ -2576,20 +2576,20 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// If text is overwritten when typing in the [`crate::Entry`].</span>
+    <span class="doccomment">/// If text is overwritten when typing in the [`Entry`][crate::Entry].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">overwrite_mode</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">overwrite_mode</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">overwrite_mode</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">overwrite_mode</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The text that will be displayed in the [`crate::Entry`] when it is empty</span>
+    <span class="doccomment">/// The text that will be displayed in the [`Entry`][crate::Entry] when it is empty</span>
     <span class="doccomment">/// and unfocused.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">placeholder_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">placeholder_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">placeholder_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">placeholder_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// If :populate-all is [`true`], the [`crate::Entry::populate-popup`]</span>
+    <span class="doccomment">/// If :populate-all is [`true`], the `signal::Entry::populate-popup`</span>
     <span class="doccomment">/// signal is also emitted for touch popups.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">populate_all</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">populate_all</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">populate_all</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">populate_all</span>);
@@ -2598,7 +2598,7 @@
 
     <span class="doccomment">/// Whether the primary icon is activatable.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GTK+ emits the [`crate::Entry::icon-press`] and [`crate::Entry::icon-release`]</span>
+    <span class="doccomment">/// GTK+ emits the `signal::Entry::icon-press` and `signal::Entry::icon-release`</span>
     <span class="doccomment">/// signals only on sensitive, activatable icons.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Sensitive, but non-activatable icons can be used for purely</span>
@@ -2608,7 +2608,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The [`crate::gio::Icon`] to use for the primary icon for the entry.</span>
+    <span class="doccomment">/// The [`gio::Icon`][crate::gio::Icon] to use for the primary icon for the entry.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">primary_icon_gicon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">primary_icon_gicon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">primary_icon_gicon</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">primary_icon_gicon</span>.<span class="ident">clone</span>().<span class="ident">upcast</span>());
         <span class="self">self</span>
@@ -2629,7 +2629,7 @@
     <span class="doccomment">/// Whether the primary icon is sensitive.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An insensitive icon appears grayed out. GTK+ does not emit the</span>
-    <span class="doccomment">/// [`crate::Entry::icon-press`] and [`crate::Entry::icon-release`] signals and</span>
+    <span class="doccomment">/// `signal::Entry::icon-press` and `signal::Entry::icon-release` signals and</span>
     <span class="doccomment">/// does not allow DND from insensitive icons.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An icon should be set insensitive if the action that would trigger</span>
@@ -2642,7 +2642,7 @@
     <span class="doccomment">/// The contents of the tooltip on the primary icon, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::prelude::EntryExt::set_icon_tooltip_markup()`].</span>
+    <span class="doccomment">/// Also see [`EntryExt::set_icon_tooltip_markup()`][crate::prelude::EntryExt::set_icon_tooltip_markup()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">primary_icon_tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">primary_icon_tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">primary_icon_tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">primary_icon_tooltip_markup</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
@@ -2650,7 +2650,7 @@
 
     <span class="doccomment">/// The contents of the tooltip on the primary icon.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::prelude::EntryExt::set_icon_tooltip_text()`].</span>
+    <span class="doccomment">/// Also see [`EntryExt::set_icon_tooltip_text()`][crate::prelude::EntryExt::set_icon_tooltip_text()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">primary_icon_tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">primary_icon_tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">primary_icon_tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">primary_icon_tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
@@ -2663,7 +2663,7 @@
     }
 
     <span class="doccomment">/// The fraction of total entry width to move the progress</span>
-    <span class="doccomment">/// bouncing block for each call to [`crate::prelude::EntryExt::progress_pulse()`].</span>
+    <span class="doccomment">/// bouncing block for each call to [`EntryExt::progress_pulse()`][crate::prelude::EntryExt::progress_pulse()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">progress_pulse_step</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">progress_pulse_step</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">progress_pulse_step</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">progress_pulse_step</span>);
         <span class="self">self</span>
@@ -2671,7 +2671,7 @@
 
     <span class="doccomment">/// Whether the secondary icon is activatable.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// GTK+ emits the [`crate::Entry::icon-press`] and [`crate::Entry::icon-release`]</span>
+    <span class="doccomment">/// GTK+ emits the `signal::Entry::icon-press` and `signal::Entry::icon-release`</span>
     <span class="doccomment">/// signals only on sensitive, activatable icons.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Sensitive, but non-activatable icons can be used for purely</span>
@@ -2681,7 +2681,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The [`crate::gio::Icon`] to use for the secondary icon for the entry.</span>
+    <span class="doccomment">/// The [`gio::Icon`][crate::gio::Icon] to use for the secondary icon for the entry.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">secondary_icon_gicon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio::Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">secondary_icon_gicon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">secondary_icon_gicon</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">secondary_icon_gicon</span>.<span class="ident">clone</span>().<span class="ident">upcast</span>());
         <span class="self">self</span>
@@ -2702,7 +2702,7 @@
     <span class="doccomment">/// Whether the secondary icon is sensitive.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An insensitive icon appears grayed out. GTK+ does not emit the</span>
-    <span class="doccomment">/// [`crate::Entry::icon-press`] and [`crate::Entry::icon-release`] signals and</span>
+    <span class="doccomment">/// `signal::Entry::icon-press` and `signal::Entry::icon-release` signals and</span>
     <span class="doccomment">/// does not allow DND from insensitive icons.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An icon should be set insensitive if the action that would trigger</span>
@@ -2715,7 +2715,7 @@
     <span class="doccomment">/// The contents of the tooltip on the secondary icon, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::prelude::EntryExt::set_icon_tooltip_markup()`].</span>
+    <span class="doccomment">/// Also see [`EntryExt::set_icon_tooltip_markup()`][crate::prelude::EntryExt::set_icon_tooltip_markup()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">secondary_icon_tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">secondary_icon_tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">secondary_icon_tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">secondary_icon_tooltip_markup</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
@@ -2723,14 +2723,14 @@
 
     <span class="doccomment">/// The contents of the tooltip on the secondary icon.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::prelude::EntryExt::set_icon_tooltip_text()`].</span>
+    <span class="doccomment">/// Also see [`EntryExt::set_icon_tooltip_text()`][crate::prelude::EntryExt::set_icon_tooltip_text()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">secondary_icon_tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">secondary_icon_tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">secondary_icon_tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">secondary_icon_tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Which kind of shadow to draw around the entry when</span>
-    <span class="doccomment">/// [`crate::Entry:has-frame`] is set to [`true`].</span>
+    <span class="doccomment">/// `property::Entry::has-frame` is set to [`true`].</span>
     <span class="doccomment">/// Use CSS to determine the style of the border;</span>
     <span class="doccomment">///  the value of this style property is ignored.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
@@ -2797,7 +2797,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`crate::Widget:hexpand`] and [`crate::Widget:vexpand`]</span>
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">expand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expand</span>);
         <span class="self">self</span>
@@ -2807,8 +2807,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property is only relevant for widgets that can take focus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.20, several widgets (`Button`, `FileChooserButton`,</span>
-    <span class="doccomment">/// `ComboBox`) implemented this property individually.</span>
+    <span class="doccomment">/// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,</span>
+    <span class="doccomment">/// GtkComboBox) implemented this property individually.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">focus_on_click</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -2816,7 +2816,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">halign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">halign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">halign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">halign</span>);
         <span class="self">self</span>
@@ -2832,13 +2832,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Enables or disables the emission of [`crate::Widget::query-tooltip`] on `widget`.</span>
+    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.</span>
     <span class="doccomment">/// A value of [`true`] indicates that `widget` can have a tooltip, in this case</span>
-    <span class="doccomment">/// the widget will be queried using [`crate::Widget::query-tooltip`] to determine</span>
+    <span class="doccomment">/// the widget will be queried using `signal::Widget::query-tooltip` to determine</span>
     <span class="doccomment">/// whether it will provide a tooltip or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that setting this property to [`true`] for the first time will change</span>
-    <span class="doccomment">/// the event masks of the `GdkWindows` of this widget to include leave-notify</span>
+    <span class="doccomment">/// the event masks of the GdkWindows of this widget to include leave-notify</span>
     <span class="doccomment">/// and motion-notify events. This cannot and will not be undone when the</span>
     <span class="doccomment">/// property is set to [`false`] again.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_tooltip</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_tooltip</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -2851,13 +2851,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand horizontally. See [`crate::prelude::WidgetExt::set_hexpand()`].</span>
+    <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:hexpand`] property. See [`crate::prelude::WidgetExt::get_hexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand_set</span>);
         <span class="self">self</span>
@@ -2879,7 +2879,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_bottom</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_bottom</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_bottom</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_bottom</span>);
         <span class="self">self</span>
@@ -2890,7 +2890,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_end</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_end</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_end</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_end</span>);
         <span class="self">self</span>
@@ -2901,7 +2901,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_start</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_start</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_start</span>);
         <span class="self">self</span>
@@ -2911,7 +2911,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_top</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_top</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_top</span>);
         <span class="self">self</span>
@@ -2927,10 +2927,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The requested opacity of the widget. See [`crate::prelude::WidgetExt::set_opacity()`] for</span>
+    <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for</span>
     <span class="doccomment">/// more details about window opacity.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.8 this was only available in `Window`</span>
+    <span class="doccomment">/// Before 3.8 this was only available in GtkWindow</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">opacity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opacity</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">opacity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">opacity</span>);
         <span class="self">self</span>
@@ -2953,14 +2953,14 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_markup()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_markup</span>.<span class="ident">to_string</span>());
@@ -2969,33 +2969,33 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_text()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">valign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">valign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">valign</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand vertically. See [`crate::prelude::WidgetExt::set_vexpand()`].</span>
+    <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:vexpand`] property. See [`crate::prelude::WidgetExt::get_vexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand_set</span>);
         <span class="self">self</span>
@@ -3030,12 +3030,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::SpinButton`]</span>
+<span class="doccomment">/// [`SpinButton`][struct@crate::SpinButton]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SpinButtonExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Changes the properties of an existing spin button. The adjustment,</span>
     <span class="doccomment">/// climb rate, and number of decimal places are updated accordingly.</span>
     <span class="doccomment">/// ## `adjustment`</span>
-    <span class="doccomment">/// a [`crate::Adjustment`] to replace the spin button’s</span>
+    <span class="doccomment">/// a [`Adjustment`][crate::Adjustment] to replace the spin button’s</span>
     <span class="doccomment">///  existing adjustment, or [`None`] to leave its current adjustment unchanged</span>
     <span class="doccomment">/// ## `climb_rate`</span>
     <span class="doccomment">/// the new climb rate</span>
@@ -3044,16 +3044,16 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_configure&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">configure</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adjustment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>, <span class="ident">climb_rate</span>: <span class="ident">f64</span>, <span class="ident">digits</span>: <span class="ident">u32</span>);
 
-    <span class="doccomment">/// Get the adjustment associated with a [`crate::SpinButton`]</span>
+    <span class="doccomment">/// Get the adjustment associated with a [`SpinButton`][crate::SpinButton]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`crate::Adjustment`] of `self`</span>
+    <span class="doccomment">/// the [`Adjustment`][crate::Adjustment] of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_get_adjustment&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_adjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">adjustment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Adjustment</span>;
 
-    <span class="doccomment">/// Fetches the precision of `self`. See [`Self::set_digits()`].</span>
+    <span class="doccomment">/// Fetches the precision of `self`. See [`set_digits()`][Self::set_digits()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3063,7 +3063,7 @@
     <span class="kw">fn</span> <span class="ident">digits</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Gets the current step and page the increments used by `self`. See</span>
-    <span class="doccomment">/// [`Self::set_increments()`].</span>
+    <span class="doccomment">/// [`set_increments()`][Self::set_increments()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3078,7 +3078,7 @@
     <span class="kw">fn</span> <span class="ident">increments</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>);
 
     <span class="doccomment">/// Returns whether non-numeric text can be typed into the spin button.</span>
-    <span class="doccomment">/// See [`Self::set_numeric()`].</span>
+    <span class="doccomment">/// See [`set_numeric()`][Self::set_numeric()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3088,7 +3088,7 @@
     <span class="kw">fn</span> <span class="ident">is_numeric</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the range allowed for `self`.</span>
-    <span class="doccomment">/// See [`Self::set_range()`].</span>
+    <span class="doccomment">/// See [`set_range()`][Self::set_range()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3103,7 +3103,7 @@
     <span class="kw">fn</span> <span class="ident">range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>);
 
     <span class="doccomment">/// Returns whether the values are corrected to the nearest step.</span>
-    <span class="doccomment">/// See [`Self::set_snap_to_ticks()`].</span>
+    <span class="doccomment">/// See [`set_snap_to_ticks()`][Self::set_snap_to_ticks()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3113,7 +3113,7 @@
     <span class="kw">fn</span> <span class="ident">snaps_to_ticks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
     <span class="doccomment">/// Gets the update behavior of a spin button.</span>
-    <span class="doccomment">/// See [`Self::set_update_policy()`].</span>
+    <span class="doccomment">/// See [`set_update_policy()`][Self::set_update_policy()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3142,7 +3142,7 @@
 
     <span class="doccomment">/// Returns whether the spin button’s value wraps around to the</span>
     <span class="doccomment">/// opposite limit when the upper or lower limit of the range is</span>
-    <span class="doccomment">/// exceeded. See [`Self::set_wrap()`].</span>
+    <span class="doccomment">/// exceeded. See [`set_wrap()`][Self::set_wrap()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -3151,9 +3151,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_wrap&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">wraps</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 
-    <span class="doccomment">/// Replaces the [`crate::Adjustment`] associated with `self`.</span>
+    <span class="doccomment">/// Replaces the [`Adjustment`][crate::Adjustment] associated with `self`.</span>
     <span class="doccomment">/// ## `adjustment`</span>
-    <span class="doccomment">/// a [`crate::Adjustment`] to replace the existing adjustment</span>
+    <span class="doccomment">/// a [`Adjustment`][crate::Adjustment] to replace the existing adjustment</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_set_adjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_adjustment</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adjustment</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
@@ -3203,7 +3203,7 @@
     <span class="doccomment">/// This determines whether the spin button is always updated</span>
     <span class="doccomment">/// or only when a valid value is set.</span>
     <span class="doccomment">/// ## `policy`</span>
-    <span class="doccomment">/// a [`crate::SpinButtonUpdatePolicy`] value</span>
+    <span class="doccomment">/// a [`SpinButtonUpdatePolicy`][crate::SpinButtonUpdatePolicy] value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_set_update_policy&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_update_policy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">policy</span>: <span class="ident">SpinButtonUpdatePolicy</span>);
 
@@ -3224,7 +3224,7 @@
     <span class="doccomment">/// Increment or decrement a spin button’s value in a specified</span>
     <span class="doccomment">/// direction by a specified amount.</span>
     <span class="doccomment">/// ## `direction`</span>
-    <span class="doccomment">/// a [`crate::SpinType`] indicating the direction to spin</span>
+    <span class="doccomment">/// a [`SpinType`][crate::SpinType] indicating the direction to spin</span>
     <span class="doccomment">/// ## `increment`</span>
     <span class="doccomment">/// step increment to apply in the specified direction</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_spin_button_spin&quot;</span>)]</span>

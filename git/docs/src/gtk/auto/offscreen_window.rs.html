@@ -861,27 +861,27 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// `OffscreenWindow` is strictly intended to be used for obtaining</span>
+    <span class="doccomment">/// GtkOffscreenWindow is strictly intended to be used for obtaining</span>
     <span class="doccomment">/// snapshots of widgets that are not part of a normal widget hierarchy.</span>
-    <span class="doccomment">/// Since [`crate::OffscreenWindow`] is a toplevel widget you cannot obtain</span>
+    <span class="doccomment">/// Since [`OffscreenWindow`][crate::OffscreenWindow] is a toplevel widget you cannot obtain</span>
     <span class="doccomment">/// snapshots of a full window with it since you cannot pack a toplevel</span>
     <span class="doccomment">/// widget in another toplevel.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The idea is to take a widget and manually set the state of it,</span>
-    <span class="doccomment">/// add it to a `OffscreenWindow` and then retrieve the snapshot</span>
-    <span class="doccomment">/// as a [`crate::cairo::Surface`] or [`crate::gdk_pixbuf::Pixbuf`].</span>
+    <span class="doccomment">/// add it to a GtkOffscreenWindow and then retrieve the snapshot</span>
+    <span class="doccomment">/// as a [`cairo::Surface`][crate::cairo::Surface] or [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `OffscreenWindow` derives from [`crate::Window`] only as an implementation</span>
-    <span class="doccomment">/// detail. Applications should not use any API specific to [`crate::Window`]</span>
-    <span class="doccomment">/// to operate on this object. It should be treated as a [`crate::Bin`] that</span>
+    <span class="doccomment">/// GtkOffscreenWindow derives from [`Window`][crate::Window] only as an implementation</span>
+    <span class="doccomment">/// detail. Applications should not use any API specific to [`Window`][crate::Window]</span>
+    <span class="doccomment">/// to operate on this object. It should be treated as a [`Bin`][crate::Bin] that</span>
     <span class="doccomment">/// has no parent widget.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When contained offscreen widgets are redrawn, `OffscreenWindow`</span>
-    <span class="doccomment">/// will emit a [`crate::Widget::damage-event`] signal.</span>
+    <span class="doccomment">/// When contained offscreen widgets are redrawn, GtkOffscreenWindow</span>
+    <span class="doccomment">/// will emit a `signal::Widget::damage-event` signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::OffscreenWindowExt`], [`trait@crate::prelude::GtkWindowExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::GtkWindowExtManual`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`OffscreenWindowExt`][trait@crate::prelude::OffscreenWindowExt], [`GtkWindowExt`][trait@crate::prelude::GtkWindowExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`GtkWindowExtManual`][trait@crate::prelude::GtkWindowExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OffscreenWindow</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkOffscreenWindow</span>, <span class="ident">ffi::GtkOffscreenWindowClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Window</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -895,7 +895,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A pointer to a [`crate::Widget`]</span>
+    <span class="doccomment">/// A pointer to a [`Widget`][crate::Widget]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_offscreen_window_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OffscreenWindow</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1198,10 +1198,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The [`crate::Application`] associated with the window.</span>
+    <span class="doccomment">/// The [`Application`][crate::Application] associated with the window.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The application will be kept alive for at least as long as it</span>
-    <span class="doccomment">/// has any windows associated with it (see [`crate::gio::Application::hold()`]</span>
+    <span class="doccomment">/// has any windows associated with it (see [`ApplicationExtManual::hold()`][crate::gio::prelude::ApplicationExtManual::hold()]</span>
     <span class="doccomment">/// for a way to keep it alive without windows).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Normally, the connection between the application and the window</span>
@@ -1213,12 +1213,12 @@
     }
 
     <span class="doccomment">/// The widget to which this window is attached.</span>
-    <span class="doccomment">/// See [`crate::prelude::`GtkWindowExt`::set_attached_to()`].</span>
+    <span class="doccomment">/// See [`GtkWindowExt::set_attached_to()`][crate::prelude::GtkWindowExt::set_attached_to()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Examples of places where specifying this relation is useful are</span>
-    <span class="doccomment">/// for instance a [`crate::Menu`] created by a [`crate::ComboBox`], a completion</span>
-    <span class="doccomment">/// popup window created by [`crate::Entry`] or a typeahead search entry</span>
-    <span class="doccomment">/// created by [`crate::TreeView`].</span>
+    <span class="doccomment">/// for instance a [`Menu`][crate::Menu] created by a [`ComboBox`][crate::ComboBox], a completion</span>
+    <span class="doccomment">/// popup window created by [`Entry`][crate::Entry] or a typeahead search entry</span>
+    <span class="doccomment">/// created by [`TreeView`][crate::TreeView].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attached_to</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">attached_to</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">attached_to</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">attached_to</span>.<span class="ident">clone</span>().<span class="ident">upcast</span>());
         <span class="self">self</span>
@@ -1266,7 +1266,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The window gravity of the window. See [`crate::prelude::`GtkWindowExt`::move()`] and [`crate::gdk::Gravity`] for</span>
+    <span class="doccomment">/// The window gravity of the window. See [`GtkWindowExt::move_()`][crate::prelude::GtkWindowExt::move_()] and [`gdk::Gravity`][crate::gdk::Gravity] for</span>
     <span class="doccomment">/// more details about window gravity.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gravity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">gravity</span>: <span class="ident">gdk::Gravity</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">gravity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">gravity</span>);
@@ -1285,7 +1285,7 @@
     }
 
     <span class="doccomment">/// The :icon-name property specifies the name of the themed icon to</span>
-    <span class="doccomment">/// use as the window icon. See [`crate::IconTheme`] for more details.</span>
+    <span class="doccomment">/// use as the window icon. See [`IconTheme`][crate::IconTheme] for more details.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">icon_name</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">icon_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">icon_name</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">icon_name</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
@@ -1331,7 +1331,7 @@
     }
 
     <span class="doccomment">/// The :startup-id is a write-only property for setting window&#39;s</span>
-    <span class="doccomment">/// startup notification identifier. See [`crate::prelude::`GtkWindowExt`::set_startup_id()`]</span>
+    <span class="doccomment">/// startup notification identifier. See [`GtkWindowExt::set_startup_id()`][crate::prelude::GtkWindowExt::set_startup_id()]</span>
     <span class="doccomment">/// for more details.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">startup_id</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">startup_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">startup_id</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">startup_id</span>.<span class="ident">to_string</span>());
@@ -1343,7 +1343,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The transient parent of the window. See [`crate::prelude::`GtkWindowExt`::set_transient_for()`] for</span>
+    <span class="doccomment">/// The transient parent of the window. See [`GtkWindowExt::set_transient_for()`][crate::prelude::GtkWindowExt::set_transient_for()] for</span>
     <span class="doccomment">/// more details about transient windows.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transient_for</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">transient_for</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">transient_for</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">transient_for</span>.<span class="ident">clone</span>().<span class="ident">upcast</span>());
@@ -1405,7 +1405,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`crate::Widget:hexpand`] and [`crate::Widget:vexpand`]</span>
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">expand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expand</span>);
         <span class="self">self</span>
@@ -1415,8 +1415,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property is only relevant for widgets that can take focus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.20, several widgets (`Button`, `FileChooserButton`,</span>
-    <span class="doccomment">/// `ComboBox`) implemented this property individually.</span>
+    <span class="doccomment">/// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,</span>
+    <span class="doccomment">/// GtkComboBox) implemented this property individually.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">focus_on_click</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1424,7 +1424,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">halign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">halign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">halign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">halign</span>);
         <span class="self">self</span>
@@ -1440,13 +1440,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Enables or disables the emission of [`crate::Widget::query-tooltip`] on `widget`.</span>
+    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.</span>
     <span class="doccomment">/// A value of [`true`] indicates that `widget` can have a tooltip, in this case</span>
-    <span class="doccomment">/// the widget will be queried using [`crate::Widget::query-tooltip`] to determine</span>
+    <span class="doccomment">/// the widget will be queried using `signal::Widget::query-tooltip` to determine</span>
     <span class="doccomment">/// whether it will provide a tooltip or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that setting this property to [`true`] for the first time will change</span>
-    <span class="doccomment">/// the event masks of the `GdkWindows` of this widget to include leave-notify</span>
+    <span class="doccomment">/// the event masks of the GdkWindows of this widget to include leave-notify</span>
     <span class="doccomment">/// and motion-notify events. This cannot and will not be undone when the</span>
     <span class="doccomment">/// property is set to [`false`] again.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_tooltip</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_tooltip</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1459,13 +1459,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand horizontally. See [`crate::prelude::WidgetExt::set_hexpand()`].</span>
+    <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:hexpand`] property. See [`crate::prelude::WidgetExt::get_hexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand_set</span>);
         <span class="self">self</span>
@@ -1487,7 +1487,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_bottom</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_bottom</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_bottom</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_bottom</span>);
         <span class="self">self</span>
@@ -1498,7 +1498,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_end</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_end</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_end</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_end</span>);
         <span class="self">self</span>
@@ -1509,7 +1509,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_start</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_start</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_start</span>);
         <span class="self">self</span>
@@ -1519,7 +1519,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_top</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_top</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_top</span>);
         <span class="self">self</span>
@@ -1535,10 +1535,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The requested opacity of the widget. See [`crate::prelude::WidgetExt::set_opacity()`] for</span>
+    <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for</span>
     <span class="doccomment">/// more details about window opacity.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.8 this was only available in `Window`</span>
+    <span class="doccomment">/// Before 3.8 this was only available in GtkWindow</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">opacity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opacity</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">opacity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">opacity</span>);
         <span class="self">self</span>
@@ -1561,14 +1561,14 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_markup()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_markup</span>.<span class="ident">to_string</span>());
@@ -1577,33 +1577,33 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_text()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">valign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">valign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">valign</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand vertically. See [`crate::prelude::WidgetExt::set_vexpand()`].</span>
+    <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:vexpand`] property. See [`crate::prelude::WidgetExt::get_vexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand_set</span>);
         <span class="self">self</span>
@@ -1626,27 +1626,27 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::OffscreenWindow`]</span>
+<span class="doccomment">/// [`OffscreenWindow`][struct@crate::OffscreenWindow]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OffscreenWindowExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Retrieves a snapshot of the contained widget in the form of</span>
-    <span class="doccomment">/// a [`crate::gdk_pixbuf::Pixbuf`]. This is a new pixbuf with a reference count of 1,</span>
+    <span class="doccomment">/// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]. This is a new pixbuf with a reference count of 1,</span>
     <span class="doccomment">/// and the application should unreference it once it is no longer</span>
     <span class="doccomment">/// needed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`crate::gdk_pixbuf::Pixbuf`] pointer, or [`None`].</span>
+    <span class="doccomment">/// A [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf] pointer, or [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_offscreen_window_get_pixbuf&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_pixbuf&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">pixbuf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gdk_pixbuf::Pixbuf</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Retrieves a snapshot of the contained widget in the form of</span>
-    <span class="doccomment">/// a [`crate::cairo::Surface`]. If you need to keep this around over window</span>
+    <span class="doccomment">/// a [`cairo::Surface`][crate::cairo::Surface]. If you need to keep this around over window</span>
     <span class="doccomment">/// resizes then you should add a reference to it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`crate::cairo::Surface`] pointer to the offscreen</span>
+    <span class="doccomment">/// A [`cairo::Surface`][crate::cairo::Surface] pointer to the offscreen</span>
     <span class="doccomment">///  surface, or [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_offscreen_window_get_surface&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_surface&quot;</span>)]</span>

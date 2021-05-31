@@ -847,17 +847,17 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`crate::Screen`] objects are the GDK representation of the screen on</span>
+    <span class="doccomment">/// [`Screen`][crate::Screen] objects are the GDK representation of the screen on</span>
     <span class="doccomment">/// which windows can be displayed and on which the pointer moves.</span>
     <span class="doccomment">/// X originally identified screens with physical screens, but</span>
-    <span class="doccomment">/// nowadays it is more common to have a single [`crate::Screen`] which</span>
-    <span class="doccomment">/// combines several physical monitors (see [`Self::get_n_monitors()`]).</span>
+    <span class="doccomment">/// nowadays it is more common to have a single [`Screen`][crate::Screen] which</span>
+    <span class="doccomment">/// combines several physical monitors (see [`n_monitors()`][Self::n_monitors()]).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Screen` is used throughout GDK and GTK+ to specify which screen</span>
+    <span class="doccomment">/// GdkScreen is used throughout GDK and GTK+ to specify which screen</span>
     <span class="doccomment">/// the top level windows are to be displayed on. it is also used to</span>
     <span class="doccomment">/// query the screen specification and default settings such as</span>
-    <span class="doccomment">/// the default visual ([`Self::get_system_visual()`]), the dimensions</span>
-    <span class="doccomment">/// of the physical monitors ([`Self::get_monitor_geometry()`]), etc.</span>
+    <span class="doccomment">/// the default visual ([`system_visual()`][Self::system_visual()]), the dimensions</span>
+    <span class="doccomment">/// of the physical monitors ([`monitor_geometry()`][Self::monitor_geometry()]), etc.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Screen</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkScreen</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -878,7 +878,7 @@
     <span class="doccomment">/// On other platforms, this function may return [`None`], depending on whether</span>
     <span class="doccomment">/// it is implementable on that platform.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The returned window should be unrefed using [`crate::glib::object::Object::unref()`] when</span>
+    <span class="doccomment">/// The returned window should be unrefed using `g_object_unref()` when</span>
     <span class="doccomment">/// no longer needed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
@@ -908,7 +908,7 @@
 
     <span class="doccomment">/// Gets the height of `self` in pixels. The returned size is in</span>
     <span class="doccomment">/// ”application pixels”, not in ”device pixels” (see</span>
-    <span class="doccomment">/// [`Self::get_monitor_scale_factor()`]).</span>
+    <span class="doccomment">/// [`monitor_scale_factor()`][Self::monitor_scale_factor()]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
@@ -948,7 +948,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Display::get_monitor_at_point()`] instead</span>
+    <span class="doccomment">/// Use [`Display::monitor_at_point()`][crate::Display::monitor_at_point()] instead</span>
     <span class="doccomment">/// ## `x`</span>
     <span class="doccomment">/// the x coordinate in the virtual screen.</span>
     <span class="doccomment">/// ## `y`</span>
@@ -970,9 +970,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Display::get_monitor_at_window()`] instead</span>
+    <span class="doccomment">/// Use [`Display::monitor_at_window()`][crate::Display::monitor_at_window()] instead</span>
     <span class="doccomment">/// ## `window`</span>
-    <span class="doccomment">/// a [`crate::Window`]</span>
+    <span class="doccomment">/// a [`Window`][crate::Window]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -988,20 +988,20 @@
         }
     }
 
-    <span class="doccomment">/// Retrieves the [`crate::Rectangle`] representing the size and position of</span>
+    <span class="doccomment">/// Retrieves the [`Rectangle`][crate::Rectangle] representing the size and position of</span>
     <span class="doccomment">/// the individual monitor within the entire screen area. The returned</span>
     <span class="doccomment">/// geometry is in ”application pixels”, not in ”device pixels” (see</span>
-    <span class="doccomment">/// [`Self::get_monitor_scale_factor()`]).</span>
+    <span class="doccomment">/// [`monitor_scale_factor()`][Self::monitor_scale_factor()]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Monitor numbers start at 0. To obtain the number of monitors of</span>
-    <span class="doccomment">/// `self`, use [`Self::get_n_monitors()`].</span>
+    <span class="doccomment">/// `self`, use [`n_monitors()`][Self::n_monitors()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the size of the entire screen area can be retrieved via</span>
-    <span class="doccomment">/// [`Self::get_width()`] and [`Self::get_height()`].</span>
+    <span class="doccomment">/// [`width()`][Self::width()] and [`height()`][Self::height()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Monitor::get_geometry()`] instead</span>
+    <span class="doccomment">/// Use [`Monitor::geometry()`][crate::Monitor::geometry()] instead</span>
     <span class="doccomment">/// ## `monitor_num`</span>
     <span class="doccomment">/// the monitor number</span>
     <span class="doccomment">///</span>
@@ -1009,7 +1009,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `dest`</span>
-    <span class="doccomment">/// a [`crate::Rectangle`] to be filled with</span>
+    <span class="doccomment">/// a [`Rectangle`][crate::Rectangle] to be filled with</span>
     <span class="doccomment">///  the monitor geometry</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_screen_get_monitor_geometry&quot;</span>)]</span>
@@ -1030,7 +1030,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Monitor::get_height_mm()`] instead</span>
+    <span class="doccomment">/// Use [`Monitor::height_mm()`][crate::Monitor::height_mm()] instead</span>
     <span class="doccomment">/// ## `monitor_num`</span>
     <span class="doccomment">/// number of the monitor, between 0 and gdk_screen_get_n_monitors (screen)</span>
     <span class="doccomment">///</span>
@@ -1050,7 +1050,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Monitor::get_model()`] instead</span>
+    <span class="doccomment">/// Use [`Monitor::model()`][crate::Monitor::model()] instead</span>
     <span class="doccomment">/// ## `monitor_num`</span>
     <span class="doccomment">/// number of the monitor, between 0 and gdk_screen_get_n_monitors (screen)</span>
     <span class="doccomment">///</span>
@@ -1076,11 +1076,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This can be used if you want to create pixel based data for a</span>
     <span class="doccomment">/// particular monitor, but most of the time you’re drawing to a window</span>
-    <span class="doccomment">/// where it is better to use [`crate::Window::get_scale_factor()`] instead.</span>
+    <span class="doccomment">/// where it is better to use [`Window::scale_factor()`][crate::Window::scale_factor()] instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Monitor::get_scale_factor()`] instead</span>
+    <span class="doccomment">/// Use [`Monitor::scale_factor()`][crate::Monitor::scale_factor()] instead</span>
     <span class="doccomment">/// ## `monitor_num`</span>
     <span class="doccomment">/// number of the monitor, between 0 and gdk_screen_get_n_monitors (screen)</span>
     <span class="doccomment">///</span>
@@ -1098,7 +1098,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Monitor::get_width_mm()`] instead</span>
+    <span class="doccomment">/// Use [`Monitor::width_mm()`][crate::Monitor::width_mm()] instead</span>
     <span class="doccomment">/// ## `monitor_num`</span>
     <span class="doccomment">/// number of the monitor, between 0 and gdk_screen_get_n_monitors (screen)</span>
     <span class="doccomment">///</span>
@@ -1112,10 +1112,10 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_screen_get_monitor_width_mm</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">monitor_num</span>) }
     }
 
-    <span class="doccomment">/// Retrieves the [`crate::Rectangle`] representing the size and position of</span>
+    <span class="doccomment">/// Retrieves the [`Rectangle`][crate::Rectangle] representing the size and position of</span>
     <span class="doccomment">/// the “work area” on a monitor within the entire screen area. The returned</span>
     <span class="doccomment">/// geometry is in ”application pixels”, not in ”device pixels” (see</span>
-    <span class="doccomment">/// [`Self::get_monitor_scale_factor()`]).</span>
+    <span class="doccomment">/// [`monitor_scale_factor()`][Self::monitor_scale_factor()]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The work area should be considered when positioning menus and</span>
     <span class="doccomment">/// similar popups, to avoid placing them below panels, docks or other</span>
@@ -1126,11 +1126,11 @@
     <span class="doccomment">/// available, or does not apply.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Monitor numbers start at 0. To obtain the number of monitors of</span>
-    <span class="doccomment">/// `self`, use [`Self::get_n_monitors()`].</span>
+    <span class="doccomment">/// `self`, use [`n_monitors()`][Self::n_monitors()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Monitor::get_workarea()`] instead</span>
+    <span class="doccomment">/// Use [`Monitor::workarea()`][crate::Monitor::workarea()] instead</span>
     <span class="doccomment">/// ## `monitor_num`</span>
     <span class="doccomment">/// the monitor number</span>
     <span class="doccomment">///</span>
@@ -1138,7 +1138,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `dest`</span>
-    <span class="doccomment">/// a [`crate::Rectangle`] to be filled with</span>
+    <span class="doccomment">/// a [`Rectangle`][crate::Rectangle] to be filled with</span>
     <span class="doccomment">///  the monitor workarea</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_screen_get_monitor_workarea&quot;</span>)]</span>
@@ -1159,7 +1159,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Display::get_n_monitors()`] instead</span>
+    <span class="doccomment">/// Use [`Display::n_monitors()`][crate::Display::n_monitors()] instead</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1172,7 +1172,7 @@
     }
 
     <span class="doccomment">/// Gets the index of `self` among the screens in the display</span>
-    <span class="doccomment">/// to which it belongs. (See [`Self::get_display()`])</span>
+    <span class="doccomment">/// to which it belongs. (See [`display()`][Self::display()])</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
@@ -1198,7 +1198,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::Display::get_primary_monitor()`] instead</span>
+    <span class="doccomment">/// Use [`Display::primary_monitor()`][crate::Display::primary_monitor()] instead</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1211,7 +1211,7 @@
     }
 
     <span class="doccomment">/// Gets the resolution for font handling on the screen; see</span>
-    <span class="doccomment">/// [`Self::set_resolution()`] for full details.</span>
+    <span class="doccomment">/// [`set_resolution()`][Self::set_resolution()] for full details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1235,7 +1235,7 @@
     <span class="doccomment">/// This functionality is not implemented in the Windows backend.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For setting an overall opacity for a top-level window, see</span>
-    <span class="doccomment">/// [`crate::Window::set_opacity()`].</span>
+    <span class="doccomment">/// [`Window::set_opacity()`][crate::Window::set_opacity()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1276,13 +1276,13 @@
     <span class="doccomment">/// A toplevel window is a child of the root window (see</span>
     <span class="doccomment">/// `gdk_get_default_root_window()`).</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The returned list should be freed with [`crate::glib::List::free()`], but</span>
+    <span class="doccomment">/// The returned list should be freed with `g_list_free()`, but</span>
     <span class="doccomment">/// its elements need not be freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">///  list of toplevel windows, free with [`crate::glib::List::free()`]</span>
+    <span class="doccomment">///  list of toplevel windows, free with `g_list_free()`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_screen_get_toplevel_windows&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_toplevel_windows&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">toplevel_windows</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span> {
@@ -1295,7 +1295,7 @@
 
     <span class="doccomment">/// Gets the width of `self` in pixels. The returned size is in</span>
     <span class="doccomment">/// ”application pixels”, not in ”device pixels” (see</span>
-    <span class="doccomment">/// [`Self::get_monitor_scale_factor()`]).</span>
+    <span class="doccomment">/// [`monitor_scale_factor()`][Self::monitor_scale_factor()]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
@@ -1331,7 +1331,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gdk_screen_get_width_mm</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Returns a [`crate::glib::List`] of ``GdkWindows`` representing the current</span>
+    <span class="doccomment">/// Returns a `GList` of `GdkWindows` representing the current</span>
     <span class="doccomment">/// window stack.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// On X11, this is done by inspecting the _NET_CLIENT_LIST_STACKING</span>
@@ -1344,13 +1344,13 @@
     <span class="doccomment">/// it is implementable on that platform.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The returned list is newly allocated and owns references to the</span>
-    <span class="doccomment">/// windows it contains, so it should be freed using [`crate::glib::List::free()`] and</span>
-    <span class="doccomment">/// its windows unrefed using [`crate::glib::object::Object::unref()`] when no longer needed.</span>
+    <span class="doccomment">/// windows it contains, so it should be freed using `g_list_free()` and</span>
+    <span class="doccomment">/// its windows unrefed using `g_object_unref()` when no longer needed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a</span>
-    <span class="doccomment">///  list of ``GdkWindows`` for the current window stack, or [`None`].</span>
+    <span class="doccomment">///  list of `GdkWindows` for the current window stack, or [`None`].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_screen_get_window_stack&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_window_stack&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">window_stack</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Window</span><span class="op">&gt;</span> {
@@ -1382,7 +1382,7 @@
     <span class="doccomment">/// For example, a visual might support 24-bit color, or 8-bit color,</span>
     <span class="doccomment">/// and might expect pixels to be in a certain format.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Call [`crate::glib::List::free()`] on the return value when you’re finished with it.</span>
+    <span class="doccomment">/// Call `g_list_free()` on the return value when you’re finished with it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1397,8 +1397,8 @@
         }
     }
 
-    <span class="doccomment">/// Determines the name to pass to [`crate::Display::open()`] to get</span>
-    <span class="doccomment">/// a [`crate::Display`] with this screen as the default screen.</span>
+    <span class="doccomment">/// Determines the name to pass to [`Display::open()`][crate::Display::open()] to get</span>
+    <span class="doccomment">/// a [`Display`][crate::Display] with this screen as the default screen.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
@@ -1413,12 +1413,12 @@
     }
 
     <span class="doccomment">/// Sets the default font options for the screen. These</span>
-    <span class="doccomment">/// options will be set on any [`crate::pango::Context`]’s newly created</span>
-    <span class="doccomment">/// with `gdk_pango_context_get_for_screen()`. Changing the</span>
+    <span class="doccomment">/// options will be set on any [`pango::Context`][crate::pango::Context]’s newly created</span>
+    <span class="doccomment">/// with [`pango_context_get_for_screen()`][crate::pango_context_get_for_screen()]. Changing the</span>
     <span class="doccomment">/// default set of font options does not affect contexts that</span>
     <span class="doccomment">/// have already been created.</span>
     <span class="doccomment">/// ## `options`</span>
-    <span class="doccomment">/// a [`crate::cairo::FontOptions`], or [`None`] to unset any</span>
+    <span class="doccomment">/// a [`cairo::FontOptions`][crate::cairo::FontOptions], or [`None`] to unset any</span>
     <span class="doccomment">///  previously set default font options.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_screen_set_font_options&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_font_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">options</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">cairo::FontOptions</span><span class="op">&gt;</span>) {
@@ -1428,7 +1428,7 @@
     }
 
     <span class="doccomment">/// Sets the resolution for font handling on the screen. This is a</span>
-    <span class="doccomment">/// scale factor between points specified in a [`crate::pango::FontDescription`]</span>
+    <span class="doccomment">/// scale factor between points specified in a `PangoFontDescription`</span>
     <span class="doccomment">/// and cairo units. The default value is 96, meaning that a 10 point</span>
     <span class="doccomment">/// font will be 13 units high. (10 * 96. / 72. = 13.3).</span>
     <span class="doccomment">/// ## `dpi`</span>
@@ -1446,7 +1446,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::Screen`], or [`None`] if</span>
+    <span class="doccomment">/// a [`Screen`][crate::Screen], or [`None`] if</span>
     <span class="doccomment">///  there is no default display.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_screen_get_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default&quot;</span>)]</span>
@@ -1457,7 +1457,7 @@
 
     <span class="doccomment">/// Gets the height of the default screen in pixels. The returned</span>
     <span class="doccomment">/// size is in ”application pixels”, not in ”device pixels” (see</span>
-    <span class="doccomment">/// [`Self::get_monitor_scale_factor()`]).</span>
+    <span class="doccomment">/// [`monitor_scale_factor()`][Self::monitor_scale_factor()]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
@@ -1495,7 +1495,7 @@
 
     <span class="doccomment">/// Gets the width of the default screen in pixels. The returned</span>
     <span class="doccomment">/// size is in ”application pixels”, not in ”device pixels” (see</span>
-    <span class="doccomment">/// [`Self::get_monitor_scale_factor()`]).</span>
+    <span class="doccomment">/// [`monitor_scale_factor()`][Self::monitor_scale_factor()]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>

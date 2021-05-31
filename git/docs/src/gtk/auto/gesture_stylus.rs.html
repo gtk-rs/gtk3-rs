@@ -226,12 +226,12 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`crate::GestureStylus`] is a [`crate::Gesture`] implementation specific to stylus</span>
+    <span class="doccomment">/// [`GestureStylus`][crate::GestureStylus] is a [`Gesture`][crate::Gesture] implementation specific to stylus</span>
     <span class="doccomment">/// input. The provided signals just provide the basic information</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::GestureSingleExt`], [`trait@crate::prelude::GestureExt`], [`trait@crate::prelude::EventControllerExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::GestureStylusExtManual`]</span>
+    <span class="doccomment">/// [`GestureSingleExt`][trait@crate::prelude::GestureSingleExt], [`GestureExt`][trait@crate::prelude::GestureExt], [`EventControllerExt`][trait@crate::prelude::EventControllerExt], [`trait@glib::ObjectExt`], [`GestureStylusExtManual`][trait@crate::prelude::GestureStylusExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GestureStylus</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkGestureStylus</span>, <span class="ident">ffi::GtkGestureStylusClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">GestureSingle</span>, <span class="ident">Gesture</span>, <span class="ident">EventController</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -240,9 +240,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">GestureStylus</span> {
-    <span class="doccomment">/// Creates a new [`crate::GestureStylus`].</span>
+    <span class="doccomment">/// Creates a new [`GestureStylus`][crate::GestureStylus].</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// a [`crate::Widget`]</span>
+    <span class="doccomment">/// a [`Widget`][crate::Widget]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -259,15 +259,15 @@
     }
 
     <span class="doccomment">/// Returns the current value for the requested `axis`. This function</span>
-    <span class="doccomment">/// must be called from either the [`crate::GestureStylus:down`],</span>
-    <span class="doccomment">/// [`crate::GestureStylus:motion`], [`crate::GestureStylus:up`] or [`crate::GestureStylus:proximity`]</span>
+    <span class="doccomment">/// must be called from either the `property::GestureStylus::down`,</span>
+    <span class="doccomment">/// `property::GestureStylus::motion`, `property::GestureStylus::up` or `property::GestureStylus::proximity`</span>
     <span class="doccomment">/// signals.</span>
     <span class="doccomment">/// ## `axis`</span>
     <span class="doccomment">/// requested device axis</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`crate::true`] if there is a current value for the axis</span>
+    <span class="doccomment">/// [`true`] if there is a current value for the axis</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `value`</span>
     <span class="doccomment">/// return location for the axis value</span>
@@ -290,9 +290,9 @@
         }
     }
 
-    <span class="doccomment">/// Returns the [`crate::gdk::DeviceTool`] currently driving input through this gesture.</span>
-    <span class="doccomment">/// This function must be called from either the [`crate::GestureStylus::down`],</span>
-    <span class="doccomment">/// [`crate::GestureStylus::motion`], [`crate::GestureStylus::up`] or [`crate::GestureStylus::proximity`]</span>
+    <span class="doccomment">/// Returns the [`gdk::DeviceTool`][crate::gdk::DeviceTool] currently driving input through this gesture.</span>
+    <span class="doccomment">/// This function must be called from either the `signal::GestureStylus::down`,</span>
+    <span class="doccomment">/// `signal::GestureStylus::motion`, `signal::GestureStylus::up` or `signal::GestureStylus::proximity`</span>
     <span class="doccomment">/// signal handlers.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>

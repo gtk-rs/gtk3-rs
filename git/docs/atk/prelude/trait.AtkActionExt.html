@@ -11,7 +11,7 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.set_description" class="fnname">set_description</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, desc: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
 }</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Action.html" title="Action"><code>Action</code></a> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.Action.html" title="crate::Action"><code>struct@crate::Action</code></a>, <a href="../struct.Hyperlink.html" title="crate::Hyperlink"><code>crate::Hyperlink</code></a>, <a href="../struct.NoOpObject.html" title="crate::NoOpObject"><code>crate::NoOpObject</code></a></p>
+<p><a href="../struct.Action.html" title="crate::Action"><code>Action</code></a>, <a href="../struct.Hyperlink.html" title="crate::Hyperlink"><code>Hyperlink</code></a>, <a href="../struct.NoOpObject.html" title="crate::NoOpObject"><code>NoOpObject</code></a></p>
 </div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.do_action" class="method"><code>fn <a href="#tymethod.do_action" class="fnname">do_action</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/atk/auto/action.rs.html#54" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Perform the specified action on the object.</p>
 <h2 id="i" class="section-header"><a href="#i"><code>i</code></a></h2>
 <p>the action index corresponding to the action to be performed</p>
@@ -73,7 +73,7 @@ The “popup” action should be used to pop up a context menu for the
 object, if one exists.</p>
 <p>For technical reasons, some toolkits cannot guarantee that the
 reported action is actually ‘bound’ to a nontrivial user event;
-i.e. the result of some actions via [<code>crate::Action::do_action()</code>] may be
+i.e. the result of some actions via <a href="trait.AtkActionExt.html#tymethod.do_action" title="Self::do_action()"><code>do_action()</code></a> may be
 NIL.</p>
 <h2 id="i-4" class="section-header"><a href="#i-4"><code>i</code></a></h2>
 <p>the action index corresponding to the action to be performed</p>

@@ -129,27 +129,27 @@
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Gravity</span>;
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
-<span class="doccomment">/// The [`crate::Geometry`] struct gives the window manager information about</span>
+<span class="doccomment">/// The [`Geometry`][crate::Geometry] struct gives the window manager information about</span>
 <span class="doccomment">/// a window’s geometry constraints. Normally you would set these on</span>
-<span class="doccomment">/// the GTK+ level using `gtk_window_set_geometry_hints()`. ``GtkWindow``</span>
-<span class="doccomment">/// then sets the hints on the [`crate::Window`] it creates.</span>
+<span class="doccomment">/// the GTK+ level using `gtk_window_set_geometry_hints()`. `GtkWindow`</span>
+<span class="doccomment">/// then sets the hints on the [`Window`][crate::Window] it creates.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`crate::Window::set_geometry_hints()`] expects the hints to be fully valid already</span>
+<span class="doccomment">/// [`Window::set_geometry_hints()`][crate::Window::set_geometry_hints()] expects the hints to be fully valid already</span>
 <span class="doccomment">/// and simply passes them to the window manager; in contrast,</span>
 <span class="doccomment">/// `gtk_window_set_geometry_hints()` performs some interpretation. For example,</span>
-<span class="doccomment">/// ``GtkWindow`` will apply the hints to the geometry widget instead of the</span>
+<span class="doccomment">/// `GtkWindow` will apply the hints to the geometry widget instead of the</span>
 <span class="doccomment">/// toplevel window, if you set a geometry widget. Also, the</span>
 <span class="doccomment">/// `min_width`/`min_height`/`max_width`/`max_height` fields may be set to -1, and</span>
-<span class="doccomment">/// ``GtkWindow`` will substitute the size request of the window or geometry widget.</span>
-<span class="doccomment">/// If the minimum size hint is not provided, ``GtkWindow`` will use its requisition</span>
+<span class="doccomment">/// `GtkWindow` will substitute the size request of the window or geometry widget.</span>
+<span class="doccomment">/// If the minimum size hint is not provided, `GtkWindow` will use its requisition</span>
 <span class="doccomment">/// as the minimum size. If the minimum size is provided and a geometry widget is</span>
-<span class="doccomment">/// set, ``GtkWindow`` will take the minimum size as the minimum size of the</span>
+<span class="doccomment">/// set, `GtkWindow` will take the minimum size as the minimum size of the</span>
 <span class="doccomment">/// geometry widget rather than the entire window. The base size is treated</span>
 <span class="doccomment">/// similarly.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The canonical use-case for `gtk_window_set_geometry_hints()` is to get a</span>
 <span class="doccomment">/// terminal widget to resize properly. Here, the terminal text area should be</span>
-<span class="doccomment">/// the geometry widget; ``GtkWindow`` will then automatically set the base size to</span>
+<span class="doccomment">/// the geometry widget; `GtkWindow` will then automatically set the base size to</span>
 <span class="doccomment">/// the size of other widgets in the terminal window, such as the menubar and</span>
 <span class="doccomment">/// scrollbar. Then, the `width_inc` and `height_inc` fields should be set to the</span>
 <span class="doccomment">/// size of one character in the terminal. Finally, the base size should be set</span>

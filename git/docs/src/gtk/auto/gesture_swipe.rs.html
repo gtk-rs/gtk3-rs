@@ -257,20 +257,20 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`crate::GestureSwipe`] is a [`crate::Gesture`] implementation able to recognize</span>
+    <span class="doccomment">/// [`GestureSwipe`][crate::GestureSwipe] is a [`Gesture`][crate::Gesture] implementation able to recognize</span>
     <span class="doccomment">/// swipes, after a press/move/.../move/release sequence happens, the</span>
-    <span class="doccomment">/// [`crate::GestureSwipe::swipe`] signal will be emitted, providing the velocity</span>
+    <span class="doccomment">/// `signal::GestureSwipe::swipe` signal will be emitted, providing the velocity</span>
     <span class="doccomment">/// and directionality of the sequence at the time it was lifted.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the velocity is desired in intermediate points,</span>
-    <span class="doccomment">/// [`Self::get_velocity()`] can be called on eg. a</span>
-    <span class="doccomment">/// [`crate::Gesture::update`] handler.</span>
+    <span class="doccomment">/// [`velocity()`][Self::velocity()] can be called on eg. a</span>
+    <span class="doccomment">/// `signal::Gesture::update` handler.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// All velocities are reported in pixels/sec units.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::GestureSingleExt`], [`trait@crate::prelude::GestureExt`], [`trait@crate::prelude::EventControllerExt`], [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`GestureSingleExt`][trait@crate::prelude::GestureSingleExt], [`GestureExt`][trait@crate::prelude::GestureExt], [`EventControllerExt`][trait@crate::prelude::EventControllerExt], [`trait@glib::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GestureSwipe</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkGestureSwipe</span>, <span class="ident">ffi::GtkGestureSwipeClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">GestureSingle</span>, <span class="ident">Gesture</span>, <span class="ident">EventController</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -279,13 +279,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">GestureSwipe</span> {
-    <span class="doccomment">/// Returns a newly created [`crate::Gesture`] that recognizes swipes.</span>
+    <span class="doccomment">/// Returns a newly created [`Gesture`][crate::Gesture] that recognizes swipes.</span>
     <span class="doccomment">/// ## `widget`</span>
-    <span class="doccomment">/// a [`crate::Widget`]</span>
+    <span class="doccomment">/// a [`Widget`][crate::Widget]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a newly created [`crate::GestureSwipe`]</span>
+    <span class="doccomment">/// a newly created [`GestureSwipe`][crate::GestureSwipe]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_gesture_swipe_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GestureSwipe</span> {
         <span class="macro">skip_assert_initialized!</span>();
@@ -442,7 +442,7 @@
     }
 
     <span class="doccomment">/// If non-[`None`], the gesture will only listen for events that happen on</span>
-    <span class="doccomment">/// this [`crate::gdk::Window`], or a child of it.</span>
+    <span class="doccomment">/// this [`gdk::Window`][crate::gdk::Window], or a child of it.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">window</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">window</span>: <span class="kw-2">&amp;</span><span class="ident">gdk::Window</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">window</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">window</span>.<span class="ident">clone</span>());
         <span class="self">self</span>
@@ -454,7 +454,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The widget receiving the ``GdkEvents`` that the controller will handle.</span>
+    <span class="doccomment">/// The widget receiving the `GdkEvents` that the controller will handle.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">widget</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">widget</span>.<span class="ident">clone</span>().<span class="ident">upcast</span>());
         <span class="self">self</span>

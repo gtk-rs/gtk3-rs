@@ -366,7 +366,7 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`crate::Keymap`] defines the translation from keyboard state</span>
+    <span class="doccomment">/// A [`Keymap`][crate::Keymap] defines the translation from keyboard state</span>
     <span class="doccomment">/// (including a hardware key, a modifier mask, and active keyboard group)</span>
     <span class="doccomment">/// to a keyval. This translation has two phases. The first phase is</span>
     <span class="doccomment">/// to determine the effective keyboard group and level for the keyboard</span>
@@ -395,8 +395,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`crate::pango::Direction::Ltr`] or [`crate::pango::Direction::Rtl`]</span>
-    <span class="doccomment">///  if it can determine the direction. [`crate::pango::Direction::Neutral`]</span>
+    <span class="doccomment">/// [`pango::Direction::Ltr`][crate::pango::Direction::Ltr] or [`pango::Direction::Rtl`][crate::pango::Direction::Rtl]</span>
+    <span class="doccomment">///  if it can determine the direction. [`pango::Direction::Neutral`][crate::pango::Direction::Neutral]</span>
     <span class="doccomment">///  otherwise.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keymap_get_direction&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_direction&quot;</span>)]</span>
@@ -408,10 +408,10 @@
     <span class="doccomment">/// uses for a particular purpose.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this function always returns real hardware modifiers, not</span>
-    <span class="doccomment">/// virtual ones (e.g. it will return [`crate::ModifierType::Mod1Mask`] rather than</span>
-    <span class="doccomment">/// [`crate::ModifierType::MetaMask`] if the backend maps MOD1 to META), so there are use</span>
+    <span class="doccomment">/// virtual ones (e.g. it will return [`ModifierType::MOD1_MASK`][crate::ModifierType::MOD1_MASK] rather than</span>
+    <span class="doccomment">/// [`ModifierType::META_MASK`][crate::ModifierType::META_MASK] if the backend maps MOD1 to META), so there are use</span>
     <span class="doccomment">/// cases where the return value of this function has to be transformed</span>
-    <span class="doccomment">/// by [`Self::add_virtual_modifiers()`] in order to contain the</span>
+    <span class="doccomment">/// by [`add_virtual_modifiers()`][Self::add_virtual_modifiers()] in order to contain the</span>
     <span class="doccomment">/// expected result.</span>
     <span class="doccomment">/// ## `intent`</span>
     <span class="doccomment">/// the use case for the modifier mask</span>
@@ -474,7 +474,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_keymap_have_bidi_layouts</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Translates the contents of a [`crate::EventKey`] into a keyval, effective</span>
+    <span class="doccomment">/// Translates the contents of a [`EventKey`][crate::EventKey] into a keyval, effective</span>
     <span class="doccomment">/// group, and level. Modifiers that affected the translation and</span>
     <span class="doccomment">/// are thus unavailable for application use are returned in</span>
     <span class="doccomment">/// `consumed_modifiers`.</span>
@@ -482,13 +482,13 @@
     <span class="doccomment">/// groups and levels. The `effective_group` is the group that was</span>
     <span class="doccomment">/// actually used for the translation; some keys such as Enter are not</span>
     <span class="doccomment">/// affected by the active keyboard group. The `level` is derived from</span>
-    <span class="doccomment">/// `state`. For convenience, [`crate::EventKey`] already contains the translated</span>
+    <span class="doccomment">/// `state`. For convenience, [`EventKey`][crate::EventKey] already contains the translated</span>
     <span class="doccomment">/// keyval, so this function isn’t as useful as you might think.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `consumed_modifiers` gives modifiers that should be masked outfrom `state`</span>
     <span class="doccomment">/// when comparing this key press to a hot key. For instance, on a US keyboard,</span>
     <span class="doccomment">/// the `plus` symbol is shifted, so when comparing a key press to a</span>
-    <span class="doccomment">/// `&lt;Control&gt;plus` accelerator `&lt;Shift&gt;` should be masked out.</span>
+    <span class="doccomment">/// ``&lt;Control&gt;`plus` accelerator ``&lt;Shift&gt;`` should be masked out.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -515,14 +515,14 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// However, this did not work if multi-modifier combinations were</span>
-    <span class="doccomment">/// used in the keymap, since, for instance, `&lt;Control&gt;` would be</span>
-    <span class="doccomment">/// masked out even if only `&lt;Control&gt;&lt;Alt&gt;` was used in the keymap.</span>
+    <span class="doccomment">/// used in the keymap, since, for instance, ``&lt;Control&gt;`` would be</span>
+    <span class="doccomment">/// masked out even if only ``&lt;Control&gt;``&lt;Alt&gt;`` was used in the keymap.</span>
     <span class="doccomment">/// To support this usage as well as well as possible, all single</span>
     <span class="doccomment">/// modifier combinations that could affect the key for any combination</span>
     <span class="doccomment">/// of modifiers will be returned in `consumed_modifiers`; multi-modifier</span>
     <span class="doccomment">/// combinations are returned only when actually found in `state`. When</span>
     <span class="doccomment">/// you store accelerators, you should always store them with consumed</span>
-    <span class="doccomment">/// modifiers removed. Store `&lt;Control&gt;plus`, not `&lt;Control&gt;&lt;Shift&gt;plus`,</span>
+    <span class="doccomment">/// modifiers removed. Store ``&lt;Control&gt;`plus`, not ``&lt;Control&gt;``&lt;Shift&gt;`plus`,</span>
     <span class="doccomment">/// ## `hardware_keycode`</span>
     <span class="doccomment">/// a keycode</span>
     <span class="doccomment">/// ## `state`</span>
@@ -586,15 +586,15 @@
         }
     }
 
-    <span class="doccomment">/// Returns the [`crate::Keymap`] attached to the default display.</span>
+    <span class="doccomment">/// Returns the [`Keymap`][crate::Keymap] attached to the default display.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`Self::get_for_display()`] instead</span>
+    <span class="doccomment">/// Use [`for_display()`][Self::for_display()] instead</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`crate::Keymap`] attached to the default display.</span>
+    <span class="doccomment">/// the [`Keymap`][crate::Keymap] attached to the default display.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keymap_get_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_default&quot;</span>)]</span>
@@ -603,13 +603,13 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_keymap_get_default</span>()) }
     }
 
-    <span class="doccomment">/// Returns the [`crate::Keymap`] attached to `display`.</span>
+    <span class="doccomment">/// Returns the [`Keymap`][crate::Keymap] attached to `display`.</span>
     <span class="doccomment">/// ## `display`</span>
-    <span class="doccomment">/// the [`crate::Display`].</span>
+    <span class="doccomment">/// the [`Display`][crate::Display].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`crate::Keymap`] attached to `display`.</span>
+    <span class="doccomment">/// the [`Keymap`][crate::Keymap] attached to `display`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keymap_get_for_display&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_for_display&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_display</span>(<span class="ident">display</span>: <span class="kw-2">&amp;</span><span class="ident">Display</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Keymap</span><span class="op">&gt;</span> {
@@ -667,7 +667,7 @@
 
     <span class="doccomment">/// The ::state-changed signal is emitted when the state of the</span>
     <span class="doccomment">/// keyboard changes, e.g when Caps Lock is turned on or off.</span>
-    <span class="doccomment">/// See [`Self::get_caps_lock_state()`].</span>
+    <span class="doccomment">/// See [`is_caps_locked()`][Self::is_caps_locked()].</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;state-changed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_state_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">state_changed_trampoline</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">Keymap</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(

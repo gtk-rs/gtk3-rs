@@ -9,15 +9,15 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_spacing_notify" class="fnname">connect_spacing_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; SignalHandlerId;
 }</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.CellAreaBox.html" title="CellAreaBox"><code>CellAreaBox</code></a> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.CellAreaBox.html" title="crate::CellAreaBox"><code>struct@crate::CellAreaBox</code></a></p>
+<p><a href="../struct.CellAreaBox.html" title="crate::CellAreaBox"><code>CellAreaBox</code></a></p>
 </div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.spacing" class="method"><code>fn <a href="#tymethod.spacing" class="fnname">spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/cell_area_box.rs.html#144" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Gets the spacing added between cell renderers.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the space added between cell renderers in <code>self</code>.</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.pack_end" class="method"><code>fn <a href="#tymethod.pack_end" class="fnname">pack_end</a>&lt;P:&nbsp;IsA&lt;<a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;renderer: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;fixed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>)</code><a class="srclink" href="../../src/gtk/auto/cell_area_box.rs.html#160" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Adds <code>renderer</code> to <code>self</code>, packed with reference to the end of <code>self</code>.</p>
 <p>The <code>renderer</code> is packed after (away from end of) any other
-<a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>crate::CellRenderer</code></a> packed with reference to the end of <code>self</code>.</p>
+<a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>CellRenderer</code></a> packed with reference to the end of <code>self</code>.</p>
 <h2 id="renderer" class="section-header"><a href="#renderer"><code>renderer</code></a></h2>
-<p>the <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>crate::CellRenderer</code></a> to add</p>
+<p>the <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>CellRenderer</code></a> to add</p>
 <h2 id="expand" class="section-header"><a href="#expand"><code>expand</code></a></h2>
 <p>whether <code>renderer</code> should receive extra space when the area receives
 more than its natural size</p>
@@ -26,10 +26,10 @@ more than its natural size</p>
 <h2 id="fixed" class="section-header"><a href="#fixed"><code>fixed</code></a></h2>
 <p>whether <code>renderer</code> should have the same size in all rows</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.pack_start" class="method"><code>fn <a href="#tymethod.pack_start" class="fnname">pack_start</a>&lt;P:&nbsp;IsA&lt;<a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;renderer: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;fixed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>)</code><a class="srclink" href="../../src/gtk/auto/cell_area_box.rs.html#176-182" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Adds <code>renderer</code> to <code>self</code>, packed with reference to the start of <code>self</code>.</p>
-<p>The <code>renderer</code> is packed after any other <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>crate::CellRenderer</code></a> packed
+<p>The <code>renderer</code> is packed after any other <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>CellRenderer</code></a> packed
 with reference to the start of <code>self</code>.</p>
 <h2 id="renderer-1" class="section-header"><a href="#renderer-1"><code>renderer</code></a></h2>
-<p>the <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>crate::CellRenderer</code></a> to add</p>
+<p>the <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>CellRenderer</code></a> to add</p>
 <h2 id="expand-1" class="section-header"><a href="#expand-1"><code>expand</code></a></h2>
 <p>whether <code>renderer</code> should receive extra space when the area receives
 more than its natural size</p>

@@ -1184,7 +1184,7 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A `PrintSettings` object represents the settings of a print dialog in</span>
+    <span class="doccomment">/// A GtkPrintSettings object represents the settings of a print dialog in</span>
     <span class="doccomment">/// a system-independent way. The main use for this object is that once</span>
     <span class="doccomment">/// you’ve printed you can get a settings object that represents the settings</span>
     <span class="doccomment">/// the user chose, and the next time you print you can pass that object in so</span>
@@ -1199,7 +1199,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`trait@glib::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrintSettings</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkPrintSettings</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1208,27 +1208,27 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PrintSettings</span> {
-    <span class="doccomment">/// Creates a new [`crate::PrintSettings`] object.</span>
+    <span class="doccomment">/// Creates a new [`PrintSettings`][crate::PrintSettings] object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::PrintSettings`] object</span>
+    <span class="doccomment">/// a new [`PrintSettings`][crate::PrintSettings] object</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PrintSettings</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi::gtk_print_settings_new</span>()) }
     }
 
-    <span class="doccomment">/// Reads the print settings from `file_name`. Returns a new [`crate::PrintSettings`]</span>
+    <span class="doccomment">/// Reads the print settings from `file_name`. Returns a new [`PrintSettings`][crate::PrintSettings]</span>
     <span class="doccomment">/// object with the restored settings, or [`None`] if an error occurred. If the</span>
-    <span class="doccomment">/// file could not be loaded then error is set to either a [`crate::glib::FileError`] or</span>
-    <span class="doccomment">/// [`crate::glib::KeyFileError`]. See [`Self::to_file()`].</span>
+    <span class="doccomment">/// file could not be loaded then error is set to either a `GFileError` or</span>
+    <span class="doccomment">/// `GKeyFileError`. See [`to_file()`][Self::to_file()].</span>
     <span class="doccomment">/// ## `file_name`</span>
     <span class="doccomment">/// the filename to read the settings from</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the restored [`crate::PrintSettings`]</span>
+    <span class="doccomment">/// the restored [`PrintSettings`][crate::PrintSettings]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_new_from_file&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_file&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_file</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std::path::Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(
@@ -1250,13 +1250,13 @@
     }
 
     <span class="doccomment">/// Deserialize print settings from an a{sv} variant in</span>
-    <span class="doccomment">/// the format produced by [`Self::to_gvariant()`].</span>
+    <span class="doccomment">/// the format produced by [`to_gvariant()`][Self::to_gvariant()].</span>
     <span class="doccomment">/// ## `variant`</span>
-    <span class="doccomment">/// an a{sv} [`crate::glib::Variant`]</span>
+    <span class="doccomment">/// an a{sv} [`glib::Variant`][crate::glib::Variant]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::PrintSettings`] object</span>
+    <span class="doccomment">/// a new [`PrintSettings`][crate::PrintSettings] object</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_new_from_gvariant&quot;</span>)]</span>
@@ -1271,18 +1271,18 @@
     }
 
     <span class="doccomment">/// Reads the print settings from the group `group_name` in `key_file`. Returns a</span>
-    <span class="doccomment">/// new [`crate::PrintSettings`] object with the restored settings, or [`None`] if an</span>
+    <span class="doccomment">/// new [`PrintSettings`][crate::PrintSettings] object with the restored settings, or [`None`] if an</span>
     <span class="doccomment">/// error occurred. If the file could not be loaded then error is set to either</span>
-    <span class="doccomment">/// a [`crate::glib::FileError`] or [`crate::glib::KeyFileError`].</span>
+    <span class="doccomment">/// a `GFileError` or `GKeyFileError`.</span>
     <span class="doccomment">/// ## `key_file`</span>
-    <span class="doccomment">/// the [`crate::glib::KeyFile`] to retrieve the settings from</span>
+    <span class="doccomment">/// the [`glib::KeyFile`][crate::glib::KeyFile] to retrieve the settings from</span>
     <span class="doccomment">/// ## `group_name`</span>
     <span class="doccomment">/// the name of the group to use, or [`None`] to use</span>
     <span class="doccomment">///  the default “Print Settings”</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the restored [`crate::PrintSettings`]</span>
+    <span class="doccomment">/// the restored [`PrintSettings`][crate::PrintSettings]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_new_from_key_file&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_from_key_file&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_key_file</span>(
@@ -1305,7 +1305,7 @@
         }
     }
 
-    <span class="doccomment">/// Copies a [`crate::PrintSettings`] object.</span>
+    <span class="doccomment">/// Copies a [`PrintSettings`][crate::PrintSettings] object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1381,7 +1381,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_COLLATE`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_COLLATE`][crate::PRINT_SETTINGS_COLLATE].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1392,7 +1392,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_print_settings_get_collate</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_DEFAULT_SOURCE`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_DEFAULT_SOURCE`][crate::PRINT_SETTINGS_DEFAULT_SOURCE].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1407,7 +1407,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_DITHER`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_DITHER`][crate::PRINT_SETTINGS_DITHER].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1456,7 +1456,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_DUPLEX`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_DUPLEX`][crate::PRINT_SETTINGS_DUPLEX].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1467,7 +1467,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_print_settings_get_duplex</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_FINISHINGS`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_FINISHINGS`][crate::PRINT_SETTINGS_FINISHINGS].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1539,7 +1539,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_MEDIA_TYPE`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_MEDIA_TYPE`][crate::PRINT_SETTINGS_MEDIA_TYPE].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The set of media types is defined in PWG 5101.1-2002 PWG.</span>
     <span class="doccomment">///</span>
@@ -1556,7 +1556,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_N_COPIES`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_N_COPIES`][crate::PRINT_SETTINGS_N_COPIES].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1567,7 +1567,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_n_copies</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_NUMBER_UP`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_NUMBER_UP`][crate::PRINT_SETTINGS_NUMBER_UP].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1578,7 +1578,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_number_up</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_NUMBER_UP_LAYOUT`][crate::PRINT_SETTINGS_NUMBER_UP_LAYOUT].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1593,8 +1593,8 @@
         }
     }
 
-    <span class="doccomment">/// Get the value of `GTK_PRINT_SETTINGS_ORIENTATION`,</span>
-    <span class="doccomment">/// converted to a [`crate::PageOrientation`].</span>
+    <span class="doccomment">/// Get the value of [`PRINT_SETTINGS_ORIENTATION`][crate::PRINT_SETTINGS_ORIENTATION],</span>
+    <span class="doccomment">/// converted to a [`PageOrientation`][crate::PageOrientation].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1609,7 +1609,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_OUTPUT_BIN`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_OUTPUT_BIN`][crate::PRINT_SETTINGS_OUTPUT_BIN].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1624,12 +1624,12 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_PAGE_RANGES`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PAGE_RANGES`][crate::PRINT_SETTINGS_PAGE_RANGES].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// an array</span>
-    <span class="doccomment">///  of ``GtkPageRanges``. Use `g_free()` to free the array when</span>
+    <span class="doccomment">///  of `GtkPageRanges`. Use `g_free()` to free the array when</span>
     <span class="doccomment">///  it is no longer needed.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_get_page_ranges&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_page_ranges&quot;</span>)]</span>
@@ -1647,7 +1647,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_PAGE_SET`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PAGE_SET`][crate::PRINT_SETTINGS_PAGE_SET].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1658,7 +1658,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_print_settings_get_page_set</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_PAPER_HEIGHT`,</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PAPER_HEIGHT`][crate::PRINT_SETTINGS_PAPER_HEIGHT],</span>
     <span class="doccomment">/// converted to `unit`.</span>
     <span class="doccomment">/// ## `unit`</span>
     <span class="doccomment">/// the unit for the return value</span>
@@ -1672,8 +1672,8 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_paper_height</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">unit</span>.<span class="ident">into_glib</span>()) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_PAPER_FORMAT`,</span>
-    <span class="doccomment">/// converted to a [`crate::PaperSize`].</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PAPER_FORMAT`][crate::PRINT_SETTINGS_PAPER_FORMAT],</span>
+    <span class="doccomment">/// converted to a [`PaperSize`][crate::PaperSize].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1688,7 +1688,7 @@
         }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_PAPER_WIDTH`,</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PAPER_WIDTH`][crate::PRINT_SETTINGS_PAPER_WIDTH],</span>
     <span class="doccomment">/// converted to `unit`.</span>
     <span class="doccomment">/// ## `unit`</span>
     <span class="doccomment">/// the unit for the return value</span>
@@ -1702,7 +1702,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_paper_width</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">unit</span>.<span class="ident">into_glib</span>()) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_PRINT_PAGES`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PRINT_PAGES`][crate::PRINT_SETTINGS_PRINT_PAGES].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1718,7 +1718,7 @@
     }
 
     <span class="doccomment">/// Convenience function to obtain the value of</span>
-    <span class="doccomment">/// `GTK_PRINT_SETTINGS_PRINTER`.</span>
+    <span class="doccomment">/// [`PRINT_SETTINGS_PRINTER`][crate::PRINT_SETTINGS_PRINTER].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1729,7 +1729,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gtk_print_settings_get_printer</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_PRINTER_LPI`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PRINTER_LPI`][crate::PRINT_SETTINGS_PRINTER_LPI].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1740,7 +1740,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_printer_lpi</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_QUALITY`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_QUALITY`][crate::PRINT_SETTINGS_QUALITY].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1751,7 +1751,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_print_settings_get_quality</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_RESOLUTION`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_RESOLUTION`][crate::PRINT_SETTINGS_RESOLUTION].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1762,7 +1762,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_resolution</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_RESOLUTION_X`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_RESOLUTION_X`][crate::PRINT_SETTINGS_RESOLUTION_X].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1773,7 +1773,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_resolution_x</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_RESOLUTION_Y`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_RESOLUTION_Y`][crate::PRINT_SETTINGS_RESOLUTION_Y].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1784,7 +1784,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_resolution_y</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_REVERSE`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_REVERSE`][crate::PRINT_SETTINGS_REVERSE].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1795,7 +1795,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gtk_print_settings_get_reverse</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_SCALE`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_SCALE`][crate::PRINT_SETTINGS_SCALE].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1806,7 +1806,7 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi::gtk_print_settings_get_scale</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
-    <span class="doccomment">/// Gets the value of `GTK_PRINT_SETTINGS_USE_COLOR`.</span>
+    <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_USE_COLOR`][crate::PRINT_SETTINGS_USE_COLOR].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1835,8 +1835,8 @@
     }
 
     <span class="doccomment">/// Reads the print settings from `file_name`. If the file could not be loaded</span>
-    <span class="doccomment">/// then error is set to either a [`crate::glib::FileError`] or [`crate::glib::KeyFileError`].</span>
-    <span class="doccomment">/// See [`Self::to_file()`].</span>
+    <span class="doccomment">/// then error is set to either a `GFileError` or `GKeyFileError`.</span>
+    <span class="doccomment">/// See [`to_file()`][Self::to_file()].</span>
     <span class="doccomment">/// ## `file_name`</span>
     <span class="doccomment">/// the filename to read the settings from</span>
     <span class="doccomment">///</span>
@@ -1861,10 +1861,10 @@
     }
 
     <span class="doccomment">/// Reads the print settings from the group `group_name` in `key_file`. If the</span>
-    <span class="doccomment">/// file could not be loaded then error is set to either a [`crate::glib::FileError`] or</span>
-    <span class="doccomment">/// [`crate::glib::KeyFileError`].</span>
+    <span class="doccomment">/// file could not be loaded then error is set to either a `GFileError` or</span>
+    <span class="doccomment">/// `GKeyFileError`.</span>
     <span class="doccomment">/// ## `key_file`</span>
-    <span class="doccomment">/// the [`crate::glib::KeyFile`] to retrieve the settings from</span>
+    <span class="doccomment">/// the [`glib::KeyFile`][crate::glib::KeyFile] to retrieve the settings from</span>
     <span class="doccomment">/// ## `group_name`</span>
     <span class="doccomment">/// the name of the group to use, or [`None`] to use the default</span>
     <span class="doccomment">///  “Print Settings”</span>
@@ -1926,7 +1926,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_COLLATE`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_COLLATE`][crate::PRINT_SETTINGS_COLLATE].</span>
     <span class="doccomment">/// ## `collate`</span>
     <span class="doccomment">/// whether to collate the output</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_collate&quot;</span>)]</span>
@@ -1936,7 +1936,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_DEFAULT_SOURCE`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_DEFAULT_SOURCE`][crate::PRINT_SETTINGS_DEFAULT_SOURCE].</span>
     <span class="doccomment">/// ## `default_source`</span>
     <span class="doccomment">/// the default source</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_default_source&quot;</span>)]</span>
@@ -1949,7 +1949,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_DITHER`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_DITHER`][crate::PRINT_SETTINGS_DITHER].</span>
     <span class="doccomment">/// ## `dither`</span>
     <span class="doccomment">/// the dithering that is used</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_dither&quot;</span>)]</span>
@@ -1971,9 +1971,9 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_DUPLEX`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_DUPLEX`][crate::PRINT_SETTINGS_DUPLEX].</span>
     <span class="doccomment">/// ## `duplex`</span>
-    <span class="doccomment">/// a [`crate::PrintDuplex`] value</span>
+    <span class="doccomment">/// a [`PrintDuplex`][crate::PrintDuplex] value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_duplex&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_duplex</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">duplex</span>: <span class="ident">PrintDuplex</span>) {
         <span class="kw">unsafe</span> {
@@ -1981,7 +1981,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_FINISHINGS`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_FINISHINGS`][crate::PRINT_SETTINGS_FINISHINGS].</span>
     <span class="doccomment">/// ## `finishings`</span>
     <span class="doccomment">/// the finishings</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_finishings&quot;</span>)]</span>
@@ -2025,7 +2025,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_MEDIA_TYPE`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_MEDIA_TYPE`][crate::PRINT_SETTINGS_MEDIA_TYPE].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The set of media types is defined in PWG 5101.1-2002 PWG.</span>
     <span class="doccomment">/// ## `media_type`</span>
@@ -2040,7 +2040,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_N_COPIES`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_N_COPIES`][crate::PRINT_SETTINGS_N_COPIES].</span>
     <span class="doccomment">/// ## `num_copies`</span>
     <span class="doccomment">/// the number of copies</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_n_copies&quot;</span>)]</span>
@@ -2050,7 +2050,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_NUMBER_UP`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_NUMBER_UP`][crate::PRINT_SETTINGS_NUMBER_UP].</span>
     <span class="doccomment">/// ## `number_up`</span>
     <span class="doccomment">/// the number of pages per sheet</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_number_up&quot;</span>)]</span>
@@ -2060,9 +2060,9 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_NUMBER_UP_LAYOUT`][crate::PRINT_SETTINGS_NUMBER_UP_LAYOUT].</span>
     <span class="doccomment">/// ## `number_up_layout`</span>
-    <span class="doccomment">/// a [`crate::NumberUpLayout`] value</span>
+    <span class="doccomment">/// a [`NumberUpLayout`][crate::NumberUpLayout] value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_number_up_layout&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_number_up_layout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">number_up_layout</span>: <span class="ident">NumberUpLayout</span>) {
         <span class="kw">unsafe</span> {
@@ -2073,7 +2073,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_ORIENTATION`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_ORIENTATION`][crate::PRINT_SETTINGS_ORIENTATION].</span>
     <span class="doccomment">/// ## `orientation`</span>
     <span class="doccomment">/// a page orientation</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_orientation&quot;</span>)]</span>
@@ -2083,7 +2083,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_OUTPUT_BIN`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_OUTPUT_BIN`][crate::PRINT_SETTINGS_OUTPUT_BIN].</span>
     <span class="doccomment">/// ## `output_bin`</span>
     <span class="doccomment">/// the output bin</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_output_bin&quot;</span>)]</span>
@@ -2096,9 +2096,9 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_PAGE_SET`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PAGE_SET`][crate::PRINT_SETTINGS_PAGE_SET].</span>
     <span class="doccomment">/// ## `page_set`</span>
-    <span class="doccomment">/// a [`crate::PageSet`] value</span>
+    <span class="doccomment">/// a [`PageSet`][crate::PageSet] value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_page_set&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_page_set</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">page_set</span>: <span class="ident">PageSet</span>) {
         <span class="kw">unsafe</span> {
@@ -2106,7 +2106,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_PAPER_HEIGHT`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PAPER_HEIGHT`][crate::PRINT_SETTINGS_PAPER_HEIGHT].</span>
     <span class="doccomment">/// ## `height`</span>
     <span class="doccomment">/// the paper height</span>
     <span class="doccomment">/// ## `unit`</span>
@@ -2122,9 +2122,9 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_PAPER_FORMAT`,</span>
-    <span class="doccomment">/// `GTK_PRINT_SETTINGS_PAPER_WIDTH` and</span>
-    <span class="doccomment">/// `GTK_PRINT_SETTINGS_PAPER_HEIGHT`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PAPER_FORMAT`][crate::PRINT_SETTINGS_PAPER_FORMAT],</span>
+    <span class="doccomment">/// [`PRINT_SETTINGS_PAPER_WIDTH`][crate::PRINT_SETTINGS_PAPER_WIDTH] and</span>
+    <span class="doccomment">/// [`PRINT_SETTINGS_PAPER_HEIGHT`][crate::PRINT_SETTINGS_PAPER_HEIGHT].</span>
     <span class="doccomment">/// ## `paper_size`</span>
     <span class="doccomment">/// a paper size</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_paper_size&quot;</span>)]</span>
@@ -2137,7 +2137,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_PAPER_WIDTH`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PAPER_WIDTH`][crate::PRINT_SETTINGS_PAPER_WIDTH].</span>
     <span class="doccomment">/// ## `width`</span>
     <span class="doccomment">/// the paper width</span>
     <span class="doccomment">/// ## `unit`</span>
@@ -2149,9 +2149,9 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_PRINT_PAGES`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PRINT_PAGES`][crate::PRINT_SETTINGS_PRINT_PAGES].</span>
     <span class="doccomment">/// ## `pages`</span>
-    <span class="doccomment">/// a [`crate::PrintPages`] value</span>
+    <span class="doccomment">/// a [`PrintPages`][crate::PrintPages] value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_print_pages&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_print_pages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pages</span>: <span class="ident">PrintPages</span>) {
         <span class="kw">unsafe</span> {
@@ -2159,7 +2159,7 @@
         }
     }
 
-    <span class="doccomment">/// Convenience function to set `GTK_PRINT_SETTINGS_PRINTER`</span>
+    <span class="doccomment">/// Convenience function to set [`PRINT_SETTINGS_PRINTER`][crate::PRINT_SETTINGS_PRINTER]</span>
     <span class="doccomment">/// to `printer`.</span>
     <span class="doccomment">/// ## `printer`</span>
     <span class="doccomment">/// the printer name</span>
@@ -2170,7 +2170,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_PRINTER_LPI`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PRINTER_LPI`][crate::PRINT_SETTINGS_PRINTER_LPI].</span>
     <span class="doccomment">/// ## `lpi`</span>
     <span class="doccomment">/// the resolution in lpi (lines per inch)</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_printer_lpi&quot;</span>)]</span>
@@ -2180,9 +2180,9 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_QUALITY`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_QUALITY`][crate::PRINT_SETTINGS_QUALITY].</span>
     <span class="doccomment">/// ## `quality`</span>
-    <span class="doccomment">/// a [`crate::PrintQuality`] value</span>
+    <span class="doccomment">/// a [`PrintQuality`][crate::PrintQuality] value</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_quality&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_quality</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">quality</span>: <span class="ident">PrintQuality</span>) {
         <span class="kw">unsafe</span> {
@@ -2190,9 +2190,9 @@
         }
     }
 
-    <span class="doccomment">/// Sets the values of `GTK_PRINT_SETTINGS_RESOLUTION`,</span>
-    <span class="doccomment">/// `GTK_PRINT_SETTINGS_RESOLUTION_X` and</span>
-    <span class="doccomment">/// `GTK_PRINT_SETTINGS_RESOLUTION_Y`.</span>
+    <span class="doccomment">/// Sets the values of [`PRINT_SETTINGS_RESOLUTION`][crate::PRINT_SETTINGS_RESOLUTION],</span>
+    <span class="doccomment">/// [`PRINT_SETTINGS_RESOLUTION_X`][crate::PRINT_SETTINGS_RESOLUTION_X] and</span>
+    <span class="doccomment">/// [`PRINT_SETTINGS_RESOLUTION_Y`][crate::PRINT_SETTINGS_RESOLUTION_Y].</span>
     <span class="doccomment">/// ## `resolution`</span>
     <span class="doccomment">/// the resolution in dpi</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_resolution&quot;</span>)]</span>
@@ -2202,9 +2202,9 @@
         }
     }
 
-    <span class="doccomment">/// Sets the values of `GTK_PRINT_SETTINGS_RESOLUTION`,</span>
-    <span class="doccomment">/// `GTK_PRINT_SETTINGS_RESOLUTION_X` and</span>
-    <span class="doccomment">/// `GTK_PRINT_SETTINGS_RESOLUTION_Y`.</span>
+    <span class="doccomment">/// Sets the values of [`PRINT_SETTINGS_RESOLUTION`][crate::PRINT_SETTINGS_RESOLUTION],</span>
+    <span class="doccomment">/// [`PRINT_SETTINGS_RESOLUTION_X`][crate::PRINT_SETTINGS_RESOLUTION_X] and</span>
+    <span class="doccomment">/// [`PRINT_SETTINGS_RESOLUTION_Y`][crate::PRINT_SETTINGS_RESOLUTION_Y].</span>
     <span class="doccomment">/// ## `resolution_x`</span>
     <span class="doccomment">/// the horizontal resolution in dpi</span>
     <span class="doccomment">/// ## `resolution_y`</span>
@@ -2220,7 +2220,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_REVERSE`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_REVERSE`][crate::PRINT_SETTINGS_REVERSE].</span>
     <span class="doccomment">/// ## `reverse`</span>
     <span class="doccomment">/// whether to reverse the output</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_reverse&quot;</span>)]</span>
@@ -2230,7 +2230,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_SCALE`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_SCALE`][crate::PRINT_SETTINGS_SCALE].</span>
     <span class="doccomment">/// ## `scale`</span>
     <span class="doccomment">/// the scale in percent</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_scale&quot;</span>)]</span>
@@ -2240,7 +2240,7 @@
         }
     }
 
-    <span class="doccomment">/// Sets the value of `GTK_PRINT_SETTINGS_USE_COLOR`.</span>
+    <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_USE_COLOR`][crate::PRINT_SETTINGS_USE_COLOR].</span>
     <span class="doccomment">/// ## `use_color`</span>
     <span class="doccomment">/// whether to use color</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_set_use_color&quot;</span>)]</span>
@@ -2251,8 +2251,8 @@
     }
 
     <span class="doccomment">/// This function saves the print settings from `self` to `file_name`. If the</span>
-    <span class="doccomment">/// file could not be loaded then error is set to either a [`crate::glib::FileError`] or</span>
-    <span class="doccomment">/// [`crate::glib::KeyFileError`].</span>
+    <span class="doccomment">/// file could not be loaded then error is set to either a `GFileError` or</span>
+    <span class="doccomment">/// `GKeyFileError`.</span>
     <span class="doccomment">/// ## `file_name`</span>
     <span class="doccomment">/// the file to save to</span>
     <span class="doccomment">///</span>
@@ -2280,7 +2280,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new, floating, [`crate::glib::Variant`]</span>
+    <span class="doccomment">/// a new, floating, [`glib::Variant`][crate::glib::Variant]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_print_settings_to_gvariant&quot;</span>)]</span>
@@ -2290,7 +2290,7 @@
 
     <span class="doccomment">/// This function adds the print settings from `self` to `key_file`.</span>
     <span class="doccomment">/// ## `key_file`</span>
-    <span class="doccomment">/// the [`crate::glib::KeyFile`] to save the print settings to</span>
+    <span class="doccomment">/// the [`glib::KeyFile`][crate::glib::KeyFile] to save the print settings to</span>
     <span class="doccomment">/// ## `group_name`</span>
     <span class="doccomment">/// the group to add the settings to in `key_file`, or</span>
     <span class="doccomment">///  [`None`] to use the default “Print Settings”</span>

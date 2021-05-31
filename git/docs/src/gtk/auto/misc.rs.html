@@ -57,7 +57,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// The [`crate::Misc`] widget is an abstract widget which is not useful itself, but</span>
+    <span class="doccomment">/// The [`Misc`][crate::Misc] widget is an abstract widget which is not useful itself, but</span>
     <span class="doccomment">/// is used to derive subclasses which have alignment and padding attributes.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The horizontal and vertical padding attributes allows extra space to be</span>
@@ -69,15 +69,15 @@
     <span class="doccomment">/// allocated area, the alignment settings will not alter the widget&#39;s position.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that the desired effect can in most cases be achieved by using the</span>
-    <span class="doccomment">/// [`crate::Widget:halign`], [`crate::Widget:valign`] and [`crate::Widget:margin`] properties</span>
-    <span class="doccomment">/// on the child widget, so `Misc` should not be used in new code. To reflect</span>
-    <span class="doccomment">/// this fact, all [`crate::Misc`] API has been deprecated.</span>
+    <span class="doccomment">/// `property::Widget::halign`, `property::Widget::valign` and `property::Widget::margin` properties</span>
+    <span class="doccomment">/// on the child widget, so GtkMisc should not be used in new code. To reflect</span>
+    <span class="doccomment">/// this fact, all [`Misc`][crate::Misc] API has been deprecated.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Misc</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkMisc</span>, <span class="ident">ffi::GtkMiscClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {

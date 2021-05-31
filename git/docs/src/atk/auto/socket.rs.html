@@ -127,32 +127,32 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Together with [`crate::Plug`], [`crate::Socket`] provides the ability to embed</span>
+    <span class="doccomment">/// Together with [`Plug`][crate::Plug], [`Socket`][crate::Socket] provides the ability to embed</span>
     <span class="doccomment">/// accessibles from one process into another in a fashion that is</span>
-    <span class="doccomment">/// transparent to assistive technologies. [`crate::Socket`] works as the</span>
-    <span class="doccomment">/// container of [`crate::Plug`], embedding it using the method</span>
-    <span class="doccomment">/// [`crate::prelude::AtkSocketExt::embed()`]. Any accessible contained in the [`crate::Plug`] will</span>
+    <span class="doccomment">/// transparent to assistive technologies. [`Socket`][crate::Socket] works as the</span>
+    <span class="doccomment">/// container of [`Plug`][crate::Plug], embedding it using the method</span>
+    <span class="doccomment">/// [`AtkSocketExt::embed()`][crate::prelude::AtkSocketExt::embed()]. Any accessible contained in the [`Plug`][crate::Plug] will</span>
     <span class="doccomment">/// appear to the assistive technologies as being inside the</span>
-    <span class="doccomment">/// application that created the [`crate::Socket`].</span>
+    <span class="doccomment">/// application that created the [`Socket`][crate::Socket].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The communication between a [`crate::Socket`] and a [`crate::Plug`] is done by</span>
+    <span class="doccomment">/// The communication between a [`Socket`][crate::Socket] and a [`Plug`][crate::Plug] is done by</span>
     <span class="doccomment">/// the IPC layer of the accessibility framework, normally implemented</span>
     <span class="doccomment">/// by the D-Bus based implementation of AT-SPI (at-spi2). If that is</span>
     <span class="doccomment">/// the case, at-spi-atk2 is the responsible to implement the abstract</span>
-    <span class="doccomment">/// methods [`crate::prelude::AtkPlugExt::get_id()`] and [`crate::prelude::AtkSocketExt::embed()`], so an ATK</span>
+    <span class="doccomment">/// methods [`AtkPlugExt::id()`][crate::prelude::AtkPlugExt::id()] and [`AtkSocketExt::embed()`][crate::prelude::AtkSocketExt::embed()], so an ATK</span>
     <span class="doccomment">/// implementor shouldn&#39;t reimplement them. The process that contains</span>
-    <span class="doccomment">/// the [`crate::Plug`] is responsible to send the ID returned by</span>
-    <span class="doccomment">/// `atk_plug_id()` to the process that contains the [`crate::Socket`], so it</span>
-    <span class="doccomment">/// could call the method [`crate::prelude::AtkSocketExt::embed()`] in order to embed it.</span>
+    <span class="doccomment">/// the [`Plug`][crate::Plug] is responsible to send the ID returned by</span>
+    <span class="doccomment">/// `atk_plug_id()` to the process that contains the [`Socket`][crate::Socket], so it</span>
+    <span class="doccomment">/// could call the method [`AtkSocketExt::embed()`][crate::prelude::AtkSocketExt::embed()] in order to embed it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For the same reasons, an implementor doesn&#39;t need to implement</span>
-    <span class="doccomment">/// [`crate::prelude::AtkObjectExt::get_n_accessible_children()`] and</span>
-    <span class="doccomment">/// [`crate::prelude::AtkObjectExt::ref_accessible_child()`]. All the logic related to those</span>
+    <span class="doccomment">/// [`AtkObjectExt::n_accessible_children()`][crate::prelude::AtkObjectExt::n_accessible_children()] and</span>
+    <span class="doccomment">/// [`AtkObjectExt::ref_accessible_child()`][crate::prelude::AtkObjectExt::ref_accessible_child()]. All the logic related to those</span>
     <span class="doccomment">/// functions will be implemented by the IPC layer.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::AtkSocketExt`], [`trait@crate::prelude::AtkObjectExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::ComponentExt`]</span>
+    <span class="doccomment">/// [`AtkSocketExt`][trait@crate::prelude::AtkSocketExt], [`AtkObjectExt`][trait@crate::prelude::AtkObjectExt], [`trait@glib::ObjectExt`], [`ComponentExt`][trait@crate::prelude::ComponentExt]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Socket</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::AtkSocket</span>, <span class="ident">ffi::AtkSocketClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Object</span>, @<span class="ident">implements</span> <span class="ident">Component</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -161,11 +161,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Socket</span> {
-    <span class="doccomment">/// Creates a new [`crate::Socket`].</span>
+    <span class="doccomment">/// Creates a new [`Socket`][crate::Socket].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// the newly created [`crate::Socket`] instance</span>
+    <span class="doccomment">/// the newly created [`Socket`][crate::Socket] instance</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_socket_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Socket</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -185,20 +185,20 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::Socket`]</span>
+<span class="doccomment">/// [`Socket`][struct@crate::Socket]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AtkSocketExt</span>: <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Embeds the children of an [`crate::Plug`] as the children of the</span>
-    <span class="doccomment">/// [`crate::Socket`]. The plug may be in the same process or in a different</span>
+    <span class="doccomment">/// Embeds the children of an [`Plug`][crate::Plug] as the children of the</span>
+    <span class="doccomment">/// [`Socket`][crate::Socket]. The plug may be in the same process or in a different</span>
     <span class="doccomment">/// process.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The class item used by this function should be filled in by the IPC</span>
     <span class="doccomment">/// layer (usually at-spi2-atk). The implementor of the AtkSocket</span>
     <span class="doccomment">/// should call this function and pass the id for the plug as returned</span>
-    <span class="doccomment">/// by [`crate::prelude::AtkPlugExt::get_id()`]. It is the responsibility of the application</span>
-    <span class="doccomment">/// to pass the plug id on to the process implementing the [`crate::Socket`]</span>
+    <span class="doccomment">/// by [`AtkPlugExt::id()`][crate::prelude::AtkPlugExt::id()]. It is the responsibility of the application</span>
+    <span class="doccomment">/// to pass the plug id on to the process implementing the [`Socket`][crate::Socket]</span>
     <span class="doccomment">/// as needed.</span>
     <span class="doccomment">/// ## `plug_id`</span>
-    <span class="doccomment">/// the ID of an [`crate::Plug`]</span>
+    <span class="doccomment">/// the ID of an [`Plug`][crate::Plug]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_socket_embed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">embed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">plug_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 

@@ -192,11 +192,11 @@
 
 <span class="kw">impl</span> <span class="ident">Keymap</span> {
     <span class="doccomment">/// Returns the keyvals bound to `hardware_keycode`.</span>
-    <span class="doccomment">/// The Nth [`crate::KeymapKey`] in `keys` is bound to the Nth</span>
+    <span class="doccomment">/// The Nth [`KeymapKey`][crate::KeymapKey] in `keys` is bound to the Nth</span>
     <span class="doccomment">/// keyval in `keyvals`. Free the returned arrays with `g_free()`.</span>
     <span class="doccomment">/// When a keycode is pressed by the user, the keyval from</span>
     <span class="doccomment">/// this list of entries is selected by considering the effective</span>
-    <span class="doccomment">/// keyboard group and level. See [`Self::translate_keyboard_state()`].</span>
+    <span class="doccomment">/// keyboard group and level. See [`translate_keyboard_state()`][Self::translate_keyboard_state()].</span>
     <span class="doccomment">/// ## `hardware_keycode`</span>
     <span class="doccomment">/// a keycode</span>
     <span class="doccomment">///</span>
@@ -206,7 +206,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `keys`</span>
     <span class="doccomment">/// return</span>
-    <span class="doccomment">///  location for array of [`crate::KeymapKey`], or [`None`]</span>
+    <span class="doccomment">///  location for array of [`KeymapKey`][crate::KeymapKey], or [`None`]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `keyvals`</span>
     <span class="doccomment">/// return</span>
@@ -247,7 +247,7 @@
     <span class="doccomment">/// right symbol is used. On US keyboards, the shift key changes the</span>
     <span class="doccomment">/// keyboard level, and there are no groups. A group switch key might</span>
     <span class="doccomment">/// convert a keyboard between Hebrew to English modes, for example.</span>
-    <span class="doccomment">/// [`crate::EventKey`] contains a `group` field that indicates the active</span>
+    <span class="doccomment">/// [`EventKey`][crate::EventKey] contains a `group` field that indicates the active</span>
     <span class="doccomment">/// keyboard group. The level is computed from the modifier mask.</span>
     <span class="doccomment">/// The returned array should be freed</span>
     <span class="doccomment">/// with `g_free()`.</span>
@@ -260,7 +260,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `keys`</span>
     <span class="doccomment">/// return location</span>
-    <span class="doccomment">///  for an array of [`crate::KeymapKey`]</span>
+    <span class="doccomment">///  for an array of [`KeymapKey`][crate::KeymapKey]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keymap_get_entries_for_keyval&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_entries_for_keyval&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">entries_for_keyval</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">keyval</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeymapKey</span><span class="op">&gt;</span> {
@@ -338,11 +338,11 @@
 
     <span class="doccomment">/// Looks up the keyval mapped to a keycode/group/level triplet.</span>
     <span class="doccomment">/// If no keyval is bound to `key`, returns 0. For normal user input,</span>
-    <span class="doccomment">/// you want to use [`Self::translate_keyboard_state()`] instead of</span>
+    <span class="doccomment">/// you want to use [`translate_keyboard_state()`][Self::translate_keyboard_state()] instead of</span>
     <span class="doccomment">/// this function, since the effective group/level may not be</span>
     <span class="doccomment">/// the same as the current keyboard state.</span>
     <span class="doccomment">/// ## `key`</span>
-    <span class="doccomment">/// a [`crate::KeymapKey`] with keycode, group, and level initialized</span>
+    <span class="doccomment">/// a [`KeymapKey`][crate::KeymapKey] with keycode, group, and level initialized</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

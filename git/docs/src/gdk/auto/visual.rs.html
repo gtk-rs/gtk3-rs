@@ -395,7 +395,7 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`crate::Visual`] contains information about</span>
+    <span class="doccomment">/// A [`Visual`][crate::Visual] contains information about</span>
     <span class="doccomment">/// a particular visual.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Visual</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkVisual</span><span class="op">&gt;</span>);
 
@@ -411,7 +411,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`Self::get_red_pixel_details()`] and its variants to</span>
+    <span class="doccomment">/// Use [`red_pixel_details()`][Self::red_pixel_details()] and its variants to</span>
     <span class="doccomment">///  learn about the pixel layout of TrueColor and DirectColor visuals</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -473,7 +473,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`crate::ByteOrder`] stating the byte order of `self`.</span>
+    <span class="doccomment">/// A [`ByteOrder`][crate::ByteOrder] stating the byte order of `self`.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_22&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.22&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_visual_get_byte_order&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_byte_order&quot;</span>)]</span>
@@ -600,7 +600,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A [`crate::VisualType`] stating the type of `self`.</span>
+    <span class="doccomment">/// A [`VisualType`][crate::VisualType] stating the type of `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_visual_get_visual_type&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_visual_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">visual_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VisualType</span> {
@@ -613,7 +613,7 @@
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Visual selection should be done using</span>
-    <span class="doccomment">///  [`crate::Screen::get_system_visual()`] and [`crate::Screen::get_rgba_visual()`]</span>
+    <span class="doccomment">///  [`Screen::system_visual()`][crate::Screen::system_visual()] and [`Screen::rgba_visual()`][crate::Screen::rgba_visual()]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -633,7 +633,7 @@
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Visual selection should be done using</span>
-    <span class="doccomment">///  [`crate::Screen::get_system_visual()`] and [`crate::Screen::get_rgba_visual()`]</span>
+    <span class="doccomment">///  [`Screen::system_visual()`][crate::Screen::system_visual()] and [`Screen::rgba_visual()`][crate::Screen::rgba_visual()]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -651,7 +651,7 @@
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Visual selection should be done using</span>
-    <span class="doccomment">///  [`crate::Screen::get_system_visual()`] and [`crate::Screen::get_rgba_visual()`]</span>
+    <span class="doccomment">///  [`Screen::system_visual()`][crate::Screen::system_visual()] and [`Screen::rgba_visual()`][crate::Screen::rgba_visual()]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -664,13 +664,13 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_visual_get_best_type</span>()) }
     }
 
-    <span class="doccomment">/// Combines [`Self::get_best_with_depth()`] and</span>
-    <span class="doccomment">/// [`Self::get_best_with_type()`].</span>
+    <span class="doccomment">/// Combines [`best_with_depth()`][Self::best_with_depth()] and</span>
+    <span class="doccomment">/// [`best_with_type()`][Self::best_with_type()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Visual selection should be done using</span>
-    <span class="doccomment">///  [`crate::Screen::get_system_visual()`] and [`crate::Screen::get_rgba_visual()`]</span>
+    <span class="doccomment">///  [`Screen::system_visual()`][crate::Screen::system_visual()] and [`Screen::rgba_visual()`][crate::Screen::rgba_visual()]</span>
     <span class="doccomment">/// ## `depth`</span>
     <span class="doccomment">/// a bit depth</span>
     <span class="doccomment">/// ## `visual_type`</span>
@@ -701,7 +701,7 @@
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Visual selection should be done using</span>
-    <span class="doccomment">///  [`crate::Screen::get_system_visual()`] and [`crate::Screen::get_rgba_visual()`]</span>
+    <span class="doccomment">///  [`Screen::system_visual()`][crate::Screen::system_visual()] and [`Screen::rgba_visual()`][crate::Screen::rgba_visual()]</span>
     <span class="doccomment">/// ## `depth`</span>
     <span class="doccomment">/// a bit depth</span>
     <span class="doccomment">///</span>
@@ -724,7 +724,7 @@
     <span class="doccomment">/// # Deprecated since 3.22</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Visual selection should be done using</span>
-    <span class="doccomment">///  [`crate::Screen::get_system_visual()`] and [`crate::Screen::get_rgba_visual()`]</span>
+    <span class="doccomment">///  [`Screen::system_visual()`][crate::Screen::system_visual()] and [`Screen::rgba_visual()`][crate::Screen::rgba_visual()]</span>
     <span class="doccomment">/// ## `visual_type`</span>
     <span class="doccomment">/// a visual type</span>
     <span class="doccomment">///</span>

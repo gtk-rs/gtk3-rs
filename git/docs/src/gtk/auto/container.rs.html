@@ -1045,34 +1045,34 @@
 <span class="macro">glib::wrapper!</span> {
     <span class="doccomment">/// A GTK+ user interface is constructed by nesting widgets inside widgets.</span>
     <span class="doccomment">/// Container widgets are the inner nodes in the resulting tree of widgets:</span>
-    <span class="doccomment">/// they contain other widgets. So, for example, you might have a [`crate::Window`]</span>
-    <span class="doccomment">/// containing a [`crate::Frame`] containing a [`crate::Label`]. If you wanted an image instead</span>
-    <span class="doccomment">/// of a textual label inside the frame, you might replace the [`crate::Label`] widget</span>
-    <span class="doccomment">/// with a [`crate::Image`] widget.</span>
+    <span class="doccomment">/// they contain other widgets. So, for example, you might have a [`Window`][crate::Window]</span>
+    <span class="doccomment">/// containing a [`Frame`][crate::Frame] containing a [`Label`][crate::Label]. If you wanted an image instead</span>
+    <span class="doccomment">/// of a textual label inside the frame, you might replace the [`Label`][crate::Label] widget</span>
+    <span class="doccomment">/// with a [`Image`][crate::Image] widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There are two major kinds of container widgets in GTK+. Both are subclasses</span>
-    <span class="doccomment">/// of the abstract `Container` base class.</span>
+    <span class="doccomment">/// of the abstract GtkContainer base class.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The first type of container widget has a single child widget and derives</span>
-    <span class="doccomment">/// from [`crate::Bin`]. These containers are decorators, which</span>
-    <span class="doccomment">/// add some kind of functionality to the child. For example, a [`crate::Button`] makes</span>
-    <span class="doccomment">/// its child into a clickable button; a [`crate::Frame`] draws a frame around its child</span>
-    <span class="doccomment">/// and a [`crate::Window`] places its child widget inside a top-level window.</span>
+    <span class="doccomment">/// from [`Bin`][crate::Bin]. These containers are decorators, which</span>
+    <span class="doccomment">/// add some kind of functionality to the child. For example, a [`Button`][crate::Button] makes</span>
+    <span class="doccomment">/// its child into a clickable button; a [`Frame`][crate::Frame] draws a frame around its child</span>
+    <span class="doccomment">/// and a [`Window`][crate::Window] places its child widget inside a top-level window.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The second type of container can have more than one child; its purpose is to</span>
     <span class="doccomment">/// manage layout. This means that these containers assign</span>
-    <span class="doccomment">/// sizes and positions to their children. For example, a [`crate::HBox`] arranges its</span>
-    <span class="doccomment">/// children in a horizontal row, and a [`crate::Grid`] arranges the widgets it contains</span>
+    <span class="doccomment">/// sizes and positions to their children. For example, a `GtkHBox` arranges its</span>
+    <span class="doccomment">/// children in a horizontal row, and a [`Grid`][crate::Grid] arranges the widgets it contains</span>
     <span class="doccomment">/// in a two-dimensional grid.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// For implementations of [`crate::Container`] the virtual method [`crate::`ContainerClass`.forall()`]</span>
+    <span class="doccomment">/// For implementations of [`Container`][crate::Container] the virtual method `GtkContainerClass.forall()`</span>
     <span class="doccomment">/// is always required, since it&#39;s used for drawing and other internal operations</span>
     <span class="doccomment">/// on the children.</span>
-    <span class="doccomment">/// If the [`crate::Container`] implementation expect to have non internal children</span>
-    <span class="doccomment">/// it&#39;s needed to implement both [`crate::`ContainerClass`.add()`] and [`crate::`ContainerClass`.remove()`].</span>
-    <span class="doccomment">/// If the `Container` implementation has internal children, they should be added</span>
-    <span class="doccomment">/// with [`crate::prelude::WidgetExt::set_parent()`] on `init()` and removed with [`crate::prelude::WidgetExt::unparent()`]</span>
-    <span class="doccomment">/// in the [`crate::`WidgetClass`.destroy()`] implementation.</span>
+    <span class="doccomment">/// If the [`Container`][crate::Container] implementation expect to have non internal children</span>
+    <span class="doccomment">/// it&#39;s needed to implement both `GtkContainerClass.add()` and `GtkContainerClass.remove()`.</span>
+    <span class="doccomment">/// If the GtkContainer implementation has internal children, they should be added</span>
+    <span class="doccomment">/// with [`WidgetExt::set_parent()`][crate::prelude::WidgetExt::set_parent()] on `init()` and removed with [`WidgetExt::unparent()`][crate::prelude::WidgetExt::unparent()]</span>
+    <span class="doccomment">/// in the `GtkWidgetClass.destroy()` implementation.</span>
     <span class="doccomment">/// See more about implementing custom widgets at https://wiki.gnome.org/HowDoI/CustomWidgets</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Height for width geometry management</span>
@@ -1086,8 +1086,8 @@
     <span class="doccomment">/// that make use of GTK+’s height for width geometry management system. First,</span>
     <span class="doccomment">/// it’s important to note that a container must prioritize one of its</span>
     <span class="doccomment">/// dimensions, that is to say that a widget or container can only have a</span>
-    <span class="doccomment">/// [`crate::SizeRequestMode`] that is [`crate::SizeRequestMode::HeightForWidth`] or</span>
-    <span class="doccomment">/// [`crate::SizeRequestMode::WidthForHeight`]. However, every widget and container</span>
+    <span class="doccomment">/// [`SizeRequestMode`][crate::SizeRequestMode] that is [`SizeRequestMode::HeightForWidth`][crate::SizeRequestMode::HeightForWidth] or</span>
+    <span class="doccomment">/// [`SizeRequestMode::WidthForHeight`][crate::SizeRequestMode::WidthForHeight]. However, every widget and container</span>
     <span class="doccomment">/// must be able to respond to the APIs for both dimensions, i.e. even if a</span>
     <span class="doccomment">/// widget has a request mode that is height-for-width, it is possible that</span>
     <span class="doccomment">/// its parent will request its sizes using the width-for-height APIs.</span>
@@ -1096,11 +1096,11 @@
     <span class="doccomment">/// when implementing height-for-width (or width-for-height) containers.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Each request mode involves 2 virtual methods. Height-for-width apis run</span>
-    <span class="doccomment">/// through [`crate::prelude::WidgetExt::get_preferred_width()`] and then through [`crate::prelude::WidgetExt::get_preferred_height_for_width()`].</span>
-    <span class="doccomment">/// When handling requests in the opposite [`crate::SizeRequestMode`] it is important that</span>
+    <span class="doccomment">/// through [`WidgetExt::preferred_width()`][crate::prelude::WidgetExt::preferred_width()] and then through [`WidgetExt::preferred_height_for_width()`][crate::prelude::WidgetExt::preferred_height_for_width()].</span>
+    <span class="doccomment">/// When handling requests in the opposite [`SizeRequestMode`][crate::SizeRequestMode] it is important that</span>
     <span class="doccomment">/// every widget request at least enough space to display all of its content at all times.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When [`crate::prelude::WidgetExt::get_preferred_height()`] is called on a container that is height-for-width,</span>
+    <span class="doccomment">/// When [`WidgetExt::preferred_height()`][crate::prelude::WidgetExt::preferred_height()] is called on a container that is height-for-width,</span>
     <span class="doccomment">/// the container must return the height for its minimum width. This is easily achieved by</span>
     <span class="doccomment">/// simply calling the reverse apis implemented for itself as follows:</span>
     <span class="doccomment">///</span>
@@ -1135,7 +1135,7 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Similarly, when [`crate::prelude::WidgetExt::get_preferred_width_for_height()`] is called for a container or widget</span>
+    <span class="doccomment">/// Similarly, when [`WidgetExt::preferred_width_for_height()`][crate::prelude::WidgetExt::preferred_width_for_height()] is called for a container or widget</span>
     <span class="doccomment">/// that is height-for-width, it then only needs to return the base minimum width like so:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -1164,58 +1164,58 @@
     <span class="doccomment">/// Height for width requests are generally implemented in terms of a virtual allocation</span>
     <span class="doccomment">/// of widgets in the input orientation. Assuming an height-for-width request mode, a container</span>
     <span class="doccomment">/// would implement the `get_preferred_height_for_width()` virtual function by first calling</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::get_preferred_width()`] for each of its children.</span>
+    <span class="doccomment">/// [`WidgetExt::preferred_width()`][crate::prelude::WidgetExt::preferred_width()] for each of its children.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For each potential group of children that are lined up horizontally, the values returned by</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::get_preferred_width()`] should be collected in an array of [`crate::RequestedSize`] structures.</span>
+    <span class="doccomment">/// [`WidgetExt::preferred_width()`][crate::prelude::WidgetExt::preferred_width()] should be collected in an array of `GtkRequestedSize` structures.</span>
     <span class="doccomment">/// Any child spacing should be removed from the input `for_width` and then the collective size should be</span>
-    <span class="doccomment">/// allocated using the `gtk_distribute_natural_allocation()` convenience function.</span>
+    <span class="doccomment">/// allocated using the [`distribute_natural_allocation()`][crate::distribute_natural_allocation()] convenience function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The container will then move on to request the preferred height for each child by using</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::get_preferred_height_for_width()`] and using the sizes stored in the [`crate::RequestedSize`] array.</span>
+    <span class="doccomment">/// [`WidgetExt::preferred_height_for_width()`][crate::prelude::WidgetExt::preferred_height_for_width()] and using the sizes stored in the `GtkRequestedSize` array.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To allocate a height-for-width container, it’s again important</span>
     <span class="doccomment">/// to consider that a container must prioritize one dimension over the other. So if</span>
     <span class="doccomment">/// a container is a height-for-width container it must first allocate all widgets horizontally</span>
-    <span class="doccomment">/// using a [`crate::RequestedSize`] array and `gtk_distribute_natural_allocation()` and then add any</span>
+    <span class="doccomment">/// using a `GtkRequestedSize` array and [`distribute_natural_allocation()`][crate::distribute_natural_allocation()] and then add any</span>
     <span class="doccomment">/// extra space (if and where appropriate) for the widget to expand.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// After adding all the expand space, the container assumes it was allocated sufficient</span>
     <span class="doccomment">/// height to fit all of its content. At this time, the container must use the total horizontal sizes</span>
     <span class="doccomment">/// of each widget to request the height-for-width of each of its children and store the requests in a</span>
-    <span class="doccomment">/// [`crate::RequestedSize`] array for any widgets that stack vertically (for tabular containers this can</span>
+    <span class="doccomment">/// `GtkRequestedSize` array for any widgets that stack vertically (for tabular containers this can</span>
     <span class="doccomment">/// be generalized into the heights and widths of rows and columns).</span>
-    <span class="doccomment">/// The vertical space must then again be distributed using `gtk_distribute_natural_allocation()`</span>
+    <span class="doccomment">/// The vertical space must then again be distributed using [`distribute_natural_allocation()`][crate::distribute_natural_allocation()]</span>
     <span class="doccomment">/// while this time considering the allocated height of the widget minus any vertical spacing</span>
     <span class="doccomment">/// that the container adds. Then vertical expand space should be added where appropriate and available</span>
     <span class="doccomment">/// and the container should go on to actually allocating the child widgets.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`Widget`’s geometry management section][geometry-management]</span>
+    <span class="doccomment">/// See [GtkWidget’s geometry management section][geometry-management]</span>
     <span class="doccomment">/// to learn more about implementing height-for-width geometry management for widgets.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Child properties</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `Container` introduces child properties.</span>
+    <span class="doccomment">/// GtkContainer introduces child properties.</span>
     <span class="doccomment">/// These are object properties that are not specific</span>
     <span class="doccomment">/// to either the container or the contained widget, but rather to their relation.</span>
     <span class="doccomment">/// Typical examples of child properties are the position or pack-type of a widget</span>
-    <span class="doccomment">/// which is contained in a [`crate::Box`].</span>
+    <span class="doccomment">/// which is contained in a [`Box`][crate::Box].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`crate::ContainerClass::install_child_property()`] to install child properties</span>
-    <span class="doccomment">/// for a container class and [`crate::ContainerClass::find_child_property()`] or</span>
-    <span class="doccomment">/// [`crate::ContainerClass::list_child_properties()`] to get information about existing</span>
+    <span class="doccomment">/// Use `gtk_container_class_install_child_property()` to install child properties</span>
+    <span class="doccomment">/// for a container class and `gtk_container_class_find_child_property()` or</span>
+    <span class="doccomment">/// `gtk_container_class_list_child_properties()` to get information about existing</span>
     <span class="doccomment">/// child properties.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To set the value of a child property, use [`Self::child_set_property()`],</span>
-    <span class="doccomment">/// [`crate::prelude::ContainerExt::child_set()`] or [`crate::prelude::ContainerExt::child_set_valist()`].</span>
+    <span class="doccomment">/// To set the value of a child property, use `gtk_container_child_set_property()`,</span>
+    <span class="doccomment">/// [`ContainerExt::child_set()`][crate::prelude::ContainerExt::child_set()] or [`ContainerExt::child_set_valist()`][crate::prelude::ContainerExt::child_set_valist()].</span>
     <span class="doccomment">/// To obtain the value of a child property, use</span>
-    <span class="doccomment">/// [`Self::child_get_property()`], [`crate::prelude::ContainerExt::child_get()`] or</span>
-    <span class="doccomment">/// [`crate::prelude::ContainerExt::child_get_valist()`]. To emit notification about child property</span>
-    <span class="doccomment">/// changes, use [`crate::prelude::WidgetExt::child_notify()`].</span>
+    <span class="doccomment">/// `gtk_container_child_get_property()`, [`ContainerExt::child_get()`][crate::prelude::ContainerExt::child_get()] or</span>
+    <span class="doccomment">/// [`ContainerExt::child_get_valist()`][crate::prelude::ContainerExt::child_get_valist()]. To emit notification about child property</span>
+    <span class="doccomment">/// changes, use [`WidgetExt::child_notify()`][crate::prelude::WidgetExt::child_notify()].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # `Container` as `Buildable`</span>
+    <span class="doccomment">/// # GtkContainer as GtkBuildable</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The `Container` implementation of the `Buildable` interface supports</span>
+    <span class="doccomment">/// The GtkContainer implementation of the GtkBuildable interface supports</span>
     <span class="doccomment">/// a `&lt;packing&gt;` element for children, which can contain multiple `&lt;property&gt;`</span>
     <span class="doccomment">/// elements that specify child properties for the child.</span>
     <span class="doccomment">///</span>
@@ -1251,7 +1251,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Container</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkContainer</span>, <span class="ident">ffi::GtkContainerClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1265,18 +1265,18 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::Bin`], [`struct@crate::Box`], [`struct@crate::Container`], [`struct@crate::Fixed`], [`struct@crate::FlowBox`], [`struct@crate::Grid`], [`struct@crate::HeaderBar`], [`struct@crate::IconView`], [`struct@crate::Layout`], [`struct@crate::ListBox`], [`struct@crate::MenuShell`], [`struct@crate::Notebook`], [`struct@crate::Paned`], [`struct@crate::Socket`], [`struct@crate::Stack`], [`struct@crate::TextView`], [`struct@crate::ToolItemGroup`], [`struct@crate::ToolPalette`], [`struct@crate::Toolbar`], [`struct@crate::TreeView`]</span>
+<span class="doccomment">/// [`Bin`][struct@crate::Bin], [`Box`][struct@crate::Box], [`Container`][struct@crate::Container], [`Fixed`][struct@crate::Fixed], [`FlowBox`][struct@crate::FlowBox], [`Grid`][struct@crate::Grid], [`HeaderBar`][struct@crate::HeaderBar], [`IconView`][struct@crate::IconView], [`Layout`][struct@crate::Layout], [`ListBox`][struct@crate::ListBox], [`MenuShell`][struct@crate::MenuShell], [`Notebook`][struct@crate::Notebook], [`Paned`][struct@crate::Paned], [`Socket`][struct@crate::Socket], [`Stack`][struct@crate::Stack], [`TextView`][struct@crate::TextView], [`ToolItemGroup`][struct@crate::ToolItemGroup], [`ToolPalette`][struct@crate::ToolPalette], [`Toolbar`][struct@crate::Toolbar], [`TreeView`][struct@crate::TreeView]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ContainerExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds `widget` to `self`. Typically used for simple containers</span>
-    <span class="doccomment">/// such as [`crate::Window`], [`crate::Frame`], or [`crate::Button`]; for more complicated</span>
-    <span class="doccomment">/// layout containers such as [`crate::Box`] or [`crate::Grid`], this function will</span>
+    <span class="doccomment">/// such as [`Window`][crate::Window], [`Frame`][crate::Frame], or [`Button`][crate::Button]; for more complicated</span>
+    <span class="doccomment">/// layout containers such as [`Box`][crate::Box] or [`Grid`][crate::Grid], this function will</span>
     <span class="doccomment">/// pick default packing parameters that may not be correct. So</span>
-    <span class="doccomment">/// consider functions such as [`crate::prelude::BoxExt::pack_start()`] and</span>
-    <span class="doccomment">/// [`crate::prelude::GridExt::attach()`] as an alternative to [`Self::add()`] in</span>
+    <span class="doccomment">/// consider functions such as [`BoxExt::pack_start()`][crate::prelude::BoxExt::pack_start()] and</span>
+    <span class="doccomment">/// [`GridExt::attach()`][crate::prelude::GridExt::attach()] as an alternative to [`add()`][Self::add()] in</span>
     <span class="doccomment">/// those cases. A widget may be added to only one container at a time;</span>
     <span class="doccomment">/// you can’t place the same widget inside two different containers.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that some containers, such as [`crate::ScrolledWindow`] or [`crate::ListBox`],</span>
+    <span class="doccomment">/// Note that some containers, such as [`ScrolledWindow`][crate::ScrolledWindow] or [`ListBox`][crate::ListBox],</span>
     <span class="doccomment">/// may add intermediate children between the added widget and the</span>
     <span class="doccomment">/// container.</span>
     <span class="doccomment">/// ## `widget`</span>
@@ -1296,13 +1296,13 @@
     <span class="comment">//#[doc(alias = &quot;gtk_container_child_get_valist&quot;)]</span>
     <span class="comment">//fn child_get_valist&lt;P: IsA&lt;Widget&gt;&gt;(&amp;self, child: &amp;P, first_property_name: &amp;str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);</span>
 
-    <span class="doccomment">/// Emits a [`crate::Widget::child-notify`] signal for the</span>
+    <span class="doccomment">/// Emits a `signal::Widget::child-notify` signal for the</span>
     <span class="doccomment">/// [child property][child-properties]</span>
     <span class="doccomment">/// `child_property` on the child.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is an analogue of [`crate::glib::object::Object::notify()`] for child properties.</span>
+    <span class="doccomment">/// This is an analogue of [`ObjectExtManual::notify()`][crate::glib::prelude::ObjectExtManual::notify()] for child properties.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::prelude::WidgetExt::child_notify()`].</span>
+    <span class="doccomment">/// Also see [`WidgetExt::child_notify()`][crate::prelude::WidgetExt::child_notify()].</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// the child widget</span>
     <span class="doccomment">/// ## `child_property`</span>
@@ -1311,15 +1311,15 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_container_child_notify&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">child_notify</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">child_property</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// Emits a [`crate::Widget::child-notify`] signal for the</span>
+    <span class="doccomment">/// Emits a `signal::Widget::child-notify` signal for the</span>
     <span class="doccomment">/// [child property][child-properties] specified by</span>
     <span class="doccomment">/// `pspec` on the child.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is an analogue of [`crate::glib::object::Object::notify_by_pspec()`] for child properties.</span>
+    <span class="doccomment">/// This is an analogue of [`ObjectExtManual::notify_by_pspec()`][crate::glib::prelude::ObjectExtManual::notify_by_pspec()] for child properties.</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// the child widget</span>
     <span class="doccomment">/// ## `pspec`</span>
-    <span class="doccomment">/// the [`crate::glib::object::ParamSpec`] of a child property instealled on</span>
+    <span class="doccomment">/// the [`glib::ParamSpec`][crate::glib::ParamSpec] of a child property instealled on</span>
     <span class="doccomment">///  the class of `self`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_container_child_notify_by_pspec&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">child_notify_by_pspec</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">pspec</span>: <span class="kw-2">&amp;</span><span class="ident">glib::ParamSpec</span>);
@@ -1333,12 +1333,12 @@
     <span class="doccomment">/// Returns the type of the children supported by the container.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this may return `G_TYPE_NONE` to indicate that no more</span>
-    <span class="doccomment">/// children can be added, e.g. for a [`crate::Paned`] which already has two</span>
+    <span class="doccomment">/// children can be added, e.g. for a [`Paned`][crate::Paned] which already has two</span>
     <span class="doccomment">/// children.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a [`crate::glib::Type`].</span>
+    <span class="doccomment">/// a `GType`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_container_child_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">child_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib::types::Type</span>;
 
@@ -1348,8 +1348,8 @@
     <span class="doccomment">/// by the user of the container, but were added by the container</span>
     <span class="doccomment">/// implementation itself.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Most applications should use [`Self::foreach()`], rather</span>
-    <span class="doccomment">/// than [`Self::forall()`].</span>
+    <span class="doccomment">/// Most applications should use [`foreach()`][Self::foreach()], rather</span>
+    <span class="doccomment">/// than [`forall()`][Self::forall()].</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a callback</span>
     <span class="doccomment">/// ## `callback_data`</span>
@@ -1358,7 +1358,7 @@
     <span class="kw">fn</span> <span class="ident">forall</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Widget</span>)<span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">callback</span>: <span class="ident">P</span>);
 
     <span class="doccomment">/// Invokes `callback` on each non-internal child of `self`.</span>
-    <span class="doccomment">/// See [`Self::forall()`] for details on what constitutes</span>
+    <span class="doccomment">/// See [`forall()`][Self::forall()] for details on what constitutes</span>
     <span class="doccomment">/// an “internal” child. For all practical purposes, this function</span>
     <span class="doccomment">/// should iterate over precisely those child widgets that were</span>
     <span class="doccomment">/// added to the container by the application with explicit `add()`</span>
@@ -1366,8 +1366,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is permissible to remove the child from the `callback` handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Most applications should use [`Self::foreach()`],</span>
-    <span class="doccomment">/// rather than [`Self::forall()`].</span>
+    <span class="doccomment">/// Most applications should use [`foreach()`][Self::foreach()],</span>
+    <span class="doccomment">/// rather than [`forall()`][Self::forall()].</span>
     <span class="doccomment">/// ## `callback`</span>
     <span class="doccomment">/// a callback</span>
     <span class="doccomment">/// ## `callback_data`</span>
@@ -1376,7 +1376,7 @@
     <span class="kw">fn</span> <span class="ident">foreach</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">Widget</span>)<span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">callback</span>: <span class="ident">P</span>);
 
     <span class="doccomment">/// Retrieves the border width of the container. See</span>
-    <span class="doccomment">/// [`Self::set_border_width()`].</span>
+    <span class="doccomment">/// [`set_border_width()`][Self::set_border_width()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1386,7 +1386,7 @@
     <span class="kw">fn</span> <span class="ident">border_width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
 
     <span class="doccomment">/// Returns the container’s non-internal children. See</span>
-    <span class="doccomment">/// [`Self::forall()`] for details on what constitutes an &quot;internal&quot; child.</span>
+    <span class="doccomment">/// [`forall()`][Self::forall()] for details on what constitutes an &quot;internal&quot; child.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1402,7 +1402,7 @@
 
     <span class="doccomment">/// Returns the current focus child widget inside `self`. This is not the</span>
     <span class="doccomment">/// currently focused widget. That can be obtained by calling</span>
-    <span class="doccomment">/// [`crate::prelude::`GtkWindowExt`::get_focus()`].</span>
+    <span class="doccomment">/// [`GtkWindowExt::focus()`][crate::prelude::GtkWindowExt::focus()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1425,7 +1425,7 @@
     <span class="kw">fn</span> <span class="ident">focus_hadjustment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Retrieves the vertical focus adjustment for the container. See</span>
-    <span class="doccomment">/// [`Self::set_focus_vadjustment()`].</span>
+    <span class="doccomment">/// [`set_focus_vadjustment()`][Self::set_focus_vadjustment()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -1442,26 +1442,26 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A newly created [`crate::WidgetPath`]</span>
+    <span class="doccomment">/// A newly created [`WidgetPath`][crate::WidgetPath]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_container_get_path_for_child&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_path_for_child&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">path_for_child</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WidgetPath</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// When a container receives a call to the draw function, it must send</span>
-    <span class="doccomment">/// synthetic [`crate::Widget::draw`] calls to all children that don’t have their</span>
-    <span class="doccomment">/// own ``GdkWindows``. This function provides a convenient way of doing this.</span>
-    <span class="doccomment">/// A container, when it receives a call to its [`crate::Widget::draw`] function,</span>
-    <span class="doccomment">/// calls [`Self::propagate_draw()`] once for each child, passing in</span>
+    <span class="doccomment">/// synthetic `signal::Widget::draw` calls to all children that don’t have their</span>
+    <span class="doccomment">/// own `GdkWindows`. This function provides a convenient way of doing this.</span>
+    <span class="doccomment">/// A container, when it receives a call to its `signal::Widget::draw` function,</span>
+    <span class="doccomment">/// calls [`propagate_draw()`][Self::propagate_draw()] once for each child, passing in</span>
     <span class="doccomment">/// the `cr` the container received.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Self::propagate_draw()`] takes care of translating the origin of `cr`,</span>
+    <span class="doccomment">/// [`propagate_draw()`][Self::propagate_draw()] takes care of translating the origin of `cr`,</span>
     <span class="doccomment">/// and deciding whether the draw needs to be sent to the child. It is a</span>
     <span class="doccomment">/// convenient and optimized way of getting the same effect as calling</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::draw()`] on the child directly.</span>
+    <span class="doccomment">/// [`WidgetExt::draw()`][crate::prelude::WidgetExt::draw()] on the child directly.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In most cases, a container can simply either inherit the</span>
-    <span class="doccomment">/// [`crate::Widget::draw`] implementation from [`crate::Container`], or do some drawing</span>
-    <span class="doccomment">/// and then chain to the ::draw implementation from [`crate::Container`].</span>
+    <span class="doccomment">/// `signal::Widget::draw` implementation from [`Container`][crate::Container], or do some drawing</span>
+    <span class="doccomment">/// and then chain to the ::draw implementation from [`Container`][crate::Container].</span>
     <span class="doccomment">/// ## `child`</span>
     <span class="doccomment">/// a child of `self`</span>
     <span class="doccomment">/// ## `cr`</span>
@@ -1476,9 +1476,9 @@
     <span class="doccomment">/// may be the last reference held; so removing a widget from its</span>
     <span class="doccomment">/// container can destroy that widget. If you want to use `widget`</span>
     <span class="doccomment">/// again, you need to add a reference to it before removing it from</span>
-    <span class="doccomment">/// a container, using [`crate::glib::object::Object::ref()`]. If you don’t want to use `widget`</span>
+    <span class="doccomment">/// a container, using `g_object_ref()`. If you don’t want to use `widget`</span>
     <span class="doccomment">/// again it’s usually more efficient to simply destroy it directly</span>
-    <span class="doccomment">/// using [`crate::Widget::destroy()`] since this will remove it from the</span>
+    <span class="doccomment">/// using `gtk_widget_destroy()` since this will remove it from the</span>
     <span class="doccomment">/// container and help break any circular reference count cycles.</span>
     <span class="doccomment">/// ## `widget`</span>
     <span class="doccomment">/// a current child of `self`</span>
@@ -1489,11 +1489,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The border width of a container is the amount of space to leave</span>
     <span class="doccomment">/// around the outside of the container. The only exception to this is</span>
-    <span class="doccomment">/// [`crate::Window`]; because toplevel windows can’t leave space outside,</span>
+    <span class="doccomment">/// [`Window`][crate::Window]; because toplevel windows can’t leave space outside,</span>
     <span class="doccomment">/// they leave the space inside. The border is added on all sides of</span>
     <span class="doccomment">/// the container. To add space to only one side, use a specific</span>
-    <span class="doccomment">/// [`crate::Widget:margin`] property on the child widget, for example</span>
-    <span class="doccomment">/// [`crate::Widget:margin-top`].</span>
+    <span class="doccomment">/// `property::Widget::margin` property on the child widget, for example</span>
+    <span class="doccomment">/// `property::Widget::margin-top`.</span>
     <span class="doccomment">/// ## `border_width`</span>
     <span class="doccomment">/// amount of blank space to leave outside</span>
     <span class="doccomment">///  the container. Valid values are in the range 0-65535 pixels.</span>
@@ -1511,7 +1511,7 @@
     <span class="doccomment">/// # Deprecated since 3.24</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For overriding focus behavior, use the</span>
-    <span class="doccomment">///  `WidgetClass`::focus signal.</span>
+    <span class="doccomment">///  GtkWidgetClass::focus signal.</span>
     <span class="doccomment">/// ## `focusable_widgets`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///  the new focus chain</span>
@@ -1521,22 +1521,22 @@
 
     <span class="doccomment">/// Sets, or unsets if `child` is [`None`], the focused child of `self`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This function emits the `Container`::set_focus_child signal of</span>
-    <span class="doccomment">/// `self`. Implementations of [`crate::Container`] can override the</span>
+    <span class="doccomment">/// This function emits the GtkContainer::set_focus_child signal of</span>
+    <span class="doccomment">/// `self`. Implementations of [`Container`][crate::Container] can override the</span>
     <span class="doccomment">/// default behaviour by overriding the class closure of this signal.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is function is mostly meant to be used by widgets. Applications can use</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::grab_focus()`] to manually set the focus to a specific widget.</span>
+    <span class="doccomment">/// [`WidgetExt::grab_focus()`][crate::prelude::WidgetExt::grab_focus()] to manually set the focus to a specific widget.</span>
     <span class="doccomment">/// ## `child`</span>
-    <span class="doccomment">/// a [`crate::Widget`], or [`None`]</span>
+    <span class="doccomment">/// a [`Widget`][crate::Widget], or [`None`]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_container_set_focus_child&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_focus_child</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">child</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Hooks up an adjustment to focus handling in a container, so when a child</span>
     <span class="doccomment">/// of the container is focused, the adjustment is scrolled to show that</span>
     <span class="doccomment">/// widget. This function sets the horizontal alignment.</span>
-    <span class="doccomment">/// See [`crate::prelude::ScrolledWindowExt::get_hadjustment()`] for a typical way of obtaining</span>
-    <span class="doccomment">/// the adjustment and [`Self::set_focus_vadjustment()`] for setting</span>
+    <span class="doccomment">/// See [`ScrolledWindowExt::hadjustment()`][crate::prelude::ScrolledWindowExt::hadjustment()] for a typical way of obtaining</span>
+    <span class="doccomment">/// the adjustment and [`set_focus_vadjustment()`][Self::set_focus_vadjustment()] for setting</span>
     <span class="doccomment">/// the vertical adjustment.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The adjustments have to be in pixel units and in the same coordinate</span>
@@ -1550,8 +1550,8 @@
     <span class="doccomment">/// Hooks up an adjustment to focus handling in a container, so when a</span>
     <span class="doccomment">/// child of the container is focused, the adjustment is scrolled to</span>
     <span class="doccomment">/// show that widget. This function sets the vertical alignment. See</span>
-    <span class="doccomment">/// [`crate::prelude::ScrolledWindowExt::get_vadjustment()`] for a typical way of obtaining</span>
-    <span class="doccomment">/// the adjustment and [`Self::set_focus_hadjustment()`] for setting</span>
+    <span class="doccomment">/// [`ScrolledWindowExt::vadjustment()`][crate::prelude::ScrolledWindowExt::vadjustment()] for a typical way of obtaining</span>
+    <span class="doccomment">/// the adjustment and [`set_focus_hadjustment()`][Self::set_focus_hadjustment()] for setting</span>
     <span class="doccomment">/// the horizontal adjustment.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The adjustments have to be in pixel units and in the same coordinate</span>
@@ -1562,12 +1562,12 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_container_set_focus_vadjustment&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_focus_vadjustment</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Adjustment</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">adjustment</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>);
 
-    <span class="doccomment">/// Removes a focus chain explicitly set with [`Self::set_focus_chain()`].</span>
+    <span class="doccomment">/// Removes a focus chain explicitly set with [`set_focus_chain()`][Self::set_focus_chain()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Deprecated since 3.24</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For overriding focus behavior, use the</span>
-    <span class="doccomment">///  `WidgetClass`::focus signal.</span>
+    <span class="doccomment">///  GtkWidgetClass::focus signal.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.24&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_container_unset_focus_chain&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">unset_focus_chain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);

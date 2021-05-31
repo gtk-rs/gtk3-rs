@@ -30,17 +30,17 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_use_underline_notify" class="fnname">connect_use_underline_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; SignalHandlerId;
 </details>}</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Expander.html" title="Expander"><code>Expander</code></a> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.Expander.html" title="crate::Expander"><code>struct@crate::Expander</code></a></p>
-</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.is_expanded" class="method"><code>fn <a href="#tymethod.is_expanded" class="fnname">is_expanded</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#664" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Queries a <a href="../struct.Expander.html" title="crate::Expander"><code>crate::Expander</code></a> and returns its current state. Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>
+<p><a href="../struct.Expander.html" title="crate::Expander"><code>Expander</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.is_expanded" class="method"><code>fn <a href="#tymethod.is_expanded" class="fnname">is_expanded</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#664" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Queries a <a href="../struct.Expander.html" title="crate::Expander"><code>Expander</code></a> and returns its current state. Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>
 if the child widget is revealed.</p>
-<p>See <a href="trait.ExpanderExt.html#tymethod.set_expanded" title="Self::set_expanded()"><code>Self::set_expanded()</code></a>.</p>
+<p>See <a href="trait.ExpanderExt.html#tymethod.set_expanded" title="Self::set_expanded()"><code>set_expanded()</code></a>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>the current state of the expander</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.label" class="method"><code>fn <a href="#tymethod.label" class="fnname">label</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;GString&gt;</code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#684" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Fetches the text from a label widget including any embedded
 underlines indicating mnemonics and Pango markup, as set by
-<a href="trait.ExpanderExt.html#tymethod.set_label" title="Self::set_label()"><code>Self::set_label()</code></a>. If the label text has not been set the
+<a href="trait.ExpanderExt.html#tymethod.set_label" title="Self::set_label()"><code>set_label()</code></a>. If the label text has not been set the
 return value will be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. This will be the case if you create an
-empty button with <a href="../struct.Button.html#method.new" title="crate::Button::new()"><code>crate::Button::new()</code></a> to use as a container.</p>
+empty button with <a href="../struct.Button.html#method.new" title="crate::Button::new()"><code>Button::new()</code></a> to use as a container.</p>
 <p>Note that this function behaved differently in versions prior to
 2.14 and used to return the label text stripped of embedded
 underlines indicating mnemonics and Pango markup. This problem can
@@ -55,7 +55,7 @@ horizontal space allocated to <code>self</code>.</p>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the label widget will fill all
 available horizontal space</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.label_widget" class="method"><code>fn <a href="#tymethod.label_widget" class="fnname">label_widget</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#706" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Retrieves the label widget for the frame. See
-<a href="trait.ExpanderExt.html#tymethod.set_label_widget" title="Self::set_label_widget()"><code>Self::set_label_widget()</code></a>.</p>
+<a href="trait.ExpanderExt.html#tymethod.set_label_widget" title="Self::set_label_widget()"><code>set_label_widget()</code></a>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
 <p>the label widget,
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if there is none</p>
@@ -63,18 +63,18 @@ or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#varia
 containing the expander upon resizing and collpasing.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>the “resize toplevel” setting.</p>
-</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.spacing" class="method"><code>fn <a href="#tymethod.spacing" class="fnname">spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#730" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Gets the value set by <a href="trait.ExpanderExt.html#tymethod.set_spacing" title="Self::set_spacing()"><code>Self::set_spacing()</code></a>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.spacing" class="method"><code>fn <a href="#tymethod.spacing" class="fnname">spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#730" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Gets the value set by <a href="trait.ExpanderExt.html#tymethod.set_spacing" title="Self::set_spacing()"><code>set_spacing()</code></a>.</p>
 <h1 id="deprecated-since-320" class="section-header"><a href="#deprecated-since-320">Deprecated since 3.20</a></h1>
 <p>Use margins on the child instead.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>spacing between the expander and child</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.uses_markup" class="method"><code>fn <a href="#tymethod.uses_markup" class="fnname">uses_markup</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#741" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Returns whether the label’s text is interpreted as marked up with
 the [Pango text markup language][PangoMarkupFormat].
-See <a href="trait.ExpanderExt.html#tymethod.set_use_markup" title="Self::set_use_markup()"><code>Self::set_use_markup()</code></a>.</p>
+See <a href="trait.ExpanderExt.html#tymethod.set_use_markup" title="Self::set_use_markup()"><code>set_use_markup()</code></a>.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the label’s text will be parsed for markup</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.uses_underline" class="method"><code>fn <a href="#tymethod.uses_underline" class="fnname">uses_underline</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#752" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Returns whether an embedded underline in the expander label
-indicates a mnemonic. See <a href="trait.ExpanderExt.html#tymethod.set_use_underline" title="Self::set_use_underline()"><code>Self::set_use_underline()</code></a>.</p>
+indicates a mnemonic. See <a href="trait.ExpanderExt.html#tymethod.set_use_underline" title="Self::set_use_underline()"><code>set_use_underline()</code></a>.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if an embedded underline in the expander
 label indicates the mnemonic accelerator keys</p>
@@ -108,7 +108,7 @@ pixels to place between expander and the child.</p>
 <p>distance between the expander and child in pixels</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.set_use_markup" class="method"><code>fn <a href="#tymethod.set_use_markup" class="fnname">set_use_markup</a>(&amp;self, use_markup: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#810" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Sets whether the text of the label contains markup in
 [Pango’s text markup language][PangoMarkupFormat].
-See <a href="trait.LabelExt.html#tymethod.set_markup" title="crate::prelude::LabelExt::set_markup()"><code>crate::prelude::LabelExt::set_markup()</code></a>.</p>
+See <a href="trait.LabelExt.html#tymethod.set_markup" title="crate::prelude::LabelExt::set_markup()"><code>LabelExt::set_markup()</code></a>.</p>
 <h2 id="use_markup" class="section-header"><a href="#use_markup"><code>use_markup</code></a></h2>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the label’s text should be parsed for markup</p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.set_use_underline" class="method"><code>fn <a href="#tymethod.set_use_underline" class="fnname">set_use_underline</a>(&amp;self, use_underline: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/expander.rs.html#817" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>If true, an underline in the text of the expander label indicates

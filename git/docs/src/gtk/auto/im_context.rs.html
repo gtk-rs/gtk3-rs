@@ -736,16 +736,16 @@
 <span class="kw">use</span> <span class="ident">std::ptr</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`crate::IMContext`] defines the interface for GTK+ input methods. An input method</span>
-    <span class="doccomment">/// is used by GTK+ text input widgets like [`crate::Entry`] to map from key events to</span>
+    <span class="doccomment">/// [`IMContext`][crate::IMContext] defines the interface for GTK+ input methods. An input method</span>
+    <span class="doccomment">/// is used by GTK+ text input widgets like [`Entry`][crate::Entry] to map from key events to</span>
     <span class="doccomment">/// Unicode character strings.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default input method can be set programmatically via the</span>
-    <span class="doccomment">/// [`crate::Settings:gtk-im-module`] `Settings` property. Alternatively, you may set</span>
+    <span class="doccomment">/// `property::Settings::gtk-im-module` GtkSettings property. Alternatively, you may set</span>
     <span class="doccomment">/// the GTK_IM_MODULE environment variable as documented in</span>
     <span class="doccomment">/// [Running GTK+ Applications][gtk-running].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The [`crate::Entry`] [`crate::Entry:im-module`] and [`crate::TextView`] [`crate::TextView:im-module`]</span>
+    <span class="doccomment">/// The [`Entry`][crate::Entry] `property::Entry::im-module` and [`TextView`][crate::TextView] `property::TextView::im-module`</span>
     <span class="doccomment">/// properties may also be used to set input methods for specific widget</span>
     <span class="doccomment">/// instances. For instance, a certain entry widget might be expected to contain</span>
     <span class="doccomment">/// certain characters which would be easier to input with a certain input</span>
@@ -763,15 +763,15 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Additional input methods can be made available for use by GTK+ widgets as</span>
     <span class="doccomment">/// loadable modules. An input method module is a small shared library which</span>
-    <span class="doccomment">/// implements a subclass of [`crate::IMContext`] or [`crate::IMContextSimple`] and exports</span>
+    <span class="doccomment">/// implements a subclass of [`IMContext`][crate::IMContext] or [`IMContextSimple`][crate::IMContextSimple] and exports</span>
     <span class="doccomment">/// these four functions:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
     <span class="doccomment">/// void im_module_init(GTypeModule *module);</span>
     <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// This function should register the [`crate::glib::Type`] of the [`crate::IMContext`] subclass which</span>
-    <span class="doccomment">/// implements the input method by means of [`crate::glib::object::TypeModule::register_type()`]. Note</span>
+    <span class="doccomment">/// This function should register the `GType` of the [`IMContext`][crate::IMContext] subclass which</span>
+    <span class="doccomment">/// implements the input method by means of `g_type_module_register_type()`. Note</span>
     <span class="doccomment">/// that `g_type_register_static()` cannot be used as the type needs to be</span>
     <span class="doccomment">/// registered dynamically.</span>
     <span class="doccomment">///</span>
@@ -791,7 +791,7 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// This function returns the list of input methods provided by the module. The</span>
     <span class="doccomment">/// example implementation above shows a common solution and simply returns a</span>
-    <span class="doccomment">/// pointer to statically defined array of [`crate::IMContextInfo`] items for each</span>
+    <span class="doccomment">/// pointer to statically defined array of `GtkIMContextInfo` items for each</span>
     <span class="doccomment">/// provided input method.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -799,8 +799,8 @@
     <span class="doccomment">/// GtkIMContext * im_module_create(const gchar *context_id);</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// This function should return a pointer to a newly created instance of the</span>
-    <span class="doccomment">/// [`crate::IMContext`] subclass identified by `context_id`. The context ID is the same</span>
-    <span class="doccomment">/// as specified in the [`crate::IMContextInfo`] array returned by `im_module_list()`.</span>
+    <span class="doccomment">/// [`IMContext`][crate::IMContext] subclass identified by `context_id`. The context ID is the same</span>
+    <span class="doccomment">/// as specified in the `GtkIMContextInfo` array returned by `im_module_list()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// After a new loadable input method module has been installed on the system,</span>
     <span class="doccomment">/// the configuration file `gtk.immodules` needs to be</span>
@@ -811,7 +811,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::IMContextExt`], [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`IMContextExt`][trait@crate::prelude::IMContextExt], [`trait@glib::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IMContext</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkIMContext</span>, <span class="ident">ffi::GtkIMContextClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -825,16 +825,16 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::IMContextSimple`], [`struct@crate::IMContext`], [`struct@crate::IMMulticontext`]</span>
+<span class="doccomment">/// [`IMContextSimple`][struct@crate::IMContextSimple], [`IMContext`][struct@crate::IMContext], [`IMMulticontext`][struct@crate::IMMulticontext]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">IMContextExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Asks the widget that the input context is attached to to delete</span>
     <span class="doccomment">/// characters around the cursor position by emitting the</span>
-    <span class="doccomment">/// `IMContext`::delete_surrounding signal. Note that `offset` and `n_chars`</span>
+    <span class="doccomment">/// GtkIMContext::delete_surrounding signal. Note that `offset` and `n_chars`</span>
     <span class="doccomment">/// are in characters not in bytes which differs from the usage other</span>
-    <span class="doccomment">/// places in [`crate::IMContext`].</span>
+    <span class="doccomment">/// places in [`IMContext`][crate::IMContext].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In order to use this function, you should first call</span>
-    <span class="doccomment">/// [`Self::get_surrounding()`] to get the current context, and</span>
+    <span class="doccomment">/// [`surrounding()`][Self::surrounding()] to get the current context, and</span>
     <span class="doccomment">/// call this function immediately afterwards to make sure that you</span>
     <span class="doccomment">/// know what you are deleting. You should also account for the fact</span>
     <span class="doccomment">/// that even if the signal was handled, the input context might not</span>
@@ -896,7 +896,7 @@
     <span class="doccomment">/// ## `attrs`</span>
     <span class="doccomment">/// location to store the retrieved</span>
     <span class="doccomment">///  attribute list. When you are done with this list, you</span>
-    <span class="doccomment">///  must unreference it with [`crate::pango::AttrList::unref()`].</span>
+    <span class="doccomment">///  must unreference it with `pango_attr_list_unref()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## `cursor_pos`</span>
     <span class="doccomment">/// location to store position of cursor (in characters)</span>
@@ -911,10 +911,10 @@
     <span class="doccomment">/// only some sequences of characters are allowed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function is implemented by emitting the</span>
-    <span class="doccomment">/// `IMContext`::retrieve_surrounding signal on the input method; in</span>
+    <span class="doccomment">/// GtkIMContext::retrieve_surrounding signal on the input method; in</span>
     <span class="doccomment">/// response to this signal, a widget should provide as much context as</span>
     <span class="doccomment">/// is available, up to an entire paragraph, by calling</span>
-    <span class="doccomment">/// [`Self::set_surrounding()`]. Note that there is no obligation</span>
+    <span class="doccomment">/// [`set_surrounding()`][Self::set_surrounding()]. Note that there is no obligation</span>
     <span class="doccomment">/// for a widget to respond to the ::retrieve_surrounding signal, so input</span>
     <span class="doccomment">/// methods must be prepared to function without context.</span>
     <span class="doccomment">///</span>
@@ -943,7 +943,7 @@
     <span class="kw">fn</span> <span class="ident">reset</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Set the client window for the input context; this is the</span>
-    <span class="doccomment">/// [`crate::gdk::Window`] in which the input appears. This window is</span>
+    <span class="doccomment">/// [`gdk::Window`][crate::gdk::Window] in which the input appears. This window is</span>
     <span class="doccomment">/// used in order to correctly position status windows, and may</span>
     <span class="doccomment">/// also be used for purposes internal to the input method.</span>
     <span class="doccomment">/// ## `window`</span>
@@ -962,7 +962,7 @@
 
     <span class="doccomment">/// Sets surrounding context around the insertion point and preedit</span>
     <span class="doccomment">/// string. This function is expected to be called in response to the</span>
-    <span class="doccomment">/// `IMContext`::retrieve_surrounding signal, and will likely have no</span>
+    <span class="doccomment">/// GtkIMContext::retrieve_surrounding signal, and will likely have no</span>
     <span class="doccomment">/// effect if called at other times.</span>
     <span class="doccomment">/// ## `text`</span>
     <span class="doccomment">/// text surrounding the insertion point, as UTF-8.</span>
@@ -1025,7 +1025,7 @@
     <span class="doccomment">/// The ::preedit-changed signal is emitted whenever the preedit sequence</span>
     <span class="doccomment">/// currently being entered has changed. It is also emitted at the end of</span>
     <span class="doccomment">/// a preedit sequence, in which case</span>
-    <span class="doccomment">/// [`Self::get_preedit_string()`] returns the empty string.</span>
+    <span class="doccomment">/// [`preedit_string()`][Self::preedit_string()] returns the empty string.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;preedit-changed&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">connect_preedit_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalHandlerId</span>;
 
@@ -1042,7 +1042,7 @@
     <span class="doccomment">/// The ::retrieve-surrounding signal is emitted when the input method</span>
     <span class="doccomment">/// requires the context surrounding the cursor. The callback should set</span>
     <span class="doccomment">/// the input method surrounding context by calling the</span>
-    <span class="doccomment">/// [`Self::set_surrounding()`] method.</span>
+    <span class="doccomment">/// [`set_surrounding()`][Self::set_surrounding()] method.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

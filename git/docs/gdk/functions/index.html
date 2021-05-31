@@ -4,25 +4,25 @@
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../index.html">gdk</a>::<wbr><a class="mod" href="">functions</a><button id="copy-path" onclick="copy_path(this)"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/gdk/auto/functions.rs.html#5-1096" title="goto source code">[src]</a></span></h1><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
 <table><tr class="module-item"><td><a class="fn" href="fn.beep.html" title="gdk::functions::beep fn">beep</a></td><td class="docblock-short"><p>Emits a short beep on the default display.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.display_arg_name.html" title="gdk::functions::display_arg_name fn">display_arg_name</a></td><td class="docblock-short"><p>Gets the display name specified in the command line arguments passed
-to <code>gdk_init()</code> or <code>gdk_parse_args()</code>, if any.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.error_trap_pop.html" title="gdk::functions::error_trap_pop fn">error_trap_pop</a></td><td class="docblock-short"><p>Removes an error trap pushed with <code>gdk_error_trap_push()</code>.
+to <code>gdk_init()</code> or [<code>parse_args()</code>][crate::parse_args()], if any.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.error_trap_pop.html" title="gdk::functions::error_trap_pop fn">error_trap_pop</a></td><td class="docblock-short"><p>Removes an error trap pushed with <a href="fn.error_trap_push.html" title="crate::error_trap_push()"><code>error_trap_push()</code></a>.
 May block until an error has been definitively received
-or not received from the X server. <code>gdk_error_trap_pop_ignored()</code>
+or not received from the X server. <a href="fn.error_trap_pop_ignored.html" title="crate::error_trap_pop_ignored()"><code>error_trap_pop_ignored()</code></a>
 is preferred if you don’t need to know whether an error
 occurred, because it never has to block. If you don’t
-need the return value of <code>gdk_error_trap_pop()</code>, use
-<code>gdk_error_trap_pop_ignored()</code>.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.error_trap_pop_ignored.html" title="gdk::functions::error_trap_pop_ignored fn">error_trap_pop_ignored</a></td><td class="docblock-short"><p>Removes an error trap pushed with <code>gdk_error_trap_push()</code>, but
+need the return value of <a href="fn.error_trap_pop.html" title="crate::error_trap_pop()"><code>error_trap_pop()</code></a>, use
+<a href="fn.error_trap_pop_ignored.html" title="crate::error_trap_pop_ignored()"><code>error_trap_pop_ignored()</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.error_trap_pop_ignored.html" title="gdk::functions::error_trap_pop_ignored fn">error_trap_pop_ignored</a></td><td class="docblock-short"><p>Removes an error trap pushed with <a href="fn.error_trap_push.html" title="crate::error_trap_push()"><code>error_trap_push()</code></a>, but
 without bothering to wait and see whether an error occurred. If an
 error arrives later asynchronously that was triggered while the
 trap was pushed, that error will be ignored.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.error_trap_push.html" title="gdk::functions::error_trap_push fn">error_trap_push</a></td><td class="docblock-short"><p>This function allows X errors to be trapped instead of the normal
 behavior of exiting the application. It should only be used if it
 is not possible to avoid the X error in any other way. Errors are
-ignored on all <a href="../struct.Display.html" title="crate::Display"><code>crate::Display</code></a> currently known to the
-<a href="../struct.DisplayManager.html" title="crate::DisplayManager"><code>crate::DisplayManager</code></a>. If you don’t care which error happens and just
-want to ignore everything, pop with <code>gdk_error_trap_pop_ignored()</code>.
-If you need the error code, use <code>gdk_error_trap_pop()</code> which may have
+ignored on all <a href="../struct.Display.html" title="crate::Display"><code>Display</code></a> currently known to the
+<a href="../struct.DisplayManager.html" title="crate::DisplayManager"><code>DisplayManager</code></a>. If you don’t care which error happens and just
+want to ignore everything, pop with <a href="fn.error_trap_pop_ignored.html" title="crate::error_trap_pop_ignored()"><code>error_trap_pop_ignored()</code></a>.
+If you need the error code, use <a href="fn.error_trap_pop.html" title="crate::error_trap_pop()"><code>error_trap_pop()</code></a> which may have
 to block and wait for the error to arrive from the X server.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.events_get_angle.html" title="gdk::functions::events_get_angle fn">events_get_angle</a></td><td class="docblock-short"><p>If both events contain X/Y information, this function will return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>
 and return in <code>angle</code> the relative angle from <code>event1</code> to <code>event2</code>. The rotation
@@ -37,7 +37,7 @@ will be returned in <code>x</code> and <code>y</code>.</p>
 until all requests have been processed.
 This is rarely needed by applications.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.list_visuals.html" title="gdk::functions::list_visuals fn">list_visuals</a></td><td class="docblock-short"><p>Lists the available visuals for the default screen.
-(See <a href="../struct.Screen.html#method.list_visuals" title="crate::Screen::list_visuals()"><code>crate::Screen::list_visuals()</code></a>)
+(See <a href="../struct.Screen.html#method.list_visuals" title="crate::Screen::list_visuals()"><code>Screen::list_visuals()</code></a>)
 A visual describes a hardware image data format.
 For example, a visual might support 24-bit color, or 8-bit color,
 and might expect pixels to be in a certain format.</p>
@@ -47,15 +47,15 @@ normally called after opening the application’s initial set of
 windows.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.notify_startup_complete_with_id.html" title="gdk::functions::notify_startup_complete_with_id fn">notify_startup_complete_with_id</a></td><td class="docblock-short"><p>Indicates to the GUI environment that the application has
 finished loading, using a given identifier.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.pango_context_get.html" title="gdk::functions::pango_context_get fn">pango_context_get</a></td><td class="docblock-short"><p>Creates a [<code>crate::pango::Context</code>] for the default GDK screen.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.pango_context_get_for_display.html" title="gdk::functions::pango_context_get_for_display fn">pango_context_get_for_display</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v3_22` only"><code>v3_22</code></span><p>Creates a [<code>crate::pango::Context</code>] for <code>display</code>.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.pango_context_get_for_screen.html" title="gdk::functions::pango_context_get_for_screen fn">pango_context_get_for_screen</a></td><td class="docblock-short"><p>Creates a [<code>crate::pango::Context</code>] for <code>screen</code>.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.pixbuf_get_from_surface.html" title="gdk::functions::pixbuf_get_from_surface fn">pixbuf_get_from_surface</a></td><td class="docblock-short"><p>Transfers image data from a [<code>crate::cairo::Surface</code>] and converts it to an RGB(A)
-representation inside a [<code>crate::gdk_pixbuf::Pixbuf</code>]. This allows you to efficiently read
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.pango_context_get.html" title="gdk::functions::pango_context_get fn">pango_context_get</a></td><td class="docblock-short"><p>Creates a [<code>pango::Context</code>][crate::pango::Context] for the default GDK screen.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.pango_context_get_for_display.html" title="gdk::functions::pango_context_get_for_display fn">pango_context_get_for_display</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `v3_22` only"><code>v3_22</code></span><p>Creates a [<code>pango::Context</code>][crate::pango::Context] for <code>display</code>.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.pango_context_get_for_screen.html" title="gdk::functions::pango_context_get_for_screen fn">pango_context_get_for_screen</a></td><td class="docblock-short"><p>Creates a [<code>pango::Context</code>][crate::pango::Context] for <code>screen</code>.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.pixbuf_get_from_surface.html" title="gdk::functions::pixbuf_get_from_surface fn">pixbuf_get_from_surface</a></td><td class="docblock-short"><p>Transfers image data from a [<code>cairo::Surface</code>][crate::cairo::Surface] and converts it to an RGB(A)
+representation inside a [<code>gdk_pixbuf::Pixbuf</code>][crate::gdk_pixbuf::Pixbuf]. This allows you to efficiently read
 individual pixels from cairo surfaces. For <code>GdkWindows</code>, use
 <code>gdk_pixbuf_get_from_window()</code> instead.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.program_class.html" title="gdk::functions::program_class fn">program_class</a></td><td class="docblock-short"><p>Gets the program class. Unless the program class has explicitly
-been set with <code>gdk_set_program_class()</code> or with the <code>--class</code>
+been set with <a href="fn.set_program_class.html" title="crate::set_program_class()"><code>set_program_class()</code></a> or with the <code>--class</code>
 commandline option, the default value is the program name (determined
 with <code>g_get_prgname()</code>) with the first character converted to uppercase.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.property_delete.html" title="gdk::functions::property_delete fn">property_delete</a></td><td class="docblock-short"><p>Deletes a property from a window.</p>
@@ -64,20 +64,20 @@ property does not exist, then the function returns <a href="https://doc.rust-lan
 and <code>GDK_NONE</code> will be stored in <code>actual_property_type</code>.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.query_depths.html" title="gdk::functions::query_depths fn">query_depths</a></td><td class="docblock-short"><p>This function returns the available bit depths for the default
 screen. It’s equivalent to listing the visuals
-(<code>gdk_list_visuals()</code>) and then looking at the depth field in each
+(<a href="fn.list_visuals.html" title="crate::list_visuals()"><code>list_visuals()</code></a>) and then looking at the depth field in each
 visual, removing duplicates.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.selection_convert.html" title="gdk::functions::selection_convert fn">selection_convert</a></td><td class="docblock-short"><p>Retrieves the contents of a selection in a given
 form.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.selection_owner_get.html" title="gdk::functions::selection_owner_get fn">selection_owner_get</a></td><td class="docblock-short"><p>Determines the owner of the given selection.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.selection_owner_get_for_display.html" title="gdk::functions::selection_owner_get_for_display fn">selection_owner_get_for_display</a></td><td class="docblock-short"><p>Determine the owner of the given selection.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.selection_owner_set.html" title="gdk::functions::selection_owner_set fn">selection_owner_set</a></td><td class="docblock-short"><p>Sets the owner of the given selection.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.selection_owner_set_for_display.html" title="gdk::functions::selection_owner_set_for_display fn">selection_owner_set_for_display</a></td><td class="docblock-short"><p>Sets the <a href="../struct.Window.html" title="crate::Window"><code>crate::Window</code></a> <code>owner</code> as the current owner of the selection <code>selection</code>.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.selection_owner_set_for_display.html" title="gdk::functions::selection_owner_set_for_display fn">selection_owner_set_for_display</a></td><td class="docblock-short"><p>Sets the <a href="../struct.Window.html" title="crate::Window"><code>Window</code></a> <code>owner</code> as the current owner of the selection <code>selection</code>.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.selection_send_notify.html" title="gdk::functions::selection_send_notify fn">selection_send_notify</a></td><td class="docblock-short"><p>Sends a response to SelectionRequest event.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.selection_send_notify_for_display.html" title="gdk::functions::selection_send_notify_for_display fn">selection_send_notify_for_display</a></td><td class="docblock-short"><p>Send a response to SelectionRequest event.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.set_allowed_backends.html" title="gdk::functions::set_allowed_backends fn">set_allowed_backends</a></td><td class="docblock-short"><p>Sets a list of backends that GDK should try to use.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.set_double_click_time.html" title="gdk::functions::set_double_click_time fn">set_double_click_time</a></td><td class="docblock-short"><p>Set the double click time for the default display. See
-<a href="../struct.Display.html#method.set_double_click_time" title="crate::Display::set_double_click_time()"><code>crate::Display::set_double_click_time()</code></a>.
-See also <a href="../struct.Display.html#method.set_double_click_distance" title="crate::Display::set_double_click_distance()"><code>crate::Display::set_double_click_distance()</code></a>.
+<a href="../struct.Display.html#method.set_double_click_time" title="crate::Display::set_double_click_time()"><code>Display::set_double_click_time()</code></a>.
+See also <a href="../struct.Display.html#method.set_double_click_distance" title="crate::Display::set_double_click_distance()"><code>Display::set_double_click_distance()</code></a>.
 Applications should not set this, it is a
 global user-configured setting.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.set_program_class.html" title="gdk::functions::set_program_class fn">set_program_class</a></td><td class="docblock-short"><p>Sets the program class. The X11 backend uses the program class to set

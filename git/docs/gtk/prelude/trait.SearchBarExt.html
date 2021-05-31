@@ -14,13 +14,13 @@
 <div class="item-spacer"></div>    fn <a href="#tymethod.connect_show_close_button_notify" class="fnname">connect_show_close_button_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; SignalHandlerId;
 }</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.SearchBar.html" title="SearchBar"><code>SearchBar</code></a> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
-<p><a href="../struct.SearchBar.html" title="crate::SearchBar"><code>struct@crate::SearchBar</code></a></p>
-</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.connect_entry" class="method"><code>fn <a href="#tymethod.connect_entry" class="fnname">connect_entry</a>&lt;P:&nbsp;IsA&lt;<a class="struct" href="../struct.Entry.html" title="struct gtk::Entry">Entry</a>&gt;&gt;(&amp;self, entry: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/search_bar.rs.html#533" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Connects the <a href="../struct.Entry.html" title="crate::Entry"><code>crate::Entry</code></a> widget passed as the one to be used in
+<p><a href="../struct.SearchBar.html" title="crate::SearchBar"><code>SearchBar</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><h3 id="tymethod.connect_entry" class="method"><code>fn <a href="#tymethod.connect_entry" class="fnname">connect_entry</a>&lt;P:&nbsp;IsA&lt;<a class="struct" href="../struct.Entry.html" title="struct gtk::Entry">Entry</a>&gt;&gt;(&amp;self, entry: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/gtk/auto/search_bar.rs.html#533" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Connects the <a href="../struct.Entry.html" title="crate::Entry"><code>Entry</code></a> widget passed as the one to be used in
 this search bar. The entry should be a descendant of the search bar.
 This is only required if the entry isn’t the direct child of the
 search bar (as in our main example).</p>
 <h2 id="entry" class="section-header"><a href="#entry"><code>entry</code></a></h2>
-<p>a <a href="../struct.Entry.html" title="crate::Entry"><code>crate::Entry</code></a></p>
+<p>a <a href="../struct.Entry.html" title="crate::Entry"><code>Entry</code></a></p>
 </div></details><details class="rustdoc-toggle" open><summary><h3 id="tymethod.is_search_mode" class="method"><code>fn <a href="#tymethod.is_search_mode" class="fnname">is_search_mode</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/search_bar.rs.html#542" title="goto source code">[src]</a></h3></summary><div class="docblock"><p>Returns whether the search mode is on or off.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>whether search mode is toggled on</p>
@@ -34,7 +34,7 @@ be shown, the entry populated with the entered text and <code>GDK_EVENT_STOP</co
 will be returned. The caller should ensure that events are
 not propagated further.</p>
 <p>If no entry has been connected to the search bar, using
-<a href="trait.SearchBarExt.html#tymethod.connect_entry" title="Self::connect_entry()"><code>Self::connect_entry()</code></a>, this function will return
+<a href="trait.SearchBarExt.html#tymethod.connect_entry" title="Self::connect_entry()"><code>connect_entry()</code></a>, this function will return
 immediately with a warning.</p>
 <h2 id="showing-the-search-bar-on-key-presses" class="section-header"><a href="#showing-the-search-bar-on-key-presses">Showing the search bar on key presses</a></h2>
 <pre><code class="language-C">static gboolean

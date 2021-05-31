@@ -242,20 +242,20 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`crate::Selection`] should be implemented by UI components with children</span>
+    <span class="doccomment">/// [`Selection`][crate::Selection] should be implemented by UI components with children</span>
     <span class="doccomment">/// which are exposed by `atk_object_ref_child` and</span>
     <span class="doccomment">/// `atk_object_get_n_children`, if the use of the parent UI component</span>
     <span class="doccomment">/// ordinarily involves selection of one or more of the objects</span>
-    <span class="doccomment">/// corresponding to those [`crate::Object`] children - for example,</span>
+    <span class="doccomment">/// corresponding to those [`Object`][crate::Object] children - for example,</span>
     <span class="doccomment">/// selectable lists.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that other types of &quot;selection&quot; (for instance text selection)</span>
-    <span class="doccomment">/// are accomplished a other ATK interfaces - [`crate::Selection`] is limited</span>
+    <span class="doccomment">/// are accomplished a other ATK interfaces - [`Selection`][crate::Selection] is limited</span>
     <span class="doccomment">/// to the selection/deselection of children.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::SelectionExt`]</span>
+    <span class="doccomment">/// [`SelectionExt`][trait@crate::prelude::SelectionExt]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Selection</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkSelection</span>, <span class="ident">ffi::AtkSelectionIface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -269,7 +269,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::NoOpObject`], [`struct@crate::Selection`]</span>
+<span class="doccomment">/// [`NoOpObject`][struct@crate::NoOpObject], [`Selection`][struct@crate::Selection]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SelectionExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds the specified accessible child of the object to the</span>
     <span class="doccomment">/// object&#39;s selection.</span>
@@ -332,7 +332,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// an [`crate::Object`] representing the</span>
+    <span class="doccomment">/// an [`Object`][crate::Object] representing the</span>
     <span class="doccomment">/// selected accessible, or [`None`] if `self` does not implement this</span>
     <span class="doccomment">/// interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_selection_ref_selection&quot;</span>)]</span>

@@ -1350,18 +1350,18 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// [`crate::FileChooserWidget`] is a widget for choosing files.</span>
-    <span class="doccomment">/// It exposes the [`crate::FileChooser`] interface, and you should</span>
+    <span class="doccomment">/// [`FileChooserWidget`][crate::FileChooserWidget] is a widget for choosing files.</span>
+    <span class="doccomment">/// It exposes the [`FileChooser`][crate::FileChooser] interface, and you should</span>
     <span class="doccomment">/// use the methods of this interface to interact with the</span>
     <span class="doccomment">/// widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// `FileChooserWidget` has a single CSS node with name filechooser.</span>
+    <span class="doccomment">/// GtkFileChooserWidget has a single CSS node with name filechooser.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::FileChooserWidgetExt`], [`trait@crate::prelude::BoxExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::OrientableExt`], [`trait@crate::prelude::FileChooserExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`FileChooserWidgetExt`][trait@crate::prelude::FileChooserWidgetExt], [`BoxExt`][trait@crate::prelude::BoxExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`OrientableExt`][trait@crate::prelude::OrientableExt], [`FileChooserExt`][trait@crate::prelude::FileChooserExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileChooserWidget</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkFileChooserWidget</span>, <span class="ident">ffi::GtkFileChooserWidgetClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Box</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Orientable</span>, <span class="ident">FileChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -1370,15 +1370,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FileChooserWidget</span> {
-    <span class="doccomment">/// Creates a new [`crate::FileChooserWidget`]. This is a file chooser widget that can</span>
+    <span class="doccomment">/// Creates a new [`FileChooserWidget`][crate::FileChooserWidget]. This is a file chooser widget that can</span>
     <span class="doccomment">/// be embedded in custom windows, and it is the same widget that is used by</span>
-    <span class="doccomment">/// [`crate::FileChooserDialog`].</span>
+    <span class="doccomment">/// [`FileChooserDialog`][crate::FileChooserDialog].</span>
     <span class="doccomment">/// ## `action`</span>
     <span class="doccomment">/// Open or save mode for the widget</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::FileChooserWidget`]</span>
+    <span class="doccomment">/// a new [`FileChooserWidget`][crate::FileChooserWidget]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_file_chooser_widget_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">action</span>: <span class="ident">FileChooserAction</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileChooserWidget</span> {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1679,7 +1679,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`crate::Widget:hexpand`] and [`crate::Widget:vexpand`]</span>
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">expand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expand</span>);
         <span class="self">self</span>
@@ -1689,8 +1689,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property is only relevant for widgets that can take focus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.20, several widgets (`Button`, `FileChooserButton`,</span>
-    <span class="doccomment">/// `ComboBox`) implemented this property individually.</span>
+    <span class="doccomment">/// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,</span>
+    <span class="doccomment">/// GtkComboBox) implemented this property individually.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">focus_on_click</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1698,7 +1698,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">halign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">halign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">halign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">halign</span>);
         <span class="self">self</span>
@@ -1714,13 +1714,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Enables or disables the emission of [`crate::Widget::query-tooltip`] on `widget`.</span>
+    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.</span>
     <span class="doccomment">/// A value of [`true`] indicates that `widget` can have a tooltip, in this case</span>
-    <span class="doccomment">/// the widget will be queried using [`crate::Widget::query-tooltip`] to determine</span>
+    <span class="doccomment">/// the widget will be queried using `signal::Widget::query-tooltip` to determine</span>
     <span class="doccomment">/// whether it will provide a tooltip or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that setting this property to [`true`] for the first time will change</span>
-    <span class="doccomment">/// the event masks of the `GdkWindows` of this widget to include leave-notify</span>
+    <span class="doccomment">/// the event masks of the GdkWindows of this widget to include leave-notify</span>
     <span class="doccomment">/// and motion-notify events. This cannot and will not be undone when the</span>
     <span class="doccomment">/// property is set to [`false`] again.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_tooltip</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_tooltip</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1733,13 +1733,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand horizontally. See [`crate::prelude::WidgetExt::set_hexpand()`].</span>
+    <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:hexpand`] property. See [`crate::prelude::WidgetExt::get_hexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand_set</span>);
         <span class="self">self</span>
@@ -1761,7 +1761,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_bottom</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_bottom</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_bottom</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_bottom</span>);
         <span class="self">self</span>
@@ -1772,7 +1772,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_end</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_end</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_end</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_end</span>);
         <span class="self">self</span>
@@ -1783,7 +1783,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_start</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_start</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_start</span>);
         <span class="self">self</span>
@@ -1793,7 +1793,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_top</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_top</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_top</span>);
         <span class="self">self</span>
@@ -1809,10 +1809,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The requested opacity of the widget. See [`crate::prelude::WidgetExt::set_opacity()`] for</span>
+    <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for</span>
     <span class="doccomment">/// more details about window opacity.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.8 this was only available in `Window`</span>
+    <span class="doccomment">/// Before 3.8 this was only available in GtkWindow</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">opacity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opacity</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">opacity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">opacity</span>);
         <span class="self">self</span>
@@ -1835,14 +1835,14 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_markup()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_markup</span>.<span class="ident">to_string</span>());
@@ -1851,33 +1851,33 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_text()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">valign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">valign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">valign</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand vertically. See [`crate::prelude::WidgetExt::set_vexpand()`].</span>
+    <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:vexpand`] property. See [`crate::prelude::WidgetExt::get_vexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand_set</span>);
         <span class="self">self</span>
@@ -1904,14 +1904,14 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether a file chooser not in [`crate::FileChooserAction::Open`] mode</span>
+    <span class="doccomment">/// Whether a file chooser not in [`FileChooserAction::Open`][crate::FileChooserAction::Open] mode</span>
     <span class="doccomment">/// will offer the user to create new folders.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_folders</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">create_folders</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">create_folders</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">create_folders</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether a file chooser in [`crate::FileChooserAction::Save`] mode</span>
+    <span class="doccomment">/// Whether a file chooser in [`FileChooserAction::Save`][crate::FileChooserAction::Save] mode</span>
     <span class="doccomment">/// will present an overwrite confirmation dialog if the user</span>
     <span class="doccomment">/// selects a file name that already exists.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">do_overwrite_confirmation</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">do_overwrite_confirmation</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1966,7 +1966,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::FileChooserWidget`]</span>
+<span class="doccomment">/// [`FileChooserWidget`][struct@crate::FileChooserWidget]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FileChooserWidgetExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;search-mode&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">is_search_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
@@ -1976,7 +1976,7 @@
 
     <span class="kw">fn</span> <span class="ident">subtitle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib::GString</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// The ::desktop-folder signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::desktop-folder signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser show the user&#39;s Desktop</span>
@@ -1988,7 +1988,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_desktop_folder</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::down-folder signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::down-folder signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser go to a child of the current folder</span>
@@ -2003,7 +2003,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_down_folder</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::home-folder signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::home-folder signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser show the user&#39;s home</span>
@@ -2015,7 +2015,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_home_folder</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::location-popup signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::location-popup signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser show a &quot;Location&quot; prompt which</span>
@@ -2033,11 +2033,11 @@
 
     <span class="kw">fn</span> <span class="ident">emit_location_popup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
-    <span class="doccomment">/// The ::location-popup-on-paste signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::location-popup-on-paste signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser show a &quot;Location&quot; prompt when the user</span>
-    <span class="doccomment">/// pastes into a [`crate::FileChooserWidget`].</span>
+    <span class="doccomment">/// pastes into a [`FileChooserWidget`][crate::FileChooserWidget].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default binding for this signal is `Control + V`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;location-popup-on-paste&quot;</span>)]</span>
@@ -2045,7 +2045,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_location_popup_on_paste</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::location-toggle-popup signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::location-toggle-popup signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to toggle the visibility of a &quot;Location&quot; prompt which the user</span>
@@ -2057,7 +2057,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_location_toggle_popup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::places-shortcut signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::places-shortcut signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to move the focus to the places sidebar.</span>
@@ -2068,7 +2068,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_places_shortcut</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::quick-bookmark signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::quick-bookmark signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser switch to the bookmark specified</span>
@@ -2087,7 +2087,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_quick_bookmark</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bookmark_index</span>: <span class="ident">i32</span>);
 
-    <span class="doccomment">/// The ::recent-shortcut signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::recent-shortcut signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser show the Recent location.</span>
@@ -2098,7 +2098,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_recent_shortcut</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::search-shortcut signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::search-shortcut signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser show the search entry.</span>
@@ -2109,7 +2109,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_search_shortcut</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::show-hidden signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::show-hidden signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser display hidden files.</span>
@@ -2120,7 +2120,7 @@
 
     <span class="kw">fn</span> <span class="ident">emit_show_hidden</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// The ::up-folder signal is a [keybinding signal][`BindingSignal`]</span>
+    <span class="doccomment">/// The ::up-folder signal is a [keybinding signal][GtkBindingSignal]</span>
     <span class="doccomment">/// which gets emitted when the user asks for it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is used to make the file chooser go to the parent of the current folder</span>

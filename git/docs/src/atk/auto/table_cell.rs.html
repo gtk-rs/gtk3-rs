@@ -221,15 +221,15 @@
 <span class="kw">use</span> <span class="ident">std::mem</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// Being [`crate::Table`] a component which present elements ordered via rows</span>
-    <span class="doccomment">/// and columns, an [`crate::TableCell`] is the interface which each of those</span>
+    <span class="doccomment">/// Being [`Table`][crate::Table] a component which present elements ordered via rows</span>
+    <span class="doccomment">/// and columns, an [`TableCell`][crate::TableCell] is the interface which each of those</span>
     <span class="doccomment">/// elements, so &quot;cells&quot; should implement.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See also [`crate::Table`].</span>
+    <span class="doccomment">/// See also [`Table`][crate::Table].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::TableCellExt`], [`trait@crate::prelude::AtkObjectExt`], [`trait@glib::object::ObjectExt`]</span>
+    <span class="doccomment">/// [`TableCellExt`][trait@crate::prelude::TableCellExt], [`AtkObjectExt`][trait@crate::prelude::AtkObjectExt], [`trait@glib::ObjectExt`]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TableCell</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi::AtkTableCell</span>, <span class="ident">ffi::AtkTableCellIface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Object</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -243,7 +243,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::NoOpObject`], [`struct@crate::TableCell`]</span>
+<span class="doccomment">/// [`NoOpObject`][struct@crate::NoOpObject], [`TableCell`][struct@crate::TableCell]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TableCellExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Returns the column headers as an array of cell accessibles.</span>
     <span class="doccomment">///</span>

@@ -79,10 +79,10 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A [`crate::FrameTimings`] object holds timing information for a single frame</span>
-    <span class="doccomment">/// of the application’s displays. To retrieve [`crate::FrameTimings`] objects,</span>
-    <span class="doccomment">/// use [`crate::FrameClock::get_timings()`] or [`crate::FrameClock::get_current_timings()`].</span>
-    <span class="doccomment">/// The information in [`crate::FrameTimings`] is useful for precise synchronization</span>
+    <span class="doccomment">/// A [`FrameTimings`][crate::FrameTimings] object holds timing information for a single frame</span>
+    <span class="doccomment">/// of the application’s displays. To retrieve [`FrameTimings`][crate::FrameTimings] objects,</span>
+    <span class="doccomment">/// use [`FrameClock::timings()`][crate::FrameClock::timings()] or [`FrameClock::current_timings()`][crate::FrameClock::current_timings()].</span>
+    <span class="doccomment">/// The information in [`FrameTimings`][crate::FrameTimings] is useful for precise synchronization</span>
     <span class="doccomment">/// of video with the event or audio streams, and for measuring</span>
     <span class="doccomment">/// quality metrics for the application’s display, such as latency and jitter.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
@@ -96,15 +96,15 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FrameTimings</span> {
-    <span class="doccomment">/// The timing information in a [`crate::FrameTimings`] is filled in</span>
+    <span class="doccomment">/// The timing information in a [`FrameTimings`][crate::FrameTimings] is filled in</span>
     <span class="doccomment">/// incrementally as the frame as drawn and passed off to the</span>
     <span class="doccomment">/// window system for processing and display to the user. The</span>
-    <span class="doccomment">/// accessor functions for [`crate::FrameTimings`] can return 0 to</span>
+    <span class="doccomment">/// accessor functions for [`FrameTimings`][crate::FrameTimings] can return 0 to</span>
     <span class="doccomment">/// indicate an unavailable value for two reasons: either because</span>
     <span class="doccomment">/// the information is not yet available, or because it isn&#39;t</span>
-    <span class="doccomment">/// available at all. Once [`Self::get_complete()`] returns</span>
+    <span class="doccomment">/// available at all. Once [`is_complete()`][Self::is_complete()] returns</span>
     <span class="doccomment">/// [`true`] for a frame, you can be certain that no further values</span>
-    <span class="doccomment">/// will become available and be stored in the [`crate::FrameTimings`].</span>
+    <span class="doccomment">/// will become available and be stored in the [`FrameTimings`][crate::FrameTimings].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -116,7 +116,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi::gdk_frame_timings_get_complete</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the frame counter value of the [`crate::FrameClock`] when this</span>
+    <span class="doccomment">/// Gets the frame counter value of the [`FrameClock`][crate::FrameClock] when this</span>
     <span class="doccomment">/// this frame was drawn.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -130,7 +130,7 @@
 
     <span class="doccomment">/// Returns the frame time for the frame. This is the time value</span>
     <span class="doccomment">/// that is typically used to time animations for the frame. See</span>
-    <span class="doccomment">/// [`crate::FrameClock::get_frame_time()`].</span>
+    <span class="doccomment">/// [`FrameClock::frame_time()`][crate::FrameClock::frame_time()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

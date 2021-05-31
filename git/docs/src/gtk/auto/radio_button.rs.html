@@ -861,33 +861,33 @@
 <span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
 
 <span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// A single radio button performs the same basic function as a [`crate::CheckButton`],</span>
+    <span class="doccomment">/// A single radio button performs the same basic function as a [`CheckButton`][crate::CheckButton],</span>
     <span class="doccomment">/// as its position in the object hierarchy reflects. It is only when multiple</span>
     <span class="doccomment">/// radio buttons are grouped together that they become a different user</span>
     <span class="doccomment">/// interface component in their own right.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Every radio button is a member of some group of radio buttons. When one is</span>
     <span class="doccomment">/// selected, all other radio buttons in the same group are deselected. A</span>
-    <span class="doccomment">/// [`crate::RadioButton`] is one way of giving the user a choice from many options.</span>
+    <span class="doccomment">/// [`RadioButton`][crate::RadioButton] is one way of giving the user a choice from many options.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Radio button widgets are created with [`Self::new()`], passing [`None`]</span>
+    <span class="doccomment">/// Radio button widgets are created with [`new()`][Self::new()], passing [`None`]</span>
     <span class="doccomment">/// as the argument if this is the first radio button in a group. In subsequent</span>
     <span class="doccomment">/// calls, the group you wish to add this button to should be passed as an</span>
-    <span class="doccomment">/// argument. Optionally, [`Self::new_with_label()`] can be used if you</span>
+    <span class="doccomment">/// argument. Optionally, [`with_label()`][Self::with_label()] can be used if you</span>
     <span class="doccomment">/// want a text label on the radio button.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Alternatively, when adding widgets to an existing group of radio buttons,</span>
-    <span class="doccomment">/// use [`Self::new_from_widget()`] with a [`crate::RadioButton`] that already</span>
+    <span class="doccomment">/// use [`from_widget()`][Self::from_widget()] with a [`RadioButton`][crate::RadioButton] that already</span>
     <span class="doccomment">/// has a group assigned to it. The convenience function</span>
-    <span class="doccomment">/// [`Self::new_with_label_from_widget()`] is also provided.</span>
+    <span class="doccomment">/// [`with_label_from_widget()`][Self::with_label_from_widget()] is also provided.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To retrieve the group a [`crate::RadioButton`] is assigned to, use</span>
-    <span class="doccomment">/// [`crate::prelude::RadioButtonExt::get_group()`].</span>
+    <span class="doccomment">/// To retrieve the group a [`RadioButton`][crate::RadioButton] is assigned to, use</span>
+    <span class="doccomment">/// [`RadioButtonExt::group()`][crate::prelude::RadioButtonExt::group()].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// To remove a [`crate::RadioButton`] from one group and make it part of a new one,</span>
-    <span class="doccomment">/// use [`Self::set_group()`].</span>
+    <span class="doccomment">/// To remove a [`RadioButton`][crate::RadioButton] from one group and make it part of a new one,</span>
+    <span class="doccomment">/// use `gtk_radio_button_set_group()`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The group list does not need to be freed, as each [`crate::RadioButton`] will remove</span>
+    <span class="doccomment">/// The group list does not need to be freed, as each [`RadioButton`][crate::RadioButton] will remove</span>
     <span class="doccomment">/// itself and its list item when it is destroyed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # CSS nodes</span>
@@ -899,7 +899,7 @@
     <span class="doccomment">/// ╰── &lt;child&gt;</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `RadioButton` with indicator (see [`crate::prelude::ToggleButtonExt::set_mode()`]) has a</span>
+    <span class="doccomment">/// A GtkRadioButton with indicator (see [`ToggleButtonExt::set_mode()`][crate::prelude::ToggleButtonExt::set_mode()]) has a</span>
     <span class="doccomment">/// main CSS node with name radiobutton and a subnode with name radio.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
@@ -909,7 +909,7 @@
     <span class="doccomment">/// ╰── &lt;child&gt;</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A `RadioButton` without indicator changes the name of its main node</span>
+    <span class="doccomment">/// A GtkRadioButton without indicator changes the name of its main node</span>
     <span class="doccomment">/// to button and adds a .radio style class to it. The subnode is invisible</span>
     <span class="doccomment">/// in this case.</span>
     <span class="doccomment">///</span>
@@ -944,14 +944,14 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When an unselected button in the group is clicked the clicked button</span>
-    <span class="doccomment">/// receives the [`crate::ToggleButton::toggled`] signal, as does the previously</span>
+    <span class="doccomment">/// receives the `signal::ToggleButton::toggled` signal, as does the previously</span>
     <span class="doccomment">/// selected button.</span>
-    <span class="doccomment">/// Inside the [`crate::ToggleButton::toggled`] handler, [`crate::prelude::ToggleButtonExt::get_active()`]</span>
+    <span class="doccomment">/// Inside the `signal::ToggleButton::toggled` handler, [`ToggleButtonExt::is_active()`][crate::prelude::ToggleButtonExt::is_active()]</span>
     <span class="doccomment">/// can be used to determine if the button has been selected or deselected.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Implements</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`trait@crate::prelude::RadioButtonExt`], [`trait@crate::prelude::CheckButtonExt`], [`trait@crate::prelude::ToggleButtonExt`], [`trait@crate::prelude::ButtonExt`], [`trait@crate::prelude::BinExt`], [`trait@crate::prelude::ContainerExt`], [`trait@crate::prelude::WidgetExt`], [`trait@glib::object::ObjectExt`], [`trait@crate::prelude::BuildableExt`], [`trait@crate::prelude::ActionableExt`], [`trait@crate::prelude::WidgetExtManual`], [`trait@crate::prelude::BuildableExtManual`]</span>
+    <span class="doccomment">/// [`RadioButtonExt`][trait@crate::prelude::RadioButtonExt], [`CheckButtonExt`][trait@crate::prelude::CheckButtonExt], [`ToggleButtonExt`][trait@crate::prelude::ToggleButtonExt], [`ButtonExt`][trait@crate::prelude::ButtonExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`ActionableExt`][trait@crate::prelude::ActionableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RadioButton</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GtkRadioButton</span>, <span class="ident">ffi::GtkRadioButtonClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">CheckButton</span>, <span class="ident">ToggleButton</span>, <span class="ident">Button</span>, <span class="ident">Bin</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">Actionable</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
@@ -960,11 +960,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">RadioButton</span> {
-    <span class="doccomment">/// Creates a new [`crate::RadioButton`], adding it to the same group as</span>
-    <span class="doccomment">/// `radio_group_member`. As with [`Self::new()`], a widget</span>
+    <span class="doccomment">/// Creates a new [`RadioButton`][crate::RadioButton], adding it to the same group as</span>
+    <span class="doccomment">/// `radio_group_member`. As with [`new()`][Self::new()], a widget</span>
     <span class="doccomment">/// should be packed into the radio button.</span>
     <span class="doccomment">/// ## `radio_group_member`</span>
-    <span class="doccomment">/// an existing [`crate::RadioButton`].</span>
+    <span class="doccomment">/// an existing [`RadioButton`][crate::RadioButton].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -981,7 +981,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`crate::RadioButton`] with a text label, adding it to</span>
+    <span class="doccomment">/// Creates a new [`RadioButton`][crate::RadioButton] with a text label, adding it to</span>
     <span class="doccomment">/// the same group as `radio_group_member`.</span>
     <span class="doccomment">/// ## `radio_group_member`</span>
     <span class="doccomment">/// widget to get radio group from or [`None`]</span>
@@ -1007,8 +1007,8 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new [`crate::RadioButton`] containing a label. The label</span>
-    <span class="doccomment">/// will be created using [`crate::Label::new_with_mnemonic()`], so underscores</span>
+    <span class="doccomment">/// Creates a new [`RadioButton`][crate::RadioButton] containing a label. The label</span>
+    <span class="doccomment">/// will be created using [`Label::with_mnemonic()`][crate::Label::with_mnemonic()], so underscores</span>
     <span class="doccomment">/// in `label` indicate the mnemonic for the button.</span>
     <span class="doccomment">/// ## `radio_group_member`</span>
     <span class="doccomment">/// widget to get radio group from or [`None`]</span>
@@ -1018,7 +1018,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// a new [`crate::RadioButton`]</span>
+    <span class="doccomment">/// a new [`RadioButton`][crate::RadioButton]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_radio_button_new_with_mnemonic_from_widget&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;new_with_mnemonic_from_widget&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_mnemonic_from_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">RadioButton</span><span class="op">&gt;</span><span class="op">&gt;</span>(
@@ -1266,7 +1266,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// If [`true`], the button will ignore the [`crate::Settings:gtk-button-images`]</span>
+    <span class="doccomment">/// If [`true`], the button will ignore the `property::Settings::gtk-button-images`</span>
     <span class="doccomment">/// setting and always show the image, if available.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Use this property if the button would be useless or hard to use</span>
@@ -1338,7 +1338,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`crate::Widget:hexpand`] and [`crate::Widget:vexpand`]</span>
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">expand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">expand</span>);
         <span class="self">self</span>
@@ -1348,8 +1348,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property is only relevant for widgets that can take focus.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.20, several widgets (`Button`, `FileChooserButton`,</span>
-    <span class="doccomment">/// `ComboBox`) implemented this property individually.</span>
+    <span class="doccomment">/// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,</span>
+    <span class="doccomment">/// GtkComboBox) implemented this property individually.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">focus_on_click</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">focus_on_click</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1357,7 +1357,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">halign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">halign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">halign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">halign</span>);
         <span class="self">self</span>
@@ -1373,13 +1373,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Enables or disables the emission of [`crate::Widget::query-tooltip`] on `widget`.</span>
+    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.</span>
     <span class="doccomment">/// A value of [`true`] indicates that `widget` can have a tooltip, in this case</span>
-    <span class="doccomment">/// the widget will be queried using [`crate::Widget::query-tooltip`] to determine</span>
+    <span class="doccomment">/// the widget will be queried using `signal::Widget::query-tooltip` to determine</span>
     <span class="doccomment">/// whether it will provide a tooltip or not.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that setting this property to [`true`] for the first time will change</span>
-    <span class="doccomment">/// the event masks of the `GdkWindows` of this widget to include leave-notify</span>
+    <span class="doccomment">/// the event masks of the GdkWindows of this widget to include leave-notify</span>
     <span class="doccomment">/// and motion-notify events. This cannot and will not be undone when the</span>
     <span class="doccomment">/// property is set to [`false`] again.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_tooltip</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has_tooltip</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -1392,13 +1392,13 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand horizontally. See [`crate::prelude::WidgetExt::set_hexpand()`].</span>
+    <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:hexpand`] property. See [`crate::prelude::WidgetExt::get_hexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">hexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">hexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">hexpand_set</span>);
         <span class="self">self</span>
@@ -1420,7 +1420,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_bottom</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_bottom</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_bottom</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_bottom</span>);
         <span class="self">self</span>
@@ -1431,7 +1431,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_end</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_end</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_end</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_end</span>);
         <span class="self">self</span>
@@ -1442,7 +1442,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_start</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_start</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_start</span>);
         <span class="self">self</span>
@@ -1452,7 +1452,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This property adds margin outside of the widget&#39;s normal size</span>
     <span class="doccomment">/// request, the margin will be added in addition to the size from</span>
-    <span class="doccomment">/// [`crate::prelude::WidgetExt::set_size_request()`] for example.</span>
+    <span class="doccomment">/// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">margin_top</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">margin_top</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">margin_top</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">margin_top</span>);
         <span class="self">self</span>
@@ -1468,10 +1468,10 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// The requested opacity of the widget. See [`crate::prelude::WidgetExt::set_opacity()`] for</span>
+    <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for</span>
     <span class="doccomment">/// more details about window opacity.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Before 3.8 this was only available in `Window`</span>
+    <span class="doccomment">/// Before 3.8 this was only available in GtkWindow</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">opacity</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opacity</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">opacity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">opacity</span>);
         <span class="self">self</span>
@@ -1494,14 +1494,14 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up</span>
     <span class="doccomment">/// with the [Pango text markup language][PangoMarkupFormat].</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_markup()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_markup</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_markup</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_markup</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_markup</span>.<span class="ident">to_string</span>());
@@ -1510,33 +1510,33 @@
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Also see [`crate::Tooltip::set_text()`].</span>
+    <span class="doccomment">/// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a convenience property which will take care of getting the</span>
-    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: [`crate::Widget:has-tooltip`]</span>
+    <span class="doccomment">/// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`</span>
     <span class="doccomment">/// will automatically be set to [`true`] and there will be taken care of</span>
-    <span class="doccomment">/// [`crate::Widget::query-tooltip`] in the default signal handler.</span>
+    <span class="doccomment">/// `signal::Widget::query-tooltip` in the default signal handler.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that if both [`crate::Widget:tooltip-text`] and [`crate::Widget:tooltip-markup`]</span>
+    <span class="doccomment">/// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`</span>
     <span class="doccomment">/// are set, the last one wins.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tooltip_text</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tooltip_text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">tooltip_text</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tooltip_text</span>.<span class="ident">to_string</span>());
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`crate::Align`]</span>
+    <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valign</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">valign</span>: <span class="ident">Align</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">valign</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">valign</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to expand vertically. See [`crate::prelude::WidgetExt::set_vexpand()`].</span>
+    <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand</span>);
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Whether to use the [`crate::Widget:vexpand`] property. See [`crate::prelude::WidgetExt::get_vexpand_set()`].</span>
+    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vexpand_set</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vexpand_set</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">vexpand_set</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vexpand_set</span>);
         <span class="self">self</span>
@@ -1569,7 +1569,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Implementors</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`struct@crate::RadioButton`]</span>
+<span class="doccomment">/// [`RadioButton`][struct@crate::RadioButton]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RadioButtonExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Retrieves the group assigned to a radio button.</span>
     <span class="doccomment">///</span>
@@ -1583,10 +1583,10 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_group&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">group</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RadioButton</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// Joins a [`crate::RadioButton`] object to the group of another [`crate::RadioButton`] object</span>
+    <span class="doccomment">/// Joins a [`RadioButton`][crate::RadioButton] object to the group of another [`RadioButton`][crate::RadioButton] object</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Use this in language bindings instead of the [`Self::get_group()`]</span>
-    <span class="doccomment">/// and [`crate::RadioButton::set_group()`] methods</span>
+    <span class="doccomment">/// Use this in language bindings instead of the [`group()`][Self::group()]</span>
+    <span class="doccomment">/// and `gtk_radio_button_set_group()` methods</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A common way to set up a group of radio buttons is the following:</span>
     <span class="doccomment">///</span>
