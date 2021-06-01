@@ -6,6 +6,7 @@ use std::mem;
 use std::ptr;
 
 #[derive(Copy, Clone, PartialEq, Eq)]
+#[doc(alias = "GdkAtom")]
 pub struct Atom(ffi::GdkAtom);
 
 pub const NONE: Atom = Atom(0 as *mut _);
