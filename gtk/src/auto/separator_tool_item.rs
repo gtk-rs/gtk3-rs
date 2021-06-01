@@ -21,6 +21,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSeparatorToolItem")]
     pub struct SeparatorToolItem(Object<ffi::GtkSeparatorToolItem, ffi::GtkSeparatorToolItemClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -36,7 +37,8 @@ impl SeparatorToolItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`SeparatorToolItem`]
+    /// Creates a new builder-style object to construct a [`SeparatorToolItem`].
+    ///
     /// This method returns an instance of [`SeparatorToolItemBuilder`] which can be used to create a [`SeparatorToolItem`].
     pub fn builder() -> SeparatorToolItemBuilder {
         SeparatorToolItemBuilder::default()

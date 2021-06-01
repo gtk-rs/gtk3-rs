@@ -17,6 +17,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRecentChooser")]
     pub struct RecentChooser(Interface<ffi::GtkRecentChooser, ffi::GtkRecentChooserIface>);
 
     match fn {

@@ -26,6 +26,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkToolbar")]
     pub struct Toolbar(Object<ffi::GtkToolbar, ffi::GtkToolbarClass>) @extends Container, Widget, @implements Buildable, Orientable, ToolShell;
 
     match fn {
@@ -41,7 +42,8 @@ impl Toolbar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Toolbar`]
+    /// Creates a new builder-style object to construct a [`Toolbar`].
+    ///
     /// This method returns an instance of [`ToolbarBuilder`] which can be used to create a [`Toolbar`].
     pub fn builder() -> ToolbarBuilder {
         ToolbarBuilder::default()

@@ -15,6 +15,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "GtkCssProvider")]
     pub struct CssProvider(Object<ffi::GtkCssProvider, ffi::GtkCssProviderClass>) @implements StyleProvider;
 
     match fn {

@@ -32,6 +32,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkToolPalette")]
     pub struct ToolPalette(Object<ffi::GtkToolPalette, ffi::GtkToolPaletteClass>) @extends Container, Widget, @implements Buildable, Orientable, Scrollable;
 
     match fn {
@@ -47,7 +48,8 @@ impl ToolPalette {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ToolPalette`]
+    /// Creates a new builder-style object to construct a [`ToolPalette`].
+    ///
     /// This method returns an instance of [`ToolPaletteBuilder`] which can be used to create a [`ToolPalette`].
     pub fn builder() -> ToolPaletteBuilder {
         ToolPaletteBuilder::default()

@@ -8,6 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkGObjectAccessible")]
     pub struct GObjectAccessible(Object<ffi::AtkGObjectAccessible, ffi::AtkGObjectAccessibleClass>) @extends Object;
 
     match fn {

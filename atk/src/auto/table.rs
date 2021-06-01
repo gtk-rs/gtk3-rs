@@ -13,6 +13,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "AtkTable")]
     pub struct Table(Interface<ffi::AtkTable, ffi::AtkTableIface>);
 
     match fn {

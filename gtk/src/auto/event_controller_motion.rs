@@ -15,6 +15,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkEventControllerMotion")]
     pub struct EventControllerMotion(Object<ffi::GtkEventControllerMotion, ffi::GtkEventControllerMotionClass>) @extends EventController;
 
     match fn {

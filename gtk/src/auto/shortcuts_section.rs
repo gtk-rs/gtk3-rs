@@ -25,6 +25,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkShortcutsSection")]
     pub struct ShortcutsSection(Object<ffi::GtkShortcutsSection, ffi::GtkShortcutsSectionClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -34,7 +35,8 @@ glib::wrapper! {
 
 impl ShortcutsSection {
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ShortcutsSection`]
+    /// Creates a new builder-style object to construct a [`ShortcutsSection`].
+    ///
     /// This method returns an instance of [`ShortcutsSectionBuilder`] which can be used to create a [`ShortcutsSection`].
     pub fn builder() -> ShortcutsSectionBuilder {
         ShortcutsSectionBuilder::default()

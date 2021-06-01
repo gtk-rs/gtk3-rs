@@ -23,6 +23,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRecentChooserWidget")]
     pub struct RecentChooserWidget(Object<ffi::GtkRecentChooserWidget, ffi::GtkRecentChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, RecentChooser;
 
     match fn {
@@ -50,7 +51,8 @@ impl RecentChooserWidget {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RecentChooserWidget`]
+    /// Creates a new builder-style object to construct a [`RecentChooserWidget`].
+    ///
     /// This method returns an instance of [`RecentChooserWidgetBuilder`] which can be used to create a [`RecentChooserWidget`].
     pub fn builder() -> RecentChooserWidgetBuilder {
         RecentChooserWidgetBuilder::default()

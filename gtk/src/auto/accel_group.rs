@@ -12,6 +12,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkAccelGroup")]
     pub struct AccelGroup(Object<ffi::GtkAccelGroup, ffi::GtkAccelGroupClass>);
 
     match fn {

@@ -13,6 +13,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "AtkHypertext")]
     pub struct Hypertext(Interface<ffi::AtkHypertext, ffi::AtkHypertextIface>);
 
     match fn {

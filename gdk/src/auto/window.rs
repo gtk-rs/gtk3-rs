@@ -45,6 +45,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "GdkWindow")]
     pub struct Window(Object<ffi::GdkWindow, ffi::GdkWindowClass>);
 
     match fn {

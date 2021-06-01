@@ -29,6 +29,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkScaleButton")]
     pub struct ScaleButton(Object<ffi::GtkScaleButton, ffi::GtkScaleButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, Orientable;
 
     match fn {
@@ -53,7 +54,8 @@ impl ScaleButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ScaleButton`]
+    /// Creates a new builder-style object to construct a [`ScaleButton`].
+    ///
     /// This method returns an instance of [`ScaleButtonBuilder`] which can be used to create a [`ScaleButton`].
     pub fn builder() -> ScaleButtonBuilder {
         ScaleButtonBuilder::default()

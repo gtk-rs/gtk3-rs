@@ -29,6 +29,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkScrolledWindow")]
     pub struct ScrolledWindow(Object<ffi::GtkScrolledWindow, ffi::GtkScrolledWindowClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -53,7 +54,8 @@ impl ScrolledWindow {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ScrolledWindow`]
+    /// Creates a new builder-style object to construct a [`ScrolledWindow`].
+    ///
     /// This method returns an instance of [`ScrolledWindowBuilder`] which can be used to create a [`ScrolledWindow`].
     pub fn builder() -> ScrolledWindowBuilder {
         ScrolledWindowBuilder::default()

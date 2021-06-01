@@ -14,6 +14,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkActionable")]
     pub struct Actionable(Interface<ffi::GtkActionable, ffi::GtkActionableInterface>) @requires Widget, Buildable;
 
     match fn {

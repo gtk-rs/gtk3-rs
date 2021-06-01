@@ -5,6 +5,7 @@
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkUtil")]
     pub struct Util(Object<ffi::AtkUtil, ffi::AtkUtilClass>);
 
     match fn {

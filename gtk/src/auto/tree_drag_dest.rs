@@ -9,6 +9,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkTreeDragDest")]
     pub struct TreeDragDest(Interface<ffi::GtkTreeDragDest, ffi::GtkTreeDragDestIface>);
 
     match fn {

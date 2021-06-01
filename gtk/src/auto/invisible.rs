@@ -18,6 +18,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkInvisible")]
     pub struct Invisible(Object<ffi::GtkInvisible, ffi::GtkInvisibleClass>) @extends Widget, @implements Buildable;
 
     match fn {
@@ -43,7 +44,8 @@ impl Invisible {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Invisible`]
+    /// Creates a new builder-style object to construct a [`Invisible`].
+    ///
     /// This method returns an instance of [`InvisibleBuilder`] which can be used to create a [`Invisible`].
     pub fn builder() -> InvisibleBuilder {
         InvisibleBuilder::default()

@@ -24,6 +24,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkTreeViewColumn")]
     pub struct TreeViewColumn(Object<ffi::GtkTreeViewColumn, ffi::GtkTreeViewColumnClass>) @implements Buildable, CellLayout;
 
     match fn {
@@ -56,7 +57,8 @@ impl TreeViewColumn {
     //}
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`TreeViewColumn`]
+    /// Creates a new builder-style object to construct a [`TreeViewColumn`].
+    ///
     /// This method returns an instance of [`TreeViewColumnBuilder`] which can be used to create a [`TreeViewColumn`].
     pub fn builder() -> TreeViewColumnBuilder {
         TreeViewColumnBuilder::default()

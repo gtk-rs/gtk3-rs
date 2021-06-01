@@ -9,6 +9,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkTooltip")]
     pub struct Tooltip(Object<ffi::GtkTooltip>);
 
     match fn {

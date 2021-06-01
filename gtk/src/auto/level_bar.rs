@@ -22,6 +22,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkLevelBar")]
     pub struct LevelBar(Object<ffi::GtkLevelBar, ffi::GtkLevelBarClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -47,7 +48,8 @@ impl LevelBar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`LevelBar`]
+    /// Creates a new builder-style object to construct a [`LevelBar`].
+    ///
     /// This method returns an instance of [`LevelBarBuilder`] which can be used to create a [`LevelBar`].
     pub fn builder() -> LevelBarBuilder {
         LevelBarBuilder::default()

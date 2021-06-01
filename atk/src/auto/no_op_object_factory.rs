@@ -8,6 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkNoOpObjectFactory")]
     pub struct NoOpObjectFactory(Object<ffi::AtkNoOpObjectFactory, ffi::AtkNoOpObjectFactoryClass>) @extends ObjectFactory;
 
     match fn {

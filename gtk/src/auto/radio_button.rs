@@ -26,6 +26,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRadioButton")]
     pub struct RadioButton(Object<ffi::GtkRadioButton, ffi::GtkRadioButtonClass>) @extends CheckButton, ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
@@ -79,7 +80,8 @@ impl RadioButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RadioButton`]
+    /// Creates a new builder-style object to construct a [`RadioButton`].
+    ///
     /// This method returns an instance of [`RadioButtonBuilder`] which can be used to create a [`RadioButton`].
     pub fn builder() -> RadioButtonBuilder {
         RadioButtonBuilder::default()

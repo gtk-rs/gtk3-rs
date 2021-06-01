@@ -26,6 +26,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkModelButton")]
     pub struct ModelButton(Object<ffi::GtkModelButton>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
@@ -41,7 +42,8 @@ impl ModelButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ModelButton`]
+    /// Creates a new builder-style object to construct a [`ModelButton`].
+    ///
     /// This method returns an instance of [`ModelButtonBuilder`] which can be used to create a [`ModelButton`].
     pub fn builder() -> ModelButtonBuilder {
         ModelButtonBuilder::default()

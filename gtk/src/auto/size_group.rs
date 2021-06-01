@@ -17,6 +17,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSizeGroup")]
     pub struct SizeGroup(Object<ffi::GtkSizeGroup, ffi::GtkSizeGroupClass>) @implements Buildable;
 
     match fn {
@@ -32,7 +33,8 @@ impl SizeGroup {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`SizeGroup`]
+    /// Creates a new builder-style object to construct a [`SizeGroup`].
+    ///
     /// This method returns an instance of [`SizeGroupBuilder`] which can be used to create a [`SizeGroup`].
     pub fn builder() -> SizeGroupBuilder {
         SizeGroupBuilder::default()

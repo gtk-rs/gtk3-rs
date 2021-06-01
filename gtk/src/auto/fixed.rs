@@ -15,6 +15,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkFixed")]
     pub struct Fixed(Object<ffi::GtkFixed, ffi::GtkFixedClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
@@ -30,7 +31,8 @@ impl Fixed {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Fixed`]
+    /// Creates a new builder-style object to construct a [`Fixed`].
+    ///
     /// This method returns an instance of [`FixedBuilder`] which can be used to create a [`Fixed`].
     pub fn builder() -> FixedBuilder {
         FixedBuilder::default()

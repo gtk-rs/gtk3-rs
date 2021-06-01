@@ -10,6 +10,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkSocket")]
     pub struct Socket(Object<ffi::AtkSocket, ffi::AtkSocketClass>) @extends Object, @implements Component;
 
     match fn {

@@ -27,6 +27,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkApplicationWindow")]
     pub struct ApplicationWindow(Object<ffi::GtkApplicationWindow, ffi::GtkApplicationWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable, gio::ActionGroup, gio::ActionMap;
 
     match fn {
@@ -36,7 +37,8 @@ glib::wrapper! {
 
 impl ApplicationWindow {
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ApplicationWindow`]
+    /// Creates a new builder-style object to construct a [`ApplicationWindow`].
+    ///
     /// This method returns an instance of [`ApplicationWindowBuilder`] which can be used to create a [`ApplicationWindow`].
     pub fn builder() -> ApplicationWindowBuilder {
         ApplicationWindowBuilder::default()

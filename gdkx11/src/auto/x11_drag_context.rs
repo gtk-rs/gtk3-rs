@@ -5,6 +5,7 @@
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GdkX11DragContext")]
     pub struct X11DragContext(Object<ffi::GdkX11DragContext, ffi::GdkX11DragContextClass>) @extends gdk::DragContext;
 
     match fn {

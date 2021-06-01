@@ -6,6 +6,7 @@ use crate::StyleProvider;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkStyleProperties")]
     pub struct StyleProperties(Object<ffi::GtkStyleProperties, ffi::GtkStylePropertiesClass>) @implements StyleProvider;
 
     match fn {

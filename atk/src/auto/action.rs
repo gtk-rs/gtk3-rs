@@ -7,6 +7,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkAction")]
     pub struct Action(Interface<ffi::AtkAction, ffi::AtkActionIface>);
 
     match fn {

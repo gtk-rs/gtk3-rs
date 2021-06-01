@@ -20,6 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkProgressBar")]
     pub struct ProgressBar(Object<ffi::GtkProgressBar, ffi::GtkProgressBarClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -35,7 +36,8 @@ impl ProgressBar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ProgressBar`]
+    /// Creates a new builder-style object to construct a [`ProgressBar`].
+    ///
     /// This method returns an instance of [`ProgressBarBuilder`] which can be used to create a [`ProgressBar`].
     pub fn builder() -> ProgressBarBuilder {
         ProgressBarBuilder::default()

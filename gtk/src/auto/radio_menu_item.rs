@@ -24,6 +24,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRadioMenuItem")]
     pub struct RadioMenuItem(Object<ffi::GtkRadioMenuItem, ffi::GtkRadioMenuItemClass>) @extends CheckMenuItem, MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
@@ -77,7 +78,8 @@ impl RadioMenuItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RadioMenuItem`]
+    /// Creates a new builder-style object to construct a [`RadioMenuItem`].
+    ///
     /// This method returns an instance of [`RadioMenuItemBuilder`] which can be used to create a [`RadioMenuItem`].
     pub fn builder() -> RadioMenuItemBuilder {
         RadioMenuItemBuilder::default()

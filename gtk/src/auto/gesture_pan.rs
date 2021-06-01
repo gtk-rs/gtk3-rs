@@ -23,6 +23,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkGesturePan")]
     pub struct GesturePan(Object<ffi::GtkGesturePan, ffi::GtkGesturePanClass>) @extends GestureDrag, GestureSingle, Gesture, EventController;
 
     match fn {
@@ -44,7 +45,8 @@ impl GesturePan {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`GesturePan`]
+    /// Creates a new builder-style object to construct a [`GesturePan`].
+    ///
     /// This method returns an instance of [`GesturePanBuilder`] which can be used to create a [`GesturePan`].
     pub fn builder() -> GesturePanBuilder {
         GesturePanBuilder::default()

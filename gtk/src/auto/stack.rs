@@ -20,6 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkStack")]
     pub struct Stack(Object<ffi::GtkStack, ffi::GtkStackClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
@@ -35,7 +36,8 @@ impl Stack {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Stack`]
+    /// Creates a new builder-style object to construct a [`Stack`].
+    ///
     /// This method returns an instance of [`StackBuilder`] which can be used to create a [`Stack`].
     pub fn builder() -> StackBuilder {
         StackBuilder::default()

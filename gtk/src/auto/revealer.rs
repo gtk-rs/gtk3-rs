@@ -21,6 +21,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRevealer")]
     pub struct Revealer(Object<ffi::GtkRevealer, ffi::GtkRevealerClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -36,7 +37,8 @@ impl Revealer {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Revealer`]
+    /// Creates a new builder-style object to construct a [`Revealer`].
+    ///
     /// This method returns an instance of [`RevealerBuilder`] which can be used to create a [`Revealer`].
     pub fn builder() -> RevealerBuilder {
         RevealerBuilder::default()

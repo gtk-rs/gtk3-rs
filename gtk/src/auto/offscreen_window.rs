@@ -20,6 +20,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkOffscreenWindow")]
     pub struct OffscreenWindow(Object<ffi::GtkOffscreenWindow, ffi::GtkOffscreenWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -35,7 +36,8 @@ impl OffscreenWindow {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`OffscreenWindow`]
+    /// Creates a new builder-style object to construct a [`OffscreenWindow`].
+    ///
     /// This method returns an instance of [`OffscreenWindowBuilder`] which can be used to create a [`OffscreenWindow`].
     pub fn builder() -> OffscreenWindowBuilder {
         OffscreenWindowBuilder::default()

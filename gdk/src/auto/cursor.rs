@@ -9,6 +9,7 @@ use std::fmt;
 use std::mem;
 
 glib::wrapper! {
+    #[doc(alias = "GdkCursor")]
     pub struct Cursor(Object<ffi::GdkCursor>);
 
     match fn {

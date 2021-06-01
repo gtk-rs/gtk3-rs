@@ -16,6 +16,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkOverlay")]
     pub struct Overlay(Object<ffi::GtkOverlay, ffi::GtkOverlayClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -31,7 +32,8 @@ impl Overlay {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Overlay`]
+    /// Creates a new builder-style object to construct a [`Overlay`].
+    ///
     /// This method returns an instance of [`OverlayBuilder`] which can be used to create a [`Overlay`].
     pub fn builder() -> OverlayBuilder {
         OverlayBuilder::default()

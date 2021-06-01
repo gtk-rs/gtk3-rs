@@ -29,6 +29,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GdkDragContext")]
     pub struct DragContext(Object<ffi::GdkDragContext>);
 
     match fn {

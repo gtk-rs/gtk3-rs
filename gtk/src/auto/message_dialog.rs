@@ -27,6 +27,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkMessageDialog")]
     pub struct MessageDialog(Object<ffi::GtkMessageDialog, ffi::GtkMessageDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -47,7 +48,8 @@ impl MessageDialog {
     //}
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`MessageDialog`]
+    /// Creates a new builder-style object to construct a [`MessageDialog`].
+    ///
     /// This method returns an instance of [`MessageDialogBuilder`] which can be used to create a [`MessageDialog`].
     pub fn builder() -> MessageDialogBuilder {
         MessageDialogBuilder::default()

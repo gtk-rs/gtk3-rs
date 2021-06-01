@@ -16,6 +16,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkCellEditable")]
     pub struct CellEditable(Interface<ffi::GtkCellEditable, ffi::GtkCellEditableIface>) @requires Widget, Buildable;
 
     match fn {

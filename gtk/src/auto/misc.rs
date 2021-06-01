@@ -7,6 +7,7 @@ use crate::Widget;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkMisc")]
     pub struct Misc(Object<ffi::GtkMisc, ffi::GtkMiscClass>) @extends Widget, @implements Buildable;
 
     match fn {

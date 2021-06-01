@@ -20,6 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkEventBox")]
     pub struct EventBox(Object<ffi::GtkEventBox, ffi::GtkEventBoxClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -35,7 +36,8 @@ impl EventBox {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`EventBox`]
+    /// Creates a new builder-style object to construct a [`EventBox`].
+    ///
     /// This method returns an instance of [`EventBoxBuilder`] which can be used to create a [`EventBox`].
     pub fn builder() -> EventBoxBuilder {
         EventBoxBuilder::default()

@@ -20,6 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkGestureMultiPress")]
     pub struct GestureMultiPress(Object<ffi::GtkGestureMultiPress, ffi::GtkGestureMultiPressClass>) @extends GestureSingle, Gesture, EventController;
 
     match fn {
@@ -40,7 +41,8 @@ impl GestureMultiPress {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`GestureMultiPress`]
+    /// Creates a new builder-style object to construct a [`GestureMultiPress`].
+    ///
     /// This method returns an instance of [`GestureMultiPressBuilder`] which can be used to create a [`GestureMultiPress`].
     pub fn builder() -> GestureMultiPressBuilder {
         GestureMultiPressBuilder::default()

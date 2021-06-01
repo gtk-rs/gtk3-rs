@@ -27,6 +27,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkStackSwitcher")]
     pub struct StackSwitcher(Object<ffi::GtkStackSwitcher, ffi::GtkStackSwitcherClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -42,7 +43,8 @@ impl StackSwitcher {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`StackSwitcher`]
+    /// Creates a new builder-style object to construct a [`StackSwitcher`].
+    ///
     /// This method returns an instance of [`StackSwitcherBuilder`] which can be used to create a [`StackSwitcher`].
     pub fn builder() -> StackSwitcherBuilder {
         StackSwitcherBuilder::default()

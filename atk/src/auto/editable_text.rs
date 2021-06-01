@@ -7,6 +7,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkEditableText")]
     pub struct EditableText(Interface<ffi::AtkEditableText, ffi::AtkEditableTextIface>);
 
     match fn {

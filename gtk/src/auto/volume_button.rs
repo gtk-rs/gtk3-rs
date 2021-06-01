@@ -29,6 +29,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkVolumeButton")]
     pub struct VolumeButton(Object<ffi::GtkVolumeButton, ffi::GtkVolumeButtonClass>) @extends ScaleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable, Orientable;
 
     match fn {
@@ -44,7 +45,8 @@ impl VolumeButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`VolumeButton`]
+    /// Creates a new builder-style object to construct a [`VolumeButton`].
+    ///
     /// This method returns an instance of [`VolumeButtonBuilder`] which can be used to create a [`VolumeButton`].
     pub fn builder() -> VolumeButtonBuilder {
         VolumeButtonBuilder::default()

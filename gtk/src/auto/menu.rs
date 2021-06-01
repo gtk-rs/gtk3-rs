@@ -24,6 +24,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkMenu")]
     pub struct Menu(Object<ffi::GtkMenu, ffi::GtkMenuClass>) @extends MenuShell, Container, Widget, @implements Buildable;
 
     match fn {
@@ -51,7 +52,8 @@ impl Menu {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Menu`]
+    /// Creates a new builder-style object to construct a [`Menu`].
+    ///
     /// This method returns an instance of [`MenuBuilder`] which can be used to create a [`Menu`].
     pub fn builder() -> MenuBuilder {
         MenuBuilder::default()

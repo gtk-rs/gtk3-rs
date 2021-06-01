@@ -25,6 +25,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkFontChooserDialog")]
     pub struct FontChooserDialog(Object<ffi::GtkFontChooserDialog, ffi::GtkFontChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FontChooser;
 
     match fn {
@@ -46,7 +47,8 @@ impl FontChooserDialog {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`FontChooserDialog`]
+    /// Creates a new builder-style object to construct a [`FontChooserDialog`].
+    ///
     /// This method returns an instance of [`FontChooserDialogBuilder`] which can be used to create a [`FontChooserDialog`].
     pub fn builder() -> FontChooserDialogBuilder {
         FontChooserDialogBuilder::default()

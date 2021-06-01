@@ -26,6 +26,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkAssistant")]
     pub struct Assistant(Object<ffi::GtkAssistant, ffi::GtkAssistantClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -41,7 +42,8 @@ impl Assistant {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Assistant`]
+    /// Creates a new builder-style object to construct a [`Assistant`].
+    ///
     /// This method returns an instance of [`AssistantBuilder`] which can be used to create a [`Assistant`].
     pub fn builder() -> AssistantBuilder {
         AssistantBuilder::default()

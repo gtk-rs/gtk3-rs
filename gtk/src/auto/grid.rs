@@ -23,6 +23,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkGrid")]
     pub struct Grid(Object<ffi::GtkGrid, ffi::GtkGridClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -38,7 +39,8 @@ impl Grid {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Grid`]
+    /// Creates a new builder-style object to construct a [`Grid`].
+    ///
     /// This method returns an instance of [`GridBuilder`] which can be used to create a [`Grid`].
     pub fn builder() -> GridBuilder {
         GridBuilder::default()

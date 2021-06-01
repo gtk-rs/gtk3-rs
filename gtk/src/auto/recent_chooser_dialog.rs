@@ -24,6 +24,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRecentChooserDialog")]
     pub struct RecentChooserDialog(Object<ffi::GtkRecentChooserDialog, ffi::GtkRecentChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, RecentChooser;
 
     match fn {
@@ -44,7 +45,8 @@ impl RecentChooserDialog {
     //}
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RecentChooserDialog`]
+    /// Creates a new builder-style object to construct a [`RecentChooserDialog`].
+    ///
     /// This method returns an instance of [`RecentChooserDialogBuilder`] which can be used to create a [`RecentChooserDialog`].
     pub fn builder() -> RecentChooserDialogBuilder {
         RecentChooserDialogBuilder::default()

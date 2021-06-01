@@ -9,6 +9,7 @@ use std::fmt;
 use std::mem;
 
 glib::wrapper! {
+    #[doc(alias = "AtkTableCell")]
     pub struct TableCell(Interface<ffi::AtkTableCell, ffi::AtkTableCellIface>) @requires Object;
 
     match fn {

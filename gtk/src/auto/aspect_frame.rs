@@ -22,6 +22,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkAspectFrame")]
     pub struct AspectFrame(Object<ffi::GtkAspectFrame, ffi::GtkAspectFrameClass>) @extends Frame, Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -52,7 +53,8 @@ impl AspectFrame {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`AspectFrame`]
+    /// Creates a new builder-style object to construct a [`AspectFrame`].
+    ///
     /// This method returns an instance of [`AspectFrameBuilder`] which can be used to create a [`AspectFrame`].
     pub fn builder() -> AspectFrameBuilder {
         AspectFrameBuilder::default()

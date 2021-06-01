@@ -20,6 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "AtkObject")]
     pub struct Object(Object<ffi::AtkObject, ffi::AtkObjectClass>);
 
     match fn {

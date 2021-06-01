@@ -7,6 +7,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GdkDrawingContext")]
     pub struct DrawingContext(Object<ffi::GdkDrawingContext, ffi::GdkDrawingContextClass>);
 
     match fn {

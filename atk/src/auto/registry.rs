@@ -8,6 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkRegistry")]
     pub struct Registry(Object<ffi::AtkRegistry, ffi::AtkRegistryClass>);
 
     match fn {

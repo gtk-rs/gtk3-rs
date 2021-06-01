@@ -20,6 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSwitch")]
     pub struct Switch(Object<ffi::GtkSwitch, ffi::GtkSwitchClass>) @extends Widget, @implements Buildable, Actionable;
 
     match fn {
@@ -35,7 +36,8 @@ impl Switch {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Switch`]
+    /// Creates a new builder-style object to construct a [`Switch`].
+    ///
     /// This method returns an instance of [`SwitchBuilder`] which can be used to create a [`Switch`].
     pub fn builder() -> SwitchBuilder {
         SwitchBuilder::default()

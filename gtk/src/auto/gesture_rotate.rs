@@ -19,6 +19,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkGestureRotate")]
     pub struct GestureRotate(Object<ffi::GtkGestureRotate, ffi::GtkGestureRotateClass>) @extends Gesture, EventController;
 
     match fn {
@@ -39,7 +40,8 @@ impl GestureRotate {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`GestureRotate`]
+    /// Creates a new builder-style object to construct a [`GestureRotate`].
+    ///
     /// This method returns an instance of [`GestureRotateBuilder`] which can be used to create a [`GestureRotate`].
     pub fn builder() -> GestureRotateBuilder {
         GestureRotateBuilder::default()

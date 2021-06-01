@@ -26,6 +26,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRecentChooserMenu")]
     pub struct RecentChooserMenu(Object<ffi::GtkRecentChooserMenu, ffi::GtkRecentChooserMenuClass>) @extends Menu, MenuShell, Container, Widget, @implements Buildable, RecentChooser;
 
     match fn {
@@ -53,7 +54,8 @@ impl RecentChooserMenu {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RecentChooserMenu`]
+    /// Creates a new builder-style object to construct a [`RecentChooserMenu`].
+    ///
     /// This method returns an instance of [`RecentChooserMenuBuilder`] which can be used to create a [`RecentChooserMenu`].
     pub fn builder() -> RecentChooserMenuBuilder {
         RecentChooserMenuBuilder::default()

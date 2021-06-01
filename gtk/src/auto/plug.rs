@@ -25,6 +25,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkPlug")]
     pub struct Plug(Object<ffi::GtkPlug, ffi::GtkPlugClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -53,7 +54,8 @@ impl Plug {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Plug`]
+    /// Creates a new builder-style object to construct a [`Plug`].
+    ///
     /// This method returns an instance of [`PlugBuilder`] which can be used to create a [`Plug`].
     pub fn builder() -> PlugBuilder {
         PlugBuilder::default()

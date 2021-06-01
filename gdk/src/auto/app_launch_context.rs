@@ -11,6 +11,7 @@ use glib::StaticType;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GdkAppLaunchContext")]
     pub struct AppLaunchContext(Object<ffi::GdkAppLaunchContext>) @extends gio::AppLaunchContext;
 
     match fn {

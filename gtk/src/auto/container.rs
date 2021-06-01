@@ -19,6 +19,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkContainer")]
     pub struct Container(Object<ffi::GtkContainer, ffi::GtkContainerClass>) @extends Widget, @implements Buildable;
 
     match fn {

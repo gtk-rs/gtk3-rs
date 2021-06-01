@@ -24,6 +24,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkShortcutLabel")]
     pub struct ShortcutLabel(Object<ffi::GtkShortcutLabel, ffi::GtkShortcutLabelClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -42,7 +43,8 @@ impl ShortcutLabel {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ShortcutLabel`]
+    /// Creates a new builder-style object to construct a [`ShortcutLabel`].
+    ///
     /// This method returns an instance of [`ShortcutLabelBuilder`] which can be used to create a [`ShortcutLabel`].
     pub fn builder() -> ShortcutLabelBuilder {
         ShortcutLabelBuilder::default()
