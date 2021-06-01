@@ -22,6 +22,7 @@ use crate::Window;
 glib::wrapper! {
     /// A generic GDK event.
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[doc(alias = "GdkEvent")]
     pub struct Event(Boxed<ffi::GdkEvent>);
 
     match fn {
