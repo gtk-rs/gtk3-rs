@@ -32,6 +32,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSpinButton")]
     pub struct SpinButton(Object<ffi::GtkSpinButton, ffi::GtkSpinButtonClass>) @extends Entry, Widget, @implements Buildable, CellEditable, Editable, Orientable;
 
     match fn {
@@ -68,7 +69,8 @@ impl SpinButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`SpinButton`]
+    /// Creates a new builder-style object to construct a [`SpinButton`].
+    ///
     /// This method returns an instance of [`SpinButtonBuilder`] which can be used to create a [`SpinButton`].
     pub fn builder() -> SpinButtonBuilder {
         SpinButtonBuilder::default()

@@ -22,6 +22,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "AtkText")]
     pub struct Text(Interface<ffi::AtkText, ffi::AtkTextIface>);
 
     match fn {

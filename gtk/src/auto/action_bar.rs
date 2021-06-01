@@ -17,6 +17,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkActionBar")]
     pub struct ActionBar(Object<ffi::GtkActionBar, ffi::GtkActionBarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -32,7 +33,8 @@ impl ActionBar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ActionBar`]
+    /// Creates a new builder-style object to construct a [`ActionBar`].
+    ///
     /// This method returns an instance of [`ActionBarBuilder`] which can be used to create a [`ActionBar`].
     pub fn builder() -> ActionBarBuilder {
         ActionBarBuilder::default()

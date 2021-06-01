@@ -17,6 +17,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "GtkFileChooser")]
     pub struct FileChooser(Interface<ffi::GtkFileChooser>);
 
     match fn {

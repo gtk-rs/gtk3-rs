@@ -23,6 +23,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "GtkImage")]
     pub struct Image(Object<ffi::GtkImage, ffi::GtkImageClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {
@@ -122,7 +123,8 @@ impl Image {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Image`]
+    /// Creates a new builder-style object to construct a [`Image`].
+    ///
     /// This method returns an instance of [`ImageBuilder`] which can be used to create a [`Image`].
     pub fn builder() -> ImageBuilder {
         ImageBuilder::default()

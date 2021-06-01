@@ -20,6 +20,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkCalendar")]
     pub struct Calendar(Object<ffi::GtkCalendar, ffi::GtkCalendarClass>) @extends Widget, @implements Buildable;
 
     match fn {
@@ -35,7 +36,8 @@ impl Calendar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Calendar`]
+    /// Creates a new builder-style object to construct a [`Calendar`].
+    ///
     /// This method returns an instance of [`CalendarBuilder`] which can be used to create a [`Calendar`].
     pub fn builder() -> CalendarBuilder {
         CalendarBuilder::default()

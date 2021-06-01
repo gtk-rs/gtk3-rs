@@ -10,6 +10,7 @@ use std::fmt;
 use std::mem;
 
 glib::wrapper! {
+    #[doc(alias = "GdkVisual")]
     pub struct Visual(Object<ffi::GdkVisual>);
 
     match fn {

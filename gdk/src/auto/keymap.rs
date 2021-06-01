@@ -15,6 +15,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GdkKeymap")]
     pub struct Keymap(Object<ffi::GdkKeymap>);
 
     match fn {

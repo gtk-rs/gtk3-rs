@@ -7,6 +7,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkMisc")]
     pub struct Misc(Object<ffi::AtkMisc, ffi::AtkMiscClass>);
 
     match fn {

@@ -7,6 +7,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkStreamableContent")]
     pub struct StreamableContent(Interface<ffi::AtkStreamableContent, ffi::AtkStreamableContentIface>);
 
     match fn {

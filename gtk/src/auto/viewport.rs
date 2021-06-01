@@ -24,6 +24,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkViewport")]
     pub struct Viewport(Object<ffi::GtkViewport, ffi::GtkViewportClass>) @extends Bin, Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
@@ -48,7 +49,8 @@ impl Viewport {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Viewport`]
+    /// Creates a new builder-style object to construct a [`Viewport`].
+    ///
     /// This method returns an instance of [`ViewportBuilder`] which can be used to create a [`Viewport`].
     pub fn builder() -> ViewportBuilder {
         ViewportBuilder::default()

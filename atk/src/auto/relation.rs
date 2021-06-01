@@ -15,6 +15,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "AtkRelation")]
     pub struct Relation(Object<ffi::AtkRelation, ffi::AtkRelationClass>);
 
     match fn {

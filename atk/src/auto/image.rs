@@ -9,6 +9,7 @@ use std::fmt;
 use std::mem;
 
 glib::wrapper! {
+    #[doc(alias = "AtkImage")]
     pub struct Image(Interface<ffi::AtkImage, ffi::AtkImageIface>);
 
     match fn {

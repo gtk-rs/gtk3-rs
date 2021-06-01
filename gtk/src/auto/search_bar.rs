@@ -21,6 +21,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSearchBar")]
     pub struct SearchBar(Object<ffi::GtkSearchBar, ffi::GtkSearchBarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -36,7 +37,8 @@ impl SearchBar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`SearchBar`]
+    /// Creates a new builder-style object to construct a [`SearchBar`].
+    ///
     /// This method returns an instance of [`SearchBarBuilder`] which can be used to create a [`SearchBar`].
     pub fn builder() -> SearchBarBuilder {
         SearchBarBuilder::default()

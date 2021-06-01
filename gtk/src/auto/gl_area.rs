@@ -19,6 +19,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkGLArea")]
     pub struct GLArea(Object<ffi::GtkGLArea, ffi::GtkGLAreaClass>) @extends Widget, @implements Buildable;
 
     match fn {
@@ -34,7 +35,8 @@ impl GLArea {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`GLArea`]
+    /// Creates a new builder-style object to construct a [`GLArea`].
+    ///
     /// This method returns an instance of [`GLAreaBuilder`] which can be used to create a [`GLArea`].
     pub fn builder() -> GLAreaBuilder {
         GLAreaBuilder::default()

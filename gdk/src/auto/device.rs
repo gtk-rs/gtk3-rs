@@ -38,6 +38,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "GdkDevice")]
     pub struct Device(Object<ffi::GdkDevice>);
 
     match fn {

@@ -10,6 +10,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkPlug")]
     pub struct Plug(Object<ffi::AtkPlug, ffi::AtkPlugClass>) @extends Object, @implements Component;
 
     match fn {

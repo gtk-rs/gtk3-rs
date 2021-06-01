@@ -27,6 +27,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkPlacesSidebar")]
     pub struct PlacesSidebar(Object<ffi::GtkPlacesSidebar, ffi::GtkPlacesSidebarClass>) @extends ScrolledWindow, Bin, Container, Widget, @implements Buildable;
 
     match fn {
@@ -42,7 +43,8 @@ impl PlacesSidebar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`PlacesSidebar`]
+    /// Creates a new builder-style object to construct a [`PlacesSidebar`].
+    ///
     /// This method returns an instance of [`PlacesSidebarBuilder`] which can be used to create a [`PlacesSidebar`].
     pub fn builder() -> PlacesSidebarBuilder {
         PlacesSidebarBuilder::default()

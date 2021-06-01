@@ -19,6 +19,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkScrollbar")]
     pub struct Scrollbar(Object<ffi::GtkScrollbar, ffi::GtkScrollbarClass>) @extends Range, Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -40,7 +41,8 @@ impl Scrollbar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Scrollbar`]
+    /// Creates a new builder-style object to construct a [`Scrollbar`].
+    ///
     /// This method returns an instance of [`ScrollbarBuilder`] which can be used to create a [`Scrollbar`].
     pub fn builder() -> ScrollbarBuilder {
         ScrollbarBuilder::default()

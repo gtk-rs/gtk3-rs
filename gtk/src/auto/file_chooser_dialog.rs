@@ -23,6 +23,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkFileChooserDialog")]
     pub struct FileChooserDialog(Object<ffi::GtkFileChooserDialog, ffi::GtkFileChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FileChooser;
 
     match fn {
@@ -37,7 +38,8 @@ impl FileChooserDialog {
     //}
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`FileChooserDialog`]
+    /// Creates a new builder-style object to construct a [`FileChooserDialog`].
+    ///
     /// This method returns an instance of [`FileChooserDialogBuilder`] which can be used to create a [`FileChooserDialog`].
     pub fn builder() -> FileChooserDialogBuilder {
         FileChooserDialogBuilder::default()

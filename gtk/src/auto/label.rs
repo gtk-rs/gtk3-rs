@@ -24,6 +24,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkLabel")]
     pub struct Label(Object<ffi::GtkLabel, ffi::GtkLabelClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {
@@ -49,7 +50,8 @@ impl Label {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Label`]
+    /// Creates a new builder-style object to construct a [`Label`].
+    ///
     /// This method returns an instance of [`LabelBuilder`] which can be used to create a [`Label`].
     pub fn builder() -> LabelBuilder {
         LabelBuilder::default()

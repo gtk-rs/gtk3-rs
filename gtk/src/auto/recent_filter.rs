@@ -8,6 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRecentFilter")]
     pub struct RecentFilter(Object<ffi::GtkRecentFilter>) @implements Buildable;
 
     match fn {

@@ -27,6 +27,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkAppChooserDialog")]
     pub struct AppChooserDialog(Object<ffi::GtkAppChooserDialog, ffi::GtkAppChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, AppChooser;
 
     match fn {
@@ -71,7 +72,8 @@ impl AppChooserDialog {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`AppChooserDialog`]
+    /// Creates a new builder-style object to construct a [`AppChooserDialog`].
+    ///
     /// This method returns an instance of [`AppChooserDialogBuilder`] which can be used to create a [`AppChooserDialog`].
     pub fn builder() -> AppChooserDialogBuilder {
         AppChooserDialogBuilder::default()

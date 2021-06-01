@@ -15,6 +15,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "AtkValue")]
     pub struct Value(Interface<ffi::AtkValue, ffi::AtkValueIface>);
 
     match fn {

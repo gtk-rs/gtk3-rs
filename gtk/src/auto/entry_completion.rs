@@ -19,6 +19,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkEntryCompletion")]
     pub struct EntryCompletion(Object<ffi::GtkEntryCompletion, ffi::GtkEntryCompletionClass>) @implements Buildable, CellLayout;
 
     match fn {
@@ -45,7 +46,8 @@ impl EntryCompletion {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`EntryCompletion`]
+    /// Creates a new builder-style object to construct a [`EntryCompletion`].
+    ///
     /// This method returns an instance of [`EntryCompletionBuilder`] which can be used to create a [`EntryCompletion`].
     pub fn builder() -> EntryCompletionBuilder {
         EntryCompletionBuilder::default()

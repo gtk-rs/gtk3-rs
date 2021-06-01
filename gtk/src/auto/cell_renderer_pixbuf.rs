@@ -16,6 +16,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkCellRendererPixbuf")]
     pub struct CellRendererPixbuf(Object<ffi::GtkCellRendererPixbuf, ffi::GtkCellRendererPixbufClass>) @extends CellRenderer;
 
     match fn {
@@ -31,7 +32,8 @@ impl CellRendererPixbuf {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`CellRendererPixbuf`]
+    /// Creates a new builder-style object to construct a [`CellRendererPixbuf`].
+    ///
     /// This method returns an instance of [`CellRendererPixbufBuilder`] which can be used to create a [`CellRendererPixbuf`].
     pub fn builder() -> CellRendererPixbufBuilder {
         CellRendererPixbufBuilder::default()

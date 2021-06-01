@@ -12,6 +12,7 @@ use std::mem;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "GtkClipboard")]
     pub struct Clipboard(Object<ffi::GtkClipboard>);
 
     match fn {

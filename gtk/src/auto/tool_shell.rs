@@ -14,6 +14,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkToolShell")]
     pub struct ToolShell(Interface<ffi::GtkToolShell, ffi::GtkToolShellIface>) @requires Widget, Buildable;
 
     match fn {

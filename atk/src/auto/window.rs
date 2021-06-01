@@ -13,6 +13,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "AtkWindow")]
     pub struct Window(Interface<ffi::AtkWindow, ffi::AtkWindowIface>) @requires Object;
 
     match fn {

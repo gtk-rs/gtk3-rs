@@ -23,6 +23,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkLayout")]
     pub struct Layout(Object<ffi::GtkLayout, ffi::GtkLayoutClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
@@ -47,7 +48,8 @@ impl Layout {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Layout`]
+    /// Creates a new builder-style object to construct a [`Layout`].
+    ///
     /// This method returns an instance of [`LayoutBuilder`] which can be used to create a [`Layout`].
     pub fn builder() -> LayoutBuilder {
         LayoutBuilder::default()

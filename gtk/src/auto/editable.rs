@@ -8,6 +8,7 @@ use std::fmt;
 use std::mem;
 
 glib::wrapper! {
+    #[doc(alias = "GtkEditable")]
     pub struct Editable(Interface<ffi::GtkEditable, ffi::GtkEditableInterface>);
 
     match fn {

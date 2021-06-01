@@ -15,6 +15,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "AtkHyperlink")]
     pub struct Hyperlink(Object<ffi::AtkHyperlink, ffi::AtkHyperlinkClass>) @implements Action;
 
     match fn {

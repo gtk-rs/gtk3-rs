@@ -15,6 +15,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkFontChooser")]
     pub struct FontChooser(Interface<ffi::GtkFontChooser, ffi::GtkFontChooserIface>);
 
     match fn {

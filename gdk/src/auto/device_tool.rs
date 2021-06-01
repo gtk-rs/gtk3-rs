@@ -10,6 +10,7 @@ use glib::StaticType;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GdkDeviceTool")]
     pub struct DeviceTool(Object<ffi::GdkDeviceTool>);
 
     match fn {

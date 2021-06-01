@@ -8,6 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkHyperlinkImpl")]
     pub struct HyperlinkImpl(Interface<ffi::AtkHyperlinkImpl, ffi::AtkHyperlinkImplIface>);
 
     match fn {

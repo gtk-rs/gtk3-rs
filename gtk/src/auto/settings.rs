@@ -15,6 +15,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSettings")]
     pub struct Settings(Object<ffi::GtkSettings, ffi::GtkSettingsClass>) @implements StyleProvider;
 
     match fn {

@@ -17,6 +17,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRecentManager")]
     pub struct RecentManager(Object<ffi::GtkRecentManager, ffi::GtkRecentManagerClass>);
 
     match fn {
@@ -32,7 +33,8 @@ impl RecentManager {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RecentManager`]
+    /// Creates a new builder-style object to construct a [`RecentManager`].
+    ///
     /// This method returns an instance of [`RecentManagerBuilder`] which can be used to create a [`RecentManager`].
     pub fn builder() -> RecentManagerBuilder {
         RecentManagerBuilder::default()

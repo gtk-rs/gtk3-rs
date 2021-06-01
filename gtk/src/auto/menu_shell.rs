@@ -19,6 +19,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkMenuShell")]
     pub struct MenuShell(Object<ffi::GtkMenuShell, ffi::GtkMenuShellClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {

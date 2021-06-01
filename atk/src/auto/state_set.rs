@@ -8,6 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkStateSet")]
     pub struct StateSet(Object<ffi::AtkStateSet, ffi::AtkStateSetClass>);
 
     match fn {

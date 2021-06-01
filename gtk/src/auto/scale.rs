@@ -25,6 +25,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkScale")]
     pub struct Scale(Object<ffi::GtkScale, ffi::GtkScaleClass>) @extends Range, Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -61,7 +62,8 @@ impl Scale {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Scale`]
+    /// Creates a new builder-style object to construct a [`Scale`].
+    ///
     /// This method returns an instance of [`ScaleBuilder`] which can be used to create a [`Scale`].
     pub fn builder() -> ScaleBuilder {
         ScaleBuilder::default()

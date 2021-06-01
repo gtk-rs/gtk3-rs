@@ -5,6 +5,7 @@
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GdkX11DeviceManagerCore")]
     pub struct X11DeviceManagerCore(Object<ffi::GdkX11DeviceManagerCore, ffi::GdkX11DeviceManagerCoreClass>) @extends gdk::DeviceManager;
 
     match fn {

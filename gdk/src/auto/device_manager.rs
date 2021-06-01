@@ -14,6 +14,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GdkDeviceManager")]
     pub struct DeviceManager(Object<ffi::GdkDeviceManager>);
 
     match fn {

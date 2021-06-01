@@ -21,6 +21,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkRadioToolButton")]
     pub struct RadioToolButton(Object<ffi::GtkRadioToolButton, ffi::GtkRadioToolButtonClass>) @extends ToggleToolButton, ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
@@ -42,7 +43,8 @@ impl RadioToolButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RadioToolButton`]
+    /// Creates a new builder-style object to construct a [`RadioToolButton`].
+    ///
     /// This method returns an instance of [`RadioToolButtonBuilder`] which can be used to create a [`RadioToolButton`].
     pub fn builder() -> RadioToolButtonBuilder {
         RadioToolButtonBuilder::default()

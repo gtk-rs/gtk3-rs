@@ -20,6 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSocket")]
     pub struct Socket(Object<ffi::GtkSocket, ffi::GtkSocketClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
@@ -35,7 +36,8 @@ impl Socket {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Socket`]
+    /// Creates a new builder-style object to construct a [`Socket`].
+    ///
     /// This method returns an instance of [`SocketBuilder`] which can be used to create a [`Socket`].
     pub fn builder() -> SocketBuilder {
         SocketBuilder::default()

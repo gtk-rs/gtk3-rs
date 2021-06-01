@@ -22,6 +22,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkAccelLabel")]
     pub struct AccelLabel(Object<ffi::GtkAccelLabel, ffi::GtkAccelLabelClass>) @extends Label, Misc, Widget, @implements Buildable;
 
     match fn {
@@ -39,7 +40,8 @@ impl AccelLabel {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`AccelLabel`]
+    /// Creates a new builder-style object to construct a [`AccelLabel`].
+    ///
     /// This method returns an instance of [`AccelLabelBuilder`] which can be used to create a [`AccelLabel`].
     pub fn builder() -> AccelLabelBuilder {
         AccelLabelBuilder::default()

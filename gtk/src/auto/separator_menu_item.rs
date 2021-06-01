@@ -19,6 +19,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSeparatorMenuItem")]
     pub struct SeparatorMenuItem(Object<ffi::GtkSeparatorMenuItem, ffi::GtkSeparatorMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
@@ -34,7 +35,8 @@ impl SeparatorMenuItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`SeparatorMenuItem`]
+    /// Creates a new builder-style object to construct a [`SeparatorMenuItem`].
+    ///
     /// This method returns an instance of [`SeparatorMenuItemBuilder`] which can be used to create a [`SeparatorMenuItem`].
     pub fn builder() -> SeparatorMenuItemBuilder {
         SeparatorMenuItemBuilder::default()

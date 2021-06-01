@@ -20,6 +20,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "AtkComponent")]
     pub struct Component(Interface<ffi::AtkComponent, ffi::AtkComponentIface>);
 
     match fn {

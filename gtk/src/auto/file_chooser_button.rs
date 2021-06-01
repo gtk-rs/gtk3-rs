@@ -27,6 +27,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkFileChooserButton")]
     pub struct FileChooserButton(Object<ffi::GtkFileChooserButton, ffi::GtkFileChooserButtonClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, FileChooser;
 
     match fn {
@@ -60,7 +61,8 @@ impl FileChooserButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`FileChooserButton`]
+    /// Creates a new builder-style object to construct a [`FileChooserButton`].
+    ///
     /// This method returns an instance of [`FileChooserButtonBuilder`] which can be used to create a [`FileChooserButton`].
     pub fn builder() -> FileChooserButtonBuilder {
         FileChooserButtonBuilder::default()

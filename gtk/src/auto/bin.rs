@@ -10,6 +10,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkBin")]
     pub struct Bin(Object<ffi::GtkBin, ffi::GtkBinClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {

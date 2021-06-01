@@ -20,6 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkCellAreaBox")]
     pub struct CellAreaBox(Object<ffi::GtkCellAreaBox, ffi::GtkCellAreaBoxClass>) @extends CellArea, @implements Buildable, CellLayout, Orientable;
 
     match fn {
@@ -35,7 +36,8 @@ impl CellAreaBox {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`CellAreaBox`]
+    /// Creates a new builder-style object to construct a [`CellAreaBox`].
+    ///
     /// This method returns an instance of [`CellAreaBoxBuilder`] which can be used to create a [`CellAreaBox`].
     pub fn builder() -> CellAreaBoxBuilder {
         CellAreaBoxBuilder::default()

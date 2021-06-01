@@ -24,6 +24,7 @@ use std::mem;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkBox")]
     pub struct Box(Object<ffi::GtkBox, ffi::GtkBoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -41,7 +42,8 @@ impl Box {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Box`]
+    /// Creates a new builder-style object to construct a [`Box`].
+    ///
     /// This method returns an instance of [`BoxBuilder`] which can be used to create a [`Box`].
     pub fn builder() -> BoxBuilder {
         BoxBuilder::default()

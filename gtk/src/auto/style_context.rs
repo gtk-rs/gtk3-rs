@@ -24,6 +24,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkStyleContext")]
     pub struct StyleContext(Object<ffi::GtkStyleContext, ffi::GtkStyleContextClass>);
 
     match fn {
@@ -39,7 +40,8 @@ impl StyleContext {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`StyleContext`]
+    /// Creates a new builder-style object to construct a [`StyleContext`].
+    ///
     /// This method returns an instance of [`StyleContextBuilder`] which can be used to create a [`StyleContext`].
     pub fn builder() -> StyleContextBuilder {
         StyleContextBuilder::default()

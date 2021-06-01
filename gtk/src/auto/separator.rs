@@ -16,6 +16,7 @@ use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "GtkSeparator")]
     pub struct Separator(Object<ffi::GtkSeparator, ffi::GtkSeparatorClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
@@ -33,7 +34,8 @@ impl Separator {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Separator`]
+    /// Creates a new builder-style object to construct a [`Separator`].
+    ///
     /// This method returns an instance of [`SeparatorBuilder`] which can be used to create a [`Separator`].
     pub fn builder() -> SeparatorBuilder {
         SeparatorBuilder::default()

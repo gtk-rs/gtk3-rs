@@ -28,6 +28,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkFontButton")]
     pub struct FontButton(Object<ffi::GtkFontButton, ffi::GtkFontButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, FontChooser;
 
     match fn {
@@ -55,7 +56,8 @@ impl FontButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`FontButton`]
+    /// Creates a new builder-style object to construct a [`FontButton`].
+    ///
     /// This method returns an instance of [`FontButtonBuilder`] which can be used to create a [`FontButton`].
     pub fn builder() -> FontButtonBuilder {
         FontButtonBuilder::default()

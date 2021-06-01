@@ -10,6 +10,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    #[doc(alias = "AtkRelationSet")]
     pub struct RelationSet(Object<ffi::AtkRelationSet, ffi::AtkRelationSetClass>);
 
     match fn {

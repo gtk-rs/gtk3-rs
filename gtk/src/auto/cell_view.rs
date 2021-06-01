@@ -25,6 +25,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    #[doc(alias = "GtkCellView")]
     pub struct CellView(Object<ffi::GtkCellView, ffi::GtkCellViewClass>) @extends Widget, @implements Buildable, CellLayout, Orientable;
 
     match fn {
@@ -86,7 +87,8 @@ impl CellView {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`CellView`]
+    /// Creates a new builder-style object to construct a [`CellView`].
+    ///
     /// This method returns an instance of [`CellViewBuilder`] which can be used to create a [`CellView`].
     pub fn builder() -> CellViewBuilder {
         CellViewBuilder::default()
