@@ -33,8 +33,6 @@ jobs:
         with:
           command: doc
           args: -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys -p gtk -p gtk3-macros -p gtk-sys --features dox --no-deps
-        env:
-          RUSTDOCFLAGS: "--enable-index-page -Zunstable-options"
       - run: echo "DEST=$(if [ "$GITHUB_EVENT_NAME" == "release" ]; then echo 'stable/${{ github.event.release.tag_name }}'; else echo 'git'; fi)" >> ${GITHUB_ENV}
       - run: echo ${{ env.DEST }}
       - name: deploy
