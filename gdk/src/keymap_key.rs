@@ -4,6 +4,7 @@ use glib::translate::*;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(C)]
+#[doc(alias = "GdkKeymapKey")]
 pub struct KeymapKey {
     pub keycode: u32,
     pub group: i32,

@@ -4,6 +4,7 @@ use glib::translate::*;
 use std::fmt;
 
 #[derive(Debug)]
+#[doc(alias = "AtkTextRectangle")]
 pub struct TextRectangle {
     pub x: i32,
     pub y: i32,

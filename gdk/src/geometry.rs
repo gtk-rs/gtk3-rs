@@ -5,6 +5,7 @@ use glib::translate::*;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[repr(C)]
+#[doc(alias = "GdkGeometry")]
 pub struct Geometry {
     pub min_width: i32,
     pub min_height: i32,

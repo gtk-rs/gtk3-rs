@@ -13,6 +13,7 @@ pub struct RgbaParseError;
 
 #[derive(Clone, Copy, Debug)]
 #[repr(C)]
+#[doc(alias = "GdkRGBA")]
 pub struct RGBA {
     pub red: f64,
     pub green: f64,
