@@ -5,6 +5,7 @@ use std::mem;
 
 #[derive(Clone)]
 #[repr(C)]
+#[doc(alias = "GdkTimeCoord")]
 pub struct TimeCoord {
     pub time: u32,
     pub axes: [f64; ffi::GDK_MAX_TIMECOORD_AXES as usize],

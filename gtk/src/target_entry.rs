@@ -7,6 +7,7 @@ use std::ffi::CStr;
 
 #[derive(Clone, Debug)]
 #[repr(C)]
+#[doc(alias = "GtkTargetEntry")]
 pub struct TargetEntry {
     target: String,
     flags: TargetFlags,

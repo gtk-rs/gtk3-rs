@@ -4,6 +4,7 @@ use glib::translate::*;
 use glib::GString;
 use std::fmt;
 
+#[doc(alias = "AtkAttribute")]
 pub struct Attribute {
     pub name: GString,
     pub value: GString,
