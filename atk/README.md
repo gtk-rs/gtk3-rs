@@ -32,6 +32,7 @@ Avoid mixing versioned and git crates like this:
 [dependencies]
 atk = "0.13"
 atk = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "atk" }
+```
 
 ### See Also
 
