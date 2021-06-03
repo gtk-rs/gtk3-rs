@@ -32,6 +32,7 @@ Avoid mixing versioned and git crates like this:
 [dependencies]
 gdk = "0.13"
 gdk = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdk" }
+```
 
 ### See Also
 

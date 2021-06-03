@@ -1,8 +1,6 @@
 # Examples
 
-Consists of various examples to get familiar with writing applications using the `gtk3-rs` bindings. Note there are other examples as part of [gtk-rs-core](https://github.com/gtk-rs/gtk-rs-core/tree/master/examples)
-
-
+Consists of various examples to get familiar with writing applications using the `gtk3-rs` bindings. Note there are other examples as part of [gtk-rs-core](https://github.com/gtk-rs/gtk-rs-core/tree/master/examples).
 
 - [Accessibility](./accessibility/)
 - [Basic Subclass](./basic_subclass/)
@@ -44,5 +42,6 @@ Consists of various examples to get familiar with writing applications using the
 - [Tree View Model Sort](./tree_view_model_sort/)
 - [Tree View Simple](./tree_view_simple/)
 
-## LICENSE
+## License
+
 The examples are licensed under the MIT license, please refer to the LICENSE and COPYRIGHT files for more information.
