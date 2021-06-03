@@ -2,7 +2,7 @@
 
 [Project site](http://gtk-rs.org/) | [Online documentation](https://gtk-rs.org/docs-src/)
 
-__Rust__ bindings and wrappers for __GTK 3__, part of [gtk-rs](https://github.com/gtk-rs/gtk3-rs).
+__Rust__ bindings and wrappers for __GTK 3__, part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
 
 ## Minimum supported Rust version
 
@@ -22,7 +22,7 @@ If you want to track the bleeding edge, use the git dependency instead:
 
 ```toml
 [dependencies]
-gtk = { git = "https://github.com/gtk-rs/gtk.git" }
+gtk = { git = "https://github.com/gtk-rs/gtk3-rs.git" }
 ```
 
 Avoid mixing versioned and git crates like this:
@@ -31,7 +31,7 @@ Avoid mixing versioned and git crates like this:
 # This will not compile
 [dependencies]
 gtk = "0.13"
-gtk = { git = "https://github.com/gtk-rs/gtk.git" }
+gtk = { git = "https://github.com/gtk-rs/gtk3-rs.git" }
 ```
 
 ## Documentation

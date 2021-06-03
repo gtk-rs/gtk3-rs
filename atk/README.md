@@ -1,7 +1,8 @@
 # atk 
+
 [Project site](https://gtk-rs.org/) | [Online documentation](https://gtk-rs.org/docs-src/)
 
-__Rust__ bindings and wrappers for __Atk__, part of [gtk-rs](https://github.com/gtk-rs/gtk3-rs).
+__Rust__ bindings and wrappers for __Atk__, part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
 
 ## Minimum supported Rust version
 

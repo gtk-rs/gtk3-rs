@@ -1,6 +1,6 @@
 # gdk 
 
-__Rust__ bindings and wrappers for __GDK__, part of [gtk-rs](https://github.com/gtk-rs/gtk3-rs).
+__Rust__ bindings and wrappers for __GDK__, part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
 
 ## Minimum supported Rust version
 
