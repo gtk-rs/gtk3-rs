@@ -4,6 +4,13 @@
 #![allow(clippy::missing_safety_doc)]
 #![allow(clippy::upper_case_acronyms)]
 
+//! # Rust GDK 3 bindings
+//!
+//! This library contains safe Rust bindings for [GDK 3](https://developer.gnome.org/gdk3/).
+//! It is a part of [Gtk-rs](https://gtk-rs.org/).
+//!
+//! GDK 3.18 is the lowest supported version for the underlying library.
+
 pub use cairo;
 pub use ffi;
 pub use gdk_pixbuf;
