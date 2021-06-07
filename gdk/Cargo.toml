@@ -2,7 +2,7 @@
 name = "gdk"
 license = "MIT"
 homepage = "https://gtk-rs.org/"
-authors = ["The Gtk-rs Project Developers"]
+authors = ["The gtk-rs Project Developers"]
 keywords = ["gdk", "gtk", "gtk-rs", "gnome", "GUI"]
 readme = "README.md"
 documentation = "https://gtk-rs.org/docs/gdk/"

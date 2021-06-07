@@ -6,7 +6,7 @@
 //! # Rust GTK 3 bindings
 //!
 //! This library contains safe Rust bindings for [GTK 3](http://www.gtk.org), a
-//! multi-platform GUI toolkit. It is a part of [Gtk-rs](http://gtk-rs.org/).
+//! multi-platform GUI toolkit. It is a part of [gtk-rs](http://gtk-rs.org/).
 //!
 //! GTK 3.18 is the lowest supported version for the underlying library.
 //!
@@ -16,7 +16,7 @@
 //!
 //! See also
 //!
-//! - [Gtk-rs documentation overview](https://gtk-rs.org/docs-src/)
+//! - [gtk-rs documentation overview](https://gtk-rs.org/docs-src/)
 //!
 //! - [General `GLib` family types and object system overview](mod@glib)
 //!

@@ -1,5 +1,5 @@
 [package]
-authors = ["The Gtk-rs Project Developers"]
+authors = ["The gtk-rs Project Developers"]
 description = "FFI binding for libgdkx11"
 homepage = "http://gtk-rs.org/"
 keywords = ["gdkx11", "ffi", "gtk-rs", "gnome"]

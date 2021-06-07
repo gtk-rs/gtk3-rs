@@ -7,7 +7,7 @@
 //! # Rust GDK 3 bindings
 //!
 //! This library contains safe Rust bindings for [GDK 3](https://developer.gnome.org/gdk3/).
-//! It is a part of [Gtk-rs](https://gtk-rs.org/).
+//! It is a part of [gtk-rs](https://gtk-rs.org/).
 //!
 //! GDK 3.18 is the lowest supported version for the underlying library.
 
