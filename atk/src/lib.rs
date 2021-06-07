@@ -3,7 +3,7 @@
 //! # Rust ATK bindings
 //!
 //! This library contains safe Rust bindings for [ATK](https://developer.gnome.org/atk).
-//! It is a part of [Gtk-rs](https://gtk-rs.org/).
+//! It is a part of [gtk-rs](https://gtk-rs.org/).
 //!
 //! ATK 2.18 is the lowest supported version for the underlying library.
 #![cfg_attr(feature = "dox", feature(doc_cfg))]

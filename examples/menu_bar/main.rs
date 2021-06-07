@@ -96,7 +96,7 @@ fn build_ui(application: &gtk::Application) {
         p.set_authors(&["gtk-rs developers"]);
         p.set_website_label(Some("gtk-rs"));
         p.set_website(Some("http://gtk-rs.org"));
-        p.set_authors(&["Gtk-rs developers"]);
+        p.set_authors(&["gtk-rs developers"]);
         p.set_title("About!");
         p.set_transient_for(Some(&window));
         p.show_all();

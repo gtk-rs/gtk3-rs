@@ -24,7 +24,7 @@ dox = []
 name = "atk_sys"
 
 [package]
-authors = ["The Gtk-rs Project Developers"]
+authors = ["The gtk-rs Project Developers"]
 build = "build.rs"
 description = "FFI bindings to libatk-1"
 homepage = "http://gtk-rs.org/"
