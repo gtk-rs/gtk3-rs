@@ -114,13 +114,10 @@ impl IconInfo {
     ) -> Pin<
         Box_<dyn std::future::Future<Output = Result<gdk_pixbuf::Pixbuf, glib::Error>> + 'static>,
     > {
-        Box_::pin(gio::GioFuture::new(self, move |obj, send| {
-            let cancellable = gio::Cancellable::new();
-            obj.load_icon_async(Some(&cancellable), move |res| {
+        Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
+            obj.load_icon_async(Some(cancellable), move |res| {
                 send.resolve(res);
             });
-
-            cancellable
         }))
     }
 
@@ -242,20 +239,17 @@ impl IconInfo {
         let success_color = success_color.map(ToOwned::to_owned);
         let warning_color = warning_color.map(ToOwned::to_owned);
         let error_color = error_color.map(ToOwned::to_owned);
-        Box_::pin(gio::GioFuture::new(self, move |obj, send| {
-            let cancellable = gio::Cancellable::new();
+        Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
             obj.load_symbolic_async(
                 &fg,
                 success_color.as_ref().map(::std::borrow::Borrow::borrow),
                 warning_color.as_ref().map(::std::borrow::Borrow::borrow),
                 error_color.as_ref().map(::std::borrow::Borrow::borrow),
-                Some(&cancellable),
+                Some(cancellable),
                 move |res| {
                     send.resolve(res);
                 },
             );
-
-            cancellable
         }))
     }
 
@@ -340,13 +334,10 @@ impl IconInfo {
         >,
     > {
         let context = context.clone();
-        Box_::pin(gio::GioFuture::new(self, move |obj, send| {
-            let cancellable = gio::Cancellable::new();
-            obj.load_symbolic_for_context_async(&context, Some(&cancellable), move |res| {
+        Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
+            obj.load_symbolic_for_context_async(&context, Some(cancellable), move |res| {
                 send.resolve(res);
             });
-
-            cancellable
         }))
     }
 }
