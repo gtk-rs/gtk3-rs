@@ -426,7 +426,7 @@
     <span class="doccomment">/// Input devices may also provide additional information besides X/Y.</span>
     <span class="doccomment">/// For example, graphics tablets may also provide pressure and X/Y tilt</span>
     <span class="doccomment">/// information. This information is device-dependent, and may be</span>
-    <span class="doccomment">/// queried through [`Device::axis()`][crate::Device::axis()]. In multidevice mode, virtual</span>
+    <span class="doccomment">/// queried through `gdk_device_get_axis()`. In multidevice mode, virtual</span>
     <span class="doccomment">/// devices will change axes in order to always represent the physical</span>
     <span class="doccomment">/// device that is routing events through it. Whenever the physical device</span>
     <span class="doccomment">/// changes, the `property::Device::n-axes` property will be notified, and</span>

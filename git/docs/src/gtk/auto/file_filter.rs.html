@@ -227,7 +227,7 @@
     <span class="doccomment">/// [`FileChooser`][crate::FileChooser]. Files can be filtered based on their name (with</span>
     <span class="doccomment">/// [`add_pattern()`][Self::add_pattern()]), on their mime type (with</span>
     <span class="doccomment">/// [`add_mime_type()`][Self::add_mime_type()]), or by a custom filter function</span>
-    <span class="doccomment">/// (with [`add_custom()`][Self::add_custom()]).</span>
+    <span class="doccomment">/// (with `gtk_file_filter_add_custom()`).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Filtering by mime types handles aliasing and subclassing of mime</span>
     <span class="doccomment">/// types; e.g. a filter for text/plain also matches a file with mime</span>
@@ -237,7 +237,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Normally, filters are used by adding them to a [`FileChooser`][crate::FileChooser],</span>
     <span class="doccomment">/// see [`FileChooserExt::add_filter()`][crate::prelude::FileChooserExt::add_filter()], but it is also possible</span>
-    <span class="doccomment">/// to manually use a filter on a file with [`filter()`][Self::filter()].</span>
+    <span class="doccomment">/// to manually use a filter on a file with `gtk_file_filter_filter()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # GtkFileFilter as GtkBuildable</span>
     <span class="doccomment">///</span>
@@ -279,7 +279,7 @@
     <span class="doccomment">/// Such a filter doesn’t accept any files, so is not</span>
     <span class="doccomment">/// particularly useful until you add rules with</span>
     <span class="doccomment">/// [`add_mime_type()`][Self::add_mime_type()], [`add_pattern()`][Self::add_pattern()],</span>
-    <span class="doccomment">/// or [`add_custom()`][Self::add_custom()]. To create a filter</span>
+    <span class="doccomment">/// or `gtk_file_filter_add_custom()`. To create a filter</span>
     <span class="doccomment">/// that accepts any file, use:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
@@ -370,7 +370,7 @@
     }
 
     <span class="doccomment">/// Gets the fields that need to be filled in for the `GtkFileFilterInfo`</span>
-    <span class="doccomment">/// passed to [`filter()`][Self::filter()]</span>
+    <span class="doccomment">/// passed to `gtk_file_filter_filter()`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function will not typically be used by applications; it</span>
     <span class="doccomment">/// is intended principally for use in the implementation of</span>
@@ -379,7 +379,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// bitfield of flags indicating needed fields when</span>
-    <span class="doccomment">///  calling [`filter()`][Self::filter()]</span>
+    <span class="doccomment">///  calling `gtk_file_filter_filter()`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_file_filter_get_needed&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_needed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">needed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileFilterFlags</span> {

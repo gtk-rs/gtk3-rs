@@ -2027,7 +2027,7 @@
     <span class="doccomment">/// [`Menu`][crate::Menu] as well.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Applications can display a [`Menu`][crate::Menu] as a popup menu by calling the</span>
-    <span class="doccomment">/// [`GtkMenuExt::popup()`][crate::prelude::GtkMenuExt::popup()] function. The example below shows how an application</span>
+    <span class="doccomment">/// `gtk_menu_popup()` function. The example below shows how an application</span>
     <span class="doccomment">/// can pop up a menu when the 3rd mouse button is pressed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ## Connecting the popup signal handler.</span>
@@ -2116,7 +2116,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The created menu items are connected to actions found in the</span>
     <span class="doccomment">/// [`ApplicationWindow`][crate::ApplicationWindow] to which the menu belongs - typically</span>
-    <span class="doccomment">/// by means of being attached to a widget (see [`GtkMenuExt::attach_to_widget()`][crate::prelude::GtkMenuExt::attach_to_widget()])</span>
+    <span class="doccomment">/// by means of being attached to a widget (see `gtk_menu_attach_to_widget()`)</span>
     <span class="doccomment">/// that is contained within the `GtkApplicationWindows` widget hierarchy.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Actions can also be added using [`WidgetExt::insert_action_group()`][crate::prelude::WidgetExt::insert_action_group()] on the menu&#39;s</span>
@@ -2435,7 +2435,7 @@
 
     <span class="doccomment">/// The widget the menu is attached to. Setting this property attaches</span>
     <span class="doccomment">/// the menu without a `GtkMenuDetachFunc`. If you need to use a detacher,</span>
-    <span class="doccomment">/// use [`GtkMenuExt::attach_to_widget()`][crate::prelude::GtkMenuExt::attach_to_widget()] directly.</span>
+    <span class="doccomment">/// use `gtk_menu_attach_to_widget()` directly.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">attach_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">attach_widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">attach_widget</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">attach_widget</span>.<span class="ident">clone</span>().<span class="ident">upcast</span>());
         <span class="self">self</span>
@@ -2794,7 +2794,7 @@
 
     <span class="doccomment">/// Detaches the menu from the widget to which it had been attached.</span>
     <span class="doccomment">/// This function will call the callback function, `detacher`, provided</span>
-    <span class="doccomment">/// when the [`attach_to_widget()`][Self::attach_to_widget()] function was called.</span>
+    <span class="doccomment">/// when the `gtk_menu_attach_to_widget()` function was called.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_detach&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">detach</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
@@ -3107,7 +3107,7 @@
 
     <span class="doccomment">/// The widget the menu is attached to. Setting this property attaches</span>
     <span class="doccomment">/// the menu without a `GtkMenuDetachFunc`. If you need to use a detacher,</span>
-    <span class="doccomment">/// use [`attach_to_widget()`][Self::attach_to_widget()] directly.</span>
+    <span class="doccomment">/// use `gtk_menu_attach_to_widget()` directly.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;attach-widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_attach_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attach_widget</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>);
 

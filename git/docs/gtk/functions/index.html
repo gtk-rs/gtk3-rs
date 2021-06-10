@@ -18,7 +18,7 @@ keycodes.</p>
 parseable by <a href="fn.accelerator_parse.html" title="crate::accelerator_parse()"><code>accelerator_parse()</code></a>. For example, if you pass in
 <code>GDK_KEY_q</code> and <a href="../../gdk/auto/flags/struct.ModifierType.html#associatedconstant.CONTROL_MASK" title="crate::gdk::ModifierType::CONTROL_MASK"><code>gdk::ModifierType::CONTROL_MASK</code></a>, this function returns “<code>&lt;Control&gt;</code>q”.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.accelerator_name_with_keycode.html" title="gtk::functions::accelerator_name_with_keycode fn">accelerator_name_with_keycode</a></td><td class="docblock-short"><p>Converts an accelerator keyval and modifier mask
-into a string parseable by [<code>accelerator_parse_with_keycode()</code>][crate::accelerator_parse_with_keycode()],
+into a string parseable by <code>gtk_accelerator_parse_with_keycode()</code>,
 similarly to <a href="fn.accelerator_name.html" title="crate::accelerator_name()"><code>accelerator_name()</code></a> but handling keycodes.
 This is only useful for system-level components, applications
 should use <a href="fn.accelerator_parse.html" title="crate::accelerator_parse()"><code>accelerator_parse()</code></a> instead.</p>
@@ -83,8 +83,8 @@ associated pointer or keyboard (if any) are delivered to <code>widget</code>.
 If the <code>block_others</code> parameter is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, any other devices will be
 unable to interact with <code>widget</code> during the grab.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.device_grab_remove.html" title="gtk::functions::device_grab_remove fn">device_grab_remove</a></td><td class="docblock-short"><p>Removes a device grab from the given widget.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.disable_setlocale.html" title="gtk::functions::disable_setlocale fn">disable_setlocale</a></td><td class="docblock-short"><p>Prevents <code>gtk_init()</code>, [<code>init_check()</code>][crate::init_check()], [<code>init_with_args()</code>][crate::init_with_args()] and
-[<code>parse_args()</code>][crate::parse_args()] from automatically
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.disable_setlocale.html" title="gtk::functions::disable_setlocale fn">disable_setlocale</a></td><td class="docblock-short"><p>Prevents <code>gtk_init()</code>, <code>gtk_init_check()</code>, <code>gtk_init_with_args()</code> and
+<code>gtk_parse_args()</code> from automatically
 calling <code>setlocale (LC_ALL, &quot;&quot;)</code>. You would
 want to use this function if you wanted to set the locale for
 your program to something other than the user’s locale, or if
@@ -197,7 +197,7 @@ The <code>label_pattern</code> may contain asterisks “*” and question marks 
 placeholders, <code>g_pattern_match()</code> is used for the matching.
 Note that locales other than “C“ tend to alter (translate” label strings,
 so this function is genrally only useful in test programs with
-predetermined locales, see [<code>test_init()</code>][crate::test_init()] for more details.</p>
+predetermined locales, see <code>gtk_test_init()</code> for more details.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.test_find_sibling.html" title="gtk::functions::test_find_sibling fn">test_find_sibling</a></td><td class="docblock-short"><p>This function will search siblings of <code>base_widget</code> and siblings of its
 ancestors for all widgets matching <code>widget_type</code>.
 Of the matching widgets, the one that is geometrically closest to

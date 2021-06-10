@@ -1250,7 +1250,7 @@
     <span class="doccomment">/// iter pointing to that model as arguments, other callbacks and signals</span>
     <span class="doccomment">/// (such as `GtkCellLayoutDataFuncs` or `signal::CellArea::apply-attributes`)</span>
     <span class="doccomment">/// will generally take the filter model as argument. As long as you are</span>
-    <span class="doccomment">/// only calling [`TreeModelExt::get()`][crate::prelude::TreeModelExt::get()], this will make no difference to</span>
+    <span class="doccomment">/// only calling `gtk_tree_model_get()`, this will make no difference to</span>
     <span class="doccomment">/// you. If for some reason, you need the original model, use</span>
     <span class="doccomment">/// [`TreeModelFilterExt::model()`][crate::prelude::TreeModelFilterExt::model()]. Don’t forget to use</span>
     <span class="doccomment">/// [`TreeModelFilterExt::convert_iter_to_child_iter()`][crate::prelude::TreeModelFilterExt::convert_iter_to_child_iter()] to obtain a</span>

@@ -1444,7 +1444,7 @@
 <span class="doccomment">/// [`StyleContext`][struct@crate::StyleContext]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StyleContextExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Adds a style class to `self`, so posterior calls to</span>
-    <span class="doccomment">/// [`get()`][Self::get()] or any of the gtk_render_*()</span>
+    <span class="doccomment">/// `gtk_style_context_get()` or any of the gtk_render_*()</span>
     <span class="doccomment">/// functions will make use of this new class for styling.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the CSS file format, a [`Entry`][crate::Entry] defining a “search”</span>
@@ -1556,7 +1556,7 @@
     <span class="kw">fn</span> <span class="ident">margin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="ident">StateFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Border</span>;
 
     <span class="doccomment">/// Gets the padding for a given state as a [`Border`][crate::Border].</span>
-    <span class="doccomment">/// See [`get()`][Self::get()] and [`STYLE_PROPERTY_PADDING`][crate::STYLE_PROPERTY_PADDING]</span>
+    <span class="doccomment">/// See `gtk_style_context_get()` and [`STYLE_PROPERTY_PADDING`][crate::STYLE_PROPERTY_PADDING]</span>
     <span class="doccomment">/// for details.</span>
     <span class="doccomment">/// ## `state`</span>
     <span class="doccomment">/// state to retrieve the padding for</span>

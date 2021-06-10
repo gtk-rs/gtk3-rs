@@ -25,7 +25,7 @@ references created with <a href="struct.TreeRowReference.html#method.new" title=
 does not listen to the model for changes. The creator of
 the row reference must do this explicitly using
 <a href="struct.TreeRowReference.html#method.inserted" title="Self::inserted()"><code>inserted()</code></a>, <a href="struct.TreeRowReference.html#method.deleted" title="Self::deleted()"><code>deleted()</code></a>,
-<a href="struct.TreeRowReference.html#method.reordered" title="Self::reordered()"><code>reordered()</code></a>.</p>
+<code>gtk_tree_row_reference_reordered()</code>.</p>
 <p>These functions must be called exactly once per proxy when the
 corresponding signal on the model is emitted. This single call
 updates all row references for that proxy. Since built-in GTK+

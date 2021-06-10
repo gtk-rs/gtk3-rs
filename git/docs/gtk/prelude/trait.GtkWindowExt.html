@@ -1017,7 +1017,7 @@ that is already visible, so you set the titlebar before calling
 window they were spawned from. This allows
 [window managers][gtk-X11-arch] to e.g. keep the
 dialog on top of the main window, or center the dialog over the
-main window. <a href="../struct.Dialog.html#method.with_buttons" title="crate::Dialog::with_buttons()"><code>Dialog::with_buttons()</code></a> and other convenience
+main window. <code>gtk_dialog_new_with_buttons()</code> and other convenience
 functions in GTK+ will sometimes call
 <a href="trait.GtkWindowExt.html#tymethod.set_transient_for" title="Self::set_transient_for()"><code>set_transient_for()</code></a> on your behalf.</p>
 <p>Passing <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> for <code>parent</code> unsets the current transient window.</p>
@@ -1034,7 +1034,7 @@ much as the window manager would have done on X.</p>
 manager to decorate and handle the window in a way which is
 suitable to the function of the window in your application.</p>
 <p>This function should be called before the window becomes visible.</p>
-<p><a href="../struct.Dialog.html#method.with_buttons" title="crate::Dialog::with_buttons()"><code>Dialog::with_buttons()</code></a> and other convenience functions in GTK+
+<p><code>gtk_dialog_new_with_buttons()</code> and other convenience functions in GTK+
 will sometimes call <a href="trait.GtkWindowExt.html#tymethod.set_type_hint" title="Self::set_type_hint()"><code>set_type_hint()</code></a> on your behalf.</p>
 <h2 id="hint" class="section-header"><a href="#hint"><code>hint</code></a></h2>
 <p>the window type</p>

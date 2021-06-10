@@ -2700,7 +2700,7 @@
     <span class="doccomment">/// it at `iter`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `formats` to be used must be registered using</span>
-    <span class="doccomment">/// [`register_deserialize_format()`][Self::register_deserialize_format()] or</span>
+    <span class="doccomment">/// `gtk_text_buffer_register_deserialize_format()` or</span>
     <span class="doccomment">/// [`register_deserialize_tagset()`][Self::register_deserialize_tagset()] beforehand.</span>
     <span class="doccomment">/// ## `content_buffer`</span>
     <span class="doccomment">/// the [`TextBuffer`][crate::TextBuffer] to deserialize into</span>
@@ -2804,7 +2804,7 @@
     <span class="kw">fn</span> <span class="ident">copy_target_list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TargetList</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// This function returns the rich text deserialize formats registered</span>
-    <span class="doccomment">/// with `self` using [`register_deserialize_format()`][Self::register_deserialize_format()] or</span>
+    <span class="doccomment">/// with `self` using `gtk_text_buffer_register_deserialize_format()` or</span>
     <span class="doccomment">/// [`register_deserialize_tagset()`][Self::register_deserialize_tagset()]</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
@@ -3489,7 +3489,7 @@
     <span class="kw">fn</span> <span class="ident">set_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
 
     <span class="doccomment">/// This function unregisters a rich text format that was previously</span>
-    <span class="doccomment">/// registered using [`register_deserialize_format()`][Self::register_deserialize_format()] or</span>
+    <span class="doccomment">/// registered using `gtk_text_buffer_register_deserialize_format()` or</span>
     <span class="doccomment">/// [`register_deserialize_tagset()`][Self::register_deserialize_tagset()].</span>
     <span class="doccomment">/// ## `format`</span>
     <span class="doccomment">/// a [`gdk::Atom`][crate::gdk::Atom] representing a registered rich text format.</span>

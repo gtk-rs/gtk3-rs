@@ -1171,7 +1171,7 @@
     <span class="doccomment">/// For each potential group of children that are lined up horizontally, the values returned by</span>
     <span class="doccomment">/// [`WidgetExt::preferred_width()`][crate::prelude::WidgetExt::preferred_width()] should be collected in an array of `GtkRequestedSize` structures.</span>
     <span class="doccomment">/// Any child spacing should be removed from the input `for_width` and then the collective size should be</span>
-    <span class="doccomment">/// allocated using the [`distribute_natural_allocation()`][crate::distribute_natural_allocation()] convenience function.</span>
+    <span class="doccomment">/// allocated using the `gtk_distribute_natural_allocation()` convenience function.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The container will then move on to request the preferred height for each child by using</span>
     <span class="doccomment">/// [`WidgetExt::preferred_height_for_width()`][crate::prelude::WidgetExt::preferred_height_for_width()] and using the sizes stored in the `GtkRequestedSize` array.</span>
@@ -1179,7 +1179,7 @@
     <span class="doccomment">/// To allocate a height-for-width container, it’s again important</span>
     <span class="doccomment">/// to consider that a container must prioritize one dimension over the other. So if</span>
     <span class="doccomment">/// a container is a height-for-width container it must first allocate all widgets horizontally</span>
-    <span class="doccomment">/// using a `GtkRequestedSize` array and [`distribute_natural_allocation()`][crate::distribute_natural_allocation()] and then add any</span>
+    <span class="doccomment">/// using a `GtkRequestedSize` array and `gtk_distribute_natural_allocation()` and then add any</span>
     <span class="doccomment">/// extra space (if and where appropriate) for the widget to expand.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// After adding all the expand space, the container assumes it was allocated sufficient</span>
@@ -1187,7 +1187,7 @@
     <span class="doccomment">/// of each widget to request the height-for-width of each of its children and store the requests in a</span>
     <span class="doccomment">/// `GtkRequestedSize` array for any widgets that stack vertically (for tabular containers this can</span>
     <span class="doccomment">/// be generalized into the heights and widths of rows and columns).</span>
-    <span class="doccomment">/// The vertical space must then again be distributed using [`distribute_natural_allocation()`][crate::distribute_natural_allocation()]</span>
+    <span class="doccomment">/// The vertical space must then again be distributed using `gtk_distribute_natural_allocation()`</span>
     <span class="doccomment">/// while this time considering the allocated height of the widget minus any vertical spacing</span>
     <span class="doccomment">/// that the container adds. Then vertical expand space should be added where appropriate and available</span>
     <span class="doccomment">/// and the container should go on to actually allocating the child widgets.</span>
@@ -1209,10 +1209,10 @@
     <span class="doccomment">/// child properties.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To set the value of a child property, use `gtk_container_child_set_property()`,</span>
-    <span class="doccomment">/// [`ContainerExt::child_set()`][crate::prelude::ContainerExt::child_set()] or [`ContainerExt::child_set_valist()`][crate::prelude::ContainerExt::child_set_valist()].</span>
+    <span class="doccomment">/// `gtk_container_child_set()` or `gtk_container_child_set_valist()`.</span>
     <span class="doccomment">/// To obtain the value of a child property, use</span>
-    <span class="doccomment">/// `gtk_container_child_get_property()`, [`ContainerExt::child_get()`][crate::prelude::ContainerExt::child_get()] or</span>
-    <span class="doccomment">/// [`ContainerExt::child_get_valist()`][crate::prelude::ContainerExt::child_get_valist()]. To emit notification about child property</span>
+    <span class="doccomment">/// `gtk_container_child_get_property()`, `gtk_container_child_get()` or</span>
+    <span class="doccomment">/// `gtk_container_child_get_valist()`. To emit notification about child property</span>
     <span class="doccomment">/// changes, use [`WidgetExt::child_notify()`][crate::prelude::WidgetExt::child_notify()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # GtkContainer as GtkBuildable</span>

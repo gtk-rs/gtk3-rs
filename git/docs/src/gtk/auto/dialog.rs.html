@@ -1321,7 +1321,7 @@
     <span class="doccomment">/// cancel, ok, or apply.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`Dialog`][crate::Dialog] boxes are created with a call to [`new()`][Self::new()] or</span>
-    <span class="doccomment">/// [`with_buttons()`][Self::with_buttons()]. [`with_buttons()`][Self::with_buttons()] is</span>
+    <span class="doccomment">/// `gtk_dialog_new_with_buttons()`. `gtk_dialog_new_with_buttons()` is</span>
     <span class="doccomment">/// recommended; it allows you to set the dialog title, some convenient</span>
     <span class="doccomment">/// flags, and add simple buttons.</span>
     <span class="doccomment">///</span>
@@ -1332,11 +1332,11 @@
     <span class="doccomment">/// A “modal” dialog (that is, one which freezes the rest of the application</span>
     <span class="doccomment">/// from user input), can be created by calling [`GtkWindowExt::set_modal()`][crate::prelude::GtkWindowExt::set_modal()] on the</span>
     <span class="doccomment">/// dialog. Use the GTK_WINDOW() macro to cast the widget returned from</span>
-    <span class="doccomment">/// [`new()`][Self::new()] into a [`Window`][crate::Window]. When using [`with_buttons()`][Self::with_buttons()]</span>
+    <span class="doccomment">/// [`new()`][Self::new()] into a [`Window`][crate::Window]. When using `gtk_dialog_new_with_buttons()`</span>
     <span class="doccomment">/// you can also pass the [`DialogFlags::MODAL`][crate::DialogFlags::MODAL] flag to make a dialog modal.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you add buttons to [`Dialog`][crate::Dialog] using [`with_buttons()`][Self::with_buttons()],</span>
-    <span class="doccomment">/// [`DialogExt::add_button()`][crate::prelude::DialogExt::add_button()], [`DialogExt::add_buttons()`][crate::prelude::DialogExt::add_buttons()], or</span>
+    <span class="doccomment">/// If you add buttons to [`Dialog`][crate::Dialog] using `gtk_dialog_new_with_buttons()`,</span>
+    <span class="doccomment">/// [`DialogExt::add_button()`][crate::prelude::DialogExt::add_button()], `gtk_dialog_add_buttons()`, or</span>
     <span class="doccomment">/// [`DialogExt::add_action_widget()`][crate::prelude::DialogExt::add_action_widget()], clicking the button will emit a signal</span>
     <span class="doccomment">/// called `signal::Dialog::response` with a response ID that you specified. GTK+</span>
     <span class="doccomment">/// will never assign a meaning to positive response IDs; these are entirely</span>

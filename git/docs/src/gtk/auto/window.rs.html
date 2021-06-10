@@ -6745,7 +6745,7 @@
     <span class="doccomment">/// window they were spawned from. This allows</span>
     <span class="doccomment">/// [window managers][gtk-X11-arch] to e.g. keep the</span>
     <span class="doccomment">/// dialog on top of the main window, or center the dialog over the</span>
-    <span class="doccomment">/// main window. [`Dialog::with_buttons()`][crate::Dialog::with_buttons()] and other convenience</span>
+    <span class="doccomment">/// main window. `gtk_dialog_new_with_buttons()` and other convenience</span>
     <span class="doccomment">/// functions in GTK+ will sometimes call</span>
     <span class="doccomment">/// [`set_transient_for()`][Self::set_transient_for()] on your behalf.</span>
     <span class="doccomment">///</span>
@@ -6770,7 +6770,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function should be called before the window becomes visible.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`Dialog::with_buttons()`][crate::Dialog::with_buttons()] and other convenience functions in GTK+</span>
+    <span class="doccomment">/// `gtk_dialog_new_with_buttons()` and other convenience functions in GTK+</span>
     <span class="doccomment">/// will sometimes call [`set_type_hint()`][Self::set_type_hint()] on your behalf.</span>
     <span class="doccomment">/// ## `hint`</span>
     <span class="doccomment">/// the window type</span>

@@ -244,7 +244,7 @@ uneditable text).</p>
 </div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.deserialize" class="method has-srclink"><code>fn <a href="#tymethod.deserialize" class="fnname">deserialize</a>&lt;P:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TextBuffer.html" title="struct gtk::TextBuffer">TextBuffer</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;content_buffer: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;format: &amp;<a class="struct" href="../../gdk/atom/struct.Atom.html" title="struct gdk::atom::Atom">Atom</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;iter: &amp;mut <a class="struct" href="../struct.TextIter.html" title="struct gtk::TextIter">TextIter</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;data: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_buffer.rs.html#365-371" title="goto source code">[src]</a></div></summary><div class="docblock"><p>This function deserializes rich text in format <code>format</code> and inserts
 it at <code>iter</code>.</p>
 <p><code>formats</code> to be used must be registered using
-[<code>register_deserialize_format()</code>][Self::register_deserialize_format()] or
+<code>gtk_text_buffer_register_deserialize_format()</code> or
 <a href="trait.TextBufferExt.html#tymethod.register_deserialize_tagset" title="Self::register_deserialize_tagset()"><code>register_deserialize_tagset()</code></a> beforehand.</p>
 <h2 id="content_buffer" class="section-header"><a href="#content_buffer"><code>content_buffer</code></a></h2>
 <p>the <a href="../struct.TextBuffer.html" title="crate::TextBuffer"><code>TextBuffer</code></a> to deserialize into</p>
@@ -303,7 +303,7 @@ using <a href="../struct.TargetList.html#method.add_rich_text_targets" title="cr
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
 <p>the <a href="../struct.TargetList.html" title="crate::TargetList"><code>TargetList</code></a></p>
 </div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.deserialize_formats" class="method has-srclink"><code>fn <a href="#tymethod.deserialize_formats" class="fnname">deserialize_formats</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../gdk/atom/struct.Atom.html" title="struct gdk::atom::Atom">Atom</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/text_buffer.rs.html#463" title="goto source code">[src]</a></div></summary><div class="docblock"><p>This function returns the rich text deserialize formats registered
-with <code>self</code> using [<code>register_deserialize_format()</code>][Self::register_deserialize_format()] or
+with <code>self</code> using <code>gtk_text_buffer_register_deserialize_format()</code> or
 <a href="trait.TextBufferExt.html#tymethod.register_deserialize_tagset" title="Self::register_deserialize_tagset()"><code>register_deserialize_tagset()</code></a></p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
 <p>an array of
@@ -716,7 +716,7 @@ bit flips, the buffer emits the <code>signal::TextBuffer::modified-changed</code
 <h2 id="len-5" class="section-header"><a href="#len-5"><code>len</code></a></h2>
 <p>length of <code>text</code> in bytes</p>
 </div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.unregister_deserialize_format" class="method has-srclink"><code>fn <a href="#tymethod.unregister_deserialize_format" class="fnname">unregister_deserialize_format</a>(&amp;self, format: &amp;<a class="struct" href="../../gdk/atom/struct.Atom.html" title="struct gdk::atom::Atom">Atom</a>)</code><a class="srclink" href="../../src/gtk/auto/text_buffer.rs.html#1144" title="goto source code">[src]</a></div></summary><div class="docblock"><p>This function unregisters a rich text format that was previously
-registered using [<code>register_deserialize_format()</code>][Self::register_deserialize_format()] or
+registered using <code>gtk_text_buffer_register_deserialize_format()</code> or
 <a href="trait.TextBufferExt.html#tymethod.register_deserialize_tagset" title="Self::register_deserialize_tagset()"><code>register_deserialize_tagset()</code></a>.</p>
 <h2 id="format-4" class="section-header"><a href="#format-4"><code>format</code></a></h2>
 <p>a <a href="../../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a> representing a registered rich text format.</p>

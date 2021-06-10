@@ -437,7 +437,7 @@ widget.</p>
 <a href="struct.FileChooser.html" title="crate::FileChooser"><code>FileChooser</code></a>. Files can be filtered based on their name (with
 <a href="struct.FileFilter.html#method.add_pattern" title="Self::add_pattern()"><code>add_pattern()</code></a>), on their mime type (with
 <a href="struct.FileFilter.html#method.add_mime_type" title="Self::add_mime_type()"><code>add_mime_type()</code></a>), or by a custom filter function
-(with [<code>add_custom()</code>][Self::add_custom()]).</p>
+(with <code>gtk_file_filter_add_custom()</code>).</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.FileFilterFlags.html" title="gtk::FileFilterFlags struct">FileFilterFlags</a></td><td class="docblock-short"><p>These flags indicate what parts of a <code>GtkFileFilterInfo</code> struct
 are filled or need to be filled.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.Fixed.html" title="gtk::Fixed struct">Fixed</a></td><td class="docblock-short"><p>The <a href="struct.Fixed.html" title="crate::Fixed"><code>Fixed</code></a> widget is a container which can place child widgets
@@ -805,7 +805,7 @@ in a <a href="struct.RecentChooser.html" title="crate::RecentChooser"><code>Rece
 (with <a href="struct.RecentFilter.html#method.add_pattern" title="Self::add_pattern()"><code>add_pattern()</code></a>), on their mime type (with
 <a href="struct.FileFilter.html#method.add_mime_type" title="crate::FileFilter::add_mime_type()"><code>FileFilter::add_mime_type()</code></a>), on the application that has
 registered them (with <a href="struct.RecentFilter.html#method.add_application" title="Self::add_application()"><code>add_application()</code></a>), or by
-a custom filter function (with [<code>add_custom()</code>][Self::add_custom()]).</p>
+a custom filter function (with <code>gtk_recent_filter_add_custom()</code>).</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.RecentFilterFlags.html" title="gtk::RecentFilterFlags struct">RecentFilterFlags</a></td><td class="docblock-short"><p>These flags indicate what parts of a <code>GtkRecentFilterInfo</code> struct
 are filled or need to be filled.</p>
 </td></tr><tr class="module-item"><td><a class="struct" href="struct.RecentInfo.html" title="gtk::RecentInfo struct">RecentInfo</a></td><td class="docblock-short"><p><a href="struct.RecentInfo.html" title="crate::RecentInfo"><code>RecentInfo</code></a>-struct contains private data only, and should
@@ -1116,7 +1116,7 @@ contains.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.ButtonRole.html" title="gtk::ButtonRole enum">ButtonRole</a></td><td class="docblock-short"><p>The role specifies the desired appearance of a <a href="struct.ModelButton.html" title="crate::ModelButton"><code>ModelButton</code></a>.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.ButtonsType.html" title="gtk::ButtonsType enum">ButtonsType</a></td><td class="docblock-short"><p>Prebuilt sets of buttons for the dialog. If
 none of these choices are appropriate, simply use <a href="enum.ButtonsType.html#variant.None" title="Self::None"><code>None</code></a>
-then call [<code>DialogExt::add_buttons()</code>][crate::prelude::DialogExt::add_buttons()].</p>
+then call <code>gtk_dialog_add_buttons()</code>.</p>
 </td></tr><tr class="module-item"><td><a class="enum" href="enum.CellRendererAccelMode.html" title="gtk::CellRendererAccelMode enum">CellRendererAccelMode</a></td><td class="docblock-short"><p>Determines if the edited accelerators are GTK+ accelerators. If
 they are, consumed modifiers are suppressed, only accelerators
 accepted by GTK+ are allowed, and the accelerators are rendered
@@ -1457,7 +1457,7 @@ keycodes.</p>
 parseable by <a href="functions/fn.accelerator_parse.html" title="crate::accelerator_parse()"><code>accelerator_parse()</code></a>. For example, if you pass in
 <code>GDK_KEY_q</code> and <a href="../gdk/auto/flags/struct.ModifierType.html#associatedconstant.CONTROL_MASK" title="crate::gdk::ModifierType::CONTROL_MASK"><code>gdk::ModifierType::CONTROL_MASK</code></a>, this function returns “<code>&lt;Control&gt;</code>q”.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.accelerator_name_with_keycode.html" title="gtk::accelerator_name_with_keycode fn">accelerator_name_with_keycode</a></td><td class="docblock-short"><p>Converts an accelerator keyval and modifier mask
-into a string parseable by [<code>accelerator_parse_with_keycode()</code>][crate::accelerator_parse_with_keycode()],
+into a string parseable by <code>gtk_accelerator_parse_with_keycode()</code>,
 similarly to <a href="functions/fn.accelerator_name.html" title="crate::accelerator_name()"><code>accelerator_name()</code></a> but handling keycodes.
 This is only useful for system-level components, applications
 should use <a href="functions/fn.accelerator_parse.html" title="crate::accelerator_parse()"><code>accelerator_parse()</code></a> instead.</p>
@@ -1522,8 +1522,8 @@ associated pointer or keyboard (if any) are delivered to <code>widget</code>.
 If the <code>block_others</code> parameter is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, any other devices will be
 unable to interact with <code>widget</code> during the grab.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.device_grab_remove.html" title="gtk::device_grab_remove fn">device_grab_remove</a></td><td class="docblock-short"><p>Removes a device grab from the given widget.</p>
-</td></tr><tr class="module-item"><td><a class="fn" href="fn.disable_setlocale.html" title="gtk::disable_setlocale fn">disable_setlocale</a></td><td class="docblock-short"><p>Prevents <code>gtk_init()</code>, [<code>init_check()</code>][crate::init_check()], [<code>init_with_args()</code>][crate::init_with_args()] and
-[<code>parse_args()</code>][crate::parse_args()] from automatically
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.disable_setlocale.html" title="gtk::disable_setlocale fn">disable_setlocale</a></td><td class="docblock-short"><p>Prevents <code>gtk_init()</code>, <code>gtk_init_check()</code>, <code>gtk_init_with_args()</code> and
+<code>gtk_parse_args()</code> from automatically
 calling <code>setlocale (LC_ALL, &quot;&quot;)</code>. You would
 want to use this function if you wanted to set the locale for
 your program to something other than the user’s locale, or if
@@ -1640,7 +1640,7 @@ The <code>label_pattern</code> may contain asterisks “*” and question marks 
 placeholders, <code>g_pattern_match()</code> is used for the matching.
 Note that locales other than “C“ tend to alter (translate” label strings,
 so this function is genrally only useful in test programs with
-predetermined locales, see [<code>test_init()</code>][crate::test_init()] for more details.</p>
+predetermined locales, see <code>gtk_test_init()</code> for more details.</p>
 </td></tr><tr class="module-item"><td><a class="fn" href="fn.test_find_sibling.html" title="gtk::test_find_sibling fn">test_find_sibling</a></td><td class="docblock-short"><p>This function will search siblings of <code>base_widget</code> and siblings of its
 ancestors for all widgets matching <code>widget_type</code>.
 Of the matching widgets, the one that is geometrically closest to

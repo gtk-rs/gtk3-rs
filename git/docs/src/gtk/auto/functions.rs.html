@@ -2770,7 +2770,7 @@
 }
 
 <span class="doccomment">/// Converts an accelerator keyval and modifier mask</span>
-<span class="doccomment">/// into a string parseable by [`accelerator_parse_with_keycode()`][crate::accelerator_parse_with_keycode()],</span>
+<span class="doccomment">/// into a string parseable by `gtk_accelerator_parse_with_keycode()`,</span>
 <span class="doccomment">/// similarly to [`accelerator_name()`][crate::accelerator_name()] but handling keycodes.</span>
 <span class="doccomment">/// This is only useful for system-level components, applications</span>
 <span class="doccomment">/// should use [`accelerator_parse()`][crate::accelerator_parse()] instead.</span>
@@ -3093,8 +3093,8 @@
     }
 }
 
-<span class="doccomment">/// Prevents `gtk_init()`, [`init_check()`][crate::init_check()], [`init_with_args()`][crate::init_with_args()] and</span>
-<span class="doccomment">/// [`parse_args()`][crate::parse_args()] from automatically</span>
+<span class="doccomment">/// Prevents `gtk_init()`, `gtk_init_check()`, `gtk_init_with_args()` and</span>
+<span class="doccomment">/// `gtk_parse_args()` from automatically</span>
 <span class="doccomment">/// calling `setlocale (LC_ALL, &quot;&quot;)`. You would</span>
 <span class="doccomment">/// want to use this function if you wanted to set the locale for</span>
 <span class="doccomment">/// your program to something other than the user’s locale, or if</span>
@@ -4800,7 +4800,7 @@
 <span class="doccomment">/// placeholders, `g_pattern_match()` is used for the matching.</span>
 <span class="doccomment">/// Note that locales other than &quot;C“ tend to alter (translate” label strings,</span>
 <span class="doccomment">/// so this function is genrally only useful in test programs with</span>
-<span class="doccomment">/// predetermined locales, see [`test_init()`][crate::test_init()] for more details.</span>
+<span class="doccomment">/// predetermined locales, see `gtk_test_init()` for more details.</span>
 <span class="doccomment">/// ## `widget`</span>
 <span class="doccomment">/// Valid label or container widget.</span>
 <span class="doccomment">/// ## `label_pattern`</span>

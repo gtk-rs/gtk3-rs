@@ -2236,7 +2236,7 @@
     <span class="doccomment">/// give every row its minimum or natural height or, if the model content</span>
     <span class="doccomment">/// is expected to fit inside the layouting widget without scrolling, it</span>
     <span class="doccomment">/// would make sense to calculate the allocation for each row at</span>
-    <span class="doccomment">/// `signal::Widget::size-allocate` time using [`distribute_natural_allocation()`][crate::distribute_natural_allocation()].</span>
+    <span class="doccomment">/// `signal::Widget::size-allocate` time using `gtk_distribute_natural_allocation()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Handling Events and Driving Keyboard Focus</span>
     <span class="doccomment">///</span>
@@ -2348,9 +2348,9 @@
     <span class="doccomment">/// existing cell properties.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To set the value of a cell property, use [`CellAreaExt::cell_set_property()`][crate::prelude::CellAreaExt::cell_set_property()],</span>
-    <span class="doccomment">/// [`CellAreaExt::cell_set()`][crate::prelude::CellAreaExt::cell_set()] or [`CellAreaExt::cell_set_valist()`][crate::prelude::CellAreaExt::cell_set_valist()]. To obtain</span>
+    <span class="doccomment">/// `gtk_cell_area_cell_set()` or `gtk_cell_area_cell_set_valist()`. To obtain</span>
     <span class="doccomment">/// the value of a cell property, use [`CellAreaExt::cell_get_property()`][crate::prelude::CellAreaExt::cell_get_property()],</span>
-    <span class="doccomment">/// [`CellAreaExt::cell_get()`][crate::prelude::CellAreaExt::cell_get()] or [`CellAreaExt::cell_get_valist()`][crate::prelude::CellAreaExt::cell_get_valist()].</span>
+    <span class="doccomment">/// `gtk_cell_area_cell_get()` or `gtk_cell_area_cell_get_valist()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
     <span class="doccomment">///</span>

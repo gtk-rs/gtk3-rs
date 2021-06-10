@@ -569,10 +569,10 @@
     <span class="doccomment">/// # Atomic Operations</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is important to note that only the methods</span>
-    <span class="doccomment">/// [`GtkListStoreExt::insert_with_values()`][crate::prelude::GtkListStoreExt::insert_with_values()] and [`GtkListStoreExt::insert_with_valuesv()`][crate::prelude::GtkListStoreExt::insert_with_valuesv()]</span>
+    <span class="doccomment">/// `gtk_list_store_insert_with_values()` and `gtk_list_store_insert_with_valuesv()`</span>
     <span class="doccomment">/// are atomic, in the sense that the row is being appended to the store and the</span>
     <span class="doccomment">/// values filled in in a single operation with regard to [`TreeModel`][crate::TreeModel] signaling.</span>
-    <span class="doccomment">/// In contrast, using e.g. [`GtkListStoreExt::append()`][crate::prelude::GtkListStoreExt::append()] and then [`GtkListStoreExt::set()`][crate::prelude::GtkListStoreExt::set()]</span>
+    <span class="doccomment">/// In contrast, using e.g. [`GtkListStoreExt::append()`][crate::prelude::GtkListStoreExt::append()] and then `gtk_list_store_set()`</span>
     <span class="doccomment">/// will first create a row, which triggers the `signal::TreeModel::row-inserted` signal</span>
     <span class="doccomment">/// on [`ListStore`][crate::ListStore]. The row, however, is still empty, and any signal handler</span>
     <span class="doccomment">/// connecting to `signal::TreeModel::row-inserted` on this particular store should be prepared</span>
@@ -657,7 +657,7 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">GtkListStoreExt</span>: <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// Appends a new row to `self`. `iter` will be changed to point to this new</span>
     <span class="doccomment">/// row. The row will be empty after this function is called. To fill in</span>
-    <span class="doccomment">/// values, you need to call [`set()`][Self::set()] or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
+    <span class="doccomment">/// values, you need to call `gtk_list_store_set()` or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
@@ -675,7 +675,7 @@
     <span class="doccomment">/// row. If `position` is -1 or is larger than the number of rows on the list,</span>
     <span class="doccomment">/// then the new row will be appended to the list. The row will be empty after</span>
     <span class="doccomment">/// this function is called. To fill in values, you need to call</span>
-    <span class="doccomment">/// [`set()`][Self::set()] or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
+    <span class="doccomment">/// `gtk_list_store_set()` or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
     <span class="doccomment">/// ## `position`</span>
     <span class="doccomment">/// position to insert the new row, or -1 for last</span>
     <span class="doccomment">///</span>
@@ -690,7 +690,7 @@
     <span class="doccomment">/// Inserts a new row after `sibling`. If `sibling` is [`None`], then the row will be</span>
     <span class="doccomment">/// prepended to the beginning of the list. `iter` will be changed to point to</span>
     <span class="doccomment">/// this new row. The row will be empty after this function is called. To fill</span>
-    <span class="doccomment">/// in values, you need to call [`set()`][Self::set()] or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
+    <span class="doccomment">/// in values, you need to call `gtk_list_store_set()` or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
     <span class="doccomment">/// ## `sibling`</span>
     <span class="doccomment">/// A valid [`TreeIter`][crate::TreeIter], or [`None`]</span>
     <span class="doccomment">///</span>
@@ -705,7 +705,7 @@
     <span class="doccomment">/// Inserts a new row before `sibling`. If `sibling` is [`None`], then the row will</span>
     <span class="doccomment">/// be appended to the end of the list. `iter` will be changed to point to this</span>
     <span class="doccomment">/// new row. The row will be empty after this function is called. To fill in</span>
-    <span class="doccomment">/// values, you need to call [`set()`][Self::set()] or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
+    <span class="doccomment">/// values, you need to call `gtk_list_store_set()` or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
     <span class="doccomment">/// ## `sibling`</span>
     <span class="doccomment">/// A valid [`TreeIter`][crate::TreeIter], or [`None`]</span>
     <span class="doccomment">///</span>
@@ -758,7 +758,7 @@
 
     <span class="doccomment">/// Prepends a new row to `self`. `iter` will be changed to point to this new</span>
     <span class="doccomment">/// row. The row will be empty after this function is called. To fill in</span>
-    <span class="doccomment">/// values, you need to call [`set()`][Self::set()] or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
+    <span class="doccomment">/// values, you need to call `gtk_list_store_set()` or [`GtkListStoreExtManual::set_value()`][crate::prelude::GtkListStoreExtManual::set_value()].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
