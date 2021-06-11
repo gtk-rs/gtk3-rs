@@ -34,7 +34,16 @@ jobs:
           command: doc
           args: -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys -p gtk -p gtk3-macros -p gtk-sys --features dox --no-deps
       - run: echo "DEST=$(if [ "$GITHUB_EVENT_NAME" == "release" ]; then echo 'stable/${{ github.event.release.tag_name }}'; else echo 'git'; fi)" >> ${GITHUB_ENV}
-      - run: echo ${{ env.DEST }}
+
+      - name: Grab gtk-rs LOGO
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'release' }}
+        run: |
+          sudo dnf install ImageMagick wget -y
+          wget https://raw.githubusercontent.com/gtk-rs/gtk-rs.github.io/master/logo.svg
+          convert -density 1200 -resize 256x256 -background none logo.svg ./target/doc/rust-logo.png
+          for size in 16 32 ; do convert -density 1200 -resize "${size}x${size}" -background none logo.svg "./target/doc/favicon-${size}x${size}.png" ; done
+          cp logo.svg ./target/doc/favicon.svg
+
       - name: deploy
         if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'release' }}
         uses: peaceiris/actions-gh-pages@v3
