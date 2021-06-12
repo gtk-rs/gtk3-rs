@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: build
     container:
-      image: ghcr.io/gtk-rs/gtk-rs/gtk:latest
+      image: ghcr.io/gtk-rs/gtk3-rs/gtk3:latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -34,7 +34,7 @@ jobs:
           command: doc
           args: -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys -p gtk -p gtk3-macros -p gtk-sys --features dox --no-deps
       - run: echo "DEST=$(if [ "$GITHUB_EVENT_NAME" == "release" ]; then echo 'stable/${{ github.event.release.tag_name }}'; else echo 'git'; fi)" >> ${GITHUB_ENV}
-      
+
       - name: Grab gtk-rs LOGO
         if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'release' }}
         run: |
