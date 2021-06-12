@@ -9,4 +9,5 @@ RUN apt install -y \
     xvfb \
     curl \
     libcairo-gobject2 \
-    libcairo2-dev
+    libcairo2-dev \
+    wget
