@@ -357,7 +357,6 @@ pub use self::icon_view::IconViewBuilder;
 pub use self::icon_view::{IconView, NONE_ICON_VIEW};
 
 mod image;
-pub use self::image::ImageBuilder;
 pub use self::image::{Image, NONE_IMAGE};
 
 mod info_bar;
@@ -679,7 +678,6 @@ pub use self::stack_sidebar::StackSidebarBuilder;
 pub use self::stack_sidebar::{StackSidebar, NONE_STACK_SIDEBAR};
 
 mod stack_switcher;
-pub use self::stack_switcher::StackSwitcherBuilder;
 pub use self::stack_switcher::{StackSwitcher, NONE_STACK_SWITCHER};
 
 mod statusbar;
