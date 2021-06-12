@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "Dockerfile"
+  workflow_dispatch:
 
 jobs:
   docker:
@@ -17,5 +18,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-          repository: ${{ github.repository }}/gtk
+          repository: ${{ github.repository }}/gtk3
           tags: latest
