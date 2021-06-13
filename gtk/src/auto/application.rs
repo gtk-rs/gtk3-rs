@@ -446,7 +446,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     #[cfg(any(feature = "v3_24_8", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_8")))]
-    #[doc(alias = "query-end")]
     fn connect_query_end<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn query_end_trampoline<P: IsA<Application>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkApplication,
@@ -468,7 +467,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    #[doc(alias = "window-added")]
     fn connect_window_added<F: Fn(&Self, &Window) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn window_added_trampoline<
             P: IsA<Application>,
@@ -497,7 +495,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    #[doc(alias = "window-removed")]
     fn connect_window_removed<F: Fn(&Self, &Window) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn window_removed_trampoline<
             P: IsA<Application>,
@@ -526,7 +523,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    #[doc(alias = "active-window")]
     fn connect_active_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_window_trampoline<
             P: IsA<Application>,
@@ -552,7 +548,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    #[doc(alias = "app-menu")]
     fn connect_app_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_app_menu_trampoline<
             P: IsA<Application>,
@@ -578,7 +573,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    #[doc(alias = "menubar")]
     fn connect_menubar_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menubar_trampoline<P: IsA<Application>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkApplication,
@@ -601,7 +595,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    #[doc(alias = "register-session")]
     fn connect_register_session_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_register_session_trampoline<
             P: IsA<Application>,
@@ -629,7 +622,6 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-    #[doc(alias = "screensaver-active")]
     fn connect_screensaver_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screensaver_active_trampoline<
             P: IsA<Application>,

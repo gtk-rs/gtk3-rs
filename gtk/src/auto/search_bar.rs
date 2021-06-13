@@ -524,7 +524,6 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
-    #[doc(alias = "search-mode-enabled")]
     fn connect_search_mode_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_search_mode_enabled_trampoline<
             P: IsA<SearchBar>,
@@ -550,7 +549,6 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
-    #[doc(alias = "show-close-button")]
     fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<
             P: IsA<SearchBar>,

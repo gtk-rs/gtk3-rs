@@ -518,7 +518,6 @@ impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {
     //    }
     //}
 
-    #[doc(alias = "tweak-action")]
     fn connect_tweak_action_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tweak_action_trampoline<
             P: IsA<FontChooserWidget>,

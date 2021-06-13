@@ -1172,7 +1172,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    #[doc(alias = "adjustment")]
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_adjustment_trampoline<
             P: IsA<SpinButton>,
@@ -1198,7 +1197,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    #[doc(alias = "climb-rate")]
     fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_climb_rate_trampoline<
             P: IsA<SpinButton>,
@@ -1224,7 +1222,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    #[doc(alias = "digits")]
     fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_digits_trampoline<P: IsA<SpinButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinButton,
@@ -1247,7 +1244,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    #[doc(alias = "numeric")]
     fn connect_numeric_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_numeric_trampoline<P: IsA<SpinButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinButton,
@@ -1270,7 +1266,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    #[doc(alias = "snap-to-ticks")]
     fn connect_snap_to_ticks_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_snap_to_ticks_trampoline<
             P: IsA<SpinButton>,
@@ -1296,7 +1291,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    #[doc(alias = "update-policy")]
     fn connect_update_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_update_policy_trampoline<
             P: IsA<SpinButton>,
@@ -1322,7 +1316,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    #[doc(alias = "value")]
     fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P: IsA<SpinButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinButton,
@@ -1345,7 +1338,6 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
-    #[doc(alias = "wrap")]
     fn connect_wrap_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_trampoline<P: IsA<SpinButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinButton,

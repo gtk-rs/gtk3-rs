@@ -118,7 +118,6 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         }
     }
 
-    #[doc(alias = "tag-added")]
     fn connect_tag_added<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_added_trampoline<
             P: IsA<TextTagTable>,
@@ -147,7 +146,6 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         }
     }
 
-    #[doc(alias = "tag-changed")]
     fn connect_tag_changed<F: Fn(&Self, &TextTag, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_changed_trampoline<
             P: IsA<TextTagTable>,
@@ -178,7 +176,6 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         }
     }
 
-    #[doc(alias = "tag-removed")]
     fn connect_tag_removed<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_removed_trampoline<
             P: IsA<TextTagTable>,

@@ -158,7 +158,6 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    #[doc(alias = "value-changed")]
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn value_changed_trampoline<
             P: IsA<Value>,

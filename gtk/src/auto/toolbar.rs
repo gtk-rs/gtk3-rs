@@ -727,7 +727,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    #[doc(alias = "focus-home-or-end")]
     fn connect_focus_home_or_end<F: Fn(&Self, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -771,7 +770,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             .expect("Return Value for `emit_focus_home_or_end`")
     }
 
-    #[doc(alias = "orientation-changed")]
     fn connect_orientation_changed<F: Fn(&Self, Orientation) + 'static>(
         &self,
         f: F,
@@ -803,7 +801,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    #[doc(alias = "popup-context-menu")]
     fn connect_popup_context_menu<
         F: Fn(&Self, i32, i32, i32) -> glib::signal::Inhibit + 'static,
     >(
@@ -842,7 +839,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    #[doc(alias = "style-changed")]
     fn connect_style_changed<F: Fn(&Self, ToolbarStyle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn style_changed_trampoline<
             P: IsA<Toolbar>,
@@ -871,7 +867,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    #[doc(alias = "icon-size")]
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<P: IsA<Toolbar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolbar,
@@ -894,7 +889,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    #[doc(alias = "icon-size-set")]
     fn connect_icon_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_set_trampoline<
             P: IsA<Toolbar>,
@@ -920,7 +914,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    #[doc(alias = "show-arrow")]
     fn connect_show_arrow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_arrow_trampoline<P: IsA<Toolbar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolbar,
@@ -943,7 +936,6 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    #[doc(alias = "toolbar-style")]
     fn connect_toolbar_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_toolbar_style_trampoline<
             P: IsA<Toolbar>,

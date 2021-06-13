@@ -514,7 +514,6 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
-    #[doc(alias = "child-revealed")]
     fn connect_child_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_child_revealed_trampoline<
             P: IsA<Revealer>,
@@ -540,7 +539,6 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
-    #[doc(alias = "reveal-child")]
     fn connect_reveal_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_reveal_child_trampoline<
             P: IsA<Revealer>,
@@ -566,7 +564,6 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
-    #[doc(alias = "transition-duration")]
     fn connect_transition_duration_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transition_duration_trampoline<
             P: IsA<Revealer>,
@@ -592,7 +589,6 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
-    #[doc(alias = "transition-type")]
     fn connect_transition_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transition_type_trampoline<
             P: IsA<Revealer>,

@@ -393,7 +393,6 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<
             P: IsA<CellRendererToggle>,
@@ -423,7 +422,6 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    #[doc(alias = "activatable")]
     fn connect_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_activatable_trampoline<
             P: IsA<CellRendererToggle>,
@@ -449,7 +447,6 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<
             P: IsA<CellRendererToggle>,
@@ -475,7 +472,6 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    #[doc(alias = "inconsistent")]
     fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inconsistent_trampoline<
             P: IsA<CellRendererToggle>,
@@ -501,7 +497,6 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    #[doc(alias = "indicator-size")]
     fn connect_indicator_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_indicator_size_trampoline<
             P: IsA<CellRendererToggle>,
@@ -527,7 +522,6 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
-    #[doc(alias = "radio")]
     fn connect_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_radio_trampoline<
             P: IsA<CellRendererToggle>,

@@ -627,7 +627,6 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    #[doc(alias = "clicked")]
     fn connect_clicked<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn clicked_trampoline<P: IsA<ToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolButton,
@@ -657,7 +656,6 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         };
     }
 
-    #[doc(alias = "icon-name")]
     fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_name_trampoline<
             P: IsA<ToolButton>,
@@ -683,7 +681,6 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    #[doc(alias = "icon-widget")]
     fn connect_icon_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_widget_trampoline<
             P: IsA<ToolButton>,
@@ -709,7 +706,6 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<ToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolButton,
@@ -732,7 +728,6 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    #[doc(alias = "label-widget")]
     fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_widget_trampoline<
             P: IsA<ToolButton>,
@@ -758,7 +753,6 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    #[doc(alias = "use-underline")]
     fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<
             P: IsA<ToolButton>,

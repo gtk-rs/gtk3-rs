@@ -174,7 +174,6 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
-    #[doc(alias = "ignore-hidden")]
     fn connect_ignore_hidden_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ignore_hidden_trampoline<
             P: IsA<SizeGroup>,
@@ -200,7 +199,6 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
-    #[doc(alias = "mode")]
     fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mode_trampoline<P: IsA<SizeGroup>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSizeGroup,

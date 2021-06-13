@@ -431,7 +431,6 @@ impl<O: IsA<FlowBoxChild>> FlowBoxChildExt for O {
         }
     }
 
-    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<FlowBoxChild>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBoxChild,

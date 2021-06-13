@@ -647,7 +647,6 @@ impl<O: IsA<Scale>> ScaleExt for O {
         }
     }
 
-    #[doc(alias = "format-value")]
     fn connect_format_value<F: Fn(&Self, f64) -> String + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn format_value_trampoline<
             P: IsA<Scale>,
@@ -673,7 +672,6 @@ impl<O: IsA<Scale>> ScaleExt for O {
         }
     }
 
-    #[doc(alias = "digits")]
     fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_digits_trampoline<P: IsA<Scale>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScale,
@@ -696,7 +694,6 @@ impl<O: IsA<Scale>> ScaleExt for O {
         }
     }
 
-    #[doc(alias = "draw-value")]
     fn connect_draw_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_value_trampoline<P: IsA<Scale>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScale,
@@ -719,7 +716,6 @@ impl<O: IsA<Scale>> ScaleExt for O {
         }
     }
 
-    #[doc(alias = "has-origin")]
     fn connect_has_origin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_origin_trampoline<P: IsA<Scale>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScale,
@@ -742,7 +738,6 @@ impl<O: IsA<Scale>> ScaleExt for O {
         }
     }
 
-    #[doc(alias = "value-pos")]
     fn connect_value_pos_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_pos_trampoline<P: IsA<Scale>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScale,

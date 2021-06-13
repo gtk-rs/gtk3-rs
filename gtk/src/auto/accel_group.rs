@@ -172,7 +172,6 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
-    #[doc(alias = "accel-activate")]
     fn connect_accel_activate<
         F: Fn(&Self, &glib::Object, u32, gdk::ModifierType) -> bool + 'static,
     >(
@@ -216,7 +215,6 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
-    #[doc(alias = "accel-changed")]
     fn connect_accel_changed<F: Fn(&Self, u32, gdk::ModifierType, &glib::Closure) + 'static>(
         &self,
         detail: Option<&str>,
@@ -257,7 +255,6 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
-    #[doc(alias = "is-locked")]
     fn connect_is_locked_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_locked_trampoline<
             P: IsA<AccelGroup>,
@@ -283,7 +280,6 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
-    #[doc(alias = "modifier-mask")]
     fn connect_modifier_mask_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_modifier_mask_trampoline<
             P: IsA<AccelGroup>,

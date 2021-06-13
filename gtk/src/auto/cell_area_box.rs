@@ -166,7 +166,6 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
         }
     }
 
-    #[doc(alias = "spacing")]
     fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P: IsA<CellAreaBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellAreaBox,

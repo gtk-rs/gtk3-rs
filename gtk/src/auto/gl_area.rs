@@ -651,7 +651,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[doc(alias = "create-context")]
     fn connect_create_context<F: Fn(&Self) -> Option<gdk::GLContext> + 'static>(
         &self,
         f: F,
@@ -679,7 +678,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[doc(alias = "render")]
     fn connect_render<F: Fn(&Self, &gdk::GLContext) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -712,7 +710,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[doc(alias = "resize")]
     fn connect_resize<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn resize_trampoline<P: IsA<GLArea>, F: Fn(&P, i32, i32) + 'static>(
             this: *mut ffi::GtkGLArea,
@@ -740,7 +737,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[doc(alias = "auto-render")]
     fn connect_auto_render_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_auto_render_trampoline<P: IsA<GLArea>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGLArea,
@@ -763,7 +759,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[doc(alias = "context")]
     fn connect_context_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_context_trampoline<P: IsA<GLArea>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGLArea,
@@ -786,7 +781,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[doc(alias = "has-alpha")]
     fn connect_has_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_alpha_trampoline<P: IsA<GLArea>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGLArea,
@@ -809,7 +803,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[doc(alias = "has-depth-buffer")]
     fn connect_has_depth_buffer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_depth_buffer_trampoline<
             P: IsA<GLArea>,
@@ -835,7 +828,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[doc(alias = "has-stencil-buffer")]
     fn connect_has_stencil_buffer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_stencil_buffer_trampoline<
             P: IsA<GLArea>,
@@ -863,7 +855,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "use-es")]
     fn connect_use_es_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_es_trampoline<P: IsA<GLArea>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGLArea,

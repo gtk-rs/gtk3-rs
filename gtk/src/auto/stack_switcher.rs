@@ -535,7 +535,6 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    #[doc(alias = "icon-size")]
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<
             P: IsA<StackSwitcher>,
@@ -561,7 +560,6 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
         }
     }
 
-    #[doc(alias = "stack")]
     fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stack_trampoline<P: IsA<StackSwitcher>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSwitcher,

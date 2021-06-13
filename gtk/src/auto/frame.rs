@@ -602,7 +602,6 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
-    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -625,7 +624,6 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
-    #[doc(alias = "label-widget")]
     fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_widget_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -648,7 +646,6 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
-    #[doc(alias = "label-xalign")]
     fn connect_label_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_xalign_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -671,7 +668,6 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
-    #[doc(alias = "label-yalign")]
     fn connect_label_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_yalign_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -694,7 +690,6 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
-    #[doc(alias = "shadow-type")]
     fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,

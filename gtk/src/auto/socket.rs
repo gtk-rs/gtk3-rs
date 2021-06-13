@@ -431,7 +431,6 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
         }
     }
 
-    #[doc(alias = "plug-added")]
     fn connect_plug_added<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn plug_added_trampoline<P: IsA<Socket>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSocket,
@@ -453,7 +452,6 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
         }
     }
 
-    #[doc(alias = "plug-removed")]
     fn connect_plug_removed<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn plug_removed_trampoline<
             P: IsA<Socket>,

@@ -565,7 +565,6 @@ impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
         }
     }
 
-    #[doc(alias = "use-symbolic")]
     fn connect_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_symbolic_trampoline<
             P: IsA<VolumeButton>,

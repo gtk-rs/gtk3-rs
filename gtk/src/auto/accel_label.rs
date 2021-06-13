@@ -663,7 +663,6 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
-    #[doc(alias = "accel-closure")]
     fn connect_accel_closure_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_closure_trampoline<
             P: IsA<AccelLabel>,
@@ -689,7 +688,6 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
-    #[doc(alias = "accel-widget")]
     fn connect_accel_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_widget_trampoline<
             P: IsA<AccelLabel>,

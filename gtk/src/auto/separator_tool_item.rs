@@ -458,7 +458,6 @@ impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
         }
     }
 
-    #[doc(alias = "draw")]
     fn connect_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_trampoline<
             P: IsA<SeparatorToolItem>,

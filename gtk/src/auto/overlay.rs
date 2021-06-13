@@ -476,7 +476,6 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    //#[doc(alias = "get-child-position")]
     //fn connect_get_child_position<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Out allocation: Gdk.Rectangle
     //}

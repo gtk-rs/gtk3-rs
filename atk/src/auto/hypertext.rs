@@ -58,7 +58,6 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
         unsafe { ffi::atk_hypertext_get_n_links(self.as_ref().to_glib_none().0) }
     }
 
-    #[doc(alias = "link-selected")]
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn link_selected_trampoline<
             P: IsA<Hypertext>,

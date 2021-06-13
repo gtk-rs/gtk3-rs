@@ -241,7 +241,6 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
-    #[doc(alias = "bounds-changed")]
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn bounds_changed_trampoline<
             P: IsA<Component>,

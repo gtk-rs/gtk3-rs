@@ -929,7 +929,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    #[doc(alias = "activate-cursor-row")]
     fn connect_activate_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_cursor_row_trampoline<
             P: IsA<ListBox>,
@@ -962,7 +961,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         };
     }
 
-    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) + 'static>(
         &self,
         f: F,
@@ -1004,7 +1002,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         };
     }
 
-    #[doc(alias = "row-activated")]
     fn connect_row_activated<F: Fn(&Self, &ListBoxRow) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_activated_trampoline<
             P: IsA<ListBox>,
@@ -1033,7 +1030,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    #[doc(alias = "row-selected")]
     fn connect_row_selected<F: Fn(&Self, Option<&ListBoxRow>) + 'static>(
         &self,
         f: F,
@@ -1067,7 +1063,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    #[doc(alias = "select-all")]
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_all_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
@@ -1097,7 +1092,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         };
     }
 
-    #[doc(alias = "selected-rows-changed")]
     fn connect_selected_rows_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selected_rows_changed_trampoline<
             P: IsA<ListBox>,
@@ -1122,7 +1116,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    #[doc(alias = "toggle-cursor-row")]
     fn connect_toggle_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggle_cursor_row_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
@@ -1152,7 +1145,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         };
     }
 
-    #[doc(alias = "unselect-all")]
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unselect_all_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
@@ -1182,7 +1174,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         };
     }
 
-    #[doc(alias = "activate-on-single-click")]
     fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1211,7 +1202,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    #[doc(alias = "selection-mode")]
     fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_mode_trampoline<
             P: IsA<ListBox>,

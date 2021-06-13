@@ -883,7 +883,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "confirm-overwrite")]
     fn connect_confirm_overwrite<F: Fn(&Self) -> FileChooserConfirmation + 'static>(
         &self,
         f: F,
@@ -911,7 +910,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "current-folder-changed")]
     fn connect_current_folder_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn current_folder_changed_trampoline<
             P: IsA<FileChooser>,
@@ -936,7 +934,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "file-activated")]
     fn connect_file_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn file_activated_trampoline<P: IsA<FileChooser>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooser,
@@ -958,7 +955,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "selection-changed")]
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_changed_trampoline<
             P: IsA<FileChooser>,
@@ -983,7 +979,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "update-preview")]
     fn connect_update_preview<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn update_preview_trampoline<P: IsA<FileChooser>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooser,
@@ -1005,7 +1000,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "action")]
     fn connect_action_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_action_trampoline<P: IsA<FileChooser>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooser,
@@ -1028,7 +1022,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "create-folders")]
     fn connect_create_folders_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_create_folders_trampoline<
             P: IsA<FileChooser>,
@@ -1054,7 +1047,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "do-overwrite-confirmation")]
     fn connect_do_overwrite_confirmation_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1083,7 +1075,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "extra-widget")]
     fn connect_extra_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_extra_widget_trampoline<
             P: IsA<FileChooser>,
@@ -1109,7 +1100,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "filter")]
     fn connect_filter_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_filter_trampoline<P: IsA<FileChooser>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooser,
@@ -1132,7 +1122,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "local-only")]
     fn connect_local_only_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_local_only_trampoline<
             P: IsA<FileChooser>,
@@ -1158,7 +1147,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "preview-widget")]
     fn connect_preview_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_preview_widget_trampoline<
             P: IsA<FileChooser>,
@@ -1184,7 +1172,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "preview-widget-active")]
     fn connect_preview_widget_active_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1213,7 +1200,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "select-multiple")]
     fn connect_select_multiple_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_select_multiple_trampoline<
             P: IsA<FileChooser>,
@@ -1239,7 +1225,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "show-hidden")]
     fn connect_show_hidden_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_hidden_trampoline<
             P: IsA<FileChooser>,
@@ -1265,7 +1250,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[doc(alias = "use-preview-label")]
     fn connect_use_preview_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_preview_label_trampoline<
             P: IsA<FileChooser>,

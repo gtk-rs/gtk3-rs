@@ -490,7 +490,6 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
-    #[doc(alias = "child-pack-direction")]
     fn connect_child_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_child_pack_direction_trampoline<
             P: IsA<MenuBar>,
@@ -516,7 +515,6 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
-    #[doc(alias = "pack-direction")]
     fn connect_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pack_direction_trampoline<
             P: IsA<MenuBar>,

@@ -770,7 +770,6 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
         }
     }
 
-    #[doc(alias = "heading")]
     fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_heading_trampoline<
             P: IsA<AppChooserDialog>,

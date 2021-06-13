@@ -685,7 +685,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -715,7 +714,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         };
     }
 
-    #[doc(alias = "expanded")]
     fn connect_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_expanded_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -738,7 +736,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -761,7 +758,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    #[doc(alias = "label-fill")]
     fn connect_label_fill_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_fill_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -784,7 +780,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    #[doc(alias = "label-widget")]
     fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_widget_trampoline<
             P: IsA<Expander>,
@@ -810,7 +805,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    #[doc(alias = "resize-toplevel")]
     fn connect_resize_toplevel_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_resize_toplevel_trampoline<
             P: IsA<Expander>,
@@ -836,7 +830,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    #[doc(alias = "spacing")]
     fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -859,7 +852,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    #[doc(alias = "use-markup")]
     fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_markup_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -882,7 +874,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    #[doc(alias = "use-underline")]
     fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<
             P: IsA<Expander>,

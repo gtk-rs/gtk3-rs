@@ -737,7 +737,6 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    #[doc(alias = "adjustment")]
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_adjustment_trampoline<
             P: IsA<CellRendererSpin>,
@@ -763,7 +762,6 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    #[doc(alias = "climb-rate")]
     fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_climb_rate_trampoline<
             P: IsA<CellRendererSpin>,
@@ -789,7 +787,6 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
-    #[doc(alias = "digits")]
     fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_digits_trampoline<
             P: IsA<CellRendererSpin>,

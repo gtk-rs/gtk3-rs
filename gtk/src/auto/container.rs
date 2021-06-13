@@ -407,7 +407,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[doc(alias = "add")]
     fn connect_add<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn add_trampoline<P: IsA<Container>, F: Fn(&P, &Widget) + 'static>(
             this: *mut ffi::GtkContainer,
@@ -433,7 +432,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[doc(alias = "check-resize")]
     fn connect_check_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn check_resize_trampoline<P: IsA<Container>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkContainer,
@@ -455,7 +453,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[doc(alias = "remove")]
     fn connect_remove<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn remove_trampoline<P: IsA<Container>, F: Fn(&P, &Widget) + 'static>(
             this: *mut ffi::GtkContainer,
@@ -481,7 +478,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[doc(alias = "set-focus-child")]
     fn connect_set_focus_child<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn set_focus_child_trampoline<
             P: IsA<Container>,
@@ -510,7 +506,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[doc(alias = "border-width")]
     fn connect_border_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_border_width_trampoline<
             P: IsA<Container>,
@@ -536,7 +531,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[doc(alias = "child")]
     fn connect_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_child_trampoline<P: IsA<Container>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkContainer,
@@ -559,7 +553,6 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    #[doc(alias = "resize-mode")]
     fn connect_resize_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_resize_mode_trampoline<
             P: IsA<Container>,

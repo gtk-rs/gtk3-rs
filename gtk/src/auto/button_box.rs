@@ -551,7 +551,6 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
-    #[doc(alias = "layout-style")]
     fn connect_layout_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_layout_style_trampoline<
             P: IsA<ButtonBox>,

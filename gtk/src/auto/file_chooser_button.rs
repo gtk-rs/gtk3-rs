@@ -662,7 +662,6 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
-    #[doc(alias = "file-set")]
     fn connect_file_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn file_set_trampoline<P: IsA<FileChooserButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooserButton,
@@ -684,7 +683,6 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
-    #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<
             P: IsA<FileChooserButton>,
@@ -710,7 +708,6 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
-    #[doc(alias = "width-chars")]
     fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_chars_trampoline<
             P: IsA<FileChooserButton>,

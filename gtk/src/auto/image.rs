@@ -972,7 +972,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "file")]
     fn connect_file_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_file_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -995,7 +994,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "gicon")]
     fn connect_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_gicon_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -1018,7 +1016,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "icon-name")]
     fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_name_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -1041,7 +1038,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "icon-size")]
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -1064,7 +1060,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "pixbuf")]
     fn connect_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -1087,7 +1082,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "pixbuf-animation")]
     fn connect_pixbuf_animation_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_animation_trampoline<
             P: IsA<Image>,
@@ -1113,7 +1107,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "pixel-size")]
     fn connect_pixel_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixel_size_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -1136,7 +1129,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "resource")]
     fn connect_resource_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_resource_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -1159,7 +1151,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "storage-type")]
     fn connect_storage_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_storage_type_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -1182,7 +1173,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "surface")]
     fn connect_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_surface_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,
@@ -1205,7 +1195,6 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    #[doc(alias = "use-fallback")]
     fn connect_use_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_fallback_trampoline<P: IsA<Image>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkImage,

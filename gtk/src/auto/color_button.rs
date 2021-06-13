@@ -641,7 +641,6 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    #[doc(alias = "color-set")]
     fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn color_set_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
@@ -663,7 +662,6 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    #[doc(alias = "alpha")]
     fn connect_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_alpha_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
@@ -686,7 +684,6 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    #[doc(alias = "rgba")]
     fn connect_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rgba_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
@@ -711,7 +708,6 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    #[doc(alias = "show-editor")]
     fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_editor_trampoline<
             P: IsA<ColorButton>,
@@ -737,7 +733,6 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
@@ -760,7 +755,6 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
-    #[doc(alias = "use-alpha")]
     fn connect_use_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_alpha_trampoline<
             P: IsA<ColorButton>,

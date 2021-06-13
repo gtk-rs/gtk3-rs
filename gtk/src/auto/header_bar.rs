@@ -779,7 +779,6 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    #[doc(alias = "custom-title")]
     fn connect_custom_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_custom_title_trampoline<
             P: IsA<HeaderBar>,
@@ -805,7 +804,6 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    #[doc(alias = "decoration-layout")]
     fn connect_decoration_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_decoration_layout_trampoline<
             P: IsA<HeaderBar>,
@@ -831,7 +829,6 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    #[doc(alias = "decoration-layout-set")]
     fn connect_decoration_layout_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -860,7 +857,6 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    #[doc(alias = "has-subtitle")]
     fn connect_has_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_subtitle_trampoline<
             P: IsA<HeaderBar>,
@@ -886,7 +882,6 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    #[doc(alias = "show-close-button")]
     fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<
             P: IsA<HeaderBar>,
@@ -912,7 +907,6 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    #[doc(alias = "spacing")]
     fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P: IsA<HeaderBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
@@ -935,7 +929,6 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    #[doc(alias = "subtitle")]
     fn connect_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_subtitle_trampoline<P: IsA<HeaderBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
@@ -958,7 +951,6 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P: IsA<HeaderBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,

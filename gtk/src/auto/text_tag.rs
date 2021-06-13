@@ -3029,7 +3029,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "event")]
     fn connect_event<
         F: Fn(&Self, &glib::Object, &gdk::Event, &TextIter) -> glib::signal::Inhibit + 'static,
     >(
@@ -3068,7 +3067,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "accumulative-margin")]
     fn connect_accumulative_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accumulative_margin_trampoline<
             P: IsA<TextTag>,
@@ -3094,7 +3092,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "background")]
     fn connect_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_background_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3117,7 +3114,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "background-full-height")]
     fn connect_background_full_height_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -3146,7 +3142,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "background-full-height-set")]
     fn connect_background_full_height_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -3175,7 +3170,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "background-rgba")]
     fn connect_background_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_background_rgba_trampoline<
             P: IsA<TextTag>,
@@ -3201,7 +3195,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "background-set")]
     fn connect_background_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_background_set_trampoline<
             P: IsA<TextTag>,
@@ -3227,7 +3220,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "direction")]
     fn connect_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_direction_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3250,7 +3242,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "editable")]
     fn connect_editable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_editable_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3273,7 +3264,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "editable-set")]
     fn connect_editable_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_editable_set_trampoline<
             P: IsA<TextTag>,
@@ -3299,7 +3289,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "fallback")]
     fn connect_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_fallback_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3322,7 +3311,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "fallback-set")]
     fn connect_fallback_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_fallback_set_trampoline<
             P: IsA<TextTag>,
@@ -3348,7 +3336,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "family")]
     fn connect_family_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_family_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3371,7 +3358,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "family-set")]
     fn connect_family_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_family_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3394,7 +3380,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "font")]
     fn connect_font_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3417,7 +3402,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "font-desc")]
     fn connect_font_desc_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_desc_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3440,7 +3424,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "font-features")]
     fn connect_font_features_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_features_trampoline<
             P: IsA<TextTag>,
@@ -3466,7 +3449,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "font-features-set")]
     fn connect_font_features_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_features_set_trampoline<
             P: IsA<TextTag>,
@@ -3492,7 +3474,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "foreground")]
     fn connect_foreground_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_foreground_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3515,7 +3496,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "foreground-rgba")]
     fn connect_foreground_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_foreground_rgba_trampoline<
             P: IsA<TextTag>,
@@ -3541,7 +3521,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "foreground-set")]
     fn connect_foreground_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_foreground_set_trampoline<
             P: IsA<TextTag>,
@@ -3567,7 +3546,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "indent")]
     fn connect_indent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_indent_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3590,7 +3568,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "indent-set")]
     fn connect_indent_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_indent_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3613,7 +3590,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "invisible")]
     fn connect_invisible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_invisible_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3636,7 +3612,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "invisible-set")]
     fn connect_invisible_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_invisible_set_trampoline<
             P: IsA<TextTag>,
@@ -3662,7 +3637,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "justification")]
     fn connect_justification_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_justification_trampoline<
             P: IsA<TextTag>,
@@ -3688,7 +3662,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "justification-set")]
     fn connect_justification_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_justification_set_trampoline<
             P: IsA<TextTag>,
@@ -3714,7 +3687,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "language")]
     fn connect_language_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_language_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3737,7 +3709,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "language-set")]
     fn connect_language_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_language_set_trampoline<
             P: IsA<TextTag>,
@@ -3763,7 +3734,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "left-margin")]
     fn connect_left_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_left_margin_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3786,7 +3756,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "left-margin-set")]
     fn connect_left_margin_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_left_margin_set_trampoline<
             P: IsA<TextTag>,
@@ -3812,7 +3781,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "letter-spacing")]
     fn connect_letter_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_letter_spacing_trampoline<
             P: IsA<TextTag>,
@@ -3838,7 +3806,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "letter-spacing-set")]
     fn connect_letter_spacing_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_letter_spacing_set_trampoline<
             P: IsA<TextTag>,
@@ -3864,7 +3831,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "paragraph-background")]
     fn connect_paragraph_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_paragraph_background_trampoline<
             P: IsA<TextTag>,
@@ -3890,7 +3856,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "paragraph-background-rgba")]
     fn connect_paragraph_background_rgba_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -3919,7 +3884,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "paragraph-background-set")]
     fn connect_paragraph_background_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -3948,7 +3912,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "pixels-above-lines")]
     fn connect_pixels_above_lines_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixels_above_lines_trampoline<
             P: IsA<TextTag>,
@@ -3974,7 +3937,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "pixels-above-lines-set")]
     fn connect_pixels_above_lines_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -4003,7 +3965,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "pixels-below-lines")]
     fn connect_pixels_below_lines_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixels_below_lines_trampoline<
             P: IsA<TextTag>,
@@ -4029,7 +3990,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "pixels-below-lines-set")]
     fn connect_pixels_below_lines_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -4058,7 +4018,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "pixels-inside-wrap")]
     fn connect_pixels_inside_wrap_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixels_inside_wrap_trampoline<
             P: IsA<TextTag>,
@@ -4084,7 +4043,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "pixels-inside-wrap-set")]
     fn connect_pixels_inside_wrap_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -4113,7 +4071,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "right-margin")]
     fn connect_right_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_right_margin_trampoline<
             P: IsA<TextTag>,
@@ -4139,7 +4096,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "right-margin-set")]
     fn connect_right_margin_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_right_margin_set_trampoline<
             P: IsA<TextTag>,
@@ -4165,7 +4121,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "rise")]
     fn connect_rise_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rise_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4188,7 +4143,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "rise-set")]
     fn connect_rise_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rise_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4211,7 +4165,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "scale")]
     fn connect_scale_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_scale_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4234,7 +4187,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "scale-set")]
     fn connect_scale_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_scale_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4257,7 +4209,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "size")]
     fn connect_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_size_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4280,7 +4231,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "size-points")]
     fn connect_size_points_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_size_points_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4303,7 +4253,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "size-set")]
     fn connect_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_size_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4326,7 +4275,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "stretch")]
     fn connect_stretch_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stretch_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4349,7 +4297,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "stretch-set")]
     fn connect_stretch_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stretch_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4372,7 +4319,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "strikethrough")]
     fn connect_strikethrough_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_strikethrough_trampoline<
             P: IsA<TextTag>,
@@ -4398,7 +4344,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "strikethrough-rgba")]
     fn connect_strikethrough_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_strikethrough_rgba_trampoline<
             P: IsA<TextTag>,
@@ -4424,7 +4369,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "strikethrough-rgba-set")]
     fn connect_strikethrough_rgba_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -4453,7 +4397,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "strikethrough-set")]
     fn connect_strikethrough_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_strikethrough_set_trampoline<
             P: IsA<TextTag>,
@@ -4479,7 +4422,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "style")]
     fn connect_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_style_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4502,7 +4444,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "style-set")]
     fn connect_style_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_style_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4525,7 +4466,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "tabs")]
     fn connect_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tabs_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4548,7 +4488,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "tabs-set")]
     fn connect_tabs_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tabs_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4571,7 +4510,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "underline")]
     fn connect_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_underline_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4594,7 +4532,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "underline-rgba")]
     fn connect_underline_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_underline_rgba_trampoline<
             P: IsA<TextTag>,
@@ -4620,7 +4557,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "underline-rgba-set")]
     fn connect_underline_rgba_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_underline_rgba_set_trampoline<
             P: IsA<TextTag>,
@@ -4646,7 +4582,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "underline-set")]
     fn connect_underline_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_underline_set_trampoline<
             P: IsA<TextTag>,
@@ -4672,7 +4607,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "variant")]
     fn connect_variant_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_variant_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4695,7 +4629,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "variant-set")]
     fn connect_variant_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_variant_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4718,7 +4651,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "weight")]
     fn connect_weight_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_weight_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4741,7 +4673,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "weight-set")]
     fn connect_weight_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_weight_set_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4764,7 +4695,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "wrap-mode")]
     fn connect_wrap_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_mode_trampoline<P: IsA<TextTag>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -4787,7 +4717,6 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[doc(alias = "wrap-mode-set")]
     fn connect_wrap_mode_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_mode_set_trampoline<
             P: IsA<TextTag>,

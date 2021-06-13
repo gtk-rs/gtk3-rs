@@ -87,7 +87,6 @@ impl<O: IsA<EventController>> EventControllerExt for O {
         }
     }
 
-    #[doc(alias = "propagation-phase")]
     fn connect_propagation_phase_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_propagation_phase_trampoline<
             P: IsA<EventController>,

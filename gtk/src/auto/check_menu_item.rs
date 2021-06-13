@@ -607,7 +607,6 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
-    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<P: IsA<CheckMenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCheckMenuItem,
@@ -629,7 +628,6 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
-    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<
             P: IsA<CheckMenuItem>,
@@ -655,7 +653,6 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
-    #[doc(alias = "draw-as-radio")]
     fn connect_draw_as_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_as_radio_trampoline<
             P: IsA<CheckMenuItem>,
@@ -681,7 +678,6 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
-    #[doc(alias = "inconsistent")]
     fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inconsistent_trampoline<
             P: IsA<CheckMenuItem>,

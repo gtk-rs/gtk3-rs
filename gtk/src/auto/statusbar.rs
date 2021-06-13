@@ -507,7 +507,6 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
         }
     }
 
-    #[doc(alias = "text-popped")]
     fn connect_text_popped<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_popped_trampoline<
             P: IsA<Statusbar>,
@@ -538,7 +537,6 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
         }
     }
 
-    #[doc(alias = "text-pushed")]
     fn connect_text_pushed<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_pushed_trampoline<
             P: IsA<Statusbar>,

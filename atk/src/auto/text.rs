@@ -402,7 +402,6 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    #[doc(alias = "text-attributes-changed")]
     fn connect_text_attributes_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_attributes_changed_trampoline<
             P: IsA<Text>,
@@ -427,7 +426,6 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    #[doc(alias = "text-caret-moved")]
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_caret_moved_trampoline<P: IsA<Text>, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::AtkText,
@@ -450,7 +448,6 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    #[doc(alias = "text-insert")]
     fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -491,7 +488,6 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    #[doc(alias = "text-remove")]
     fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -532,7 +528,6 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    #[doc(alias = "text-selection-changed")]
     fn connect_text_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_selection_changed_trampoline<
             P: IsA<Text>,

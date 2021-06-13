@@ -561,7 +561,6 @@ impl<O: IsA<RadioButton>> RadioButtonExt for O {
         }
     }
 
-    #[doc(alias = "group-changed")]
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn group_changed_trampoline<P: IsA<RadioButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRadioButton,
