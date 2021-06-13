@@ -660,7 +660,6 @@ impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
         }
     }
 
-    #[doc(alias = "show-numbers")]
     fn connect_show_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_numbers_trampoline<
             P: IsA<RecentChooserMenu>,

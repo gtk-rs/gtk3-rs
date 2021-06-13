@@ -371,7 +371,6 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
-    #[doc(alias = "translation-domain")]
     fn connect_translation_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_translation_domain_trampoline<
             P: IsA<Builder>,

@@ -469,7 +469,6 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
-    #[doc(alias = "above-child")]
     fn connect_above_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_above_child_trampoline<
             P: IsA<EventBox>,
@@ -495,7 +494,6 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
-    #[doc(alias = "visible-window")]
     fn connect_visible_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_window_trampoline<
             P: IsA<EventBox>,

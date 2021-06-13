@@ -1199,7 +1199,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "begin-user-action")]
     fn connect_begin_user_action<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn begin_user_action_trampoline<
             P: IsA<TextBuffer>,
@@ -1224,7 +1223,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P: IsA<TextBuffer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextBuffer,
@@ -1246,7 +1244,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "end-user-action")]
     fn connect_end_user_action<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn end_user_action_trampoline<P: IsA<TextBuffer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextBuffer,
@@ -1268,7 +1265,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "mark-deleted")]
     fn connect_mark_deleted<F: Fn(&Self, &TextMark) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn mark_deleted_trampoline<
             P: IsA<TextBuffer>,
@@ -1297,7 +1293,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "mark-set")]
     fn connect_mark_set<F: Fn(&Self, &TextIter, &TextMark) + 'static>(
         &self,
         f: F,
@@ -1331,7 +1326,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "modified-changed")]
     fn connect_modified_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn modified_changed_trampoline<
             P: IsA<TextBuffer>,
@@ -1356,7 +1350,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "paste-done")]
     fn connect_paste_done<F: Fn(&Self, &Clipboard) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn paste_done_trampoline<
             P: IsA<TextBuffer>,
@@ -1385,7 +1378,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "copy-target-list")]
     fn connect_copy_target_list_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_copy_target_list_trampoline<
             P: IsA<TextBuffer>,
@@ -1411,7 +1403,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "cursor-position")]
     fn connect_cursor_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cursor_position_trampoline<
             P: IsA<TextBuffer>,
@@ -1437,7 +1428,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "has-selection")]
     fn connect_has_selection_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_selection_trampoline<
             P: IsA<TextBuffer>,
@@ -1463,7 +1453,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "paste-target-list")]
     fn connect_paste_target_list_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_paste_target_list_trampoline<
             P: IsA<TextBuffer>,
@@ -1489,7 +1478,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[doc(alias = "text")]
     fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<P: IsA<TextBuffer>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextBuffer,

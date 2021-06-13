@@ -923,7 +923,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "day-selected")]
     fn connect_day_selected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn day_selected_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -945,7 +944,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "day-selected-double-click")]
     fn connect_day_selected_double_click<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn day_selected_double_click_trampoline<
             P: IsA<Calendar>,
@@ -970,7 +968,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "month-changed")]
     fn connect_month_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn month_changed_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -992,7 +989,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "next-month")]
     fn connect_next_month<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn next_month_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -1014,7 +1010,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "next-year")]
     fn connect_next_year<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn next_year_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -1036,7 +1031,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "prev-month")]
     fn connect_prev_month<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn prev_month_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -1058,7 +1052,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "prev-year")]
     fn connect_prev_year<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn prev_year_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -1080,7 +1073,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "day")]
     fn connect_day_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_day_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -1103,7 +1095,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "detail-height-rows")]
     fn connect_detail_height_rows_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_detail_height_rows_trampoline<
             P: IsA<Calendar>,
@@ -1129,7 +1120,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "detail-width-chars")]
     fn connect_detail_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_detail_width_chars_trampoline<
             P: IsA<Calendar>,
@@ -1155,7 +1145,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "month")]
     fn connect_month_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_month_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -1178,7 +1167,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "no-month-change")]
     fn connect_no_month_change_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_no_month_change_trampoline<
             P: IsA<Calendar>,
@@ -1204,7 +1192,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "show-day-names")]
     fn connect_show_day_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_day_names_trampoline<
             P: IsA<Calendar>,
@@ -1230,7 +1217,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "show-details")]
     fn connect_show_details_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_details_trampoline<
             P: IsA<Calendar>,
@@ -1256,7 +1242,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "show-heading")]
     fn connect_show_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_heading_trampoline<
             P: IsA<Calendar>,
@@ -1282,7 +1267,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "show-week-numbers")]
     fn connect_show_week_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_week_numbers_trampoline<
             P: IsA<Calendar>,
@@ -1308,7 +1292,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
-    #[doc(alias = "year")]
     fn connect_year_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_year_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,

@@ -323,7 +323,6 @@ impl<O: IsA<Gesture>> GestureExt for O {
         }
     }
 
-    #[doc(alias = "begin")]
     fn connect_begin<F: Fn(&Self, Option<&gdk::EventSequence>) + 'static>(
         &self,
         f: F,
@@ -357,7 +356,6 @@ impl<O: IsA<Gesture>> GestureExt for O {
         }
     }
 
-    #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self, Option<&gdk::EventSequence>) + 'static>(
         &self,
         f: F,
@@ -391,7 +389,6 @@ impl<O: IsA<Gesture>> GestureExt for O {
         }
     }
 
-    #[doc(alias = "end")]
     fn connect_end<F: Fn(&Self, Option<&gdk::EventSequence>) + 'static>(
         &self,
         f: F,
@@ -425,7 +422,6 @@ impl<O: IsA<Gesture>> GestureExt for O {
         }
     }
 
-    #[doc(alias = "sequence-state-changed")]
     fn connect_sequence_state_changed<
         F: Fn(&Self, Option<&gdk::EventSequence>, EventSequenceState) + 'static,
     >(
@@ -463,7 +459,6 @@ impl<O: IsA<Gesture>> GestureExt for O {
         }
     }
 
-    #[doc(alias = "update")]
     fn connect_update<F: Fn(&Self, Option<&gdk::EventSequence>) + 'static>(
         &self,
         f: F,
@@ -497,7 +492,6 @@ impl<O: IsA<Gesture>> GestureExt for O {
         }
     }
 
-    #[doc(alias = "window")]
     fn connect_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_window_trampoline<P: IsA<Gesture>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGesture,

@@ -434,7 +434,6 @@ impl<O: IsA<StackSidebar>> StackSidebarExt for O {
         }
     }
 
-    #[doc(alias = "stack")]
     fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stack_trampoline<P: IsA<StackSidebar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSidebar,

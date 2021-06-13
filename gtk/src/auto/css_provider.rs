@@ -158,7 +158,6 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
-    #[doc(alias = "parsing-error")]
     fn connect_parsing_error<F: Fn(&Self, &CssSection, &glib::Error) + 'static>(
         &self,
         f: F,

@@ -1220,7 +1220,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -1253,7 +1252,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "artists")]
     fn connect_artists_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_artists_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
@@ -1276,7 +1274,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "authors")]
     fn connect_authors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_authors_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
@@ -1299,7 +1296,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "comments")]
     fn connect_comments_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_comments_trampoline<
             P: IsA<AboutDialog>,
@@ -1325,7 +1321,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "copyright")]
     fn connect_copyright_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_copyright_trampoline<
             P: IsA<AboutDialog>,
@@ -1351,7 +1346,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "documenters")]
     fn connect_documenters_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_documenters_trampoline<
             P: IsA<AboutDialog>,
@@ -1377,7 +1371,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "license")]
     fn connect_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_license_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
@@ -1400,7 +1393,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "license-type")]
     fn connect_license_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_license_type_trampoline<
             P: IsA<AboutDialog>,
@@ -1426,7 +1418,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "logo")]
     fn connect_logo_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_logo_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
@@ -1449,7 +1440,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "logo-icon-name")]
     fn connect_logo_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_logo_icon_name_trampoline<
             P: IsA<AboutDialog>,
@@ -1475,7 +1465,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "program-name")]
     fn connect_program_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_program_name_trampoline<
             P: IsA<AboutDialog>,
@@ -1501,7 +1490,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "translator-credits")]
     fn connect_translator_credits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_translator_credits_trampoline<
             P: IsA<AboutDialog>,
@@ -1527,7 +1515,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "version")]
     fn connect_version_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_version_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
@@ -1550,7 +1537,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "website")]
     fn connect_website_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_website_trampoline<P: IsA<AboutDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAboutDialog,
@@ -1573,7 +1559,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "website-label")]
     fn connect_website_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_website_label_trampoline<
             P: IsA<AboutDialog>,
@@ -1599,7 +1584,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         }
     }
 
-    #[doc(alias = "wrap-license")]
     fn connect_wrap_license_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_license_trampoline<
             P: IsA<AboutDialog>,

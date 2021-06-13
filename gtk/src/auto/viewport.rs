@@ -497,7 +497,6 @@ impl<O: IsA<Viewport>> ViewportExt for O {
         }
     }
 
-    #[doc(alias = "shadow-type")]
     fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<
             P: IsA<Viewport>,

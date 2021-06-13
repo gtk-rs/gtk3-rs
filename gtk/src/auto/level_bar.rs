@@ -593,7 +593,6 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    #[doc(alias = "offset-changed")]
     fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -630,7 +629,6 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    #[doc(alias = "inverted")]
     fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
@@ -653,7 +651,6 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    #[doc(alias = "max-value")]
     fn connect_max_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_value_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
@@ -676,7 +673,6 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    #[doc(alias = "min-value")]
     fn connect_min_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_value_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
@@ -699,7 +695,6 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    #[doc(alias = "mode")]
     fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mode_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,
@@ -722,7 +717,6 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    #[doc(alias = "value")]
     fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P: IsA<LevelBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLevelBar,

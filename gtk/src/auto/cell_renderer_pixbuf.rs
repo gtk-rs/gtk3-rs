@@ -505,7 +505,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    #[doc(alias = "gicon")]
     fn connect_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_gicon_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -531,7 +530,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    #[doc(alias = "icon-name")]
     fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_name_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -557,7 +555,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    #[doc(alias = "pixbuf")]
     fn connect_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -583,7 +580,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    #[doc(alias = "pixbuf-expander-closed")]
     fn connect_pixbuf_expander_closed_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -612,7 +608,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    #[doc(alias = "pixbuf-expander-open")]
     fn connect_pixbuf_expander_open_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_expander_open_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -638,7 +633,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    #[doc(alias = "stock-detail")]
     fn connect_stock_detail_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stock_detail_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -664,7 +658,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    #[doc(alias = "stock-size")]
     fn connect_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stock_size_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -690,7 +683,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
-    #[doc(alias = "surface")]
     fn connect_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_surface_trampoline<
             P: IsA<CellRendererPixbuf>,

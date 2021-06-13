@@ -922,7 +922,6 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    #[doc(alias = "message-area")]
     fn connect_message_area_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_message_area_trampoline<
             P: IsA<MessageDialog>,
@@ -948,7 +947,6 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    #[doc(alias = "message-type")]
     fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_message_type_trampoline<
             P: IsA<MessageDialog>,
@@ -974,7 +972,6 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    #[doc(alias = "secondary-text")]
     fn connect_secondary_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_secondary_text_trampoline<
             P: IsA<MessageDialog>,
@@ -1000,7 +997,6 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    #[doc(alias = "secondary-use-markup")]
     fn connect_secondary_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_secondary_use_markup_trampoline<
             P: IsA<MessageDialog>,
@@ -1026,7 +1022,6 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    #[doc(alias = "text")]
     fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<P: IsA<MessageDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMessageDialog,
@@ -1049,7 +1044,6 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
-    #[doc(alias = "use-markup")]
     fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_markup_trampoline<
             P: IsA<MessageDialog>,

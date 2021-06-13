@@ -724,7 +724,6 @@ impl<O: IsA<ColorChooserDialog>> ColorChooserDialogExt for O {
         }
     }
 
-    #[doc(alias = "show-editor")]
     fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_editor_trampoline<
             P: IsA<ColorChooserDialog>,

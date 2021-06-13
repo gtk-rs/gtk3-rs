@@ -399,7 +399,6 @@ impl<O: IsA<Invisible>> InvisibleExt for O {
         }
     }
 
-    #[doc(alias = "screen")]
     fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screen_trampoline<P: IsA<Invisible>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInvisible,

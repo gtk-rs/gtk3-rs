@@ -584,7 +584,6 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    #[doc(alias = "ellipsize")]
     fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ellipsize_trampoline<
             P: IsA<ProgressBar>,
@@ -610,7 +609,6 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    #[doc(alias = "fraction")]
     fn connect_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_fraction_trampoline<
             P: IsA<ProgressBar>,
@@ -636,7 +634,6 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    #[doc(alias = "inverted")]
     fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<
             P: IsA<ProgressBar>,
@@ -662,7 +659,6 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    #[doc(alias = "pulse-step")]
     fn connect_pulse_step_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pulse_step_trampoline<
             P: IsA<ProgressBar>,
@@ -688,7 +684,6 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    #[doc(alias = "show-text")]
     fn connect_show_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_text_trampoline<
             P: IsA<ProgressBar>,
@@ -714,7 +709,6 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
         }
     }
 
-    #[doc(alias = "text")]
     fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<P: IsA<ProgressBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkProgressBar,

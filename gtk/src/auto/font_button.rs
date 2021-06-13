@@ -768,7 +768,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    #[doc(alias = "font-set")]
     fn connect_font_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn font_set_trampoline<P: IsA<FontButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontButton,
@@ -790,7 +789,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    #[doc(alias = "font-name")]
     fn connect_font_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_name_trampoline<
             P: IsA<FontButton>,
@@ -816,7 +814,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    #[doc(alias = "show-size")]
     fn connect_show_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_size_trampoline<
             P: IsA<FontButton>,
@@ -842,7 +839,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    #[doc(alias = "show-style")]
     fn connect_show_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_style_trampoline<
             P: IsA<FontButton>,
@@ -868,7 +864,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P: IsA<FontButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontButton,
@@ -891,7 +886,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    #[doc(alias = "use-font")]
     fn connect_use_font_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_font_trampoline<P: IsA<FontButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontButton,
@@ -914,7 +908,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         }
     }
 
-    #[doc(alias = "use-size")]
     fn connect_use_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_size_trampoline<P: IsA<FontButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFontButton,

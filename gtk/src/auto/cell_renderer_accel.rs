@@ -793,7 +793,6 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    #[doc(alias = "accel-cleared")]
     fn connect_accel_cleared<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn accel_cleared_trampoline<
             P: IsA<CellRendererAccel>,
@@ -823,7 +822,6 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    #[doc(alias = "accel-edited")]
     fn connect_accel_edited<F: Fn(&Self, TreePath, u32, gdk::ModifierType, u32) + 'static>(
         &self,
         f: F,
@@ -862,7 +860,6 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    #[doc(alias = "accel-key")]
     fn connect_accel_key_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_key_trampoline<
             P: IsA<CellRendererAccel>,
@@ -888,7 +885,6 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    #[doc(alias = "accel-mode")]
     fn connect_accel_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_mode_trampoline<
             P: IsA<CellRendererAccel>,
@@ -914,7 +910,6 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    #[doc(alias = "accel-mods")]
     fn connect_accel_mods_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_mods_trampoline<
             P: IsA<CellRendererAccel>,
@@ -940,7 +935,6 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
         }
     }
 
-    #[doc(alias = "keycode")]
     fn connect_keycode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_keycode_trampoline<
             P: IsA<CellRendererAccel>,

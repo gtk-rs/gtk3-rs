@@ -825,7 +825,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "active-descendant-changed")]
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
         &self,
         detail: Option<&str>,
@@ -863,7 +862,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "children-changed")]
     fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(
         &self,
         detail: Option<&str>,
@@ -902,12 +900,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    //#[doc(alias = "property-change")]
     //fn connect_property_change<Unsupported or ignored types>(&self, detail: Option<&str>, f: F) -> SignalHandlerId {
     //    Ignored arg1: Atk.PropertyValues
     //}
 
-    #[doc(alias = "state-change")]
     fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(
         &self,
         detail: Option<&str>,
@@ -946,7 +942,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "visible-data-changed")]
     fn connect_visible_data_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn visible_data_changed_trampoline<
             P: IsA<Object>,
@@ -971,7 +966,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-component-layer")]
     fn connect_accessible_component_layer_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1000,7 +994,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-component-mdi-zorder")]
     fn connect_accessible_component_mdi_zorder_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1029,7 +1022,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-description")]
     fn connect_accessible_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1058,7 +1050,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-hypertext-nlinks")]
     fn connect_accessible_hypertext_nlinks_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1087,7 +1078,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-name")]
     fn connect_accessible_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_name_trampoline<
             P: IsA<Object>,
@@ -1113,7 +1103,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-parent")]
     fn connect_accessible_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_parent_trampoline<
             P: IsA<Object>,
@@ -1139,7 +1128,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-role")]
     fn connect_accessible_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_role_trampoline<
             P: IsA<Object>,
@@ -1165,7 +1153,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-table-caption")]
     fn connect_accessible_table_caption_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1194,7 +1181,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-table-caption-object")]
     fn connect_accessible_table_caption_object_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1223,7 +1209,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-table-column-description")]
     fn connect_accessible_table_column_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1252,7 +1237,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-table-column-header")]
     fn connect_accessible_table_column_header_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1281,7 +1265,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-table-row-description")]
     fn connect_accessible_table_row_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1310,7 +1293,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-table-row-header")]
     fn connect_accessible_table_row_header_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1339,7 +1321,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-table-summary")]
     fn connect_accessible_table_summary_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1368,7 +1349,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[doc(alias = "accessible-value")]
     fn connect_accessible_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_value_trampoline<
             P: IsA<Object>,

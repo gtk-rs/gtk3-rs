@@ -682,7 +682,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    #[doc(alias = "popdown")]
     fn connect_popdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn popdown_trampoline<P: IsA<ScaleButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScaleButton,
@@ -712,7 +711,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         };
     }
 
-    #[doc(alias = "popup")]
     fn connect_popup<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn popup_trampoline<P: IsA<ScaleButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScaleButton,
@@ -742,7 +740,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         };
     }
 
-    #[doc(alias = "value-changed")]
     fn connect_value_changed<F: Fn(&Self, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn value_changed_trampoline<
             P: IsA<ScaleButton>,
@@ -771,7 +768,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    #[doc(alias = "adjustment")]
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_adjustment_trampoline<
             P: IsA<ScaleButton>,
@@ -797,7 +793,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    #[doc(alias = "icons")]
     fn connect_icons_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icons_trampoline<P: IsA<ScaleButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScaleButton,
@@ -820,7 +815,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    #[doc(alias = "size")]
     fn connect_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_size_trampoline<P: IsA<ScaleButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScaleButton,
@@ -843,7 +837,6 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
         }
     }
 
-    #[doc(alias = "value")]
     fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P: IsA<ScaleButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkScaleButton,

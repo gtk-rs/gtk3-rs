@@ -1104,7 +1104,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "edge-overshot")]
     fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn edge_overshot_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1133,7 +1132,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "edge-reached")]
     fn connect_edge_reached<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn edge_reached_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1162,7 +1160,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "move-focus-out")]
     fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
         &self,
         f: F,
@@ -1202,7 +1199,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         };
     }
 
-    #[doc(alias = "scroll-child")]
     fn connect_scroll_child<F: Fn(&Self, ScrollType, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -1248,7 +1244,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
             .expect("Return Value for `emit_scroll_child`")
     }
 
-    #[doc(alias = "hadjustment")]
     fn connect_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hadjustment_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1274,7 +1269,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "hscrollbar-policy")]
     fn connect_hscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hscrollbar_policy_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1300,7 +1294,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "kinetic-scrolling")]
     fn connect_kinetic_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_kinetic_scrolling_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1328,7 +1321,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "max-content-height")]
     fn connect_max_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_content_height_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1356,7 +1348,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "max-content-width")]
     fn connect_max_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_content_width_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1382,7 +1373,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "min-content-height")]
     fn connect_min_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_content_height_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1408,7 +1398,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "min-content-width")]
     fn connect_min_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_content_width_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1434,7 +1423,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "overlay-scrolling")]
     fn connect_overlay_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_overlay_scrolling_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1462,7 +1450,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "propagate-natural-height")]
     fn connect_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1493,7 +1480,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[doc(alias = "propagate-natural-width")]
     fn connect_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1522,7 +1508,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "shadow-type")]
     fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1548,7 +1533,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "vadjustment")]
     fn connect_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vadjustment_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1574,7 +1558,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "vscrollbar-policy")]
     fn connect_vscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vscrollbar_policy_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1600,7 +1583,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[doc(alias = "window-placement")]
     fn connect_window_placement_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_window_placement_trampoline<
             P: IsA<ScrolledWindow>,

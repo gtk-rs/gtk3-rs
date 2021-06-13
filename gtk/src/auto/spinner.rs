@@ -425,7 +425,6 @@ impl<O: IsA<Spinner>> SpinnerExt for O {
         }
     }
 
-    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P: IsA<Spinner>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinner,

@@ -745,7 +745,6 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -780,7 +779,6 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    #[doc(alias = "has-entry")]
     fn connect_has_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_entry_trampoline<
             P: IsA<CellRendererCombo>,
@@ -806,7 +804,6 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    #[doc(alias = "model")]
     fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_model_trampoline<
             P: IsA<CellRendererCombo>,
@@ -832,7 +829,6 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
-    #[doc(alias = "text-column")]
     fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_column_trampoline<
             P: IsA<CellRendererCombo>,

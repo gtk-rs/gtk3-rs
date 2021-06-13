@@ -688,7 +688,6 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    #[doc(alias = "custom-item-activated")]
     fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -726,7 +725,6 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    #[doc(alias = "heading")]
     fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_heading_trampoline<
             P: IsA<AppChooserButton>,
@@ -752,7 +750,6 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    #[doc(alias = "show-default-item")]
     fn connect_show_default_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_default_item_trampoline<
             P: IsA<AppChooserButton>,
@@ -778,7 +775,6 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    #[doc(alias = "show-dialog-item")]
     fn connect_show_dialog_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_dialog_item_trampoline<
             P: IsA<AppChooserButton>,

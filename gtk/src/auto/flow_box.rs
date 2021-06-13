@@ -982,7 +982,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "activate-cursor-child")]
     fn connect_activate_cursor_child<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_cursor_child_trampoline<
             P: IsA<FlowBox>,
@@ -1015,7 +1014,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         };
     }
 
-    #[doc(alias = "child-activated")]
     fn connect_child_activated<F: Fn(&Self, &FlowBoxChild) + 'static>(
         &self,
         f: F,
@@ -1047,7 +1045,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) -> bool + 'static>(
         &self,
         f: F,
@@ -1093,7 +1090,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
             .expect("Return Value for `emit_move_cursor`")
     }
 
-    #[doc(alias = "select-all")]
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_all_trampoline<P: IsA<FlowBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBox,
@@ -1123,7 +1119,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         };
     }
 
-    #[doc(alias = "selected-children-changed")]
     fn connect_selected_children_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selected_children_changed_trampoline<
             P: IsA<FlowBox>,
@@ -1148,7 +1143,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "toggle-cursor-child")]
     fn connect_toggle_cursor_child<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggle_cursor_child_trampoline<
             P: IsA<FlowBox>,
@@ -1181,7 +1175,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         };
     }
 
-    #[doc(alias = "unselect-all")]
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unselect_all_trampoline<P: IsA<FlowBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBox,
@@ -1211,7 +1204,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         };
     }
 
-    #[doc(alias = "activate-on-single-click")]
     fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1240,7 +1232,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "column-spacing")]
     fn connect_column_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_column_spacing_trampoline<
             P: IsA<FlowBox>,
@@ -1266,7 +1257,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "homogeneous")]
     fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_homogeneous_trampoline<P: IsA<FlowBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBox,
@@ -1289,7 +1279,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "max-children-per-line")]
     fn connect_max_children_per_line_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1318,7 +1307,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "min-children-per-line")]
     fn connect_min_children_per_line_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1347,7 +1335,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "row-spacing")]
     fn connect_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_row_spacing_trampoline<P: IsA<FlowBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBox,
@@ -1370,7 +1357,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[doc(alias = "selection-mode")]
     fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_mode_trampoline<
             P: IsA<FlowBox>,

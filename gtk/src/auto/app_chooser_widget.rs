@@ -680,7 +680,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "application-activated")]
     fn connect_application_activated<F: Fn(&Self, &gio::AppInfo) + 'static>(
         &self,
         f: F,
@@ -712,7 +711,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "application-selected")]
     fn connect_application_selected<F: Fn(&Self, &gio::AppInfo) + 'static>(
         &self,
         f: F,
@@ -744,7 +742,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "populate-popup")]
     fn connect_populate_popup<F: Fn(&Self, &Menu, &gio::AppInfo) + 'static>(
         &self,
         f: F,
@@ -778,7 +775,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "default-text")]
     fn connect_default_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_default_text_trampoline<
             P: IsA<AppChooserWidget>,
@@ -804,7 +800,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "show-all")]
     fn connect_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_all_trampoline<
             P: IsA<AppChooserWidget>,
@@ -830,7 +825,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "show-default")]
     fn connect_show_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_default_trampoline<
             P: IsA<AppChooserWidget>,
@@ -856,7 +850,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "show-fallback")]
     fn connect_show_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_fallback_trampoline<
             P: IsA<AppChooserWidget>,
@@ -882,7 +875,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "show-other")]
     fn connect_show_other_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_other_trampoline<
             P: IsA<AppChooserWidget>,
@@ -908,7 +900,6 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         }
     }
 
-    #[doc(alias = "show-recommended")]
     fn connect_show_recommended_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_recommended_trampoline<
             P: IsA<AppChooserWidget>,

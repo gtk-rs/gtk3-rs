@@ -414,7 +414,6 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
-    #[doc(alias = "row-changed")]
     fn connect_row_changed<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -448,7 +447,6 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
-    #[doc(alias = "row-deleted")]
     fn connect_row_deleted<F: Fn(&Self, &TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_deleted_trampoline<
             P: IsA<TreeModel>,
@@ -477,7 +475,6 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
-    #[doc(alias = "row-has-child-toggled")]
     fn connect_row_has_child_toggled<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -511,7 +508,6 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
-    #[doc(alias = "row-inserted")]
     fn connect_row_inserted<F: Fn(&Self, &TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -545,7 +541,6 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
-    //#[doc(alias = "rows-reordered")]
     //fn connect_rows_reordered<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented new_order: *.Pointer
     //}

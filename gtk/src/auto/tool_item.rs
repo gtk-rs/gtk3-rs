@@ -735,7 +735,6 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    #[doc(alias = "create-menu-proxy")]
     fn connect_create_menu_proxy<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -763,7 +762,6 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    #[doc(alias = "toolbar-reconfigured")]
     fn connect_toolbar_reconfigured<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toolbar_reconfigured_trampoline<
             P: IsA<ToolItem>,
@@ -788,7 +786,6 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    #[doc(alias = "is-important")]
     fn connect_is_important_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_important_trampoline<
             P: IsA<ToolItem>,
@@ -814,7 +811,6 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    #[doc(alias = "visible-horizontal")]
     fn connect_visible_horizontal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_horizontal_trampoline<
             P: IsA<ToolItem>,
@@ -840,7 +836,6 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
-    #[doc(alias = "visible-vertical")]
     fn connect_visible_vertical_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_vertical_trampoline<
             P: IsA<ToolItem>,

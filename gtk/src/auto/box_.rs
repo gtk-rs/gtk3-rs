@@ -794,7 +794,6 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    #[doc(alias = "baseline-position")]
     fn connect_baseline_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_baseline_position_trampoline<
             P: IsA<Box>,
@@ -820,7 +819,6 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    #[doc(alias = "homogeneous")]
     fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_homogeneous_trampoline<P: IsA<Box>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkBox,
@@ -843,7 +841,6 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    #[doc(alias = "spacing")]
     fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P: IsA<Box>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkBox,

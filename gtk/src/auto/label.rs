@@ -1221,7 +1221,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "activate-current-link")]
     fn connect_activate_current_link<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_current_link_trampoline<
             P: IsA<Label>,
@@ -1254,7 +1253,6 @@ impl<O: IsA<Label>> LabelExt for O {
         };
     }
 
-    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -1287,7 +1285,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "copy-clipboard")]
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn copy_clipboard_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1317,7 +1314,6 @@ impl<O: IsA<Label>> LabelExt for O {
         };
     }
 
-    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
         &self,
         f: F,
@@ -1361,7 +1357,6 @@ impl<O: IsA<Label>> LabelExt for O {
         };
     }
 
-    #[doc(alias = "populate-popup")]
     fn connect_populate_popup<F: Fn(&Self, &Menu) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn populate_popup_trampoline<
             P: IsA<Label>,
@@ -1390,7 +1385,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "angle")]
     fn connect_angle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_angle_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1413,7 +1407,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "attributes")]
     fn connect_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_attributes_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1436,7 +1429,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "cursor-position")]
     fn connect_cursor_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cursor_position_trampoline<
             P: IsA<Label>,
@@ -1462,7 +1454,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "ellipsize")]
     fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ellipsize_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1485,7 +1476,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "justify")]
     fn connect_justify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_justify_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1508,7 +1498,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1531,7 +1520,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "lines")]
     fn connect_lines_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_lines_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1554,7 +1542,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "max-width-chars")]
     fn connect_max_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_width_chars_trampoline<
             P: IsA<Label>,
@@ -1580,7 +1567,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "mnemonic-keyval")]
     fn connect_mnemonic_keyval_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mnemonic_keyval_trampoline<
             P: IsA<Label>,
@@ -1606,7 +1592,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "mnemonic-widget")]
     fn connect_mnemonic_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mnemonic_widget_trampoline<
             P: IsA<Label>,
@@ -1632,7 +1617,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "pattern")]
     fn connect_pattern_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pattern_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1655,7 +1639,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "selectable")]
     fn connect_selectable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selectable_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1678,7 +1661,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "selection-bound")]
     fn connect_selection_bound_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_bound_trampoline<
             P: IsA<Label>,
@@ -1704,7 +1686,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "single-line-mode")]
     fn connect_single_line_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_single_line_mode_trampoline<
             P: IsA<Label>,
@@ -1730,7 +1711,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "track-visited-links")]
     fn connect_track_visited_links_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_track_visited_links_trampoline<
             P: IsA<Label>,
@@ -1756,7 +1736,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "use-markup")]
     fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_markup_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1779,7 +1758,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "use-underline")]
     fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1802,7 +1780,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "width-chars")]
     fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_chars_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1825,7 +1802,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "wrap")]
     fn connect_wrap_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1848,7 +1824,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "wrap-mode")]
     fn connect_wrap_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_mode_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1871,7 +1846,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "xalign")]
     fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_xalign_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1894,7 +1868,6 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    #[doc(alias = "yalign")]
     fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_yalign_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,

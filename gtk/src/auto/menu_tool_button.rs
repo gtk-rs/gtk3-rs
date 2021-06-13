@@ -554,7 +554,6 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
-    #[doc(alias = "show-menu")]
     fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn show_menu_trampoline<P: IsA<MenuToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuToolButton,
@@ -576,7 +575,6 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
-    #[doc(alias = "menu")]
     fn connect_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_trampoline<P: IsA<MenuToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuToolButton,

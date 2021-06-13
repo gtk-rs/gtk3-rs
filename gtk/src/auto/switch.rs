@@ -456,7 +456,6 @@ impl<O: IsA<Switch>> SwitchExt for O {
         }
     }
 
-    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,
@@ -486,7 +485,6 @@ impl<O: IsA<Switch>> SwitchExt for O {
         };
     }
 
-    #[doc(alias = "state-set")]
     fn connect_state_set<F: Fn(&Self, bool) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -519,7 +517,6 @@ impl<O: IsA<Switch>> SwitchExt for O {
         }
     }
 
-    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,
@@ -542,7 +539,6 @@ impl<O: IsA<Switch>> SwitchExt for O {
         }
     }
 
-    #[doc(alias = "state")]
     fn connect_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_state_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,

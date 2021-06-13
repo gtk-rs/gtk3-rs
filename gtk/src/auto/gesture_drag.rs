@@ -192,7 +192,6 @@ impl<O: IsA<GestureDrag>> GestureDragExt for O {
         }
     }
 
-    #[doc(alias = "drag-begin")]
     fn connect_drag_begin<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drag_begin_trampoline<
             P: IsA<GestureDrag>,
@@ -223,7 +222,6 @@ impl<O: IsA<GestureDrag>> GestureDragExt for O {
         }
     }
 
-    #[doc(alias = "drag-end")]
     fn connect_drag_end<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drag_end_trampoline<
             P: IsA<GestureDrag>,
@@ -254,7 +252,6 @@ impl<O: IsA<GestureDrag>> GestureDragExt for O {
         }
     }
 
-    #[doc(alias = "drag-update")]
     fn connect_drag_update<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drag_update_trampoline<
             P: IsA<GestureDrag>,

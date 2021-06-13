@@ -550,7 +550,6 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
-    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -578,7 +577,6 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
-    #[doc(alias = "uri")]
     fn connect_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_uri_trampoline<P: IsA<LinkButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLinkButton,
@@ -601,7 +599,6 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
-    #[doc(alias = "visited")]
     fn connect_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visited_trampoline<P: IsA<LinkButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLinkButton,

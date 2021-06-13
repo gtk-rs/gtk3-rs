@@ -721,7 +721,6 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         }
     }
 
-    #[doc(alias = "permission")]
     fn connect_permission_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_permission_trampoline<
             P: IsA<LockButton>,
@@ -747,7 +746,6 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         }
     }
 
-    #[doc(alias = "text-lock")]
     fn connect_text_lock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_lock_trampoline<
             P: IsA<LockButton>,
@@ -773,7 +771,6 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         }
     }
 
-    #[doc(alias = "text-unlock")]
     fn connect_text_unlock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_unlock_trampoline<
             P: IsA<LockButton>,
@@ -799,7 +796,6 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         }
     }
 
-    #[doc(alias = "tooltip-lock")]
     fn connect_tooltip_lock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_lock_trampoline<
             P: IsA<LockButton>,
@@ -825,7 +821,6 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         }
     }
 
-    #[doc(alias = "tooltip-not-authorized")]
     fn connect_tooltip_not_authorized_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -854,7 +849,6 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         }
     }
 
-    #[doc(alias = "tooltip-unlock")]
     fn connect_tooltip_unlock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_unlock_trampoline<
             P: IsA<LockButton>,

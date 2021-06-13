@@ -246,7 +246,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    #[doc(alias = "activate-current")]
     fn connect_activate_current<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_current_trampoline<
             P: IsA<MenuShell>,
@@ -283,7 +282,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         };
     }
 
-    #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cancel_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -313,7 +311,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         };
     }
 
-    #[doc(alias = "cycle-focus")]
     fn connect_cycle_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cycle_focus_trampoline<
             P: IsA<MenuShell>,
@@ -350,7 +347,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         };
     }
 
-    #[doc(alias = "deactivate")]
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn deactivate_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -372,7 +368,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    #[doc(alias = "insert")]
     fn connect_insert<F: Fn(&Self, &Widget, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_trampoline<
             P: IsA<MenuShell>,
@@ -403,7 +398,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    #[doc(alias = "move-current")]
     fn connect_move_current<F: Fn(&Self, MenuDirectionType) + 'static>(
         &self,
         f: F,
@@ -443,7 +437,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         };
     }
 
-    #[doc(alias = "move-selected")]
     fn connect_move_selected<F: Fn(&Self, i32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -476,7 +469,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    #[doc(alias = "selection-done")]
     fn connect_selection_done<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_done_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -498,7 +490,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
-    #[doc(alias = "take-focus")]
     fn connect_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_take_focus_trampoline<
             P: IsA<MenuShell>,

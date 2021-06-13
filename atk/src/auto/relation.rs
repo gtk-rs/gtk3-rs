@@ -122,7 +122,6 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    #[doc(alias = "relation-type")]
     fn connect_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_relation_type_trampoline<
             P: IsA<Relation>,
@@ -148,7 +147,6 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    #[doc(alias = "target")]
     fn connect_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_target_trampoline<P: IsA<Relation>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkRelation,

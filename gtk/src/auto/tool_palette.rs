@@ -785,7 +785,6 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    #[doc(alias = "icon-size")]
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<
             P: IsA<ToolPalette>,
@@ -811,7 +810,6 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    #[doc(alias = "icon-size-set")]
     fn connect_icon_size_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_set_trampoline<
             P: IsA<ToolPalette>,
@@ -837,7 +835,6 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         }
     }
 
-    #[doc(alias = "toolbar-style")]
     fn connect_toolbar_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_toolbar_style_trampoline<
             P: IsA<ToolPalette>,
