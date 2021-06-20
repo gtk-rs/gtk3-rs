@@ -1225,7 +1225,8 @@ generate_builder = true
 [[object]]
 name = "Gtk.Image"
 status = "generate"
-generate_builder = true
+generate_builder = false # "icon-size" field should be gint
+manual_traits = ["ImageExtManual"]
     [[object.function]]
     name = "new_from_surface"
         [[object.function.parameter]]
@@ -1242,6 +1243,9 @@ generate_builder = true
     name = "get_icon_name"
     #can return NULL string
     ignore = true
+    [[object.property]]
+    name = "icon-size"
+    ignore = true # Has to call conversions to int
     [[object.property]]
     name = "surface"
     [[object.property]]
@@ -2074,7 +2078,11 @@ generate_builder = true
 [[object]]
 name = "Gtk.StackSwitcher"
 status = "generate"
-generate_builder = true
+generate_builder = false # "icon-size" property needs to be int internally
+manual_traits = ["StackSwitcherExtManual"]
+    [[object.property]]
+    name = "icon-size"
+    ignore = true # "icon-size" needs conversion between IconSize and integer
 
 [[object]]
 name = "Gtk.Statusbar"
