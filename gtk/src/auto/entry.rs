@@ -2596,7 +2596,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2625,7 +2625,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2654,7 +2654,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2683,7 +2683,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2721,7 +2721,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Entry::from_glib_borrow(this).unsafe_cast_ref(),
+                Entry::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(type_),
                 count,
             )
@@ -2762,7 +2762,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Entry::from_glib_borrow(this).unsafe_cast_ref(),
+                Entry::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(icon_pos),
                 &from_glib_none(event),
             )
@@ -2795,7 +2795,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Entry::from_glib_borrow(this).unsafe_cast_ref(),
+                Entry::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(icon_pos),
                 &from_glib_none(event),
             )
@@ -2824,7 +2824,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Entry::from_glib_borrow(this).unsafe_cast_ref(),
+                Entry::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(string),
             )
         }
@@ -2857,7 +2857,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2898,7 +2898,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Entry::from_glib_borrow(this).unsafe_cast_ref(),
+                Entry::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(step),
                 count,
                 from_glib(extend_selection),
@@ -2931,7 +2931,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2965,7 +2965,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Entry::from_glib_borrow(this).unsafe_cast_ref(),
+                Entry::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(widget),
             )
         }
@@ -2993,7 +2993,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Entry::from_glib_borrow(this).unsafe_cast_ref(),
+                Entry::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(preedit),
             )
         }
@@ -3024,7 +3024,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3057,7 +3057,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3079,7 +3079,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3101,7 +3101,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3126,7 +3126,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3148,7 +3148,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3173,7 +3173,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3195,7 +3195,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3223,7 +3223,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3245,7 +3245,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3267,7 +3267,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3289,7 +3289,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3311,7 +3311,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3336,7 +3336,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3361,7 +3361,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3383,7 +3383,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3408,7 +3408,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3433,7 +3433,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3458,7 +3458,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3480,7 +3480,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3508,7 +3508,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3533,7 +3533,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3558,7 +3558,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3583,7 +3583,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3611,7 +3611,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3639,7 +3639,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3667,7 +3667,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3695,7 +3695,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3720,7 +3720,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3745,7 +3745,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3767,7 +3767,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3795,7 +3795,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3820,7 +3820,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3845,7 +3845,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3873,7 +3873,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3901,7 +3901,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3929,7 +3929,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3957,7 +3957,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -3985,7 +3985,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4010,7 +4010,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4032,7 +4032,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4057,7 +4057,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4079,7 +4079,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4101,7 +4101,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4123,7 +4123,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4148,7 +4148,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4170,7 +4170,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4192,7 +4192,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -4214,7 +4214,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Entry::from_glib_borrow(this).unsafe_cast_ref())
+            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -721,7 +721,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Popover::from_glib_borrow(this).unsafe_cast_ref())
+            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -748,7 +748,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Popover::from_glib_borrow(this).unsafe_cast_ref())
+            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -770,7 +770,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Popover::from_glib_borrow(this).unsafe_cast_ref())
+            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -792,7 +792,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Popover::from_glib_borrow(this).unsafe_cast_ref())
+            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -814,7 +814,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Popover::from_glib_borrow(this).unsafe_cast_ref())
+            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -836,7 +836,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Popover::from_glib_borrow(this).unsafe_cast_ref())
+            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -861,7 +861,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Popover::from_glib_borrow(this).unsafe_cast_ref())
+            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

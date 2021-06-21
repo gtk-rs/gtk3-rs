@@ -663,7 +663,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
             f: glib::ffi::gpointer,
         ) -> *mut gdk::ffi::GdkGLContext {
             let f: &F = &*(f as *const F);
-            f(&GLArea::from_glib_borrow(this).unsafe_cast_ref()).to_glib_full()
+            f(GLArea::from_glib_borrow(this).unsafe_cast_ref()).to_glib_full()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -692,7 +692,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &GLArea::from_glib_borrow(this).unsafe_cast_ref(),
+                GLArea::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(context),
             )
             .into_glib()
@@ -719,7 +719,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &GLArea::from_glib_borrow(this).unsafe_cast_ref(),
+                GLArea::from_glib_borrow(this).unsafe_cast_ref(),
                 width,
                 height,
             )
@@ -744,7 +744,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -766,7 +766,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -788,7 +788,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -813,7 +813,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -838,7 +838,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -862,7 +862,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

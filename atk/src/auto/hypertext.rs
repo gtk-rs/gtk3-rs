@@ -68,7 +68,7 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Hypertext::from_glib_borrow(this).unsafe_cast_ref(), arg1)
+            f(Hypertext::from_glib_borrow(this).unsafe_cast_ref(), arg1)
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

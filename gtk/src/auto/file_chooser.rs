@@ -895,7 +895,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) -> ffi::GtkFileChooserConfirmation {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -919,7 +919,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -940,7 +940,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -964,7 +964,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -985,7 +985,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1007,7 +1007,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1032,7 +1032,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1060,7 +1060,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1085,7 +1085,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1107,7 +1107,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1132,7 +1132,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1157,7 +1157,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1185,7 +1185,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1210,7 +1210,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1235,7 +1235,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1260,7 +1260,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -1234,7 +1234,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &AboutDialog::from_glib_borrow(this).unsafe_cast_ref(),
+                AboutDialog::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(uri),
             )
             .into_glib()
@@ -1259,7 +1259,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1281,7 +1281,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1306,7 +1306,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1331,7 +1331,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1356,7 +1356,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1378,7 +1378,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1403,7 +1403,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1425,7 +1425,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1450,7 +1450,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1475,7 +1475,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1500,7 +1500,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1522,7 +1522,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1544,7 +1544,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1569,7 +1569,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1594,7 +1594,7 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

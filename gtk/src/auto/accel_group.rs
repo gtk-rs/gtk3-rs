@@ -191,7 +191,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
+                AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(acceleratable),
                 keyval,
                 from_glib(modifier),
@@ -232,7 +232,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
+                AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
                 keyval,
                 from_glib(modifier),
                 &from_glib_borrow(accel_closure),
@@ -265,7 +265,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
+            f(AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -290,7 +290,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
+            f(AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

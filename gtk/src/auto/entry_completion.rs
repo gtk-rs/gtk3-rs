@@ -546,7 +546,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
+                EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
                 index,
             )
         }
@@ -580,7 +580,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
+                EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(model),
                 &from_glib_borrow(iter),
             )
@@ -613,7 +613,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
+                EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(prefix),
             )
             .into_glib()
@@ -648,7 +648,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
+                EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(model),
                 &from_glib_borrow(iter),
             )
@@ -673,7 +673,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -698,7 +698,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -723,7 +723,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -748,7 +748,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -773,7 +773,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -798,7 +798,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -823,7 +823,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -848,7 +848,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -873,7 +873,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

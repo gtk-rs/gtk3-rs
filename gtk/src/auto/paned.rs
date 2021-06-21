@@ -734,7 +734,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -769,7 +769,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -809,7 +809,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &Paned::from_glib_borrow(this).unsafe_cast_ref(),
+                Paned::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(reversed),
             )
             .into_glib()
@@ -852,7 +852,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &Paned::from_glib_borrow(this).unsafe_cast_ref(),
+                Paned::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(reversed),
             )
             .into_glib()
@@ -895,7 +895,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &Paned::from_glib_borrow(this).unsafe_cast_ref(),
+                Paned::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(scroll_type),
             )
             .into_glib()
@@ -933,7 +933,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -966,7 +966,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref())
+            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -988,7 +988,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref())
+            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1010,7 +1010,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref())
+            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1032,7 +1032,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref())
+            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1054,7 +1054,7 @@ impl<O: IsA<Paned>> PanedExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Paned::from_glib_borrow(this).unsafe_cast_ref())
+            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

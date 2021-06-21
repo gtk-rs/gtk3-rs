@@ -1781,7 +1781,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1810,7 +1810,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1839,7 +1839,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1877,7 +1877,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                TextView::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(type_),
                 count,
             )
@@ -1930,7 +1930,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
-                &TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                TextView::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(granularity),
                 &from_glib_borrow(location),
                 &from_glib_borrow(start),
@@ -1962,7 +1962,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                TextView::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(string),
             )
         }
@@ -1995,7 +1995,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2036,7 +2036,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                TextView::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(step),
                 count,
                 from_glib(extend_selection),
@@ -2078,7 +2078,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                TextView::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(step),
                 count,
             )
@@ -2110,7 +2110,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2144,7 +2144,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                TextView::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(popup),
             )
         }
@@ -2172,7 +2172,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                TextView::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(preedit),
             )
         }
@@ -2205,7 +2205,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                TextView::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(select),
             )
         }
@@ -2236,7 +2236,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2268,7 +2268,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2297,7 +2297,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2330,7 +2330,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2355,7 +2355,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2377,7 +2377,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2402,7 +2402,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2424,7 +2424,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2446,7 +2446,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2468,7 +2468,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2493,7 +2493,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2518,7 +2518,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2543,7 +2543,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2568,7 +2568,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2590,7 +2590,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2612,7 +2612,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2637,7 +2637,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2662,7 +2662,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2687,7 +2687,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2712,7 +2712,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2737,7 +2737,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2759,7 +2759,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2781,7 +2781,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -2803,7 +2803,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&TextView::from_glib_borrow(this).unsafe_cast_ref())
+            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

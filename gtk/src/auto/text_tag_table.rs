@@ -129,7 +129,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
+                TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(tag),
             )
         }
@@ -158,7 +158,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
+                TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(tag),
                 from_glib(size_changed),
             )
@@ -187,7 +187,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
+                TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(tag),
             )
         }
