@@ -3,6 +3,7 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 #![allow(clippy::upper_case_acronyms)]
+#![allow(clippy::wrong_self_convention)]
 
 //! # Rust GDK 3 bindings
 //!

@@ -50,7 +50,7 @@ impl ApplicationImpl for SimpleApplication {
 
         let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
         let priv_ = SimpleApplication::from_instance(app);
-        let window = SimpleWindow::new(&app);
+        let window = SimpleWindow::new(app);
         priv_
             .window
             .set(window)
