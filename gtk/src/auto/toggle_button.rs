@@ -653,7 +653,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&ToggleButton::from_glib_borrow(this).unsafe_cast_ref())
+            f(ToggleButton::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -675,7 +675,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&ToggleButton::from_glib_borrow(this).unsafe_cast_ref())
+            f(ToggleButton::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -700,7 +700,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&ToggleButton::from_glib_borrow(this).unsafe_cast_ref())
+            f(ToggleButton::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -725,7 +725,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&ToggleButton::from_glib_borrow(this).unsafe_cast_ref())
+            f(ToggleButton::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

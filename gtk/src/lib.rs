@@ -2,6 +2,7 @@
 
 #![allow(clippy::needless_doctest_main)]
 #![allow(clippy::upper_case_acronyms)]
+#![allow(clippy::wrong_self_convention)]
 
 //! # Rust GTK 3 bindings
 //!

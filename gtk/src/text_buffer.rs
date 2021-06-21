@@ -66,7 +66,7 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             let mut end_copy = from_glib_none(end);
 
             f(
-                &TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(tag),
                 &mut start_copy,
                 &mut end_copy,
@@ -108,7 +108,7 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             let mut end_copy = from_glib_none(end);
 
             f(
-                &TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
                 &mut start_copy,
                 &mut end_copy,
             );
@@ -148,7 +148,7 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             let mut location_copy = from_glib_none(location);
 
             f(
-                &TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
                 &mut location_copy,
                 &from_glib_borrow(anchor),
             );
@@ -187,7 +187,7 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             let mut location_copy = from_glib_none(location);
 
             f(
-                &TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
                 &mut location_copy,
                 &from_glib_borrow(pixbuf),
             );
@@ -224,7 +224,7 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             let mut location_copy = from_glib_none(location);
 
             f(
-                &TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
                 &mut location_copy,
                 str::from_utf8(slice::from_raw_parts(text as *const u8, len as usize)).unwrap(),
             );
@@ -265,7 +265,7 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             let mut end_copy = from_glib_none(end);
 
             f(
-                &TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(tag),
                 &mut start_copy,
                 &mut end_copy,

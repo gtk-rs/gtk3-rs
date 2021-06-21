@@ -109,7 +109,7 @@ fn build_ui(application: &gtk::Application) {
 
             for (image, origin) in images.iter().zip(origins.iter()) {
                 image.borrow_mut().with_surface(|surface| {
-                    draw_image_if_dirty(&cr, surface, *origin, (WIDTH, HEIGHT));
+                    draw_image_if_dirty(cr, surface, *origin, (WIDTH, HEIGHT));
                 });
             }
 

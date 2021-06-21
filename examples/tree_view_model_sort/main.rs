@@ -36,7 +36,7 @@ fn build_ui(application: &gtk::Application) {
 
     treeview.connect_row_activated(move |_, path, _column| {
         let real_path = sortable_store
-            .convert_path_to_child_path(&path)
+            .convert_path_to_child_path(path)
             .expect("Sorted path does not correspond to real path");
         println!(
             "Clicked on sorted: {:?}, real: {:?}",

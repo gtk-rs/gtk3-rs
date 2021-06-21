@@ -356,7 +356,7 @@ impl<O: IsA<Table>> TableExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -382,7 +382,7 @@ impl<O: IsA<Table>> TableExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -403,7 +403,7 @@ impl<O: IsA<Table>> TableExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Table::from_glib_borrow(this).unsafe_cast_ref())
+            f(Table::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -424,7 +424,7 @@ impl<O: IsA<Table>> TableExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Table::from_glib_borrow(this).unsafe_cast_ref())
+            f(Table::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -450,7 +450,7 @@ impl<O: IsA<Table>> TableExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -476,7 +476,7 @@ impl<O: IsA<Table>> TableExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -497,7 +497,7 @@ impl<O: IsA<Table>> TableExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Table::from_glib_borrow(this).unsafe_cast_ref())
+            f(Table::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

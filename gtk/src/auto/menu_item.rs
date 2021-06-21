@@ -703,7 +703,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -732,7 +732,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -753,7 +753,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -774,7 +774,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -799,7 +799,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref(), object)
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref(), object)
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -825,7 +825,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -847,7 +847,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -872,7 +872,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -894,7 +894,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -919,7 +919,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&MenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            f(MenuItem::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -411,7 +411,7 @@ impl<O: IsA<Text>> TextExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Text::from_glib_borrow(this).unsafe_cast_ref())
+            f(Text::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -433,7 +433,7 @@ impl<O: IsA<Text>> TextExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Text::from_glib_borrow(this).unsafe_cast_ref(), arg1)
+            f(Text::from_glib_borrow(this).unsafe_cast_ref(), arg1)
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -465,7 +465,7 @@ impl<O: IsA<Text>> TextExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Text::from_glib_borrow(this).unsafe_cast_ref(),
+                Text::from_glib_borrow(this).unsafe_cast_ref(),
                 arg1,
                 arg2,
                 &glib::GString::from_glib_borrow(arg3),
@@ -505,7 +505,7 @@ impl<O: IsA<Text>> TextExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Text::from_glib_borrow(this).unsafe_cast_ref(),
+                Text::from_glib_borrow(this).unsafe_cast_ref(),
                 arg1,
                 arg2,
                 &glib::GString::from_glib_borrow(arg3),
@@ -537,7 +537,7 @@ impl<O: IsA<Text>> TextExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Text::from_glib_borrow(this).unsafe_cast_ref())
+            f(Text::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

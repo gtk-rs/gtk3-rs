@@ -608,7 +608,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &LevelBar::from_glib_borrow(this).unsafe_cast_ref(),
+                LevelBar::from_glib_borrow(this).unsafe_cast_ref(),
                 &glib::GString::from_glib_borrow(name),
             )
         }
@@ -636,7 +636,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -658,7 +658,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -680,7 +680,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -702,7 +702,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -724,7 +724,7 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

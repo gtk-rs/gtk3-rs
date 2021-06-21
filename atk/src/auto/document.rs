@@ -113,7 +113,7 @@ impl<O: IsA<Document>> DocumentExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Document::from_glib_borrow(this).unsafe_cast_ref())
+            f(Document::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -134,7 +134,7 @@ impl<O: IsA<Document>> DocumentExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Document::from_glib_borrow(this).unsafe_cast_ref())
+            f(Document::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -157,7 +157,7 @@ impl<O: IsA<Document>> DocumentExt for O {
         ) {
             let f: &F = &*(f as *const F);
             f(
-                &Document::from_glib_borrow(this).unsafe_cast_ref(),
+                Document::from_glib_borrow(this).unsafe_cast_ref(),
                 page_number,
             )
         }
@@ -180,7 +180,7 @@ impl<O: IsA<Document>> DocumentExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&Document::from_glib_borrow(this).unsafe_cast_ref())
+            f(Document::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

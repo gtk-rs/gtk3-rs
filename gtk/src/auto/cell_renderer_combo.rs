@@ -761,7 +761,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
             let f: &F = &*(f as *const F);
             let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path_string));
             f(
-                &CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref(),
+                CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref(),
                 path,
                 &from_glib_borrow(new_iter),
             )
@@ -789,7 +789,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -814,7 +814,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -839,7 +839,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
