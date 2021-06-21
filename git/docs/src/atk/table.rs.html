@@ -45,6 +45,24 @@
 <span id="41">41</span>
 <span id="42">42</span>
 <span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
 </pre><pre class="rust">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -53,10 +71,28 @@
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TableExtManual</span>: <span class="lifetime">&#39;static</span> {
+    <span class="doccomment">/// Gets the selected columns of the table by initializing **selected with</span>
+    <span class="doccomment">/// the selected column numbers. This array should be freed by the caller.</span>
+    <span class="doccomment">/// ## `selected`</span>
+    <span class="doccomment">/// a `gint`** that is to contain the selected columns numbers</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// a gint representing the number of selected columns,</span>
+    <span class="doccomment">/// or `0` if value does not implement this interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_get_selected_columns&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_selected_columns&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">selected_columns</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>;
 
+    <span class="doccomment">/// Gets the selected rows of the table by initializing **selected with</span>
+    <span class="doccomment">/// the selected row numbers. This array should be freed by the caller.</span>
+    <span class="doccomment">/// ## `selected`</span>
+    <span class="doccomment">/// a `gint`** that is to contain the selected row numbers</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// a gint representing the number of selected rows,</span>
+    <span class="doccomment">/// or zero if value does not implement this interface.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;atk_table_get_selected_rows&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_selected_rows&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">selected_rows</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>;

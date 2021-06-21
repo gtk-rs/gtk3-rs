@@ -456,6 +456,39 @@
 <span id="452">452</span>
 <span id="453">453</span>
 <span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
 </pre><pre class="rust">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -508,6 +541,7 @@
     <span class="doccomment">/// There’s no way to set a default action here, you can use the</span>
     <span class="doccomment">/// `signal::Widget::drag-motion` callback for that. Here’s an example which selects</span>
     <span class="doccomment">/// the action to use depending on whether the control key is pressed or not:</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```C</span>
     <span class="doccomment">/// static void</span>
@@ -689,6 +723,38 @@
     <span class="doccomment">/// This will not necessarily entirely remove the widget from existence but</span>
     <span class="doccomment">/// you must *NOT* query the widget&#39;s state subsequently.  Do not call this</span>
     <span class="doccomment">/// yourself unless you really mean to.</span>
+    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
+    <span class="doccomment">/// Destroys a widget.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// When a widget is destroyed all references it holds on other objects</span>
+    <span class="doccomment">/// will be released:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">///  - if the widget is inside a container, it will be removed from its</span>
+    <span class="doccomment">///  parent</span>
+    <span class="doccomment">///  - if the widget is a container, all its children will be destroyed,</span>
+    <span class="doccomment">///  recursively</span>
+    <span class="doccomment">///  - if the widget is a top level, it will be removed from the list</span>
+    <span class="doccomment">///  of top level widgets that GTK+ maintains internally</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// It&#39;s expected that all references held on the widget will also</span>
+    <span class="doccomment">/// be released; you should connect to the `signal::Widget::destroy` signal</span>
+    <span class="doccomment">/// if you hold a reference to `self` and you wish to remove it when</span>
+    <span class="doccomment">/// this function is called. It is not necessary to do so if you are</span>
+    <span class="doccomment">/// implementing a [`Container`][crate::Container], as you&#39;ll be able to use the</span>
+    <span class="doccomment">/// `GtkContainerClass.remove()` virtual function for that.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// It&#39;s important to notice that `gtk_widget_destroy()` will only cause</span>
+    <span class="doccomment">/// the `self` to be finalized if no additional references, acquired</span>
+    <span class="doccomment">/// using `g_object_ref()`, are held on it. In case additional references</span>
+    <span class="doccomment">/// are in place, the `self` will be in an &quot;inert&quot; state after calling</span>
+    <span class="doccomment">/// this function; `self` will still point to valid memory, allowing you</span>
+    <span class="doccomment">/// to release the references you hold, but you may not query the widget&#39;s</span>
+    <span class="doccomment">/// own state.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// You should typically call this function on top level widgets, and</span>
+    <span class="doccomment">/// rarely on child widgets.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// See also: [`ContainerExt::remove()`][crate::prelude::ContainerExt::remove()]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_widget_destroy&quot;</span>)]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">destroy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
@@ -774,7 +840,7 @@
             <span class="ident">T</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>,
         {
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">Widget::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="ident">Widget::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">event</span>),
             )
             .<span class="ident">into_glib</span>()
@@ -805,7 +871,7 @@
             <span class="ident">T</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>,
         {
             <span class="ident">f</span>(
-                <span class="kw-2">&amp;</span><span class="ident">Widget::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
+                <span class="ident">Widget::from_glib_borrow</span>(<span class="ident">this</span>).<span class="ident">unsafe_cast_ref</span>(),
                 <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">event</span>),
             )
             .<span class="ident">into_glib</span>()
@@ -840,7 +906,7 @@
             <span class="kw">let</span> <span class="ident">widget</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">widget</span>);
             <span class="kw">let</span> <span class="ident">frame_clock</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">frame_clock</span>);
             <span class="kw">let</span> <span class="ident">callback</span>: <span class="kw-2">&amp;</span><span class="ident">P</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
-            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">callback</span>)(<span class="kw-2">&amp;</span><span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">frame_clock</span>);
+            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">callback</span>)(<span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">frame_clock</span>);
             <span class="ident">res</span>.<span class="ident">into_glib</span>()
         }
         <span class="kw">let</span> <span class="ident">callback</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">callback_func</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">P</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw">_</span>);
