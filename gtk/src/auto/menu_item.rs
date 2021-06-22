@@ -59,9 +59,9 @@ impl MenuItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`MenuItem`].
+    /// Creates a new builder-pattern struct instance to construct [`MenuItem`] objects.
     ///
-    /// This method returns an instance of [`MenuItemBuilder`] which can be used to create a [`MenuItem`].
+    /// This method returns an instance of [`MenuItemBuilder`] which can be used to create [`MenuItem`] objects.
     pub fn builder() -> MenuItemBuilder {
         MenuItemBuilder::default()
     }
@@ -75,7 +75,9 @@ impl Default for MenuItem {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`MenuItem`].
+/// A [builder-pattern] type to construct [`MenuItem`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct MenuItemBuilder {
     accel_path: Option<String>,
     label: Option<String>,

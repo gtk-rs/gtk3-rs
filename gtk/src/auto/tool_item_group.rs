@@ -41,9 +41,9 @@ impl ToolItemGroup {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ToolItemGroup`].
+    /// Creates a new builder-pattern struct instance to construct [`ToolItemGroup`] objects.
     ///
-    /// This method returns an instance of [`ToolItemGroupBuilder`] which can be used to create a [`ToolItemGroup`].
+    /// This method returns an instance of [`ToolItemGroupBuilder`] which can be used to create [`ToolItemGroup`] objects.
     pub fn builder() -> ToolItemGroupBuilder {
         ToolItemGroupBuilder::default()
     }
@@ -51,7 +51,9 @@ impl ToolItemGroup {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ToolItemGroup`].
+/// A [builder-pattern] type to construct [`ToolItemGroup`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ToolItemGroupBuilder {
     collapsed: Option<bool>,
     ellipsize: Option<pango::EllipsizeMode>,

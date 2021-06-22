@@ -52,9 +52,9 @@ impl Menu {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Menu`].
+    /// Creates a new builder-pattern struct instance to construct [`Menu`] objects.
     ///
-    /// This method returns an instance of [`MenuBuilder`] which can be used to create a [`Menu`].
+    /// This method returns an instance of [`MenuBuilder`] which can be used to create [`Menu`] objects.
     pub fn builder() -> MenuBuilder {
         MenuBuilder::default()
     }
@@ -79,7 +79,9 @@ impl Default for Menu {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`Menu`].
+/// A [builder-pattern] type to construct [`Menu`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct MenuBuilder {
     accel_group: Option<AccelGroup>,
     accel_path: Option<String>,

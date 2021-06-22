@@ -40,9 +40,9 @@ impl StyleContext {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`StyleContext`].
+    /// Creates a new builder-pattern struct instance to construct [`StyleContext`] objects.
     ///
-    /// This method returns an instance of [`StyleContextBuilder`] which can be used to create a [`StyleContext`].
+    /// This method returns an instance of [`StyleContextBuilder`] which can be used to create [`StyleContext`] objects.
     pub fn builder() -> StyleContextBuilder {
         StyleContextBuilder::default()
     }
@@ -91,7 +91,9 @@ impl Default for StyleContext {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`StyleContext`].
+/// A [builder-pattern] type to construct [`StyleContext`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct StyleContextBuilder {
     direction: Option<TextDirection>,
     paint_clock: Option<gdk::FrameClock>,

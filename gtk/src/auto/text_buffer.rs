@@ -43,9 +43,9 @@ impl TextBuffer {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`TextBuffer`].
+    /// Creates a new builder-pattern struct instance to construct [`TextBuffer`] objects.
     ///
-    /// This method returns an instance of [`TextBufferBuilder`] which can be used to create a [`TextBuffer`].
+    /// This method returns an instance of [`TextBufferBuilder`] which can be used to create [`TextBuffer`] objects.
     pub fn builder() -> TextBufferBuilder {
         TextBufferBuilder::default()
     }
@@ -53,7 +53,9 @@ impl TextBuffer {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`TextBuffer`].
+/// A [builder-pattern] type to construct [`TextBuffer`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct TextBufferBuilder {
     tag_table: Option<TextTagTable>,
     text: Option<String>,

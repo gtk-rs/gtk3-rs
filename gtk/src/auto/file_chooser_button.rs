@@ -61,9 +61,9 @@ impl FileChooserButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`FileChooserButton`].
+    /// Creates a new builder-pattern struct instance to construct [`FileChooserButton`] objects.
     ///
-    /// This method returns an instance of [`FileChooserButtonBuilder`] which can be used to create a [`FileChooserButton`].
+    /// This method returns an instance of [`FileChooserButtonBuilder`] which can be used to create [`FileChooserButton`] objects.
     pub fn builder() -> FileChooserButtonBuilder {
         FileChooserButtonBuilder::default()
     }
@@ -71,7 +71,9 @@ impl FileChooserButton {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`FileChooserButton`].
+/// A [builder-pattern] type to construct [`FileChooserButton`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct FileChooserButtonBuilder {
     dialog: Option<FileChooser>,
     title: Option<String>,

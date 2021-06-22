@@ -37,9 +37,9 @@ impl StackSidebar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`StackSidebar`].
+    /// Creates a new builder-pattern struct instance to construct [`StackSidebar`] objects.
     ///
-    /// This method returns an instance of [`StackSidebarBuilder`] which can be used to create a [`StackSidebar`].
+    /// This method returns an instance of [`StackSidebarBuilder`] which can be used to create [`StackSidebar`] objects.
     pub fn builder() -> StackSidebarBuilder {
         StackSidebarBuilder::default()
     }
@@ -53,7 +53,9 @@ impl Default for StackSidebar {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`StackSidebar`].
+/// A [builder-pattern] type to construct [`StackSidebar`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct StackSidebarBuilder {
     stack: Option<Stack>,
     border_width: Option<u32>,

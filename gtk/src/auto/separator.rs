@@ -34,9 +34,9 @@ impl Separator {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Separator`].
+    /// Creates a new builder-pattern struct instance to construct [`Separator`] objects.
     ///
-    /// This method returns an instance of [`SeparatorBuilder`] which can be used to create a [`Separator`].
+    /// This method returns an instance of [`SeparatorBuilder`] which can be used to create [`Separator`] objects.
     pub fn builder() -> SeparatorBuilder {
         SeparatorBuilder::default()
     }
@@ -44,7 +44,9 @@ impl Separator {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`Separator`].
+/// A [builder-pattern] type to construct [`Separator`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct SeparatorBuilder {
     app_paintable: Option<bool>,
     can_default: Option<bool>,

@@ -54,9 +54,9 @@ impl RecentChooserMenu {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RecentChooserMenu`].
+    /// Creates a new builder-pattern struct instance to construct [`RecentChooserMenu`] objects.
     ///
-    /// This method returns an instance of [`RecentChooserMenuBuilder`] which can be used to create a [`RecentChooserMenu`].
+    /// This method returns an instance of [`RecentChooserMenuBuilder`] which can be used to create [`RecentChooserMenu`] objects.
     pub fn builder() -> RecentChooserMenuBuilder {
         RecentChooserMenuBuilder::default()
     }
@@ -70,7 +70,9 @@ impl Default for RecentChooserMenu {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`RecentChooserMenu`].
+/// A [builder-pattern] type to construct [`RecentChooserMenu`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct RecentChooserMenuBuilder {
     show_numbers: Option<bool>,
     accel_group: Option<AccelGroup>,

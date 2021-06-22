@@ -45,9 +45,9 @@ impl ToolButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ToolButton`].
+    /// Creates a new builder-pattern struct instance to construct [`ToolButton`] objects.
     ///
-    /// This method returns an instance of [`ToolButtonBuilder`] which can be used to create a [`ToolButton`].
+    /// This method returns an instance of [`ToolButtonBuilder`] which can be used to create [`ToolButton`] objects.
     pub fn builder() -> ToolButtonBuilder {
         ToolButtonBuilder::default()
     }
@@ -55,7 +55,9 @@ impl ToolButton {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ToolButton`].
+/// A [builder-pattern] type to construct [`ToolButton`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ToolButtonBuilder {
     icon_name: Option<String>,
     icon_widget: Option<Widget>,

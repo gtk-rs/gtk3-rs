@@ -80,9 +80,9 @@ impl RadioButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RadioButton`].
+    /// Creates a new builder-pattern struct instance to construct [`RadioButton`] objects.
     ///
-    /// This method returns an instance of [`RadioButtonBuilder`] which can be used to create a [`RadioButton`].
+    /// This method returns an instance of [`RadioButtonBuilder`] which can be used to create [`RadioButton`] objects.
     pub fn builder() -> RadioButtonBuilder {
         RadioButtonBuilder::default()
     }
@@ -90,7 +90,9 @@ impl RadioButton {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`RadioButton`].
+/// A [builder-pattern] type to construct [`RadioButton`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct RadioButtonBuilder {
     active: Option<bool>,
     draw_indicator: Option<bool>,

@@ -38,9 +38,9 @@ impl FileChooserDialog {
     //}
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`FileChooserDialog`].
+    /// Creates a new builder-pattern struct instance to construct [`FileChooserDialog`] objects.
     ///
-    /// This method returns an instance of [`FileChooserDialogBuilder`] which can be used to create a [`FileChooserDialog`].
+    /// This method returns an instance of [`FileChooserDialogBuilder`] which can be used to create [`FileChooserDialog`] objects.
     pub fn builder() -> FileChooserDialogBuilder {
         FileChooserDialogBuilder::default()
     }
@@ -48,7 +48,9 @@ impl FileChooserDialog {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`FileChooserDialog`].
+/// A [builder-pattern] type to construct [`FileChooserDialog`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct FileChooserDialogBuilder {
     use_header_bar: Option<i32>,
     accept_focus: Option<bool>,

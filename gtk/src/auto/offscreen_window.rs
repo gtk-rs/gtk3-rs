@@ -36,9 +36,9 @@ impl OffscreenWindow {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`OffscreenWindow`].
+    /// Creates a new builder-pattern struct instance to construct [`OffscreenWindow`] objects.
     ///
-    /// This method returns an instance of [`OffscreenWindowBuilder`] which can be used to create a [`OffscreenWindow`].
+    /// This method returns an instance of [`OffscreenWindowBuilder`] which can be used to create [`OffscreenWindow`] objects.
     pub fn builder() -> OffscreenWindowBuilder {
         OffscreenWindowBuilder::default()
     }
@@ -52,7 +52,9 @@ impl Default for OffscreenWindow {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`OffscreenWindow`].
+/// A [builder-pattern] type to construct [`OffscreenWindow`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct OffscreenWindowBuilder {
     accept_focus: Option<bool>,
     application: Option<Application>,

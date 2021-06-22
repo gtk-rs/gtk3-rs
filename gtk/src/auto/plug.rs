@@ -54,9 +54,9 @@ impl Plug {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Plug`].
+    /// Creates a new builder-pattern struct instance to construct [`Plug`] objects.
     ///
-    /// This method returns an instance of [`PlugBuilder`] which can be used to create a [`Plug`].
+    /// This method returns an instance of [`PlugBuilder`] which can be used to create [`Plug`] objects.
     pub fn builder() -> PlugBuilder {
         PlugBuilder::default()
     }
@@ -64,7 +64,9 @@ impl Plug {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`Plug`].
+/// A [builder-pattern] type to construct [`Plug`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct PlugBuilder {
     accept_focus: Option<bool>,
     application: Option<Application>,

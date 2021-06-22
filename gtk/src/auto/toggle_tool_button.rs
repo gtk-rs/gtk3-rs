@@ -39,9 +39,9 @@ impl ToggleToolButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ToggleToolButton`].
+    /// Creates a new builder-pattern struct instance to construct [`ToggleToolButton`] objects.
     ///
-    /// This method returns an instance of [`ToggleToolButtonBuilder`] which can be used to create a [`ToggleToolButton`].
+    /// This method returns an instance of [`ToggleToolButtonBuilder`] which can be used to create [`ToggleToolButton`] objects.
     pub fn builder() -> ToggleToolButtonBuilder {
         ToggleToolButtonBuilder::default()
     }
@@ -55,7 +55,9 @@ impl Default for ToggleToolButton {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ToggleToolButton`].
+/// A [builder-pattern] type to construct [`ToggleToolButton`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ToggleToolButtonBuilder {
     active: Option<bool>,
     icon_name: Option<String>,

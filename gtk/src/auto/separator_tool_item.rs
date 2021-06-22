@@ -37,9 +37,9 @@ impl SeparatorToolItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`SeparatorToolItem`].
+    /// Creates a new builder-pattern struct instance to construct [`SeparatorToolItem`] objects.
     ///
-    /// This method returns an instance of [`SeparatorToolItemBuilder`] which can be used to create a [`SeparatorToolItem`].
+    /// This method returns an instance of [`SeparatorToolItemBuilder`] which can be used to create [`SeparatorToolItem`] objects.
     pub fn builder() -> SeparatorToolItemBuilder {
         SeparatorToolItemBuilder::default()
     }
@@ -53,7 +53,9 @@ impl Default for SeparatorToolItem {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`SeparatorToolItem`].
+/// A [builder-pattern] type to construct [`SeparatorToolItem`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct SeparatorToolItemBuilder {
     draw: Option<bool>,
     is_important: Option<bool>,

@@ -51,9 +51,9 @@ impl RecentChooserWidget {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RecentChooserWidget`].
+    /// Creates a new builder-pattern struct instance to construct [`RecentChooserWidget`] objects.
     ///
-    /// This method returns an instance of [`RecentChooserWidgetBuilder`] which can be used to create a [`RecentChooserWidget`].
+    /// This method returns an instance of [`RecentChooserWidgetBuilder`] which can be used to create [`RecentChooserWidget`] objects.
     pub fn builder() -> RecentChooserWidgetBuilder {
         RecentChooserWidgetBuilder::default()
     }
@@ -67,7 +67,9 @@ impl Default for RecentChooserWidget {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`RecentChooserWidget`].
+/// A [builder-pattern] type to construct [`RecentChooserWidget`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct RecentChooserWidgetBuilder {
     baseline_position: Option<BaselinePosition>,
     homogeneous: Option<bool>,

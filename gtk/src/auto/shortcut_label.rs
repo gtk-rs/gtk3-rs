@@ -43,9 +43,9 @@ impl ShortcutLabel {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ShortcutLabel`].
+    /// Creates a new builder-pattern struct instance to construct [`ShortcutLabel`] objects.
     ///
-    /// This method returns an instance of [`ShortcutLabelBuilder`] which can be used to create a [`ShortcutLabel`].
+    /// This method returns an instance of [`ShortcutLabelBuilder`] which can be used to create [`ShortcutLabel`] objects.
     pub fn builder() -> ShortcutLabelBuilder {
         ShortcutLabelBuilder::default()
     }
@@ -143,7 +143,9 @@ impl ShortcutLabel {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ShortcutLabel`].
+/// A [builder-pattern] type to construct [`ShortcutLabel`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ShortcutLabelBuilder {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]

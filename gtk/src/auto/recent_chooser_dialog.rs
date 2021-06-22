@@ -45,9 +45,9 @@ impl RecentChooserDialog {
     //}
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RecentChooserDialog`].
+    /// Creates a new builder-pattern struct instance to construct [`RecentChooserDialog`] objects.
     ///
-    /// This method returns an instance of [`RecentChooserDialogBuilder`] which can be used to create a [`RecentChooserDialog`].
+    /// This method returns an instance of [`RecentChooserDialogBuilder`] which can be used to create [`RecentChooserDialog`] objects.
     pub fn builder() -> RecentChooserDialogBuilder {
         RecentChooserDialogBuilder::default()
     }
@@ -55,7 +55,9 @@ impl RecentChooserDialog {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`RecentChooserDialog`].
+/// A [builder-pattern] type to construct [`RecentChooserDialog`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct RecentChooserDialogBuilder {
     use_header_bar: Option<i32>,
     accept_focus: Option<bool>,

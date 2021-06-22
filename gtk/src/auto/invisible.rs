@@ -44,9 +44,9 @@ impl Invisible {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Invisible`].
+    /// Creates a new builder-pattern struct instance to construct [`Invisible`] objects.
     ///
-    /// This method returns an instance of [`InvisibleBuilder`] which can be used to create a [`Invisible`].
+    /// This method returns an instance of [`InvisibleBuilder`] which can be used to create [`Invisible`] objects.
     pub fn builder() -> InvisibleBuilder {
         InvisibleBuilder::default()
     }
@@ -60,7 +60,9 @@ impl Default for Invisible {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`Invisible`].
+/// A [builder-pattern] type to construct [`Invisible`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct InvisibleBuilder {
     screen: Option<gdk::Screen>,
     app_paintable: Option<bool>,

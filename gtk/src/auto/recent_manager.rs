@@ -33,9 +33,9 @@ impl RecentManager {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RecentManager`].
+    /// Creates a new builder-pattern struct instance to construct [`RecentManager`] objects.
     ///
-    /// This method returns an instance of [`RecentManagerBuilder`] which can be used to create a [`RecentManager`].
+    /// This method returns an instance of [`RecentManagerBuilder`] which can be used to create [`RecentManager`] objects.
     pub fn builder() -> RecentManagerBuilder {
         RecentManagerBuilder::default()
     }
@@ -56,7 +56,9 @@ impl Default for RecentManager {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`RecentManager`].
+/// A [builder-pattern] type to construct [`RecentManager`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct RecentManagerBuilder {
     filename: Option<String>,
 }

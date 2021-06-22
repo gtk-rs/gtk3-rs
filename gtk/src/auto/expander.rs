@@ -49,9 +49,9 @@ impl Expander {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Expander`].
+    /// Creates a new builder-pattern struct instance to construct [`Expander`] objects.
     ///
-    /// This method returns an instance of [`ExpanderBuilder`] which can be used to create a [`Expander`].
+    /// This method returns an instance of [`ExpanderBuilder`] which can be used to create [`Expander`] objects.
     pub fn builder() -> ExpanderBuilder {
         ExpanderBuilder::default()
     }
@@ -59,7 +59,9 @@ impl Expander {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`Expander`].
+/// A [builder-pattern] type to construct [`Expander`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ExpanderBuilder {
     expanded: Option<bool>,
     label: Option<String>,

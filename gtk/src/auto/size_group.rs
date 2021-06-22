@@ -33,9 +33,9 @@ impl SizeGroup {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`SizeGroup`].
+    /// Creates a new builder-pattern struct instance to construct [`SizeGroup`] objects.
     ///
-    /// This method returns an instance of [`SizeGroupBuilder`] which can be used to create a [`SizeGroup`].
+    /// This method returns an instance of [`SizeGroupBuilder`] which can be used to create [`SizeGroup`] objects.
     pub fn builder() -> SizeGroupBuilder {
         SizeGroupBuilder::default()
     }
@@ -43,7 +43,9 @@ impl SizeGroup {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`SizeGroup`].
+/// A [builder-pattern] type to construct [`SizeGroup`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct SizeGroupBuilder {
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     ignore_hidden: Option<bool>,
