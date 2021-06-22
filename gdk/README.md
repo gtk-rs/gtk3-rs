@@ -8,8 +8,8 @@ Currently, the minimum supported Rust version is `1.51.0`.
 
 ## Documentation
 
- * [Rust API - Stable](https://gtk-rs.org/docs/gdk/)
- * [Rust API - Development](https://gtk-rs.org/gtk-rs/git/docs/gdk)
+ * [Rust API - Stable](https://gtk-rs.org/gtk3-rs/stable/latest/docs/gdk/)
+ * [Rust API - Development](https://gtk-rs.org/gtk3-rs/git/docs/gdk)
  * [C API](https://developer.gnome.org/gdk3/stable/)
  * [GTK Installation instructions](https://www.gtk.org/docs/installations/)
 

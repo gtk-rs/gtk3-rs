@@ -1,5 +1,5 @@
 [package]
-documentation = "https://gtk-rs.org/docs/atk/"
+documentation = "https://gtk-rs.org/gtk3-rs/stable/latest/docs/atk/"
 categories = ["api-bindings", "gui"]
 license = "MIT"
 description = "Rust bindings for the ATK library"

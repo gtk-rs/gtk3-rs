@@ -1,6 +1,6 @@
 # atk 
 
-[Project site](https://gtk-rs.org/) | [Online documentation](https://gtk-rs.org/docs-src/)
+[Project site](https://gtk-rs.org/) 
 
 __Rust__ bindings and wrappers for __Atk__, part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
 
@@ -10,8 +10,8 @@ Currently, the minimum supported Rust version is `1.51.0`.
 
 ## Documentation
 
- * [Rust API - Stable](https://gtk-rs.org/docs/atk/)
- * [Rust API - Development](https://gtk-rs.org/gtk-rs/git/docs/atk)
+ * [Rust API - Stable](https://gtk-rs.org/gtk3-rs/stable/latest/docs/atk/)
+ * [Rust API - Development](https://gtk-rs.org/gtk3-rs/git/docs/atk)
  * [GTK Installation instructions](https://www.gtk.org/docs/installations/)
 
 ## Using
