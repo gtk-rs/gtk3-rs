@@ -5,10 +5,10 @@ system-deps = "3"
 libc = "0.2"
 
 [dependencies.glib-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dependencies.gobject-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -35,8 +35,10 @@ name = "atk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.14.0"
 edition = "2018"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.atk]
 name = "atk"
 version = "2.18"

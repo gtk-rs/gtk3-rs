@@ -6,22 +6,22 @@ system-deps = "3"
 libc = "0.2"
 
 [dependencies.cairo-sys-rs]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dependencies.gdk-pixbuf-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dependencies.gio-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dependencies.glib-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dependencies.gobject-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dependencies.pango-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -48,8 +48,10 @@ name = "gdk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.14.0"
 edition = "2018"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.gdk_3_0]
 name = "gdk-3.0"
 version = "3.18"

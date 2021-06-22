@@ -9,8 +9,10 @@ name = "gdkx11-sys"
 version = "0.14.0"
 build = "build.rs"
 edition = "2018"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.gdk_x11_3_0]
 name = "gdk-x11-3.0"
 version = "3.18"
@@ -29,15 +31,15 @@ libc = "0.2"
 x11 = "2.18"
 
 [dependencies.gdk-sys]
-path = "../../gdk/sys"
+version = "0.14.0"
 
 [dependencies.glib-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.14.0"
 
 [dependencies.cairo]
 package = "cairo-sys-rs"
-git = "https://github.com/gtk-rs/gtk-rs-core"
 optional = true
+version = "0.14.0"
 
 [build-dependencies]
 system-deps = "3"
