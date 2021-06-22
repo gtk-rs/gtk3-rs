@@ -49,9 +49,9 @@ impl MenuBar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`MenuBar`].
+    /// Creates a new builder-pattern struct instance to construct [`MenuBar`] objects.
     ///
-    /// This method returns an instance of [`MenuBarBuilder`] which can be used to create a [`MenuBar`].
+    /// This method returns an instance of [`MenuBarBuilder`] which can be used to create [`MenuBar`] objects.
     pub fn builder() -> MenuBarBuilder {
         MenuBarBuilder::default()
     }
@@ -65,7 +65,9 @@ impl Default for MenuBar {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`MenuBar`].
+/// A [builder-pattern] type to construct [`MenuBar`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct MenuBarBuilder {
     child_pack_direction: Option<PackDirection>,
     pack_direction: Option<PackDirection>,

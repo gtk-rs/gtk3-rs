@@ -30,9 +30,9 @@ impl DrawingArea {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`DrawingArea`].
+    /// Creates a new builder-pattern struct instance to construct [`DrawingArea`] objects.
     ///
-    /// This method returns an instance of [`DrawingAreaBuilder`] which can be used to create a [`DrawingArea`].
+    /// This method returns an instance of [`DrawingAreaBuilder`] which can be used to create [`DrawingArea`] objects.
     pub fn builder() -> DrawingAreaBuilder {
         DrawingAreaBuilder::default()
     }
@@ -46,7 +46,9 @@ impl Default for DrawingArea {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`DrawingArea`].
+/// A [builder-pattern] type to construct [`DrawingArea`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct DrawingAreaBuilder {
     app_paintable: Option<bool>,
     can_default: Option<bool>,

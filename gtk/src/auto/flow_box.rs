@@ -42,9 +42,9 @@ impl FlowBox {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`FlowBox`].
+    /// Creates a new builder-pattern struct instance to construct [`FlowBox`] objects.
     ///
-    /// This method returns an instance of [`FlowBoxBuilder`] which can be used to create a [`FlowBox`].
+    /// This method returns an instance of [`FlowBoxBuilder`] which can be used to create [`FlowBox`] objects.
     pub fn builder() -> FlowBoxBuilder {
         FlowBoxBuilder::default()
     }
@@ -58,7 +58,9 @@ impl Default for FlowBox {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`FlowBox`].
+/// A [builder-pattern] type to construct [`FlowBox`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct FlowBoxBuilder {
     activate_on_single_click: Option<bool>,
     column_spacing: Option<u32>,

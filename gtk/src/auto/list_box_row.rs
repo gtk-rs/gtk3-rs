@@ -38,9 +38,9 @@ impl ListBoxRow {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ListBoxRow`].
+    /// Creates a new builder-pattern struct instance to construct [`ListBoxRow`] objects.
     ///
-    /// This method returns an instance of [`ListBoxRowBuilder`] which can be used to create a [`ListBoxRow`].
+    /// This method returns an instance of [`ListBoxRowBuilder`] which can be used to create [`ListBoxRow`] objects.
     pub fn builder() -> ListBoxRowBuilder {
         ListBoxRowBuilder::default()
     }
@@ -54,7 +54,9 @@ impl Default for ListBoxRow {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ListBoxRow`].
+/// A [builder-pattern] type to construct [`ListBoxRow`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ListBoxRowBuilder {
     activatable: Option<bool>,
     selectable: Option<bool>,

@@ -42,9 +42,9 @@ impl ModelButton {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ModelButton`].
+    /// Creates a new builder-pattern struct instance to construct [`ModelButton`] objects.
     ///
-    /// This method returns an instance of [`ModelButtonBuilder`] which can be used to create a [`ModelButton`].
+    /// This method returns an instance of [`ModelButtonBuilder`] which can be used to create [`ModelButton`] objects.
     pub fn builder() -> ModelButtonBuilder {
         ModelButtonBuilder::default()
     }
@@ -491,7 +491,9 @@ impl Default for ModelButton {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ModelButton`].
+/// A [builder-pattern] type to construct [`ModelButton`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ModelButtonBuilder {
     active: Option<bool>,
     centered: Option<bool>,

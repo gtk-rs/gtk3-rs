@@ -40,9 +40,9 @@ impl AccelLabel {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`AccelLabel`].
+    /// Creates a new builder-pattern struct instance to construct [`AccelLabel`] objects.
     ///
-    /// This method returns an instance of [`AccelLabelBuilder`] which can be used to create a [`AccelLabel`].
+    /// This method returns an instance of [`AccelLabelBuilder`] which can be used to create [`AccelLabel`] objects.
     pub fn builder() -> AccelLabelBuilder {
         AccelLabelBuilder::default()
     }
@@ -50,7 +50,9 @@ impl AccelLabel {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`AccelLabel`].
+/// A [builder-pattern] type to construct [`AccelLabel`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct AccelLabelBuilder {
     accel_closure: Option<glib::Closure>,
     accel_widget: Option<Widget>,

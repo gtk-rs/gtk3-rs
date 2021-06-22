@@ -42,9 +42,9 @@ impl Toolbar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Toolbar`].
+    /// Creates a new builder-pattern struct instance to construct [`Toolbar`] objects.
     ///
-    /// This method returns an instance of [`ToolbarBuilder`] which can be used to create a [`Toolbar`].
+    /// This method returns an instance of [`ToolbarBuilder`] which can be used to create [`Toolbar`] objects.
     pub fn builder() -> ToolbarBuilder {
         ToolbarBuilder::default()
     }
@@ -58,7 +58,9 @@ impl Default for Toolbar {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`Toolbar`].
+/// A [builder-pattern] type to construct [`Toolbar`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ToolbarBuilder {
     icon_size: Option<IconSize>,
     icon_size_set: Option<bool>,

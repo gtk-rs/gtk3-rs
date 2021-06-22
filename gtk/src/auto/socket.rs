@@ -36,9 +36,9 @@ impl Socket {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Socket`].
+    /// Creates a new builder-pattern struct instance to construct [`Socket`] objects.
     ///
-    /// This method returns an instance of [`SocketBuilder`] which can be used to create a [`Socket`].
+    /// This method returns an instance of [`SocketBuilder`] which can be used to create [`Socket`] objects.
     pub fn builder() -> SocketBuilder {
         SocketBuilder::default()
     }
@@ -52,7 +52,9 @@ impl Default for Socket {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`Socket`].
+/// A [builder-pattern] type to construct [`Socket`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct SocketBuilder {
     border_width: Option<u32>,
     child: Option<Widget>,

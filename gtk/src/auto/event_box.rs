@@ -36,9 +36,9 @@ impl EventBox {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`EventBox`].
+    /// Creates a new builder-pattern struct instance to construct [`EventBox`] objects.
     ///
-    /// This method returns an instance of [`EventBoxBuilder`] which can be used to create a [`EventBox`].
+    /// This method returns an instance of [`EventBoxBuilder`] which can be used to create [`EventBox`] objects.
     pub fn builder() -> EventBoxBuilder {
         EventBoxBuilder::default()
     }
@@ -52,7 +52,9 @@ impl Default for EventBox {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`EventBox`].
+/// A [builder-pattern] type to construct [`EventBox`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct EventBoxBuilder {
     above_child: Option<bool>,
     visible_window: Option<bool>,

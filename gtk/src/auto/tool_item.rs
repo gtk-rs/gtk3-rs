@@ -41,9 +41,9 @@ impl ToolItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ToolItem`].
+    /// Creates a new builder-pattern struct instance to construct [`ToolItem`] objects.
     ///
-    /// This method returns an instance of [`ToolItemBuilder`] which can be used to create a [`ToolItem`].
+    /// This method returns an instance of [`ToolItemBuilder`] which can be used to create [`ToolItem`] objects.
     pub fn builder() -> ToolItemBuilder {
         ToolItemBuilder::default()
     }
@@ -57,7 +57,9 @@ impl Default for ToolItem {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ToolItem`].
+/// A [builder-pattern] type to construct [`ToolItem`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ToolItemBuilder {
     is_important: Option<bool>,
     visible_horizontal: Option<bool>,

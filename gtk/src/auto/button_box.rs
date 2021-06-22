@@ -42,9 +42,9 @@ impl ButtonBox {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ButtonBox`].
+    /// Creates a new builder-pattern struct instance to construct [`ButtonBox`] objects.
     ///
-    /// This method returns an instance of [`ButtonBoxBuilder`] which can be used to create a [`ButtonBox`].
+    /// This method returns an instance of [`ButtonBoxBuilder`] which can be used to create [`ButtonBox`] objects.
     pub fn builder() -> ButtonBoxBuilder {
         ButtonBoxBuilder::default()
     }
@@ -52,7 +52,9 @@ impl ButtonBox {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ButtonBox`].
+/// A [builder-pattern] type to construct [`ButtonBox`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ButtonBoxBuilder {
     layout_style: Option<ButtonBoxStyle>,
     baseline_position: Option<BaselinePosition>,

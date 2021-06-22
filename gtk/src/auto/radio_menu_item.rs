@@ -78,9 +78,9 @@ impl RadioMenuItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`RadioMenuItem`].
+    /// Creates a new builder-pattern struct instance to construct [`RadioMenuItem`] objects.
     ///
-    /// This method returns an instance of [`RadioMenuItemBuilder`] which can be used to create a [`RadioMenuItem`].
+    /// This method returns an instance of [`RadioMenuItemBuilder`] which can be used to create [`RadioMenuItem`] objects.
     pub fn builder() -> RadioMenuItemBuilder {
         RadioMenuItemBuilder::default()
     }
@@ -88,7 +88,9 @@ impl RadioMenuItem {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`RadioMenuItem`].
+/// A [builder-pattern] type to construct [`RadioMenuItem`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct RadioMenuItemBuilder {
     active: Option<bool>,
     draw_as_radio: Option<bool>,

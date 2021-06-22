@@ -40,9 +40,9 @@ impl ListBox {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`ListBox`].
+    /// Creates a new builder-pattern struct instance to construct [`ListBox`] objects.
     ///
-    /// This method returns an instance of [`ListBoxBuilder`] which can be used to create a [`ListBox`].
+    /// This method returns an instance of [`ListBoxBuilder`] which can be used to create [`ListBox`] objects.
     pub fn builder() -> ListBoxBuilder {
         ListBoxBuilder::default()
     }
@@ -56,7 +56,9 @@ impl Default for ListBox {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`ListBox`].
+/// A [builder-pattern] type to construct [`ListBox`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct ListBoxBuilder {
     activate_on_single_click: Option<bool>,
     selection_mode: Option<SelectionMode>,

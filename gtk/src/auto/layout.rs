@@ -48,9 +48,9 @@ impl Layout {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`Layout`].
+    /// Creates a new builder-pattern struct instance to construct [`Layout`] objects.
     ///
-    /// This method returns an instance of [`LayoutBuilder`] which can be used to create a [`Layout`].
+    /// This method returns an instance of [`LayoutBuilder`] which can be used to create [`Layout`] objects.
     pub fn builder() -> LayoutBuilder {
         LayoutBuilder::default()
     }
@@ -58,7 +58,9 @@ impl Layout {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`Layout`].
+/// A [builder-pattern] type to construct [`Layout`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct LayoutBuilder {
     height: Option<u32>,
     width: Option<u32>,

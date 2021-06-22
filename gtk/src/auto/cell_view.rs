@@ -87,9 +87,9 @@ impl CellView {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`CellView`].
+    /// Creates a new builder-pattern struct instance to construct [`CellView`] objects.
     ///
-    /// This method returns an instance of [`CellViewBuilder`] which can be used to create a [`CellView`].
+    /// This method returns an instance of [`CellViewBuilder`] which can be used to create [`CellView`] objects.
     pub fn builder() -> CellViewBuilder {
         CellViewBuilder::default()
     }
@@ -103,7 +103,9 @@ impl Default for CellView {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`CellView`].
+/// A [builder-pattern] type to construct [`CellView`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct CellViewBuilder {
     background: Option<String>,
     background_rgba: Option<gdk::RGBA>,

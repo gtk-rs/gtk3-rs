@@ -35,9 +35,9 @@ impl SeparatorMenuItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`SeparatorMenuItem`].
+    /// Creates a new builder-pattern struct instance to construct [`SeparatorMenuItem`] objects.
     ///
-    /// This method returns an instance of [`SeparatorMenuItemBuilder`] which can be used to create a [`SeparatorMenuItem`].
+    /// This method returns an instance of [`SeparatorMenuItemBuilder`] which can be used to create [`SeparatorMenuItem`] objects.
     pub fn builder() -> SeparatorMenuItemBuilder {
         SeparatorMenuItemBuilder::default()
     }
@@ -51,7 +51,9 @@ impl Default for SeparatorMenuItem {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`SeparatorMenuItem`].
+/// A [builder-pattern] type to construct [`SeparatorMenuItem`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct SeparatorMenuItemBuilder {
     accel_path: Option<String>,
     label: Option<String>,

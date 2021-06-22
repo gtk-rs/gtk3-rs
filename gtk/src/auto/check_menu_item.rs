@@ -63,9 +63,9 @@ impl CheckMenuItem {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`CheckMenuItem`].
+    /// Creates a new builder-pattern struct instance to construct [`CheckMenuItem`] objects.
     ///
-    /// This method returns an instance of [`CheckMenuItemBuilder`] which can be used to create a [`CheckMenuItem`].
+    /// This method returns an instance of [`CheckMenuItemBuilder`] which can be used to create [`CheckMenuItem`] objects.
     pub fn builder() -> CheckMenuItemBuilder {
         CheckMenuItemBuilder::default()
     }
@@ -79,7 +79,9 @@ impl Default for CheckMenuItem {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`CheckMenuItem`].
+/// A [builder-pattern] type to construct [`CheckMenuItem`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct CheckMenuItemBuilder {
     active: Option<bool>,
     draw_as_radio: Option<bool>,

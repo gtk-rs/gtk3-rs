@@ -37,9 +37,9 @@ impl FlowBoxChild {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`FlowBoxChild`].
+    /// Creates a new builder-pattern struct instance to construct [`FlowBoxChild`] objects.
     ///
-    /// This method returns an instance of [`FlowBoxChildBuilder`] which can be used to create a [`FlowBoxChild`].
+    /// This method returns an instance of [`FlowBoxChildBuilder`] which can be used to create [`FlowBoxChild`] objects.
     pub fn builder() -> FlowBoxChildBuilder {
         FlowBoxChildBuilder::default()
     }
@@ -53,7 +53,9 @@ impl Default for FlowBoxChild {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`FlowBoxChild`].
+/// A [builder-pattern] type to construct [`FlowBoxChild`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct FlowBoxChildBuilder {
     border_width: Option<u32>,
     child: Option<Widget>,

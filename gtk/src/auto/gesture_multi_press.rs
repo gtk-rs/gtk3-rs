@@ -41,9 +41,9 @@ impl GestureMultiPress {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`GestureMultiPress`].
+    /// Creates a new builder-pattern struct instance to construct [`GestureMultiPress`] objects.
     ///
-    /// This method returns an instance of [`GestureMultiPressBuilder`] which can be used to create a [`GestureMultiPress`].
+    /// This method returns an instance of [`GestureMultiPressBuilder`] which can be used to create [`GestureMultiPress`] objects.
     pub fn builder() -> GestureMultiPressBuilder {
         GestureMultiPressBuilder::default()
     }
@@ -151,7 +151,9 @@ impl GestureMultiPress {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`GestureMultiPress`].
+/// A [builder-pattern] type to construct [`GestureMultiPress`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct GestureMultiPressBuilder {
     button: Option<u32>,
     exclusive: Option<bool>,

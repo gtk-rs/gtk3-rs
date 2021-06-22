@@ -43,9 +43,9 @@ impl PlacesSidebar {
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-style object to construct a [`PlacesSidebar`].
+    /// Creates a new builder-pattern struct instance to construct [`PlacesSidebar`] objects.
     ///
-    /// This method returns an instance of [`PlacesSidebarBuilder`] which can be used to create a [`PlacesSidebar`].
+    /// This method returns an instance of [`PlacesSidebarBuilder`] which can be used to create [`PlacesSidebar`] objects.
     pub fn builder() -> PlacesSidebarBuilder {
         PlacesSidebarBuilder::default()
     }
@@ -869,7 +869,9 @@ impl Default for PlacesSidebar {
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A builder for generating a [`PlacesSidebar`].
+/// A [builder-pattern] type to construct [`PlacesSidebar`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 pub struct PlacesSidebarBuilder {
     local_only: Option<bool>,
     location: Option<gio::File>,
