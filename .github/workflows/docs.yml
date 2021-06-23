@@ -32,7 +32,7 @@ jobs:
       - run: cargo install rustdoc-stripper
       - run: python3 ./generator.py --embed-docs --yes ./
       - run: git clone https://gitlab.gnome.org/World/Rust/gir-rustdoc/ # checkout action doesn't support random urls
-      - run: echo "RUSTDOCFLAGS=$(eval python3 ./gir-rustdoc/gir-rustdoc.py --pages-url 'https://gtk-rs.org/gtk3-rs/' --default-branch 'master' --branch 'master' pre-docs | xargs)" >> ${GITHUB_ENV}
+      - run: echo "RUSTDOCFLAGS=$(eval python3 ./gir-rustdoc/gir-rustdoc.py --pages-url 'https://gtk-rs.org/gtk3-rs/' --default-branch 'master' pre-docs | xargs)" >> ${GITHUB_ENV}
       - uses: actions-rs/cargo@v1
         with:
           command: doc
