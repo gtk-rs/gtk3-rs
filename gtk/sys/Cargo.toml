@@ -10,10 +10,8 @@ keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 edition = "2018"
-
 [package.metadata.docs.rs]
 features = ["dox"]
-
 [package.metadata.system-deps."gtk+_3_0"]
 name = "gtk+-3.0"
 version = "3.18"
