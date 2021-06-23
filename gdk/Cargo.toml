@@ -29,7 +29,7 @@ features = ["dox"]
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-ffi = {package = "gdk-sys", version = "0.14.0"}
+ffi = {package = "gdk-sys", path = "./sys", version = "0.14.0"}
 cairo-rs = "0.14.0"
 gdk-pixbuf = "0.14.0"
 gio = "0.14.0"

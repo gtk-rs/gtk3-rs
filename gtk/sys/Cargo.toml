@@ -10,10 +10,8 @@ keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 edition = "2018"
-
 [package.metadata.docs.rs]
 features = ["dox"]
-
 [package.metadata.system-deps."gtk+_3_0"]
 name = "gtk+-3.0"
 version = "3.18"
@@ -65,12 +63,14 @@ version = "0.14.0"
 
 [dependencies.atk-sys]
 version = "0.14.0"
+path = "../../atk/sys"
 
 [dependencies.gdk-pixbuf-sys]
 version = "0.14.0"
 
 [dependencies.gdk-sys]
 version = "0.14.0"
+path = "../../gdk/sys"
 
 [dependencies.pango-sys]
 version = "0.14.0"

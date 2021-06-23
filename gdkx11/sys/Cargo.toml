@@ -9,10 +9,8 @@ name = "gdkx11-sys"
 version = "0.14.0"
 build = "build.rs"
 edition = "2018"
-
 [package.metadata.docs.rs]
 features = ["dox"]
-
 [package.metadata.system-deps.gdk_x11_3_0]
 name = "gdk-x11-3.0"
 version = "3.18"
@@ -32,6 +30,7 @@ x11 = "2.18"
 
 [dependencies.gdk-sys]
 version = "0.14.0"
+path = "../../gdk/sys"
 
 [dependencies.glib-sys]
 version = "0.14.0"
