@@ -65,12 +65,14 @@ version = "0.14.0"
 
 [dependencies.atk-sys]
 version = "0.14.0"
+path = "../../atk/sys"
 
 [dependencies.gdk-pixbuf-sys]
 version = "0.14.0"
 
 [dependencies.gdk-sys]
 version = "0.14.0"
+path = "../../gdk/sys"
 
 [dependencies.pango-sys]
 version = "0.14.0"

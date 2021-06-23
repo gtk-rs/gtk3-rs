@@ -32,6 +32,7 @@ x11 = "2.18"
 
 [dependencies.gdk-sys]
 version = "0.14.0"
+path = "../../gdk/sys"
 
 [dependencies.glib-sys]
 version = "0.14.0"

@@ -28,9 +28,9 @@ features = ["dox"]
 [dependencies]
 libc = "0.2"
 x11 = "2.18"
-ffi = {package = "gdkx11-sys", version = "0.14.0"}
+ffi = {package = "gdkx11-sys", path = "./sys", version = "0.14.0"}
 glib = "0.14.0"
-gdk = "0.14.0"
+gdk = {version = "0.14.0", path = "./../gdk" }
 gio = "0.14.0"
 
 [dev-dependencies]
