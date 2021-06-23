@@ -43,7 +43,6 @@ description = "FFI bindings to libgdk-3"
 homepage = "http://gtk-rs.org/"
 keywords = ["gdk", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
-links = "gdk-3"
 name = "gdk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.15.0"

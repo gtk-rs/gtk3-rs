@@ -30,7 +30,6 @@ description = "FFI bindings to libatk-1"
 homepage = "http://gtk-rs.org/"
 keywords = ["atk", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
-links = "atk-1.0"
 name = "atk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.15.0"

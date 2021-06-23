@@ -1,7 +1,6 @@
 [package]
 name = "gtk-sys"
 version = "0.15.0"
-links = "gtk-3"
 build = "build.rs"
 authors = ["The gtk-rs Project Developers"]
 description = "FFI bindings to libgtk-3"
