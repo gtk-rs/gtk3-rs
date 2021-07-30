@@ -1,11 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-//! # Rust ATK bindings
-//!
-//! This library contains safe Rust bindings for [ATK](https://developer.gnome.org/atk).
-//! It is a part of [gtk-rs](https://gtk-rs.org/).
-//!
-//! ATK 2.18 is the lowest supported version for the underlying library.
+#![doc = include_str!("../README.md")]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use ffi;

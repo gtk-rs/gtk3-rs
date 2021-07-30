@@ -1,6 +1,11 @@
-# gdk 
+# Rust GDK 3 bindings
 
-__Rust__ bindings and wrappers for __GDK__, part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
+Project site is [here](https://gtk-rs.org/).
+
+__Rust__ bindings and wrappers for [GDK 3](https://developer.gnome.org/gdk3/),
+part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
+
+GDK __3.18__ is the lowest supported version for the underlying library.
 
 ## Minimum supported Rust version
 
