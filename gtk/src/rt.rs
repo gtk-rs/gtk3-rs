@@ -117,6 +117,14 @@ pub fn init() -> Result<(), glib::BoolError> {
         let argv = ::std::env::args().take(1).collect::<Vec<_>>();
 
         if from_glib(ffi::gtk_init_check(&mut 1, &mut argv.to_glib_none().0)) {
+            // See https://github.com/gtk-rs/gtk-rs-core/issues/186 for reasoning behind
+            // acquiring and leaking the main context here.
+            let result: bool = from_glib(glib::ffi::g_main_context_acquire(
+                glib::ffi::g_main_context_default(),
+            ));
+            if !result {
+                return Err(glib::bool_error!("Failed to acquire default main context"));
+            }
             set_initialized();
             Ok(())
         } else {
