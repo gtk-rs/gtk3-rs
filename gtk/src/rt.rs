@@ -144,3 +144,19 @@ pub fn main_quit() {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::TEST_THREAD_WORKER;
+
+    #[test]
+    fn init_should_acquire_default_main_context() {
+        TEST_THREAD_WORKER
+            .push(move || {
+                let context = glib::MainContext::ref_thread_default();
+                assert!(context.is_owner());
+            })
+            .expect("Failed to schedule a test call");
+        while TEST_THREAD_WORKER.unprocessed() > 0 {}
+    }
+}
