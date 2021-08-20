@@ -90,4 +90,35 @@ impl Clipboard {
             );
         }
     }
+
+    #[doc(alias = "gtk_clipboard_request_image")]
+    pub fn request_image<P: FnOnce(&Clipboard, Option<&gdk_pixbuf::Pixbuf>) + 'static>(
+        &self,
+        callback: P,
+    ) {
+        unsafe extern "C" fn callback_func<
+            P: FnOnce(&Clipboard, Option<&gdk_pixbuf::Pixbuf>) + 'static,
+        >(
+            clipboard: *mut ffi::GtkClipboard,
+            pixbuf: *mut gdk_pixbuf::ffi::GdkPixbuf,
+            data: glib::ffi::gpointer,
+        ) {
+            let clipboard = from_glib_borrow(clipboard);
+            let callback: Box_<P> = Box_::from_raw(data as *mut _);
+            (*callback)(
+                &clipboard,
+                Option::<gdk_pixbuf::Pixbuf>::from_glib_borrow(pixbuf)
+                    .as_ref()
+                    .as_ref(),
+            );
+        }
+        let callback: Box_<P> = Box::new(callback);
+        unsafe {
+            ffi::gtk_clipboard_request_image(
+                self.to_glib_none().0,
+                Some(callback_func::<P> as _),
+                Box_::into_raw(callback) as *mut _,
+            );
+        }
+    }
 }
