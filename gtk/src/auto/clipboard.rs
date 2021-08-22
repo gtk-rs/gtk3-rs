@@ -77,30 +77,6 @@ impl Clipboard {
         }
     }
 
-    #[doc(alias = "gtk_clipboard_request_image")]
-    pub fn request_image<P: FnOnce(&Clipboard, &gdk_pixbuf::Pixbuf) + 'static>(&self, callback: P) {
-        let callback_data: Box_<P> = Box_::new(callback);
-        unsafe extern "C" fn callback_func<P: FnOnce(&Clipboard, &gdk_pixbuf::Pixbuf) + 'static>(
-            clipboard: *mut ffi::GtkClipboard,
-            pixbuf: *mut gdk_pixbuf::ffi::GdkPixbuf,
-            data: glib::ffi::gpointer,
-        ) {
-            let clipboard = from_glib_borrow(clipboard);
-            let pixbuf = from_glib_borrow(pixbuf);
-            let callback: Box_<P> = Box_::from_raw(data as *mut _);
-            (*callback)(&clipboard, &pixbuf);
-        }
-        let callback = Some(callback_func::<P> as _);
-        let super_callback0: Box_<P> = callback_data;
-        unsafe {
-            ffi::gtk_clipboard_request_image(
-                self.to_glib_none().0,
-                callback,
-                Box_::into_raw(super_callback0) as *mut _,
-            );
-        }
-    }
-
     #[doc(alias = "gtk_clipboard_request_rich_text")]
     pub fn request_rich_text<
         P: IsA<TextBuffer>,

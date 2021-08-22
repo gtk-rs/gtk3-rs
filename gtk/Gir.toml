@@ -742,6 +742,10 @@ status = "generate"
     name = "set_with_owner"
     #array with size
     ignore = true
+    [[object.function]]
+    name = "request_image"
+    # nullable callback parameter
+    ignore = true
 
 [[object]]
 name = "Gtk.ColorButton"
