@@ -11,8 +11,8 @@ use glib::Type;
 use std::fmt;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 bitflags! {
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "GdkAnchorHints")]
     pub struct AnchorHints: u32 {
         #[doc(alias = "GDK_ANCHOR_FLIP_X")]
@@ -107,8 +107,8 @@ impl ToValue for AnchorHints {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 bitflags! {
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "GdkAxisFlags")]
     pub struct AxisFlags: u32 {
         #[doc(alias = "GDK_AXIS_FLAG_X")]
@@ -595,8 +595,8 @@ impl ToValue for ModifierType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 bitflags! {
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "GdkSeatCapabilities")]
     pub struct SeatCapabilities: u32 {
         #[doc(alias = "GDK_SEAT_CAPABILITY_NONE")]

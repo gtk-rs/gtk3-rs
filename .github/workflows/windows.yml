@@ -13,7 +13,7 @@ jobs:
 
     env:
       # git revision of gvsbuild we use for to build GTK and the other dependencies
-      gvsbuildref: 69cdac34c36d74eeae37006bb0fcedc64ee518dd
+      gvsbuildref: ed2136815a33e33e3ff15e05576416aca704cefc
 
       # bump this number if you want to force a rebuild of gvsbuild with the same revision
       gvsbuildupdate: 1
