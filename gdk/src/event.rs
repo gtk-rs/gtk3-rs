@@ -303,19 +303,19 @@ impl Event {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_get_scancode")]
     #[doc(alias = "get_scancode")]
-    pub fn scancode(&mut self) -> i32 {
-        unsafe { ffi::gdk_event_get_scancode(self.to_glib_none_mut().0) }
+    pub fn scancode(&self) -> i32 {
+        unsafe { ffi::gdk_event_get_scancode(mut_override(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_get_pointer_emulated")]
     #[doc(alias = "get_pointer_emulated")]
-    pub fn is_pointer_emulated(&mut self) -> bool {
+    pub fn is_pointer_emulated(&self) -> bool {
         unsafe {
-            from_glib(ffi::gdk_event_get_pointer_emulated(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib(ffi::gdk_event_get_pointer_emulated(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
