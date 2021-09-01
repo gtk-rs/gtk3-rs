@@ -4,10 +4,10 @@ use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::Cast;
 
-use super::widget::WidgetImpl;
-use crate::{Button, Widget};
+use super::bin::BinImpl;
+use crate::{Bin, Button};
 
-pub trait ButtonImpl: ButtonImplExt + WidgetImpl {
+pub trait ButtonImpl: ButtonImplExt + BinImpl {
     fn activate(&self, button: &Self::Type) {
         self.parent_activate(button)
     }
@@ -46,7 +46,7 @@ impl<T: ButtonImpl> ButtonImplExt for T {
 
 unsafe impl<T: ButtonImpl> IsSubclassable<T> for Button {
     fn class_init(class: &mut glib::Class<Self>) {
-        <Widget as IsSubclassable<T>>::class_init(class);
+        <Bin as IsSubclassable<T>>::class_init(class);
 
         let klass = class.as_mut();
         klass.activate = Some(button_activate::<T>);
@@ -54,7 +54,7 @@ unsafe impl<T: ButtonImpl> IsSubclassable<T> for Button {
     }
 
     fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <Widget as IsSubclassable<T>>::instance_init(instance);
+        <Bin as IsSubclassable<T>>::instance_init(instance);
     }
 }
 
