@@ -19,10 +19,10 @@ jobs:
           - nightly
           - "1.54.0"
         conf:
-          - { name: "atk", features: "v2_34", nightly: "--all-features", test_sys: true }
-          - { name: "gdk", features: "v3_24", nightly: "--features v3_24", test_sys: true }
-          - { name: "gdkx11", features: "v3_24", nightly: "--all-features", test_sys: true }
-          - { name: "gtk", features: "v3_24_9", nightly: "--all-features", test_sys: false }
+          - { name: "atk", features: "v2_34", test_sys: true }
+          - { name: "gdk", features: "v3_24", test_sys: true }
+          - { name: "gdkx11", features: "v3_24", test_sys: true }
+          - { name: "gtk", features: "v3_24_9", test_sys: false }
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -57,13 +57,13 @@ jobs:
         if: matrix.rust == 'nightly'
       # tests run
       - name: tests nightly
-        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
         if: matrix.rust == 'nightly'
       - name: tests sys nightly
-        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/sys/Cargo.toml ${{ matrix.conf.nightly }}
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/sys/Cargo.toml --features "${{ matrix.conf.features }}"
         if: matrix.rust == 'nightly' && matrix.conf.test_sys
       - name: build nightly
-        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
         if: matrix.rust == 'nightly'
       # not nightly
       # clippy
