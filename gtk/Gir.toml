@@ -744,8 +744,11 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "request_image"
-    # nullable callback parameter
-    ignore = true
+        [[object.function.parameter]]
+        name = "callback"
+            [[object.function.parameter.callback_parameter]]
+            name = "pixbuf"
+            nullable = true
 
 [[object]]
 name = "Gtk.ColorButton"
