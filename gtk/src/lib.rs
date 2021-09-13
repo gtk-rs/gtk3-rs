@@ -173,6 +173,17 @@ pub const STYLE_PROVIDER_PRIORITY_USER: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_U
 #[macro_use]
 mod rt;
 
+#[cfg(test)]
+pub(crate) static TEST_THREAD_WORKER: once_cell::sync::Lazy<glib::ThreadPool> =
+    once_cell::sync::Lazy::new(|| {
+        let pool = glib::ThreadPool::new_exclusive(1).unwrap();
+        pool.push(move || {
+            crate::init().expect("Tests failed to initialize gtk");
+        })
+        .expect("Failed to schedule a test call");
+        pool
+    });
+
 #[allow(clippy::let_and_return)]
 #[allow(clippy::many_single_char_names)]
 #[allow(clippy::wrong_self_convention)]
