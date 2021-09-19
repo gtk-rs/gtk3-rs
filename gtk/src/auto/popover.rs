@@ -69,6 +69,13 @@ impl Popover {
     }
 }
 
+impl Default for Popover {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>(&[])
+            .expect("Can't construct Popover object with default parameters")
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`Popover`] objects.

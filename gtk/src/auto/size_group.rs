@@ -41,6 +41,13 @@ impl SizeGroup {
     }
 }
 
+impl Default for SizeGroup {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>(&[])
+            .expect("Can't construct SizeGroup object with default parameters")
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`SizeGroup`] objects.

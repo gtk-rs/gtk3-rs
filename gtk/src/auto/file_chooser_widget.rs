@@ -54,6 +54,13 @@ impl FileChooserWidget {
     }
 }
 
+impl Default for FileChooserWidget {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>(&[])
+            .expect("Can't construct FileChooserWidget object with default parameters")
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`FileChooserWidget`] objects.
