@@ -75,6 +75,13 @@ impl GestureZoom {
     }
 }
 
+impl Default for GestureZoom {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>(&[])
+            .expect("Can't construct GestureZoom object with default parameters")
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`GestureZoom`] objects.

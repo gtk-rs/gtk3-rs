@@ -48,6 +48,13 @@ impl AccelLabel {
     }
 }
 
+impl Default for AccelLabel {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>(&[])
+            .expect("Can't construct AccelLabel object with default parameters")
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`AccelLabel`] objects.

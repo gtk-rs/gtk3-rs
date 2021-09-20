@@ -53,6 +53,13 @@ impl ToolButton {
     }
 }
 
+impl Default for ToolButton {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>(&[])
+            .expect("Can't construct ToolButton object with default parameters")
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`ToolButton`] objects.

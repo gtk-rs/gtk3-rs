@@ -149,6 +149,13 @@ impl GestureMultiPress {
     }
 }
 
+impl Default for GestureMultiPress {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>(&[])
+            .expect("Can't construct GestureMultiPress object with default parameters")
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`GestureMultiPress`] objects.

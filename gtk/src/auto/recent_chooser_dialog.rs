@@ -53,6 +53,13 @@ impl RecentChooserDialog {
     }
 }
 
+impl Default for RecentChooserDialog {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>(&[])
+            .expect("Can't construct RecentChooserDialog object with default parameters")
+    }
+}
+
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`RecentChooserDialog`] objects.
