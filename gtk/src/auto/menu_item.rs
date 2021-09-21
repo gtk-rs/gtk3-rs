@@ -282,7 +282,7 @@ impl MenuItemBuilder {
         self
     }
 
-    pub fn submenu<P: IsA<Menu>>(mut self, submenu: &P) -> Self {
+    pub fn submenu(mut self, submenu: &impl IsA<Menu>) -> Self {
         self.submenu = Some(submenu.clone().upcast());
         self
     }
@@ -297,7 +297,7 @@ impl MenuItemBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -419,7 +419,7 @@ impl MenuItemBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -519,7 +519,7 @@ pub trait GtkMenuItemExt: 'static {
     fn set_reserve_indicator(&self, reserve: bool);
 
     #[doc(alias = "gtk_menu_item_set_submenu")]
-    fn set_submenu<P: IsA<Menu>>(&self, submenu: Option<&P>);
+    fn set_submenu(&self, submenu: Option<&impl IsA<Menu>>);
 
     #[doc(alias = "gtk_menu_item_set_use_underline")]
     fn set_use_underline(&self, setting: bool);
@@ -645,7 +645,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
-    fn set_submenu<P: IsA<Menu>>(&self, submenu: Option<&P>) {
+    fn set_submenu(&self, submenu: Option<&impl IsA<Menu>>) {
         unsafe {
             ffi::gtk_menu_item_set_submenu(
                 self.as_ref().to_glib_none().0,

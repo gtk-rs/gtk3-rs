@@ -50,7 +50,7 @@ impl FileChooserButton {
 
     #[doc(alias = "gtk_file_chooser_button_new_with_dialog")]
     #[doc(alias = "new_with_dialog")]
-    pub fn with_dialog<P: IsA<Dialog>>(dialog: &P) -> FileChooserButton {
+    pub fn with_dialog(dialog: &impl IsA<Dialog>) -> FileChooserButton {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_file_chooser_button_new_with_dialog(
@@ -314,7 +314,7 @@ impl FileChooserButtonBuilder {
             .expect("Failed to create an instance of FileChooserButton")
     }
 
-    pub fn dialog<P: IsA<FileChooser>>(mut self, dialog: &P) -> Self {
+    pub fn dialog(mut self, dialog: &impl IsA<FileChooser>) -> Self {
         self.dialog = Some(dialog.clone().upcast());
         self
     }
@@ -349,7 +349,7 @@ impl FileChooserButtonBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -471,7 +471,7 @@ impl FileChooserButtonBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -541,7 +541,7 @@ impl FileChooserButtonBuilder {
         self
     }
 
-    pub fn extra_widget<P: IsA<Widget>>(mut self, extra_widget: &P) -> Self {
+    pub fn extra_widget(mut self, extra_widget: &impl IsA<Widget>) -> Self {
         self.extra_widget = Some(extra_widget.clone().upcast());
         self
     }
@@ -556,7 +556,7 @@ impl FileChooserButtonBuilder {
         self
     }
 
-    pub fn preview_widget<P: IsA<Widget>>(mut self, preview_widget: &P) -> Self {
+    pub fn preview_widget(mut self, preview_widget: &impl IsA<Widget>) -> Self {
         self.preview_widget = Some(preview_widget.clone().upcast());
         self
     }

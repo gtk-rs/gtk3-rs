@@ -157,7 +157,7 @@ impl SelectionData {
     }
 
     #[doc(alias = "gtk_selection_data_targets_include_rich_text")]
-    pub fn targets_include_rich_text<P: IsA<TextBuffer>>(&self, buffer: &P) -> bool {
+    pub fn targets_include_rich_text(&self, buffer: &impl IsA<TextBuffer>) -> bool {
         unsafe {
             from_glib(ffi::gtk_selection_data_targets_include_rich_text(
                 self.to_glib_none().0,

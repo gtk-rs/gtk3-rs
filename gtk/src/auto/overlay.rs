@@ -216,7 +216,7 @@ impl OverlayBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -338,7 +338,7 @@ impl OverlayBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -393,17 +393,17 @@ pub const NONE_OVERLAY: Option<&Overlay> = None;
 
 pub trait OverlayExt: 'static {
     #[doc(alias = "gtk_overlay_add_overlay")]
-    fn add_overlay<P: IsA<Widget>>(&self, widget: &P);
+    fn add_overlay(&self, widget: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_overlay_get_overlay_pass_through")]
     #[doc(alias = "get_overlay_pass_through")]
-    fn is_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool;
+    fn is_overlay_pass_through(&self, widget: &impl IsA<Widget>) -> bool;
 
     #[doc(alias = "gtk_overlay_reorder_overlay")]
-    fn reorder_overlay<P: IsA<Widget>>(&self, child: &P, index_: i32);
+    fn reorder_overlay(&self, child: &impl IsA<Widget>, index_: i32);
 
     #[doc(alias = "gtk_overlay_set_overlay_pass_through")]
-    fn set_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P, pass_through: bool);
+    fn set_overlay_pass_through(&self, widget: &impl IsA<Widget>, pass_through: bool);
 
     fn child_index<T: IsA<Widget>>(&self, item: &T) -> i32;
 
@@ -414,7 +414,7 @@ pub trait OverlayExt: 'static {
 }
 
 impl<O: IsA<Overlay>> OverlayExt for O {
-    fn add_overlay<P: IsA<Widget>>(&self, widget: &P) {
+    fn add_overlay(&self, widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_overlay_add_overlay(
                 self.as_ref().to_glib_none().0,
@@ -423,7 +423,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    fn is_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool {
+    fn is_overlay_pass_through(&self, widget: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_overlay_get_overlay_pass_through(
                 self.as_ref().to_glib_none().0,
@@ -432,7 +432,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    fn reorder_overlay<P: IsA<Widget>>(&self, child: &P, index_: i32) {
+    fn reorder_overlay(&self, child: &impl IsA<Widget>, index_: i32) {
         unsafe {
             ffi::gtk_overlay_reorder_overlay(
                 self.as_ref().to_glib_none().0,
@@ -442,7 +442,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    fn set_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P, pass_through: bool) {
+    fn set_overlay_pass_through(&self, widget: &impl IsA<Widget>, pass_through: bool) {
         unsafe {
             ffi::gtk_overlay_set_overlay_pass_through(
                 self.as_ref().to_glib_none().0,

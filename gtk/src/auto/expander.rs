@@ -278,7 +278,7 @@ impl ExpanderBuilder {
         self
     }
 
-    pub fn label_widget<P: IsA<Widget>>(mut self, label_widget: &P) -> Self {
+    pub fn label_widget(mut self, label_widget: &impl IsA<Widget>) -> Self {
         self.label_widget = Some(label_widget.clone().upcast());
         self
     }
@@ -309,7 +309,7 @@ impl ExpanderBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -431,7 +431,7 @@ impl ExpanderBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -528,7 +528,7 @@ pub trait ExpanderExt: 'static {
     fn set_label_fill(&self, label_fill: bool);
 
     #[doc(alias = "gtk_expander_set_label_widget")]
-    fn set_label_widget<P: IsA<Widget>>(&self, label_widget: Option<&P>);
+    fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_expander_set_resize_toplevel")]
     fn set_resize_toplevel(&self, resize_toplevel: bool);
@@ -652,7 +652,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
-    fn set_label_widget<P: IsA<Widget>>(&self, label_widget: Option<&P>) {
+    fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_expander_set_label_widget(
                 self.as_ref().to_glib_none().0,

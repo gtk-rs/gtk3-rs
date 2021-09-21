@@ -93,12 +93,12 @@ impl ApplicationBuilder {
         ret
     }
 
-    pub fn app_menu<P: IsA<gio::MenuModel>>(mut self, app_menu: &P) -> Self {
+    pub fn app_menu(mut self, app_menu: &impl IsA<gio::MenuModel>) -> Self {
         self.app_menu = Some(app_menu.clone().upcast());
         self
     }
 
-    pub fn menubar<P: IsA<gio::MenuModel>>(mut self, menubar: &P) -> Self {
+    pub fn menubar(mut self, menubar: &impl IsA<gio::MenuModel>) -> Self {
         self.menubar = Some(menubar.clone().upcast());
         self
     }
@@ -108,7 +108,7 @@ impl ApplicationBuilder {
         self
     }
 
-    pub fn action_group<P: IsA<gio::ActionGroup>>(mut self, action_group: &P) -> Self {
+    pub fn action_group(mut self, action_group: &impl IsA<gio::ActionGroup>) -> Self {
         self.action_group = Some(action_group.clone().upcast());
         self
     }
@@ -138,7 +138,7 @@ pub const NONE_APPLICATION: Option<&Application> = None;
 
 pub trait GtkApplicationExt: 'static {
     #[doc(alias = "gtk_application_add_window")]
-    fn add_window<P: IsA<Window>>(&self, window: &P);
+    fn add_window(&self, window: &impl IsA<Window>);
 
     #[doc(alias = "gtk_application_get_accels_for_action")]
     #[doc(alias = "get_accels_for_action")]
@@ -173,9 +173,9 @@ pub trait GtkApplicationExt: 'static {
     fn windows(&self) -> Vec<Window>;
 
     #[doc(alias = "gtk_application_inhibit")]
-    fn inhibit<P: IsA<Window>>(
+    fn inhibit(
         &self,
-        window: Option<&P>,
+        window: Option<&impl IsA<Window>>,
         flags: ApplicationInhibitFlags,
         reason: Option<&str>,
     ) -> u32;
@@ -190,16 +190,16 @@ pub trait GtkApplicationExt: 'static {
     fn prefers_app_menu(&self) -> bool;
 
     #[doc(alias = "gtk_application_remove_window")]
-    fn remove_window<P: IsA<Window>>(&self, window: &P);
+    fn remove_window(&self, window: &impl IsA<Window>);
 
     #[doc(alias = "gtk_application_set_accels_for_action")]
     fn set_accels_for_action(&self, detailed_action_name: &str, accels: &[&str]);
 
     #[doc(alias = "gtk_application_set_app_menu")]
-    fn set_app_menu<P: IsA<gio::MenuModel>>(&self, app_menu: Option<&P>);
+    fn set_app_menu(&self, app_menu: Option<&impl IsA<gio::MenuModel>>);
 
     #[doc(alias = "gtk_application_set_menubar")]
-    fn set_menubar<P: IsA<gio::MenuModel>>(&self, menubar: Option<&P>);
+    fn set_menubar(&self, menubar: Option<&impl IsA<gio::MenuModel>>);
 
     #[doc(alias = "gtk_application_uninhibit")]
     fn uninhibit(&self, cookie: u32);
@@ -245,7 +245,7 @@ pub trait GtkApplicationExt: 'static {
 }
 
 impl<O: IsA<Application>> GtkApplicationExt for O {
-    fn add_window<P: IsA<Window>>(&self, window: &P) {
+    fn add_window(&self, window: &impl IsA<Window>) {
         unsafe {
             ffi::gtk_application_add_window(
                 self.as_ref().to_glib_none().0,
@@ -322,9 +322,9 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    fn inhibit<P: IsA<Window>>(
+    fn inhibit(
         &self,
-        window: Option<&P>,
+        window: Option<&impl IsA<Window>>,
         flags: ApplicationInhibitFlags,
         reason: Option<&str>,
     ) -> u32 {
@@ -363,7 +363,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    fn remove_window<P: IsA<Window>>(&self, window: &P) {
+    fn remove_window(&self, window: &impl IsA<Window>) {
         unsafe {
             ffi::gtk_application_remove_window(
                 self.as_ref().to_glib_none().0,
@@ -382,7 +382,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    fn set_app_menu<P: IsA<gio::MenuModel>>(&self, app_menu: Option<&P>) {
+    fn set_app_menu(&self, app_menu: Option<&impl IsA<gio::MenuModel>>) {
         unsafe {
             ffi::gtk_application_set_app_menu(
                 self.as_ref().to_glib_none().0,
@@ -391,7 +391,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    fn set_menubar<P: IsA<gio::MenuModel>>(&self, menubar: Option<&P>) {
+    fn set_menubar(&self, menubar: Option<&impl IsA<gio::MenuModel>>) {
         unsafe {
             ffi::gtk_application_set_menubar(
                 self.as_ref().to_glib_none().0,

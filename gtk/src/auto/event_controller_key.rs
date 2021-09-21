@@ -26,7 +26,7 @@ glib::wrapper! {
 
 impl EventControllerKey {
     #[doc(alias = "gtk_event_controller_key_new")]
-    pub fn new<P: IsA<Widget>>(widget: &P) -> EventControllerKey {
+    pub fn new(widget: &impl IsA<Widget>) -> EventControllerKey {
         skip_assert_initialized!();
         unsafe {
             EventController::from_glib_full(ffi::gtk_event_controller_key_new(
@@ -37,7 +37,7 @@ impl EventControllerKey {
     }
 
     #[doc(alias = "gtk_event_controller_key_forward")]
-    pub fn forward<P: IsA<Widget>>(&self, widget: &P) -> bool {
+    pub fn forward(&self, widget: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_controller_key_forward(
                 self.to_glib_none().0,
@@ -63,7 +63,7 @@ impl EventControllerKey {
     }
 
     #[doc(alias = "gtk_event_controller_key_set_im_context")]
-    pub fn set_im_context<P: IsA<IMContext>>(&self, im_context: &P) {
+    pub fn set_im_context(&self, im_context: &impl IsA<IMContext>) {
         unsafe {
             ffi::gtk_event_controller_key_set_im_context(
                 self.to_glib_none().0,

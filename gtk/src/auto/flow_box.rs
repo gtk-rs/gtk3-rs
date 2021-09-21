@@ -293,7 +293,7 @@ impl FlowBoxBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -415,7 +415,7 @@ impl FlowBoxBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -475,10 +475,10 @@ pub const NONE_FLOW_BOX: Option<&FlowBox> = None;
 
 pub trait FlowBoxExt: 'static {
     #[doc(alias = "gtk_flow_box_bind_model")]
-    fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
+    fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
         &self,
-        model: Option<&P>,
-        create_widget_func: Q,
+        model: Option<&impl IsA<gio::ListModel>>,
+        create_widget_func: P,
     );
 
     #[doc(alias = "gtk_flow_box_get_activate_on_single_click")]
@@ -524,7 +524,7 @@ pub trait FlowBoxExt: 'static {
     fn selection_mode(&self) -> SelectionMode;
 
     #[doc(alias = "gtk_flow_box_insert")]
-    fn insert<P: IsA<Widget>>(&self, widget: &P, position: i32);
+    fn insert(&self, widget: &impl IsA<Widget>, position: i32);
 
     #[doc(alias = "gtk_flow_box_invalidate_filter")]
     fn invalidate_filter(&self);
@@ -536,7 +536,7 @@ pub trait FlowBoxExt: 'static {
     fn select_all(&self);
 
     #[doc(alias = "gtk_flow_box_select_child")]
-    fn select_child<P: IsA<FlowBoxChild>>(&self, child: &P);
+    fn select_child(&self, child: &impl IsA<FlowBoxChild>);
 
     #[doc(alias = "gtk_flow_box_selected_foreach")]
     fn selected_foreach<P: FnMut(&FlowBox, &FlowBoxChild)>(&self, func: P);
@@ -551,7 +551,7 @@ pub trait FlowBoxExt: 'static {
     fn set_filter_func(&self, filter_func: Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>);
 
     #[doc(alias = "gtk_flow_box_set_hadjustment")]
-    fn set_hadjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
+    fn set_hadjustment(&self, adjustment: &impl IsA<Adjustment>);
 
     #[doc(alias = "gtk_flow_box_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool);
@@ -575,13 +575,13 @@ pub trait FlowBoxExt: 'static {
     );
 
     #[doc(alias = "gtk_flow_box_set_vadjustment")]
-    fn set_vadjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
+    fn set_vadjustment(&self, adjustment: &impl IsA<Adjustment>);
 
     #[doc(alias = "gtk_flow_box_unselect_all")]
     fn unselect_all(&self);
 
     #[doc(alias = "gtk_flow_box_unselect_child")]
-    fn unselect_child<P: IsA<FlowBoxChild>>(&self, child: &P);
+    fn unselect_child(&self, child: &impl IsA<FlowBoxChild>);
 
     #[doc(alias = "activate-cursor-child")]
     fn connect_activate_cursor_child<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -648,35 +648,29 @@ pub trait FlowBoxExt: 'static {
 }
 
 impl<O: IsA<FlowBox>> FlowBoxExt for O {
-    fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
+    fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
         &self,
-        model: Option<&P>,
-        create_widget_func: Q,
+        model: Option<&impl IsA<gio::ListModel>>,
+        create_widget_func: P,
     ) {
-        let create_widget_func_data: Box_<Q> = Box_::new(create_widget_func);
-        unsafe extern "C" fn create_widget_func_func<
-            P: IsA<gio::ListModel>,
-            Q: Fn(&glib::Object) -> Widget + 'static,
-        >(
+        let create_widget_func_data: Box_<P> = Box_::new(create_widget_func);
+        unsafe extern "C" fn create_widget_func_func<P: Fn(&glib::Object) -> Widget + 'static>(
             item: *mut glib::gobject_ffi::GObject,
             user_data: glib::ffi::gpointer,
         ) -> *mut ffi::GtkWidget {
             let item = from_glib_borrow(item);
-            let callback: &Q = &*(user_data as *mut _);
+            let callback: &P = &*(user_data as *mut _);
             let res = (*callback)(&item);
             res.to_glib_full()
         }
-        let create_widget_func = Some(create_widget_func_func::<P, Q> as _);
-        unsafe extern "C" fn user_data_free_func_func<
-            P: IsA<gio::ListModel>,
-            Q: Fn(&glib::Object) -> Widget + 'static,
-        >(
+        let create_widget_func = Some(create_widget_func_func::<P> as _);
+        unsafe extern "C" fn user_data_free_func_func<P: Fn(&glib::Object) -> Widget + 'static>(
             data: glib::ffi::gpointer,
         ) {
-            let _callback: Box_<Q> = Box_::from_raw(data as *mut _);
+            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
         }
-        let destroy_call4 = Some(user_data_free_func_func::<P, Q> as _);
-        let super_callback0: Box_<Q> = create_widget_func_data;
+        let destroy_call4 = Some(user_data_free_func_func::<P> as _);
+        let super_callback0: Box_<P> = create_widget_func_data;
         unsafe {
             ffi::gtk_flow_box_bind_model(
                 self.as_ref().to_glib_none().0,
@@ -757,7 +751,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn insert<P: IsA<Widget>>(&self, widget: &P, position: i32) {
+    fn insert(&self, widget: &impl IsA<Widget>, position: i32) {
         unsafe {
             ffi::gtk_flow_box_insert(
                 self.as_ref().to_glib_none().0,
@@ -785,7 +779,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn select_child<P: IsA<FlowBoxChild>>(&self, child: &P) {
+    fn select_child(&self, child: &impl IsA<FlowBoxChild>) {
         unsafe {
             ffi::gtk_flow_box_select_child(
                 self.as_ref().to_glib_none().0,
@@ -871,7 +865,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn set_hadjustment<P: IsA<Adjustment>>(&self, adjustment: &P) {
+    fn set_hadjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_flow_box_set_hadjustment(
                 self.as_ref().to_glib_none().0,
@@ -960,7 +954,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn set_vadjustment<P: IsA<Adjustment>>(&self, adjustment: &P) {
+    fn set_vadjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_flow_box_set_vadjustment(
                 self.as_ref().to_glib_none().0,
@@ -975,7 +969,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    fn unselect_child<P: IsA<FlowBoxChild>>(&self, child: &P) {
+    fn unselect_child(&self, child: &impl IsA<FlowBoxChild>) {
         unsafe {
             ffi::gtk_flow_box_unselect_child(
                 self.as_ref().to_glib_none().0,

@@ -33,7 +33,7 @@ glib::wrapper! {
 
 impl ToolButton {
     #[doc(alias = "gtk_tool_button_new")]
-    pub fn new<P: IsA<Widget>>(icon_widget: Option<&P>, label: Option<&str>) -> ToolButton {
+    pub fn new(icon_widget: Option<&impl IsA<Widget>>, label: Option<&str>) -> ToolButton {
         assert_initialized_main_thread!();
         unsafe {
             ToolItem::from_glib_none(ffi::gtk_tool_button_new(
@@ -271,7 +271,7 @@ impl ToolButtonBuilder {
         self
     }
 
-    pub fn icon_widget<P: IsA<Widget>>(mut self, icon_widget: &P) -> Self {
+    pub fn icon_widget(mut self, icon_widget: &impl IsA<Widget>) -> Self {
         self.icon_widget = Some(icon_widget.clone().upcast());
         self
     }
@@ -281,7 +281,7 @@ impl ToolButtonBuilder {
         self
     }
 
-    pub fn label_widget<P: IsA<Widget>>(mut self, label_widget: &P) -> Self {
+    pub fn label_widget(mut self, label_widget: &impl IsA<Widget>) -> Self {
         self.label_widget = Some(label_widget.clone().upcast());
         self
     }
@@ -311,7 +311,7 @@ impl ToolButtonBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -433,7 +433,7 @@ impl ToolButtonBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -521,13 +521,13 @@ pub trait ToolButtonExt: 'static {
     fn set_icon_name(&self, icon_name: Option<&str>);
 
     #[doc(alias = "gtk_tool_button_set_icon_widget")]
-    fn set_icon_widget<P: IsA<Widget>>(&self, icon_widget: Option<&P>);
+    fn set_icon_widget(&self, icon_widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_tool_button_set_label")]
     fn set_label(&self, label: Option<&str>);
 
     #[doc(alias = "gtk_tool_button_set_label_widget")]
-    fn set_label_widget<P: IsA<Widget>>(&self, label_widget: Option<&P>);
+    fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_tool_button_set_use_underline")]
     fn set_use_underline(&self, use_underline: bool);
@@ -603,7 +603,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    fn set_icon_widget<P: IsA<Widget>>(&self, icon_widget: Option<&P>) {
+    fn set_icon_widget(&self, icon_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tool_button_set_icon_widget(
                 self.as_ref().to_glib_none().0,
@@ -618,7 +618,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
-    fn set_label_widget<P: IsA<Widget>>(&self, label_widget: Option<&P>) {
+    fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tool_button_set_label_widget(
                 self.as_ref().to_glib_none().0,

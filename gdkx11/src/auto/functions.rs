@@ -31,8 +31,8 @@ pub fn x11_device_get_id(device: &X11DeviceCore) -> i32 {
 }
 
 #[doc(alias = "gdk_x11_device_manager_lookup")]
-pub fn x11_device_manager_lookup<P: IsA<X11DeviceManagerCore>>(
-    device_manager: &P,
+pub fn x11_device_manager_lookup(
+    device_manager: &impl IsA<X11DeviceManagerCore>,
     device_id: i32,
 ) -> Option<X11DeviceCore> {
     skip_assert_initialized!();

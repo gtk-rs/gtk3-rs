@@ -96,7 +96,7 @@ pub const NONE_SIZE_GROUP: Option<&SizeGroup> = None;
 
 pub trait SizeGroupExt: 'static {
     #[doc(alias = "gtk_size_group_add_widget")]
-    fn add_widget<P: IsA<Widget>>(&self, widget: &P);
+    fn add_widget(&self, widget: &impl IsA<Widget>);
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_size_group_get_ignore_hidden")]
@@ -112,7 +112,7 @@ pub trait SizeGroupExt: 'static {
     fn widgets(&self) -> Vec<Widget>;
 
     #[doc(alias = "gtk_size_group_remove_widget")]
-    fn remove_widget<P: IsA<Widget>>(&self, widget: &P);
+    fn remove_widget(&self, widget: &impl IsA<Widget>);
 
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     #[doc(alias = "gtk_size_group_set_ignore_hidden")]
@@ -130,7 +130,7 @@ pub trait SizeGroupExt: 'static {
 }
 
 impl<O: IsA<SizeGroup>> SizeGroupExt for O {
-    fn add_widget<P: IsA<Widget>>(&self, widget: &P) {
+    fn add_widget(&self, widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_size_group_add_widget(
                 self.as_ref().to_glib_none().0,
@@ -159,7 +159,7 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
-    fn remove_widget<P: IsA<Widget>>(&self, widget: &P) {
+    fn remove_widget(&self, widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_size_group_remove_widget(
                 self.as_ref().to_glib_none().0,

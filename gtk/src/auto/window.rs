@@ -90,8 +90,8 @@ impl Window {
     }
 
     #[doc(alias = "gtk_window_set_default_icon_from_file")]
-    pub fn set_default_icon_from_file<P: AsRef<std::path::Path>>(
-        filename: P,
+    pub fn set_default_icon_from_file(
+        filename: impl AsRef<std::path::Path>,
     ) -> Result<(), glib::Error> {
         assert_initialized_main_thread!();
         unsafe {
@@ -422,12 +422,12 @@ impl WindowBuilder {
         self
     }
 
-    pub fn application<P: IsA<Application>>(mut self, application: &P) -> Self {
+    pub fn application(mut self, application: &impl IsA<Application>) -> Self {
         self.application = Some(application.clone().upcast());
         self
     }
 
-    pub fn attached_to<P: IsA<Widget>>(mut self, attached_to: &P) -> Self {
+    pub fn attached_to(mut self, attached_to: &impl IsA<Widget>) -> Self {
         self.attached_to = Some(attached_to.clone().upcast());
         self
     }
@@ -532,7 +532,7 @@ impl WindowBuilder {
         self
     }
 
-    pub fn transient_for<P: IsA<Window>>(mut self, transient_for: &P) -> Self {
+    pub fn transient_for(mut self, transient_for: &impl IsA<Window>) -> Self {
         self.transient_for = Some(transient_for.clone().upcast());
         self
     }
@@ -562,7 +562,7 @@ impl WindowBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -684,7 +684,7 @@ impl WindowBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -748,10 +748,10 @@ pub trait GtkWindowExt: 'static {
     fn activate_key(&self, event: &gdk::EventKey) -> bool;
 
     #[doc(alias = "gtk_window_add_accel_group")]
-    fn add_accel_group<P: IsA<AccelGroup>>(&self, accel_group: &P);
+    fn add_accel_group(&self, accel_group: &impl IsA<AccelGroup>);
 
     #[doc(alias = "gtk_window_add_mnemonic")]
-    fn add_mnemonic<P: IsA<Widget>>(&self, keyval: u32, target: &P);
+    fn add_mnemonic(&self, keyval: u32, target: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_window_begin_move_drag")]
     fn begin_move_drag(&self, button: i32, root_x: i32, root_y: i32, timestamp: u32);
@@ -945,10 +945,10 @@ pub trait GtkWindowExt: 'static {
     fn propagate_key_event(&self, event: &gdk::EventKey) -> bool;
 
     #[doc(alias = "gtk_window_remove_accel_group")]
-    fn remove_accel_group<P: IsA<AccelGroup>>(&self, accel_group: &P);
+    fn remove_accel_group(&self, accel_group: &impl IsA<AccelGroup>);
 
     #[doc(alias = "gtk_window_remove_mnemonic")]
-    fn remove_mnemonic<P: IsA<Widget>>(&self, keyval: u32, target: &P);
+    fn remove_mnemonic(&self, keyval: u32, target: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_window_resize")]
     fn resize(&self, width: i32, height: i32);
@@ -961,16 +961,16 @@ pub trait GtkWindowExt: 'static {
     fn set_accept_focus(&self, setting: bool);
 
     #[doc(alias = "gtk_window_set_application")]
-    fn set_application<P: IsA<Application>>(&self, application: Option<&P>);
+    fn set_application(&self, application: Option<&impl IsA<Application>>);
 
     #[doc(alias = "gtk_window_set_attached_to")]
-    fn set_attached_to<P: IsA<Widget>>(&self, attach_widget: Option<&P>);
+    fn set_attached_to(&self, attach_widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_window_set_decorated")]
     fn set_decorated(&self, setting: bool);
 
     #[doc(alias = "gtk_window_set_default")]
-    fn set_default<P: IsA<Widget>>(&self, default_widget: Option<&P>);
+    fn set_default(&self, default_widget: Option<&impl IsA<Widget>>);
 
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
     #[doc(alias = "gtk_window_set_default_geometry")]
@@ -986,7 +986,7 @@ pub trait GtkWindowExt: 'static {
     fn set_destroy_with_parent(&self, setting: bool);
 
     #[doc(alias = "gtk_window_set_focus")]
-    fn set_focus<P: IsA<Widget>>(&self, focus: Option<&P>);
+    fn set_focus(&self, focus: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_window_set_focus_on_map")]
     fn set_focus_on_map(&self, setting: bool);
@@ -995,9 +995,9 @@ pub trait GtkWindowExt: 'static {
     fn set_focus_visible(&self, setting: bool);
 
     #[doc(alias = "gtk_window_set_geometry_hints")]
-    fn set_geometry_hints<P: IsA<Widget>>(
+    fn set_geometry_hints(
         &self,
-        geometry_widget: Option<&P>,
+        geometry_widget: Option<&impl IsA<Widget>>,
         geometry: Option<&gdk::Geometry>,
         geom_mask: gdk::WindowHints,
     );
@@ -1015,8 +1015,7 @@ pub trait GtkWindowExt: 'static {
     fn set_icon(&self, icon: Option<&gdk_pixbuf::Pixbuf>);
 
     #[doc(alias = "gtk_window_set_icon_from_file")]
-    fn set_icon_from_file<P: AsRef<std::path::Path>>(&self, filename: P)
-        -> Result<(), glib::Error>;
+    fn set_icon_from_file(&self, filename: impl AsRef<std::path::Path>) -> Result<(), glib::Error>;
 
     #[doc(alias = "gtk_window_set_icon_list")]
     fn set_icon_list(&self, list: &[gdk_pixbuf::Pixbuf]);
@@ -1064,10 +1063,10 @@ pub trait GtkWindowExt: 'static {
     fn set_title(&self, title: &str);
 
     #[doc(alias = "gtk_window_set_titlebar")]
-    fn set_titlebar<P: IsA<Widget>>(&self, titlebar: Option<&P>);
+    fn set_titlebar(&self, titlebar: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_window_set_transient_for")]
-    fn set_transient_for<P: IsA<Window>>(&self, parent: Option<&P>);
+    fn set_transient_for(&self, parent: Option<&impl IsA<Window>>);
 
     #[doc(alias = "gtk_window_set_type_hint")]
     fn set_type_hint(&self, hint: gdk::WindowTypeHint);
@@ -1256,7 +1255,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn add_accel_group<P: IsA<AccelGroup>>(&self, accel_group: &P) {
+    fn add_accel_group(&self, accel_group: &impl IsA<AccelGroup>) {
         unsafe {
             ffi::gtk_window_add_accel_group(
                 self.as_ref().to_glib_none().0,
@@ -1265,7 +1264,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn add_mnemonic<P: IsA<Widget>>(&self, keyval: u32, target: &P) {
+    fn add_mnemonic(&self, keyval: u32, target: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_window_add_mnemonic(
                 self.as_ref().to_glib_none().0,
@@ -1658,7 +1657,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn remove_accel_group<P: IsA<AccelGroup>>(&self, accel_group: &P) {
+    fn remove_accel_group(&self, accel_group: &impl IsA<AccelGroup>) {
         unsafe {
             ffi::gtk_window_remove_accel_group(
                 self.as_ref().to_glib_none().0,
@@ -1667,7 +1666,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn remove_mnemonic<P: IsA<Widget>>(&self, keyval: u32, target: &P) {
+    fn remove_mnemonic(&self, keyval: u32, target: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_window_remove_mnemonic(
                 self.as_ref().to_glib_none().0,
@@ -1695,7 +1694,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_application<P: IsA<Application>>(&self, application: Option<&P>) {
+    fn set_application(&self, application: Option<&impl IsA<Application>>) {
         unsafe {
             ffi::gtk_window_set_application(
                 self.as_ref().to_glib_none().0,
@@ -1704,7 +1703,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_attached_to<P: IsA<Widget>>(&self, attach_widget: Option<&P>) {
+    fn set_attached_to(&self, attach_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_attached_to(
                 self.as_ref().to_glib_none().0,
@@ -1719,7 +1718,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_default<P: IsA<Widget>>(&self, default_widget: Option<&P>) {
+    fn set_default(&self, default_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_default(
                 self.as_ref().to_glib_none().0,
@@ -1755,7 +1754,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_focus<P: IsA<Widget>>(&self, focus: Option<&P>) {
+    fn set_focus(&self, focus: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_focus(
                 self.as_ref().to_glib_none().0,
@@ -1776,9 +1775,9 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_geometry_hints<P: IsA<Widget>>(
+    fn set_geometry_hints(
         &self,
-        geometry_widget: Option<&P>,
+        geometry_widget: Option<&impl IsA<Widget>>,
         geometry: Option<&gdk::Geometry>,
         geom_mask: gdk::WindowHints,
     ) {
@@ -1822,10 +1821,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_icon_from_file<P: AsRef<std::path::Path>>(
-        &self,
-        filename: P,
-    ) -> Result<(), glib::Error> {
+    fn set_icon_from_file(&self, filename: impl AsRef<std::path::Path>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::gtk_window_set_icon_from_file(
@@ -1946,7 +1942,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_titlebar<P: IsA<Widget>>(&self, titlebar: Option<&P>) {
+    fn set_titlebar(&self, titlebar: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_titlebar(
                 self.as_ref().to_glib_none().0,
@@ -1955,7 +1951,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn set_transient_for<P: IsA<Window>>(&self, parent: Option<&P>) {
+    fn set_transient_for(&self, parent: Option<&impl IsA<Window>>) {
         unsafe {
             ffi::gtk_window_set_transient_for(
                 self.as_ref().to_glib_none().0,

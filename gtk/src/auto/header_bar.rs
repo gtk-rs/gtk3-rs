@@ -248,7 +248,7 @@ impl HeaderBarBuilder {
             .expect("Failed to create an instance of HeaderBar")
     }
 
-    pub fn custom_title<P: IsA<Widget>>(mut self, custom_title: &P) -> Self {
+    pub fn custom_title(mut self, custom_title: &impl IsA<Widget>) -> Self {
         self.custom_title = Some(custom_title.clone().upcast());
         self
     }
@@ -293,7 +293,7 @@ impl HeaderBarBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -415,7 +415,7 @@ impl HeaderBarBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -494,13 +494,13 @@ pub trait HeaderBarExt: 'static {
     fn title(&self) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_header_bar_pack_end")]
-    fn pack_end<P: IsA<Widget>>(&self, child: &P);
+    fn pack_end(&self, child: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_header_bar_pack_start")]
-    fn pack_start<P: IsA<Widget>>(&self, child: &P);
+    fn pack_start(&self, child: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_header_bar_set_custom_title")]
-    fn set_custom_title<P: IsA<Widget>>(&self, title_widget: Option<&P>);
+    fn set_custom_title(&self, title_widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_header_bar_set_decoration_layout")]
     fn set_decoration_layout(&self, layout: Option<&str>);
@@ -612,7 +612,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn pack_end<P: IsA<Widget>>(&self, child: &P) {
+    fn pack_end(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_header_bar_pack_end(
                 self.as_ref().to_glib_none().0,
@@ -621,7 +621,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn pack_start<P: IsA<Widget>>(&self, child: &P) {
+    fn pack_start(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_header_bar_pack_start(
                 self.as_ref().to_glib_none().0,
@@ -630,7 +630,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn set_custom_title<P: IsA<Widget>>(&self, title_widget: Option<&P>) {
+    fn set_custom_title(&self, title_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_header_bar_set_custom_title(
                 self.as_ref().to_glib_none().0,

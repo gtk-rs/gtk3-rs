@@ -268,7 +268,7 @@ impl ButtonBoxBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -390,7 +390,7 @@ impl ButtonBoxBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -451,21 +451,21 @@ pub const NONE_BUTTON_BOX: Option<&ButtonBox> = None;
 pub trait ButtonBoxExt: 'static {
     #[doc(alias = "gtk_button_box_get_child_non_homogeneous")]
     #[doc(alias = "get_child_non_homogeneous")]
-    fn child_is_non_homogeneous<P: IsA<Widget>>(&self, child: &P) -> bool;
+    fn child_is_non_homogeneous(&self, child: &impl IsA<Widget>) -> bool;
 
     #[doc(alias = "gtk_button_box_get_child_secondary")]
     #[doc(alias = "get_child_secondary")]
-    fn child_is_secondary<P: IsA<Widget>>(&self, child: &P) -> bool;
+    fn child_is_secondary(&self, child: &impl IsA<Widget>) -> bool;
 
     #[doc(alias = "gtk_button_box_get_layout")]
     #[doc(alias = "get_layout")]
     fn layout(&self) -> ButtonBoxStyle;
 
     #[doc(alias = "gtk_button_box_set_child_non_homogeneous")]
-    fn set_child_non_homogeneous<P: IsA<Widget>>(&self, child: &P, non_homogeneous: bool);
+    fn set_child_non_homogeneous(&self, child: &impl IsA<Widget>, non_homogeneous: bool);
 
     #[doc(alias = "gtk_button_box_set_child_secondary")]
-    fn set_child_secondary<P: IsA<Widget>>(&self, child: &P, is_secondary: bool);
+    fn set_child_secondary(&self, child: &impl IsA<Widget>, is_secondary: bool);
 
     #[doc(alias = "gtk_button_box_set_layout")]
     fn set_layout(&self, layout_style: ButtonBoxStyle);
@@ -481,7 +481,7 @@ pub trait ButtonBoxExt: 'static {
 }
 
 impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
-    fn child_is_non_homogeneous<P: IsA<Widget>>(&self, child: &P) -> bool {
+    fn child_is_non_homogeneous(&self, child: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_box_get_child_non_homogeneous(
                 self.as_ref().to_glib_none().0,
@@ -490,7 +490,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
-    fn child_is_secondary<P: IsA<Widget>>(&self, child: &P) -> bool {
+    fn child_is_secondary(&self, child: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_box_get_child_secondary(
                 self.as_ref().to_glib_none().0,
@@ -507,7 +507,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
-    fn set_child_non_homogeneous<P: IsA<Widget>>(&self, child: &P, non_homogeneous: bool) {
+    fn set_child_non_homogeneous(&self, child: &impl IsA<Widget>, non_homogeneous: bool) {
         unsafe {
             ffi::gtk_button_box_set_child_non_homogeneous(
                 self.as_ref().to_glib_none().0,
@@ -517,7 +517,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
-    fn set_child_secondary<P: IsA<Widget>>(&self, child: &P, is_secondary: bool) {
+    fn set_child_secondary(&self, child: &impl IsA<Widget>, is_secondary: bool) {
         unsafe {
             ffi::gtk_button_box_set_child_secondary(
                 self.as_ref().to_glib_none().0,

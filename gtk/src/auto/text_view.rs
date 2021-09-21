@@ -55,7 +55,7 @@ impl TextView {
 
     #[doc(alias = "gtk_text_view_new_with_buffer")]
     #[doc(alias = "new_with_buffer")]
-    pub fn with_buffer<P: IsA<TextBuffer>>(buffer: &P) -> TextView {
+    pub fn with_buffer(buffer: &impl IsA<TextBuffer>) -> TextView {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_text_view_new_with_buffer(
@@ -356,7 +356,7 @@ impl TextViewBuilder {
         self
     }
 
-    pub fn buffer<P: IsA<TextBuffer>>(mut self, buffer: &P) -> Self {
+    pub fn buffer(mut self, buffer: &impl IsA<TextBuffer>) -> Self {
         self.buffer = Some(buffer.clone().upcast());
         self
     }
@@ -456,7 +456,7 @@ impl TextViewBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -578,7 +578,7 @@ impl TextViewBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -628,7 +628,7 @@ impl TextViewBuilder {
         self
     }
 
-    pub fn hadjustment<P: IsA<Adjustment>>(mut self, hadjustment: &P) -> Self {
+    pub fn hadjustment(mut self, hadjustment: &impl IsA<Adjustment>) -> Self {
         self.hadjustment = Some(hadjustment.clone().upcast());
         self
     }
@@ -638,7 +638,7 @@ impl TextViewBuilder {
         self
     }
 
-    pub fn vadjustment<P: IsA<Adjustment>>(mut self, vadjustment: &P) -> Self {
+    pub fn vadjustment(mut self, vadjustment: &impl IsA<Adjustment>) -> Self {
         self.vadjustment = Some(vadjustment.clone().upcast());
         self
     }
@@ -653,12 +653,12 @@ pub const NONE_TEXT_VIEW: Option<&TextView> = None;
 
 pub trait TextViewExt: 'static {
     #[doc(alias = "gtk_text_view_add_child_at_anchor")]
-    fn add_child_at_anchor<P: IsA<Widget>, Q: IsA<TextChildAnchor>>(&self, child: &P, anchor: &Q);
+    fn add_child_at_anchor(&self, child: &impl IsA<Widget>, anchor: &impl IsA<TextChildAnchor>);
 
     #[doc(alias = "gtk_text_view_add_child_in_window")]
-    fn add_child_in_window<P: IsA<Widget>>(
+    fn add_child_in_window(
         &self,
-        child: &P,
+        child: &impl IsA<Widget>,
         which_window: TextWindowType,
         xpos: i32,
         ypos: i32,
@@ -808,10 +808,10 @@ pub trait TextViewExt: 'static {
     fn im_context_filter_keypress(&self, event: &gdk::EventKey) -> bool;
 
     #[doc(alias = "gtk_text_view_move_child")]
-    fn move_child<P: IsA<Widget>>(&self, child: &P, xpos: i32, ypos: i32);
+    fn move_child(&self, child: &impl IsA<Widget>, xpos: i32, ypos: i32);
 
     #[doc(alias = "gtk_text_view_move_mark_onscreen")]
-    fn move_mark_onscreen<P: IsA<TextMark>>(&self, mark: &P) -> bool;
+    fn move_mark_onscreen(&self, mark: &impl IsA<TextMark>) -> bool;
 
     #[doc(alias = "gtk_text_view_move_visually")]
     fn move_visually(&self, iter: &mut TextIter, count: i32) -> bool;
@@ -828,7 +828,7 @@ pub trait TextViewExt: 'static {
     fn reset_im_context(&self);
 
     #[doc(alias = "gtk_text_view_scroll_mark_onscreen")]
-    fn scroll_mark_onscreen<P: IsA<TextMark>>(&self, mark: &P);
+    fn scroll_mark_onscreen(&self, mark: &impl IsA<TextMark>);
 
     #[doc(alias = "gtk_text_view_scroll_to_iter")]
     fn scroll_to_iter(
@@ -841,9 +841,9 @@ pub trait TextViewExt: 'static {
     ) -> bool;
 
     #[doc(alias = "gtk_text_view_scroll_to_mark")]
-    fn scroll_to_mark<P: IsA<TextMark>>(
+    fn scroll_to_mark(
         &self,
-        mark: &P,
+        mark: &impl IsA<TextMark>,
         within_margin: f64,
         use_align: bool,
         xalign: f64,
@@ -860,7 +860,7 @@ pub trait TextViewExt: 'static {
     fn set_bottom_margin(&self, bottom_margin: i32);
 
     #[doc(alias = "gtk_text_view_set_buffer")]
-    fn set_buffer<P: IsA<TextBuffer>>(&self, buffer: Option<&P>);
+    fn set_buffer(&self, buffer: Option<&impl IsA<TextBuffer>>);
 
     #[doc(alias = "gtk_text_view_set_cursor_visible")]
     fn set_cursor_visible(&self, setting: bool);
@@ -1093,7 +1093,7 @@ pub trait TextViewExt: 'static {
 }
 
 impl<O: IsA<TextView>> TextViewExt for O {
-    fn add_child_at_anchor<P: IsA<Widget>, Q: IsA<TextChildAnchor>>(&self, child: &P, anchor: &Q) {
+    fn add_child_at_anchor(&self, child: &impl IsA<Widget>, anchor: &impl IsA<TextChildAnchor>) {
         unsafe {
             ffi::gtk_text_view_add_child_at_anchor(
                 self.as_ref().to_glib_none().0,
@@ -1103,9 +1103,9 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn add_child_in_window<P: IsA<Widget>>(
+    fn add_child_in_window(
         &self,
-        child: &P,
+        child: &impl IsA<Widget>,
         which_window: TextWindowType,
         xpos: i32,
         ypos: i32,
@@ -1445,7 +1445,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn move_child<P: IsA<Widget>>(&self, child: &P, xpos: i32, ypos: i32) {
+    fn move_child(&self, child: &impl IsA<Widget>, xpos: i32, ypos: i32) {
         unsafe {
             ffi::gtk_text_view_move_child(
                 self.as_ref().to_glib_none().0,
@@ -1456,7 +1456,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn move_mark_onscreen<P: IsA<TextMark>>(&self, mark: &P) -> bool {
+    fn move_mark_onscreen(&self, mark: &impl IsA<TextMark>) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_view_move_mark_onscreen(
                 self.as_ref().to_glib_none().0,
@@ -1497,7 +1497,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn scroll_mark_onscreen<P: IsA<TextMark>>(&self, mark: &P) {
+    fn scroll_mark_onscreen(&self, mark: &impl IsA<TextMark>) {
         unsafe {
             ffi::gtk_text_view_scroll_mark_onscreen(
                 self.as_ref().to_glib_none().0,
@@ -1526,9 +1526,9 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn scroll_to_mark<P: IsA<TextMark>>(
+    fn scroll_to_mark(
         &self,
-        mark: &P,
+        mark: &impl IsA<TextMark>,
         within_margin: f64,
         use_align: bool,
         xalign: f64,
@@ -1571,7 +1571,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn set_buffer<P: IsA<TextBuffer>>(&self, buffer: Option<&P>) {
+    fn set_buffer(&self, buffer: Option<&impl IsA<TextBuffer>>) {
         unsafe {
             ffi::gtk_text_view_set_buffer(
                 self.as_ref().to_glib_none().0,

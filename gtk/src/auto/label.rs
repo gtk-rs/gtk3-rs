@@ -329,7 +329,7 @@ impl LabelBuilder {
         self
     }
 
-    pub fn mnemonic_widget<P: IsA<Widget>>(mut self, mnemonic_widget: &P) -> Self {
+    pub fn mnemonic_widget(mut self, mnemonic_widget: &impl IsA<Widget>) -> Self {
         self.mnemonic_widget = Some(mnemonic_widget.clone().upcast());
         self
     }
@@ -501,7 +501,7 @@ impl LabelBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -688,7 +688,7 @@ pub trait LabelExt: 'static {
     fn set_max_width_chars(&self, n_chars: i32);
 
     #[doc(alias = "gtk_label_set_mnemonic_widget")]
-    fn set_mnemonic_widget<P: IsA<Widget>>(&self, widget: Option<&P>);
+    fn set_mnemonic_widget(&self, widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_label_set_pattern")]
     fn set_pattern(&self, pattern: &str);
@@ -1070,7 +1070,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
-    fn set_mnemonic_widget<P: IsA<Widget>>(&self, widget: Option<&P>) {
+    fn set_mnemonic_widget(&self, widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_label_set_mnemonic_widget(
                 self.as_ref().to_glib_none().0,

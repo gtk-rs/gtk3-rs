@@ -720,9 +720,9 @@ pub trait TextTagExt: 'static {
     fn changed(&self, size_changed: bool);
 
     #[doc(alias = "gtk_text_tag_event")]
-    fn event<P: IsA<glib::Object>>(
+    fn event(
         &self,
-        event_object: &P,
+        event_object: &impl IsA<glib::Object>,
         event: &gdk::Event,
         iter: &TextIter,
     ) -> bool;
@@ -1359,9 +1359,9 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    fn event<P: IsA<glib::Object>>(
+    fn event(
         &self,
-        event_object: &P,
+        event_object: &impl IsA<glib::Object>,
         event: &gdk::Event,
         iter: &TextIter,
     ) -> bool {

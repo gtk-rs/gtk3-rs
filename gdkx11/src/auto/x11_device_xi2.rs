@@ -111,12 +111,12 @@ impl X11DeviceXI2Builder {
         self
     }
 
-    pub fn device_manager<P: IsA<gdk::DeviceManager>>(mut self, device_manager: &P) -> Self {
+    pub fn device_manager(mut self, device_manager: &impl IsA<gdk::DeviceManager>) -> Self {
         self.device_manager = Some(device_manager.clone().upcast());
         self
     }
 
-    pub fn display<P: IsA<gdk::Display>>(mut self, display: &P) -> Self {
+    pub fn display(mut self, display: &impl IsA<gdk::Display>) -> Self {
         self.display = Some(display.clone().upcast());
         self
     }

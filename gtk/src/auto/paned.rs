@@ -255,7 +255,7 @@ impl PanedBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -377,7 +377,7 @@ impl PanedBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -437,10 +437,10 @@ pub const NONE_PANED: Option<&Paned> = None;
 
 pub trait PanedExt: 'static {
     #[doc(alias = "gtk_paned_add1")]
-    fn add1<P: IsA<Widget>>(&self, child: &P);
+    fn add1(&self, child: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_paned_add2")]
-    fn add2<P: IsA<Widget>>(&self, child: &P);
+    fn add2(&self, child: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_paned_get_child1")]
     #[doc(alias = "get_child1")]
@@ -463,10 +463,10 @@ pub trait PanedExt: 'static {
     fn is_wide_handle(&self) -> bool;
 
     #[doc(alias = "gtk_paned_pack1")]
-    fn pack1<P: IsA<Widget>>(&self, child: &P, resize: bool, shrink: bool);
+    fn pack1(&self, child: &impl IsA<Widget>, resize: bool, shrink: bool);
 
     #[doc(alias = "gtk_paned_pack2")]
-    fn pack2<P: IsA<Widget>>(&self, child: &P, resize: bool, shrink: bool);
+    fn pack2(&self, child: &impl IsA<Widget>, resize: bool, shrink: bool);
 
     #[doc(alias = "gtk_paned_set_position")]
     fn set_position(&self, position: i32);
@@ -550,7 +550,7 @@ pub trait PanedExt: 'static {
 }
 
 impl<O: IsA<Paned>> PanedExt for O {
-    fn add1<P: IsA<Widget>>(&self, child: &P) {
+    fn add1(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_paned_add1(
                 self.as_ref().to_glib_none().0,
@@ -559,7 +559,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn add2<P: IsA<Widget>>(&self, child: &P) {
+    fn add2(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_paned_add2(
                 self.as_ref().to_glib_none().0,
@@ -596,7 +596,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn pack1<P: IsA<Widget>>(&self, child: &P, resize: bool, shrink: bool) {
+    fn pack1(&self, child: &impl IsA<Widget>, resize: bool, shrink: bool) {
         unsafe {
             ffi::gtk_paned_pack1(
                 self.as_ref().to_glib_none().0,
@@ -607,7 +607,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn pack2<P: IsA<Widget>>(&self, child: &P, resize: bool, shrink: bool) {
+    fn pack2(&self, child: &impl IsA<Widget>, resize: bool, shrink: bool) {
         unsafe {
             ffi::gtk_paned_pack2(
                 self.as_ref().to_glib_none().0,

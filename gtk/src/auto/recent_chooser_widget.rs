@@ -40,7 +40,7 @@ impl RecentChooserWidget {
 
     #[doc(alias = "gtk_recent_chooser_widget_new_for_manager")]
     #[doc(alias = "new_for_manager")]
-    pub fn for_manager<P: IsA<RecentManager>>(manager: &P) -> RecentChooserWidget {
+    pub fn for_manager(manager: &impl IsA<RecentManager>) -> RecentChooserWidget {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_recent_chooser_widget_new_for_manager(
@@ -307,7 +307,7 @@ impl RecentChooserWidgetBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -429,7 +429,7 @@ impl RecentChooserWidgetBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -499,7 +499,7 @@ impl RecentChooserWidgetBuilder {
         self
     }
 
-    pub fn recent_manager<P: IsA<RecentManager>>(mut self, recent_manager: &P) -> Self {
+    pub fn recent_manager(mut self, recent_manager: &impl IsA<RecentManager>) -> Self {
         self.recent_manager = Some(recent_manager.clone().upcast());
         self
     }

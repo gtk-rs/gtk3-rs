@@ -36,16 +36,16 @@ pub const NONE_RELATION_SET: Option<&RelationSet> = None;
 
 pub trait RelationSetExt: 'static {
     #[doc(alias = "atk_relation_set_add")]
-    fn add<P: IsA<Relation>>(&self, relation: &P);
+    fn add(&self, relation: &impl IsA<Relation>);
 
     #[doc(alias = "atk_relation_set_add_relation_by_type")]
-    fn add_relation_by_type<P: IsA<Object>>(&self, relationship: RelationType, target: &P);
+    fn add_relation_by_type(&self, relationship: RelationType, target: &impl IsA<Object>);
 
     #[doc(alias = "atk_relation_set_contains")]
     fn contains(&self, relationship: RelationType) -> bool;
 
     #[doc(alias = "atk_relation_set_contains_target")]
-    fn contains_target<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
+    fn contains_target(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool;
 
     #[doc(alias = "atk_relation_set_get_n_relations")]
     #[doc(alias = "get_n_relations")]
@@ -60,11 +60,11 @@ pub trait RelationSetExt: 'static {
     fn relation_by_type(&self, relationship: RelationType) -> Option<Relation>;
 
     #[doc(alias = "atk_relation_set_remove")]
-    fn remove<P: IsA<Relation>>(&self, relation: &P);
+    fn remove(&self, relation: &impl IsA<Relation>);
 }
 
 impl<O: IsA<RelationSet>> RelationSetExt for O {
-    fn add<P: IsA<Relation>>(&self, relation: &P) {
+    fn add(&self, relation: &impl IsA<Relation>) {
         unsafe {
             ffi::atk_relation_set_add(
                 self.as_ref().to_glib_none().0,
@@ -73,7 +73,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         }
     }
 
-    fn add_relation_by_type<P: IsA<Object>>(&self, relationship: RelationType, target: &P) {
+    fn add_relation_by_type(&self, relationship: RelationType, target: &impl IsA<Object>) {
         unsafe {
             ffi::atk_relation_set_add_relation_by_type(
                 self.as_ref().to_glib_none().0,
@@ -92,7 +92,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         }
     }
 
-    fn contains_target<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
+    fn contains_target(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool {
         unsafe {
             from_glib(ffi::atk_relation_set_contains_target(
                 self.as_ref().to_glib_none().0,
@@ -124,7 +124,7 @@ impl<O: IsA<RelationSet>> RelationSetExt for O {
         }
     }
 
-    fn remove<P: IsA<Relation>>(&self, relation: &P) {
+    fn remove(&self, relation: &impl IsA<Relation>) {
         unsafe {
             ffi::atk_relation_set_remove(
                 self.as_ref().to_glib_none().0,

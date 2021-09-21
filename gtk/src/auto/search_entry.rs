@@ -397,7 +397,7 @@ impl SearchEntryBuilder {
         self
     }
 
-    pub fn buffer<P: IsA<EntryBuffer>>(mut self, buffer: &P) -> Self {
+    pub fn buffer(mut self, buffer: &impl IsA<EntryBuffer>) -> Self {
         self.buffer = Some(buffer.clone().upcast());
         self
     }
@@ -407,7 +407,7 @@ impl SearchEntryBuilder {
         self
     }
 
-    pub fn completion<P: IsA<EntryCompletion>>(mut self, completion: &P) -> Self {
+    pub fn completion(mut self, completion: &impl IsA<EntryCompletion>) -> Self {
         self.completion = Some(completion.clone().upcast());
         self
     }
@@ -482,7 +482,7 @@ impl SearchEntryBuilder {
         self
     }
 
-    pub fn primary_icon_gicon<P: IsA<gio::Icon>>(mut self, primary_icon_gicon: &P) -> Self {
+    pub fn primary_icon_gicon(mut self, primary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
         self.primary_icon_gicon = Some(primary_icon_gicon.clone().upcast());
         self
     }
@@ -527,7 +527,7 @@ impl SearchEntryBuilder {
         self
     }
 
-    pub fn secondary_icon_gicon<P: IsA<gio::Icon>>(mut self, secondary_icon_gicon: &P) -> Self {
+    pub fn secondary_icon_gicon(mut self, secondary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
         self.secondary_icon_gicon = Some(secondary_icon_gicon.clone().upcast());
         self
     }
@@ -710,7 +710,7 @@ impl SearchEntryBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }

@@ -32,7 +32,7 @@ pub const NONE_OBJECT: Option<&Object> = None;
 
 pub trait AtkObjectExt: 'static {
     #[doc(alias = "atk_object_add_relationship")]
-    fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
+    fn add_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
@@ -99,7 +99,7 @@ pub trait AtkObjectExt: 'static {
     fn ref_state_set(&self) -> Option<StateSet>;
 
     #[doc(alias = "atk_object_remove_relationship")]
-    fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
+    fn remove_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
@@ -113,7 +113,7 @@ pub trait AtkObjectExt: 'static {
     fn set_name(&self, name: &str);
 
     #[doc(alias = "atk_object_set_parent")]
-    fn set_parent<P: IsA<Object>>(&self, parent: &P);
+    fn set_parent(&self, parent: &impl IsA<Object>);
 
     #[doc(alias = "atk_object_set_role")]
     fn set_role(&self, role: Role);
@@ -318,7 +318,7 @@ pub trait AtkObjectExt: 'static {
 }
 
 impl<O: IsA<Object>> AtkObjectExt for O {
-    fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
+    fn add_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool {
         unsafe {
             from_glib(ffi::atk_object_add_relationship(
                 self.as_ref().to_glib_none().0,
@@ -429,7 +429,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
+    fn remove_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool {
         unsafe {
             from_glib(ffi::atk_object_remove_relationship(
                 self.as_ref().to_glib_none().0,
@@ -465,7 +465,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_parent<P: IsA<Object>>(&self, parent: &P) {
+    fn set_parent(&self, parent: &impl IsA<Object>) {
         unsafe {
             ffi::atk_object_set_parent(
                 self.as_ref().to_glib_none().0,

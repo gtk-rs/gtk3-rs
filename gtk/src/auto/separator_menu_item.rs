@@ -258,7 +258,7 @@ impl SeparatorMenuItemBuilder {
         self
     }
 
-    pub fn submenu<P: IsA<Menu>>(mut self, submenu: &P) -> Self {
+    pub fn submenu(mut self, submenu: &impl IsA<Menu>) -> Self {
         self.submenu = Some(submenu.clone().upcast());
         self
     }
@@ -273,7 +273,7 @@ impl SeparatorMenuItemBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -395,7 +395,7 @@ impl SeparatorMenuItemBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }

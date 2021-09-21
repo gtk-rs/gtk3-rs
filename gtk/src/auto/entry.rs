@@ -50,7 +50,7 @@ impl Entry {
 
     #[doc(alias = "gtk_entry_new_with_buffer")]
     #[doc(alias = "new_with_buffer")]
-    pub fn with_buffer<P: IsA<EntryBuffer>>(buffer: &P) -> Entry {
+    pub fn with_buffer(buffer: &impl IsA<EntryBuffer>) -> Entry {
         skip_assert_initialized!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_entry_new_with_buffer(
@@ -414,7 +414,7 @@ impl EntryBuilder {
         self
     }
 
-    pub fn buffer<P: IsA<EntryBuffer>>(mut self, buffer: &P) -> Self {
+    pub fn buffer(mut self, buffer: &impl IsA<EntryBuffer>) -> Self {
         self.buffer = Some(buffer.clone().upcast());
         self
     }
@@ -424,7 +424,7 @@ impl EntryBuilder {
         self
     }
 
-    pub fn completion<P: IsA<EntryCompletion>>(mut self, completion: &P) -> Self {
+    pub fn completion(mut self, completion: &impl IsA<EntryCompletion>) -> Self {
         self.completion = Some(completion.clone().upcast());
         self
     }
@@ -499,7 +499,7 @@ impl EntryBuilder {
         self
     }
 
-    pub fn primary_icon_gicon<P: IsA<gio::Icon>>(mut self, primary_icon_gicon: &P) -> Self {
+    pub fn primary_icon_gicon(mut self, primary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
         self.primary_icon_gicon = Some(primary_icon_gicon.clone().upcast());
         self
     }
@@ -544,7 +544,7 @@ impl EntryBuilder {
         self
     }
 
-    pub fn secondary_icon_gicon<P: IsA<gio::Icon>>(mut self, secondary_icon_gicon: &P) -> Self {
+    pub fn secondary_icon_gicon(mut self, secondary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
         self.secondary_icon_gicon = Some(secondary_icon_gicon.clone().upcast());
         self
     }
@@ -727,7 +727,7 @@ impl EntryBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -947,13 +947,13 @@ pub trait EntryExt: 'static {
     fn set_attributes(&self, attrs: &pango::AttrList);
 
     #[doc(alias = "gtk_entry_set_buffer")]
-    fn set_buffer<P: IsA<EntryBuffer>>(&self, buffer: &P);
+    fn set_buffer(&self, buffer: &impl IsA<EntryBuffer>);
 
     #[doc(alias = "gtk_entry_set_completion")]
-    fn set_completion<P: IsA<EntryCompletion>>(&self, completion: Option<&P>);
+    fn set_completion(&self, completion: Option<&impl IsA<EntryCompletion>>);
 
     #[doc(alias = "gtk_entry_set_cursor_hadjustment")]
-    fn set_cursor_hadjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>);
+    fn set_cursor_hadjustment(&self, adjustment: Option<&impl IsA<Adjustment>>);
 
     #[doc(alias = "gtk_entry_set_has_frame")]
     fn set_has_frame(&self, setting: bool);
@@ -970,7 +970,7 @@ pub trait EntryExt: 'static {
     );
 
     #[doc(alias = "gtk_entry_set_icon_from_gicon")]
-    fn set_icon_from_gicon<P: IsA<gio::Icon>>(&self, icon_pos: EntryIconPosition, icon: Option<&P>);
+    fn set_icon_from_gicon(&self, icon_pos: EntryIconPosition, icon: Option<&impl IsA<gio::Icon>>);
 
     #[doc(alias = "gtk_entry_set_icon_from_icon_name")]
     fn set_icon_from_icon_name(&self, icon_pos: EntryIconPosition, icon_name: Option<&str>);
@@ -1742,7 +1742,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn set_buffer<P: IsA<EntryBuffer>>(&self, buffer: &P) {
+    fn set_buffer(&self, buffer: &impl IsA<EntryBuffer>) {
         unsafe {
             ffi::gtk_entry_set_buffer(
                 self.as_ref().to_glib_none().0,
@@ -1751,7 +1751,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn set_completion<P: IsA<EntryCompletion>>(&self, completion: Option<&P>) {
+    fn set_completion(&self, completion: Option<&impl IsA<EntryCompletion>>) {
         unsafe {
             ffi::gtk_entry_set_completion(
                 self.as_ref().to_glib_none().0,
@@ -1760,7 +1760,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn set_cursor_hadjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>) {
+    fn set_cursor_hadjustment(&self, adjustment: Option<&impl IsA<Adjustment>>) {
         unsafe {
             ffi::gtk_entry_set_cursor_hadjustment(
                 self.as_ref().to_glib_none().0,
@@ -1801,11 +1801,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn set_icon_from_gicon<P: IsA<gio::Icon>>(
-        &self,
-        icon_pos: EntryIconPosition,
-        icon: Option<&P>,
-    ) {
+    fn set_icon_from_gicon(&self, icon_pos: EntryIconPosition, icon: Option<&impl IsA<gio::Icon>>) {
         unsafe {
             ffi::gtk_entry_set_icon_from_gicon(
                 self.as_ref().to_glib_none().0,

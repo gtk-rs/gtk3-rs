@@ -24,7 +24,7 @@ glib::wrapper! {
 impl IconInfo {
     #[doc(alias = "gtk_icon_info_new_for_pixbuf")]
     #[doc(alias = "new_for_pixbuf")]
-    pub fn for_pixbuf<P: IsA<IconTheme>>(icon_theme: &P, pixbuf: &gdk_pixbuf::Pixbuf) -> IconInfo {
+    pub fn for_pixbuf(icon_theme: &impl IsA<IconTheme>, pixbuf: &gdk_pixbuf::Pixbuf) -> IconInfo {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gtk_icon_info_new_for_pixbuf(
@@ -71,17 +71,14 @@ impl IconInfo {
     }
 
     #[doc(alias = "gtk_icon_info_load_icon_async")]
-    pub fn load_icon_async<
-        P: IsA<gio::Cancellable>,
-        Q: FnOnce(Result<gdk_pixbuf::Pixbuf, glib::Error>) + Send + 'static,
-    >(
+    pub fn load_icon_async<P: FnOnce(Result<gdk_pixbuf::Pixbuf, glib::Error>) + Send + 'static>(
         &self,
-        cancellable: Option<&P>,
-        callback: Q,
+        cancellable: Option<&impl IsA<gio::Cancellable>>,
+        callback: P,
     ) {
-        let user_data: Box_<Q> = Box_::new(callback);
+        let user_data: Box_<P> = Box_::new(callback);
         unsafe extern "C" fn load_icon_async_trampoline<
-            Q: FnOnce(Result<gdk_pixbuf::Pixbuf, glib::Error>) + Send + 'static,
+            P: FnOnce(Result<gdk_pixbuf::Pixbuf, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
             res: *mut gio::ffi::GAsyncResult,
@@ -95,10 +92,10 @@ impl IconInfo {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
+            let callback: Box_<P> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = load_icon_async_trampoline::<Q>;
+        let callback = load_icon_async_trampoline::<P>;
         unsafe {
             ffi::gtk_icon_info_load_icon_async(
                 self.to_glib_none().0,
@@ -172,20 +169,19 @@ impl IconInfo {
 
     #[doc(alias = "gtk_icon_info_load_symbolic_async")]
     pub fn load_symbolic_async<
-        P: IsA<gio::Cancellable>,
-        Q: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
+        P: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
     >(
         &self,
         fg: &gdk::RGBA,
         success_color: Option<&gdk::RGBA>,
         warning_color: Option<&gdk::RGBA>,
         error_color: Option<&gdk::RGBA>,
-        cancellable: Option<&P>,
-        callback: Q,
+        cancellable: Option<&impl IsA<gio::Cancellable>>,
+        callback: P,
     ) {
-        let user_data: Box_<Q> = Box_::new(callback);
+        let user_data: Box_<P> = Box_::new(callback);
         unsafe extern "C" fn load_symbolic_async_trampoline<
-            Q: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
+            P: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
             res: *mut gio::ffi::GAsyncResult,
@@ -205,10 +201,10 @@ impl IconInfo {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
+            let callback: Box_<P> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = load_symbolic_async_trampoline::<Q>;
+        let callback = load_symbolic_async_trampoline::<P>;
         unsafe {
             ffi::gtk_icon_info_load_symbolic_async(
                 self.to_glib_none().0,
@@ -254,9 +250,9 @@ impl IconInfo {
     }
 
     #[doc(alias = "gtk_icon_info_load_symbolic_for_context")]
-    pub fn load_symbolic_for_context<P: IsA<StyleContext>>(
+    pub fn load_symbolic_for_context(
         &self,
-        context: &P,
+        context: &impl IsA<StyleContext>,
     ) -> Result<(gdk_pixbuf::Pixbuf, bool), glib::Error> {
         unsafe {
             let mut was_symbolic = mem::MaybeUninit::uninit();
@@ -278,18 +274,16 @@ impl IconInfo {
 
     #[doc(alias = "gtk_icon_info_load_symbolic_for_context_async")]
     pub fn load_symbolic_for_context_async<
-        P: IsA<StyleContext>,
-        Q: IsA<gio::Cancellable>,
-        R: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
+        P: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
     >(
         &self,
-        context: &P,
-        cancellable: Option<&Q>,
-        callback: R,
+        context: &impl IsA<StyleContext>,
+        cancellable: Option<&impl IsA<gio::Cancellable>>,
+        callback: P,
     ) {
-        let user_data: Box_<R> = Box_::new(callback);
+        let user_data: Box_<P> = Box_::new(callback);
         unsafe extern "C" fn load_symbolic_for_context_async_trampoline<
-            R: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
+            P: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
             res: *mut gio::ffi::GAsyncResult,
@@ -309,10 +303,10 @@ impl IconInfo {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
+            let callback: Box_<P> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = load_symbolic_for_context_async_trampoline::<R>;
+        let callback = load_symbolic_for_context_async_trampoline::<P>;
         unsafe {
             ffi::gtk_icon_info_load_symbolic_for_context_async(
                 self.to_glib_none().0,
@@ -324,9 +318,9 @@ impl IconInfo {
         }
     }
 
-    pub fn load_symbolic_for_context_async_future<P: IsA<StyleContext> + Clone + 'static>(
+    pub fn load_symbolic_for_context_async_future(
         &self,
-        context: &P,
+        context: &(impl IsA<StyleContext> + Clone + 'static),
     ) -> Pin<
         Box_<
             dyn std::future::Future<Output = Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>>

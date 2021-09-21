@@ -42,7 +42,7 @@ pub const NONE_RELATION: Option<&Relation> = None;
 
 pub trait RelationExt: 'static {
     #[doc(alias = "atk_relation_add_target")]
-    fn add_target<P: IsA<Object>>(&self, target: &P);
+    fn add_target(&self, target: &impl IsA<Object>);
 
     #[doc(alias = "atk_relation_get_relation_type")]
     #[doc(alias = "get_relation_type")]
@@ -53,7 +53,7 @@ pub trait RelationExt: 'static {
     fn target(&self) -> Vec<Object>;
 
     #[doc(alias = "atk_relation_remove_target")]
-    fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool;
+    fn remove_target(&self, target: &impl IsA<Object>) -> bool;
 
     #[doc(alias = "relation-type")]
     fn set_relation_type(&self, relation_type: RelationType);
@@ -68,7 +68,7 @@ pub trait RelationExt: 'static {
 }
 
 impl<O: IsA<Relation>> RelationExt for O {
-    fn add_target<P: IsA<Object>>(&self, target: &P) {
+    fn add_target(&self, target: &impl IsA<Object>) {
         unsafe {
             ffi::atk_relation_add_target(
                 self.as_ref().to_glib_none().0,
@@ -93,7 +93,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool {
+    fn remove_target(&self, target: &impl IsA<Object>) -> bool {
         unsafe {
             from_glib(ffi::atk_relation_remove_target(
                 self.as_ref().to_glib_none().0,

@@ -38,7 +38,7 @@ impl MenuBar {
 
     #[doc(alias = "gtk_menu_bar_new_from_model")]
     #[doc(alias = "new_from_model")]
-    pub fn from_model<P: IsA<gio::MenuModel>>(model: &P) -> MenuBar {
+    pub fn from_model(model: &impl IsA<gio::MenuModel>) -> MenuBar {
         assert_initialized_main_thread!();
         unsafe {
             Widget::from_glib_none(ffi::gtk_menu_bar_new_from_model(
@@ -260,7 +260,7 @@ impl MenuBarBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -382,7 +382,7 @@ impl MenuBarBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }

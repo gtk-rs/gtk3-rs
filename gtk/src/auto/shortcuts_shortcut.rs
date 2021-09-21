@@ -761,7 +761,7 @@ impl ShortcutsShortcutBuilder {
             .expect("Failed to create an instance of ShortcutsShortcut")
     }
 
-    pub fn accel_size_group<P: IsA<SizeGroup>>(mut self, accel_size_group: &P) -> Self {
+    pub fn accel_size_group(mut self, accel_size_group: &impl IsA<SizeGroup>) -> Self {
         self.accel_size_group = Some(accel_size_group.clone().upcast());
         self
     }
@@ -783,7 +783,7 @@ impl ShortcutsShortcutBuilder {
         self
     }
 
-    pub fn icon<P: IsA<gio::Icon>>(mut self, icon: &P) -> Self {
+    pub fn icon(mut self, icon: &impl IsA<gio::Icon>) -> Self {
         self.icon = Some(icon.clone().upcast());
         self
     }
@@ -813,7 +813,7 @@ impl ShortcutsShortcutBuilder {
         self
     }
 
-    pub fn title_size_group<P: IsA<SizeGroup>>(mut self, title_size_group: &P) -> Self {
+    pub fn title_size_group(mut self, title_size_group: &impl IsA<SizeGroup>) -> Self {
         self.title_size_group = Some(title_size_group.clone().upcast());
         self
     }
@@ -838,7 +838,7 @@ impl ShortcutsShortcutBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -960,7 +960,7 @@ impl ShortcutsShortcutBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }

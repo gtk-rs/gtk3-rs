@@ -26,9 +26,9 @@ glib::wrapper! {
 
 impl PadController {
     #[doc(alias = "gtk_pad_controller_new")]
-    pub fn new<P: IsA<Window>, Q: IsA<gio::ActionGroup>>(
-        window: &P,
-        group: &Q,
+    pub fn new(
+        window: &impl IsA<Window>,
+        group: &impl IsA<gio::ActionGroup>,
         pad: Option<&gdk::Device>,
     ) -> PadController {
         skip_assert_initialized!();
@@ -146,7 +146,7 @@ impl PadControllerBuilder {
             .expect("Failed to create an instance of PadController")
     }
 
-    pub fn action_group<P: IsA<gio::ActionGroup>>(mut self, action_group: &P) -> Self {
+    pub fn action_group(mut self, action_group: &impl IsA<gio::ActionGroup>) -> Self {
         self.action_group = Some(action_group.clone().upcast());
         self
     }
@@ -161,7 +161,7 @@ impl PadControllerBuilder {
         self
     }
 
-    pub fn widget<P: IsA<Widget>>(mut self, widget: &P) -> Self {
+    pub fn widget(mut self, widget: &impl IsA<Widget>) -> Self {
         self.widget = Some(widget.clone().upcast());
         self
     }

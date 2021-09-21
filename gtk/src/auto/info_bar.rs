@@ -296,7 +296,7 @@ impl InfoBarBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -418,7 +418,7 @@ impl InfoBarBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -478,7 +478,7 @@ pub const NONE_INFO_BAR: Option<&InfoBar> = None;
 
 pub trait InfoBarExt: 'static {
     #[doc(alias = "gtk_info_bar_add_action_widget")]
-    fn add_action_widget<P: IsA<Widget>>(&self, child: &P, response_id: ResponseType);
+    fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType);
 
     #[doc(alias = "gtk_info_bar_add_button")]
     fn add_button(&self, button_text: &str, response_id: ResponseType) -> Option<Button>;
@@ -549,7 +549,7 @@ pub trait InfoBarExt: 'static {
 }
 
 impl<O: IsA<InfoBar>> InfoBarExt for O {
-    fn add_action_widget<P: IsA<Widget>>(&self, child: &P, response_id: ResponseType) {
+    fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType) {
         unsafe {
             ffi::gtk_info_bar_add_action_widget(
                 self.as_ref().to_glib_none().0,

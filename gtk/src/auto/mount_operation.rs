@@ -25,7 +25,7 @@ glib::wrapper! {
 
 impl MountOperation {
     #[doc(alias = "gtk_mount_operation_new")]
-    pub fn new<P: IsA<Window>>(parent: Option<&P>) -> MountOperation {
+    pub fn new(parent: Option<&impl IsA<Window>>) -> MountOperation {
         assert_initialized_main_thread!();
         unsafe {
             gio::MountOperation::from_glib_full(ffi::gtk_mount_operation_new(
@@ -115,7 +115,7 @@ impl MountOperationBuilder {
             .expect("Failed to create an instance of MountOperation")
     }
 
-    pub fn parent<P: IsA<Window>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Window>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -181,7 +181,7 @@ pub trait MountOperationExt: 'static {
     fn is_showing(&self) -> bool;
 
     #[doc(alias = "gtk_mount_operation_set_parent")]
-    fn set_parent<P: IsA<Window>>(&self, parent: Option<&P>);
+    fn set_parent(&self, parent: Option<&impl IsA<Window>>);
 
     #[doc(alias = "gtk_mount_operation_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen);
@@ -221,7 +221,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn set_parent<P: IsA<Window>>(&self, parent: Option<&P>) {
+    fn set_parent(&self, parent: Option<&impl IsA<Window>>) {
         unsafe {
             ffi::gtk_mount_operation_set_parent(
                 self.as_ref().to_glib_none().0,

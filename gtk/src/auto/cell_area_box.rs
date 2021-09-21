@@ -90,7 +90,7 @@ impl CellAreaBoxBuilder {
         self
     }
 
-    pub fn focus_cell<P: IsA<CellRenderer>>(mut self, focus_cell: &P) -> Self {
+    pub fn focus_cell(mut self, focus_cell: &impl IsA<CellRenderer>) -> Self {
         self.focus_cell = Some(focus_cell.clone().upcast());
         self
     }
@@ -109,16 +109,10 @@ pub trait CellAreaBoxExt: 'static {
     fn spacing(&self) -> i32;
 
     #[doc(alias = "gtk_cell_area_box_pack_end")]
-    fn pack_end<P: IsA<CellRenderer>>(&self, renderer: &P, expand: bool, align: bool, fixed: bool);
+    fn pack_end(&self, renderer: &impl IsA<CellRenderer>, expand: bool, align: bool, fixed: bool);
 
     #[doc(alias = "gtk_cell_area_box_pack_start")]
-    fn pack_start<P: IsA<CellRenderer>>(
-        &self,
-        renderer: &P,
-        expand: bool,
-        align: bool,
-        fixed: bool,
-    );
+    fn pack_start(&self, renderer: &impl IsA<CellRenderer>, expand: bool, align: bool, fixed: bool);
 
     #[doc(alias = "gtk_cell_area_box_set_spacing")]
     fn set_spacing(&self, spacing: i32);
@@ -132,7 +126,7 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
         unsafe { ffi::gtk_cell_area_box_get_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn pack_end<P: IsA<CellRenderer>>(&self, renderer: &P, expand: bool, align: bool, fixed: bool) {
+    fn pack_end(&self, renderer: &impl IsA<CellRenderer>, expand: bool, align: bool, fixed: bool) {
         unsafe {
             ffi::gtk_cell_area_box_pack_end(
                 self.as_ref().to_glib_none().0,
@@ -144,9 +138,9 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
         }
     }
 
-    fn pack_start<P: IsA<CellRenderer>>(
+    fn pack_start(
         &self,
-        renderer: &P,
+        renderer: &impl IsA<CellRenderer>,
         expand: bool,
         align: bool,
         fixed: bool,

@@ -23,8 +23,8 @@ use std::mem;
 use std::ptr;
 
 #[doc(alias = "gtk_accel_groups_activate")]
-pub fn accel_groups_activate<P: IsA<glib::Object>>(
-    object: &P,
+pub fn accel_groups_activate(
+    object: &impl IsA<glib::Object>,
     accel_key: u32,
     accel_mods: gdk::ModifierType,
 ) -> bool {
@@ -39,7 +39,7 @@ pub fn accel_groups_activate<P: IsA<glib::Object>>(
 }
 
 #[doc(alias = "gtk_accel_groups_from_object")]
-pub fn accel_groups_from_object<P: IsA<glib::Object>>(object: &P) -> Vec<AccelGroup> {
+pub fn accel_groups_from_object(object: &impl IsA<glib::Object>) -> Vec<AccelGroup> {
     assert_initialized_main_thread!();
     unsafe {
         FromGlibPtrContainer::from_glib_none(ffi::gtk_accel_groups_from_object(
@@ -155,8 +155,8 @@ pub fn accelerator_valid(keyval: u32, modifiers: gdk::ModifierType) -> bool {
 }
 
 #[doc(alias = "gtk_bindings_activate")]
-pub fn bindings_activate<P: IsA<glib::Object>>(
-    object: &P,
+pub fn bindings_activate(
+    object: &impl IsA<glib::Object>,
     keyval: u32,
     modifiers: gdk::ModifierType,
 ) -> bool {
@@ -171,10 +171,7 @@ pub fn bindings_activate<P: IsA<glib::Object>>(
 }
 
 #[doc(alias = "gtk_bindings_activate_event")]
-pub fn bindings_activate_event<P: IsA<glib::Object>>(
-    object: &P,
-    event: &mut gdk::EventKey,
-) -> bool {
+pub fn bindings_activate_event(object: &impl IsA<glib::Object>, event: &mut gdk::EventKey) -> bool {
     assert_initialized_main_thread!();
     unsafe {
         from_glib(ffi::gtk_bindings_activate_event(
@@ -196,9 +193,9 @@ pub fn cairo_should_draw_window(cr: &cairo::Context, window: &gdk::Window) -> bo
 }
 
 #[doc(alias = "gtk_cairo_transform_to_window")]
-pub fn cairo_transform_to_window<P: IsA<Widget>>(
+pub fn cairo_transform_to_window(
     cr: &cairo::Context,
-    widget: &P,
+    widget: &impl IsA<Widget>,
     window: &gdk::Window,
 ) {
     skip_assert_initialized!();
@@ -228,7 +225,7 @@ pub fn check_version(
 }
 
 #[doc(alias = "gtk_device_grab_add")]
-pub fn device_grab_add<P: IsA<Widget>>(widget: &P, device: &gdk::Device, block_others: bool) {
+pub fn device_grab_add(widget: &impl IsA<Widget>, device: &gdk::Device, block_others: bool) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_device_grab_add(
@@ -240,7 +237,7 @@ pub fn device_grab_add<P: IsA<Widget>>(widget: &P, device: &gdk::Device, block_o
 }
 
 #[doc(alias = "gtk_device_grab_remove")]
-pub fn device_grab_remove<P: IsA<Widget>>(widget: &P, device: &gdk::Device) {
+pub fn device_grab_remove(widget: &impl IsA<Widget>, device: &gdk::Device) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_device_grab_remove(widget.as_ref().to_glib_none().0, device.to_glib_none().0);
@@ -435,8 +432,8 @@ pub fn main_level() -> u32 {
 //}
 
 #[doc(alias = "gtk_print_run_page_setup_dialog")]
-pub fn print_run_page_setup_dialog<P: IsA<Window>>(
-    parent: Option<&P>,
+pub fn print_run_page_setup_dialog(
+    parent: Option<&impl IsA<Window>>,
     page_setup: Option<&PageSetup>,
     settings: &PrintSettings,
 ) -> Option<PageSetup> {
@@ -451,30 +448,24 @@ pub fn print_run_page_setup_dialog<P: IsA<Window>>(
 }
 
 #[doc(alias = "gtk_print_run_page_setup_dialog_async")]
-pub fn print_run_page_setup_dialog_async<
-    P: IsA<Window>,
-    Q: FnOnce(&PageSetup) + Send + Sync + 'static,
->(
-    parent: Option<&P>,
+pub fn print_run_page_setup_dialog_async<P: FnOnce(&PageSetup) + Send + Sync + 'static>(
+    parent: Option<&impl IsA<Window>>,
     page_setup: Option<&PageSetup>,
     settings: &PrintSettings,
-    done_cb: Q,
+    done_cb: P,
 ) {
     skip_assert_initialized!();
-    let done_cb_data: Box_<Q> = Box_::new(done_cb);
-    unsafe extern "C" fn done_cb_func<
-        P: IsA<Window>,
-        Q: FnOnce(&PageSetup) + Send + Sync + 'static,
-    >(
+    let done_cb_data: Box_<P> = Box_::new(done_cb);
+    unsafe extern "C" fn done_cb_func<P: FnOnce(&PageSetup) + Send + Sync + 'static>(
         page_setup: *mut ffi::GtkPageSetup,
         data: glib::ffi::gpointer,
     ) {
         let page_setup = from_glib_borrow(page_setup);
-        let callback: Box_<Q> = Box_::from_raw(data as *mut _);
+        let callback: Box_<P> = Box_::from_raw(data as *mut _);
         (*callback)(&page_setup);
     }
-    let done_cb = Some(done_cb_func::<P, Q> as _);
-    let super_callback0: Box_<Q> = done_cb_data;
+    let done_cb = Some(done_cb_func::<P> as _);
+    let super_callback0: Box_<P> = done_cb_data;
     unsafe {
         ffi::gtk_print_run_page_setup_dialog_async(
             parent.map(|p| p.as_ref()).to_glib_none().0,
@@ -487,7 +478,7 @@ pub fn print_run_page_setup_dialog_async<
 }
 
 #[doc(alias = "gtk_propagate_event")]
-pub fn propagate_event<P: IsA<Widget>>(widget: &P, event: &mut gdk::Event) {
+pub fn propagate_event(widget: &impl IsA<Widget>, event: &mut gdk::Event) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_propagate_event(widget.as_ref().to_glib_none().0, event.to_glib_none_mut().0);
@@ -495,8 +486,8 @@ pub fn propagate_event<P: IsA<Widget>>(widget: &P, event: &mut gdk::Event) {
 }
 
 #[doc(alias = "gtk_render_activity")]
-pub fn render_activity<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_activity(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -517,8 +508,8 @@ pub fn render_activity<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_arrow")]
-pub fn render_arrow<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_arrow(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     angle: f64,
     x: f64,
@@ -539,8 +530,8 @@ pub fn render_arrow<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_background")]
-pub fn render_background<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_background(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -563,8 +554,8 @@ pub fn render_background<P: IsA<StyleContext>>(
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(alias = "gtk_render_background_get_clip")]
-pub fn render_background_get_clip<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_background_get_clip(
+    context: &impl IsA<StyleContext>,
     x: f64,
     y: f64,
     width: f64,
@@ -586,8 +577,8 @@ pub fn render_background_get_clip<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_check")]
-pub fn render_check<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_check(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -608,8 +599,8 @@ pub fn render_check<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_expander")]
-pub fn render_expander<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_expander(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -630,8 +621,8 @@ pub fn render_expander<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_extension")]
-pub fn render_extension<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_extension(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -654,8 +645,8 @@ pub fn render_extension<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_focus")]
-pub fn render_focus<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_focus(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -676,8 +667,8 @@ pub fn render_focus<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_frame")]
-pub fn render_frame<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_frame(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -699,8 +690,8 @@ pub fn render_frame<P: IsA<StyleContext>>(
 
 #[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
 #[doc(alias = "gtk_render_frame_gap")]
-pub fn render_frame_gap<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_frame_gap(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -727,8 +718,8 @@ pub fn render_frame_gap<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_handle")]
-pub fn render_handle<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_handle(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -749,8 +740,8 @@ pub fn render_handle<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_icon")]
-pub fn render_icon<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_icon(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     pixbuf: &gdk_pixbuf::Pixbuf,
     x: f64,
@@ -769,8 +760,8 @@ pub fn render_icon<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_icon_surface")]
-pub fn render_icon_surface<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_icon_surface(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     surface: &cairo::Surface,
     x: f64,
@@ -789,8 +780,8 @@ pub fn render_icon_surface<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_insertion_cursor")]
-pub fn render_insertion_cursor<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_insertion_cursor(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -813,8 +804,8 @@ pub fn render_insertion_cursor<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_layout")]
-pub fn render_layout<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_layout(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -833,8 +824,8 @@ pub fn render_layout<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_line")]
-pub fn render_line<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_line(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x0: f64,
     y0: f64,
@@ -855,8 +846,8 @@ pub fn render_line<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_option")]
-pub fn render_option<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_option(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -877,8 +868,8 @@ pub fn render_option<P: IsA<StyleContext>>(
 }
 
 #[doc(alias = "gtk_render_slider")]
-pub fn render_slider<P: IsA<StyleContext>>(
-    context: &P,
+pub fn render_slider(
+    context: &impl IsA<StyleContext>,
     cr: &cairo::Context,
     x: f64,
     y: f64,
@@ -916,8 +907,8 @@ pub fn rgb_to_hsv(r: f64, g: f64, b: f64) -> (f64, f64, f64) {
 }
 
 #[doc(alias = "gtk_selection_add_target")]
-pub fn selection_add_target<P: IsA<Widget>>(
-    widget: &P,
+pub fn selection_add_target(
+    widget: &impl IsA<Widget>,
     selection: &gdk::Atom,
     target: &gdk::Atom,
     info: u32,
@@ -934,7 +925,7 @@ pub fn selection_add_target<P: IsA<Widget>>(
 }
 
 #[doc(alias = "gtk_selection_clear_targets")]
-pub fn selection_clear_targets<P: IsA<Widget>>(widget: &P, selection: &gdk::Atom) {
+pub fn selection_clear_targets(widget: &impl IsA<Widget>, selection: &gdk::Atom) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_selection_clear_targets(
@@ -945,8 +936,8 @@ pub fn selection_clear_targets<P: IsA<Widget>>(widget: &P, selection: &gdk::Atom
 }
 
 #[doc(alias = "gtk_selection_convert")]
-pub fn selection_convert<P: IsA<Widget>>(
-    widget: &P,
+pub fn selection_convert(
+    widget: &impl IsA<Widget>,
     selection: &gdk::Atom,
     target: &gdk::Atom,
     time_: u32,
@@ -963,8 +954,8 @@ pub fn selection_convert<P: IsA<Widget>>(
 }
 
 #[doc(alias = "gtk_selection_owner_set")]
-pub fn selection_owner_set<P: IsA<Widget>>(
-    widget: Option<&P>,
+pub fn selection_owner_set(
+    widget: Option<&impl IsA<Widget>>,
     selection: &gdk::Atom,
     time_: u32,
 ) -> bool {
@@ -979,9 +970,9 @@ pub fn selection_owner_set<P: IsA<Widget>>(
 }
 
 #[doc(alias = "gtk_selection_owner_set_for_display")]
-pub fn selection_owner_set_for_display<P: IsA<Widget>>(
+pub fn selection_owner_set_for_display(
     display: &gdk::Display,
-    widget: Option<&P>,
+    widget: Option<&impl IsA<Widget>>,
     selection: &gdk::Atom,
     time_: u32,
 ) -> bool {
@@ -997,7 +988,7 @@ pub fn selection_owner_set_for_display<P: IsA<Widget>>(
 }
 
 #[doc(alias = "gtk_selection_remove_all")]
-pub fn selection_remove_all<P: IsA<Widget>>(widget: &P) {
+pub fn selection_remove_all(widget: &impl IsA<Widget>) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_selection_remove_all(widget.as_ref().to_glib_none().0);
@@ -1013,7 +1004,7 @@ pub fn set_debug_flags(flags: u32) {
 }
 
 //#[doc(alias = "gtk_show_about_dialog")]
-//pub fn show_about_dialog<P: IsA<Window>>(parent: Option<&P>, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn show_about_dialog(parent: Option<&impl IsA<Window>>, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi:gtk_show_about_dialog() }
 //}
 
@@ -1043,8 +1034,8 @@ pub fn show_uri(
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(alias = "gtk_show_uri_on_window")]
-pub fn show_uri_on_window<P: IsA<Window>>(
-    parent: Option<&P>,
+pub fn show_uri_on_window(
+    parent: Option<&impl IsA<Window>>,
     uri: &str,
     timestamp: u32,
 ) -> Result<(), glib::Error> {
@@ -1079,7 +1070,7 @@ pub fn targets_include_image(targets: &[&gdk::Atom], writable: bool) -> bool {
 }
 
 #[doc(alias = "gtk_targets_include_rich_text")]
-pub fn targets_include_rich_text<P: IsA<TextBuffer>>(targets: &[&gdk::Atom], buffer: &P) -> bool {
+pub fn targets_include_rich_text(targets: &[&gdk::Atom], buffer: &impl IsA<TextBuffer>) -> bool {
     skip_assert_initialized!();
     let n_targets = targets.len() as i32;
     unsafe {
@@ -1140,7 +1131,7 @@ pub fn test_create_simple_window(window_title: &str, dialog_text: &str) -> Optio
 //}
 
 #[doc(alias = "gtk_test_find_label")]
-pub fn test_find_label<P: IsA<Widget>>(widget: &P, label_pattern: &str) -> Option<Widget> {
+pub fn test_find_label(widget: &impl IsA<Widget>, label_pattern: &str) -> Option<Widget> {
     skip_assert_initialized!();
     unsafe {
         from_glib_none(ffi::gtk_test_find_label(
@@ -1151,8 +1142,8 @@ pub fn test_find_label<P: IsA<Widget>>(widget: &P, label_pattern: &str) -> Optio
 }
 
 #[doc(alias = "gtk_test_find_sibling")]
-pub fn test_find_sibling<P: IsA<Widget>>(
-    base_widget: &P,
+pub fn test_find_sibling(
+    base_widget: &impl IsA<Widget>,
     widget_type: glib::types::Type,
 ) -> Option<Widget> {
     skip_assert_initialized!();
@@ -1165,8 +1156,8 @@ pub fn test_find_sibling<P: IsA<Widget>>(
 }
 
 #[doc(alias = "gtk_test_find_widget")]
-pub fn test_find_widget<P: IsA<Widget>>(
-    widget: &P,
+pub fn test_find_widget(
+    widget: &impl IsA<Widget>,
     label_pattern: &str,
     widget_type: glib::types::Type,
 ) -> Option<Widget> {
@@ -1200,14 +1191,14 @@ pub fn test_register_all_types() {
 
 #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_slider_get_value")]
-pub fn test_slider_get_value<P: IsA<Widget>>(widget: &P) -> f64 {
+pub fn test_slider_get_value(widget: &impl IsA<Widget>) -> f64 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_test_slider_get_value(widget.as_ref().to_glib_none().0) }
 }
 
 #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_slider_set_perc")]
-pub fn test_slider_set_perc<P: IsA<Widget>>(widget: &P, percentage: f64) {
+pub fn test_slider_set_perc(widget: &impl IsA<Widget>, percentage: f64) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_test_slider_set_perc(widget.as_ref().to_glib_none().0, percentage);
@@ -1216,7 +1207,7 @@ pub fn test_slider_set_perc<P: IsA<Widget>>(widget: &P, percentage: f64) {
 
 #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_spin_button_click")]
-pub fn test_spin_button_click<P: IsA<SpinButton>>(spinner: &P, button: u32, upwards: bool) -> bool {
+pub fn test_spin_button_click(spinner: &impl IsA<SpinButton>, button: u32, upwards: bool) -> bool {
     skip_assert_initialized!();
     unsafe {
         from_glib(ffi::gtk_test_spin_button_click(
@@ -1229,14 +1220,14 @@ pub fn test_spin_button_click<P: IsA<SpinButton>>(spinner: &P, button: u32, upwa
 
 #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_text_get")]
-pub fn test_text_get<P: IsA<Widget>>(widget: &P) -> Option<glib::GString> {
+pub fn test_text_get(widget: &impl IsA<Widget>) -> Option<glib::GString> {
     skip_assert_initialized!();
     unsafe { from_glib_full(ffi::gtk_test_text_get(widget.as_ref().to_glib_none().0)) }
 }
 
 #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_text_set")]
-pub fn test_text_set<P: IsA<Widget>>(widget: &P, string: &str) {
+pub fn test_text_set(widget: &impl IsA<Widget>, string: &str) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_test_text_set(widget.as_ref().to_glib_none().0, string.to_glib_none().0);
@@ -1245,8 +1236,8 @@ pub fn test_text_set<P: IsA<Widget>>(widget: &P, string: &str) {
 
 #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
 #[doc(alias = "gtk_test_widget_click")]
-pub fn test_widget_click<P: IsA<Widget>>(
-    widget: &P,
+pub fn test_widget_click(
+    widget: &impl IsA<Widget>,
     button: u32,
     modifiers: gdk::ModifierType,
 ) -> bool {
@@ -1261,8 +1252,8 @@ pub fn test_widget_click<P: IsA<Widget>>(
 }
 
 #[doc(alias = "gtk_test_widget_send_key")]
-pub fn test_widget_send_key<P: IsA<Widget>>(
-    widget: &P,
+pub fn test_widget_send_key(
+    widget: &impl IsA<Widget>,
     keyval: u32,
     modifiers: gdk::ModifierType,
 ) -> bool {
@@ -1277,7 +1268,7 @@ pub fn test_widget_send_key<P: IsA<Widget>>(
 }
 
 #[doc(alias = "gtk_test_widget_wait_for_draw")]
-pub fn test_widget_wait_for_draw<P: IsA<Widget>>(widget: &P) {
+pub fn test_widget_wait_for_draw(widget: &impl IsA<Widget>) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_test_widget_wait_for_draw(widget.as_ref().to_glib_none().0);
@@ -1306,9 +1297,9 @@ pub fn tree_get_row_drag_data(
 }
 
 #[doc(alias = "gtk_tree_set_row_drag_data")]
-pub fn tree_set_row_drag_data<P: IsA<TreeModel>>(
+pub fn tree_set_row_drag_data(
     selection_data: &SelectionData,
-    tree_model: &P,
+    tree_model: &impl IsA<TreeModel>,
     path: &mut TreePath,
 ) -> bool {
     skip_assert_initialized!();

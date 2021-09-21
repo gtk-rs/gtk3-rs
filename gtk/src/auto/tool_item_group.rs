@@ -262,7 +262,7 @@ impl ToolItemGroupBuilder {
         self
     }
 
-    pub fn label_widget<P: IsA<Widget>>(mut self, label_widget: &P) -> Self {
+    pub fn label_widget(mut self, label_widget: &impl IsA<Widget>) -> Self {
         self.label_widget = Some(label_widget.clone().upcast());
         self
     }
@@ -272,7 +272,7 @@ impl ToolItemGroupBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -394,7 +394,7 @@ impl ToolItemGroupBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -466,7 +466,7 @@ pub trait ToolItemGroupExt: 'static {
 
     #[doc(alias = "gtk_tool_item_group_get_item_position")]
     #[doc(alias = "get_item_position")]
-    fn item_position<P: IsA<ToolItem>>(&self, item: &P) -> i32;
+    fn item_position(&self, item: &impl IsA<ToolItem>) -> i32;
 
     #[doc(alias = "gtk_tool_item_group_get_label")]
     #[doc(alias = "get_label")]
@@ -485,7 +485,7 @@ pub trait ToolItemGroupExt: 'static {
     fn nth_item(&self, index: u32) -> Option<ToolItem>;
 
     #[doc(alias = "gtk_tool_item_group_insert")]
-    fn insert<P: IsA<ToolItem>>(&self, item: &P, position: i32);
+    fn insert(&self, item: &impl IsA<ToolItem>, position: i32);
 
     #[doc(alias = "gtk_tool_item_group_set_collapsed")]
     fn set_collapsed(&self, collapsed: bool);
@@ -497,13 +497,13 @@ pub trait ToolItemGroupExt: 'static {
     fn set_header_relief(&self, style: ReliefStyle);
 
     #[doc(alias = "gtk_tool_item_group_set_item_position")]
-    fn set_item_position<P: IsA<ToolItem>>(&self, item: &P, position: i32);
+    fn set_item_position(&self, item: &impl IsA<ToolItem>, position: i32);
 
     #[doc(alias = "gtk_tool_item_group_set_label")]
     fn set_label(&self, label: &str);
 
     #[doc(alias = "gtk_tool_item_group_set_label_widget")]
-    fn set_label_widget<P: IsA<Widget>>(&self, label_widget: &P);
+    fn set_label_widget(&self, label_widget: &impl IsA<Widget>);
 
     fn item_expands<T: IsA<ToolItem>>(&self, item: &T) -> bool;
 
@@ -574,7 +574,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn item_position<P: IsA<ToolItem>>(&self, item: &P) -> i32 {
+    fn item_position(&self, item: &impl IsA<ToolItem>) -> i32 {
         unsafe {
             ffi::gtk_tool_item_group_get_item_position(
                 self.as_ref().to_glib_none().0,
@@ -612,7 +612,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn insert<P: IsA<ToolItem>>(&self, item: &P, position: i32) {
+    fn insert(&self, item: &impl IsA<ToolItem>, position: i32) {
         unsafe {
             ffi::gtk_tool_item_group_insert(
                 self.as_ref().to_glib_none().0,
@@ -649,7 +649,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn set_item_position<P: IsA<ToolItem>>(&self, item: &P, position: i32) {
+    fn set_item_position(&self, item: &impl IsA<ToolItem>, position: i32) {
         unsafe {
             ffi::gtk_tool_item_group_set_item_position(
                 self.as_ref().to_glib_none().0,
@@ -668,7 +668,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
-    fn set_label_widget<P: IsA<Widget>>(&self, label_widget: &P) {
+    fn set_label_widget(&self, label_widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_tool_item_group_set_label_widget(
                 self.as_ref().to_glib_none().0,

@@ -38,11 +38,11 @@ impl TargetList {
     }
 
     #[doc(alias = "gtk_target_list_add_rich_text_targets")]
-    pub fn add_rich_text_targets<P: IsA<TextBuffer>>(
+    pub fn add_rich_text_targets(
         &self,
         info: u32,
         deserializable: bool,
-        buffer: &P,
+        buffer: &impl IsA<TextBuffer>,
     ) {
         unsafe {
             ffi::gtk_target_list_add_rich_text_targets(

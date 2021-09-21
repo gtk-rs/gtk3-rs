@@ -42,9 +42,9 @@ impl CellView {
 
     #[doc(alias = "gtk_cell_view_new_with_context")]
     #[doc(alias = "new_with_context")]
-    pub fn with_context<P: IsA<CellArea>, Q: IsA<CellAreaContext>>(
-        area: &P,
-        context: &Q,
+    pub fn with_context(
+        area: &impl IsA<CellArea>,
+        context: &impl IsA<CellAreaContext>,
     ) -> CellView {
         skip_assert_initialized!();
         unsafe {
@@ -306,12 +306,12 @@ impl CellViewBuilder {
         self
     }
 
-    pub fn cell_area<P: IsA<CellArea>>(mut self, cell_area: &P) -> Self {
+    pub fn cell_area(mut self, cell_area: &impl IsA<CellArea>) -> Self {
         self.cell_area = Some(cell_area.clone().upcast());
         self
     }
 
-    pub fn cell_area_context<P: IsA<CellAreaContext>>(mut self, cell_area_context: &P) -> Self {
+    pub fn cell_area_context(mut self, cell_area_context: &impl IsA<CellAreaContext>) -> Self {
         self.cell_area_context = Some(cell_area_context.clone().upcast());
         self
     }
@@ -326,7 +326,7 @@ impl CellViewBuilder {
         self
     }
 
-    pub fn model<P: IsA<TreeModel>>(mut self, model: &P) -> Self {
+    pub fn model(mut self, model: &impl IsA<TreeModel>) -> Self {
         self.model = Some(model.clone().upcast());
         self
     }
@@ -443,7 +443,7 @@ impl CellViewBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -531,7 +531,7 @@ pub trait CellViewExt: 'static {
     fn set_fit_model(&self, fit_model: bool);
 
     #[doc(alias = "gtk_cell_view_set_model")]
-    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
+    fn set_model(&self, model: Option<&impl IsA<TreeModel>>);
 
     fn set_background(&self, background: Option<&str>);
 
@@ -631,7 +631,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
         }
     }
 
-    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>) {
+    fn set_model(&self, model: Option<&impl IsA<TreeModel>>) {
         unsafe {
             ffi::gtk_cell_view_set_model(
                 self.as_ref().to_glib_none().0,

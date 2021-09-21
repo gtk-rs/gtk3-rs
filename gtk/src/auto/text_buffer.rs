@@ -33,7 +33,7 @@ glib::wrapper! {
 
 impl TextBuffer {
     #[doc(alias = "gtk_text_buffer_new")]
-    pub fn new<P: IsA<TextTagTable>>(table: Option<&P>) -> TextBuffer {
+    pub fn new(table: Option<&impl IsA<TextTagTable>>) -> TextBuffer {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_full(ffi::gtk_text_buffer_new(
@@ -89,7 +89,7 @@ impl TextBufferBuilder {
             .expect("Failed to create an instance of TextBuffer")
     }
 
-    pub fn tag_table<P: IsA<TextTagTable>>(mut self, tag_table: &P) -> Self {
+    pub fn tag_table(mut self, tag_table: &impl IsA<TextTagTable>) -> Self {
         self.tag_table = Some(tag_table.clone().upcast());
         self
     }
@@ -104,13 +104,13 @@ pub const NONE_TEXT_BUFFER: Option<&TextBuffer> = None;
 
 pub trait TextBufferExt: 'static {
     #[doc(alias = "gtk_text_buffer_add_mark")]
-    fn add_mark<P: IsA<TextMark>>(&self, mark: &P, where_: &TextIter);
+    fn add_mark(&self, mark: &impl IsA<TextMark>, where_: &TextIter);
 
     #[doc(alias = "gtk_text_buffer_add_selection_clipboard")]
     fn add_selection_clipboard(&self, clipboard: &Clipboard);
 
     #[doc(alias = "gtk_text_buffer_apply_tag")]
-    fn apply_tag<P: IsA<TextTag>>(&self, tag: &P, start: &TextIter, end: &TextIter);
+    fn apply_tag(&self, tag: &impl IsA<TextTag>, start: &TextIter, end: &TextIter);
 
     #[doc(alias = "gtk_text_buffer_apply_tag_by_name")]
     fn apply_tag_by_name(&self, name: &str, start: &TextIter, end: &TextIter);
@@ -153,7 +153,7 @@ pub trait TextBufferExt: 'static {
     ) -> bool;
 
     #[doc(alias = "gtk_text_buffer_delete_mark")]
-    fn delete_mark<P: IsA<TextMark>>(&self, mark: &P);
+    fn delete_mark(&self, mark: &impl IsA<TextMark>);
 
     #[doc(alias = "gtk_text_buffer_delete_mark_by_name")]
     fn delete_mark_by_name(&self, name: &str);
@@ -162,9 +162,9 @@ pub trait TextBufferExt: 'static {
     fn delete_selection(&self, interactive: bool, default_editable: bool) -> bool;
 
     #[doc(alias = "gtk_text_buffer_deserialize")]
-    fn deserialize<P: IsA<TextBuffer>>(
+    fn deserialize(
         &self,
-        content_buffer: &P,
+        content_buffer: &impl IsA<TextBuffer>,
         format: &gdk::Atom,
         iter: &mut TextIter,
         data: &[u8],
@@ -208,7 +208,7 @@ pub trait TextBufferExt: 'static {
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_child_anchor")]
     #[doc(alias = "get_iter_at_child_anchor")]
-    fn iter_at_child_anchor<P: IsA<TextChildAnchor>>(&self, anchor: &P) -> TextIter;
+    fn iter_at_child_anchor(&self, anchor: &impl IsA<TextChildAnchor>) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_line")]
     #[doc(alias = "get_iter_at_line")]
@@ -224,7 +224,7 @@ pub trait TextBufferExt: 'static {
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_mark")]
     #[doc(alias = "get_iter_at_mark")]
-    fn iter_at_mark<P: IsA<TextMark>>(&self, mark: &P) -> TextIter;
+    fn iter_at_mark(&self, mark: &impl IsA<TextMark>) -> TextIter;
 
     #[doc(alias = "gtk_text_buffer_get_iter_at_offset")]
     #[doc(alias = "get_iter_at_offset")]
@@ -291,7 +291,7 @@ pub trait TextBufferExt: 'static {
     fn insert_at_cursor(&self, text: &str);
 
     #[doc(alias = "gtk_text_buffer_insert_child_anchor")]
-    fn insert_child_anchor<P: IsA<TextChildAnchor>>(&self, iter: &mut TextIter, anchor: &P);
+    fn insert_child_anchor(&self, iter: &mut TextIter, anchor: &impl IsA<TextChildAnchor>);
 
     #[doc(alias = "gtk_text_buffer_insert_interactive")]
     fn insert_interactive(&self, iter: &mut TextIter, text: &str, default_editable: bool) -> bool;
@@ -318,13 +318,13 @@ pub trait TextBufferExt: 'static {
     ) -> bool;
 
     //#[doc(alias = "gtk_text_buffer_insert_with_tags")]
-    //fn insert_with_tags<P: IsA<TextTag>>(&self, iter: &mut TextIter, text: &str, first_tag: &P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn insert_with_tags(&self, iter: &mut TextIter, text: &str, first_tag: &impl IsA<TextTag>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     //#[doc(alias = "gtk_text_buffer_insert_with_tags_by_name")]
     //fn insert_with_tags_by_name(&self, iter: &mut TextIter, text: &str, first_tag_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[doc(alias = "gtk_text_buffer_move_mark")]
-    fn move_mark<P: IsA<TextMark>>(&self, mark: &P, where_: &TextIter);
+    fn move_mark(&self, mark: &impl IsA<TextMark>, where_: &TextIter);
 
     #[doc(alias = "gtk_text_buffer_move_mark_by_name")]
     fn move_mark_by_name(&self, name: &str, where_: &TextIter);
@@ -356,7 +356,7 @@ pub trait TextBufferExt: 'static {
     fn remove_selection_clipboard(&self, clipboard: &Clipboard);
 
     #[doc(alias = "gtk_text_buffer_remove_tag")]
-    fn remove_tag<P: IsA<TextTag>>(&self, tag: &P, start: &TextIter, end: &TextIter);
+    fn remove_tag(&self, tag: &impl IsA<TextTag>, start: &TextIter, end: &TextIter);
 
     #[doc(alias = "gtk_text_buffer_remove_tag_by_name")]
     fn remove_tag_by_name(&self, name: &str, start: &TextIter, end: &TextIter);
@@ -365,9 +365,9 @@ pub trait TextBufferExt: 'static {
     fn select_range(&self, ins: &TextIter, bound: &TextIter);
 
     #[doc(alias = "gtk_text_buffer_serialize")]
-    fn serialize<P: IsA<TextBuffer>>(
+    fn serialize(
         &self,
-        content_buffer: &P,
+        content_buffer: &impl IsA<TextBuffer>,
         format: &gdk::Atom,
         start: &TextIter,
         end: &TextIter,
@@ -429,7 +429,7 @@ pub trait TextBufferExt: 'static {
 }
 
 impl<O: IsA<TextBuffer>> TextBufferExt for O {
-    fn add_mark<P: IsA<TextMark>>(&self, mark: &P, where_: &TextIter) {
+    fn add_mark(&self, mark: &impl IsA<TextMark>, where_: &TextIter) {
         unsafe {
             ffi::gtk_text_buffer_add_mark(
                 self.as_ref().to_glib_none().0,
@@ -448,7 +448,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn apply_tag<P: IsA<TextTag>>(&self, tag: &P, start: &TextIter, end: &TextIter) {
+    fn apply_tag(&self, tag: &impl IsA<TextTag>, start: &TextIter, end: &TextIter) {
         unsafe {
             ffi::gtk_text_buffer_apply_tag(
                 self.as_ref().to_glib_none().0,
@@ -561,7 +561,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn delete_mark<P: IsA<TextMark>>(&self, mark: &P) {
+    fn delete_mark(&self, mark: &impl IsA<TextMark>) {
         unsafe {
             ffi::gtk_text_buffer_delete_mark(
                 self.as_ref().to_glib_none().0,
@@ -589,9 +589,9 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn deserialize<P: IsA<TextBuffer>>(
+    fn deserialize(
         &self,
-        content_buffer: &P,
+        content_buffer: &impl IsA<TextBuffer>,
         format: &gdk::Atom,
         iter: &mut TextIter,
         data: &[u8],
@@ -707,7 +707,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn iter_at_child_anchor<P: IsA<TextChildAnchor>>(&self, anchor: &P) -> TextIter {
+    fn iter_at_child_anchor(&self, anchor: &impl IsA<TextChildAnchor>) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_iter_at_child_anchor(
@@ -757,7 +757,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn iter_at_mark<P: IsA<TextMark>>(&self, mark: &P) -> TextIter {
+    fn iter_at_mark(&self, mark: &impl IsA<TextMark>) -> TextIter {
         unsafe {
             let mut iter = TextIter::uninitialized();
             ffi::gtk_text_buffer_get_iter_at_mark(
@@ -923,7 +923,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn insert_child_anchor<P: IsA<TextChildAnchor>>(&self, iter: &mut TextIter, anchor: &P) {
+    fn insert_child_anchor(&self, iter: &mut TextIter, anchor: &impl IsA<TextChildAnchor>) {
         unsafe {
             ffi::gtk_text_buffer_insert_child_anchor(
                 self.as_ref().to_glib_none().0,
@@ -1009,7 +1009,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    //fn insert_with_tags<P: IsA<TextTag>>(&self, iter: &mut TextIter, text: &str, first_tag: &P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn insert_with_tags(&self, iter: &mut TextIter, text: &str, first_tag: &impl IsA<TextTag>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_text_buffer_insert_with_tags() }
     //}
 
@@ -1017,7 +1017,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
     //    unsafe { TODO: call ffi:gtk_text_buffer_insert_with_tags_by_name() }
     //}
 
-    fn move_mark<P: IsA<TextMark>>(&self, mark: &P, where_: &TextIter) {
+    fn move_mark(&self, mark: &impl IsA<TextMark>, where_: &TextIter) {
         unsafe {
             ffi::gtk_text_buffer_move_mark(
                 self.as_ref().to_glib_none().0,
@@ -1103,7 +1103,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn remove_tag<P: IsA<TextTag>>(&self, tag: &P, start: &TextIter, end: &TextIter) {
+    fn remove_tag(&self, tag: &impl IsA<TextTag>, start: &TextIter, end: &TextIter) {
         unsafe {
             ffi::gtk_text_buffer_remove_tag(
                 self.as_ref().to_glib_none().0,
@@ -1135,9 +1135,9 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn serialize<P: IsA<TextBuffer>>(
+    fn serialize(
         &self,
-        content_buffer: &P,
+        content_buffer: &impl IsA<TextBuffer>,
         format: &gdk::Atom,
         start: &TextIter,
         end: &TextIter,

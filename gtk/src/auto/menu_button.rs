@@ -292,7 +292,7 @@ impl MenuButtonBuilder {
             .expect("Failed to create an instance of MenuButton")
     }
 
-    pub fn align_widget<P: IsA<Container>>(mut self, align_widget: &P) -> Self {
+    pub fn align_widget(mut self, align_widget: &impl IsA<Container>) -> Self {
         self.align_widget = Some(align_widget.clone().upcast());
         self
     }
@@ -302,17 +302,17 @@ impl MenuButtonBuilder {
         self
     }
 
-    pub fn menu_model<P: IsA<gio::MenuModel>>(mut self, menu_model: &P) -> Self {
+    pub fn menu_model(mut self, menu_model: &impl IsA<gio::MenuModel>) -> Self {
         self.menu_model = Some(menu_model.clone().upcast());
         self
     }
 
-    pub fn popover<P: IsA<Popover>>(mut self, popover: &P) -> Self {
+    pub fn popover(mut self, popover: &impl IsA<Popover>) -> Self {
         self.popover = Some(popover.clone().upcast());
         self
     }
 
-    pub fn popup<P: IsA<Menu>>(mut self, popup: &P) -> Self {
+    pub fn popup(mut self, popup: &impl IsA<Menu>) -> Self {
         self.popup = Some(popup.clone().upcast());
         self
     }
@@ -342,7 +342,7 @@ impl MenuButtonBuilder {
         self
     }
 
-    pub fn image<P: IsA<Widget>>(mut self, image: &P) -> Self {
+    pub fn image(mut self, image: &impl IsA<Widget>) -> Self {
         self.image = Some(image.clone().upcast());
         self
     }
@@ -372,7 +372,7 @@ impl MenuButtonBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -494,7 +494,7 @@ impl MenuButtonBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -583,19 +583,19 @@ pub trait MenuButtonExt: 'static {
     fn uses_popover(&self) -> bool;
 
     #[doc(alias = "gtk_menu_button_set_align_widget")]
-    fn set_align_widget<P: IsA<Widget>>(&self, align_widget: Option<&P>);
+    fn set_align_widget(&self, align_widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_menu_button_set_direction")]
     fn set_direction(&self, direction: ArrowType);
 
     #[doc(alias = "gtk_menu_button_set_menu_model")]
-    fn set_menu_model<P: IsA<gio::MenuModel>>(&self, menu_model: Option<&P>);
+    fn set_menu_model(&self, menu_model: Option<&impl IsA<gio::MenuModel>>);
 
     #[doc(alias = "gtk_menu_button_set_popover")]
-    fn set_popover<P: IsA<Widget>>(&self, popover: Option<&P>);
+    fn set_popover(&self, popover: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_menu_button_set_popup")]
-    fn set_popup<P: IsA<Widget>>(&self, menu: Option<&P>);
+    fn set_popup(&self, menu: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_menu_button_set_use_popover")]
     fn set_use_popover(&self, use_popover: bool);
@@ -668,7 +668,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn set_align_widget<P: IsA<Widget>>(&self, align_widget: Option<&P>) {
+    fn set_align_widget(&self, align_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_align_widget(
                 self.as_ref().to_glib_none().0,
@@ -686,7 +686,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn set_menu_model<P: IsA<gio::MenuModel>>(&self, menu_model: Option<&P>) {
+    fn set_menu_model(&self, menu_model: Option<&impl IsA<gio::MenuModel>>) {
         unsafe {
             ffi::gtk_menu_button_set_menu_model(
                 self.as_ref().to_glib_none().0,
@@ -695,7 +695,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn set_popover<P: IsA<Widget>>(&self, popover: Option<&P>) {
+    fn set_popover(&self, popover: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_popover(
                 self.as_ref().to_glib_none().0,
@@ -704,7 +704,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
-    fn set_popup<P: IsA<Widget>>(&self, menu: Option<&P>) {
+    fn set_popup(&self, menu: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_popup(
                 self.as_ref().to_glib_none().0,

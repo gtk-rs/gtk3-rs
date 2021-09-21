@@ -40,7 +40,7 @@ pub trait StateSetExt: 'static {
     //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 });
 
     #[doc(alias = "atk_state_set_and_sets")]
-    fn and_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet>;
+    fn and_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet>;
 
     #[doc(alias = "atk_state_set_clear_states")]
     fn clear_states(&self);
@@ -55,13 +55,13 @@ pub trait StateSetExt: 'static {
     fn is_empty(&self) -> bool;
 
     #[doc(alias = "atk_state_set_or_sets")]
-    fn or_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet>;
+    fn or_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet>;
 
     #[doc(alias = "atk_state_set_remove_state")]
     fn remove_state(&self, type_: StateType) -> bool;
 
     #[doc(alias = "atk_state_set_xor_sets")]
-    fn xor_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet>;
+    fn xor_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet>;
 }
 
 impl<O: IsA<StateSet>> StateSetExt for O {
@@ -78,7 +78,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
     //    unsafe { TODO: call ffi:atk_state_set_add_states() }
     //}
 
-    fn and_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet> {
+    fn and_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet> {
         unsafe {
             from_glib_full(ffi::atk_state_set_and_sets(
                 self.as_ref().to_glib_none().0,
@@ -110,7 +110,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         unsafe { from_glib(ffi::atk_state_set_is_empty(self.as_ref().to_glib_none().0)) }
     }
 
-    fn or_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet> {
+    fn or_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet> {
         unsafe {
             from_glib_full(ffi::atk_state_set_or_sets(
                 self.as_ref().to_glib_none().0,
@@ -128,7 +128,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         }
     }
 
-    fn xor_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet> {
+    fn xor_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet> {
         unsafe {
             from_glib_full(ffi::atk_state_set_xor_sets(
                 self.as_ref().to_glib_none().0,

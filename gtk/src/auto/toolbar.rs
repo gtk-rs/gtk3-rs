@@ -266,7 +266,7 @@ impl ToolbarBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -388,7 +388,7 @@ impl ToolbarBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -453,7 +453,7 @@ pub trait ToolbarExt: 'static {
 
     #[doc(alias = "gtk_toolbar_get_item_index")]
     #[doc(alias = "get_item_index")]
-    fn item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32;
+    fn item_index(&self, item: &impl IsA<ToolItem>) -> i32;
 
     #[doc(alias = "gtk_toolbar_get_n_items")]
     #[doc(alias = "get_n_items")]
@@ -468,10 +468,10 @@ pub trait ToolbarExt: 'static {
     fn shows_arrow(&self) -> bool;
 
     #[doc(alias = "gtk_toolbar_insert")]
-    fn insert<P: IsA<ToolItem>>(&self, item: &P, pos: i32);
+    fn insert(&self, item: &impl IsA<ToolItem>, pos: i32);
 
     #[doc(alias = "gtk_toolbar_set_drop_highlight_item")]
-    fn set_drop_highlight_item<P: IsA<ToolItem>>(&self, tool_item: Option<&P>, index_: i32);
+    fn set_drop_highlight_item(&self, tool_item: Option<&impl IsA<ToolItem>>, index_: i32);
 
     #[doc(alias = "gtk_toolbar_set_icon_size")]
     fn set_icon_size(&self, icon_size: IconSize);
@@ -549,7 +549,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         unsafe { ffi::gtk_toolbar_get_drop_index(self.as_ref().to_glib_none().0, x, y) }
     }
 
-    fn item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32 {
+    fn item_index(&self, item: &impl IsA<ToolItem>) -> i32 {
         unsafe {
             ffi::gtk_toolbar_get_item_index(
                 self.as_ref().to_glib_none().0,
@@ -579,7 +579,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn insert<P: IsA<ToolItem>>(&self, item: &P, pos: i32) {
+    fn insert(&self, item: &impl IsA<ToolItem>, pos: i32) {
         unsafe {
             ffi::gtk_toolbar_insert(
                 self.as_ref().to_glib_none().0,
@@ -589,7 +589,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn set_drop_highlight_item<P: IsA<ToolItem>>(&self, tool_item: Option<&P>, index_: i32) {
+    fn set_drop_highlight_item(&self, tool_item: Option<&impl IsA<ToolItem>>, index_: i32) {
         unsafe {
             ffi::gtk_toolbar_set_drop_highlight_item(
                 self.as_ref().to_glib_none().0,

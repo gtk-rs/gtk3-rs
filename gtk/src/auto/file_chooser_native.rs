@@ -31,9 +31,9 @@ glib::wrapper! {
 
 impl FileChooserNative {
     #[doc(alias = "gtk_file_chooser_native_new")]
-    pub fn new<P: IsA<Window>>(
+    pub fn new(
         title: Option<&str>,
-        parent: Option<&P>,
+        parent: Option<&impl IsA<Window>>,
         action: FileChooserAction,
         accept_label: Option<&str>,
         cancel_label: Option<&str>,
@@ -335,7 +335,7 @@ impl FileChooserNativeBuilder {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    pub fn transient_for<P: IsA<Window>>(mut self, transient_for: &P) -> Self {
+    pub fn transient_for(mut self, transient_for: &impl IsA<Window>) -> Self {
         self.transient_for = Some(transient_for.clone().upcast());
         self
     }
@@ -362,7 +362,7 @@ impl FileChooserNativeBuilder {
         self
     }
 
-    pub fn extra_widget<P: IsA<Widget>>(mut self, extra_widget: &P) -> Self {
+    pub fn extra_widget(mut self, extra_widget: &impl IsA<Widget>) -> Self {
         self.extra_widget = Some(extra_widget.clone().upcast());
         self
     }
@@ -377,7 +377,7 @@ impl FileChooserNativeBuilder {
         self
     }
 
-    pub fn preview_widget<P: IsA<Widget>>(mut self, preview_widget: &P) -> Self {
+    pub fn preview_widget(mut self, preview_widget: &impl IsA<Widget>) -> Self {
         self.preview_widget = Some(preview_widget.clone().upcast());
         self
     }

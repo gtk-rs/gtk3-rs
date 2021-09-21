@@ -288,7 +288,7 @@ impl NotebookBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -410,7 +410,7 @@ impl NotebookBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -465,7 +465,7 @@ pub const NONE_NOTEBOOK: Option<&Notebook> = None;
 
 pub trait NotebookExt: 'static {
     #[doc(alias = "gtk_notebook_detach_tab")]
-    fn detach_tab<P: IsA<Widget>>(&self, child: &P);
+    fn detach_tab(&self, child: &impl IsA<Widget>);
 
     #[doc(alias = "gtk_notebook_get_action_widget")]
     #[doc(alias = "get_action_widget")]
@@ -477,11 +477,11 @@ pub trait NotebookExt: 'static {
 
     #[doc(alias = "gtk_notebook_get_menu_label")]
     #[doc(alias = "get_menu_label")]
-    fn menu_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget>;
+    fn menu_label(&self, child: &impl IsA<Widget>) -> Option<Widget>;
 
     #[doc(alias = "gtk_notebook_get_menu_label_text")]
     #[doc(alias = "get_menu_label_text")]
-    fn menu_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString>;
+    fn menu_label_text(&self, child: &impl IsA<Widget>) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_notebook_get_scrollable")]
     #[doc(alias = "get_scrollable")]
@@ -497,15 +497,15 @@ pub trait NotebookExt: 'static {
 
     #[doc(alias = "gtk_notebook_get_tab_detachable")]
     #[doc(alias = "get_tab_detachable")]
-    fn tab_is_detachable<P: IsA<Widget>>(&self, child: &P) -> bool;
+    fn tab_is_detachable(&self, child: &impl IsA<Widget>) -> bool;
 
     #[doc(alias = "gtk_notebook_get_tab_label")]
     #[doc(alias = "get_tab_label")]
-    fn tab_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget>;
+    fn tab_label(&self, child: &impl IsA<Widget>) -> Option<Widget>;
 
     #[doc(alias = "gtk_notebook_get_tab_label_text")]
     #[doc(alias = "get_tab_label_text")]
-    fn tab_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString>;
+    fn tab_label_text(&self, child: &impl IsA<Widget>) -> Option<glib::GString>;
 
     #[doc(alias = "gtk_notebook_get_tab_pos")]
     #[doc(alias = "get_tab_pos")]
@@ -513,7 +513,7 @@ pub trait NotebookExt: 'static {
 
     #[doc(alias = "gtk_notebook_get_tab_reorderable")]
     #[doc(alias = "get_tab_reorderable")]
-    fn tab_is_reorderable<P: IsA<Widget>>(&self, child: &P) -> bool;
+    fn tab_is_reorderable(&self, child: &impl IsA<Widget>) -> bool;
 
     #[doc(alias = "gtk_notebook_next_page")]
     fn next_page(&self);
@@ -528,16 +528,16 @@ pub trait NotebookExt: 'static {
     fn prev_page(&self);
 
     #[doc(alias = "gtk_notebook_set_action_widget")]
-    fn set_action_widget<P: IsA<Widget>>(&self, widget: &P, pack_type: PackType);
+    fn set_action_widget(&self, widget: &impl IsA<Widget>, pack_type: PackType);
 
     #[doc(alias = "gtk_notebook_set_group_name")]
     fn set_group_name(&self, group_name: Option<&str>);
 
     #[doc(alias = "gtk_notebook_set_menu_label")]
-    fn set_menu_label<P: IsA<Widget>, Q: IsA<Widget>>(&self, child: &P, menu_label: Option<&Q>);
+    fn set_menu_label(&self, child: &impl IsA<Widget>, menu_label: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_notebook_set_menu_label_text")]
-    fn set_menu_label_text<P: IsA<Widget>>(&self, child: &P, menu_text: &str);
+    fn set_menu_label_text(&self, child: &impl IsA<Widget>, menu_text: &str);
 
     #[doc(alias = "gtk_notebook_set_scrollable")]
     fn set_scrollable(&self, scrollable: bool);
@@ -549,19 +549,19 @@ pub trait NotebookExt: 'static {
     fn set_show_tabs(&self, show_tabs: bool);
 
     #[doc(alias = "gtk_notebook_set_tab_detachable")]
-    fn set_tab_detachable<P: IsA<Widget>>(&self, child: &P, detachable: bool);
+    fn set_tab_detachable(&self, child: &impl IsA<Widget>, detachable: bool);
 
     #[doc(alias = "gtk_notebook_set_tab_label")]
-    fn set_tab_label<P: IsA<Widget>, Q: IsA<Widget>>(&self, child: &P, tab_label: Option<&Q>);
+    fn set_tab_label(&self, child: &impl IsA<Widget>, tab_label: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "gtk_notebook_set_tab_label_text")]
-    fn set_tab_label_text<P: IsA<Widget>>(&self, child: &P, tab_text: &str);
+    fn set_tab_label_text(&self, child: &impl IsA<Widget>, tab_text: &str);
 
     #[doc(alias = "gtk_notebook_set_tab_pos")]
     fn set_tab_pos(&self, pos: PositionType);
 
     #[doc(alias = "gtk_notebook_set_tab_reorderable")]
-    fn set_tab_reorderable<P: IsA<Widget>>(&self, child: &P, reorderable: bool);
+    fn set_tab_reorderable(&self, child: &impl IsA<Widget>, reorderable: bool);
 
     #[doc(alias = "enable-popup")]
     fn enables_popup(&self) -> bool;
@@ -702,7 +702,7 @@ pub trait NotebookExt: 'static {
 }
 
 impl<O: IsA<Notebook>> NotebookExt for O {
-    fn detach_tab<P: IsA<Widget>>(&self, child: &P) {
+    fn detach_tab(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_notebook_detach_tab(
                 self.as_ref().to_glib_none().0,
@@ -728,7 +728,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn menu_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget> {
+    fn menu_label(&self, child: &impl IsA<Widget>) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_menu_label(
                 self.as_ref().to_glib_none().0,
@@ -737,7 +737,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn menu_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString> {
+    fn menu_label_text(&self, child: &impl IsA<Widget>) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_menu_label_text(
                 self.as_ref().to_glib_none().0,
@@ -770,7 +770,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn tab_is_detachable<P: IsA<Widget>>(&self, child: &P) -> bool {
+    fn tab_is_detachable(&self, child: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_tab_detachable(
                 self.as_ref().to_glib_none().0,
@@ -779,7 +779,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn tab_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget> {
+    fn tab_label(&self, child: &impl IsA<Widget>) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_tab_label(
                 self.as_ref().to_glib_none().0,
@@ -788,7 +788,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn tab_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString> {
+    fn tab_label_text(&self, child: &impl IsA<Widget>) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_tab_label_text(
                 self.as_ref().to_glib_none().0,
@@ -805,7 +805,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn tab_is_reorderable<P: IsA<Widget>>(&self, child: &P) -> bool {
+    fn tab_is_reorderable(&self, child: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_tab_reorderable(
                 self.as_ref().to_glib_none().0,
@@ -838,7 +838,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_action_widget<P: IsA<Widget>>(&self, widget: &P, pack_type: PackType) {
+    fn set_action_widget(&self, widget: &impl IsA<Widget>, pack_type: PackType) {
         unsafe {
             ffi::gtk_notebook_set_action_widget(
                 self.as_ref().to_glib_none().0,
@@ -857,7 +857,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_menu_label<P: IsA<Widget>, Q: IsA<Widget>>(&self, child: &P, menu_label: Option<&Q>) {
+    fn set_menu_label(&self, child: &impl IsA<Widget>, menu_label: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_notebook_set_menu_label(
                 self.as_ref().to_glib_none().0,
@@ -867,7 +867,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_menu_label_text<P: IsA<Widget>>(&self, child: &P, menu_text: &str) {
+    fn set_menu_label_text(&self, child: &impl IsA<Widget>, menu_text: &str) {
         unsafe {
             ffi::gtk_notebook_set_menu_label_text(
                 self.as_ref().to_glib_none().0,
@@ -901,7 +901,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_tab_detachable<P: IsA<Widget>>(&self, child: &P, detachable: bool) {
+    fn set_tab_detachable(&self, child: &impl IsA<Widget>, detachable: bool) {
         unsafe {
             ffi::gtk_notebook_set_tab_detachable(
                 self.as_ref().to_glib_none().0,
@@ -911,7 +911,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_tab_label<P: IsA<Widget>, Q: IsA<Widget>>(&self, child: &P, tab_label: Option<&Q>) {
+    fn set_tab_label(&self, child: &impl IsA<Widget>, tab_label: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_notebook_set_tab_label(
                 self.as_ref().to_glib_none().0,
@@ -921,7 +921,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_tab_label_text<P: IsA<Widget>>(&self, child: &P, tab_text: &str) {
+    fn set_tab_label_text(&self, child: &impl IsA<Widget>, tab_text: &str) {
         unsafe {
             ffi::gtk_notebook_set_tab_label_text(
                 self.as_ref().to_glib_none().0,
@@ -937,7 +937,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
-    fn set_tab_reorderable<P: IsA<Widget>>(&self, child: &P, reorderable: bool) {
+    fn set_tab_reorderable(&self, child: &impl IsA<Widget>, reorderable: bool) {
         unsafe {
             ffi::gtk_notebook_set_tab_reorderable(
                 self.as_ref().to_glib_none().0,

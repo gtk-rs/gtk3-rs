@@ -215,7 +215,7 @@ impl FixedBuilder {
         self
     }
 
-    pub fn child<P: IsA<Widget>>(mut self, child: &P) -> Self {
+    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
         self.child = Some(child.clone().upcast());
         self
     }
@@ -337,7 +337,7 @@ impl FixedBuilder {
         self
     }
 
-    pub fn parent<P: IsA<Container>>(mut self, parent: &P) -> Self {
+    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
         self.parent = Some(parent.clone().upcast());
         self
     }
@@ -393,14 +393,14 @@ pub const NONE_FIXED: Option<&Fixed> = None;
 pub trait FixedExt: 'static {
     #[doc(alias = "gtk_fixed_move")]
     #[doc(alias = "move")]
-    fn move_<P: IsA<Widget>>(&self, widget: &P, x: i32, y: i32);
+    fn move_(&self, widget: &impl IsA<Widget>, x: i32, y: i32);
 
     #[doc(alias = "gtk_fixed_put")]
-    fn put<P: IsA<Widget>>(&self, widget: &P, x: i32, y: i32);
+    fn put(&self, widget: &impl IsA<Widget>, x: i32, y: i32);
 }
 
 impl<O: IsA<Fixed>> FixedExt for O {
-    fn move_<P: IsA<Widget>>(&self, widget: &P, x: i32, y: i32) {
+    fn move_(&self, widget: &impl IsA<Widget>, x: i32, y: i32) {
         unsafe {
             ffi::gtk_fixed_move(
                 self.as_ref().to_glib_none().0,
@@ -411,7 +411,7 @@ impl<O: IsA<Fixed>> FixedExt for O {
         }
     }
 
-    fn put<P: IsA<Widget>>(&self, widget: &P, x: i32, y: i32) {
+    fn put(&self, widget: &impl IsA<Widget>, x: i32, y: i32) {
         unsafe {
             ffi::gtk_fixed_put(
                 self.as_ref().to_glib_none().0,
