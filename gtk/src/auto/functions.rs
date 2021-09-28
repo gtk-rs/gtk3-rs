@@ -1008,6 +1008,7 @@ pub fn set_debug_flags(flags: u32) {
 //    unsafe { TODO: call ffi:gtk_show_about_dialog() }
 //}
 
+#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
 #[doc(alias = "gtk_show_uri")]
 pub fn show_uri(
     screen: Option<&gdk::Screen>,

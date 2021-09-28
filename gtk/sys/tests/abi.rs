@@ -1492,6 +1492,20 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "GtkFileChooserWidgetAccessible",
+        Layout {
+            size: size_of::<GtkFileChooserWidgetAccessible>(),
+            alignment: align_of::<GtkFileChooserWidgetAccessible>(),
+        },
+    ),
+    (
+        "GtkFileChooserWidgetAccessibleClass",
+        Layout {
+            size: size_of::<GtkFileChooserWidgetAccessibleClass>(),
+            alignment: align_of::<GtkFileChooserWidgetAccessibleClass>(),
+        },
+    ),
+    (
         "GtkFileChooserWidgetClass",
         Layout {
             size: size_of::<GtkFileChooserWidgetClass>(),
@@ -2787,6 +2801,20 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "GtkPlugAccessible",
+        Layout {
+            size: size_of::<GtkPlugAccessible>(),
+            alignment: align_of::<GtkPlugAccessible>(),
+        },
+    ),
+    (
+        "GtkPlugAccessibleClass",
+        Layout {
+            size: size_of::<GtkPlugAccessibleClass>(),
+            alignment: align_of::<GtkPlugAccessibleClass>(),
+        },
+    ),
+    (
         "GtkPlugClass",
         Layout {
             size: size_of::<GtkPlugClass>(),
@@ -3596,6 +3624,20 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         Layout {
             size: size_of::<GtkSocket>(),
             alignment: align_of::<GtkSocket>(),
+        },
+    ),
+    (
+        "GtkSocketAccessible",
+        Layout {
+            size: size_of::<GtkSocketAccessible>(),
+            alignment: align_of::<GtkSocketAccessible>(),
+        },
+    ),
+    (
+        "GtkSocketAccessibleClass",
+        Layout {
+            size: size_of::<GtkSocketAccessibleClass>(),
+            alignment: align_of::<GtkSocketAccessibleClass>(),
         },
     ),
     (
@@ -4767,7 +4809,6 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(guint) GTK_CALENDAR_SHOW_HEADING", "1"),
     ("(guint) GTK_CALENDAR_SHOW_WEEK_NUMBERS", "8"),
     ("(gint) GTK_CELL_RENDERER_ACCEL_MODE_GTK", "0"),
-    ("(gint) GTK_CELL_RENDERER_ACCEL_MODE_MODIFIER_TAP", "2"),
     ("(gint) GTK_CELL_RENDERER_ACCEL_MODE_OTHER", "1"),
     ("(guint) GTK_CELL_RENDERER_EXPANDABLE", "32"),
     ("(guint) GTK_CELL_RENDERER_EXPANDED", "64"),

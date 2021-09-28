@@ -248,6 +248,11 @@ mod file_chooser_widget;
 pub use self::file_chooser_widget::FileChooserWidgetBuilder;
 pub use self::file_chooser_widget::{FileChooserWidget, NONE_FILE_CHOOSER_WIDGET};
 
+mod file_chooser_widget_accessible;
+pub use self::file_chooser_widget_accessible::{
+    FileChooserWidgetAccessible, NONE_FILE_CHOOSER_WIDGET_ACCESSIBLE,
+};
+
 mod file_filter;
 pub use self::file_filter::FileFilter;
 
@@ -489,6 +494,16 @@ pub use self::plug::PlugBuilder;
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
 pub use self::plug::{Plug, NONE_PLUG};
 
+#[cfg(any(gdk_backend = "x11", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+mod plug_accessible;
+#[cfg(any(gdk_backend = "x11", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+pub use self::plug_accessible::PlugAccessibleBuilder;
+#[cfg(any(gdk_backend = "x11", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+pub use self::plug_accessible::{PlugAccessible, NONE_PLUG_ACCESSIBLE};
+
 mod popover;
 pub use self::popover::PopoverBuilder;
 pub use self::popover::{Popover, NONE_POPOVER};
@@ -660,6 +675,16 @@ pub use self::socket::SocketBuilder;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
 pub use self::socket::{Socket, NONE_SOCKET};
+
+#[cfg(any(gdk_backend = "x11", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+mod socket_accessible;
+#[cfg(any(gdk_backend = "x11", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+pub use self::socket_accessible::SocketAccessibleBuilder;
+#[cfg(any(gdk_backend = "x11", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+pub use self::socket_accessible::{SocketAccessible, NONE_SOCKET_ACCESSIBLE};
 
 mod spin_button;
 pub use self::spin_button::SpinButtonBuilder;
@@ -1208,6 +1233,9 @@ pub mod traits {
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
     pub use super::plug::PlugExt;
+    #[cfg(any(gdk_backend = "x11", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    pub use super::plug_accessible::PlugAccessibleExt;
     pub use super::popover::PopoverExt;
     pub use super::print_operation::PrintOperationExt;
     pub use super::print_operation_preview::PrintOperationPreviewExt;
@@ -1235,6 +1263,9 @@ pub mod traits {
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
     pub use super::socket::GtkSocketExt;
+    #[cfg(any(gdk_backend = "x11", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    pub use super::socket_accessible::SocketAccessibleExt;
     pub use super::spin_button::SpinButtonExt;
     pub use super::spinner::SpinnerExt;
     pub use super::stack::StackExt;

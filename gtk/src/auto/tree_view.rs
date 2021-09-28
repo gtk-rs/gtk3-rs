@@ -101,7 +101,6 @@ pub struct TreeViewBuilder {
     search_column: Option<i32>,
     show_expanders: Option<bool>,
     tooltip_column: Option<i32>,
-    ubuntu_almost_fixed_height_mode: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
     resize_mode: Option<ResizeMode>,
@@ -206,12 +205,6 @@ impl TreeViewBuilder {
         }
         if let Some(ref tooltip_column) = self.tooltip_column {
             properties.push(("tooltip-column", tooltip_column));
-        }
-        if let Some(ref ubuntu_almost_fixed_height_mode) = self.ubuntu_almost_fixed_height_mode {
-            properties.push((
-                "ubuntu-almost-fixed-height-mode",
-                ubuntu_almost_fixed_height_mode,
-            ));
         }
         if let Some(ref border_width) = self.border_width {
             properties.push(("border-width", border_width));
@@ -417,14 +410,6 @@ impl TreeViewBuilder {
 
     pub fn tooltip_column(mut self, tooltip_column: i32) -> Self {
         self.tooltip_column = Some(tooltip_column);
-        self
-    }
-
-    pub fn ubuntu_almost_fixed_height_mode(
-        mut self,
-        ubuntu_almost_fixed_height_mode: bool,
-    ) -> Self {
-        self.ubuntu_almost_fixed_height_mode = Some(ubuntu_almost_fixed_height_mode);
         self
     }
 
@@ -1015,9 +1000,6 @@ pub trait TreeViewExt: 'static {
     #[doc(alias = "enable-grid-lines")]
     fn set_enable_grid_lines(&self, enable_grid_lines: TreeViewGridLines);
 
-    #[doc(alias = "ubuntu-almost-fixed-height-mode")]
-    fn set_ubuntu_almost_fixed_height_mode(&self, ubuntu_almost_fixed_height_mode: bool);
-
     #[doc(alias = "columns-changed")]
     fn connect_columns_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -1166,12 +1148,6 @@ pub trait TreeViewExt: 'static {
 
     #[doc(alias = "tooltip-column")]
     fn connect_tooltip_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "ubuntu-almost-fixed-height-mode")]
-    fn connect_ubuntu_almost_fixed_height_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
 }
 
 impl<O: IsA<TreeView>> TreeViewExt for O {
@@ -2335,16 +2311,6 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
         }
     }
 
-    fn set_ubuntu_almost_fixed_height_mode(&self, ubuntu_almost_fixed_height_mode: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"ubuntu-almost-fixed-height-mode\0".as_ptr() as *const _,
-                ubuntu_almost_fixed_height_mode.to_value().to_glib_none().0,
-            );
-        }
-    }
-
     fn connect_columns_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn columns_changed_trampoline<P: IsA<TreeView>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTreeView,
@@ -3301,34 +3267,6 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 b"notify::tooltip-column\0".as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     notify_tooltip_column_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    fn connect_ubuntu_almost_fixed_height_mode_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn notify_ubuntu_almost_fixed_height_mode_trampoline<
-            P: IsA<TreeView>,
-            F: Fn(&P) + 'static,
-        >(
-            this: *mut ffi::GtkTreeView,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(TreeView::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::ubuntu-almost-fixed-height-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_ubuntu_almost_fixed_height_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

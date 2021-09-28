@@ -44,6 +44,7 @@ generate = [
     "Gtk.FileChooserAction",
     "Gtk.FileChooserConfirmation",
     "Gtk.FileChooserError",
+    "Gtk.FileChooserWidgetAccessible",
     "Gtk.FileFilter",
     "Gtk.FileFilterFlags",
     "Gtk.GestureSingle",
@@ -1705,6 +1706,12 @@ generate_builder = true
 cfg_condition = "gdk_backend = \"x11\""
 
 [[object]]
+name = "Gtk.PlugAccessible"
+status = "generate"
+generate_builder = true
+cfg_condition = "gdk_backend = \"x11\""
+
+[[object]]
 name = "Gtk.Popover"
 status = "generate"
 generate_builder = true
@@ -2035,6 +2042,12 @@ status = "generate"
 generate_builder = true
 cfg_condition = "gdk_backend = \"x11\""
 trait_name = "GtkSocketExt"
+
+[[object]]
+name = "Gtk.SocketAccessible"
+status = "generate"
+generate_builder = true
+cfg_condition = "gdk_backend = \"x11\""
 
 [[object]]
 name = "Gtk.SpinButton"

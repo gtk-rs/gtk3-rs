@@ -2682,10 +2682,7 @@ pub const GDK_KEY_zcaron: c_int = 446;
 pub const GDK_KEY_zerosubscript: c_int = 16785536;
 pub const GDK_KEY_zerosuperior: c_int = 16785520;
 pub const GDK_KEY_zstroke: c_int = 16777654;
-pub const GDK_MAJOR_VERSION: c_int = 3;
 pub const GDK_MAX_TIMECOORD_AXES: c_int = 128;
-pub const GDK_MICRO_VERSION: c_int = 23;
-pub const GDK_MINOR_VERSION: c_int = 24;
 pub const GDK_PARENT_RELATIVE: c_int = 1;
 pub const GDK_PRIORITY_REDRAW: c_int = 120;
 
@@ -5215,7 +5212,7 @@ extern "C" {
     ) -> *mut GdkGLContext;
     pub fn gdk_window_create_similar_image_surface(
         window: *mut GdkWindow,
-        format: c_int,
+        format: cairo::cairo_format_t,
         width: c_int,
         height: c_int,
         scale: c_int,
