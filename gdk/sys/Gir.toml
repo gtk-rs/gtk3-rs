@@ -16,6 +16,12 @@ external_libraries = [
     "Cairo",
 ]
 
+ignore = [
+    "Gdk.MAJOR_VERSION",
+    "Gdk.MICRO_VERSION",
+    "Gdk.MINOR_VERSION",
+]
+
 [[object]]
 name = "Gdk.EventType"
 status = "generate"
