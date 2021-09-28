@@ -190,6 +190,8 @@ int main() {
     printf("%s;%zu;%zu\n", "GtkFileChooserError", sizeof(GtkFileChooserError), alignof(GtkFileChooserError));
     printf("%s;%zu;%zu\n", "GtkFileChooserNativeClass", sizeof(GtkFileChooserNativeClass), alignof(GtkFileChooserNativeClass));
     printf("%s;%zu;%zu\n", "GtkFileChooserWidget", sizeof(GtkFileChooserWidget), alignof(GtkFileChooserWidget));
+    printf("%s;%zu;%zu\n", "GtkFileChooserWidgetAccessible", sizeof(GtkFileChooserWidgetAccessible), alignof(GtkFileChooserWidgetAccessible));
+    printf("%s;%zu;%zu\n", "GtkFileChooserWidgetAccessibleClass", sizeof(GtkFileChooserWidgetAccessibleClass), alignof(GtkFileChooserWidgetAccessibleClass));
     printf("%s;%zu;%zu\n", "GtkFileChooserWidgetClass", sizeof(GtkFileChooserWidgetClass), alignof(GtkFileChooserWidgetClass));
     printf("%s;%zu;%zu\n", "GtkFileFilterFlags", sizeof(GtkFileFilterFlags), alignof(GtkFileFilterFlags));
     printf("%s;%zu;%zu\n", "GtkFileFilterInfo", sizeof(GtkFileFilterInfo), alignof(GtkFileFilterInfo));
@@ -375,6 +377,8 @@ int main() {
     printf("%s;%zu;%zu\n", "GtkPathType", sizeof(GtkPathType), alignof(GtkPathType));
     printf("%s;%zu;%zu\n", "GtkPlacesOpenFlags", sizeof(GtkPlacesOpenFlags), alignof(GtkPlacesOpenFlags));
     printf("%s;%zu;%zu\n", "GtkPlug", sizeof(GtkPlug), alignof(GtkPlug));
+    printf("%s;%zu;%zu\n", "GtkPlugAccessible", sizeof(GtkPlugAccessible), alignof(GtkPlugAccessible));
+    printf("%s;%zu;%zu\n", "GtkPlugAccessibleClass", sizeof(GtkPlugAccessibleClass), alignof(GtkPlugAccessibleClass));
     printf("%s;%zu;%zu\n", "GtkPlugClass", sizeof(GtkPlugClass), alignof(GtkPlugClass));
     printf("%s;%zu;%zu\n", "GtkPolicyType", sizeof(GtkPolicyType), alignof(GtkPolicyType));
     printf("%s;%zu;%zu\n", "GtkPopover", sizeof(GtkPopover), alignof(GtkPopover));
@@ -491,6 +495,8 @@ int main() {
     printf("%s;%zu;%zu\n", "GtkSizeGroupMode", sizeof(GtkSizeGroupMode), alignof(GtkSizeGroupMode));
     printf("%s;%zu;%zu\n", "GtkSizeRequestMode", sizeof(GtkSizeRequestMode), alignof(GtkSizeRequestMode));
     printf("%s;%zu;%zu\n", "GtkSocket", sizeof(GtkSocket), alignof(GtkSocket));
+    printf("%s;%zu;%zu\n", "GtkSocketAccessible", sizeof(GtkSocketAccessible), alignof(GtkSocketAccessible));
+    printf("%s;%zu;%zu\n", "GtkSocketAccessibleClass", sizeof(GtkSocketAccessibleClass), alignof(GtkSocketAccessibleClass));
     printf("%s;%zu;%zu\n", "GtkSocketClass", sizeof(GtkSocketClass), alignof(GtkSocketClass));
     printf("%s;%zu;%zu\n", "GtkSortType", sizeof(GtkSortType), alignof(GtkSortType));
     printf("%s;%zu;%zu\n", "GtkSpinButton", sizeof(GtkSpinButton), alignof(GtkSpinButton));

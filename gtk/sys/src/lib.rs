@@ -124,7 +124,6 @@ pub const GTK_BUTTONS_OK_CANCEL: GtkButtonsType = 5;
 pub type GtkCellRendererAccelMode = c_int;
 pub const GTK_CELL_RENDERER_ACCEL_MODE_GTK: GtkCellRendererAccelMode = 0;
 pub const GTK_CELL_RENDERER_ACCEL_MODE_OTHER: GtkCellRendererAccelMode = 1;
-pub const GTK_CELL_RENDERER_ACCEL_MODE_MODIFIER_TAP: GtkCellRendererAccelMode = 2;
 
 pub type GtkCellRendererMode = c_int;
 pub const GTK_CELL_RENDERER_MODE_INERT: GtkCellRendererMode = 0;
@@ -4309,6 +4308,25 @@ impl ::std::fmt::Debug for GtkFileChooserNativeClass {
 
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct GtkFileChooserWidgetAccessibleClass {
+    pub parent_class: GtkContainerAccessibleClass,
+}
+
+impl ::std::fmt::Debug for GtkFileChooserWidgetAccessibleClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GtkFileChooserWidgetAccessibleClass @ {:p}", self))
+            .field("parent_class", &self.parent_class)
+            .finish()
+    }
+}
+
+#[repr(C)]
+pub struct _GtkFileChooserWidgetAccessiblePrivate(c_void);
+
+pub type GtkFileChooserWidgetAccessiblePrivate = *mut _GtkFileChooserWidgetAccessiblePrivate;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFileChooserWidgetClass {
     pub parent_class: GtkBoxClass,
     pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
@@ -6522,6 +6540,25 @@ pub type GtkPlacesSidebarClass = *mut _GtkPlacesSidebarClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct GtkPlugAccessibleClass {
+    pub parent_class: GtkWindowAccessibleClass,
+}
+
+impl ::std::fmt::Debug for GtkPlugAccessibleClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GtkPlugAccessibleClass @ {:p}", self))
+            .field("parent_class", &self.parent_class)
+            .finish()
+    }
+}
+
+#[repr(C)]
+pub struct _GtkPlugAccessiblePrivate(c_void);
+
+pub type GtkPlugAccessiblePrivate = *mut _GtkPlugAccessiblePrivate;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkPlugClass {
     pub parent_class: GtkWindowClass,
     pub embedded: Option<unsafe extern "C" fn(*mut GtkPlug)>,
@@ -7817,6 +7854,25 @@ impl ::std::fmt::Debug for GtkSizeGroupClass {
 pub struct _GtkSizeGroupPrivate(c_void);
 
 pub type GtkSizeGroupPrivate = *mut _GtkSizeGroupPrivate;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GtkSocketAccessibleClass {
+    pub parent_class: GtkContainerAccessibleClass,
+}
+
+impl ::std::fmt::Debug for GtkSocketAccessibleClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GtkSocketAccessibleClass @ {:p}", self))
+            .field("parent_class", &self.parent_class)
+            .finish()
+    }
+}
+
+#[repr(C)]
+pub struct _GtkSocketAccessiblePrivate(c_void);
+
+pub type GtkSocketAccessiblePrivate = *mut _GtkSocketAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -11864,6 +11920,22 @@ impl ::std::fmt::Debug for GtkFileChooserWidget {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GtkFileChooserWidgetAccessible {
+    pub parent: GtkContainerAccessible,
+    pub priv_: *mut GtkFileChooserWidgetAccessiblePrivate,
+}
+
+impl ::std::fmt::Debug for GtkFileChooserWidgetAccessible {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GtkFileChooserWidgetAccessible @ {:p}", self))
+            .field("parent", &self.parent)
+            .field("priv_", &self.priv_)
+            .finish()
+    }
+}
+
+#[repr(C)]
 pub struct GtkFileFilter(c_void);
 
 impl ::std::fmt::Debug for GtkFileFilter {
@@ -13129,6 +13201,22 @@ impl ::std::fmt::Debug for GtkPlug {
 
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct GtkPlugAccessible {
+    pub parent: GtkWindowAccessible,
+    pub priv_: *mut GtkPlugAccessiblePrivate,
+}
+
+impl ::std::fmt::Debug for GtkPlugAccessible {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GtkPlugAccessible @ {:p}", self))
+            .field("parent", &self.parent)
+            .field("priv_", &self.priv_)
+            .finish()
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkPopover {
     pub parent_instance: GtkBin,
     pub priv_: *mut GtkPopoverPrivate,
@@ -13782,6 +13870,22 @@ impl ::std::fmt::Debug for GtkSocket {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkSocket @ {:p}", self))
             .field("container", &self.container)
+            .field("priv_", &self.priv_)
+            .finish()
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GtkSocketAccessible {
+    pub parent: GtkContainerAccessible,
+    pub priv_: *mut GtkSocketAccessiblePrivate,
+}
+
+impl ::std::fmt::Debug for GtkSocketAccessible {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GtkSocketAccessible @ {:p}", self))
+            .field("parent", &self.parent)
             .field("priv_", &self.priv_)
             .finish()
     }
@@ -19060,6 +19164,11 @@ extern "C" {
     pub fn gtk_file_chooser_widget_new(action: GtkFileChooserAction) -> *mut GtkWidget;
 
     //=========================================================================
+    // GtkFileChooserWidgetAccessible
+    //=========================================================================
+    pub fn gtk_file_chooser_widget_accessible_get_type() -> GType;
+
+    //=========================================================================
     // GtkFileFilter
     //=========================================================================
     pub fn gtk_file_filter_get_type() -> GType;
@@ -21405,6 +21514,12 @@ extern "C" {
     pub fn gtk_plug_get_socket_window(plug: *mut GtkPlug) -> *mut gdk::GdkWindow;
 
     //=========================================================================
+    // GtkPlugAccessible
+    //=========================================================================
+    pub fn gtk_plug_accessible_get_type() -> GType;
+    pub fn gtk_plug_accessible_get_id(plug: *mut GtkPlugAccessible) -> *mut c_char;
+
+    //=========================================================================
     // GtkPopover
     //=========================================================================
     pub fn gtk_popover_get_type() -> GType;
@@ -22514,6 +22629,12 @@ extern "C" {
     pub fn gtk_socket_add_id(socket_: *mut GtkSocket, window: xlib::Window);
     pub fn gtk_socket_get_id(socket_: *mut GtkSocket) -> xlib::Window;
     pub fn gtk_socket_get_plug_window(socket_: *mut GtkSocket) -> *mut gdk::GdkWindow;
+
+    //=========================================================================
+    // GtkSocketAccessible
+    //=========================================================================
+    pub fn gtk_socket_accessible_get_type() -> GType;
+    pub fn gtk_socket_accessible_embed(socket: *mut GtkSocketAccessible, path: *mut c_char);
 
     //=========================================================================
     // GtkSpinButton

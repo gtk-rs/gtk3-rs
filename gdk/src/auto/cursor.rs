@@ -20,7 +20,7 @@ glib::wrapper! {
 impl Cursor {
     #[doc(alias = "gdk_cursor_new_for_display")]
     #[doc(alias = "new_for_display")]
-    pub fn for_display(display: &Display, cursor_type: CursorType) -> Cursor {
+    pub fn for_display(display: &Display, cursor_type: CursorType) -> Option<Cursor> {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gdk_cursor_new_for_display(

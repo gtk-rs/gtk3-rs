@@ -1009,8 +1009,6 @@ pub enum CellRendererAccelMode {
     Gtk,
     #[doc(alias = "GTK_CELL_RENDERER_ACCEL_MODE_OTHER")]
     Other,
-    #[doc(alias = "GTK_CELL_RENDERER_ACCEL_MODE_MODIFIER_TAP")]
-    ModifierTap,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -1023,7 +1021,6 @@ impl fmt::Display for CellRendererAccelMode {
             match *self {
                 Self::Gtk => "Gtk",
                 Self::Other => "Other",
-                Self::ModifierTap => "ModifierTap",
                 _ => "Unknown",
             }
         )
@@ -1038,7 +1035,6 @@ impl IntoGlib for CellRendererAccelMode {
         match self {
             Self::Gtk => ffi::GTK_CELL_RENDERER_ACCEL_MODE_GTK,
             Self::Other => ffi::GTK_CELL_RENDERER_ACCEL_MODE_OTHER,
-            Self::ModifierTap => ffi::GTK_CELL_RENDERER_ACCEL_MODE_MODIFIER_TAP,
             Self::__Unknown(value) => value,
         }
     }
@@ -1051,7 +1047,6 @@ impl FromGlib<ffi::GtkCellRendererAccelMode> for CellRendererAccelMode {
         match value {
             ffi::GTK_CELL_RENDERER_ACCEL_MODE_GTK => Self::Gtk,
             ffi::GTK_CELL_RENDERER_ACCEL_MODE_OTHER => Self::Other,
-            ffi::GTK_CELL_RENDERER_ACCEL_MODE_MODIFIER_TAP => Self::ModifierTap,
             value => Self::__Unknown(value),
         }
     }
