@@ -18,14 +18,10 @@ generate = [
     "Gdk.CrossingMode",
     "Gdk.CursorType",
     "Gdk.DeviceManager",
-    "Gdk.DevicePad",
-    "Gdk.DeviceTool",
-    "Gdk.DeviceToolType",
     "Gdk.DeviceType",
     "Gdk.DragAction",
     "Gdk.DragCancelReason",
     "Gdk.DragProtocol",
-    "Gdk.DrawingContext",
     "Gdk.EventMask",
     "Gdk.EventSequence",
     "Gdk.FrameClockPhase",
@@ -248,7 +244,22 @@ status = "generate"
     generate = ["get", "notify"]
 
 [[object]]
+name = "Gdk.DevicePad"
+status = "generate"
+version = "3.22"
+
+[[object]]
 name = "Gdk.DevicePadFeature"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gdk.DeviceTool"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gdk.DeviceToolType"
 status = "generate"
 version = "3.22"
 
@@ -295,6 +306,11 @@ status = "generate"
     name = "get_source_window"
         [object.function.return]
         nullable = false
+
+[[object]]
+name = "Gdk.DrawingContext"
+status = "generate"
+version = "3.22"
 
 [[object]]
 name = "Gdk.EventType"

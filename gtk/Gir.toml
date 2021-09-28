@@ -999,6 +999,7 @@ generate_builder = true
 name = "Gtk.FileChooserNative"
 status = "generate"
 generate_builder = true
+version = "3.20"
 
 [[object]]
 name = "Gtk.FileChooserWidget"
@@ -1508,6 +1509,7 @@ generate_builder = true
 [[object]]
 name = "Gtk.NativeDialog"
 status = "generate"
+version = "3.20"
 manual_traits = ["NativeDialogExtManual"]
     [[object.function]]
     name = "run"
