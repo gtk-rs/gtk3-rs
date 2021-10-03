@@ -993,7 +993,8 @@ generate_builder = true
 [[object]]
 name = "Gtk.FileChooserDialog"
 status = "generate"
-generate_builder = true
+# We added a property which doesn't exist for buttons to be set from the builder.
+generate_builder = false
 
 [[object]]
 name = "Gtk.FileChooserNative"

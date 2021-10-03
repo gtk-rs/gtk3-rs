@@ -231,7 +231,6 @@ pub use self::file_chooser_button::FileChooserButtonBuilder;
 pub use self::file_chooser_button::{FileChooserButton, NONE_FILE_CHOOSER_BUTTON};
 
 mod file_chooser_dialog;
-pub use self::file_chooser_dialog::FileChooserDialogBuilder;
 pub use self::file_chooser_dialog::{FileChooserDialog, NONE_FILE_CHOOSER_DIALOG};
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]

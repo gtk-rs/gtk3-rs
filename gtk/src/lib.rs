@@ -132,6 +132,7 @@ pub use gdk::Rectangle;
 pub use crate::app_chooser::AppChooser;
 pub use crate::border::Border;
 pub use crate::entry_buffer::EntryBuffer;
+pub use crate::file_chooser_dialog::FileChooserDialogBuilder;
 pub use crate::image::ImageBuilder;
 pub use crate::page_range::PageRange;
 pub use crate::recent_data::RecentData;
