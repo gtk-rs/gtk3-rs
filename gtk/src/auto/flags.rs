@@ -435,8 +435,8 @@ impl ToValue for DialogFlags {
 }
 
 #[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 bitflags! {
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "GtkEventControllerScrollFlags")]
     pub struct EventControllerScrollFlags: u32 {
         #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_NONE")]
@@ -595,8 +595,8 @@ impl ToValue for FileFilterFlags {
 }
 
 #[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 bitflags! {
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "GtkFontChooserLevel")]
     pub struct FontChooserLevel: u32 {
         #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_FAMILY")]
@@ -1239,8 +1239,8 @@ impl ToValue for StateFlags {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 bitflags! {
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "GtkStyleContextPrintFlags")]
     pub struct StyleContextPrintFlags: u32 {
         #[doc(alias = "GTK_STYLE_CONTEXT_PRINT_NONE")]
