@@ -90,8 +90,6 @@ manual = [
     "Gdk.EventWindowState",
     "Gdk.Geometry",
     "Gdk.KeymapKey",
-    "Gdk.Rectangle",
-    "Gdk.RGBA",
     "Gdk.TimeCoord",
     "GdkPixbuf.Pixbuf",
     "Gio.AppLaunchContext",
@@ -394,6 +392,20 @@ version = "3.22"
     [[object.property]]
     name = "model"
     version = "3.22"
+
+[[object]]
+name = "Gdk.Rectangle"
+status = "generate"
+boxed_inline = true
+
+[[object]]
+name = "Gdk.RGBA"
+status = "generate"
+boxed_inline = true
+    [[object.function]]
+    name = "parse"
+        [object.function.return]
+        bool_return_is_error = "Can't parse RGBA"
 
 [[object]]
 name = "Gdk.Screen"
