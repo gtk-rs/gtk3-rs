@@ -42,12 +42,7 @@ impl Device {
                 return Vec::new();
             }
             let n_events = n_events.assume_init() as usize;
-            let mut r_events = Vec::with_capacity(n_events);
-            for i in 0..n_events {
-                r_events.push((*(events.add(i) as *mut TimeCoord)).clone());
-            }
-            ffi::gdk_device_free_history(events, n_events as _);
-            r_events
+            FromGlibContainer::from_glib_full_num(events, n_events)
         }
     }
 }
