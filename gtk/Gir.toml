@@ -2207,8 +2207,7 @@ manual_traits = ["TextBufferExtManual"]
 [[object]]
 name = "Gtk.TextIter"
 status = "generate"
-init_function_expression = "|_ptr| ()"
-clear_function_expression = "|_ptr| ()"
+boxed_inline = true
 
     [[object.function]]
     name = "get_attributes"
@@ -2326,8 +2325,7 @@ generate_builder = true
 [[object]]
 name = "Gtk.TreeIter"
 status = "generate"
-init_function_expression = "|_ptr| ()"
-clear_function_expression = "|_ptr| ()"
+boxed_inline = true
 
 [[object]]
 name = "Gtk.TreeModel"
