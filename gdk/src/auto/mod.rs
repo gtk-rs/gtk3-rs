@@ -82,6 +82,12 @@ pub use self::event_sequence::EventSequence;
 mod frame_timings;
 pub use self::frame_timings::FrameTimings;
 
+mod rgba;
+pub use self::rgba::RGBA;
+
+mod rectangle;
+pub use self::rectangle::Rectangle;
+
 mod enums;
 pub use self::enums::AxisUse;
 pub use self::enums::ByteOrder;

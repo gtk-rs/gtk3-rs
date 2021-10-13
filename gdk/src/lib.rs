@@ -118,8 +118,6 @@ pub use crate::event_window_state::EventWindowState;
 pub use crate::functions::*;
 pub use crate::geometry::Geometry;
 pub use crate::keymap_key::KeymapKey;
-pub use crate::rectangle::Rectangle;
-pub use crate::rgba::{RgbaParseError, RGBA};
 pub use crate::time_coord::TimeCoord;
 pub use crate::window::WindowAttr;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
