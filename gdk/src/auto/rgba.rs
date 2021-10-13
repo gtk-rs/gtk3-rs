@@ -36,16 +36,6 @@ impl RGBA {
         }
     }
 
-    #[doc(alias = "gdk_rgba_parse")]
-    pub fn parse(&mut self, spec: &str) -> Result<(), glib::error::BoolError> {
-        unsafe {
-            glib::result_from_gboolean!(
-                ffi::gdk_rgba_parse(self.to_glib_none_mut().0, spec.to_glib_none().0),
-                "Can't parse RGBA"
-            )
-        }
-    }
-
     #[doc(alias = "gdk_rgba_to_string")]
     #[doc(alias = "to_string")]
     pub fn to_str(&self) -> glib::GString {
