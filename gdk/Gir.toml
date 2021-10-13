@@ -404,8 +404,8 @@ status = "generate"
 boxed_inline = true
     [[object.function]]
     name = "parse"
-        [object.function.return]
-        bool_return_is_error = "Can't parse RGBA"
+    # This is a constructor
+    manual = true
 
 [[object]]
 name = "Gdk.Screen"

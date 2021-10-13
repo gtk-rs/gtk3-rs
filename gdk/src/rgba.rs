@@ -1,7 +1,11 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::translate::Uninitialized;
+
 use crate::RGBA;
+use glib::translate::*;
 use std::fmt;
+use std::str::FromStr;
 
 impl RGBA {
     pub fn new(red: f64, green: f64, blue: f64, alpha: f64) -> RGBA {
@@ -28,6 +32,19 @@ impl RGBA {
 
     pub fn alpha(&self) -> f64 {
         self.0.alpha
+    }
+
+    #[doc(alias = "gdk_rgba_parse")]
+    pub fn parse(s: &str) -> Result<Self, glib::error::BoolError> {
+        skip_assert_initialized!();
+        unsafe {
+            let mut res = RGBA::uninitialized();
+            glib::result_from_gboolean!(
+                ffi::gdk_rgba_parse(res.to_glib_none_mut().0, s.to_glib_none().0),
+                "Can't parse RGBA"
+            )
+            .map(|_| res)
+        }
     }
 
     pub const BLACK: RGBA = RGBA(ffi::GdkRGBA {
@@ -74,5 +91,13 @@ impl fmt::Debug for RGBA {
             .field("blue", &self.blue())
             .field("alpha", &self.alpha())
             .finish()
+    }
+}
+
+impl FromStr for RGBA {
+    type Err = glib::BoolError;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        skip_assert_initialized!();
+        RGBA::parse(s)
     }
 }
