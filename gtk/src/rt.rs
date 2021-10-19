@@ -37,6 +37,7 @@ macro_rules! skip_assert_initialized {
 #[allow(unused_macros)]
 macro_rules! assert_not_initialized {
     () => {
+        #[allow(clippy::if_then_panic)]
         if crate::rt::is_initialized() {
             panic!("This function has to be called before `gtk::init`.");
         }
@@ -71,6 +72,7 @@ pub fn is_initialized_main_thread() -> bool {
 /// 1. You have initialised the underlying GTK library yourself.
 /// 2. You did 1 on the thread with which you are calling this function
 /// 3. You ensure that this thread is the main thread for the process.
+#[allow(clippy::if_then_panic)]
 pub unsafe fn set_initialized() {
     skip_assert_initialized!();
     if is_initialized_main_thread() {
@@ -82,9 +84,11 @@ pub unsafe fn set_initialized() {
     //  OS X has its own notion of the main thread and init must be called on that thread.
     #[cfg(target_os = "macos")]
     {
-        if pthread_main_np() == 0 {
-            panic!("Attempted to initialize GTK on OSX from non-main thread");
-        }
+        assert_eq!(
+            pthread_main_np(),
+            0,
+            "Attempted to initialize GTK on OSX from non-main thread"
+        );
     }
 
     gdk::set_initialized();
@@ -104,6 +108,7 @@ pub unsafe fn set_initialized() {
 /// Instead, an Ok is returned if the windowing system was successfully
 /// initialized otherwise an Err is returned.
 #[doc(alias = "gtk_init")]
+#[allow(clippy::if_then_panic)]
 pub fn init() -> Result<(), glib::BoolError> {
     skip_assert_initialized!();
     if is_initialized_main_thread() {
@@ -134,6 +139,7 @@ pub fn init() -> Result<(), glib::BoolError> {
 }
 
 #[doc(alias = "gtk_main_quit")]
+#[allow(clippy::if_then_panic)]
 pub fn main_quit() {
     assert_initialized_main_thread!();
     unsafe {

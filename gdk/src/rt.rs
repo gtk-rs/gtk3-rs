@@ -33,6 +33,7 @@ macro_rules! skip_assert_initialized {
 /// Asserts that neither `gdk::init` nor `gtk::init` has been called.
 macro_rules! assert_not_initialized {
     () => {
+        #[allow(clippy::if_then_panic)]
         if crate::rt::is_initialized() {
             panic!("This function has to be called before `gdk::init` or `gtk::init`.");
         }
@@ -54,6 +55,7 @@ pub fn is_initialized_main_thread() -> bool {
 }
 
 /// Informs this crate that GDK has been initialized and the current thread is the main one.
+#[allow(clippy::if_then_panic)]
 pub unsafe fn set_initialized() {
     skip_assert_initialized!();
     if is_initialized_main_thread() {

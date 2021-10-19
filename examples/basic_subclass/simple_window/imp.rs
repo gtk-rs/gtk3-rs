@@ -7,8 +7,6 @@ use std::cell::Cell;
 
 #[derive(Debug)]
 struct WindowWidgets {
-    headerbar: gtk::HeaderBar,
-    increment: gtk::Button,
     label: gtk::Label,
 }
 
@@ -52,11 +50,7 @@ impl ObjectImpl for SimpleWindow {
         obj.set_default_size(640, 480);
 
         self.widgets
-            .set(WindowWidgets {
-                headerbar,
-                increment,
-                label,
-            })
+            .set(WindowWidgets { label })
             .expect("Failed to initialize window state");
     }
 }
