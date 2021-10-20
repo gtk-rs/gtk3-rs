@@ -71,7 +71,7 @@ jobs:
         if: matrix.rust == 'beta' || matrix.rust == 'stable'
       - working-directory: ${{ matrix.conf.name }}
         name: clippy ${{ matrix.conf.name }}
-        run: cargo clippy --all-targets -- -D warnings
+        run: cargo clippy --all-targets -- -D warnings -A unknown-lints
         if: matrix.rust == 'beta' || matrix.rust == 'stable'
       # tests
       - name: tests (rust ${{ matrix.rust }})
