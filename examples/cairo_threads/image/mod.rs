@@ -36,14 +36,14 @@ impl Image {
         let return_location = Rc::new(RefCell::new(None));
         {
             let holder = ImageHolder::new(Some(image), return_location.clone());
-
+            let stride = 4 * self.width;
             // The surface will own the image for the scope of the block below
             let surface = ImageSurface::create_for_data(
                 holder,
                 Format::Rgb24,
                 self.width,
-                self.width,
-                4 * self.width,
+                self.height,
+                stride,
             )
             .expect("Can't create surface");
             func(&surface);
