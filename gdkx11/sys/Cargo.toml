@@ -8,6 +8,7 @@ repository = "https://github.com/gtk-rs/gtk3-rs"
 name = "gdkx11-sys"
 version = "0.15.0"
 build = "build.rs"
+include = ["../../LICENSE"]
 edition = "2018"
 [package.metadata.docs.rs]
 features = ["dox"]

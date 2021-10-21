@@ -9,6 +9,7 @@ homepage = "http://gtk-rs.org/"
 keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
 repository = "https://github.com/gtk-rs/gtk3-rs"
+include = ["../../LICENSE"]
 edition = "2018"
 [package.metadata.docs.rs]
 features = ["dox"]
