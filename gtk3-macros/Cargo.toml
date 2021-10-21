@@ -13,6 +13,7 @@ repository = "https://github.com/gtk-rs/gtk3-rs"
 exclude = [
     "gir-files/*",
 ]
+include = ["../LICENSE"]
 
 [lib]
 proc-macro = true
