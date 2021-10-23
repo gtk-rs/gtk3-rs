@@ -14,6 +14,7 @@ exclude = [
 ]
 include = ["../LICENSE"]
 edition = "2018"
+rust-version = "1.54"
 
 [lib]
 name = "gdk"

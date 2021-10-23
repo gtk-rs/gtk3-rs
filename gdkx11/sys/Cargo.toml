@@ -10,6 +10,7 @@ version = "0.15.0"
 build = "build.rs"
 include = ["../../LICENSE"]
 edition = "2018"
+rust-version = "1.54"
 [package.metadata.docs.rs]
 features = ["dox"]
 [package.metadata.system-deps.gdk_x11_3_0]
