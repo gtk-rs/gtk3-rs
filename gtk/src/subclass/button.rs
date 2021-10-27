@@ -5,7 +5,7 @@ use glib::translate::*;
 use glib::Cast;
 
 use super::bin::BinImpl;
-use crate::{Bin, Button};
+use crate::Button;
 
 pub trait ButtonImpl: ButtonImplExt + BinImpl {
     fn activate(&self, button: &Self::Type) {
@@ -46,15 +46,11 @@ impl<T: ButtonImpl> ButtonImplExt for T {
 
 unsafe impl<T: ButtonImpl> IsSubclassable<T> for Button {
     fn class_init(class: &mut glib::Class<Self>) {
-        <Bin as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.activate = Some(button_activate::<T>);
         klass.clicked = Some(button_clicked::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <Bin as IsSubclassable<T>>::instance_init(instance);
     }
 }
 

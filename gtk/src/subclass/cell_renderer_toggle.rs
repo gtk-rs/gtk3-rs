@@ -7,7 +7,7 @@ use glib::translate::*;
 use glib::{Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
-use crate::CellRenderer;
+
 use crate::CellRendererToggle;
 
 pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
@@ -40,14 +40,10 @@ impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
 
 unsafe impl<T: CellRendererToggleImpl> IsSubclassable<T> for CellRendererToggle {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <CellRenderer as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.toggled = Some(cell_renderer_toggle_toggled::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <CellRenderer as IsSubclassable<T>>::instance_init(instance);
     }
 }
 

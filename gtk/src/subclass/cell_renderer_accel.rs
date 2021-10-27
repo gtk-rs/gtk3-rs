@@ -8,7 +8,6 @@ use glib::{Cast, GString};
 
 use super::cell_renderer_text::CellRendererTextImpl;
 use crate::CellRendererAccel;
-use crate::CellRendererText;
 
 pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl {
     fn accel_edited(
@@ -85,15 +84,11 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
 
 unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <CellRendererText as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.accel_edited = Some(cell_renderer_accel_edited::<T>);
         klass.accel_cleared = Some(cell_renderer_accel_cleared::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <CellRendererText as IsSubclassable<T>>::instance_init(instance);
     }
 }
 
