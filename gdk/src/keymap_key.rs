@@ -1,58 +1,30 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use glib::translate::*;
+use std::fmt;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-#[repr(C)]
-#[doc(alias = "GdkKeymapKey")]
-pub struct KeymapKey {
-    pub keycode: u32,
-    pub group: i32,
-    pub level: i32,
+glib::wrapper! {
+    #[doc(alias = "GdkKeymapKey")]
+    pub struct KeymapKey(BoxedInline<ffi::GdkKeymapKey>);
 }
 
-#[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *const ffi::GdkKeymapKey> for KeymapKey {
-    type Storage = &'a Self;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *const ffi::GdkKeymapKey, Self> {
-        let ptr: *const KeymapKey = &*self;
-        Stash(ptr as *const ffi::GdkKeymapKey, self)
+impl KeymapKey {
+    pub fn keycode(&self) -> u32 {
+        self.0.keycode
+    }
+    pub fn group(&self) -> i32 {
+        self.0.group
+    }
+    pub fn level(&self) -> i32 {
+        self.0.level
     }
 }
 
-#[doc(hidden)]
-impl<'a> ToGlibPtrMut<'a, *mut ffi::GdkKeymapKey> for KeymapKey {
-    type Storage = &'a mut Self;
-
-    #[inline]
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::GdkKeymapKey, Self> {
-        let ptr: *mut KeymapKey = &mut *self;
-        StashMut(ptr as *mut ffi::GdkKeymapKey, self)
-    }
-}
-
-#[doc(hidden)]
-impl FromGlibPtrNone<*const ffi::GdkKeymapKey> for KeymapKey {
-    unsafe fn from_glib_none(ptr: *const ffi::GdkKeymapKey) -> Self {
-        *(ptr as *const KeymapKey)
-    }
-}
-
-#[doc(hidden)]
-impl FromGlibPtrNone<*mut ffi::GdkKeymapKey> for KeymapKey {
-    unsafe fn from_glib_none(ptr: *mut ffi::GdkKeymapKey) -> Self {
-        *(ptr as *mut KeymapKey)
-    }
-}
-
-#[doc(hidden)]
-impl FromGlibPtrFull<*mut ffi::GdkKeymapKey> for KeymapKey {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::GdkKeymapKey) -> Self {
-        let geom = *(ptr as *mut KeymapKey);
-        glib::ffi::g_free(ptr as *mut _);
-        geom
+impl fmt::Debug for KeymapKey {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("Geometry")
+            .field("keycode", &self.keycode())
+            .field("group", &self.group())
+            .field("level", &self.level())
+            .finish()
     }
 }
