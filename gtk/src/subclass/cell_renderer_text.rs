@@ -7,7 +7,7 @@ use glib::translate::*;
 use glib::{Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
-use crate::CellRenderer;
+
 use crate::CellRendererText;
 
 pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
@@ -41,14 +41,10 @@ impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
 
 unsafe impl<T: CellRendererTextImpl> IsSubclassable<T> for CellRendererText {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <CellRenderer as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.edited = Some(cell_renderer_text_edited::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <CellRenderer as IsSubclassable<T>>::instance_init(instance);
     }
 }
 

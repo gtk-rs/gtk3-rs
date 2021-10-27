@@ -7,7 +7,6 @@ use glib::translate::*;
 
 use glib::prelude::*;
 use glib::subclass::prelude::*;
-use glib::Object;
 
 use crate::prelude::*;
 use crate::Allocation;
@@ -1027,7 +1026,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
 
 unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <Object as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.adjust_baseline_allocation = Some(widget_adjust_baseline_allocation::<T>);
@@ -1072,10 +1071,6 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
         klass.scroll_event = Some(widget_scroll_event::<T>);
         klass.enter_notify_event = Some(widget_enter_notify_event::<T>);
         klass.leave_notify_event = Some(widget_leave_notify_event::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <Object as IsSubclassable<T>>::instance_init(instance);
     }
 }
 

@@ -7,7 +7,7 @@ use glib::subclass::prelude::*;
 use glib::Cast;
 
 use super::bin::BinImpl;
-use crate::Bin;
+
 use crate::Widget;
 use crate::Window;
 
@@ -103,7 +103,7 @@ impl<T: WindowImpl> WindowImplExt for T {
 
 unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <Bin as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.set_focus = Some(window_set_focus::<T>);
@@ -111,10 +111,6 @@ unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
         klass.activate_default = Some(window_activate_default::<T>);
         klass.keys_changed = Some(window_keys_changed::<T>);
         klass.enable_debugging = Some(window_enable_debugging::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <Bin as IsSubclassable<T>>::instance_init(instance);
     }
 }
 

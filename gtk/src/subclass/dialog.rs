@@ -9,7 +9,6 @@ use glib::Cast;
 use super::window::WindowImpl;
 use crate::Dialog;
 use crate::ResponseType;
-use crate::Window;
 
 pub trait DialogImpl: DialogImplExt + WindowImpl {
     fn response(&self, dialog: &Self::Type, response: ResponseType) {
@@ -53,15 +52,11 @@ impl<T: DialogImpl> DialogImplExt for T {
 
 unsafe impl<T: DialogImpl> IsSubclassable<T> for Dialog {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <Window as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.response = Some(dialog_response::<T>);
         klass.close = Some(dialog_close::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <Window as IsSubclassable<T>>::instance_init(instance);
     }
 }
 

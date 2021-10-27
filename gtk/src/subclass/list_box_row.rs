@@ -1,6 +1,5 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Bin;
 use crate::ListBoxRow;
 
 use glib::subclass::prelude::*;
@@ -36,14 +35,10 @@ impl<T: ListBoxRowImpl> ListBoxRowImplExt for T {
 
 unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <Bin as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.activate = Some(list_box_row_activate::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <Bin as IsSubclassable<T>>::instance_init(instance);
     }
 }
 

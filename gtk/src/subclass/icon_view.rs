@@ -7,7 +7,7 @@ use glib::translate::*;
 use glib::Cast;
 
 use super::container::ContainerImpl;
-use crate::Container;
+
 use crate::IconView;
 use crate::MovementStep;
 use crate::TreePath;
@@ -145,7 +145,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
 
 unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <Container as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.item_activated = Some(icon_view_item_activated::<T>);
@@ -156,10 +156,6 @@ unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
         klass.toggle_cursor_item = Some(icon_view_toggle_cursor_item::<T>);
         klass.move_cursor = Some(icon_view_move_cursor::<T>);
         klass.activate_cursor_item = Some(icon_view_activate_cursor_item::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <Container as IsSubclassable<T>>::instance_init(instance);
     }
 }
 

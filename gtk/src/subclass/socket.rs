@@ -6,7 +6,7 @@ use glib::translate::*;
 use glib::Cast;
 
 use super::container::ContainerImpl;
-use crate::Container;
+
 use crate::Inhibit;
 use crate::Socket;
 
@@ -54,15 +54,11 @@ impl<T: SocketImpl> SocketImplExt for T {
 
 unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        <Container as IsSubclassable<T>>::class_init(class);
+        Self::parent_class_init::<T>(class);
 
         let klass = class.as_mut();
         klass.plug_added = Some(socket_plug_added::<T>);
         klass.plug_removed = Some(socket_plug_removed::<T>);
-    }
-
-    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
-        <Container as IsSubclassable<T>>::instance_init(instance);
     }
 }
 
