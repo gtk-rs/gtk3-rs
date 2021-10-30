@@ -7,14 +7,14 @@ homepage = "https://gtk-rs.org/"
 name = "gtk3-macros"
 version = "0.15.0"
 authors = ["The gtk-rs Project Developers"]
-edition = "2018"
+edition = "2021"
 keywords = ["gtk", "gtk3", "gtk-rs", "gnome", "GUI"]
 repository = "https://github.com/gtk-rs/gtk3-rs"
 exclude = [
     "gir-files/*",
 ]
 include = ["../LICENSE"]
-rust-version = "1.54"
+rust-version = "1.56"
 
 [lib]
 proc-macro = true
