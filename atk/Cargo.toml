@@ -14,8 +14,8 @@ exclude = [
     "gir-files/*",
 ]
 include = ["../LICENSE"]
-edition = "2018"
-rust-version = "1.54"
+edition = "2021"
+rust-version = "1.56"
 
 [lib]
 name = "atk"
