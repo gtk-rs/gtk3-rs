@@ -264,6 +264,7 @@ version = "3.22"
 [[object]]
 name = "Gdk.Display"
 status = "generate"
+manual_traits = ["DisplayExtManual"]
     [[object.function]]
     name = "get_default_group"
         [object.function.return]
