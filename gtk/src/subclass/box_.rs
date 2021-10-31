@@ -10,5 +10,9 @@ pub trait BoxImpl: ContainerImpl {}
 unsafe impl<T: BoxImpl> IsSubclassable<T> for Box {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
+
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
     }
 }

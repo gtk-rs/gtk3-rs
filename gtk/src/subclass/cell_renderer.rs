@@ -423,6 +423,10 @@ unsafe impl<T: CellRendererImpl> IsSubclassable<T> for CellRenderer {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.get_request_mode = Some(cell_renderer_get_request_mode::<T>);
         klass.get_preferred_width = Some(cell_renderer_get_preferred_width::<T>);

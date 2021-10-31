@@ -56,6 +56,10 @@ unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.plug_added = Some(socket_plug_added::<T>);
         klass.plug_removed = Some(socket_plug_removed::<T>);

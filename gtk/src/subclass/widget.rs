@@ -1028,6 +1028,10 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.adjust_baseline_allocation = Some(widget_adjust_baseline_allocation::<T>);
         klass.adjust_baseline_request = Some(widget_adjust_baseline_request::<T>);

@@ -148,6 +148,10 @@ unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.add = Some(container_add::<T>);
         klass.remove = Some(container_remove::<T>);

@@ -54,6 +54,10 @@ unsafe impl<T: DialogImpl> IsSubclassable<T> for Dialog {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.response = Some(dialog_response::<T>);
         klass.close = Some(dialog_close::<T>);

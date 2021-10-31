@@ -11,5 +11,9 @@ pub trait CellRendererSpinnerImpl: CellRendererImpl {}
 unsafe impl<T: CellRendererSpinnerImpl> IsSubclassable<T> for CellRendererSpinner {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
+
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
     }
 }

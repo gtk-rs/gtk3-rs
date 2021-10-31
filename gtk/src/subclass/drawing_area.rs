@@ -10,5 +10,9 @@ pub trait DrawingAreaImpl: WidgetImpl {}
 unsafe impl<T: DrawingAreaImpl> IsSubclassable<T> for DrawingArea {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
+
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
     }
 }

@@ -147,6 +147,10 @@ unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.item_activated = Some(icon_view_item_activated::<T>);
         klass.selection_changed = Some(icon_view_selection_changed::<T>);
