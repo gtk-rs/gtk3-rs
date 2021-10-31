@@ -2929,6 +2929,9 @@ manual_traits = ["GtkWindowExtManual"]
         [[object.function.parameter]]
         name = "geometry"
         const = true
+    [[object.function]]
+    name = "get_focus"
+    rename = "focused_widget"
     [[object.signal]] # workaround for https://github.com/gtk-rs/gtk/issues/985
     name = "set-focus"
         [[object.signal.parameter]]
