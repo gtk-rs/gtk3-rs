@@ -2646,6 +2646,10 @@ generate_builder = true
         [[object.function.parameter]]
         name = "iter"
         const = true
+    [[object.function]]
+    name = "new_with_attributes"
+    manual = true # va_args
+    rename = "with_attributes"
 
 [[object]]
 name = "Gtk.Viewport"
