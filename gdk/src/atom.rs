@@ -44,7 +44,7 @@ impl Atom {
         unsafe { from_glib_full(ffi::gdk_atom_name(self.0)) }
     }
 
-    pub unsafe fn value(self) -> usize {
+    pub fn value(self) -> usize {
         self.0 as usize
     }
 }
