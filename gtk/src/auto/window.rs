@@ -812,7 +812,7 @@ pub trait GtkWindowExt: 'static {
 
     #[doc(alias = "gtk_window_get_focus")]
     #[doc(alias = "get_focus")]
-    fn focus(&self) -> Option<Widget>;
+    fn focused_widget(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_window_get_focus_on_map")]
     #[doc(alias = "get_focus_on_map")]
@@ -1405,7 +1405,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn focus(&self) -> Option<Widget> {
+    fn focused_widget(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_window_get_focus(self.as_ref().to_glib_none().0)) }
     }
 
