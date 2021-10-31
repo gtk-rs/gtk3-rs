@@ -48,6 +48,10 @@ unsafe impl<T: ButtonImpl> IsSubclassable<T> for Button {
     fn class_init(class: &mut glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.activate = Some(button_activate::<T>);
         klass.clicked = Some(button_clicked::<T>);

@@ -95,6 +95,10 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
 
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.window_added = Some(application_window_added::<T>);
         klass.window_removed = Some(application_window_removed::<T>);

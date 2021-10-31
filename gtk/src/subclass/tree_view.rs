@@ -11,5 +11,9 @@ pub trait TreeViewImpl: ContainerImpl {}
 unsafe impl<T: ContainerImpl> IsSubclassable<T> for TreeView {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
+
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
     }
 }

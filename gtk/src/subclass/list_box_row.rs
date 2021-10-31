@@ -37,6 +37,10 @@ unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.activate = Some(list_box_row_activate::<T>);
     }

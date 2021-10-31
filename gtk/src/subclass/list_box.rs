@@ -153,6 +153,10 @@ unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.activate_cursor_row = Some(list_box_activate_cursor_row::<T>);
         klass.move_cursor = Some(list_box_move_cursor::<T>);
