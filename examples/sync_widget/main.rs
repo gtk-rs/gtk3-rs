@@ -21,7 +21,8 @@ fn build_ui(application: &gtk::Application) {
                 | glib::BindingFlags::SYNC_CREATE
                 | glib::BindingFlags::BIDIRECTIONAL,
         )
-        .build();
+        .build()
+        .unwrap();
 
     let window: gtk::ApplicationWindow = builder.object("window").expect("Couldn't get window");
     window.set_application(Some(application));
