@@ -60,13 +60,15 @@ fn build_ui(application: &gtk::Application) {
             let label = gtk::Label::new(None);
             item.bind_property("name", &label, "label")
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-                .build();
+                .build()
+                .unwrap();
             hbox.pack_start(&label, true, true, 0);
 
             let spin_button = gtk::SpinButton::with_range(0.0, 100.0, 1.0);
             item.bind_property("count", &spin_button, "value")
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE | glib::BindingFlags::BIDIRECTIONAL)
-                .build();
+                .build()
+                .unwrap();
         hbox.pack_start(&spin_button, false, false, 0);
 
         // When the edit button is clicked, a new modal dialog is created for editing
@@ -87,7 +89,8 @@ fn build_ui(application: &gtk::Application) {
             let entry = gtk::Entry::new();
             item.bind_property("name", &entry, "text")
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE | glib::BindingFlags::BIDIRECTIONAL)
-                .build();
+                .build()
+                .unwrap();
 
             // Activating the entry (enter) will send response `ResponseType::Close` to the dialog
             entry.connect_activate(clone!(@weak dialog => move |_| {
@@ -98,7 +101,8 @@ fn build_ui(application: &gtk::Application) {
             let spin_button = gtk::SpinButton::with_range(0.0, 100.0, 1.0);
             item.bind_property("count", &spin_button, "value")
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE | glib::BindingFlags::BIDIRECTIONAL)
-                .build();
+                .build()
+                .unwrap();
             content_area.add(&spin_button);
 
             dialog.show_all();
