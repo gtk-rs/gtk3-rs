@@ -21,7 +21,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_WINDOW: Option<&Window> = None;
+impl Window {
+    pub const NONE: Option<&'static Window> = None;
+}
 
 pub trait AtkWindowExt: 'static {
     #[doc(alias = "activate")]

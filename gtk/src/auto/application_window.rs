@@ -650,7 +650,9 @@ impl ApplicationWindowBuilder {
     }
 }
 
-pub const NONE_APPLICATION_WINDOW: Option<&ApplicationWindow> = None;
+impl ApplicationWindow {
+    pub const NONE: Option<&'static ApplicationWindow> = None;
+}
 
 pub trait ApplicationWindowExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]

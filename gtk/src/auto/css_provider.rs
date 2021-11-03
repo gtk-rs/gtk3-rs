@@ -64,7 +64,9 @@ impl fmt::Display for CssProvider {
     }
 }
 
-pub const NONE_CSS_PROVIDER: Option<&CssProvider> = None;
+impl CssProvider {
+    pub const NONE: Option<&'static CssProvider> = None;
+}
 
 pub trait CssProviderExt: 'static {
     #[doc(alias = "gtk_css_provider_load_from_data")]

@@ -639,7 +639,9 @@ impl CellRendererSpinBuilder {
     }
 }
 
-pub const NONE_CELL_RENDERER_SPIN: Option<&CellRendererSpin> = None;
+impl CellRendererSpin {
+    pub const NONE: Option<&'static CellRendererSpin> = None;
+}
 
 pub trait CellRendererSpinExt: 'static {
     fn adjustment(&self) -> Option<Adjustment>;

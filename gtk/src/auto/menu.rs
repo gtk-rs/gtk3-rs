@@ -539,7 +539,9 @@ impl MenuBuilder {
     }
 }
 
-pub const NONE_MENU: Option<&Menu> = None;
+impl Menu {
+    pub const NONE: Option<&'static Menu> = None;
+}
 
 pub trait GtkMenuExt: 'static {
     #[doc(alias = "gtk_menu_attach")]

@@ -436,7 +436,9 @@ impl BoxBuilder {
     }
 }
 
-pub const NONE_BOX: Option<&Box> = None;
+impl Box {
+    pub const NONE: Option<&'static Box> = None;
+}
 
 pub trait BoxExt: 'static {
     #[doc(alias = "gtk_box_get_baseline_position")]

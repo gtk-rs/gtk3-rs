@@ -511,7 +511,9 @@ impl CheckMenuItemBuilder {
     }
 }
 
-pub const NONE_CHECK_MENU_ITEM: Option<&CheckMenuItem> = None;
+impl CheckMenuItem {
+    pub const NONE: Option<&'static CheckMenuItem> = None;
+}
 
 pub trait CheckMenuItemExt: 'static {
     #[doc(alias = "gtk_check_menu_item_get_active")]

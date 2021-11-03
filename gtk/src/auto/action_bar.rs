@@ -391,7 +391,9 @@ impl ActionBarBuilder {
     }
 }
 
-pub const NONE_ACTION_BAR: Option<&ActionBar> = None;
+impl ActionBar {
+    pub const NONE: Option<&'static ActionBar> = None;
+}
 
 pub trait ActionBarExt: 'static {
     #[doc(alias = "gtk_action_bar_get_center_widget")]

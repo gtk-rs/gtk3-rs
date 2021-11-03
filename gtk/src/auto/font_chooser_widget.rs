@@ -501,7 +501,9 @@ impl FontChooserWidgetBuilder {
     }
 }
 
-pub const NONE_FONT_CHOOSER_WIDGET: Option<&FontChooserWidget> = None;
+impl FontChooserWidget {
+    pub const NONE: Option<&'static FontChooserWidget> = None;
+}
 
 pub trait FontChooserWidgetExt: 'static {
     //#[doc(alias = "tweak-action")]

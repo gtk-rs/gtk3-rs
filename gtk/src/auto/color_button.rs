@@ -531,7 +531,9 @@ impl ColorButtonBuilder {
     }
 }
 
-pub const NONE_COLOR_BUTTON: Option<&ColorButton> = None;
+impl ColorButton {
+    pub const NONE: Option<&'static ColorButton> = None;
+}
 
 pub trait ColorButtonExt: 'static {
     #[doc(alias = "gtk_color_button_get_title")]

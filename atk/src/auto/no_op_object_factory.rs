@@ -30,7 +30,9 @@ impl Default for NoOpObjectFactory {
     }
 }
 
-pub const NONE_NO_OP_OBJECT_FACTORY: Option<&NoOpObjectFactory> = None;
+impl NoOpObjectFactory {
+    pub const NONE: Option<&'static NoOpObjectFactory> = None;
+}
 
 impl fmt::Display for NoOpObjectFactory {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

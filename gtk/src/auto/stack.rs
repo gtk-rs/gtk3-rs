@@ -465,7 +465,9 @@ impl StackBuilder {
     }
 }
 
-pub const NONE_STACK: Option<&Stack> = None;
+impl Stack {
+    pub const NONE: Option<&'static Stack> = None;
+}
 
 pub trait StackExt: 'static {
     #[doc(alias = "gtk_stack_add_named")]

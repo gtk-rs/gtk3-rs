@@ -36,7 +36,9 @@ impl Default for TextTagTable {
     }
 }
 
-pub const NONE_TEXT_TAG_TABLE: Option<&TextTagTable> = None;
+impl TextTagTable {
+    pub const NONE: Option<&'static TextTagTable> = None;
+}
 
 pub trait TextTagTableExt: 'static {
     #[doc(alias = "gtk_text_tag_table_add")]

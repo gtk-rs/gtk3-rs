@@ -454,7 +454,9 @@ impl ScrollbarBuilder {
     }
 }
 
-pub const NONE_SCROLLBAR: Option<&Scrollbar> = None;
+impl Scrollbar {
+    pub const NONE: Option<&'static Scrollbar> = None;
+}
 
 impl fmt::Display for Scrollbar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

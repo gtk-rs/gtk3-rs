@@ -15,7 +15,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_ACTION: Option<&Action> = None;
+impl Action {
+    pub const NONE: Option<&'static Action> = None;
+}
 
 pub trait AtkActionExt: 'static {
     #[doc(alias = "atk_action_do_action")]

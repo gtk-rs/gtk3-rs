@@ -606,7 +606,9 @@ impl FontButtonBuilder {
     }
 }
 
-pub const NONE_FONT_BUTTON: Option<&FontButton> = None;
+impl FontButton {
+    pub const NONE: Option<&'static FontButton> = None;
+}
 
 pub trait FontButtonExt: 'static {
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]

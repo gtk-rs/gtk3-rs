@@ -582,7 +582,9 @@ impl FileChooserButtonBuilder {
     }
 }
 
-pub const NONE_FILE_CHOOSER_BUTTON: Option<&FileChooserButton> = None;
+impl FileChooserButton {
+    pub const NONE: Option<&'static FileChooserButton> = None;
+}
 
 pub trait FileChooserButtonExt: 'static {
     #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]

@@ -28,7 +28,9 @@ impl GObjectAccessible {
     }
 }
 
-pub const NONE_GOBJECT_ACCESSIBLE: Option<&GObjectAccessible> = None;
+impl GObjectAccessible {
+    pub const NONE: Option<&'static GObjectAccessible> = None;
+}
 
 pub trait GObjectAccessibleExt: 'static {
     #[doc(alias = "atk_gobject_accessible_get_object")]

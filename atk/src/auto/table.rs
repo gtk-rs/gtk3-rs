@@ -21,7 +21,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_TABLE: Option<&Table> = None;
+impl Table {
+    pub const NONE: Option<&'static Table> = None;
+}
 
 pub trait TableExt: 'static {
     #[doc(alias = "atk_table_add_column_selection")]

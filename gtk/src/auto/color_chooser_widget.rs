@@ -461,7 +461,9 @@ impl ColorChooserWidgetBuilder {
     }
 }
 
-pub const NONE_COLOR_CHOOSER_WIDGET: Option<&ColorChooserWidget> = None;
+impl ColorChooserWidget {
+    pub const NONE: Option<&'static ColorChooserWidget> = None;
+}
 
 pub trait ColorChooserWidgetExt: 'static {
     #[doc(alias = "show-editor")]

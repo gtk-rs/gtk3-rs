@@ -389,7 +389,9 @@ impl OverlayBuilder {
     }
 }
 
-pub const NONE_OVERLAY: Option<&Overlay> = None;
+impl Overlay {
+    pub const NONE: Option<&'static Overlay> = None;
+}
 
 pub trait OverlayExt: 'static {
     #[doc(alias = "gtk_overlay_add_overlay")]

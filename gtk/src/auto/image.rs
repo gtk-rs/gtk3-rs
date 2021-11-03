@@ -127,7 +127,9 @@ impl Default for Image {
     }
 }
 
-pub const NONE_IMAGE: Option<&Image> = None;
+impl Image {
+    pub const NONE: Option<&'static Image> = None;
+}
 
 pub trait ImageExt: 'static {
     #[doc(alias = "gtk_image_clear")]
@@ -157,7 +159,7 @@ pub trait ImageExt: 'static {
     fn set_from_animation(&self, animation: &impl IsA<gdk_pixbuf::PixbufAnimation>);
 
     #[doc(alias = "gtk_image_set_from_file")]
-    fn set_from_file(&self, filename: impl AsRef<std::path::Path>);
+    fn set_from_file(&self, filename: Option<impl AsRef<std::path::Path>>);
 
     #[doc(alias = "gtk_image_set_from_gicon")]
     fn set_from_gicon(&self, icon: &impl IsA<gio::Icon>, size: IconSize);
@@ -295,11 +297,11 @@ impl<O: IsA<Image>> ImageExt for O {
         }
     }
 
-    fn set_from_file(&self, filename: impl AsRef<std::path::Path>) {
+    fn set_from_file(&self, filename: Option<impl AsRef<std::path::Path>>) {
         unsafe {
             ffi::gtk_image_set_from_file(
                 self.as_ref().to_glib_none().0,
-                filename.as_ref().to_glib_none().0,
+                filename.as_ref().map(|p| p.as_ref()).to_glib_none().0,
             );
         }
     }

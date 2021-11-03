@@ -422,7 +422,9 @@ impl RevealerBuilder {
     }
 }
 
-pub const NONE_REVEALER: Option<&Revealer> = None;
+impl Revealer {
+    pub const NONE: Option<&'static Revealer> = None;
+}
 
 pub trait RevealerExt: 'static {
     #[doc(alias = "gtk_revealer_get_child_revealed")]

@@ -664,7 +664,9 @@ impl PlugBuilder {
     }
 }
 
-pub const NONE_PLUG: Option<&Plug> = None;
+impl Plug {
+    pub const NONE: Option<&'static Plug> = None;
+}
 
 pub trait PlugExt: 'static {
     #[doc(alias = "gtk_plug_construct")]

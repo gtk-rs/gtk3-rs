@@ -12,7 +12,7 @@ mod x11_device_core;
 pub use self::x11_device_core::X11DeviceCore;
 
 mod x11_device_manager_core;
-pub use self::x11_device_manager_core::{X11DeviceManagerCore, NONE_X11_DEVICE_MANAGER_CORE};
+pub use self::x11_device_manager_core::X11DeviceManagerCore;
 
 mod x11_device_manager_xi2;
 pub use self::x11_device_manager_xi2::X11DeviceManagerXI2;

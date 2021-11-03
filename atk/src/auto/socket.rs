@@ -32,7 +32,9 @@ impl Default for Socket {
     }
 }
 
-pub const NONE_SOCKET: Option<&Socket> = None;
+impl Socket {
+    pub const NONE: Option<&'static Socket> = None;
+}
 
 pub trait AtkSocketExt: 'static {
     #[doc(alias = "atk_socket_embed")]

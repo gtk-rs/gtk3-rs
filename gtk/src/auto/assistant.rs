@@ -661,7 +661,9 @@ impl AssistantBuilder {
     }
 }
 
-pub const NONE_ASSISTANT: Option<&Assistant> = None;
+impl Assistant {
+    pub const NONE: Option<&'static Assistant> = None;
+}
 
 pub trait AssistantExt: 'static {
     #[doc(alias = "gtk_assistant_add_action_widget")]

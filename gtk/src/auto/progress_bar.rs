@@ -430,7 +430,9 @@ impl ProgressBarBuilder {
     }
 }
 
-pub const NONE_PROGRESS_BAR: Option<&ProgressBar> = None;
+impl ProgressBar {
+    pub const NONE: Option<&'static ProgressBar> = None;
+}
 
 pub trait ProgressBarExt: 'static {
     #[doc(alias = "gtk_progress_bar_get_ellipsize")]

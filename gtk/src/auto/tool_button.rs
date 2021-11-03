@@ -494,7 +494,9 @@ impl ToolButtonBuilder {
     }
 }
 
-pub const NONE_TOOL_BUTTON: Option<&ToolButton> = None;
+impl ToolButton {
+    pub const NONE: Option<&'static ToolButton> = None;
+}
 
 pub trait ToolButtonExt: 'static {
     #[doc(alias = "gtk_tool_button_get_icon_name")]

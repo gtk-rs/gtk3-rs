@@ -32,7 +32,9 @@ impl Default for RelationSet {
     }
 }
 
-pub const NONE_RELATION_SET: Option<&RelationSet> = None;
+impl RelationSet {
+    pub const NONE: Option<&'static RelationSet> = None;
+}
 
 pub trait RelationSetExt: 'static {
     #[doc(alias = "atk_relation_set_add")]

@@ -384,7 +384,9 @@ impl InvisibleBuilder {
     }
 }
 
-pub const NONE_INVISIBLE: Option<&Invisible> = None;
+impl Invisible {
+    pub const NONE: Option<&'static Invisible> = None;
+}
 
 pub trait InvisibleExt: 'static {
     #[doc(alias = "gtk_invisible_set_screen")]

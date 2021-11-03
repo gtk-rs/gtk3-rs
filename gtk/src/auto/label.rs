@@ -552,7 +552,9 @@ impl LabelBuilder {
     }
 }
 
-pub const NONE_LABEL: Option<&Label> = None;
+impl Label {
+    pub const NONE: Option<&'static Label> = None;
+}
 
 pub trait LabelExt: 'static {
     #[doc(alias = "gtk_label_get_angle")]

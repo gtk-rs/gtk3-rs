@@ -494,7 +494,9 @@ impl RadioToolButtonBuilder {
     }
 }
 
-pub const NONE_RADIO_TOOL_BUTTON: Option<&RadioToolButton> = None;
+impl RadioToolButton {
+    pub const NONE: Option<&'static RadioToolButton> = None;
+}
 
 pub trait RadioToolButtonExt: 'static {
     #[doc(alias = "gtk_radio_tool_button_get_group")]

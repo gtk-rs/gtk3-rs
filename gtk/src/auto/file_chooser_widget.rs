@@ -549,7 +549,9 @@ impl FileChooserWidgetBuilder {
     }
 }
 
-pub const NONE_FILE_CHOOSER_WIDGET: Option<&FileChooserWidget> = None;
+impl FileChooserWidget {
+    pub const NONE: Option<&'static FileChooserWidget> = None;
+}
 
 pub trait FileChooserWidgetExt: 'static {
     #[doc(alias = "search-mode")]

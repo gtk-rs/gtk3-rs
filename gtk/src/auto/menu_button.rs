@@ -555,7 +555,9 @@ impl MenuButtonBuilder {
     }
 }
 
-pub const NONE_MENU_BUTTON: Option<&MenuButton> = None;
+impl MenuButton {
+    pub const NONE: Option<&'static MenuButton> = None;
+}
 
 pub trait MenuButtonExt: 'static {
     #[doc(alias = "gtk_menu_button_get_align_widget")]

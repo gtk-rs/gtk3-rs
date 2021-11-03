@@ -22,7 +22,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_TOOL_SHELL: Option<&ToolShell> = None;
+impl ToolShell {
+    pub const NONE: Option<&'static ToolShell> = None;
+}
 
 pub trait ToolShellExt: 'static {
     #[doc(alias = "gtk_tool_shell_get_ellipsize_mode")]

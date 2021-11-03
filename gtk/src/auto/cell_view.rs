@@ -499,7 +499,9 @@ impl CellViewBuilder {
     }
 }
 
-pub const NONE_CELL_VIEW: Option<&CellView> = None;
+impl CellView {
+    pub const NONE: Option<&'static CellView> = None;
+}
 
 pub trait CellViewExt: 'static {
     #[doc(alias = "gtk_cell_view_get_displayed_row")]

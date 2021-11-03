@@ -38,7 +38,9 @@ impl Relation {
     }
 }
 
-pub const NONE_RELATION: Option<&Relation> = None;
+impl Relation {
+    pub const NONE: Option<&'static Relation> = None;
+}
 
 pub trait RelationExt: 'static {
     #[doc(alias = "atk_relation_add_target")]

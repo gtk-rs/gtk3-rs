@@ -719,7 +719,9 @@ impl AppChooserDialogBuilder {
     }
 }
 
-pub const NONE_APP_CHOOSER_DIALOG: Option<&AppChooserDialog> = None;
+impl AppChooserDialog {
+    pub const NONE: Option<&'static AppChooserDialog> = None;
+}
 
 pub trait AppChooserDialogExt: 'static {
     #[doc(alias = "gtk_app_chooser_dialog_get_heading")]

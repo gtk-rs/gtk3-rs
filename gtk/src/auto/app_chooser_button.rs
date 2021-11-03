@@ -569,7 +569,9 @@ impl AppChooserButtonBuilder {
     }
 }
 
-pub const NONE_APP_CHOOSER_BUTTON: Option<&AppChooserButton> = None;
+impl AppChooserButton {
+    pub const NONE: Option<&'static AppChooserButton> = None;
+}
 
 pub trait AppChooserButtonExt: 'static {
     #[doc(alias = "gtk_app_chooser_button_append_custom_item")]

@@ -520,7 +520,9 @@ impl RadioMenuItemBuilder {
     }
 }
 
-pub const NONE_RADIO_MENU_ITEM: Option<&RadioMenuItem> = None;
+impl RadioMenuItem {
+    pub const NONE: Option<&'static RadioMenuItem> = None;
+}
 
 pub trait RadioMenuItemExt: 'static {
     #[doc(alias = "gtk_radio_menu_item_get_group")]

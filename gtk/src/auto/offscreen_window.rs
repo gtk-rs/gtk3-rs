@@ -646,7 +646,9 @@ impl OffscreenWindowBuilder {
     }
 }
 
-pub const NONE_OFFSCREEN_WINDOW: Option<&OffscreenWindow> = None;
+impl OffscreenWindow {
+    pub const NONE: Option<&'static OffscreenWindow> = None;
+}
 
 pub trait OffscreenWindowExt: 'static {
     #[doc(alias = "gtk_offscreen_window_get_pixbuf")]

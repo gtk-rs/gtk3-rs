@@ -641,7 +641,9 @@ impl CellRendererComboBuilder {
     }
 }
 
-pub const NONE_CELL_RENDERER_COMBO: Option<&CellRendererCombo> = None;
+impl CellRendererCombo {
+    pub const NONE: Option<&'static CellRendererCombo> = None;
+}
 
 pub trait CellRendererComboExt: 'static {
     #[doc(alias = "has-entry")]

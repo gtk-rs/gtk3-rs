@@ -27,7 +27,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_MENU_SHELL: Option<&MenuShell> = None;
+impl MenuShell {
+    pub const NONE: Option<&'static MenuShell> = None;
+}
 
 pub trait MenuShellExt: 'static {
     #[doc(alias = "gtk_menu_shell_activate_item")]

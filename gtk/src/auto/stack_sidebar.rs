@@ -404,7 +404,9 @@ impl StackSidebarBuilder {
     }
 }
 
-pub const NONE_STACK_SIDEBAR: Option<&StackSidebar> = None;
+impl StackSidebar {
+    pub const NONE: Option<&'static StackSidebar> = None;
+}
 
 pub trait StackSidebarExt: 'static {
     #[doc(alias = "gtk_stack_sidebar_get_stack")]

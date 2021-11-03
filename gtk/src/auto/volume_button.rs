@@ -529,7 +529,9 @@ impl VolumeButtonBuilder {
     }
 }
 
-pub const NONE_VOLUME_BUTTON: Option<&VolumeButton> = None;
+impl VolumeButton {
+    pub const NONE: Option<&'static VolumeButton> = None;
+}
 
 pub trait VolumeButtonExt: 'static {
     #[doc(alias = "use-symbolic")]

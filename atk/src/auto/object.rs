@@ -28,7 +28,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_OBJECT: Option<&Object> = None;
+impl Object {
+    pub const NONE: Option<&'static Object> = None;
+}
 
 pub trait AtkObjectExt: 'static {
     #[doc(alias = "atk_object_add_relationship")]

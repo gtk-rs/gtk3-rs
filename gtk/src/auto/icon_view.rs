@@ -614,7 +614,9 @@ impl IconViewBuilder {
     }
 }
 
-pub const NONE_ICON_VIEW: Option<&IconView> = None;
+impl IconView {
+    pub const NONE: Option<&'static IconView> = None;
+}
 
 pub trait IconViewExt: 'static {
     #[doc(alias = "gtk_icon_view_convert_widget_to_bin_window_coords")]

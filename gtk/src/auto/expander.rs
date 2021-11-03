@@ -482,7 +482,9 @@ impl ExpanderBuilder {
     }
 }
 
-pub const NONE_EXPANDER: Option<&Expander> = None;
+impl Expander {
+    pub const NONE: Option<&'static Expander> = None;
+}
 
 pub trait ExpanderExt: 'static {
     #[doc(alias = "gtk_expander_get_expanded")]

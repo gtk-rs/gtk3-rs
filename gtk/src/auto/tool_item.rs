@@ -426,7 +426,9 @@ impl ToolItemBuilder {
     }
 }
 
-pub const NONE_TOOL_ITEM: Option<&ToolItem> = None;
+impl ToolItem {
+    pub const NONE: Option<&'static ToolItem> = None;
+}
 
 pub trait ToolItemExt: 'static {
     #[doc(alias = "gtk_tool_item_get_ellipsize_mode")]

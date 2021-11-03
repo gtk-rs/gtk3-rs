@@ -446,7 +446,9 @@ impl ButtonBoxBuilder {
     }
 }
 
-pub const NONE_BUTTON_BOX: Option<&ButtonBox> = None;
+impl ButtonBox {
+    pub const NONE: Option<&'static ButtonBox> = None;
+}
 
 pub trait ButtonBoxExt: 'static {
     #[doc(alias = "gtk_button_box_get_child_non_homogeneous")]

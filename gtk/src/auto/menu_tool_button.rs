@@ -504,7 +504,9 @@ impl MenuToolButtonBuilder {
     }
 }
 
-pub const NONE_MENU_TOOL_BUTTON: Option<&MenuToolButton> = None;
+impl MenuToolButton {
+    pub const NONE: Option<&'static MenuToolButton> = None;
+}
 
 pub trait MenuToolButtonExt: 'static {
     #[doc(alias = "gtk_menu_tool_button_get_menu")]

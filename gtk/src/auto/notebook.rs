@@ -461,7 +461,9 @@ impl NotebookBuilder {
     }
 }
 
-pub const NONE_NOTEBOOK: Option<&Notebook> = None;
+impl Notebook {
+    pub const NONE: Option<&'static Notebook> = None;
+}
 
 pub trait NotebookExt: 'static {
     #[doc(alias = "gtk_notebook_detach_tab")]

@@ -731,7 +731,9 @@ impl FontChooserDialogBuilder {
     }
 }
 
-pub const NONE_FONT_CHOOSER_DIALOG: Option<&FontChooserDialog> = None;
+impl FontChooserDialog {
+    pub const NONE: Option<&'static FontChooserDialog> = None;
+}
 
 impl fmt::Display for FontChooserDialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

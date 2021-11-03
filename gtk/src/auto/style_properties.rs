@@ -16,7 +16,9 @@ glib::wrapper! {
 
 impl StyleProperties {}
 
-pub const NONE_STYLE_PROPERTIES: Option<&StyleProperties> = None;
+impl StyleProperties {
+    pub const NONE: Option<&'static StyleProperties> = None;
+}
 
 impl fmt::Display for StyleProperties {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

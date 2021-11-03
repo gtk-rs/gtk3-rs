@@ -630,7 +630,9 @@ impl RecentChooserMenuBuilder {
     }
 }
 
-pub const NONE_RECENT_CHOOSER_MENU: Option<&RecentChooserMenu> = None;
+impl RecentChooserMenu {
+    pub const NONE: Option<&'static RecentChooserMenu> = None;
+}
 
 pub trait RecentChooserMenuExt: 'static {
     #[doc(alias = "gtk_recent_chooser_menu_get_show_numbers")]

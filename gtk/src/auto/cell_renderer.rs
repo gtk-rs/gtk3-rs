@@ -31,7 +31,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_CELL_RENDERER: Option<&CellRenderer> = None;
+impl CellRenderer {
+    pub const NONE: Option<&'static CellRenderer> = None;
+}
 
 pub trait CellRendererExt: 'static {
     #[doc(alias = "gtk_cell_renderer_activate")]

@@ -657,7 +657,9 @@ impl ShortcutsWindowBuilder {
     }
 }
 
-pub const NONE_SHORTCUTS_WINDOW: Option<&ShortcutsWindow> = None;
+impl ShortcutsWindow {
+    pub const NONE: Option<&'static ShortcutsWindow> = None;
+}
 
 pub trait ShortcutsWindowExt: 'static {
     #[doc(alias = "section-name")]

@@ -24,7 +24,9 @@ impl Misc {
     }
 }
 
-pub const NONE_MISC: Option<&Misc> = None;
+impl Misc {
+    pub const NONE: Option<&'static Misc> = None;
+}
 
 pub trait AtkMiscExt: 'static {
     #[doc(alias = "atk_misc_threads_enter")]

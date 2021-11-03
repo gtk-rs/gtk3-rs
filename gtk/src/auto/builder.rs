@@ -61,7 +61,9 @@ impl Default for Builder {
     }
 }
 
-pub const NONE_BUILDER: Option<&Builder> = None;
+impl Builder {
+    pub const NONE: Option<&'static Builder> = None;
+}
 
 pub trait BuilderExt: 'static {
     //#[doc(alias = "gtk_builder_add_callback_symbol")]

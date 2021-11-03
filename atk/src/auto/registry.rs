@@ -16,7 +16,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_REGISTRY: Option<&Registry> = None;
+impl Registry {
+    pub const NONE: Option<&'static Registry> = None;
+}
 
 pub trait RegistryExt: 'static {
     #[doc(alias = "atk_registry_get_factory")]

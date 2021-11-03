@@ -453,7 +453,9 @@ impl ViewportBuilder {
     }
 }
 
-pub const NONE_VIEWPORT: Option<&Viewport> = None;
+impl Viewport {
+    pub const NONE: Option<&'static Viewport> = None;
+}
 
 pub trait ViewportExt: 'static {
     #[doc(alias = "gtk_viewport_get_bin_window")]

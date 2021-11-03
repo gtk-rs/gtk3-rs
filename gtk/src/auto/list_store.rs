@@ -33,7 +33,9 @@ impl ListStore {
     //}
 }
 
-pub const NONE_LIST_STORE: Option<&ListStore> = None;
+impl ListStore {
+    pub const NONE: Option<&'static ListStore> = None;
+}
 
 pub trait GtkListStoreExt: 'static {
     #[doc(alias = "gtk_list_store_append")]

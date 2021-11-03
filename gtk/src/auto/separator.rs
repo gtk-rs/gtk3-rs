@@ -375,7 +375,9 @@ impl SeparatorBuilder {
     }
 }
 
-pub const NONE_SEPARATOR: Option<&Separator> = None;
+impl Separator {
+    pub const NONE: Option<&'static Separator> = None;
+}
 
 impl fmt::Display for Separator {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

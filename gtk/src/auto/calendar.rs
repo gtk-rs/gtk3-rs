@@ -457,7 +457,9 @@ impl CalendarBuilder {
     }
 }
 
-pub const NONE_CALENDAR: Option<&Calendar> = None;
+impl Calendar {
+    pub const NONE: Option<&'static Calendar> = None;
+}
 
 pub trait CalendarExt: 'static {
     #[doc(alias = "gtk_calendar_clear_marks")]

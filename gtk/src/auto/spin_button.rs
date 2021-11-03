@@ -874,7 +874,9 @@ impl SpinButtonBuilder {
     }
 }
 
-pub const NONE_SPIN_BUTTON: Option<&SpinButton> = None;
+impl SpinButton {
+    pub const NONE: Option<&'static SpinButton> = None;
+}
 
 pub trait SpinButtonExt: 'static {
     #[doc(alias = "gtk_spin_button_configure")]

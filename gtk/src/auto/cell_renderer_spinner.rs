@@ -224,7 +224,9 @@ impl CellRendererSpinnerBuilder {
     }
 }
 
-pub const NONE_CELL_RENDERER_SPINNER: Option<&CellRendererSpinner> = None;
+impl CellRendererSpinner {
+    pub const NONE: Option<&'static CellRendererSpinner> = None;
+}
 
 pub trait CellRendererSpinnerExt: 'static {
     fn is_active(&self) -> bool;

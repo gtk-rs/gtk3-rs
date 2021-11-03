@@ -51,7 +51,9 @@ impl Default for IconTheme {
     }
 }
 
-pub const NONE_ICON_THEME: Option<&IconTheme> = None;
+impl IconTheme {
+    pub const NONE: Option<&'static IconTheme> = None;
+}
 
 pub trait IconThemeExt: 'static {
     #[doc(alias = "gtk_icon_theme_add_resource_path")]

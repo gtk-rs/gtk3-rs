@@ -261,7 +261,9 @@ impl CellRendererProgressBuilder {
     }
 }
 
-pub const NONE_CELL_RENDERER_PROGRESS: Option<&CellRendererProgress> = None;
+impl CellRendererProgress {
+    pub const NONE: Option<&'static CellRendererProgress> = None;
+}
 
 pub trait CellRendererProgressExt: 'static {
     fn is_inverted(&self) -> bool;

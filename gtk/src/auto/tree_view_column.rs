@@ -242,7 +242,9 @@ impl TreeViewColumnBuilder {
     }
 }
 
-pub const NONE_TREE_VIEW_COLUMN: Option<&TreeViewColumn> = None;
+impl TreeViewColumn {
+    pub const NONE: Option<&'static TreeViewColumn> = None;
+}
 
 pub trait TreeViewColumnExt: 'static {
     #[doc(alias = "gtk_tree_view_column_cell_get_position")]

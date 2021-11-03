@@ -433,7 +433,9 @@ impl LevelBarBuilder {
     }
 }
 
-pub const NONE_LEVEL_BAR: Option<&LevelBar> = None;
+impl LevelBar {
+    pub const NONE: Option<&'static LevelBar> = None;
+}
 
 pub trait LevelBarExt: 'static {
     #[doc(alias = "gtk_level_bar_add_offset_value")]

@@ -722,7 +722,9 @@ impl MessageDialogBuilder {
     }
 }
 
-pub const NONE_MESSAGE_DIALOG: Option<&MessageDialog> = None;
+impl MessageDialog {
+    pub const NONE: Option<&'static MessageDialog> = None;
+}
 
 pub trait MessageDialogExt: 'static {
     //#[doc(alias = "gtk_message_dialog_format_secondary_markup")]

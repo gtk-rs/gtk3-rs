@@ -530,7 +530,9 @@ impl LockButtonBuilder {
     }
 }
 
-pub const NONE_LOCK_BUTTON: Option<&LockButton> = None;
+impl LockButton {
+    pub const NONE: Option<&'static LockButton> = None;
+}
 
 pub trait LockButtonExt: 'static {
     #[doc(alias = "gtk_lock_button_get_permission")]

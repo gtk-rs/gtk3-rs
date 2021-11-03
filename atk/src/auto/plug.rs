@@ -32,7 +32,9 @@ impl Default for Plug {
     }
 }
 
-pub const NONE_PLUG: Option<&Plug> = None;
+impl Plug {
+    pub const NONE: Option<&'static Plug> = None;
+}
 
 pub trait AtkPlugExt: 'static {
     #[doc(alias = "atk_plug_get_id")]

@@ -23,7 +23,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_VALUE: Option<&Value> = None;
+impl Value {
+    pub const NONE: Option<&'static Value> = None;
+}
 
 pub trait ValueExt: 'static {
     #[doc(alias = "atk_value_get_current_value")]

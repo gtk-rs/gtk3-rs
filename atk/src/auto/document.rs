@@ -20,7 +20,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_DOCUMENT: Option<&Document> = None;
+impl Document {
+    pub const NONE: Option<&'static Document> = None;
+}
 
 pub trait DocumentExt: 'static {
     #[doc(alias = "atk_document_get_attribute_value")]

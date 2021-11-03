@@ -92,7 +92,9 @@ impl SizeGroupBuilder {
     }
 }
 
-pub const NONE_SIZE_GROUP: Option<&SizeGroup> = None;
+impl SizeGroup {
+    pub const NONE: Option<&'static SizeGroup> = None;
+}
 
 pub trait SizeGroupExt: 'static {
     #[doc(alias = "gtk_size_group_add_widget")]

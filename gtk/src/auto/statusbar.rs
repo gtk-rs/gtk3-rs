@@ -433,7 +433,9 @@ impl StatusbarBuilder {
     }
 }
 
-pub const NONE_STATUSBAR: Option<&Statusbar> = None;
+impl Statusbar {
+    pub const NONE: Option<&'static Statusbar> = None;
+}
 
 pub trait StatusbarExt: 'static {
     #[doc(alias = "gtk_statusbar_get_context_id")]

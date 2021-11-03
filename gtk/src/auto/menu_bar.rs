@@ -433,7 +433,9 @@ impl MenuBarBuilder {
     }
 }
 
-pub const NONE_MENU_BAR: Option<&MenuBar> = None;
+impl MenuBar {
+    pub const NONE: Option<&'static MenuBar> = None;
+}
 
 pub trait MenuBarExt: 'static {
     #[doc(alias = "gtk_menu_bar_get_child_pack_direction")]

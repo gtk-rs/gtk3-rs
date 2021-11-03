@@ -21,7 +21,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_HYPERTEXT: Option<&Hypertext> = None;
+impl Hypertext {
+    pub const NONE: Option<&'static Hypertext> = None;
+}
 
 pub trait HypertextExt: 'static {
     #[doc(alias = "atk_hypertext_get_link")]

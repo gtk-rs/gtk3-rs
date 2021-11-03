@@ -186,7 +186,9 @@ impl SocketAccessibleBuilder {
     }
 }
 
-pub const NONE_SOCKET_ACCESSIBLE: Option<&SocketAccessible> = None;
+impl SocketAccessible {
+    pub const NONE: Option<&'static SocketAccessible> = None;
+}
 
 pub trait SocketAccessibleExt: 'static {
     #[doc(alias = "gtk_socket_accessible_embed")]

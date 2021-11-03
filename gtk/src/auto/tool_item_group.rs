@@ -445,7 +445,9 @@ impl ToolItemGroupBuilder {
     }
 }
 
-pub const NONE_TOOL_ITEM_GROUP: Option<&ToolItemGroup> = None;
+impl ToolItemGroup {
+    pub const NONE: Option<&'static ToolItemGroup> = None;
+}
 
 pub trait ToolItemGroupExt: 'static {
     #[doc(alias = "gtk_tool_item_group_get_collapsed")]

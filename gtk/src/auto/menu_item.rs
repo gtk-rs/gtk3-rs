@@ -480,7 +480,9 @@ impl MenuItemBuilder {
     }
 }
 
-pub const NONE_MENU_ITEM: Option<&MenuItem> = None;
+impl MenuItem {
+    pub const NONE: Option<&'static MenuItem> = None;
+}
 
 pub trait GtkMenuItemExt: 'static {
     #[doc(alias = "gtk_menu_item_deselect")]

@@ -19,7 +19,7 @@ pub use self::device_manager::DeviceManager;
 mod device_pad;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-pub use self::device_pad::{DevicePad, NONE_DEVICE_PAD};
+pub use self::device_pad::DevicePad;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
