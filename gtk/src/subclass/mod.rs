@@ -25,6 +25,7 @@ pub mod list_box;
 pub mod list_box_row;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 pub mod plug;
+pub mod scrolled_window;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 pub mod socket;
 pub mod stack;
@@ -63,6 +64,7 @@ pub mod prelude {
     pub use super::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     pub use super::plug::{PlugImpl, PlugImplExt};
+    pub use super::scrolled_window::{ScrolledWindowImpl, ScrolledWindowImplExt};
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
