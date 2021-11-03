@@ -122,7 +122,7 @@ fn build_ui(application: &gtk::Application) {
         box_.upcast::<gtk::Widget>()
     }));
 
-    let scrolled_window = gtk::ScrolledWindow::new(gtk::NONE_ADJUSTMENT, gtk::NONE_ADJUSTMENT);
+    let scrolled_window = gtk::ScrolledWindow::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
     scrolled_window.add(&listbox);
 
     let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 5);
