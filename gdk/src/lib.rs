@@ -24,6 +24,9 @@ mod auto;
 
 pub mod prelude;
 
+#[cfg(feature = "wayland")]
+pub mod wayland;
+
 pub use self::auto::functions::*;
 pub use crate::auto::*;
 

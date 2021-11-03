@@ -32,6 +32,7 @@ v3_20 = []
 v3_22 = ["v3_20"]
 v3_24 = ["v3_22"]
 dox = []
+wayland = []
 
 [lib]
 name = "gdk_sys"
