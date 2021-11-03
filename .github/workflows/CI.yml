@@ -20,7 +20,7 @@ jobs:
           - "1.56.0"
         conf:
           - { name: "atk", features: "v2_34", test_sys: true }
-          - { name: "gdk", features: "v3_24", test_sys: true }
+          - { name: "gdk", features: "v3_24,wayland", test_sys: true }
           - { name: "gdkx11", features: "v3_24", test_sys: true }
           - { name: "gtk", features: "v3_24_9", test_sys: false }
     steps:
