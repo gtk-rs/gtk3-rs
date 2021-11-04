@@ -561,7 +561,9 @@ impl AccelLabelBuilder {
     }
 }
 
-pub const NONE_ACCEL_LABEL: Option<&AccelLabel> = None;
+impl AccelLabel {
+    pub const NONE: Option<&'static AccelLabel> = None;
+}
 
 pub trait AccelLabelExt: 'static {
     #[doc(alias = "gtk_accel_label_get_accel")]

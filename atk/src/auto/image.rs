@@ -17,7 +17,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_IMAGE: Option<&Image> = None;
+impl Image {
+    pub const NONE: Option<&'static Image> = None;
+}
 
 pub trait AtkImageExt: 'static {
     #[doc(alias = "atk_image_get_image_description")]

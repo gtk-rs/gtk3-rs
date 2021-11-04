@@ -412,7 +412,9 @@ impl EventBoxBuilder {
     }
 }
 
-pub const NONE_EVENT_BOX: Option<&EventBox> = None;
+impl EventBox {
+    pub const NONE: Option<&'static EventBox> = None;
+}
 
 pub trait EventBoxExt: 'static {
     #[doc(alias = "gtk_event_box_get_above_child")]

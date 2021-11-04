@@ -40,7 +40,9 @@ impl Default for StackSwitcher {
     }
 }
 
-pub const NONE_STACK_SWITCHER: Option<&StackSwitcher> = None;
+impl StackSwitcher {
+    pub const NONE: Option<&'static StackSwitcher> = None;
+}
 
 pub trait StackSwitcherExt: 'static {
     #[doc(alias = "gtk_stack_switcher_get_stack")]

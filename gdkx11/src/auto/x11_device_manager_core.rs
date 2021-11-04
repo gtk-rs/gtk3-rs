@@ -15,7 +15,9 @@ glib::wrapper! {
 
 impl X11DeviceManagerCore {}
 
-pub const NONE_X11_DEVICE_MANAGER_CORE: Option<&X11DeviceManagerCore> = None;
+impl X11DeviceManagerCore {
+    pub const NONE: Option<&'static X11DeviceManagerCore> = None;
+}
 
 impl fmt::Display for X11DeviceManagerCore {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

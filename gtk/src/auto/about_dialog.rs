@@ -796,7 +796,9 @@ impl AboutDialogBuilder {
     }
 }
 
-pub const NONE_ABOUT_DIALOG: Option<&AboutDialog> = None;
+impl AboutDialog {
+    pub const NONE: Option<&'static AboutDialog> = None;
+}
 
 pub trait AboutDialogExt: 'static {
     #[doc(alias = "gtk_about_dialog_add_credit_section")]

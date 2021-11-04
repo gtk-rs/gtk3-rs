@@ -466,7 +466,9 @@ impl HeaderBarBuilder {
     }
 }
 
-pub const NONE_HEADER_BAR: Option<&HeaderBar> = None;
+impl HeaderBar {
+    pub const NONE: Option<&'static HeaderBar> = None;
+}
 
 pub trait HeaderBarExt: 'static {
     #[doc(alias = "gtk_header_bar_get_custom_title")]

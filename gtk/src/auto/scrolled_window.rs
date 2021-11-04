@@ -559,7 +559,9 @@ impl ScrolledWindowBuilder {
     }
 }
 
-pub const NONE_SCROLLED_WINDOW: Option<&ScrolledWindow> = None;
+impl ScrolledWindow {
+    pub const NONE: Option<&'static ScrolledWindow> = None;
+}
 
 pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "gtk_scrolled_window_get_capture_button_press")]

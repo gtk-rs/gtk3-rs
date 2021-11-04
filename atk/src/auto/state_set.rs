@@ -30,7 +30,9 @@ impl Default for StateSet {
     }
 }
 
-pub const NONE_STATE_SET: Option<&StateSet> = None;
+impl StateSet {
+    pub const NONE: Option<&'static StateSet> = None;
+}
 
 pub trait StateSetExt: 'static {
     #[doc(alias = "atk_state_set_add_state")]

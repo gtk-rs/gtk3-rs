@@ -504,7 +504,9 @@ impl AppChooserWidgetBuilder {
     }
 }
 
-pub const NONE_APP_CHOOSER_WIDGET: Option<&AppChooserWidget> = None;
+impl AppChooserWidget {
+    pub const NONE: Option<&'static AppChooserWidget> = None;
+}
 
 pub trait AppChooserWidgetExt: 'static {
     #[doc(alias = "gtk_app_chooser_widget_get_default_text")]

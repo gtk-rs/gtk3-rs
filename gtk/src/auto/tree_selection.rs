@@ -26,7 +26,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_TREE_SELECTION: Option<&TreeSelection> = None;
+impl TreeSelection {
+    pub const NONE: Option<&'static TreeSelection> = None;
+}
 
 pub trait TreeSelectionExt: 'static {
     #[doc(alias = "gtk_tree_selection_count_selected_rows")]

@@ -492,7 +492,9 @@ impl ToolPaletteBuilder {
     }
 }
 
-pub const NONE_TOOL_PALETTE: Option<&ToolPalette> = None;
+impl ToolPalette {
+    pub const NONE: Option<&'static ToolPalette> = None;
+}
 
 pub trait ToolPaletteExt: 'static {
     #[doc(alias = "gtk_tool_palette_add_drag_dest")]

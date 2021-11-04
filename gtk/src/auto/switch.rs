@@ -402,7 +402,9 @@ impl SwitchBuilder {
     }
 }
 
-pub const NONE_SWITCH: Option<&Switch> = None;
+impl Switch {
+    pub const NONE: Option<&'static Switch> = None;
+}
 
 pub trait SwitchExt: 'static {
     #[doc(alias = "gtk_switch_get_active")]

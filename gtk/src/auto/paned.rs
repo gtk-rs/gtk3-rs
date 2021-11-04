@@ -433,7 +433,9 @@ impl PanedBuilder {
     }
 }
 
-pub const NONE_PANED: Option<&Paned> = None;
+impl Paned {
+    pub const NONE: Option<&'static Paned> = None;
+}
 
 pub trait PanedExt: 'static {
     #[doc(alias = "gtk_paned_add1")]

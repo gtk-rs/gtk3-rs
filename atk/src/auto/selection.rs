@@ -21,7 +21,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_SELECTION: Option<&Selection> = None;
+impl Selection {
+    pub const NONE: Option<&'static Selection> = None;
+}
 
 pub trait SelectionExt: 'static {
     #[doc(alias = "atk_selection_add_selection")]

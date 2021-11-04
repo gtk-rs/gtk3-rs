@@ -755,7 +755,9 @@ impl RecentChooserDialogBuilder {
     }
 }
 
-pub const NONE_RECENT_CHOOSER_DIALOG: Option<&RecentChooserDialog> = None;
+impl RecentChooserDialog {
+    pub const NONE: Option<&'static RecentChooserDialog> = None;
+}
 
 impl fmt::Display for RecentChooserDialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

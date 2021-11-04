@@ -3,88 +3,88 @@
 // DO NOT EDIT
 
 mod action;
-pub use self::action::{Action, NONE_ACTION};
+pub use self::action::Action;
 
 mod component;
-pub use self::component::{Component, NONE_COMPONENT};
+pub use self::component::Component;
 
 mod document;
-pub use self::document::{Document, NONE_DOCUMENT};
+pub use self::document::Document;
 
 mod editable_text;
-pub use self::editable_text::{EditableText, NONE_EDITABLE_TEXT};
+pub use self::editable_text::EditableText;
 
 mod gobject_accessible;
-pub use self::gobject_accessible::{GObjectAccessible, NONE_GOBJECT_ACCESSIBLE};
+pub use self::gobject_accessible::GObjectAccessible;
 
 mod hyperlink;
-pub use self::hyperlink::{Hyperlink, NONE_HYPERLINK};
+pub use self::hyperlink::Hyperlink;
 
 mod hyperlink_impl;
-pub use self::hyperlink_impl::{HyperlinkImpl, NONE_HYPERLINK_IMPL};
+pub use self::hyperlink_impl::HyperlinkImpl;
 
 mod hypertext;
-pub use self::hypertext::{Hypertext, NONE_HYPERTEXT};
+pub use self::hypertext::Hypertext;
 
 mod image;
-pub use self::image::{Image, NONE_IMAGE};
+pub use self::image::Image;
 
 mod misc;
-pub use self::misc::{Misc, NONE_MISC};
+pub use self::misc::Misc;
 
 mod no_op_object;
-pub use self::no_op_object::{NoOpObject, NONE_NO_OP_OBJECT};
+pub use self::no_op_object::NoOpObject;
 
 mod no_op_object_factory;
-pub use self::no_op_object_factory::{NoOpObjectFactory, NONE_NO_OP_OBJECT_FACTORY};
+pub use self::no_op_object_factory::NoOpObjectFactory;
 
 mod object;
-pub use self::object::{Object, NONE_OBJECT};
+pub use self::object::Object;
 
 mod object_factory;
-pub use self::object_factory::{ObjectFactory, NONE_OBJECT_FACTORY};
+pub use self::object_factory::ObjectFactory;
 
 mod plug;
-pub use self::plug::{Plug, NONE_PLUG};
+pub use self::plug::Plug;
 
 mod registry;
-pub use self::registry::{Registry, NONE_REGISTRY};
+pub use self::registry::Registry;
 
 mod relation;
-pub use self::relation::{Relation, NONE_RELATION};
+pub use self::relation::Relation;
 
 mod relation_set;
-pub use self::relation_set::{RelationSet, NONE_RELATION_SET};
+pub use self::relation_set::RelationSet;
 
 mod selection;
-pub use self::selection::{Selection, NONE_SELECTION};
+pub use self::selection::Selection;
 
 mod socket;
-pub use self::socket::{Socket, NONE_SOCKET};
+pub use self::socket::Socket;
 
 mod state_set;
-pub use self::state_set::{StateSet, NONE_STATE_SET};
+pub use self::state_set::StateSet;
 
 mod streamable_content;
-pub use self::streamable_content::{StreamableContent, NONE_STREAMABLE_CONTENT};
+pub use self::streamable_content::StreamableContent;
 
 mod table;
-pub use self::table::{Table, NONE_TABLE};
+pub use self::table::Table;
 
 mod table_cell;
-pub use self::table_cell::{TableCell, NONE_TABLE_CELL};
+pub use self::table_cell::TableCell;
 
 mod text;
-pub use self::text::{Text, NONE_TEXT};
+pub use self::text::Text;
 
 mod util;
-pub use self::util::{Util, NONE_UTIL};
+pub use self::util::Util;
 
 mod value;
-pub use self::value::{Value, NONE_VALUE};
+pub use self::value::Value;
 
 mod window;
-pub use self::window::{Window, NONE_WINDOW};
+pub use self::window::Window;
 
 mod range;
 pub use self::range::Range;

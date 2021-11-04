@@ -649,7 +649,9 @@ impl CellRendererAccelBuilder {
     }
 }
 
-pub const NONE_CELL_RENDERER_ACCEL: Option<&CellRendererAccel> = None;
+impl CellRendererAccel {
+    pub const NONE: Option<&'static CellRendererAccel> = None;
+}
 
 pub trait CellRendererAccelExt: 'static {
     #[doc(alias = "accel-key")]

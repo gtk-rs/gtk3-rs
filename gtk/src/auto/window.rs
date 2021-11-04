@@ -735,7 +735,9 @@ impl WindowBuilder {
     }
 }
 
-pub const NONE_WINDOW: Option<&Window> = None;
+impl Window {
+    pub const NONE: Option<&'static Window> = None;
+}
 
 pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_activate_default")]

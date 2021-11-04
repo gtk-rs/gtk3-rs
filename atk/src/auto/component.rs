@@ -28,7 +28,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_COMPONENT: Option<&Component> = None;
+impl Component {
+    pub const NONE: Option<&'static Component> = None;
+}
 
 pub trait ComponentExt: 'static {
     #[doc(alias = "atk_component_contains")]

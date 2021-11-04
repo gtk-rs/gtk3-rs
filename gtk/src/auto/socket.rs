@@ -393,7 +393,9 @@ impl SocketBuilder {
     }
 }
 
-pub const NONE_SOCKET: Option<&Socket> = None;
+impl Socket {
+    pub const NONE: Option<&'static Socket> = None;
+}
 
 pub trait GtkSocketExt: 'static {
     #[doc(alias = "gtk_socket_add_id")]

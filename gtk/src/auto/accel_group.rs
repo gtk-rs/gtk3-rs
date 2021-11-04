@@ -44,7 +44,9 @@ impl Default for AccelGroup {
     }
 }
 
-pub const NONE_ACCEL_GROUP: Option<&AccelGroup> = None;
+impl AccelGroup {
+    pub const NONE: Option<&'static AccelGroup> = None;
+}
 
 pub trait AccelGroupExt: 'static {
     #[doc(alias = "gtk_accel_group_activate")]

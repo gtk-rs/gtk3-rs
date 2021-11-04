@@ -15,7 +15,9 @@ glib::wrapper! {
 
 impl FileChooserWidgetAccessible {}
 
-pub const NONE_FILE_CHOOSER_WIDGET_ACCESSIBLE: Option<&FileChooserWidgetAccessible> = None;
+impl FileChooserWidgetAccessible {
+    pub const NONE: Option<&'static FileChooserWidgetAccessible> = None;
+}
 
 impl fmt::Display for FileChooserWidgetAccessible {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

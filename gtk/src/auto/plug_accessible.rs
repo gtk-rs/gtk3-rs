@@ -186,7 +186,9 @@ impl PlugAccessibleBuilder {
     }
 }
 
-pub const NONE_PLUG_ACCESSIBLE: Option<&PlugAccessible> = None;
+impl PlugAccessible {
+    pub const NONE: Option<&'static PlugAccessible> = None;
+}
 
 pub trait PlugAccessibleExt: 'static {
     #[doc(alias = "gtk_plug_accessible_get_id")]

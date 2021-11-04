@@ -16,7 +16,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_BUILDABLE: Option<&Buildable> = None;
+impl Buildable {
+    pub const NONE: Option<&'static Buildable> = None;
+}
 
 pub trait BuildableExt: 'static {
     #[doc(alias = "gtk_buildable_add_child")]

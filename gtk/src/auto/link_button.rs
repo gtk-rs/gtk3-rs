@@ -504,7 +504,9 @@ impl LinkButtonBuilder {
     }
 }
 
-pub const NONE_LINK_BUTTON: Option<&LinkButton> = None;
+impl LinkButton {
+    pub const NONE: Option<&'static LinkButton> = None;
+}
 
 pub trait LinkButtonExt: 'static {
     #[doc(alias = "gtk_link_button_get_uri")]

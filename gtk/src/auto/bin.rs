@@ -18,7 +18,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_BIN: Option<&Bin> = None;
+impl Bin {
+    pub const NONE: Option<&'static Bin> = None;
+}
 
 pub trait BinExt: 'static {
     #[doc(alias = "gtk_bin_get_child")]

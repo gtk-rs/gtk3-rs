@@ -444,7 +444,9 @@ impl ToolbarBuilder {
     }
 }
 
-pub const NONE_TOOLBAR: Option<&Toolbar> = None;
+impl Toolbar {
+    pub const NONE: Option<&'static Toolbar> = None;
+}
 
 pub trait ToolbarExt: 'static {
     #[doc(alias = "gtk_toolbar_get_drop_index")]

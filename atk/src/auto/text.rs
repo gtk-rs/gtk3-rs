@@ -30,7 +30,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_TEXT: Option<&Text> = None;
+impl Text {
+    pub const NONE: Option<&'static Text> = None;
+}
 
 pub trait TextExt: 'static {
     #[doc(alias = "atk_text_add_selection")]

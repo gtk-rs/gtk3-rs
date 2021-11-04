@@ -766,7 +766,9 @@ impl SearchEntryBuilder {
     }
 }
 
-pub const NONE_SEARCH_ENTRY: Option<&SearchEntry> = None;
+impl SearchEntry {
+    pub const NONE: Option<&'static SearchEntry> = None;
+}
 
 pub trait SearchEntryExt: 'static {
     #[doc(alias = "gtk_search_entry_handle_event")]

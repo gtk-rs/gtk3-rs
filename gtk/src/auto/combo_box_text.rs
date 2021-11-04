@@ -529,7 +529,9 @@ impl ComboBoxTextBuilder {
     }
 }
 
-pub const NONE_COMBO_BOX_TEXT: Option<&ComboBoxText> = None;
+impl ComboBoxText {
+    pub const NONE: Option<&'static ComboBoxText> = None;
+}
 
 pub trait ComboBoxTextExt: 'static {
     #[doc(alias = "gtk_combo_box_text_append")]

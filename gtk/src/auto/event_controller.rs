@@ -22,7 +22,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_EVENT_CONTROLLER: Option<&EventController> = None;
+impl EventController {
+    pub const NONE: Option<&'static EventController> = None;
+}
 
 pub trait EventControllerExt: 'static {
     #[doc(alias = "gtk_event_controller_get_propagation_phase")]

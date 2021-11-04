@@ -493,7 +493,9 @@ impl AspectFrameBuilder {
     }
 }
 
-pub const NONE_ASPECT_FRAME: Option<&AspectFrame> = None;
+impl AspectFrame {
+    pub const NONE: Option<&'static AspectFrame> = None;
+}
 
 pub trait AspectFrameExt: 'static {
     #[doc(alias = "gtk_aspect_frame_set")]

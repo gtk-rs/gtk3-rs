@@ -456,7 +456,9 @@ impl SeparatorMenuItemBuilder {
     }
 }
 
-pub const NONE_SEPARATOR_MENU_ITEM: Option<&SeparatorMenuItem> = None;
+impl SeparatorMenuItem {
+    pub const NONE: Option<&'static SeparatorMenuItem> = None;
+}
 
 impl fmt::Display for SeparatorMenuItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

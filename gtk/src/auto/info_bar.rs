@@ -474,7 +474,9 @@ impl InfoBarBuilder {
     }
 }
 
-pub const NONE_INFO_BAR: Option<&InfoBar> = None;
+impl InfoBar {
+    pub const NONE: Option<&'static InfoBar> = None;
+}
 
 pub trait InfoBarExt: 'static {
     #[doc(alias = "gtk_info_bar_add_action_widget")]

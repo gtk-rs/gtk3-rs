@@ -15,7 +15,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_EDITABLE_TEXT: Option<&EditableText> = None;
+impl EditableText {
+    pub const NONE: Option<&'static EditableText> = None;
+}
 
 pub trait EditableTextExt: 'static {
     #[doc(alias = "atk_editable_text_copy_text")]

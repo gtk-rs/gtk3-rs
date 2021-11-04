@@ -17,7 +17,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_TABLE_CELL: Option<&TableCell> = None;
+impl TableCell {
+    pub const NONE: Option<&'static TableCell> = None;
+}
 
 pub trait TableCellExt: 'static {
     #[doc(alias = "atk_table_cell_get_column_header_cells")]

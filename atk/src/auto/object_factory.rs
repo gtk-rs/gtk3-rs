@@ -16,7 +16,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_OBJECT_FACTORY: Option<&ObjectFactory> = None;
+impl ObjectFactory {
+    pub const NONE: Option<&'static ObjectFactory> = None;
+}
 
 pub trait ObjectFactoryExt: 'static {
     #[doc(alias = "atk_object_factory_create_accessible")]

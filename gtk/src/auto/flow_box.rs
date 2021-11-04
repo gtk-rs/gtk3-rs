@@ -471,7 +471,9 @@ impl FlowBoxBuilder {
     }
 }
 
-pub const NONE_FLOW_BOX: Option<&FlowBox> = None;
+impl FlowBox {
+    pub const NONE: Option<&'static FlowBox> = None;
+}
 
 pub trait FlowBoxExt: 'static {
     #[doc(alias = "gtk_flow_box_bind_model")]

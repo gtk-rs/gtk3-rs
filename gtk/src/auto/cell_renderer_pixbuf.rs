@@ -268,7 +268,9 @@ impl CellRendererPixbufBuilder {
     }
 }
 
-pub const NONE_CELL_RENDERER_PIXBUF: Option<&CellRendererPixbuf> = None;
+impl CellRendererPixbuf {
+    pub const NONE: Option<&'static CellRendererPixbuf> = None;
+}
 
 pub trait CellRendererPixbufExt: 'static {
     fn gicon(&self) -> Option<gio::Icon>;

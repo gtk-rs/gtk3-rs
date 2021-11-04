@@ -373,7 +373,9 @@ impl SpinnerBuilder {
     }
 }
 
-pub const NONE_SPINNER: Option<&Spinner> = None;
+impl Spinner {
+    pub const NONE: Option<&'static Spinner> = None;
+}
 
 pub trait SpinnerExt: 'static {
     #[doc(alias = "gtk_spinner_start")]

@@ -695,7 +695,9 @@ impl ColorChooserDialogBuilder {
     }
 }
 
-pub const NONE_COLOR_CHOOSER_DIALOG: Option<&ColorChooserDialog> = None;
+impl ColorChooserDialog {
+    pub const NONE: Option<&'static ColorChooserDialog> = None;
+}
 
 pub trait ColorChooserDialogExt: 'static {
     #[doc(alias = "show-editor")]

@@ -33,7 +33,9 @@ impl TreeStore {
     //}
 }
 
-pub const NONE_TREE_STORE: Option<&TreeStore> = None;
+impl TreeStore {
+    pub const NONE: Option<&'static TreeStore> = None;
+}
 
 pub trait TreeStoreExt: 'static {
     #[doc(alias = "gtk_tree_store_append")]

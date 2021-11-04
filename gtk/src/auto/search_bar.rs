@@ -413,7 +413,9 @@ impl SearchBarBuilder {
     }
 }
 
-pub const NONE_SEARCH_BAR: Option<&SearchBar> = None;
+impl SearchBar {
+    pub const NONE: Option<&'static SearchBar> = None;
+}
 
 pub trait SearchBarExt: 'static {
     #[doc(alias = "gtk_search_bar_connect_entry")]

@@ -242,7 +242,9 @@ impl CellRendererToggleBuilder {
     }
 }
 
-pub const NONE_CELL_RENDERER_TOGGLE: Option<&CellRendererToggle> = None;
+impl CellRendererToggle {
+    pub const NONE: Option<&'static CellRendererToggle> = None;
+}
 
 pub trait CellRendererToggleExt: 'static {
     #[doc(alias = "gtk_cell_renderer_toggle_get_activatable")]

@@ -101,7 +101,9 @@ impl CellAreaBoxBuilder {
     }
 }
 
-pub const NONE_CELL_AREA_BOX: Option<&CellAreaBox> = None;
+impl CellAreaBox {
+    pub const NONE: Option<&'static CellAreaBox> = None;
+}
 
 pub trait CellAreaBoxExt: 'static {
     #[doc(alias = "gtk_cell_area_box_get_spacing")]

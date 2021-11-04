@@ -15,7 +15,9 @@ glib::wrapper! {
 
 impl Util {}
 
-pub const NONE_UTIL: Option<&Util> = None;
+impl Util {
+    pub const NONE: Option<&'static Util> = None;
+}
 
 impl fmt::Display for Util {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

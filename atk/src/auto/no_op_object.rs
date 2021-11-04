@@ -40,7 +40,9 @@ impl NoOpObject {
     }
 }
 
-pub const NONE_NO_OP_OBJECT: Option<&NoOpObject> = None;
+impl NoOpObject {
+    pub const NONE: Option<&'static NoOpObject> = None;
+}
 
 impl fmt::Display for NoOpObject {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

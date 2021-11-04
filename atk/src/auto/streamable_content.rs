@@ -15,7 +15,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_STREAMABLE_CONTENT: Option<&StreamableContent> = None;
+impl StreamableContent {
+    pub const NONE: Option<&'static StreamableContent> = None;
+}
 
 pub trait StreamableContentExt: 'static {
     #[doc(alias = "atk_streamable_content_get_mime_type")]

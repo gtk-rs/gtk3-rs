@@ -431,7 +431,9 @@ impl SeparatorToolItemBuilder {
     }
 }
 
-pub const NONE_SEPARATOR_TOOL_ITEM: Option<&SeparatorToolItem> = None;
+impl SeparatorToolItem {
+    pub const NONE: Option<&'static SeparatorToolItem> = None;
+}
 
 pub trait SeparatorToolItemExt: 'static {
     #[doc(alias = "gtk_separator_tool_item_get_draw")]

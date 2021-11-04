@@ -415,7 +415,9 @@ impl ListBoxBuilder {
     }
 }
 
-pub const NONE_LIST_BOX: Option<&ListBox> = None;
+impl ListBox {
+    pub const NONE: Option<&'static ListBox> = None;
+}
 
 pub trait ListBoxExt: 'static {
     #[doc(alias = "gtk_list_box_bind_model")]

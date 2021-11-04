@@ -25,7 +25,9 @@ glib::wrapper! {
     }
 }
 
-pub const NONE_RECENT_CHOOSER: Option<&RecentChooser> = None;
+impl RecentChooser {
+    pub const NONE: Option<&'static RecentChooser> = None;
+}
 
 pub trait RecentChooserExt: 'static {
     #[doc(alias = "gtk_recent_chooser_add_filter")]

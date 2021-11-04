@@ -165,7 +165,9 @@ impl EntryCompletionBuilder {
     }
 }
 
-pub const NONE_ENTRY_COMPLETION: Option<&EntryCompletion> = None;
+impl EntryCompletion {
+    pub const NONE: Option<&'static EntryCompletion> = None;
+}
 
 pub trait EntryCompletionExt: 'static {
     #[doc(alias = "gtk_entry_completion_complete")]

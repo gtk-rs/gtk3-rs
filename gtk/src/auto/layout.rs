@@ -460,7 +460,9 @@ impl LayoutBuilder {
     }
 }
 
-pub const NONE_LAYOUT: Option<&Layout> = None;
+impl Layout {
+    pub const NONE: Option<&'static Layout> = None;
+}
 
 pub trait LayoutExt: 'static {
     #[doc(alias = "gtk_layout_get_bin_window")]
