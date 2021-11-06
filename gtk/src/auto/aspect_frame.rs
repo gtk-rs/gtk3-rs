@@ -546,99 +546,35 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
     }
 
     fn is_obey_child(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"obey-child\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `obey-child` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "obey-child")
     }
 
     fn set_obey_child(&self, obey_child: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"obey-child\0".as_ptr() as *const _,
-                obey_child.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "obey-child", &obey_child)
     }
 
     fn ratio(&self) -> f32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"ratio\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `ratio` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "ratio")
     }
 
     fn set_ratio(&self, ratio: f32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"ratio\0".as_ptr() as *const _,
-                ratio.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "ratio", &ratio)
     }
 
     fn xalign(&self) -> f32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"xalign\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `xalign` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "xalign")
     }
 
     fn set_xalign(&self, xalign: f32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"xalign\0".as_ptr() as *const _,
-                xalign.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "xalign", &xalign)
     }
 
     fn yalign(&self) -> f32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"yalign\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `yalign` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "yalign")
     }
 
     fn set_yalign(&self, yalign: f32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"yalign\0".as_ptr() as *const _,
-                yalign.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "yalign", &yalign)
     }
 
     fn connect_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

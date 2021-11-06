@@ -950,51 +950,19 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn enables_popup(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"enable-popup\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `enable-popup` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "enable-popup")
     }
 
     fn set_enable_popup(&self, enable_popup: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"enable-popup\0".as_ptr() as *const _,
-                enable_popup.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "enable-popup", &enable_popup)
     }
 
     fn page(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"page\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `page` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "page")
     }
 
     fn set_page(&self, page: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"page\0".as_ptr() as *const _,
-                page.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "page", &page)
     }
 
     #[doc(hidden)]
@@ -1222,11 +1190,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_change_current_page(&self, object: i32) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("change-current-page", &[&object])
-                .unwrap()
-        };
+        let res = self.emit_by_name("change-current-page", &[&object]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_change_current_page`")
@@ -1302,11 +1266,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_focus_tab(&self, object: NotebookTab) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("focus-tab", &[&object])
-                .unwrap()
-        };
+        let res = self.emit_by_name("focus-tab", &[&object]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_focus_tab`")
@@ -1344,11 +1304,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_move_focus_out(&self, object: DirectionType) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("move-focus-out", &[&object])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("move-focus-out", &[&object]);
     }
 
     fn connect_page_added<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1479,11 +1435,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_reorder_tab(&self, object: DirectionType, p0: bool) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("reorder-tab", &[&object, &p0])
-                .unwrap()
-        };
+        let res = self.emit_by_name("reorder-tab", &[&object, &p0]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_reorder_tab`")
@@ -1519,11 +1471,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_select_page(&self, object: bool) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("select-page", &[&object])
-                .unwrap()
-        };
+        let res = self.emit_by_name("select-page", &[&object]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_select_page`")

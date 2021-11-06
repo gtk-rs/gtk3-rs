@@ -631,41 +631,15 @@ pub trait FileChooserWidgetExt: 'static {
 
 impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     fn is_search_mode(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"search-mode\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `search-mode` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "search-mode")
     }
 
     fn set_search_mode(&self, search_mode: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"search-mode\0".as_ptr() as *const _,
-                search_mode.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "search-mode", &search_mode)
     }
 
     fn subtitle(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"subtitle\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `subtitle` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "subtitle")
     }
 
     fn connect_desktop_folder<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -693,11 +667,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_desktop_folder(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("desktop-folder", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("desktop-folder", &[]);
     }
 
     fn connect_down_folder<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -725,11 +695,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_down_folder(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("down-folder", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("down-folder", &[]);
     }
 
     fn connect_home_folder<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -757,11 +723,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_home_folder(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("home-folder", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("home-folder", &[]);
     }
 
     fn connect_location_popup<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -793,11 +755,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_location_popup(&self, path: &str) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("location-popup", &[&path])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("location-popup", &[&path]);
     }
 
     fn connect_location_popup_on_paste<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -825,11 +783,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_location_popup_on_paste(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("location-popup-on-paste", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("location-popup-on-paste", &[]);
     }
 
     fn connect_location_toggle_popup<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -857,11 +811,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_location_toggle_popup(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("location-toggle-popup", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("location-toggle-popup", &[]);
     }
 
     fn connect_places_shortcut<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -889,11 +839,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_places_shortcut(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("places-shortcut", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("places-shortcut", &[]);
     }
 
     fn connect_quick_bookmark<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -925,11 +871,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_quick_bookmark(&self, bookmark_index: i32) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("quick-bookmark", &[&bookmark_index])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("quick-bookmark", &[&bookmark_index]);
     }
 
     fn connect_recent_shortcut<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -957,11 +899,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_recent_shortcut(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("recent-shortcut", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("recent-shortcut", &[]);
     }
 
     fn connect_search_shortcut<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -989,11 +927,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_search_shortcut(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("search-shortcut", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("search-shortcut", &[]);
     }
 
     fn connect_show_hidden<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1021,11 +955,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_show_hidden(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("show-hidden", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("show-hidden", &[]);
     }
 
     fn connect_up_folder<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1053,11 +983,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_up_folder(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("up-folder", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("up-folder", &[]);
     }
 
     fn connect_search_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

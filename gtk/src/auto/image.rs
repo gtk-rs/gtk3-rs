@@ -357,171 +357,62 @@ impl<O: IsA<Image>> ImageExt for O {
     }
 
     fn file(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"file\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `file` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "file")
     }
 
     fn set_file(&self, file: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"file\0".as_ptr() as *const _,
-                file.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "file", &file)
     }
 
     fn set_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"gicon\0".as_ptr() as *const _,
-                gicon.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "gicon", &gicon)
     }
 
     fn icon_name(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icon-name\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `icon-name` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "icon-name")
     }
 
     fn set_icon_name(&self, icon_name: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icon-name\0".as_ptr() as *const _,
-                icon_name.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "icon-name", &icon_name)
     }
 
     fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"pixbuf\0".as_ptr() as *const _,
-                pixbuf.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "pixbuf", &pixbuf)
     }
 
     fn pixbuf_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation> {
-        unsafe {
-            let mut value =
-                glib::Value::from_type(<gdk_pixbuf::PixbufAnimation as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"pixbuf-animation\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `pixbuf-animation` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "pixbuf-animation")
     }
 
     fn set_pixbuf_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(
         &self,
         pixbuf_animation: Option<&P>,
     ) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"pixbuf-animation\0".as_ptr() as *const _,
-                pixbuf_animation.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "pixbuf-animation", &pixbuf_animation)
     }
 
     fn resource(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"resource\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `resource` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "resource")
     }
 
     fn set_resource(&self, resource: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"resource\0".as_ptr() as *const _,
-                resource.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "resource", &resource)
     }
 
     fn surface(&self) -> Option<cairo::Surface> {
-        unsafe {
-            let mut value = glib::Value::from_type(<cairo::Surface as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"surface\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `surface` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "surface")
     }
 
     fn set_surface(&self, surface: Option<&cairo::Surface>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"surface\0".as_ptr() as *const _,
-                surface.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "surface", &surface)
     }
 
     fn uses_fallback(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"use-fallback\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `use-fallback` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "use-fallback")
     }
 
     fn set_use_fallback(&self, use_fallback: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"use-fallback\0".as_ptr() as *const _,
-                use_fallback.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "use-fallback", &use_fallback)
     }
 
     fn connect_file_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

@@ -952,11 +952,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
     }
 
     fn emit_activate_cursor_row(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("activate-cursor-row", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("activate-cursor-row", &[]);
     }
 
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) + 'static>(
@@ -993,11 +989,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
     }
 
     fn emit_move_cursor(&self, object: MovementStep, p0: i32) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("move-cursor", &[&object, &p0])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("move-cursor", &[&object, &p0]);
     }
 
     fn connect_row_activated<F: Fn(&Self, &ListBoxRow) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1083,11 +1075,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
     }
 
     fn emit_select_all(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("select-all", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("select-all", &[]);
     }
 
     fn connect_selected_rows_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1136,11 +1124,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
     }
 
     fn emit_toggle_cursor_row(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("toggle-cursor-row", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("toggle-cursor-row", &[]);
     }
 
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1165,11 +1149,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
     }
 
     fn emit_unselect_all(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("unselect-all", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("unselect-all", &[]);
     }
 
     fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(

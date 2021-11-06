@@ -177,13 +177,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_visible(&self, visible: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"visible\0".as_ptr() as *const _,
-                visible.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "visible", &visible)
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]

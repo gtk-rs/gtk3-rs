@@ -684,51 +684,23 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
     }
 
     fn is_decoration_layout_set(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"decoration-layout-set\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `decoration-layout-set` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "decoration-layout-set")
     }
 
     fn set_decoration_layout_set(&self, decoration_layout_set: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"decoration-layout-set\0".as_ptr() as *const _,
-                decoration_layout_set.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "decoration-layout-set",
+            &decoration_layout_set,
+        )
     }
 
     fn spacing(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"spacing\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `spacing` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "spacing")
     }
 
     fn set_spacing(&self, spacing: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"spacing\0".as_ptr() as *const _,
-                spacing.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "spacing", &spacing)
     }
 
     fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {

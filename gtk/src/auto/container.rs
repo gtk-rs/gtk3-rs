@@ -376,37 +376,15 @@ impl<O: IsA<Container>> ContainerExt for O {
     }
 
     fn set_child<P: IsA<Widget>>(&self, child: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"child\0".as_ptr() as *const _,
-                child.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "child", &child)
     }
 
     fn resize_mode(&self) -> ResizeMode {
-        unsafe {
-            let mut value = glib::Value::from_type(<ResizeMode as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"resize-mode\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `resize-mode` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "resize-mode")
     }
 
     fn set_resize_mode(&self, resize_mode: ResizeMode) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"resize-mode\0".as_ptr() as *const _,
-                resize_mode.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "resize-mode", &resize_mode)
     }
 
     fn connect_add<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {

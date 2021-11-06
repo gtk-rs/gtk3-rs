@@ -1967,627 +1967,247 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn is_caps_lock_warning(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"caps-lock-warning\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `caps-lock-warning` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "caps-lock-warning")
     }
 
     fn set_caps_lock_warning(&self, caps_lock_warning: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"caps-lock-warning\0".as_ptr() as *const _,
-                caps_lock_warning.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "caps-lock-warning", &caps_lock_warning)
     }
 
     fn cursor_position(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"cursor-position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cursor-position` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "cursor-position")
     }
 
     fn enables_emoji_completion(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"enable-emoji-completion\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `enable-emoji-completion` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "enable-emoji-completion")
     }
 
     fn set_enable_emoji_completion(&self, enable_emoji_completion: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"enable-emoji-completion\0".as_ptr() as *const _,
-                enable_emoji_completion.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "enable-emoji-completion",
+            &enable_emoji_completion,
+        )
     }
 
     fn im_module(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"im-module\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `im-module` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "im-module")
     }
 
     fn set_im_module(&self, im_module: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"im-module\0".as_ptr() as *const _,
-                im_module.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "im-module", &im_module)
     }
 
     fn is_invisible_char_set(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"invisible-char-set\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `invisible-char-set` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "invisible-char-set")
     }
 
     fn set_invisible_char_set(&self, invisible_char_set: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"invisible-char-set\0".as_ptr() as *const _,
-                invisible_char_set.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "invisible-char-set", &invisible_char_set)
     }
 
     fn populates_all(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"populate-all\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `populate-all` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "populate-all")
     }
 
     fn set_populate_all(&self, populate_all: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"populate-all\0".as_ptr() as *const _,
-                populate_all.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "populate-all", &populate_all)
     }
 
     fn is_primary_icon_activatable(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-activatable\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `primary-icon-activatable` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "primary-icon-activatable")
     }
 
     fn set_primary_icon_activatable(&self, primary_icon_activatable: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-activatable\0".as_ptr() as *const _,
-                primary_icon_activatable.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "primary-icon-activatable",
+            &primary_icon_activatable,
+        )
     }
 
     fn primary_icon_gicon(&self) -> Option<gio::Icon> {
-        unsafe {
-            let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-gicon\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `primary-icon-gicon` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "primary-icon-gicon")
     }
 
     fn set_primary_icon_gicon<P: IsA<gio::Icon>>(&self, primary_icon_gicon: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-gicon\0".as_ptr() as *const _,
-                primary_icon_gicon.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-gicon", &primary_icon_gicon)
     }
 
     fn primary_icon_name(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-name\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `primary-icon-name` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "primary-icon-name")
     }
 
     fn set_primary_icon_name(&self, primary_icon_name: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-name\0".as_ptr() as *const _,
-                primary_icon_name.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-name", &primary_icon_name)
     }
 
     fn primary_icon_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
-        unsafe {
-            let mut value =
-                glib::Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-pixbuf\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `primary-icon-pixbuf` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "primary-icon-pixbuf")
     }
 
     fn set_primary_icon_pixbuf(&self, primary_icon_pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-pixbuf\0".as_ptr() as *const _,
-                primary_icon_pixbuf.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-pixbuf", &primary_icon_pixbuf)
     }
 
     fn is_primary_icon_sensitive(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-sensitive\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `primary-icon-sensitive` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "primary-icon-sensitive")
     }
 
     fn set_primary_icon_sensitive(&self, primary_icon_sensitive: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-sensitive\0".as_ptr() as *const _,
-                primary_icon_sensitive.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "primary-icon-sensitive",
+            &primary_icon_sensitive,
+        )
     }
 
     fn primary_icon_storage_type(&self) -> ImageType {
-        unsafe {
-            let mut value = glib::Value::from_type(<ImageType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-storage-type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `primary-icon-storage-type` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "primary-icon-storage-type")
     }
 
     fn primary_icon_tooltip_markup(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-tooltip-markup\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `primary-icon-tooltip-markup` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "primary-icon-tooltip-markup")
     }
 
     fn set_primary_icon_tooltip_markup(&self, primary_icon_tooltip_markup: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-tooltip-markup\0".as_ptr() as *const _,
-                primary_icon_tooltip_markup.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "primary-icon-tooltip-markup",
+            &primary_icon_tooltip_markup,
+        )
     }
 
     fn primary_icon_tooltip_text(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-tooltip-text\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `primary-icon-tooltip-text` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "primary-icon-tooltip-text")
     }
 
     fn set_primary_icon_tooltip_text(&self, primary_icon_tooltip_text: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"primary-icon-tooltip-text\0".as_ptr() as *const _,
-                primary_icon_tooltip_text.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "primary-icon-tooltip-text",
+            &primary_icon_tooltip_text,
+        )
     }
 
     fn scroll_offset(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"scroll-offset\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `scroll-offset` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "scroll-offset")
     }
 
     fn is_secondary_icon_activatable(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-activatable\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-icon-activatable` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-icon-activatable")
     }
 
     fn set_secondary_icon_activatable(&self, secondary_icon_activatable: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-activatable\0".as_ptr() as *const _,
-                secondary_icon_activatable.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "secondary-icon-activatable",
+            &secondary_icon_activatable,
+        )
     }
 
     fn secondary_icon_gicon(&self) -> Option<gio::Icon> {
-        unsafe {
-            let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-gicon\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-icon-gicon` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-icon-gicon")
     }
 
     fn set_secondary_icon_gicon<P: IsA<gio::Icon>>(&self, secondary_icon_gicon: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-gicon\0".as_ptr() as *const _,
-                secondary_icon_gicon.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "secondary-icon-gicon", &secondary_icon_gicon)
     }
 
     fn secondary_icon_name(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-name\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-icon-name` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-icon-name")
     }
 
     fn set_secondary_icon_name(&self, secondary_icon_name: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-name\0".as_ptr() as *const _,
-                secondary_icon_name.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "secondary-icon-name", &secondary_icon_name)
     }
 
     fn secondary_icon_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
-        unsafe {
-            let mut value =
-                glib::Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-pixbuf\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-icon-pixbuf` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-icon-pixbuf")
     }
 
     fn set_secondary_icon_pixbuf(&self, secondary_icon_pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-pixbuf\0".as_ptr() as *const _,
-                secondary_icon_pixbuf.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "secondary-icon-pixbuf",
+            &secondary_icon_pixbuf,
+        )
     }
 
     fn is_secondary_icon_sensitive(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-sensitive\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-icon-sensitive` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-icon-sensitive")
     }
 
     fn set_secondary_icon_sensitive(&self, secondary_icon_sensitive: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-sensitive\0".as_ptr() as *const _,
-                secondary_icon_sensitive.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "secondary-icon-sensitive",
+            &secondary_icon_sensitive,
+        )
     }
 
     fn secondary_icon_storage_type(&self) -> ImageType {
-        unsafe {
-            let mut value = glib::Value::from_type(<ImageType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-storage-type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-icon-storage-type` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-icon-storage-type")
     }
 
     fn secondary_icon_tooltip_markup(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-tooltip-markup\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-icon-tooltip-markup` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-icon-tooltip-markup")
     }
 
     fn set_secondary_icon_tooltip_markup(&self, secondary_icon_tooltip_markup: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-tooltip-markup\0".as_ptr() as *const _,
-                secondary_icon_tooltip_markup.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "secondary-icon-tooltip-markup",
+            &secondary_icon_tooltip_markup,
+        )
     }
 
     fn secondary_icon_tooltip_text(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-tooltip-text\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-icon-tooltip-text` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-icon-tooltip-text")
     }
 
     fn set_secondary_icon_tooltip_text(&self, secondary_icon_tooltip_text: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-icon-tooltip-text\0".as_ptr() as *const _,
-                secondary_icon_tooltip_text.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "secondary-icon-tooltip-text",
+            &secondary_icon_tooltip_text,
+        )
     }
 
     fn selection_bound(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"selection-bound\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `selection-bound` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "selection-bound")
     }
 
     fn shadow_type(&self) -> ShadowType {
-        unsafe {
-            let mut value = glib::Value::from_type(<ShadowType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"shadow-type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `shadow-type` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "shadow-type")
     }
 
     fn set_shadow_type(&self, shadow_type: ShadowType) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"shadow-type\0".as_ptr() as *const _,
-                shadow_type.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "shadow-type", &shadow_type)
     }
 
     fn shows_emoji_icon(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-emoji-icon\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `show-emoji-icon` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "show-emoji-icon")
     }
 
     fn set_show_emoji_icon(&self, show_emoji_icon: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-emoji-icon\0".as_ptr() as *const _,
-                show_emoji_icon.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "show-emoji-icon", &show_emoji_icon)
     }
 
     fn must_truncate_multiline(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"truncate-multiline\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `truncate-multiline` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "truncate-multiline")
     }
 
     fn set_truncate_multiline(&self, truncate_multiline: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"truncate-multiline\0".as_ptr() as *const _,
-                truncate_multiline.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "truncate-multiline", &truncate_multiline)
     }
 
     fn xalign(&self) -> f32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"xalign\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `xalign` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "xalign")
     }
 
     fn set_xalign(&self, xalign: f32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"xalign\0".as_ptr() as *const _,
-                xalign.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "xalign", &xalign)
     }
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2612,11 +2232,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_activate(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("activate", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("activate", &[]);
     }
 
     fn connect_backspace<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2641,11 +2257,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_backspace(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("backspace", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("backspace", &[]);
     }
 
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2670,11 +2282,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_copy_clipboard(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("copy-clipboard", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("copy-clipboard", &[]);
     }
 
     fn connect_cut_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2699,11 +2307,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_cut_clipboard(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("cut-clipboard", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("cut-clipboard", &[]);
     }
 
     fn connect_delete_from_cursor<F: Fn(&Self, DeleteType, i32) + 'static>(
@@ -2740,11 +2344,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_delete_from_cursor(&self, type_: DeleteType, count: i32) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("delete-from-cursor", &[&type_, &count])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("delete-from-cursor", &[&type_, &count]);
     }
 
     fn connect_icon_press<F: Fn(&Self, EntryIconPosition, &gdk::Event) + 'static>(
@@ -2842,11 +2442,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_insert_at_cursor(&self, string: &str) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("insert-at-cursor", &[&string])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("insert-at-cursor", &[&string]);
     }
 
     #[cfg(any(feature = "v3_22_27", feature = "dox"))]
@@ -2875,11 +2471,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     #[cfg(any(feature = "v3_22_27", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
     fn emit_insert_emoji(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("insert-emoji", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("insert-emoji", &[]);
     }
 
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
@@ -2918,11 +2510,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("move-cursor", &[&step, &count, &extend_selection])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("move-cursor", &[&step, &count, &extend_selection]);
     }
 
     fn connect_paste_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2947,11 +2535,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_paste_clipboard(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("paste-clipboard", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("paste-clipboard", &[]);
     }
 
     fn connect_populate_popup<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -3011,11 +2595,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_preedit_changed(&self, preedit: &str) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("preedit-changed", &[&preedit])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("preedit-changed", &[&preedit]);
     }
 
     fn connect_toggle_overwrite<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -3040,11 +2620,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_toggle_overwrite(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("toggle-overwrite", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("toggle-overwrite", &[]);
     }
 
     fn connect_activates_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

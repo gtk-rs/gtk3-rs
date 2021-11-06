@@ -546,27 +546,11 @@ pub trait VolumeButtonExt: 'static {
 
 impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
     fn uses_symbolic(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"use-symbolic\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `use-symbolic` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "use-symbolic")
     }
 
     fn set_use_symbolic(&self, use_symbolic: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"use-symbolic\0".as_ptr() as *const _,
-                use_symbolic.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "use-symbolic", &use_symbolic)
     }
 
     fn connect_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

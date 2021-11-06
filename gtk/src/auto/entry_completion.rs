@@ -526,17 +526,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
     }
 
     fn cell_area(&self) -> Option<CellArea> {
-        unsafe {
-            let mut value = glib::Value::from_type(<CellArea as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"cell-area\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cell-area` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "cell-area")
     }
 
     fn connect_action_activated<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {

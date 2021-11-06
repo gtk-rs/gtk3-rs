@@ -105,23 +105,11 @@ impl<O: IsA<Relation>> RelationExt for O {
     }
 
     fn set_relation_type(&self, relation_type: RelationType) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"relation-type\0".as_ptr() as *const _,
-                relation_type.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "relation-type", &relation_type)
     }
 
     fn set_target(&self, target: Option<&glib::ValueArray>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"target\0".as_ptr() as *const _,
-                target.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "target", &target)
     }
 
     fn connect_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

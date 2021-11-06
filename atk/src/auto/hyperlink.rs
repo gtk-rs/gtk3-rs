@@ -110,17 +110,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
     }
 
     fn number_of_anchors(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"number-of-anchors\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `number-of-anchors` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "number-of-anchors")
     }
 
     fn connect_link_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

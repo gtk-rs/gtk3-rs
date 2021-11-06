@@ -46,228 +46,88 @@ impl ShortcutsShortcut {
 
     #[doc(alias = "accel-size-group")]
     pub fn set_accel_size_group<P: IsA<SizeGroup>>(&self, accel_size_group: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"accel-size-group\0".as_ptr() as *const _,
-                accel_size_group.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "accel-size-group", &accel_size_group)
     }
 
     pub fn accelerator(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"accelerator\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accelerator` getter")
-        }
+        glib::ObjectExt::property(self, "accelerator")
     }
 
     pub fn set_accelerator(&self, accelerator: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"accelerator\0".as_ptr() as *const _,
-                accelerator.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "accelerator", &accelerator)
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "action-name")]
     pub fn action_name(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"action-name\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `action-name` getter")
-        }
+        glib::ObjectExt::property(self, "action-name")
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "action-name")]
     pub fn set_action_name(&self, action_name: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"action-name\0".as_ptr() as *const _,
-                action_name.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "action-name", &action_name)
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
-        unsafe {
-            let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"icon\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `icon` getter")
-        }
+        glib::ObjectExt::property(self, "icon")
     }
 
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"icon\0".as_ptr() as *const _,
-                icon.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "icon", &icon)
     }
 
     #[doc(alias = "icon-set")]
     pub fn is_icon_set(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"icon-set\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `icon-set` getter")
-        }
+        glib::ObjectExt::property(self, "icon-set")
     }
 
     #[doc(alias = "icon-set")]
     pub fn set_icon_set(&self, icon_set: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"icon-set\0".as_ptr() as *const _,
-                icon_set.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "icon-set", &icon_set)
     }
 
     #[doc(alias = "shortcut-type")]
     pub fn shortcut_type(&self) -> ShortcutType {
-        unsafe {
-            let mut value = glib::Value::from_type(<ShortcutType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"shortcut-type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `shortcut-type` getter")
-        }
+        glib::ObjectExt::property(self, "shortcut-type")
     }
 
     #[doc(alias = "shortcut-type")]
     pub fn set_shortcut_type(&self, shortcut_type: ShortcutType) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"shortcut-type\0".as_ptr() as *const _,
-                shortcut_type.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "shortcut-type", &shortcut_type)
     }
 
     pub fn subtitle(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"subtitle\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `subtitle` getter")
-        }
+        glib::ObjectExt::property(self, "subtitle")
     }
 
     pub fn set_subtitle(&self, subtitle: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"subtitle\0".as_ptr() as *const _,
-                subtitle.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "subtitle", &subtitle)
     }
 
     #[doc(alias = "subtitle-set")]
     pub fn is_subtitle_set(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"subtitle-set\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `subtitle-set` getter")
-        }
+        glib::ObjectExt::property(self, "subtitle-set")
     }
 
     #[doc(alias = "subtitle-set")]
     pub fn set_subtitle_set(&self, subtitle_set: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"subtitle-set\0".as_ptr() as *const _,
-                subtitle_set.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "subtitle-set", &subtitle_set)
     }
 
     pub fn title(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"title\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `title` getter")
-        }
+        glib::ObjectExt::property(self, "title")
     }
 
     pub fn set_title(&self, title: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"title\0".as_ptr() as *const _,
-                title.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "title", &title)
     }
 
     #[doc(alias = "title-size-group")]
     pub fn set_title_size_group<P: IsA<SizeGroup>>(&self, title_size_group: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"title-size-group\0".as_ptr() as *const _,
-                title_size_group.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "title-size-group", &title_size_group)
     }
 
     #[doc(alias = "accel-size-group")]

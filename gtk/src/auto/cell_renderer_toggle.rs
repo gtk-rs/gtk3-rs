@@ -350,51 +350,19 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
     }
 
     fn is_inconsistent(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"inconsistent\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `inconsistent` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "inconsistent")
     }
 
     fn set_inconsistent(&self, inconsistent: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"inconsistent\0".as_ptr() as *const _,
-                inconsistent.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "inconsistent", &inconsistent)
     }
 
     fn indicator_size(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"indicator-size\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `indicator-size` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "indicator-size")
     }
 
     fn set_indicator_size(&self, indicator_size: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"indicator-size\0".as_ptr() as *const _,
-                indicator_size.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "indicator-size", &indicator_size)
     }
 
     fn connect_toggled<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {

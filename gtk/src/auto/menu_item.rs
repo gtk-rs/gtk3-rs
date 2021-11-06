@@ -678,27 +678,11 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
     }
 
     fn is_right_justified(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"right-justified\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `right-justified` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "right-justified")
     }
 
     fn set_right_justified(&self, right_justified: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"right-justified\0".as_ptr() as *const _,
-                right_justified.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "right-justified", &right_justified)
     }
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -723,11 +707,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
     }
 
     fn emit_activate(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("activate", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("activate", &[]);
     }
 
     fn connect_activate_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

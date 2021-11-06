@@ -633,55 +633,19 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn max_position(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"max-position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `max-position` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "max-position")
     }
 
     fn min_position(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"min-position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `min-position` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "min-position")
     }
 
     fn is_position_set(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"position-set\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `position-set` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "position-set")
     }
 
     fn set_position_set(&self, position_set: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"position-set\0".as_ptr() as *const _,
-                position_set.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "position-set", &position_set)
     }
 
     fn child_resizes<T: IsA<Widget>>(&self, item: &T) -> bool {
@@ -761,11 +725,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_accept_position(&self) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("accept-position", &[])
-                .unwrap()
-        };
+        let res = self.emit_by_name("accept-position", &[]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_accept_position`")
@@ -796,11 +756,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_cancel_position(&self) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("cancel-position", &[])
-                .unwrap()
-        };
+        let res = self.emit_by_name("cancel-position", &[]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_cancel_position`")
@@ -839,11 +795,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_cycle_child_focus(&self, reversed: bool) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("cycle-child-focus", &[&reversed])
-                .unwrap()
-        };
+        let res = self.emit_by_name("cycle-child-focus", &[&reversed]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_cycle_child_focus`")
@@ -882,11 +834,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_cycle_handle_focus(&self, reversed: bool) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("cycle-handle-focus", &[&reversed])
-                .unwrap()
-        };
+        let res = self.emit_by_name("cycle-handle-focus", &[&reversed]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_cycle_handle_focus`")
@@ -925,11 +873,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_move_handle(&self, scroll_type: ScrollType) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("move-handle", &[&scroll_type])
-                .unwrap()
-        };
+        let res = self.emit_by_name("move-handle", &[&scroll_type]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_move_handle`")
@@ -960,11 +904,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_toggle_handle_focus(&self) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("toggle-handle-focus", &[])
-                .unwrap()
-        };
+        let res = self.emit_by_name("toggle-handle-focus", &[]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_toggle_handle_focus`")

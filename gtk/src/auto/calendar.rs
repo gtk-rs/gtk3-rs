@@ -738,193 +738,67 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn day(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"day\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value.get().expect("Return Value for property `day` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "day")
     }
 
     fn set_day(&self, day: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"day\0".as_ptr() as *const _,
-                day.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "day", &day)
     }
 
     fn month(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"month\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `month` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "month")
     }
 
     fn set_month(&self, month: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"month\0".as_ptr() as *const _,
-                month.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "month", &month)
     }
 
     fn is_no_month_change(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"no-month-change\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `no-month-change` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "no-month-change")
     }
 
     fn set_no_month_change(&self, no_month_change: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"no-month-change\0".as_ptr() as *const _,
-                no_month_change.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "no-month-change", &no_month_change)
     }
 
     fn shows_day_names(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-day-names\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `show-day-names` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "show-day-names")
     }
 
     fn set_show_day_names(&self, show_day_names: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-day-names\0".as_ptr() as *const _,
-                show_day_names.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "show-day-names", &show_day_names)
     }
 
     fn shows_details(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-details\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `show-details` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "show-details")
     }
 
     fn set_show_details(&self, show_details: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-details\0".as_ptr() as *const _,
-                show_details.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "show-details", &show_details)
     }
 
     fn shows_heading(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-heading\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `show-heading` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "show-heading")
     }
 
     fn set_show_heading(&self, show_heading: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-heading\0".as_ptr() as *const _,
-                show_heading.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "show-heading", &show_heading)
     }
 
     fn shows_week_numbers(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-week-numbers\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `show-week-numbers` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "show-week-numbers")
     }
 
     fn set_show_week_numbers(&self, show_week_numbers: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"show-week-numbers\0".as_ptr() as *const _,
-                show_week_numbers.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "show-week-numbers", &show_week_numbers)
     }
 
     fn year(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"year\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `year` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "year")
     }
 
     fn set_year(&self, year: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"year\0".as_ptr() as *const _,
-                year.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "year", &year)
     }
 
     fn connect_day_selected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

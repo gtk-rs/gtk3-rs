@@ -2009,89 +2009,31 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     fn default_height(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"default-height\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `default-height` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "default-height")
     }
 
     fn set_default_height(&self, default_height: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"default-height\0".as_ptr() as *const _,
-                default_height.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "default-height", &default_height)
     }
 
     fn default_width(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"default-width\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `default-width` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "default-width")
     }
 
     fn set_default_width(&self, default_width: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"default-width\0".as_ptr() as *const _,
-                default_width.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "default-width", &default_width)
     }
 
     fn type_(&self) -> WindowType {
-        unsafe {
-            let mut value = glib::Value::from_type(<WindowType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `type` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "type")
     }
 
     fn window_position(&self) -> WindowPosition {
-        unsafe {
-            let mut value = glib::Value::from_type(<WindowPosition as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"window-position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `window-position` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "window-position")
     }
 
     fn set_window_position(&self, window_position: WindowPosition) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"window-position\0".as_ptr() as *const _,
-                window_position.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "window-position", &window_position)
     }
 
     fn connect_activate_default<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2116,11 +2058,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     fn emit_activate_default(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("activate-default", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("activate-default", &[]);
     }
 
     fn connect_activate_focus<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2145,11 +2083,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     fn emit_activate_focus(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("activate-focus", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("activate-focus", &[]);
     }
 
     fn connect_enable_debugging<F: Fn(&Self, bool) -> bool + 'static>(
@@ -2185,11 +2119,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     fn emit_enable_debugging(&self, toggle: bool) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("enable-debugging", &[&toggle])
-                .unwrap()
-        };
+        let res = self.emit_by_name("enable-debugging", &[&toggle]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_enable_debugging`")

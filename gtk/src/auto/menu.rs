@@ -977,124 +977,53 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn anchor_hints(&self) -> gdk::AnchorHints {
-        unsafe {
-            let mut value = glib::Value::from_type(<gdk::AnchorHints as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"anchor-hints\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `anchor-hints` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "anchor-hints")
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_anchor_hints(&self, anchor_hints: gdk::AnchorHints) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"anchor-hints\0".as_ptr() as *const _,
-                anchor_hints.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "anchor-hints", &anchor_hints)
     }
 
     fn set_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"attach-widget\0".as_ptr() as *const _,
-                attach_widget.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "attach-widget", &attach_widget)
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn menu_type_hint(&self) -> gdk::WindowTypeHint {
-        unsafe {
-            let mut value =
-                glib::Value::from_type(<gdk::WindowTypeHint as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"menu-type-hint\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `menu-type-hint` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "menu-type-hint")
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"menu-type-hint\0".as_ptr() as *const _,
-                menu_type_hint.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "menu-type-hint", &menu_type_hint)
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn rect_anchor_dx(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"rect-anchor-dx\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `rect-anchor-dx` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "rect-anchor-dx")
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_rect_anchor_dx(&self, rect_anchor_dx: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"rect-anchor-dx\0".as_ptr() as *const _,
-                rect_anchor_dx.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dx", &rect_anchor_dx)
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn rect_anchor_dy(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"rect-anchor-dy\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `rect-anchor-dy` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "rect-anchor-dy")
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_rect_anchor_dy(&self, rect_anchor_dy: i32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"rect-anchor-dy\0".as_ptr() as *const _,
-                rect_anchor_dy.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dy", &rect_anchor_dy)
     }
 
     fn item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
@@ -1230,11 +1159,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     fn emit_move_scroll(&self, scroll_type: ScrollType) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("move-scroll", &[&scroll_type])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("move-scroll", &[&scroll_type]);
     }
 
     //#[cfg(any(feature = "v3_22", feature = "dox"))]

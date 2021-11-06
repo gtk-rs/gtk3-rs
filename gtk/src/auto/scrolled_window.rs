@@ -1044,75 +1044,27 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     }
 
     fn hscrollbar_policy(&self) -> PolicyType {
-        unsafe {
-            let mut value = glib::Value::from_type(<PolicyType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"hscrollbar-policy\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `hscrollbar-policy` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "hscrollbar-policy")
     }
 
     fn set_hscrollbar_policy(&self, hscrollbar_policy: PolicyType) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"hscrollbar-policy\0".as_ptr() as *const _,
-                hscrollbar_policy.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "hscrollbar-policy", &hscrollbar_policy)
     }
 
     fn vscrollbar_policy(&self) -> PolicyType {
-        unsafe {
-            let mut value = glib::Value::from_type(<PolicyType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"vscrollbar-policy\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `vscrollbar-policy` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "vscrollbar-policy")
     }
 
     fn set_vscrollbar_policy(&self, vscrollbar_policy: PolicyType) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"vscrollbar-policy\0".as_ptr() as *const _,
-                vscrollbar_policy.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "vscrollbar-policy", &vscrollbar_policy)
     }
 
     fn window_placement(&self) -> CornerType {
-        unsafe {
-            let mut value = glib::Value::from_type(<CornerType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"window-placement\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `window-placement` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "window-placement")
     }
 
     fn set_window_placement(&self, window_placement: CornerType) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"window-placement\0".as_ptr() as *const _,
-                window_placement.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "window-placement", &window_placement)
     }
 
     fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1203,11 +1155,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     }
 
     fn emit_move_focus_out(&self, direction_type: DirectionType) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("move-focus-out", &[&direction_type])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("move-focus-out", &[&direction_type]);
     }
 
     fn connect_scroll_child<F: Fn(&Self, ScrollType, bool) -> bool + 'static>(
@@ -1245,11 +1193,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     }
 
     fn emit_scroll_child(&self, scroll: ScrollType, horizontal: bool) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("scroll-child", &[&scroll, &horizontal])
-                .unwrap()
-        };
+        let res = self.emit_by_name("scroll-child", &[&scroll, &horizontal]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_scroll_child`")
