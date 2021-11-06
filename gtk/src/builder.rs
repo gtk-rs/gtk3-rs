@@ -93,7 +93,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
             let callback: *mut P = user_data as *const _ as usize as *mut P;
             let func = (*callback)(&builder, handler_name.as_str());
             object
-                .connect_unsafe(
+                .try_connect_unsafe(
                     signal_name.as_str(),
                     flags & glib::gobject_ffi::G_CONNECT_AFTER != 0,
                     move |args| func(args),

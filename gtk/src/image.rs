@@ -4,11 +4,10 @@ use crate::Align;
 use crate::Container;
 use crate::IconSize;
 use crate::Image;
-use glib::object::IsA;
+use glib::object::{IsA, ObjectExt};
 use glib::signal::{connect_raw, SignalHandlerId};
-use glib::translate::{FromGlib, FromGlibPtrBorrow, IntoGlib, ToGlibPtr, ToGlibPtrMut};
+use glib::translate::*;
 use glib::Cast;
-use glib::StaticType;
 use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
@@ -26,28 +25,12 @@ pub trait ImageExtManual: 'static {
 
 impl<O: IsA<Image>> ImageExtManual for O {
     fn icon_size(&self) -> IconSize {
-        unsafe {
-            let mut value = glib::Value::from_type(i32::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icon-size\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get::<i32>()
-                .map(|v| IconSize::from_glib(v))
-                .expect("Return Value for property `icon-size` getter")
-        }
+        unsafe { from_glib(self.as_ref().property::<i32>("icon-size")) }
     }
 
     fn set_icon_size(&self, icon_size: IconSize) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icon-size\0".as_ptr() as *const _,
-                icon_size.into_glib().to_value().to_glib_none().0,
-            );
-        }
+        self.as_ref()
+            .set_property("icon-size", &icon_size.into_glib());
     }
 
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

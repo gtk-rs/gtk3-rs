@@ -14,14 +14,14 @@ use crate::Widget;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use glib::object::ObjectExt;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::signal::{connect_raw, SignalHandlerId};
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib::translate::{FromGlib, FromGlibPtrBorrow, IntoGlib, ToGlibPtr, ToGlibPtrMut};
+use glib::translate::*;
 use glib::Cast;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib::StaticType;
 use glib::ToValue;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -47,28 +47,12 @@ pub trait StackSwitcherExtManual: 'static {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl<O: IsA<StackSwitcher>> StackSwitcherExtManual for O {
     fn icon_size(&self) -> IconSize {
-        unsafe {
-            let mut value = glib::Value::from_type(i32::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icon-size\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .map(|v| IconSize::from_glib(v))
-                .expect("Return Value for property `icon-size` getter")
-        }
+        unsafe { from_glib(self.as_ref().property::<i32>("icon-size")) }
     }
 
     fn set_icon_size(&self, icon_size: IconSize) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icon-size\0".as_ptr() as *const _,
-                icon_size.into_glib().to_value().to_glib_none().0,
-            );
-        }
+        self.as_ref()
+            .set_property("icon-size", &icon_size.into_glib());
     }
 
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
