@@ -18,10 +18,6 @@ use glib_sys as glib;
 use gobject_sys as gobject;
 use pango_sys as pango;
 
-mod manual;
-
-pub use manual::*;
-
 #[allow(unused_imports)]
 use libc::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,

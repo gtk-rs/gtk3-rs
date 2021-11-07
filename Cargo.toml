@@ -4,6 +4,8 @@ members = [
   "atk/sys",
   "gdk",
   "gdk/sys",
+  "gdkwayland",
+  "gdkwayland/sys",
   "gdkx11",
   "gdkx11/sys",
   "gtk",
