@@ -821,9 +821,6 @@ generate_builder = true
 name = "Gtk.Container"
 status = "generate"
     [[object.function]]
-    pattern = "child_[gs]et_property"
-    ignore = true
-    [[object.function]]
     name = "propagate_draw"
         [[object.function.parameter]]
         name = "cr"

@@ -42,6 +42,9 @@ pub trait ContainerExt: 'static {
     //#[doc(alias = "gtk_container_child_get")]
     //fn child_get(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "gtk_container_child_get_property")]
+    fn child_get_property(&self, child: &impl IsA<Widget>, property_name: &str) -> glib::Value;
+
     //#[doc(alias = "gtk_container_child_get_valist")]
     //fn child_get_valist(&self, child: &impl IsA<Widget>, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
@@ -53,6 +56,14 @@ pub trait ContainerExt: 'static {
 
     //#[doc(alias = "gtk_container_child_set")]
     //fn child_set(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+
+    #[doc(alias = "gtk_container_child_set_property")]
+    fn child_set_property(
+        &self,
+        child: &impl IsA<Widget>,
+        property_name: &str,
+        value: &glib::Value,
+    );
 
     //#[doc(alias = "gtk_container_child_set_valist")]
     //fn child_set_valist(&self, child: &impl IsA<Widget>, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
@@ -175,6 +186,19 @@ impl<O: IsA<Container>> ContainerExt for O {
     //    unsafe { TODO: call ffi:gtk_container_child_get() }
     //}
 
+    fn child_get_property(&self, child: &impl IsA<Widget>, property_name: &str) -> glib::Value {
+        unsafe {
+            let mut value = glib::Value::uninitialized();
+            ffi::gtk_container_child_get_property(
+                self.as_ref().to_glib_none().0,
+                child.as_ref().to_glib_none().0,
+                property_name.to_glib_none().0,
+                value.to_glib_none_mut().0,
+            );
+            value
+        }
+    }
+
     //fn child_get_valist(&self, child: &impl IsA<Widget>, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
     //    unsafe { TODO: call ffi:gtk_container_child_get_valist() }
     //}
@@ -202,6 +226,22 @@ impl<O: IsA<Container>> ContainerExt for O {
     //fn child_set(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_container_child_set() }
     //}
+
+    fn child_set_property(
+        &self,
+        child: &impl IsA<Widget>,
+        property_name: &str,
+        value: &glib::Value,
+    ) {
+        unsafe {
+            ffi::gtk_container_child_set_property(
+                self.as_ref().to_glib_none().0,
+                child.as_ref().to_glib_none().0,
+                property_name.to_glib_none().0,
+                value.to_glib_none().0,
+            );
+        }
+    }
 
     //fn child_set_valist(&self, child: &impl IsA<Widget>, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
     //    unsafe { TODO: call ffi:gtk_container_child_set_valist() }
