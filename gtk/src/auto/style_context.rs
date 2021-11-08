@@ -603,51 +603,19 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
     }
 
     fn direction(&self) -> TextDirection {
-        unsafe {
-            let mut value = glib::Value::from_type(<TextDirection as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"direction\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `direction` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "direction")
     }
 
     fn set_direction(&self, direction: TextDirection) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"direction\0".as_ptr() as *const _,
-                direction.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "direction", &direction)
     }
 
     fn paint_clock(&self) -> Option<gdk::FrameClock> {
-        unsafe {
-            let mut value = glib::Value::from_type(<gdk::FrameClock as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"paint-clock\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `paint-clock` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "paint-clock")
     }
 
     fn set_paint_clock(&self, paint_clock: Option<&gdk::FrameClock>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"paint-clock\0".as_ptr() as *const _,
-                paint_clock.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "paint-clock", &paint_clock)
     }
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

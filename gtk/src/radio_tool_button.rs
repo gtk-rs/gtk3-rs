@@ -2,9 +2,8 @@
 
 use crate::RadioToolButton;
 use crate::ToolItem;
-use glib::object::{Cast, ObjectType};
+use glib::object::{Cast, ObjectExt};
 use glib::translate::*;
-use glib::ToValue;
 use std::ptr;
 
 impl RadioToolButton {
@@ -29,13 +28,7 @@ impl RadioToolButton {
     }
 
     pub fn join_group(&self, group: Option<&RadioToolButton>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut _,
-                "group".to_glib_none().0,
-                group.to_value().to_glib_none().0,
-            );
-        }
+        self.set_property("group", &group);
     }
 }
 

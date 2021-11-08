@@ -483,348 +483,155 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 
     fn accessible_component_layer(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-component-layer\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-component-layer` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-component-layer")
     }
 
     fn accessible_component_mdi_zorder(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-component-mdi-zorder\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-component-mdi-zorder` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-component-mdi-zorder")
     }
 
     fn accessible_description(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-description\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-description` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-description")
     }
 
     fn set_accessible_description(&self, accessible_description: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-description\0".as_ptr() as *const _,
-                accessible_description.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "accessible-description",
+            &accessible_description,
+        )
     }
 
     fn accessible_hypertext_nlinks(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-hypertext-nlinks\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-hypertext-nlinks` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-hypertext-nlinks")
     }
 
     fn accessible_name(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-name\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-name` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-name")
     }
 
     fn set_accessible_name(&self, accessible_name: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-name\0".as_ptr() as *const _,
-                accessible_name.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "accessible-name", &accessible_name)
     }
 
     fn accessible_parent(&self) -> Option<Object> {
-        unsafe {
-            let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-parent\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-parent` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-parent")
     }
 
     fn set_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-parent\0".as_ptr() as *const _,
-                accessible_parent.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "accessible-parent", &accessible_parent)
     }
 
     fn accessible_role(&self) -> Role {
-        unsafe {
-            let mut value = glib::Value::from_type(<Role as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-role\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-role` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-role")
     }
 
     fn set_accessible_role(&self, accessible_role: Role) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-role\0".as_ptr() as *const _,
-                accessible_role.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "accessible-role", &accessible_role)
     }
 
     fn accessible_table_caption(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-caption\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-table-caption` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-table-caption")
     }
 
     fn set_accessible_table_caption(&self, accessible_table_caption: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-caption\0".as_ptr() as *const _,
-                accessible_table_caption.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "accessible-table-caption",
+            &accessible_table_caption,
+        )
     }
 
     fn accessible_table_caption_object(&self) -> Option<Object> {
-        unsafe {
-            let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-caption-object\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-table-caption-object` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-table-caption-object")
     }
 
     fn set_accessible_table_caption_object<P: IsA<Object>>(
         &self,
         accessible_table_caption_object: Option<&P>,
     ) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-caption-object\0".as_ptr() as *const _,
-                accessible_table_caption_object.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "accessible-table-caption-object",
+            &accessible_table_caption_object,
+        )
     }
 
     fn accessible_table_column_description(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-column-description\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-table-column-description` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-table-column-description")
     }
 
     fn set_accessible_table_column_description(
         &self,
         accessible_table_column_description: Option<&str>,
     ) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-column-description\0".as_ptr() as *const _,
-                accessible_table_column_description
-                    .to_value()
-                    .to_glib_none()
-                    .0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "accessible-table-column-description",
+            &accessible_table_column_description,
+        )
     }
 
     fn accessible_table_column_header(&self) -> Option<Object> {
-        unsafe {
-            let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-column-header\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-table-column-header` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-table-column-header")
     }
 
     fn set_accessible_table_column_header<P: IsA<Object>>(
         &self,
         accessible_table_column_header: Option<&P>,
     ) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-column-header\0".as_ptr() as *const _,
-                accessible_table_column_header.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "accessible-table-column-header",
+            &accessible_table_column_header,
+        )
     }
 
     fn accessible_table_row_description(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-row-description\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-table-row-description` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-table-row-description")
     }
 
     fn set_accessible_table_row_description(&self, accessible_table_row_description: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-row-description\0".as_ptr() as *const _,
-                accessible_table_row_description.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "accessible-table-row-description",
+            &accessible_table_row_description,
+        )
     }
 
     fn accessible_table_row_header(&self) -> Option<Object> {
-        unsafe {
-            let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-row-header\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-table-row-header` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-table-row-header")
     }
 
     fn set_accessible_table_row_header<P: IsA<Object>>(
         &self,
         accessible_table_row_header: Option<&P>,
     ) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-row-header\0".as_ptr() as *const _,
-                accessible_table_row_header.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "accessible-table-row-header",
+            &accessible_table_row_header,
+        )
     }
 
     fn accessible_table_summary(&self) -> Option<Object> {
-        unsafe {
-            let mut value = glib::Value::from_type(<Object as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-summary\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-table-summary` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-table-summary")
     }
 
     fn set_accessible_table_summary<P: IsA<Object>>(&self, accessible_table_summary: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-table-summary\0".as_ptr() as *const _,
-                accessible_table_summary.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "accessible-table-summary",
+            &accessible_table_summary,
+        )
     }
 
     fn accessible_value(&self) -> f64 {
-        unsafe {
-            let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-value\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accessible-value` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "accessible-value")
     }
 
     fn set_accessible_value(&self, accessible_value: f64) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"accessible-value\0".as_ptr() as *const _,
-                accessible_value.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "accessible-value", &accessible_value)
     }
 
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(

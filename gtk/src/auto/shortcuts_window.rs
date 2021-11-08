@@ -693,51 +693,19 @@ pub trait ShortcutsWindowExt: 'static {
 
 impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     fn section_name(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"section-name\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `section-name` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "section-name")
     }
 
     fn set_section_name(&self, section_name: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"section-name\0".as_ptr() as *const _,
-                section_name.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "section-name", &section_name)
     }
 
     fn view_name(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"view-name\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `view-name` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "view-name")
     }
 
     fn set_view_name(&self, view_name: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"view-name\0".as_ptr() as *const _,
-                view_name.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "view-name", &view_name)
     }
 
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -762,11 +730,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     }
 
     fn emit_close(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("close", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("close", &[]);
     }
 
     fn connect_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -791,11 +755,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     }
 
     fn emit_search(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("search", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("search", &[]);
     }
 
     fn connect_section_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

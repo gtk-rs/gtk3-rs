@@ -655,42 +655,15 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
     }
 
     fn icons(&self) -> Vec<glib::GString> {
-        unsafe {
-            let mut value =
-                glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icons\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `icons` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "icons")
     }
 
     fn size(&self) -> IconSize {
-        unsafe {
-            let mut value = glib::Value::from_type(<IconSize as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"size\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `size` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "size")
     }
 
     fn set_size(&self, size: IconSize) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"size\0".as_ptr() as *const _,
-                size.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "size", &size)
     }
 
     fn connect_popdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -715,11 +688,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
     }
 
     fn emit_popdown(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("popdown", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("popdown", &[]);
     }
 
     fn connect_popup<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -744,11 +713,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
     }
 
     fn emit_popup(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("popup", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("popup", &[]);
     }
 
     fn connect_value_changed<F: Fn(&Self, f64) + 'static>(&self, f: F) -> SignalHandlerId {

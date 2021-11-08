@@ -38,61 +38,21 @@ impl DeviceTool {
     }
 
     pub fn axes(&self) -> AxisFlags {
-        unsafe {
-            let mut value = glib::Value::from_type(<AxisFlags as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"axes\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `axes` getter")
-        }
+        glib::ObjectExt::property(self, "axes")
     }
 
     #[doc(alias = "hardware-id")]
     pub fn get_property_hardware_id(&self) -> u64 {
-        unsafe {
-            let mut value = glib::Value::from_type(<u64 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"hardware-id\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `hardware-id` getter")
-        }
+        glib::ObjectExt::property(self, "hardware-id")
     }
 
     pub fn get_property_serial(&self) -> u64 {
-        unsafe {
-            let mut value = glib::Value::from_type(<u64 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"serial\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `serial` getter")
-        }
+        glib::ObjectExt::property(self, "serial")
     }
 
     #[doc(alias = "tool-type")]
     pub fn get_property_tool_type(&self) -> DeviceToolType {
-        unsafe {
-            let mut value = glib::Value::from_type(<DeviceToolType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"tool-type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `tool-type` getter")
-        }
+        glib::ObjectExt::property(self, "tool-type")
     }
 }
 

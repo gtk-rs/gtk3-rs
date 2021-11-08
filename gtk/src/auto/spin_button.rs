@@ -1160,27 +1160,11 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
     }
 
     fn climb_rate(&self) -> f64 {
-        unsafe {
-            let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"climb-rate\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `climb-rate` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "climb-rate")
     }
 
     fn set_climb_rate(&self, climb_rate: f64) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"climb-rate\0".as_ptr() as *const _,
-                climb_rate.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "climb-rate", &climb_rate)
     }
 
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

@@ -515,11 +515,7 @@ pub trait FontChooserWidgetExt: 'static {
 
 impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {
     //fn tweak_action(&self) -> /*Ignored*/Option<gio::Action> {
-    //    unsafe {
-    //        let mut value = glib::Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b"tweak-action\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-    //        value.get().expect("Return Value for property `tweak-action` getter")
-    //    }
+    //    glib::ObjectExt::property(self.as_ref(), "tweak-action")
     //}
 
     fn connect_tweak_action_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

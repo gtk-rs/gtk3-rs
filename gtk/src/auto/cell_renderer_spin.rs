@@ -670,75 +670,27 @@ pub trait CellRendererSpinExt: 'static {
 
 impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
     fn adjustment(&self) -> Option<Adjustment> {
-        unsafe {
-            let mut value = glib::Value::from_type(<Adjustment as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"adjustment\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `adjustment` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "adjustment")
     }
 
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"adjustment\0".as_ptr() as *const _,
-                adjustment.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "adjustment", &adjustment)
     }
 
     fn climb_rate(&self) -> f64 {
-        unsafe {
-            let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"climb-rate\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `climb-rate` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "climb-rate")
     }
 
     fn set_climb_rate(&self, climb_rate: f64) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"climb-rate\0".as_ptr() as *const _,
-                climb_rate.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "climb-rate", &climb_rate)
     }
 
     fn digits(&self) -> u32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"digits\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `digits` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "digits")
     }
 
     fn set_digits(&self, digits: u32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"digits\0".as_ptr() as *const _,
-                digits.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "digits", &digits)
     }
 
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

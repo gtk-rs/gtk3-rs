@@ -1157,79 +1157,27 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn cursor_position(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"cursor-position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cursor-position` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "cursor-position")
     }
 
     fn selection_bound(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"selection-bound\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `selection-bound` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "selection-bound")
     }
 
     fn wraps(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"wrap\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `wrap` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "wrap")
     }
 
     fn set_wrap(&self, wrap: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"wrap\0".as_ptr() as *const _,
-                wrap.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "wrap", &wrap)
     }
 
     fn wrap_mode(&self) -> pango::WrapMode {
-        unsafe {
-            let mut value = glib::Value::from_type(<pango::WrapMode as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"wrap-mode\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `wrap-mode` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "wrap-mode")
     }
 
     fn set_wrap_mode(&self, wrap_mode: pango::WrapMode) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"wrap-mode\0".as_ptr() as *const _,
-                wrap_mode.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "wrap-mode", &wrap_mode)
     }
 
     fn connect_activate_current_link<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1257,11 +1205,7 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn emit_activate_current_link(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("activate-current-link", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("activate-current-link", &[]);
     }
 
     fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
@@ -1318,11 +1262,7 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn emit_copy_clipboard(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("copy-clipboard", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("copy-clipboard", &[]);
     }
 
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
@@ -1361,11 +1301,7 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("move-cursor", &[&step, &count, &extend_selection])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("move-cursor", &[&step, &count, &extend_selection]);
     }
 
     fn connect_populate_popup<F: Fn(&Self, &Menu) + 'static>(&self, f: F) -> SignalHandlerId {

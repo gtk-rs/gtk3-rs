@@ -628,27 +628,11 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
     }
 
     fn draws_indicator(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"draw-indicator\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `draw-indicator` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "draw-indicator")
     }
 
     fn set_draw_indicator(&self, draw_indicator: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"draw-indicator\0".as_ptr() as *const _,
-                draw_indicator.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "draw-indicator", &draw_indicator)
     }
 
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

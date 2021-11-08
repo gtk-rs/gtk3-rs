@@ -271,54 +271,22 @@ impl PlacesSidebar {
 
     #[doc(alias = "populate-all")]
     pub fn populates_all(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"populate-all\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `populate-all` getter")
-        }
+        glib::ObjectExt::property(self, "populate-all")
     }
 
     #[doc(alias = "populate-all")]
     pub fn set_populate_all(&self, populate_all: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"populate-all\0".as_ptr() as *const _,
-                populate_all.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "populate-all", &populate_all)
     }
 
     #[doc(alias = "show-connect-to-server")]
     pub fn shows_connect_to_server(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"show-connect-to-server\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `show-connect-to-server` getter")
-        }
+        glib::ObjectExt::property(self, "show-connect-to-server")
     }
 
     #[doc(alias = "show-connect-to-server")]
     pub fn set_show_connect_to_server(&self, show_connect_to_server: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"show-connect-to-server\0".as_ptr() as *const _,
-                show_connect_to_server.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "show-connect-to-server", &show_connect_to_server)
     }
 
     #[doc(alias = "drag-action-ask")]

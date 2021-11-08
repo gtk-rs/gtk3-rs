@@ -613,123 +613,47 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
     }
 
     fn text_lock(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"text-lock\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `text-lock` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "text-lock")
     }
 
     fn set_text_lock(&self, text_lock: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"text-lock\0".as_ptr() as *const _,
-                text_lock.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "text-lock", &text_lock)
     }
 
     fn text_unlock(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"text-unlock\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `text-unlock` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "text-unlock")
     }
 
     fn set_text_unlock(&self, text_unlock: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"text-unlock\0".as_ptr() as *const _,
-                text_unlock.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "text-unlock", &text_unlock)
     }
 
     fn tooltip_lock(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"tooltip-lock\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `tooltip-lock` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "tooltip-lock")
     }
 
     fn set_tooltip_lock(&self, tooltip_lock: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"tooltip-lock\0".as_ptr() as *const _,
-                tooltip_lock.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "tooltip-lock", &tooltip_lock)
     }
 
     fn tooltip_not_authorized(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"tooltip-not-authorized\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `tooltip-not-authorized` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "tooltip-not-authorized")
     }
 
     fn set_tooltip_not_authorized(&self, tooltip_not_authorized: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"tooltip-not-authorized\0".as_ptr() as *const _,
-                tooltip_not_authorized.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(
+            self.as_ref(),
+            "tooltip-not-authorized",
+            &tooltip_not_authorized,
+        )
     }
 
     fn tooltip_unlock(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"tooltip-unlock\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `tooltip-unlock` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "tooltip-unlock")
     }
 
     fn set_tooltip_unlock(&self, tooltip_unlock: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"tooltip-unlock\0".as_ptr() as *const _,
-                tooltip_unlock.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "tooltip-unlock", &tooltip_unlock)
     }
 
     fn connect_permission_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

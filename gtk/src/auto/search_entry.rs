@@ -825,11 +825,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
     }
 
     fn emit_next_match(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("next-match", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("next-match", &[]);
     }
 
     fn connect_previous_match<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -854,11 +850,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
     }
 
     fn emit_previous_match(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("previous-match", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("previous-match", &[]);
     }
 
     fn connect_search_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -904,11 +896,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
     }
 
     fn emit_stop_search(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("stop-search", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("stop-search", &[]);
     }
 }
 

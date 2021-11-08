@@ -100,54 +100,22 @@ impl FileChooserNative {
 
     #[doc(alias = "accept-label")]
     pub fn get_property_accept_label(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"accept-label\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `accept-label` getter")
-        }
+        glib::ObjectExt::property(self, "accept-label")
     }
 
     #[doc(alias = "accept-label")]
     pub fn set_property_accept_label(&self, accept_label: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"accept-label\0".as_ptr() as *const _,
-                accept_label.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "accept-label", &accept_label)
     }
 
     #[doc(alias = "cancel-label")]
     pub fn get_property_cancel_label(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"cancel-label\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cancel-label` getter")
-        }
+        glib::ObjectExt::property(self, "cancel-label")
     }
 
     #[doc(alias = "cancel-label")]
     pub fn set_property_cancel_label(&self, cancel_label: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"cancel-label\0".as_ptr() as *const _,
-                cancel_label.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "cancel-label", &cancel_label)
     }
 
     #[doc(alias = "accept-label")]

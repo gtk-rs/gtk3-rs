@@ -1479,17 +1479,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn cell_area(&self) -> Option<CellArea> {
-        unsafe {
-            let mut value = glib::Value::from_type(<CellArea as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"cell-area\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cell-area` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "cell-area")
     }
 
     fn connect_activate_cursor_item<F: Fn(&Self) -> bool + 'static>(
@@ -1520,11 +1510,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_activate_cursor_item(&self) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("activate-cursor-item", &[])
-                .unwrap()
-        };
+        let res = self.emit_by_name("activate-cursor-item", &[]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_activate_cursor_item`")
@@ -1593,11 +1579,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32) -> bool {
-        let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("move-cursor", &[&step, &count])
-                .unwrap()
-        };
+        let res = self.emit_by_name("move-cursor", &[&step, &count]);
         res.unwrap()
             .get()
             .expect("Return Value for `emit_move_cursor`")
@@ -1625,11 +1607,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_select_all(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("select-all", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("select-all", &[]);
     }
 
     fn connect_select_cursor_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1657,11 +1635,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_select_cursor_item(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("select-cursor-item", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("select-cursor-item", &[]);
     }
 
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1710,11 +1684,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_toggle_cursor_item(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("toggle-cursor-item", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("toggle-cursor-item", &[]);
     }
 
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1739,11 +1709,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_unselect_all(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("unselect-all", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("unselect-all", &[]);
     }
 
     fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(

@@ -742,51 +742,19 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
     }
 
     fn is_icon_size_set(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icon-size-set\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `icon-size-set` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "icon-size-set")
     }
 
     fn set_icon_size_set(&self, icon_size_set: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"icon-size-set\0".as_ptr() as *const _,
-                icon_size_set.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "icon-size-set", &icon_size_set)
     }
 
     fn toolbar_style(&self) -> ToolbarStyle {
-        unsafe {
-            let mut value = glib::Value::from_type(<ToolbarStyle as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"toolbar-style\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `toolbar-style` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "toolbar-style")
     }
 
     fn set_toolbar_style(&self, toolbar_style: ToolbarStyle) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"toolbar-style\0".as_ptr() as *const _,
-                toolbar_style.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "toolbar-style", &toolbar_style)
     }
 
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

@@ -559,51 +559,19 @@ impl<O: IsA<Layout>> LayoutExt for O {
     }
 
     fn height(&self) -> u32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"height\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `height` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "height")
     }
 
     fn set_height(&self, height: u32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"height\0".as_ptr() as *const _,
-                height.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "height", &height)
     }
 
     fn width(&self) -> u32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"width\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `width` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "width")
     }
 
     fn set_width(&self, width: u32) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"width\0".as_ptr() as *const _,
-                width.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "width", &width)
     }
 
     fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {

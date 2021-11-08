@@ -457,11 +457,7 @@ impl<O: IsA<FlowBoxChild>> FlowBoxChildExt for O {
     }
 
     fn emit_activate(&self) {
-        let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit_by_name("activate", &[])
-                .unwrap()
-        };
+        let _ = self.emit_by_name("activate", &[]);
     }
 }
 

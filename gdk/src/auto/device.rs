@@ -336,118 +336,46 @@ impl Device {
 
     #[doc(alias = "device-manager")]
     pub fn device_manager(&self) -> Option<DeviceManager> {
-        unsafe {
-            let mut value = glib::Value::from_type(<DeviceManager as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"device-manager\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `device-manager` getter")
-        }
+        glib::ObjectExt::property(self, "device-manager")
     }
 
     #[doc(alias = "input-mode")]
     pub fn input_mode(&self) -> InputMode {
-        unsafe {
-            let mut value = glib::Value::from_type(<InputMode as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"input-mode\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `input-mode` getter")
-        }
+        glib::ObjectExt::property(self, "input-mode")
     }
 
     #[doc(alias = "input-mode")]
     pub fn set_input_mode(&self, input_mode: InputMode) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"input-mode\0".as_ptr() as *const _,
-                input_mode.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "input-mode", &input_mode)
     }
 
     #[doc(alias = "input-source")]
     pub fn input_source(&self) -> InputSource {
-        unsafe {
-            let mut value = glib::Value::from_type(<InputSource as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"input-source\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `input-source` getter")
-        }
+        glib::ObjectExt::property(self, "input-source")
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "num-touches")]
     pub fn num_touches(&self) -> u32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"num-touches\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `num-touches` getter")
-        }
+        glib::ObjectExt::property(self, "num-touches")
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn set_seat(&self, seat: Option<&Seat>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"seat\0".as_ptr() as *const _,
-                seat.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "seat", &seat)
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn tool(&self) -> Option<DeviceTool> {
-        unsafe {
-            let mut value = glib::Value::from_type(<DeviceTool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"tool\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `tool` getter")
-        }
+        glib::ObjectExt::property(self, "tool")
     }
 
     #[doc(alias = "type")]
     pub fn type_(&self) -> DeviceType {
-        unsafe {
-            let mut value = glib::Value::from_type(<DeviceType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `type` getter")
-        }
+        glib::ObjectExt::property(self, "type")
     }
 
     #[doc(alias = "changed")]

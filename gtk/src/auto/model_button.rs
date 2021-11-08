@@ -50,227 +50,83 @@ impl ModelButton {
     }
 
     pub fn is_active(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"active\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `active` getter")
-        }
+        glib::ObjectExt::property(self, "active")
     }
 
     pub fn set_active(&self, active: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"active\0".as_ptr() as *const _,
-                active.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "active", &active)
     }
 
     pub fn is_centered(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"centered\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `centered` getter")
-        }
+        glib::ObjectExt::property(self, "centered")
     }
 
     pub fn set_centered(&self, centered: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"centered\0".as_ptr() as *const _,
-                centered.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "centered", &centered)
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
-        unsafe {
-            let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"icon\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `icon` getter")
-        }
+        glib::ObjectExt::property(self, "icon")
     }
 
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"icon\0".as_ptr() as *const _,
-                icon.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "icon", &icon)
     }
 
     pub fn is_iconic(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"iconic\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `iconic` getter")
-        }
+        glib::ObjectExt::property(self, "iconic")
     }
 
     pub fn set_iconic(&self, iconic: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"iconic\0".as_ptr() as *const _,
-                iconic.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "iconic", &iconic)
     }
 
     pub fn is_inverted(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"inverted\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `inverted` getter")
-        }
+        glib::ObjectExt::property(self, "inverted")
     }
 
     pub fn set_inverted(&self, inverted: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"inverted\0".as_ptr() as *const _,
-                inverted.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "inverted", &inverted)
     }
 
     #[doc(alias = "menu-name")]
     pub fn menu_name(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"menu-name\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `menu-name` getter")
-        }
+        glib::ObjectExt::property(self, "menu-name")
     }
 
     #[doc(alias = "menu-name")]
     pub fn set_menu_name(&self, menu_name: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"menu-name\0".as_ptr() as *const _,
-                menu_name.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "menu-name", &menu_name)
     }
 
     pub fn role(&self) -> ButtonRole {
-        unsafe {
-            let mut value = glib::Value::from_type(<ButtonRole as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"role\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `role` getter")
-        }
+        glib::ObjectExt::property(self, "role")
     }
 
     pub fn set_role(&self, role: ButtonRole) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"role\0".as_ptr() as *const _,
-                role.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "role", &role)
     }
 
     pub fn text(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"text\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `text` getter")
-        }
+        glib::ObjectExt::property(self, "text")
     }
 
     pub fn set_text(&self, text: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"text\0".as_ptr() as *const _,
-                text.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "text", &text)
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "use-markup")]
     pub fn uses_markup(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"use-markup\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `use-markup` getter")
-        }
+        glib::ObjectExt::property(self, "use-markup")
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "use-markup")]
     pub fn set_use_markup(&self, use_markup: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.as_ptr() as *mut glib::gobject_ffi::GObject,
-                b"use-markup\0".as_ptr() as *const _,
-                use_markup.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self, "use-markup", &use_markup)
     }
 
     #[doc(alias = "active")]

@@ -1197,17 +1197,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
     }
 
     fn cursor_position(&self) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"cursor-position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cursor-position` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "cursor-position")
     }
 
     fn connect_begin_user_action<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

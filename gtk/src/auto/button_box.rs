@@ -539,27 +539,11 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
     }
 
     fn layout_style(&self) -> ButtonBoxStyle {
-        unsafe {
-            let mut value = glib::Value::from_type(<ButtonBoxStyle as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"layout-style\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `layout-style` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "layout-style")
     }
 
     fn set_layout_style(&self, layout_style: ButtonBoxStyle) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"layout-style\0".as_ptr() as *const _,
-                layout_style.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "layout-style", &layout_style)
     }
 
     fn connect_layout_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

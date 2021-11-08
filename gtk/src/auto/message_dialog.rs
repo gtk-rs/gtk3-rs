@@ -814,123 +814,43 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
     }
 
     fn message_type(&self) -> MessageType {
-        unsafe {
-            let mut value = glib::Value::from_type(<MessageType as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"message-type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `message-type` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "message-type")
     }
 
     fn set_message_type(&self, message_type: MessageType) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"message-type\0".as_ptr() as *const _,
-                message_type.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "message-type", &message_type)
     }
 
     fn secondary_text(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-text\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-text` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-text")
     }
 
     fn set_secondary_text(&self, secondary_text: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-text\0".as_ptr() as *const _,
-                secondary_text.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "secondary-text", &secondary_text)
     }
 
     fn is_secondary_use_markup(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-use-markup\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `secondary-use-markup` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "secondary-use-markup")
     }
 
     fn set_secondary_use_markup(&self, secondary_use_markup: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"secondary-use-markup\0".as_ptr() as *const _,
-                secondary_use_markup.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "secondary-use-markup", &secondary_use_markup)
     }
 
     fn text(&self) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"text\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `text` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "text")
     }
 
     fn set_text(&self, text: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"text\0".as_ptr() as *const _,
-                text.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "text", &text)
     }
 
     fn uses_markup(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"use-markup\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `use-markup` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "use-markup")
     }
 
     fn set_use_markup(&self, use_markup: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"use-markup\0".as_ptr() as *const _,
-                use_markup.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "use-markup", &use_markup)
     }
 
     fn connect_message_area_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

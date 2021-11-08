@@ -643,79 +643,27 @@ impl<O: IsA<CellView>> CellViewExt for O {
     }
 
     fn set_background(&self, background: Option<&str>) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"background\0".as_ptr() as *const _,
-                background.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "background", &background)
     }
 
     fn background_rgba(&self) -> Option<gdk::RGBA> {
-        unsafe {
-            let mut value = glib::Value::from_type(<gdk::RGBA as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"background-rgba\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `background-rgba` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "background-rgba")
     }
 
     fn is_background_set(&self) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"background-set\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `background-set` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "background-set")
     }
 
     fn set_background_set(&self, background_set: bool) {
-        unsafe {
-            glib::gobject_ffi::g_object_set_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"background-set\0".as_ptr() as *const _,
-                background_set.to_value().to_glib_none().0,
-            );
-        }
+        glib::ObjectExt::set_property(self.as_ref(), "background-set", &background_set)
     }
 
     fn cell_area(&self) -> Option<CellArea> {
-        unsafe {
-            let mut value = glib::Value::from_type(<CellArea as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"cell-area\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cell-area` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "cell-area")
     }
 
     fn cell_area_context(&self) -> Option<CellAreaContext> {
-        unsafe {
-            let mut value = glib::Value::from_type(<CellAreaContext as StaticType>::static_type());
-            glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
-                b"cell-area-context\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `cell-area-context` getter")
-        }
+        glib::ObjectExt::property(self.as_ref(), "cell-area-context")
     }
 
     fn connect_background_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
