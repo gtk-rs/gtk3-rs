@@ -62,10 +62,16 @@ pub struct MountOperationBuilder {
     anonymous: Option<bool>,
     choice: Option<i32>,
     domain: Option<String>,
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
     is_tcrypt_hidden_volume: Option<bool>,
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
     is_tcrypt_system_volume: Option<bool>,
     password: Option<String>,
     //password-save: /*Unknown type*/,
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
     pim: Option<u32>,
     username: Option<String>,
 }
@@ -96,15 +102,18 @@ impl MountOperationBuilder {
         if let Some(ref domain) = self.domain {
             properties.push(("domain", domain));
         }
+        #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
         if let Some(ref is_tcrypt_hidden_volume) = self.is_tcrypt_hidden_volume {
             properties.push(("is-tcrypt-hidden-volume", is_tcrypt_hidden_volume));
         }
+        #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
         if let Some(ref is_tcrypt_system_volume) = self.is_tcrypt_system_volume {
             properties.push(("is-tcrypt-system-volume", is_tcrypt_system_volume));
         }
         if let Some(ref password) = self.password {
             properties.push(("password", password));
         }
+        #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
         if let Some(ref pim) = self.pim {
             properties.push(("pim", pim));
         }
@@ -140,11 +149,15 @@ impl MountOperationBuilder {
         self
     }
 
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
     pub fn is_tcrypt_hidden_volume(mut self, is_tcrypt_hidden_volume: bool) -> Self {
         self.is_tcrypt_hidden_volume = Some(is_tcrypt_hidden_volume);
         self
     }
 
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
     pub fn is_tcrypt_system_volume(mut self, is_tcrypt_system_volume: bool) -> Self {
         self.is_tcrypt_system_volume = Some(is_tcrypt_system_volume);
         self
@@ -155,6 +168,8 @@ impl MountOperationBuilder {
         self
     }
 
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
     pub fn pim(mut self, pim: u32) -> Self {
         self.pim = Some(pim);
         self

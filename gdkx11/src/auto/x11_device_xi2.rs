@@ -47,8 +47,8 @@ pub struct X11DeviceXI2Builder {
     //input-mode: /*Unknown type*/,
     //input-source: /*Unknown type*/,
     name: Option<String>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "gdk_v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gdk_v3_20")))]
     num_touches: Option<u32>,
     product_id: Option<String>,
     //seat: /*Unknown type*/,
@@ -82,7 +82,7 @@ impl X11DeviceXI2Builder {
         if let Some(ref name) = self.name {
             properties.push(("name", name));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "gdk_v3_20", feature = "dox"))]
         if let Some(ref num_touches) = self.num_touches {
             properties.push(("num-touches", num_touches));
         }
@@ -121,8 +121,8 @@ impl X11DeviceXI2Builder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "gdk_v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gdk_v3_20")))]
     pub fn num_touches(mut self, num_touches: u32) -> Self {
         self.num_touches = Some(num_touches);
         self

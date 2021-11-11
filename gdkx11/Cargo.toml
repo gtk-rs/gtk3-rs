@@ -21,8 +21,10 @@ name = "gdkx11"
 
 [features]
 dox = ["gdk/dox", "ffi/dox"]
+v3_20 = ["gdk_v3_20"]
 v3_22 = ["ffi/v3_22", "gdk/v3_22"]
 v3_24 = ["v3_22", "ffi/v3_24_2"]
+gdk_v3_20 = ["gdk/v3_20"]
 
 [package.metadata.docs.rs]
 features = ["dox"]
