@@ -544,28 +544,28 @@ pub trait StackExt: 'static {
     fn set_visible_child_name(&self, name: &str);
 
     #[doc(alias = "child.icon-name")]
-    fn child_icon_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
+    fn child_icon_name<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
 
     #[doc(alias = "child.icon-name")]
-    fn set_child_icon_name<T: IsA<Widget>>(&self, item: &T, icon_name: Option<&str>);
+    fn set_child_icon_name<T: IsA<crate::Widget>>(&self, item: &T, icon_name: Option<&str>);
 
-    fn child_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
+    fn child_name<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
 
-    fn set_child_name<T: IsA<Widget>>(&self, item: &T, name: Option<&str>);
-
-    #[doc(alias = "child.needs-attention")]
-    fn child_needs_attention<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn set_child_name<T: IsA<crate::Widget>>(&self, item: &T, name: Option<&str>);
 
     #[doc(alias = "child.needs-attention")]
-    fn set_child_needs_attention<T: IsA<Widget>>(&self, item: &T, needs_attention: bool);
+    fn child_needs_attention<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
+    #[doc(alias = "child.needs-attention")]
+    fn set_child_needs_attention<T: IsA<crate::Widget>>(&self, item: &T, needs_attention: bool);
 
-    fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32);
+    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
+    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
 
-    fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>);
+    fn child_title<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
+
+    fn set_child_title<T: IsA<crate::Widget>>(&self, item: &T, title: Option<&str>);
 
     #[doc(alias = "hhomogeneous")]
     fn connect_hhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -770,7 +770,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn child_icon_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    fn child_icon_name<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -785,7 +785,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn set_child_icon_name<T: IsA<Widget>>(&self, item: &T, icon_name: Option<&str>) {
+    fn set_child_icon_name<T: IsA<crate::Widget>>(&self, item: &T, icon_name: Option<&str>) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -796,7 +796,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn child_name<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    fn child_name<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -811,7 +811,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn set_child_name<T: IsA<Widget>>(&self, item: &T, name: Option<&str>) {
+    fn set_child_name<T: IsA<crate::Widget>>(&self, item: &T, name: Option<&str>) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -822,7 +822,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn child_needs_attention<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_needs_attention<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -837,7 +837,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn set_child_needs_attention<T: IsA<Widget>>(&self, item: &T, needs_attention: bool) {
+    fn set_child_needs_attention<T: IsA<crate::Widget>>(&self, item: &T, needs_attention: bool) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -848,7 +848,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -863,7 +863,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32) {
+    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -874,7 +874,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    fn child_title<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -889,7 +889,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>) {
+    fn set_child_title<T: IsA<crate::Widget>>(&self, item: &T, title: Option<&str>) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,

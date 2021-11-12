@@ -502,13 +502,13 @@ pub trait ToolbarExt: 'static {
     #[doc(alias = "toolbar-style")]
     fn set_toolbar_style(&self, toolbar_style: ToolbarStyle);
 
-    fn item_expands<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn item_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    fn set_item_expand<T: IsA<Widget>>(&self, item: &T, expand: bool);
+    fn set_item_expand<T: IsA<crate::Widget>>(&self, item: &T, expand: bool);
 
-    fn item_is_homogeneous<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn item_is_homogeneous<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    fn set_item_homogeneous<T: IsA<Widget>>(&self, item: &T, homogeneous: bool);
+    fn set_item_homogeneous<T: IsA<crate::Widget>>(&self, item: &T, homogeneous: bool);
 
     #[doc(alias = "focus-home-or-end")]
     fn connect_focus_home_or_end<F: Fn(&Self, bool) -> bool + 'static>(
@@ -647,7 +647,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "toolbar-style", &toolbar_style)
     }
 
-    fn item_expands<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn item_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -662,7 +662,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn set_item_expand<T: IsA<Widget>>(&self, item: &T, expand: bool) {
+    fn set_item_expand<T: IsA<crate::Widget>>(&self, item: &T, expand: bool) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -673,7 +673,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn item_is_homogeneous<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn item_is_homogeneous<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -688,7 +688,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
-    fn set_item_homogeneous<T: IsA<Widget>>(&self, item: &T, homogeneous: bool) {
+    fn set_item_homogeneous<T: IsA<crate::Widget>>(&self, item: &T, homogeneous: bool) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,

@@ -488,13 +488,13 @@ pub trait PanedExt: 'static {
     #[doc(alias = "position-set")]
     fn set_position_set(&self, position_set: bool);
 
-    fn child_resizes<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn child_resizes<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    fn set_child_resize<T: IsA<Widget>>(&self, item: &T, resize: bool);
+    fn set_child_resize<T: IsA<crate::Widget>>(&self, item: &T, resize: bool);
 
-    fn child_shrinks<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn child_shrinks<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    fn set_child_shrink<T: IsA<Widget>>(&self, item: &T, shrink: bool);
+    fn set_child_shrink<T: IsA<crate::Widget>>(&self, item: &T, shrink: bool);
 
     #[doc(alias = "accept-position")]
     fn connect_accept_position<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
@@ -648,7 +648,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "position-set", &position_set)
     }
 
-    fn child_resizes<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_resizes<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -663,7 +663,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn set_child_resize<T: IsA<Widget>>(&self, item: &T, resize: bool) {
+    fn set_child_resize<T: IsA<crate::Widget>>(&self, item: &T, resize: bool) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -674,7 +674,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn child_shrinks<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_shrinks<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -689,7 +689,7 @@ impl<O: IsA<Paned>> PanedExt for O {
         }
     }
 
-    fn set_child_shrink<T: IsA<Widget>>(&self, item: &T, shrink: bool) {
+    fn set_child_shrink<T: IsA<crate::Widget>>(&self, item: &T, shrink: bool) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,

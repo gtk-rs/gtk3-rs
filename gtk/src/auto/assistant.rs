@@ -745,25 +745,25 @@ pub trait AssistantExt: 'static {
     #[doc(alias = "use-header-bar")]
     fn use_header_bar(&self) -> i32;
 
-    fn child_is_complete<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn child_is_complete<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    fn set_child_complete<T: IsA<Widget>>(&self, item: &T, complete: bool);
-
-    #[doc(alias = "child.has-padding")]
-    fn child_has_padding<T: IsA<Widget>>(&self, item: &T) -> bool;
+    fn set_child_complete<T: IsA<crate::Widget>>(&self, item: &T, complete: bool);
 
     #[doc(alias = "child.has-padding")]
-    fn set_child_has_padding<T: IsA<Widget>>(&self, item: &T, has_padding: bool);
+    fn child_has_padding<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
+
+    #[doc(alias = "child.has-padding")]
+    fn set_child_has_padding<T: IsA<crate::Widget>>(&self, item: &T, has_padding: bool);
 
     #[doc(alias = "child.page-type")]
-    fn child_page_type<T: IsA<Widget>>(&self, item: &T) -> AssistantPageType;
+    fn child_page_type<T: IsA<crate::Widget>>(&self, item: &T) -> AssistantPageType;
 
     #[doc(alias = "child.page-type")]
-    fn set_child_page_type<T: IsA<Widget>>(&self, item: &T, page_type: AssistantPageType);
+    fn set_child_page_type<T: IsA<crate::Widget>>(&self, item: &T, page_type: AssistantPageType);
 
-    fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
+    fn child_title<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
 
-    fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>);
+    fn set_child_title<T: IsA<crate::Widget>>(&self, item: &T, title: Option<&str>);
 
     #[doc(alias = "apply")]
     fn connect_apply<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -998,7 +998,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         glib::ObjectExt::property(self.as_ref(), "use-header-bar")
     }
 
-    fn child_is_complete<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_is_complete<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -1013,7 +1013,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn set_child_complete<T: IsA<Widget>>(&self, item: &T, complete: bool) {
+    fn set_child_complete<T: IsA<crate::Widget>>(&self, item: &T, complete: bool) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -1024,7 +1024,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn child_has_padding<T: IsA<Widget>>(&self, item: &T) -> bool {
+    fn child_has_padding<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -1039,7 +1039,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn set_child_has_padding<T: IsA<Widget>>(&self, item: &T, has_padding: bool) {
+    fn set_child_has_padding<T: IsA<crate::Widget>>(&self, item: &T, has_padding: bool) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -1050,7 +1050,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn child_page_type<T: IsA<Widget>>(&self, item: &T) -> AssistantPageType {
+    fn child_page_type<T: IsA<crate::Widget>>(&self, item: &T) -> AssistantPageType {
         unsafe {
             let mut value =
                 glib::Value::from_type(<AssistantPageType as StaticType>::static_type());
@@ -1066,7 +1066,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn set_child_page_type<T: IsA<Widget>>(&self, item: &T, page_type: AssistantPageType) {
+    fn set_child_page_type<T: IsA<crate::Widget>>(&self, item: &T, page_type: AssistantPageType) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -1077,7 +1077,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    fn child_title<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -1092,7 +1092,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>) {
+    fn set_child_title<T: IsA<crate::Widget>>(&self, item: &T, title: Option<&str>) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,

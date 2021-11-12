@@ -407,9 +407,9 @@ pub trait OverlayExt: 'static {
     #[doc(alias = "gtk_overlay_set_overlay_pass_through")]
     fn set_overlay_pass_through(&self, widget: &impl IsA<Widget>, pass_through: bool);
 
-    fn child_index<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_index<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    fn set_child_index<T: IsA<Widget>>(&self, item: &T, index: i32);
+    fn set_child_index<T: IsA<crate::Widget>>(&self, item: &T, index: i32);
 
     //#[doc(alias = "get-child-position")]
     //fn connect_get_child_position<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
@@ -454,7 +454,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    fn child_index<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_index<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -469,7 +469,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
-    fn set_child_index<T: IsA<Widget>>(&self, item: &T, index: i32) {
+    fn set_child_index<T: IsA<crate::Widget>>(&self, item: &T, index: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
