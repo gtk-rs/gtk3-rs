@@ -529,25 +529,25 @@ pub trait GridExt: 'static {
     #[doc(alias = "gtk_grid_set_row_spacing")]
     fn set_row_spacing(&self, spacing: u32);
 
-    fn cell_height<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn cell_height<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    fn set_cell_height<T: IsA<Widget>>(&self, item: &T, height: i32);
+    fn set_cell_height<T: IsA<crate::Widget>>(&self, item: &T, height: i32);
 
-    fn cell_width<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn cell_width<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    fn set_cell_width<T: IsA<Widget>>(&self, item: &T, width: i32);
-
-    #[doc(alias = "cell.left-attach")]
-    fn cell_left_attach<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn set_cell_width<T: IsA<crate::Widget>>(&self, item: &T, width: i32);
 
     #[doc(alias = "cell.left-attach")]
-    fn set_cell_left_attach<T: IsA<Widget>>(&self, item: &T, left_attach: i32);
+    fn cell_left_attach<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
+
+    #[doc(alias = "cell.left-attach")]
+    fn set_cell_left_attach<T: IsA<crate::Widget>>(&self, item: &T, left_attach: i32);
 
     #[doc(alias = "cell.top-attach")]
-    fn cell_top_attach<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn cell_top_attach<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
     #[doc(alias = "cell.top-attach")]
-    fn set_cell_top_attach<T: IsA<Widget>>(&self, item: &T, top_attach: i32);
+    fn set_cell_top_attach<T: IsA<crate::Widget>>(&self, item: &T, top_attach: i32);
 
     #[doc(alias = "baseline-row")]
     fn connect_baseline_row_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -726,7 +726,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn cell_height<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn cell_height<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -741,7 +741,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn set_cell_height<T: IsA<Widget>>(&self, item: &T, height: i32) {
+    fn set_cell_height<T: IsA<crate::Widget>>(&self, item: &T, height: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -752,7 +752,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn cell_width<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn cell_width<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -767,7 +767,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn set_cell_width<T: IsA<Widget>>(&self, item: &T, width: i32) {
+    fn set_cell_width<T: IsA<crate::Widget>>(&self, item: &T, width: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -778,7 +778,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn cell_left_attach<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn cell_left_attach<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -793,7 +793,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn set_cell_left_attach<T: IsA<Widget>>(&self, item: &T, left_attach: i32) {
+    fn set_cell_left_attach<T: IsA<crate::Widget>>(&self, item: &T, left_attach: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -804,7 +804,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn cell_top_attach<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn cell_top_attach<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -819,7 +819,7 @@ impl<O: IsA<Grid>> GridExt for O {
         }
     }
 
-    fn set_cell_top_attach<T: IsA<Widget>>(&self, item: &T, top_attach: i32) {
+    fn set_cell_top_attach<T: IsA<crate::Widget>>(&self, item: &T, top_attach: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,

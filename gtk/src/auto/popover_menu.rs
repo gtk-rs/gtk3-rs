@@ -66,7 +66,7 @@ impl PopoverMenu {
         glib::ObjectExt::set_property(self, "visible-submenu", &visible_submenu)
     }
 
-    pub fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    pub fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -81,7 +81,7 @@ impl PopoverMenu {
         }
     }
 
-    pub fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32) {
+    pub fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.as_ptr() as *mut crate::ffi::GtkContainer,
@@ -92,7 +92,7 @@ impl PopoverMenu {
         }
     }
 
-    pub fn child_submenu<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
+    pub fn child_submenu<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -107,7 +107,7 @@ impl PopoverMenu {
         }
     }
 
-    pub fn set_child_submenu<T: IsA<Widget>>(&self, item: &T, submenu: Option<&str>) {
+    pub fn set_child_submenu<T: IsA<crate::Widget>>(&self, item: &T, submenu: Option<&str>) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.as_ptr() as *mut crate::ffi::GtkContainer,

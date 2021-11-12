@@ -530,14 +530,14 @@ pub trait HeaderBarExt: 'static {
     fn set_spacing(&self, spacing: i32);
 
     #[doc(alias = "child.pack-type")]
-    fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
+    fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType;
 
     #[doc(alias = "child.pack-type")]
-    fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType);
+    fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType);
 
-    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32);
+    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
 
     #[doc(alias = "custom-title")]
     fn connect_custom_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -703,7 +703,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "spacing", &spacing)
     }
 
-    fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
+    fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType {
         unsafe {
             let mut value = glib::Value::from_type(<PackType as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -718,7 +718,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType) {
+    fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -729,7 +729,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -744,7 +744,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
-    fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32) {
+    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,

@@ -491,13 +491,13 @@ pub trait LayoutExt: 'static {
 
     fn set_width(&self, width: u32);
 
-    fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_x<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    fn set_child_x<T: IsA<Widget>>(&self, item: &T, x: i32);
+    fn set_child_x<T: IsA<crate::Widget>>(&self, item: &T, x: i32);
 
-    fn child_y<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_y<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    fn set_child_y<T: IsA<Widget>>(&self, item: &T, y: i32);
+    fn set_child_y<T: IsA<crate::Widget>>(&self, item: &T, y: i32);
 
     #[doc(alias = "height")]
     fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -574,7 +574,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "width", &width)
     }
 
-    fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_x<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -587,7 +587,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn set_child_x<T: IsA<Widget>>(&self, item: &T, x: i32) {
+    fn set_child_x<T: IsA<crate::Widget>>(&self, item: &T, x: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -598,7 +598,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn child_y<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_y<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -611,7 +611,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn set_child_y<T: IsA<Widget>>(&self, item: &T, y: i32) {
+    fn set_child_y<T: IsA<crate::Widget>>(&self, item: &T, y: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,

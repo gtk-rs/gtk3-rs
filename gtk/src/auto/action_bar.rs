@@ -410,14 +410,14 @@ pub trait ActionBarExt: 'static {
     fn set_center_widget(&self, center_widget: Option<&impl IsA<Widget>>);
 
     #[doc(alias = "child.pack-type")]
-    fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;
+    fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType;
 
     #[doc(alias = "child.pack-type")]
-    fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType);
+    fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType);
 
-    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32;
+    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32);
+    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
 }
 
 impl<O: IsA<ActionBar>> ActionBarExt for O {
@@ -456,7 +456,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
-    fn child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
+    fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType {
         unsafe {
             let mut value = glib::Value::from_type(<PackType as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -471,7 +471,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
-    fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType) {
+    fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
@@ -482,7 +482,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
-    fn child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
+    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
@@ -497,7 +497,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
-    fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32) {
+    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32) {
         unsafe {
             crate::ffi::gtk_container_child_set_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
