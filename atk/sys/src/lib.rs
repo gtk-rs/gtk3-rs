@@ -345,8 +345,8 @@ pub type AtkPropertyChangeHandler =
     Option<unsafe extern "C" fn(*mut AtkObject, *mut AtkPropertyValues)>;
 
 // Records
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkActionIface {
     pub parent: gobject::GTypeInterface,
     pub do_action: Option<unsafe extern "C" fn(*mut AtkAction, c_int) -> gboolean>,
@@ -373,8 +373,8 @@ impl ::std::fmt::Debug for AtkActionIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkAttribute {
     pub name: *mut c_char,
     pub value: *mut c_char,
@@ -389,8 +389,8 @@ impl ::std::fmt::Debug for AtkAttribute {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkComponentIface {
     pub parent: gobject::GTypeInterface,
     pub add_focus_handler:
@@ -461,8 +461,8 @@ impl ::std::fmt::Debug for AtkComponentIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkDocumentIface {
     pub parent: gobject::GTypeInterface,
     pub get_document_type: Option<unsafe extern "C" fn(*mut AtkDocument) -> *const c_char>,
@@ -497,8 +497,8 @@ impl ::std::fmt::Debug for AtkDocumentIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkEditableTextIface {
     pub parent_interface: gobject::GTypeInterface,
     pub set_run_attributes: Option<
@@ -528,8 +528,8 @@ impl ::std::fmt::Debug for AtkEditableTextIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkGObjectAccessibleClass {
     pub parent_class: AtkObjectClass,
     pub pad1: AtkFunction,
@@ -546,8 +546,8 @@ impl ::std::fmt::Debug for AtkGObjectAccessibleClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkHyperlinkClass {
     pub parent: gobject::GObjectClass,
     pub get_uri: Option<unsafe extern "C" fn(*mut AtkHyperlink, c_int) -> *mut c_char>,
@@ -580,8 +580,8 @@ impl ::std::fmt::Debug for AtkHyperlinkClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkHyperlinkImplIface {
     pub parent: gobject::GTypeInterface,
     pub get_hyperlink: Option<unsafe extern "C" fn(*mut AtkHyperlinkImpl) -> *mut AtkHyperlink>,
@@ -596,8 +596,8 @@ impl ::std::fmt::Debug for AtkHyperlinkImplIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkHypertextIface {
     pub parent: gobject::GTypeInterface,
     pub get_link: Option<unsafe extern "C" fn(*mut AtkHypertext, c_int) -> *mut AtkHyperlink>,
@@ -618,8 +618,8 @@ impl ::std::fmt::Debug for AtkHypertextIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkImageIface {
     pub parent: gobject::GTypeInterface,
     pub get_image_position:
@@ -645,12 +645,15 @@ impl ::std::fmt::Debug for AtkImageIface {
 }
 
 #[repr(C)]
-pub struct _AtkImplementor(c_void);
+pub struct _AtkImplementor {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 pub type AtkImplementor = *mut _AtkImplementor;
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkKeyEventStruct {
     pub type_: c_int,
     pub state: c_uint,
@@ -675,8 +678,8 @@ impl ::std::fmt::Debug for AtkKeyEventStruct {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkMiscClass {
     pub parent: gobject::GObjectClass,
     pub threads_enter: Option<unsafe extern "C" fn(*mut AtkMisc)>,
@@ -695,8 +698,8 @@ impl ::std::fmt::Debug for AtkMiscClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkNoOpObjectClass {
     pub parent_class: AtkObjectClass,
 }
@@ -709,8 +712,8 @@ impl ::std::fmt::Debug for AtkNoOpObjectClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkNoOpObjectFactoryClass {
     pub parent_class: AtkObjectFactoryClass,
 }
@@ -723,8 +726,8 @@ impl ::std::fmt::Debug for AtkNoOpObjectFactoryClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkObjectClass {
     pub parent: gobject::GObjectClass,
     pub get_name: Option<unsafe extern "C" fn(*mut AtkObject) -> *const c_char>,
@@ -798,8 +801,8 @@ impl ::std::fmt::Debug for AtkObjectClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkObjectFactoryClass {
     pub parent_class: gobject::GObjectClass,
     pub create_accessible: Option<unsafe extern "C" fn(*mut gobject::GObject) -> *mut AtkObject>,
@@ -822,8 +825,8 @@ impl ::std::fmt::Debug for AtkObjectFactoryClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkPlugClass {
     pub parent_class: AtkObjectClass,
     pub get_object_id: Option<unsafe extern "C" fn(*mut AtkPlug) -> *mut c_char>,
@@ -838,8 +841,8 @@ impl ::std::fmt::Debug for AtkPlugClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkPropertyValues {
     pub property_name: *const c_char,
     pub old_value: gobject::GValue,
@@ -857,7 +860,10 @@ impl ::std::fmt::Debug for AtkPropertyValues {
 }
 
 #[repr(C)]
-pub struct AtkRange(c_void);
+pub struct AtkRange {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkRange {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -865,8 +871,8 @@ impl ::std::fmt::Debug for AtkRange {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkRectangle {
     pub x: c_int,
     pub y: c_int,
@@ -885,8 +891,8 @@ impl ::std::fmt::Debug for AtkRectangle {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkRegistryClass {
     pub parent_class: gobject::GObjectClass,
 }
@@ -899,8 +905,8 @@ impl ::std::fmt::Debug for AtkRegistryClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkRelationClass {
     pub parent: gobject::GObjectClass,
 }
@@ -913,8 +919,8 @@ impl ::std::fmt::Debug for AtkRelationClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkRelationSetClass {
     pub parent: gobject::GObjectClass,
     pub pad1: AtkFunction,
@@ -931,8 +937,8 @@ impl ::std::fmt::Debug for AtkRelationSetClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkSelectionIface {
     pub parent: gobject::GTypeInterface,
     pub add_selection: Option<unsafe extern "C" fn(*mut AtkSelection, c_int) -> gboolean>,
@@ -961,8 +967,8 @@ impl ::std::fmt::Debug for AtkSelectionIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkSocketClass {
     pub parent_class: AtkObjectClass,
     pub embed: Option<unsafe extern "C" fn(*mut AtkSocket, *const c_char)>,
@@ -977,8 +983,8 @@ impl ::std::fmt::Debug for AtkSocketClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkStateSetClass {
     pub parent: gobject::GObjectClass,
 }
@@ -991,8 +997,8 @@ impl ::std::fmt::Debug for AtkStateSetClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkStreamableContentIface {
     pub parent: gobject::GTypeInterface,
     pub get_n_mime_types: Option<unsafe extern "C" fn(*mut AtkStreamableContent) -> c_int>,
@@ -1023,8 +1029,8 @@ impl ::std::fmt::Debug for AtkStreamableContentIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkTableCellIface {
     pub parent: gobject::GTypeInterface,
     pub get_column_span: Option<unsafe extern "C" fn(*mut AtkTableCell) -> c_int>,
@@ -1061,8 +1067,8 @@ impl ::std::fmt::Debug for AtkTableCellIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkTableIface {
     pub parent: gobject::GTypeInterface,
     pub ref_at: Option<unsafe extern "C" fn(*mut AtkTable, c_int, c_int) -> *mut AtkObject>,
@@ -1147,8 +1153,8 @@ impl ::std::fmt::Debug for AtkTableIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkTextIface {
     pub parent: gobject::GTypeInterface,
     pub get_text: Option<unsafe extern "C" fn(*mut AtkText, c_int, c_int) -> *mut c_char>,
@@ -1272,8 +1278,8 @@ impl ::std::fmt::Debug for AtkTextIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkTextRange {
     pub bounds: AtkTextRectangle,
     pub start_offset: c_int,
@@ -1292,8 +1298,8 @@ impl ::std::fmt::Debug for AtkTextRange {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkTextRectangle {
     pub x: c_int,
     pub y: c_int,
@@ -1312,8 +1318,8 @@ impl ::std::fmt::Debug for AtkTextRectangle {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkUtilClass {
     pub parent: gobject::GObjectClass,
     pub add_global_event_listener:
@@ -1344,8 +1350,8 @@ impl ::std::fmt::Debug for AtkUtilClass {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkValueIface {
     pub parent: gobject::GTypeInterface,
     pub get_current_value: Option<unsafe extern "C" fn(*mut AtkValue, *mut gobject::GValue)>,
@@ -1380,8 +1386,8 @@ impl ::std::fmt::Debug for AtkValueIface {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkWindowIface {
     pub parent: gobject::GTypeInterface,
 }
@@ -1395,8 +1401,8 @@ impl ::std::fmt::Debug for AtkWindowIface {
 }
 
 // Classes
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkGObjectAccessible {
     pub parent: AtkObject,
 }
@@ -1409,8 +1415,8 @@ impl ::std::fmt::Debug for AtkGObjectAccessible {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkHyperlink {
     pub parent: gobject::GObject,
 }
@@ -1423,8 +1429,8 @@ impl ::std::fmt::Debug for AtkHyperlink {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkMisc {
     pub parent: gobject::GObject,
 }
@@ -1437,8 +1443,8 @@ impl ::std::fmt::Debug for AtkMisc {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkNoOpObject {
     pub parent: AtkObject,
 }
@@ -1451,8 +1457,8 @@ impl ::std::fmt::Debug for AtkNoOpObject {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkNoOpObjectFactory {
     pub parent: AtkObjectFactory,
 }
@@ -1465,8 +1471,8 @@ impl ::std::fmt::Debug for AtkNoOpObjectFactory {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkObject {
     pub parent: gobject::GObject,
     pub description: *mut c_char,
@@ -1491,8 +1497,8 @@ impl ::std::fmt::Debug for AtkObject {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkObjectFactory {
     pub parent: gobject::GObject,
 }
@@ -1505,8 +1511,8 @@ impl ::std::fmt::Debug for AtkObjectFactory {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkPlug {
     pub parent: AtkObject,
 }
@@ -1519,8 +1525,8 @@ impl ::std::fmt::Debug for AtkPlug {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkRegistry {
     pub parent: gobject::GObject,
     pub factory_type_registry: *mut glib::GHashTable,
@@ -1537,8 +1543,8 @@ impl ::std::fmt::Debug for AtkRegistry {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkRelation {
     pub parent: gobject::GObject,
     pub target: *mut glib::GPtrArray,
@@ -1555,8 +1561,8 @@ impl ::std::fmt::Debug for AtkRelation {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkRelationSet {
     pub parent: gobject::GObject,
     pub relations: *mut glib::GPtrArray,
@@ -1571,8 +1577,8 @@ impl ::std::fmt::Debug for AtkRelationSet {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkSocket {
     pub parent: AtkObject,
     pub embedded_plug_id: *mut c_char,
@@ -1586,8 +1592,8 @@ impl ::std::fmt::Debug for AtkSocket {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkStateSet {
     pub parent: gobject::GObject,
 }
@@ -1600,8 +1606,8 @@ impl ::std::fmt::Debug for AtkStateSet {
     }
 }
 
-#[repr(C)]
 #[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkUtil {
     pub parent: gobject::GObject,
 }
@@ -1616,7 +1622,10 @@ impl ::std::fmt::Debug for AtkUtil {
 
 // Interfaces
 #[repr(C)]
-pub struct AtkAction(c_void);
+pub struct AtkAction {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkAction {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1625,7 +1634,10 @@ impl ::std::fmt::Debug for AtkAction {
 }
 
 #[repr(C)]
-pub struct AtkComponent(c_void);
+pub struct AtkComponent {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkComponent {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1634,7 +1646,10 @@ impl ::std::fmt::Debug for AtkComponent {
 }
 
 #[repr(C)]
-pub struct AtkDocument(c_void);
+pub struct AtkDocument {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkDocument {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1643,7 +1658,10 @@ impl ::std::fmt::Debug for AtkDocument {
 }
 
 #[repr(C)]
-pub struct AtkEditableText(c_void);
+pub struct AtkEditableText {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkEditableText {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1652,7 +1670,10 @@ impl ::std::fmt::Debug for AtkEditableText {
 }
 
 #[repr(C)]
-pub struct AtkHyperlinkImpl(c_void);
+pub struct AtkHyperlinkImpl {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkHyperlinkImpl {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1661,7 +1682,10 @@ impl ::std::fmt::Debug for AtkHyperlinkImpl {
 }
 
 #[repr(C)]
-pub struct AtkHypertext(c_void);
+pub struct AtkHypertext {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkHypertext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1670,7 +1694,10 @@ impl ::std::fmt::Debug for AtkHypertext {
 }
 
 #[repr(C)]
-pub struct AtkImage(c_void);
+pub struct AtkImage {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkImage {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1679,7 +1706,10 @@ impl ::std::fmt::Debug for AtkImage {
 }
 
 #[repr(C)]
-pub struct AtkImplementorIface(c_void);
+pub struct AtkImplementorIface {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkImplementorIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1688,7 +1718,10 @@ impl ::std::fmt::Debug for AtkImplementorIface {
 }
 
 #[repr(C)]
-pub struct AtkSelection(c_void);
+pub struct AtkSelection {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkSelection {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1697,7 +1730,10 @@ impl ::std::fmt::Debug for AtkSelection {
 }
 
 #[repr(C)]
-pub struct AtkStreamableContent(c_void);
+pub struct AtkStreamableContent {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkStreamableContent {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1706,7 +1742,10 @@ impl ::std::fmt::Debug for AtkStreamableContent {
 }
 
 #[repr(C)]
-pub struct AtkTable(c_void);
+pub struct AtkTable {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkTable {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1715,7 +1754,10 @@ impl ::std::fmt::Debug for AtkTable {
 }
 
 #[repr(C)]
-pub struct AtkTableCell(c_void);
+pub struct AtkTableCell {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkTableCell {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1724,7 +1766,10 @@ impl ::std::fmt::Debug for AtkTableCell {
 }
 
 #[repr(C)]
-pub struct AtkText(c_void);
+pub struct AtkText {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkText {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1733,7 +1778,10 @@ impl ::std::fmt::Debug for AtkText {
 }
 
 #[repr(C)]
-pub struct AtkValue(c_void);
+pub struct AtkValue {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkValue {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -1742,7 +1790,10 @@ impl ::std::fmt::Debug for AtkValue {
 }
 
 #[repr(C)]
-pub struct AtkWindow(c_void);
+pub struct AtkWindow {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
 
 impl ::std::fmt::Debug for AtkWindow {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
