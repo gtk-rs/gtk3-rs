@@ -15,20 +15,20 @@ fn build_ui(application: &gtk::Application) {
     let mut attr = pango::AttrColor::new_background(65535, 0, 0);
     attr.set_start_index(0);
     attr.set_end_index(2);
-    attr_list.insert(attr.upcast());
+    attr_list.insert(attr);
 
     let mut attr = pango::AttrInt::new_underline(pango::Underline::Single);
     attr.set_start_index(1);
     attr.set_end_index(4);
-    attr_list.insert(attr.upcast());
+    attr_list.insert(attr);
 
     let mut attr = pango::AttrInt::new_strikethrough(true);
     attr.set_start_index(5);
-    attr_list.insert(attr.upcast());
+    attr_list.insert(attr);
 
     let mut attr = pango::AttrFloat::new_scale(1.2);
     attr.set_start_index(6);
-    attr_list.insert(attr.upcast());
+    attr_list.insert(attr);
 
     label.set_attributes(Some(&attr_list));
     window.add(&label);
