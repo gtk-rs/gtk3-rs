@@ -42,10 +42,6 @@ pub trait AtkObjectExt: 'static {
     #[doc(alias = "get_accessible_id")]
     fn accessible_id(&self) -> Option<glib::GString>;
 
-    //#[doc(alias = "atk_object_get_attributes")]
-    //#[doc(alias = "get_attributes")]
-    //fn attributes(&self) -> /*Ignored*/Option<AttributeSet>;
-
     #[doc(alias = "atk_object_get_description")]
     #[doc(alias = "get_description")]
     fn description(&self) -> Option<glib::GString>;
@@ -339,10 +335,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             ))
         }
     }
-
-    //fn attributes(&self) -> /*Ignored*/Option<AttributeSet> {
-    //    unsafe { TODO: call ffi:atk_object_get_attributes() }
-    //}
 
     fn description(&self) -> Option<glib::GString> {
         unsafe {

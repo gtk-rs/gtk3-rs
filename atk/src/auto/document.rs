@@ -29,10 +29,6 @@ pub trait DocumentExt: 'static {
     #[doc(alias = "get_attribute_value")]
     fn attribute_value(&self, attribute_name: &str) -> Option<glib::GString>;
 
-    //#[doc(alias = "atk_document_get_attributes")]
-    //#[doc(alias = "get_attributes")]
-    //fn attributes(&self) -> /*Ignored*/Option<AttributeSet>;
-
     #[doc(alias = "atk_document_get_current_page_number")]
     #[doc(alias = "get_current_page_number")]
     fn current_page_number(&self) -> i32;
@@ -74,10 +70,6 @@ impl<O: IsA<Document>> DocumentExt for O {
             ))
         }
     }
-
-    //fn attributes(&self) -> /*Ignored*/Option<AttributeSet> {
-    //    unsafe { TODO: call ffi:atk_document_get_attributes() }
-    //}
 
     fn current_page_number(&self) -> i32 {
         unsafe { ffi::atk_document_get_current_page_number(self.as_ref().to_glib_none().0) }

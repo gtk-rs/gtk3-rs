@@ -160,9 +160,6 @@ pub trait StyleContextExt: 'static {
     #[doc(alias = "gtk_style_context_add_provider")]
     fn add_provider(&self, provider: &impl IsA<StyleProvider>, priority: u32);
 
-    //#[doc(alias = "gtk_style_context_get")]
-    //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
-
     #[doc(alias = "gtk_style_context_get_border")]
     #[doc(alias = "get_border")]
     fn border(&self, state: StateFlags) -> Border;
@@ -323,10 +320,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             );
         }
     }
-
-    //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_style_context_get() }
-    //}
 
     fn border(&self, state: StateFlags) -> Border {
         unsafe {
