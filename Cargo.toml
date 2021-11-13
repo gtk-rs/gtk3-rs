@@ -1,4 +1,15 @@
 [workspace]
+default-members = [
+  "atk",
+  "atk/sys",
+  "gdk",
+  "gdk/sys",
+  "gtk",
+  "gtk/sys",
+  "gtk3-macros",
+  "examples",
+]
+
 members = [
   "atk",
   "atk/sys",
