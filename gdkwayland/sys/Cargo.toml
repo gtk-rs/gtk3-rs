@@ -1,0 +1,40 @@
+[package]
+authors = ["The gtk-rs Project Developers"]
+description = "FFI bindings to libgdk-3-wayland"
+homepage = "http://gtk-rs.org/"
+keywords = ["gdk", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
+name = "gdkwayland-sys"
+repository = "https://github.com/gtk-rs/gtk3-rs"
+version = "0.15.0"
+include = ["../../LICENSE"]
+edition = "2021"
+rust-version = "1.56"
+
+[lib]
+name = "gdk_wayland_sys"
+
+[features]
+v3_20 = ["gdk-sys/v3_20"]
+v3_22 = ["v3_20", "gdk-sys/v3_22"]
+v3_24 = ["v3_22", "gdk-sys/v3_24"]
+dox = ["gdk-sys/dox"]
+
+[dependencies]
+libc = "0.2"
+
+[dependencies.glib-sys]
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gobject-sys]
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gdk-sys]
+path = "../../gdk/sys"
+
+[build-dependencies]
+pkg-config = "0.3.7"
+system-deps = "5"
+
+[package.metadata.docs.rs]
+features = ["dox"]

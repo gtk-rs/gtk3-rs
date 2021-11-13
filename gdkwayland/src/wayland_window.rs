@@ -1,10 +1,11 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use gdk::Atom;
 use glib::translate::*;
 
 glib::wrapper! {
     #[doc(alias = "GdkWaylandWindow")]
-    pub struct WaylandWindow(Object<ffi::GdkWaylandWindow>) @extends crate::Window;
+    pub struct WaylandWindow(Object<ffi::GdkWaylandWindow>) @extends gdk::Window;
 
     match fn {
         type_ => || ffi::gdk_wayland_window_get_type(),
@@ -12,6 +13,18 @@ glib::wrapper! {
 }
 
 impl WaylandWindow {
+    #[doc(alias = "gdk_wayland_selection_add_targets")]
+    pub fn selection_add_targets(&self, selection: &Atom, targets: &[&Atom]) {
+        unsafe {
+            ffi::gdk_wayland_selection_add_targets(
+                self.to_glib_none().0,
+                selection.to_glib_none().0,
+                targets.len() as _,
+                targets.to_glib_none().0,
+            )
+        }
+    }
+
     #[doc(alias = "gdk_wayland_window_set_use_custom_surface")]
     pub fn set_use_custom_surface(&self) {
         unsafe { ffi::gdk_wayland_window_set_use_custom_surface(self.to_glib_none().0) }

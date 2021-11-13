@@ -23,8 +23,7 @@ name = "gdk"
 v3_20 = ["ffi/v3_20"]
 v3_22 = ["v3_20", "ffi/v3_22"]
 v3_24 = ["v3_22", "ffi/v3_24"]
-dox = ["ffi/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox", "wayland"]
-wayland = ["ffi/wayland"]
+dox = ["ffi/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox"]
 
 [package.metadata.docs.rs]
 features = ["dox"]

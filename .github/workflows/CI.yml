@@ -20,8 +20,9 @@ jobs:
           - "1.56.0"
         conf:
           - { name: "atk", features: "v2_34", test_sys: true }
-          - { name: "gdk", features: "v3_24,wayland", test_sys: true }
+          - { name: "gdk", features: "v3_24", test_sys: true }
           - { name: "gdkx11", features: "v3_24", test_sys: true }
+          - { name: "gdkwayland", features: "v3_24", test_sys: false }
           - { name: "gtk", features: "v3_24_9", test_sys: false }
     steps:
       - uses: actions/checkout@v2
@@ -42,13 +43,13 @@ jobs:
         if: matrix.rust == 'nightly'
       - run: cargo run --release -- ../${{matrix.conf.name}}
         working-directory: checker
-        if: matrix.rust == 'nightly'
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'gdkwayland'
       - run: cargo run --release -- --no-license ../${{matrix.conf.name}}/sys
         working-directory: checker
-        if: matrix.rust == 'nightly'
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'gdkwayland'
       - run: ./check_init_asserts ../${{matrix.conf.name}}
         working-directory: checker
-        if: matrix.rust == 'nightly'
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'gdkwayland'
       - name: Check doc aliases
         run: |
           python3 doc_aliases.py ../${{matrix.conf.name}}
