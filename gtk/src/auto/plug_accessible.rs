@@ -57,6 +57,7 @@ impl PlugAccessibleBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`PlugAccessible`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> PlugAccessible {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accessible_description) = self.accessible_description {

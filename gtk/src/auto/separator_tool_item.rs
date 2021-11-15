@@ -109,6 +109,7 @@ impl SeparatorToolItemBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`SeparatorToolItem`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> SeparatorToolItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref draw) = self.draw {

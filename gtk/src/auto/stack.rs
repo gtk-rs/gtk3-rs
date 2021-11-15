@@ -112,6 +112,7 @@ impl StackBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Stack`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Stack {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref hhomogeneous) = self.hhomogeneous {

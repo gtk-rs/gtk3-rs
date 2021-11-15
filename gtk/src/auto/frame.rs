@@ -112,6 +112,7 @@ impl FrameBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Frame`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Frame {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref label) = self.label {

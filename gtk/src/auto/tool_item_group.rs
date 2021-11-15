@@ -115,6 +115,7 @@ impl ToolItemGroupBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`ToolItemGroup`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> ToolItemGroup {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref collapsed) = self.collapsed {

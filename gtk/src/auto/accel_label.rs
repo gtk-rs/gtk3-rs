@@ -127,6 +127,7 @@ impl AccelLabelBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`AccelLabel`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> AccelLabel {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_closure) = self.accel_closure {

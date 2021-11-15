@@ -150,6 +150,7 @@ impl ButtonBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Button`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Button {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref always_show_image) = self.always_show_image {

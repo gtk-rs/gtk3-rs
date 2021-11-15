@@ -118,6 +118,7 @@ impl FlowBoxBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`FlowBox`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> FlowBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activate_on_single_click) = self.activate_on_single_click {

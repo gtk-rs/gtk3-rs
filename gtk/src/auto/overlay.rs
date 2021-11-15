@@ -100,6 +100,7 @@ impl OverlayBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Overlay`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Overlay {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref border_width) = self.border_width {

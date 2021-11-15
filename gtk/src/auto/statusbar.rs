@@ -111,6 +111,7 @@ impl StatusbarBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Statusbar`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Statusbar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref baseline_position) = self.baseline_position {

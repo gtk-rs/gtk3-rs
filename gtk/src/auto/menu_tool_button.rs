@@ -126,6 +126,7 @@ impl MenuToolButtonBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`MenuToolButton`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> MenuToolButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref menu) = self.menu {

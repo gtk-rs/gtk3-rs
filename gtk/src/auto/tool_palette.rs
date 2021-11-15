@@ -138,6 +138,7 @@ impl ToolPaletteBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`ToolPalette`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> ToolPalette {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref icon_size) = self.icon_size {

@@ -112,6 +112,7 @@ impl ToolItemBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`ToolItem`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> ToolItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref is_important) = self.is_important {

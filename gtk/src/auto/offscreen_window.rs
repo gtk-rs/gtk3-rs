@@ -132,6 +132,7 @@ impl OffscreenWindowBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`OffscreenWindow`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> OffscreenWindow {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accept_focus) = self.accept_focus {

@@ -112,6 +112,7 @@ impl PanedBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Paned`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Paned {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref position) = self.position {

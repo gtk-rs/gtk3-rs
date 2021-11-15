@@ -106,6 +106,7 @@ impl EventBoxBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`EventBox`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> EventBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref above_child) = self.above_child {

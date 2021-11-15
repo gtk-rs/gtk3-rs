@@ -104,6 +104,7 @@ impl SocketBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Socket`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Socket {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref border_width) = self.border_width {
