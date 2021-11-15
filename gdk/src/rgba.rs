@@ -22,16 +22,32 @@ impl RGBA {
         self.0.red
     }
 
+    pub fn set_red(&mut self, red: f64) {
+        self.0.red = red;
+    }
+
     pub fn green(&self) -> f64 {
         self.0.green
+    }
+
+    pub fn set_green(&mut self, green: f64) {
+        self.0.green = green;
     }
 
     pub fn blue(&self) -> f64 {
         self.0.blue
     }
 
+    pub fn set_blue(&mut self, blue: f64) {
+        self.0.blue = blue;
+    }
+
     pub fn alpha(&self) -> f64 {
         self.0.alpha
+    }
+
+    pub fn set_alpha(&mut self, alpha: f64) {
+        self.0.alpha = alpha;
     }
 
     #[doc(alias = "gdk_rgba_parse")]
