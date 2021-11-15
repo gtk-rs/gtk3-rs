@@ -138,9 +138,6 @@ pub trait TextBufferExt: 'static {
         left_gravity: bool,
     ) -> Option<TextMark>;
 
-    //#[doc(alias = "gtk_text_buffer_create_tag")]
-    //fn create_tag(&self, tag_name: Option<&str>, first_property_name: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<TextTag>;
-
     #[doc(alias = "gtk_text_buffer_cut_clipboard")]
     fn cut_clipboard(&self, clipboard: &Clipboard, default_editable: bool);
 
@@ -320,9 +317,6 @@ pub trait TextBufferExt: 'static {
         default_editable: bool,
     ) -> bool;
 
-    //#[doc(alias = "gtk_text_buffer_insert_with_tags")]
-    //fn insert_with_tags(&self, iter: &mut TextIter, text: &str, first_tag: &impl IsA<TextTag>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
-
     //#[doc(alias = "gtk_text_buffer_insert_with_tags_by_name")]
     //fn insert_with_tags_by_name(&self, iter: &mut TextIter, text: &str, first_tag_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
@@ -342,9 +336,6 @@ pub trait TextBufferExt: 'static {
 
     #[doc(alias = "gtk_text_buffer_place_cursor")]
     fn place_cursor(&self, where_: &TextIter);
-
-    //#[doc(alias = "gtk_text_buffer_register_deserialize_format")]
-    //fn register_deserialize_format<P: Fn(&TextBuffer, &TextBuffer, &TextIter, &Vec<u8>, usize, bool, Option<&glib::Error>) -> bool + 'static>(&self, mime_type: &str, function: P) -> Option<gdk::Atom>;
 
     #[doc(alias = "gtk_text_buffer_register_deserialize_tagset")]
     fn register_deserialize_tagset(&self, tagset_name: Option<&str>) -> gdk::Atom;
@@ -523,10 +514,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
             ))
         }
     }
-
-    //fn create_tag(&self, tag_name: Option<&str>, first_property_name: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<TextTag> {
-    //    unsafe { TODO: call ffi:gtk_text_buffer_create_tag() }
-    //}
 
     fn cut_clipboard(&self, clipboard: &Clipboard, default_editable: bool) {
         unsafe {
@@ -1012,10 +999,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    //fn insert_with_tags(&self, iter: &mut TextIter, text: &str, first_tag: &impl IsA<TextTag>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_text_buffer_insert_with_tags() }
-    //}
-
     //fn insert_with_tags_by_name(&self, iter: &mut TextIter, text: &str, first_tag_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_text_buffer_insert_with_tags_by_name() }
     //}
@@ -1064,10 +1047,6 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
             );
         }
     }
-
-    //fn register_deserialize_format<P: Fn(&TextBuffer, &TextBuffer, &TextIter, &Vec<u8>, usize, bool, Option<&glib::Error>) -> bool + 'static>(&self, mime_type: &str, function: P) -> Option<gdk::Atom> {
-    //    unsafe { TODO: call ffi:gtk_text_buffer_register_deserialize_format() }
-    //}
 
     fn register_deserialize_tagset(&self, tagset_name: Option<&str>) -> gdk::Atom {
         unsafe {

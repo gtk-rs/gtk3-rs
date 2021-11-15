@@ -76,6 +76,7 @@ mod enums;
 mod file_chooser_dialog;
 mod fixed;
 mod flow_box;
+mod functions;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 mod gesture_stylus;
 mod im_context_simple;
@@ -141,5 +142,6 @@ pub use crate::response_type::ResponseType;
 pub use crate::target_entry::TargetEntry;
 pub use crate::tree_sortable::SortColumn;
 pub use crate::widget::TickCallbackId;
+pub use functions::*;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use pad_action_entry::PadActionEntry;

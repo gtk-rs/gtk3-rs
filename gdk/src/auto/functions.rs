@@ -140,11 +140,6 @@ pub fn shows_events() -> bool {
     unsafe { from_glib(ffi::gdk_get_show_events()) }
 }
 
-//#[doc(alias = "gdk_init_check")]
-//pub fn init_check(argv: /*Unimplemented*/Vec<glib::GString>) -> bool {
-//    unsafe { TODO: call ffi:gdk_init_check() }
-//}
-
 #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
 #[doc(alias = "gdk_list_visuals")]
 pub fn list_visuals() -> Vec<Visual> {
@@ -199,11 +194,6 @@ pub fn pango_context_get_for_screen(screen: &Screen) -> Option<pango::Context> {
 //#[doc(alias = "gdk_pango_layout_line_get_clip_region")]
 //pub fn pango_layout_line_get_clip_region(line: &pango::LayoutLine, x_origin: i32, y_origin: i32, index_ranges: &[i32], n_ranges: i32) -> Option<cairo::Region> {
 //    unsafe { TODO: call ffi:gdk_pango_layout_line_get_clip_region() }
-//}
-
-//#[doc(alias = "gdk_parse_args")]
-//pub fn parse_args(argv: /*Unimplemented*/Vec<glib::GString>) {
-//    unsafe { TODO: call ffi:gdk_parse_args() }
 //}
 
 #[doc(alias = "gdk_pixbuf_get_from_surface")]

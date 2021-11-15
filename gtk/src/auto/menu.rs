@@ -555,9 +555,6 @@ pub trait GtkMenuExt: 'static {
         bottom_attach: u32,
     );
 
-    //#[doc(alias = "gtk_menu_attach_to_widget")]
-    //fn attach_to_widget(&self, attach_widget: &impl IsA<Widget>, detacher: Option<Box_<dyn FnOnce(&Widget, &Menu) + 'static>>);
-
     #[doc(alias = "gtk_menu_detach")]
     fn detach(&self);
 
@@ -789,10 +786,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             );
         }
     }
-
-    //fn attach_to_widget(&self, attach_widget: &impl IsA<Widget>, detacher: Option<Box_<dyn FnOnce(&Widget, &Menu) + 'static>>) {
-    //    unsafe { TODO: call ffi:gtk_menu_attach_to_widget() }
-    //}
 
     fn detach(&self) {
         unsafe {
