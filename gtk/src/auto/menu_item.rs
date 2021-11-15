@@ -134,6 +134,7 @@ impl MenuItemBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`MenuItem`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> MenuItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_path) = self.accel_path {

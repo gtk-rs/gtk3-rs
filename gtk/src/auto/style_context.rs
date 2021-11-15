@@ -110,6 +110,7 @@ impl StyleContextBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`StyleContext`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> StyleContext {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref direction) = self.direction {

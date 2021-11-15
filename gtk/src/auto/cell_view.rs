@@ -161,6 +161,7 @@ impl CellViewBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`CellView`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> CellView {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref background) = self.background {

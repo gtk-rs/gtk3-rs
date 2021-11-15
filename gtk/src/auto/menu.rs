@@ -150,6 +150,7 @@ impl MenuBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Menu`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Menu {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_group) = self.accel_group {

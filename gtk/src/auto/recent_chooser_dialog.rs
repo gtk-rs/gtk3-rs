@@ -153,6 +153,7 @@ impl RecentChooserDialogBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`RecentChooserDialog`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> RecentChooserDialog {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref use_header_bar) = self.use_header_bar {

@@ -68,6 +68,7 @@ impl SizeGroupBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`SizeGroup`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> SizeGroup {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref ignore_hidden) = self.ignore_hidden {

@@ -110,6 +110,7 @@ impl InvisibleBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Invisible`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Invisible {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref screen) = self.screen {

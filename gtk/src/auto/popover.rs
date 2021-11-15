@@ -139,6 +139,7 @@ impl PopoverBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Popover`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Popover {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_20", feature = "dox"))]

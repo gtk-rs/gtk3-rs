@@ -116,6 +116,7 @@ impl ButtonBoxBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`ButtonBox`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> ButtonBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref layout_style) = self.layout_style {

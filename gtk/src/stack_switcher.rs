@@ -151,6 +151,7 @@ impl StackSwitcherBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`StackSwitcher`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> StackSwitcher {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_20", feature = "dox"))]

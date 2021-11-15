@@ -77,6 +77,7 @@ impl TextBufferBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`TextBuffer`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> TextBuffer {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref tag_table) = self.tag_table {

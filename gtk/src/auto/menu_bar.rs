@@ -120,6 +120,7 @@ impl MenuBarBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`MenuBar`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> MenuBar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref child_pack_direction) = self.child_pack_direction {

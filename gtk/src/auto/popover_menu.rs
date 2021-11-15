@@ -212,6 +212,7 @@ impl PopoverMenuBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`PopoverMenu`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> PopoverMenu {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref visible_submenu) = self.visible_submenu {

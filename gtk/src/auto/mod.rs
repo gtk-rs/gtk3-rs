@@ -4,60 +4,48 @@
 
 mod about_dialog;
 pub use self::about_dialog::AboutDialog;
-pub use self::about_dialog::AboutDialogBuilder;
 
 mod accel_group;
 pub use self::accel_group::AccelGroup;
 
 mod accel_label;
 pub use self::accel_label::AccelLabel;
-pub use self::accel_label::AccelLabelBuilder;
 
 mod action_bar;
 pub use self::action_bar::ActionBar;
-pub use self::action_bar::ActionBarBuilder;
 
 mod actionable;
 pub use self::actionable::Actionable;
 
 mod adjustment;
 pub use self::adjustment::Adjustment;
-pub use self::adjustment::AdjustmentBuilder;
 
 mod app_chooser_button;
 pub use self::app_chooser_button::AppChooserButton;
-pub use self::app_chooser_button::AppChooserButtonBuilder;
 
 mod app_chooser_dialog;
 pub use self::app_chooser_dialog::AppChooserDialog;
-pub use self::app_chooser_dialog::AppChooserDialogBuilder;
 
 mod app_chooser_widget;
 pub use self::app_chooser_widget::AppChooserWidget;
-pub use self::app_chooser_widget::AppChooserWidgetBuilder;
 
 mod application;
 pub use self::application::Application;
-pub use self::application::ApplicationBuilder;
 
 mod application_window;
 pub use self::application_window::ApplicationWindow;
-pub use self::application_window::ApplicationWindowBuilder;
 
 mod aspect_frame;
 pub use self::aspect_frame::AspectFrame;
-pub use self::aspect_frame::AspectFrameBuilder;
 
 mod assistant;
 pub use self::assistant::Assistant;
-pub use self::assistant::AssistantBuilder;
 
 mod bin;
 pub use self::bin::Bin;
 
 mod box_;
 pub use self::box_::Box;
-pub use self::box_::BoxBuilder;
 
 mod buildable;
 pub use self::buildable::Buildable;
@@ -67,22 +55,18 @@ pub use self::builder::Builder;
 
 mod button;
 pub use self::button::Button;
-pub use self::button::ButtonBuilder;
 
 mod button_box;
 pub use self::button_box::ButtonBox;
-pub use self::button_box::ButtonBoxBuilder;
 
 mod calendar;
 pub use self::calendar::Calendar;
-pub use self::calendar::CalendarBuilder;
 
 mod cell_area;
 pub use self::cell_area::CellArea;
 
 mod cell_area_box;
 pub use self::cell_area_box::CellAreaBox;
-pub use self::cell_area_box::CellAreaBoxBuilder;
 
 mod cell_area_context;
 pub use self::cell_area_context::CellAreaContext;
@@ -98,73 +82,57 @@ pub use self::cell_renderer::CellRenderer;
 
 mod cell_renderer_accel;
 pub use self::cell_renderer_accel::CellRendererAccel;
-pub use self::cell_renderer_accel::CellRendererAccelBuilder;
 
 mod cell_renderer_combo;
 pub use self::cell_renderer_combo::CellRendererCombo;
-pub use self::cell_renderer_combo::CellRendererComboBuilder;
 
 mod cell_renderer_pixbuf;
 pub use self::cell_renderer_pixbuf::CellRendererPixbuf;
-pub use self::cell_renderer_pixbuf::CellRendererPixbufBuilder;
 
 mod cell_renderer_progress;
 pub use self::cell_renderer_progress::CellRendererProgress;
-pub use self::cell_renderer_progress::CellRendererProgressBuilder;
 
 mod cell_renderer_spin;
 pub use self::cell_renderer_spin::CellRendererSpin;
-pub use self::cell_renderer_spin::CellRendererSpinBuilder;
 
 mod cell_renderer_spinner;
 pub use self::cell_renderer_spinner::CellRendererSpinner;
-pub use self::cell_renderer_spinner::CellRendererSpinnerBuilder;
 
 mod cell_renderer_text;
 pub use self::cell_renderer_text::CellRendererText;
-pub use self::cell_renderer_text::CellRendererTextBuilder;
 
 mod cell_renderer_toggle;
 pub use self::cell_renderer_toggle::CellRendererToggle;
-pub use self::cell_renderer_toggle::CellRendererToggleBuilder;
 
 mod cell_view;
 pub use self::cell_view::CellView;
-pub use self::cell_view::CellViewBuilder;
 
 mod check_button;
 pub use self::check_button::CheckButton;
-pub use self::check_button::CheckButtonBuilder;
 
 mod check_menu_item;
 pub use self::check_menu_item::CheckMenuItem;
-pub use self::check_menu_item::CheckMenuItemBuilder;
 
 mod clipboard;
 pub use self::clipboard::Clipboard;
 
 mod color_button;
 pub use self::color_button::ColorButton;
-pub use self::color_button::ColorButtonBuilder;
 
 mod color_chooser;
 pub use self::color_chooser::ColorChooser;
 
 mod color_chooser_dialog;
 pub use self::color_chooser_dialog::ColorChooserDialog;
-pub use self::color_chooser_dialog::ColorChooserDialogBuilder;
 
 mod color_chooser_widget;
 pub use self::color_chooser_widget::ColorChooserWidget;
-pub use self::color_chooser_widget::ColorChooserWidgetBuilder;
 
 mod combo_box;
 pub use self::combo_box::ComboBox;
-pub use self::combo_box::ComboBoxBuilder;
 
 mod combo_box_text;
 pub use self::combo_box_text::ComboBoxText;
-pub use self::combo_box_text::ComboBoxTextBuilder;
 
 mod container;
 pub use self::container::Container;
@@ -174,26 +142,21 @@ pub use self::css_provider::CssProvider;
 
 mod dialog;
 pub use self::dialog::Dialog;
-pub use self::dialog::DialogBuilder;
 
 mod drawing_area;
 pub use self::drawing_area::DrawingArea;
-pub use self::drawing_area::DrawingAreaBuilder;
 
 mod editable;
 pub use self::editable::Editable;
 
 mod entry;
 pub use self::entry::Entry;
-pub use self::entry::EntryBuilder;
 
 mod entry_completion;
 pub use self::entry_completion::EntryCompletion;
-pub use self::entry_completion::EntryCompletionBuilder;
 
 mod event_box;
 pub use self::event_box::EventBox;
-pub use self::event_box::EventBoxBuilder;
 
 mod event_controller;
 pub use self::event_controller::EventController;
@@ -221,18 +184,15 @@ pub use self::event_controller_scroll::EventControllerScroll;
 
 mod expander;
 pub use self::expander::Expander;
-pub use self::expander::ExpanderBuilder;
 
 mod file_chooser;
 pub use self::file_chooser::FileChooser;
 
 mod file_chooser_button;
 pub use self::file_chooser_button::FileChooserButton;
-pub use self::file_chooser_button::FileChooserButtonBuilder;
 
 mod file_chooser_dialog;
 pub use self::file_chooser_dialog::FileChooserDialog;
-pub use self::file_chooser_dialog::FileChooserDialogBuilder;
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -240,13 +200,9 @@ mod file_chooser_native;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::file_chooser_native::FileChooserNative;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-pub use self::file_chooser_native::FileChooserNativeBuilder;
 
 mod file_chooser_widget;
 pub use self::file_chooser_widget::FileChooserWidget;
-pub use self::file_chooser_widget::FileChooserWidgetBuilder;
 
 mod file_chooser_widget_accessible;
 pub use self::file_chooser_widget_accessible::FileChooserWidgetAccessible;
@@ -256,61 +212,48 @@ pub use self::file_filter::FileFilter;
 
 mod fixed;
 pub use self::fixed::Fixed;
-pub use self::fixed::FixedBuilder;
 
 mod flow_box;
 pub use self::flow_box::FlowBox;
-pub use self::flow_box::FlowBoxBuilder;
 
 mod flow_box_child;
 pub use self::flow_box_child::FlowBoxChild;
-pub use self::flow_box_child::FlowBoxChildBuilder;
 
 mod font_button;
 pub use self::font_button::FontButton;
-pub use self::font_button::FontButtonBuilder;
 
 mod font_chooser;
 pub use self::font_chooser::FontChooser;
 
 mod font_chooser_dialog;
 pub use self::font_chooser_dialog::FontChooserDialog;
-pub use self::font_chooser_dialog::FontChooserDialogBuilder;
 
 mod font_chooser_widget;
 pub use self::font_chooser_widget::FontChooserWidget;
-pub use self::font_chooser_widget::FontChooserWidgetBuilder;
 
 mod frame;
 pub use self::frame::Frame;
-pub use self::frame::FrameBuilder;
 
 mod gl_area;
 pub use self::gl_area::GLArea;
-pub use self::gl_area::GLAreaBuilder;
 
 mod gesture;
 pub use self::gesture::Gesture;
 
 mod gesture_drag;
 pub use self::gesture_drag::GestureDrag;
-pub use self::gesture_drag::GestureDragBuilder;
 
 mod gesture_long_press;
 pub use self::gesture_long_press::GestureLongPress;
-pub use self::gesture_long_press::GestureLongPressBuilder;
 
 mod gesture_multi_press;
 pub use self::gesture_multi_press::GestureMultiPress;
-pub use self::gesture_multi_press::GestureMultiPressBuilder;
 
 mod gesture_pan;
 pub use self::gesture_pan::GesturePan;
-pub use self::gesture_pan::GesturePanBuilder;
 
 mod gesture_rotate;
 pub use self::gesture_rotate::GestureRotate;
-pub use self::gesture_rotate::GestureRotateBuilder;
 
 mod gesture_single;
 pub use self::gesture_single::GestureSingle;
@@ -324,30 +267,24 @@ pub use self::gesture_stylus::GestureStylus;
 
 mod gesture_swipe;
 pub use self::gesture_swipe::GestureSwipe;
-pub use self::gesture_swipe::GestureSwipeBuilder;
 
 mod gesture_zoom;
 pub use self::gesture_zoom::GestureZoom;
-pub use self::gesture_zoom::GestureZoomBuilder;
 
 mod grid;
 pub use self::grid::Grid;
-pub use self::grid::GridBuilder;
 
 mod header_bar;
 pub use self::header_bar::HeaderBar;
-pub use self::header_bar::HeaderBarBuilder;
 
 mod im_context;
 pub use self::im_context::IMContext;
 
 mod im_context_simple;
 pub use self::im_context_simple::IMContextSimple;
-pub use self::im_context_simple::IMContextSimpleBuilder;
 
 mod im_multicontext;
 pub use self::im_multicontext::IMMulticontext;
-pub use self::im_multicontext::IMMulticontextBuilder;
 
 mod icon_info;
 pub use self::icon_info::IconInfo;
@@ -357,87 +294,69 @@ pub use self::icon_theme::IconTheme;
 
 mod icon_view;
 pub use self::icon_view::IconView;
-pub use self::icon_view::IconViewBuilder;
 
 mod image;
 pub use self::image::Image;
 
 mod info_bar;
 pub use self::info_bar::InfoBar;
-pub use self::info_bar::InfoBarBuilder;
 
 mod invisible;
 pub use self::invisible::Invisible;
-pub use self::invisible::InvisibleBuilder;
 
 mod label;
 pub use self::label::Label;
-pub use self::label::LabelBuilder;
 
 mod layout;
 pub use self::layout::Layout;
-pub use self::layout::LayoutBuilder;
 
 mod level_bar;
 pub use self::level_bar::LevelBar;
-pub use self::level_bar::LevelBarBuilder;
 
 mod link_button;
 pub use self::link_button::LinkButton;
-pub use self::link_button::LinkButtonBuilder;
 
 mod list_box;
 pub use self::list_box::ListBox;
-pub use self::list_box::ListBoxBuilder;
 
 mod list_box_row;
 pub use self::list_box_row::ListBoxRow;
-pub use self::list_box_row::ListBoxRowBuilder;
 
 mod list_store;
 pub use self::list_store::ListStore;
 
 mod lock_button;
 pub use self::lock_button::LockButton;
-pub use self::lock_button::LockButtonBuilder;
 
 mod menu;
 pub use self::menu::Menu;
-pub use self::menu::MenuBuilder;
 
 mod menu_bar;
 pub use self::menu_bar::MenuBar;
-pub use self::menu_bar::MenuBarBuilder;
 
 mod menu_button;
 pub use self::menu_button::MenuButton;
-pub use self::menu_button::MenuButtonBuilder;
 
 mod menu_item;
 pub use self::menu_item::MenuItem;
-pub use self::menu_item::MenuItemBuilder;
 
 mod menu_shell;
 pub use self::menu_shell::MenuShell;
 
 mod menu_tool_button;
 pub use self::menu_tool_button::MenuToolButton;
-pub use self::menu_tool_button::MenuToolButtonBuilder;
 
 mod message_dialog;
 pub use self::message_dialog::MessageDialog;
-pub use self::message_dialog::MessageDialogBuilder;
 
 mod misc;
 pub use self::misc::Misc;
 
 mod model_button;
 pub use self::model_button::ModelButton;
-pub use self::model_button::ModelButtonBuilder;
 
 mod mount_operation;
 pub use self::mount_operation::MountOperation;
-pub use self::mount_operation::MountOperationBuilder;
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -448,18 +367,15 @@ pub use self::native_dialog::NativeDialog;
 
 mod notebook;
 pub use self::notebook::Notebook;
-pub use self::notebook::NotebookBuilder;
 
 mod offscreen_window;
 pub use self::offscreen_window::OffscreenWindow;
-pub use self::offscreen_window::OffscreenWindowBuilder;
 
 mod orientable;
 pub use self::orientable::Orientable;
 
 mod overlay;
 pub use self::overlay::Overlay;
-pub use self::overlay::OverlayBuilder;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -467,20 +383,15 @@ mod pad_controller;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::pad_controller::PadController;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-pub use self::pad_controller::PadControllerBuilder;
 
 mod page_setup;
 pub use self::page_setup::PageSetup;
 
 mod paned;
 pub use self::paned::Paned;
-pub use self::paned::PanedBuilder;
 
 mod places_sidebar;
 pub use self::places_sidebar::PlacesSidebar;
-pub use self::places_sidebar::PlacesSidebarBuilder;
 
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
@@ -488,9 +399,6 @@ mod plug;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
 pub use self::plug::Plug;
-#[cfg(any(gdk_backend = "x11", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
-pub use self::plug::PlugBuilder;
 
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
@@ -498,24 +406,18 @@ mod plug_accessible;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
 pub use self::plug_accessible::PlugAccessible;
-#[cfg(any(gdk_backend = "x11", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
-pub use self::plug_accessible::PlugAccessibleBuilder;
 
 mod popover;
 pub use self::popover::Popover;
-pub use self::popover::PopoverBuilder;
 
 mod popover_menu;
 pub use self::popover_menu::PopoverMenu;
-pub use self::popover_menu::PopoverMenuBuilder;
 
 mod print_context;
 pub use self::print_context::PrintContext;
 
 mod print_operation;
 pub use self::print_operation::PrintOperation;
-pub use self::print_operation::PrintOperationBuilder;
 
 mod print_operation_preview;
 pub use self::print_operation_preview::PrintOperationPreview;
@@ -525,19 +427,15 @@ pub use self::print_settings::PrintSettings;
 
 mod progress_bar;
 pub use self::progress_bar::ProgressBar;
-pub use self::progress_bar::ProgressBarBuilder;
 
 mod radio_button;
 pub use self::radio_button::RadioButton;
-pub use self::radio_button::RadioButtonBuilder;
 
 mod radio_menu_item;
 pub use self::radio_menu_item::RadioMenuItem;
-pub use self::radio_menu_item::RadioMenuItemBuilder;
 
 mod radio_tool_button;
 pub use self::radio_tool_button::RadioToolButton;
-pub use self::radio_tool_button::RadioToolButtonBuilder;
 
 mod range;
 pub use self::range::Range;
@@ -547,65 +445,51 @@ pub use self::recent_chooser::RecentChooser;
 
 mod recent_chooser_dialog;
 pub use self::recent_chooser_dialog::RecentChooserDialog;
-pub use self::recent_chooser_dialog::RecentChooserDialogBuilder;
 
 mod recent_chooser_menu;
 pub use self::recent_chooser_menu::RecentChooserMenu;
-pub use self::recent_chooser_menu::RecentChooserMenuBuilder;
 
 mod recent_chooser_widget;
 pub use self::recent_chooser_widget::RecentChooserWidget;
-pub use self::recent_chooser_widget::RecentChooserWidgetBuilder;
 
 mod recent_filter;
 pub use self::recent_filter::RecentFilter;
 
 mod recent_manager;
 pub use self::recent_manager::RecentManager;
-pub use self::recent_manager::RecentManagerBuilder;
 
 mod revealer;
 pub use self::revealer::Revealer;
-pub use self::revealer::RevealerBuilder;
 
 mod scale;
 pub use self::scale::Scale;
-pub use self::scale::ScaleBuilder;
 
 mod scale_button;
 pub use self::scale_button::ScaleButton;
-pub use self::scale_button::ScaleButtonBuilder;
 
 mod scrollable;
 pub use self::scrollable::Scrollable;
 
 mod scrollbar;
 pub use self::scrollbar::Scrollbar;
-pub use self::scrollbar::ScrollbarBuilder;
 
 mod scrolled_window;
 pub use self::scrolled_window::ScrolledWindow;
-pub use self::scrolled_window::ScrolledWindowBuilder;
 
 mod search_bar;
 pub use self::search_bar::SearchBar;
-pub use self::search_bar::SearchBarBuilder;
 
 mod search_entry;
 pub use self::search_entry::SearchEntry;
-pub use self::search_entry::SearchEntryBuilder;
 
 mod separator;
 pub use self::separator::Separator;
-pub use self::separator::SeparatorBuilder;
 
 mod separator_menu_item;
 pub use self::separator_menu_item::SeparatorMenuItem;
-pub use self::separator_menu_item::SeparatorMenuItemBuilder;
 
 mod separator_tool_item;
 pub use self::separator_tool_item::SeparatorToolItem;
-pub use self::separator_tool_item::SeparatorToolItemBuilder;
 
 mod settings;
 pub use self::settings::Settings;
@@ -616,9 +500,6 @@ mod shortcut_label;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::shortcut_label::ShortcutLabel;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-pub use self::shortcut_label::ShortcutLabelBuilder;
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -626,9 +507,6 @@ mod shortcuts_group;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::shortcuts_group::ShortcutsGroup;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-pub use self::shortcuts_group::ShortcutsGroupBuilder;
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -636,9 +514,6 @@ mod shortcuts_section;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::shortcuts_section::ShortcutsSection;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-pub use self::shortcuts_section::ShortcutsSectionBuilder;
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -646,9 +521,6 @@ mod shortcuts_shortcut;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::shortcuts_shortcut::ShortcutsShortcut;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-pub use self::shortcuts_shortcut::ShortcutsShortcutBuilder;
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -656,13 +528,9 @@ mod shortcuts_window;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::shortcuts_window::ShortcutsWindow;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-pub use self::shortcuts_window::ShortcutsWindowBuilder;
 
 mod size_group;
 pub use self::size_group::SizeGroup;
-pub use self::size_group::SizeGroupBuilder;
 
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
@@ -670,9 +538,6 @@ mod socket;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
 pub use self::socket::Socket;
-#[cfg(any(gdk_backend = "x11", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
-pub use self::socket::SocketBuilder;
 
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
@@ -680,36 +545,27 @@ mod socket_accessible;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
 pub use self::socket_accessible::SocketAccessible;
-#[cfg(any(gdk_backend = "x11", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
-pub use self::socket_accessible::SocketAccessibleBuilder;
 
 mod spin_button;
 pub use self::spin_button::SpinButton;
-pub use self::spin_button::SpinButtonBuilder;
 
 mod spinner;
 pub use self::spinner::Spinner;
-pub use self::spinner::SpinnerBuilder;
 
 mod stack;
 pub use self::stack::Stack;
-pub use self::stack::StackBuilder;
 
 mod stack_sidebar;
 pub use self::stack_sidebar::StackSidebar;
-pub use self::stack_sidebar::StackSidebarBuilder;
 
 mod stack_switcher;
 pub use self::stack_switcher::StackSwitcher;
 
 mod statusbar;
 pub use self::statusbar::Statusbar;
-pub use self::statusbar::StatusbarBuilder;
 
 mod style_context;
 pub use self::style_context::StyleContext;
-pub use self::style_context::StyleContextBuilder;
 
 mod style_properties;
 pub use self::style_properties::StyleProperties;
@@ -719,60 +575,48 @@ pub use self::style_provider::StyleProvider;
 
 mod switch;
 pub use self::switch::Switch;
-pub use self::switch::SwitchBuilder;
 
 mod text_buffer;
 pub use self::text_buffer::TextBuffer;
-pub use self::text_buffer::TextBufferBuilder;
 
 mod text_child_anchor;
 pub use self::text_child_anchor::TextChildAnchor;
 
 mod text_mark;
 pub use self::text_mark::TextMark;
-pub use self::text_mark::TextMarkBuilder;
 
 mod text_tag;
 pub use self::text_tag::TextTag;
-pub use self::text_tag::TextTagBuilder;
 
 mod text_tag_table;
 pub use self::text_tag_table::TextTagTable;
 
 mod text_view;
 pub use self::text_view::TextView;
-pub use self::text_view::TextViewBuilder;
 
 mod toggle_button;
 pub use self::toggle_button::ToggleButton;
-pub use self::toggle_button::ToggleButtonBuilder;
 
 mod toggle_tool_button;
 pub use self::toggle_tool_button::ToggleToolButton;
-pub use self::toggle_tool_button::ToggleToolButtonBuilder;
 
 mod tool_button;
 pub use self::tool_button::ToolButton;
-pub use self::tool_button::ToolButtonBuilder;
 
 mod tool_item;
 pub use self::tool_item::ToolItem;
-pub use self::tool_item::ToolItemBuilder;
 
 mod tool_item_group;
 pub use self::tool_item_group::ToolItemGroup;
-pub use self::tool_item_group::ToolItemGroupBuilder;
 
 mod tool_palette;
 pub use self::tool_palette::ToolPalette;
-pub use self::tool_palette::ToolPaletteBuilder;
 
 mod tool_shell;
 pub use self::tool_shell::ToolShell;
 
 mod toolbar;
 pub use self::toolbar::Toolbar;
-pub use self::toolbar::ToolbarBuilder;
 
 mod tooltip;
 pub use self::tooltip::Tooltip;
@@ -803,26 +647,21 @@ pub use self::tree_store::TreeStore;
 
 mod tree_view;
 pub use self::tree_view::TreeView;
-pub use self::tree_view::TreeViewBuilder;
 
 mod tree_view_column;
 pub use self::tree_view_column::TreeViewColumn;
-pub use self::tree_view_column::TreeViewColumnBuilder;
 
 mod viewport;
 pub use self::viewport::Viewport;
-pub use self::viewport::ViewportBuilder;
 
 mod volume_button;
 pub use self::volume_button::VolumeButton;
-pub use self::volume_button::VolumeButtonBuilder;
 
 mod widget;
 pub use self::widget::Widget;
 
 mod window;
 pub use self::window::Window;
-pub use self::window::WindowBuilder;
 
 mod window_group;
 pub use self::window_group::WindowGroup;

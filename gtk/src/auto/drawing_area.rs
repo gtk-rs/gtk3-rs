@@ -95,6 +95,7 @@ impl DrawingAreaBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`DrawingArea`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> DrawingArea {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref app_paintable) = self.app_paintable {

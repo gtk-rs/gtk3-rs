@@ -151,6 +151,7 @@ impl PlugBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Plug`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> Plug {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accept_focus) = self.accept_focus {

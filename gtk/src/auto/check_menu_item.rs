@@ -141,6 +141,7 @@ impl CheckMenuItemBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`CheckMenuItem`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> CheckMenuItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

@@ -152,6 +152,7 @@ impl RecentChooserMenuBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`RecentChooserMenu`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> RecentChooserMenu {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref show_numbers) = self.show_numbers {

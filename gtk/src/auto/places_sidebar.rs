@@ -924,6 +924,7 @@ impl PlacesSidebarBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`PlacesSidebar`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> PlacesSidebar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref local_only) = self.local_only {

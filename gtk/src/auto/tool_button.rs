@@ -124,6 +124,7 @@ impl ToolButtonBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`ToolButton`].
+    #[must_use = "The builder must be built to be used"]
     pub fn build(self) -> ToolButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref icon_name) = self.icon_name {

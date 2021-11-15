@@ -1,7 +1,7 @@
 use gtk::prelude::*;
 
 fn build_ui(application: &gtk::Application) {
-    let window = gtk::ApplicationWindowBuilder::new()
+    let window = gtk::ApplicationWindow::builder()
         .application(application)
         .title("First GTK+ Program")
         .border_width(10)
@@ -10,7 +10,7 @@ fn build_ui(application: &gtk::Application) {
         .default_height(70)
         .build();
 
-    let button = gtk::LockButtonBuilder::new()
+    let button = gtk::LockButton::builder()
         .text_lock("Lock")
         .text_unlock("Unlock")
         .build();
