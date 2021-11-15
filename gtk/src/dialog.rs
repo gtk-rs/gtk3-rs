@@ -48,7 +48,7 @@ pub trait DialogExtManual: 'static {
     /// use gtk::prelude::*;
     ///
     /// # async fn run() {
-    /// let dialog = gtk::MessageDialogBuilder::new()
+    /// let dialog = gtk::MessageDialog::builder()
     ///    .buttons(gtk::ButtonsType::OkCancel)
     ///    .text("What is your answer?")
     ///    .build();
