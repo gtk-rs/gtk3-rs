@@ -339,7 +339,7 @@ status = "generate"
     ignore = true # TODO: manually implement
     [[object.function]]
     name = "accelerator_parse_with_keycode"
-    ignore = true # TODO: manually implement
+    manual = true
 
 [[object]]
 name = "Gtk.AboutDialog"
