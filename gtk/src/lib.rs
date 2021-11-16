@@ -121,6 +121,7 @@ mod widget;
 #[macro_use]
 pub mod subclass;
 
+pub mod builders;
 pub mod prelude;
 
 pub use crate::auto::functions::*;

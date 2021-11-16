@@ -15,4 +15,6 @@ mod rt;
 #[allow(unused_imports)]
 mod auto;
 
+pub mod builders;
+
 pub use crate::auto::*;
