@@ -38,7 +38,7 @@ impl EventBox {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`EventBox`] objects.
     ///
-    /// This method returns an instance of [`EventBoxBuilder`] which can be used to create [`EventBox`] objects.
+    /// This method returns an instance of [`EventBoxBuilder`](crate::builders::EventBoxBuilder) which can be used to create [`EventBox`] objects.
     pub fn builder() -> EventBoxBuilder {
         EventBoxBuilder::default()
     }

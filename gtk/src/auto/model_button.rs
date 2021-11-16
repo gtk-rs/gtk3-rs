@@ -44,7 +44,7 @@ impl ModelButton {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ModelButton`] objects.
     ///
-    /// This method returns an instance of [`ModelButtonBuilder`] which can be used to create [`ModelButton`] objects.
+    /// This method returns an instance of [`ModelButtonBuilder`](crate::builders::ModelButtonBuilder) which can be used to create [`ModelButton`] objects.
     pub fn builder() -> ModelButtonBuilder {
         ModelButtonBuilder::default()
     }

@@ -38,7 +38,7 @@ impl Socket {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`Socket`] objects.
     ///
-    /// This method returns an instance of [`SocketBuilder`] which can be used to create [`Socket`] objects.
+    /// This method returns an instance of [`SocketBuilder`](crate::builders::SocketBuilder) which can be used to create [`Socket`] objects.
     pub fn builder() -> SocketBuilder {
         SocketBuilder::default()
     }

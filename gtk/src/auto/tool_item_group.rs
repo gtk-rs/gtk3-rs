@@ -43,7 +43,7 @@ impl ToolItemGroup {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ToolItemGroup`] objects.
     ///
-    /// This method returns an instance of [`ToolItemGroupBuilder`] which can be used to create [`ToolItemGroup`] objects.
+    /// This method returns an instance of [`ToolItemGroupBuilder`](crate::builders::ToolItemGroupBuilder) which can be used to create [`ToolItemGroup`] objects.
     pub fn builder() -> ToolItemGroupBuilder {
         ToolItemGroupBuilder::default()
     }

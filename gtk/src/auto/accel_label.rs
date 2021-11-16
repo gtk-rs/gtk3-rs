@@ -42,7 +42,7 @@ impl AccelLabel {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`AccelLabel`] objects.
     ///
-    /// This method returns an instance of [`AccelLabelBuilder`] which can be used to create [`AccelLabel`] objects.
+    /// This method returns an instance of [`AccelLabelBuilder`](crate::builders::AccelLabelBuilder) which can be used to create [`AccelLabel`] objects.
     pub fn builder() -> AccelLabelBuilder {
         AccelLabelBuilder::default()
     }

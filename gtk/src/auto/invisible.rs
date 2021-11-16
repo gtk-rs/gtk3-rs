@@ -46,7 +46,7 @@ impl Invisible {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`Invisible`] objects.
     ///
-    /// This method returns an instance of [`InvisibleBuilder`] which can be used to create [`Invisible`] objects.
+    /// This method returns an instance of [`InvisibleBuilder`](crate::builders::InvisibleBuilder) which can be used to create [`Invisible`] objects.
     pub fn builder() -> InvisibleBuilder {
         InvisibleBuilder::default()
     }

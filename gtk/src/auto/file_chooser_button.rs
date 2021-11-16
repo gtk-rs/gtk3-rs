@@ -63,7 +63,7 @@ impl FileChooserButton {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`FileChooserButton`] objects.
     ///
-    /// This method returns an instance of [`FileChooserButtonBuilder`] which can be used to create [`FileChooserButton`] objects.
+    /// This method returns an instance of [`FileChooserButtonBuilder`](crate::builders::FileChooserButtonBuilder) which can be used to create [`FileChooserButton`] objects.
     pub fn builder() -> FileChooserButtonBuilder {
         FileChooserButtonBuilder::default()
     }

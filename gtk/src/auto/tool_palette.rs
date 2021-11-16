@@ -50,7 +50,7 @@ impl ToolPalette {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ToolPalette`] objects.
     ///
-    /// This method returns an instance of [`ToolPaletteBuilder`] which can be used to create [`ToolPalette`] objects.
+    /// This method returns an instance of [`ToolPaletteBuilder`](crate::builders::ToolPaletteBuilder) which can be used to create [`ToolPalette`] objects.
     pub fn builder() -> ToolPaletteBuilder {
         ToolPaletteBuilder::default()
     }

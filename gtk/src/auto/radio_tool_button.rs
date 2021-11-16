@@ -45,7 +45,7 @@ impl RadioToolButton {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`RadioToolButton`] objects.
     ///
-    /// This method returns an instance of [`RadioToolButtonBuilder`] which can be used to create [`RadioToolButton`] objects.
+    /// This method returns an instance of [`RadioToolButtonBuilder`](crate::builders::RadioToolButtonBuilder) which can be used to create [`RadioToolButton`] objects.
     pub fn builder() -> RadioToolButtonBuilder {
         RadioToolButtonBuilder::default()
     }

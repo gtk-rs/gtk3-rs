@@ -45,7 +45,7 @@ impl PlacesSidebar {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`PlacesSidebar`] objects.
     ///
-    /// This method returns an instance of [`PlacesSidebarBuilder`] which can be used to create [`PlacesSidebar`] objects.
+    /// This method returns an instance of [`PlacesSidebarBuilder`](crate::builders::PlacesSidebarBuilder) which can be used to create [`PlacesSidebar`] objects.
     pub fn builder() -> PlacesSidebarBuilder {
         PlacesSidebarBuilder::default()
     }

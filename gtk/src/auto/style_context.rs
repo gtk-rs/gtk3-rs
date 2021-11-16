@@ -42,7 +42,7 @@ impl StyleContext {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`StyleContext`] objects.
     ///
-    /// This method returns an instance of [`StyleContextBuilder`] which can be used to create [`StyleContext`] objects.
+    /// This method returns an instance of [`StyleContextBuilder`](crate::builders::StyleContextBuilder) which can be used to create [`StyleContext`] objects.
     pub fn builder() -> StyleContextBuilder {
         StyleContextBuilder::default()
     }

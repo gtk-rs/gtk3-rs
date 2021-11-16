@@ -1142,3 +1142,167 @@ pub mod traits {
     pub use super::window::GtkWindowExt;
     pub use super::window_group::WindowGroupExt;
 }
+#[doc(hidden)]
+pub mod builders {
+    pub use super::about_dialog::AboutDialogBuilder;
+    pub use super::accel_label::AccelLabelBuilder;
+    pub use super::action_bar::ActionBarBuilder;
+    pub use super::adjustment::AdjustmentBuilder;
+    pub use super::app_chooser_button::AppChooserButtonBuilder;
+    pub use super::app_chooser_dialog::AppChooserDialogBuilder;
+    pub use super::app_chooser_widget::AppChooserWidgetBuilder;
+    pub use super::application::ApplicationBuilder;
+    pub use super::application_window::ApplicationWindowBuilder;
+    pub use super::aspect_frame::AspectFrameBuilder;
+    pub use super::assistant::AssistantBuilder;
+    pub use super::box_::BoxBuilder;
+    pub use super::button::ButtonBuilder;
+    pub use super::button_box::ButtonBoxBuilder;
+    pub use super::calendar::CalendarBuilder;
+    pub use super::cell_area_box::CellAreaBoxBuilder;
+    pub use super::cell_renderer_accel::CellRendererAccelBuilder;
+    pub use super::cell_renderer_combo::CellRendererComboBuilder;
+    pub use super::cell_renderer_pixbuf::CellRendererPixbufBuilder;
+    pub use super::cell_renderer_progress::CellRendererProgressBuilder;
+    pub use super::cell_renderer_spin::CellRendererSpinBuilder;
+    pub use super::cell_renderer_spinner::CellRendererSpinnerBuilder;
+    pub use super::cell_renderer_text::CellRendererTextBuilder;
+    pub use super::cell_renderer_toggle::CellRendererToggleBuilder;
+    pub use super::cell_view::CellViewBuilder;
+    pub use super::check_button::CheckButtonBuilder;
+    pub use super::check_menu_item::CheckMenuItemBuilder;
+    pub use super::color_button::ColorButtonBuilder;
+    pub use super::color_chooser_dialog::ColorChooserDialogBuilder;
+    pub use super::color_chooser_widget::ColorChooserWidgetBuilder;
+    pub use super::combo_box::ComboBoxBuilder;
+    pub use super::combo_box_text::ComboBoxTextBuilder;
+    pub use super::dialog::DialogBuilder;
+    pub use super::drawing_area::DrawingAreaBuilder;
+    pub use super::entry::EntryBuilder;
+    pub use super::entry_completion::EntryCompletionBuilder;
+    pub use super::event_box::EventBoxBuilder;
+    pub use super::expander::ExpanderBuilder;
+    pub use super::file_chooser_button::FileChooserButtonBuilder;
+    pub use super::file_chooser_dialog::FileChooserDialogBuilder;
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    pub use super::file_chooser_native::FileChooserNativeBuilder;
+    pub use super::file_chooser_widget::FileChooserWidgetBuilder;
+    pub use super::fixed::FixedBuilder;
+    pub use super::flow_box::FlowBoxBuilder;
+    pub use super::flow_box_child::FlowBoxChildBuilder;
+    pub use super::font_button::FontButtonBuilder;
+    pub use super::font_chooser_dialog::FontChooserDialogBuilder;
+    pub use super::font_chooser_widget::FontChooserWidgetBuilder;
+    pub use super::frame::FrameBuilder;
+    pub use super::gesture_drag::GestureDragBuilder;
+    pub use super::gesture_long_press::GestureLongPressBuilder;
+    pub use super::gesture_multi_press::GestureMultiPressBuilder;
+    pub use super::gesture_pan::GesturePanBuilder;
+    pub use super::gesture_rotate::GestureRotateBuilder;
+    pub use super::gesture_swipe::GestureSwipeBuilder;
+    pub use super::gesture_zoom::GestureZoomBuilder;
+    pub use super::gl_area::GLAreaBuilder;
+    pub use super::grid::GridBuilder;
+    pub use super::header_bar::HeaderBarBuilder;
+    pub use super::icon_view::IconViewBuilder;
+    pub use super::im_context_simple::IMContextSimpleBuilder;
+    pub use super::im_multicontext::IMMulticontextBuilder;
+    pub use super::info_bar::InfoBarBuilder;
+    pub use super::invisible::InvisibleBuilder;
+    pub use super::label::LabelBuilder;
+    pub use super::layout::LayoutBuilder;
+    pub use super::level_bar::LevelBarBuilder;
+    pub use super::link_button::LinkButtonBuilder;
+    pub use super::list_box::ListBoxBuilder;
+    pub use super::list_box_row::ListBoxRowBuilder;
+    pub use super::lock_button::LockButtonBuilder;
+    pub use super::menu::MenuBuilder;
+    pub use super::menu_bar::MenuBarBuilder;
+    pub use super::menu_button::MenuButtonBuilder;
+    pub use super::menu_item::MenuItemBuilder;
+    pub use super::menu_tool_button::MenuToolButtonBuilder;
+    pub use super::message_dialog::MessageDialogBuilder;
+    pub use super::model_button::ModelButtonBuilder;
+    pub use super::mount_operation::MountOperationBuilder;
+    pub use super::notebook::NotebookBuilder;
+    pub use super::offscreen_window::OffscreenWindowBuilder;
+    pub use super::overlay::OverlayBuilder;
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    pub use super::pad_controller::PadControllerBuilder;
+    pub use super::paned::PanedBuilder;
+    pub use super::places_sidebar::PlacesSidebarBuilder;
+    #[cfg(any(gdk_backend = "x11", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    pub use super::plug::PlugBuilder;
+    #[cfg(any(gdk_backend = "x11", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    pub use super::plug_accessible::PlugAccessibleBuilder;
+    pub use super::popover::PopoverBuilder;
+    pub use super::popover_menu::PopoverMenuBuilder;
+    pub use super::print_operation::PrintOperationBuilder;
+    pub use super::progress_bar::ProgressBarBuilder;
+    pub use super::radio_button::RadioButtonBuilder;
+    pub use super::radio_menu_item::RadioMenuItemBuilder;
+    pub use super::radio_tool_button::RadioToolButtonBuilder;
+    pub use super::recent_chooser_dialog::RecentChooserDialogBuilder;
+    pub use super::recent_chooser_menu::RecentChooserMenuBuilder;
+    pub use super::recent_chooser_widget::RecentChooserWidgetBuilder;
+    pub use super::recent_manager::RecentManagerBuilder;
+    pub use super::revealer::RevealerBuilder;
+    pub use super::scale::ScaleBuilder;
+    pub use super::scale_button::ScaleButtonBuilder;
+    pub use super::scrollbar::ScrollbarBuilder;
+    pub use super::scrolled_window::ScrolledWindowBuilder;
+    pub use super::search_bar::SearchBarBuilder;
+    pub use super::search_entry::SearchEntryBuilder;
+    pub use super::separator::SeparatorBuilder;
+    pub use super::separator_menu_item::SeparatorMenuItemBuilder;
+    pub use super::separator_tool_item::SeparatorToolItemBuilder;
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    pub use super::shortcut_label::ShortcutLabelBuilder;
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    pub use super::shortcuts_group::ShortcutsGroupBuilder;
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    pub use super::shortcuts_section::ShortcutsSectionBuilder;
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    pub use super::shortcuts_shortcut::ShortcutsShortcutBuilder;
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    pub use super::shortcuts_window::ShortcutsWindowBuilder;
+    pub use super::size_group::SizeGroupBuilder;
+    #[cfg(any(gdk_backend = "x11", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    pub use super::socket::SocketBuilder;
+    #[cfg(any(gdk_backend = "x11", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    pub use super::socket_accessible::SocketAccessibleBuilder;
+    pub use super::spin_button::SpinButtonBuilder;
+    pub use super::spinner::SpinnerBuilder;
+    pub use super::stack::StackBuilder;
+    pub use super::stack_sidebar::StackSidebarBuilder;
+    pub use super::statusbar::StatusbarBuilder;
+    pub use super::style_context::StyleContextBuilder;
+    pub use super::switch::SwitchBuilder;
+    pub use super::text_buffer::TextBufferBuilder;
+    pub use super::text_mark::TextMarkBuilder;
+    pub use super::text_tag::TextTagBuilder;
+    pub use super::text_view::TextViewBuilder;
+    pub use super::toggle_button::ToggleButtonBuilder;
+    pub use super::toggle_tool_button::ToggleToolButtonBuilder;
+    pub use super::tool_button::ToolButtonBuilder;
+    pub use super::tool_item::ToolItemBuilder;
+    pub use super::tool_item_group::ToolItemGroupBuilder;
+    pub use super::tool_palette::ToolPaletteBuilder;
+    pub use super::toolbar::ToolbarBuilder;
+    pub use super::tree_view::TreeViewBuilder;
+    pub use super::tree_view_column::TreeViewColumnBuilder;
+    pub use super::viewport::ViewportBuilder;
+    pub use super::volume_button::VolumeButtonBuilder;
+    pub use super::window::WindowBuilder;
+}

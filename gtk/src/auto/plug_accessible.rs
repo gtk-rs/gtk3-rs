@@ -22,7 +22,7 @@ impl PlugAccessible {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`PlugAccessible`] objects.
     ///
-    /// This method returns an instance of [`PlugAccessibleBuilder`] which can be used to create [`PlugAccessible`] objects.
+    /// This method returns an instance of [`PlugAccessibleBuilder`](crate::builders::PlugAccessibleBuilder) which can be used to create [`PlugAccessible`] objects.
     pub fn builder() -> PlugAccessibleBuilder {
         PlugAccessibleBuilder::default()
     }

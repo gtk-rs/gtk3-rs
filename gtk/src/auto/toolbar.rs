@@ -44,7 +44,7 @@ impl Toolbar {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`Toolbar`] objects.
     ///
-    /// This method returns an instance of [`ToolbarBuilder`] which can be used to create [`Toolbar`] objects.
+    /// This method returns an instance of [`ToolbarBuilder`](crate::builders::ToolbarBuilder) which can be used to create [`Toolbar`] objects.
     pub fn builder() -> ToolbarBuilder {
         ToolbarBuilder::default()
     }
