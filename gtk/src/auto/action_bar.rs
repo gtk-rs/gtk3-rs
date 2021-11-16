@@ -26,6 +26,8 @@ glib::wrapper! {
 }
 
 impl ActionBar {
+    pub const NONE: Option<&'static ActionBar> = None;
+
     #[doc(alias = "gtk_action_bar_new")]
     pub fn new() -> ActionBar {
         assert_initialized_main_thread!();
@@ -390,10 +392,6 @@ impl ActionBarBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl ActionBar {
-    pub const NONE: Option<&'static ActionBar> = None;
 }
 
 pub trait ActionBarExt: 'static {

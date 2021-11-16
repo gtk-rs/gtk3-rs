@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl CheckButton {
+    pub const NONE: Option<&'static CheckButton> = None;
+
     #[doc(alias = "gtk_check_button_new")]
     pub fn new() -> CheckButton {
         assert_initialized_main_thread!();
@@ -515,10 +517,6 @@ impl CheckButtonBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl CheckButton {
-    pub const NONE: Option<&'static CheckButton> = None;
 }
 
 impl fmt::Display for CheckButton {

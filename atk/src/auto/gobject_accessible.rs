@@ -17,6 +17,8 @@ glib::wrapper! {
 }
 
 impl GObjectAccessible {
+    pub const NONE: Option<&'static GObjectAccessible> = None;
+
     #[doc(alias = "atk_gobject_accessible_for_object")]
     pub fn for_object(obj: &impl IsA<glib::Object>) -> Option<Object> {
         assert_initialized_main_thread!();
@@ -26,10 +28,6 @@ impl GObjectAccessible {
             ))
         }
     }
-}
-
-impl GObjectAccessible {
-    pub const NONE: Option<&'static GObjectAccessible> = None;
 }
 
 pub trait GObjectAccessibleExt: 'static {

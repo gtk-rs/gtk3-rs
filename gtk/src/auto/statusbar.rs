@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl Statusbar {
+    pub const NONE: Option<&'static Statusbar> = None;
+
     #[doc(alias = "gtk_statusbar_new")]
     pub fn new() -> Statusbar {
         assert_initialized_main_thread!();
@@ -432,10 +434,6 @@ impl StatusbarBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl Statusbar {
-    pub const NONE: Option<&'static Statusbar> = None;
 }
 
 pub trait StatusbarExt: 'static {

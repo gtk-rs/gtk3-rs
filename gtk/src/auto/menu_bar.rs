@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl MenuBar {
+    pub const NONE: Option<&'static MenuBar> = None;
+
     #[doc(alias = "gtk_menu_bar_new")]
     pub fn new() -> MenuBar {
         assert_initialized_main_thread!();
@@ -432,10 +434,6 @@ impl MenuBarBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl MenuBar {
-    pub const NONE: Option<&'static MenuBar> = None;
 }
 
 pub trait MenuBarExt: 'static {

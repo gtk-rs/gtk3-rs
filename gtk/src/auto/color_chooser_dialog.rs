@@ -35,6 +35,8 @@ glib::wrapper! {
 }
 
 impl ColorChooserDialog {
+    pub const NONE: Option<&'static ColorChooserDialog> = None;
+
     #[doc(alias = "gtk_color_chooser_dialog_new")]
     pub fn new(title: Option<&str>, parent: Option<&impl IsA<Window>>) -> ColorChooserDialog {
         assert_initialized_main_thread!();
@@ -694,10 +696,6 @@ impl ColorChooserDialogBuilder {
         self.use_alpha = Some(use_alpha);
         self
     }
-}
-
-impl ColorChooserDialog {
-    pub const NONE: Option<&'static ColorChooserDialog> = None;
 }
 
 pub trait ColorChooserDialogExt: 'static {

@@ -31,6 +31,8 @@ glib::wrapper! {
 }
 
 impl ToolItemGroup {
+    pub const NONE: Option<&'static ToolItemGroup> = None;
+
     #[doc(alias = "gtk_tool_item_group_new")]
     pub fn new(label: &str) -> ToolItemGroup {
         assert_initialized_main_thread!();
@@ -444,10 +446,6 @@ impl ToolItemGroupBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl ToolItemGroup {
-    pub const NONE: Option<&'static ToolItemGroup> = None;
 }
 
 pub trait ToolItemGroupExt: 'static {

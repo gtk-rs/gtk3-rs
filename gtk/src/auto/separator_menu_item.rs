@@ -28,6 +28,8 @@ glib::wrapper! {
 }
 
 impl SeparatorMenuItem {
+    pub const NONE: Option<&'static SeparatorMenuItem> = None;
+
     #[doc(alias = "gtk_separator_menu_item_new")]
     pub fn new() -> SeparatorMenuItem {
         assert_initialized_main_thread!();
@@ -455,10 +457,6 @@ impl SeparatorMenuItemBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl SeparatorMenuItem {
-    pub const NONE: Option<&'static SeparatorMenuItem> = None;
 }
 
 impl fmt::Display for SeparatorMenuItem {

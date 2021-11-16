@@ -41,6 +41,8 @@ glib::wrapper! {
 }
 
 impl SpinButton {
+    pub const NONE: Option<&'static SpinButton> = None;
+
     #[doc(alias = "gtk_spin_button_new")]
     pub fn new(
         adjustment: Option<&impl IsA<Adjustment>>,
@@ -873,10 +875,6 @@ impl SpinButtonBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl SpinButton {
-    pub const NONE: Option<&'static SpinButton> = None;
 }
 
 pub trait SpinButtonExt: 'static {

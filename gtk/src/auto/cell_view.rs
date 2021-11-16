@@ -34,6 +34,8 @@ glib::wrapper! {
 }
 
 impl CellView {
+    pub const NONE: Option<&'static CellView> = None;
+
     #[doc(alias = "gtk_cell_view_new")]
     pub fn new() -> CellView {
         assert_initialized_main_thread!();
@@ -498,10 +500,6 @@ impl CellViewBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl CellView {
-    pub const NONE: Option<&'static CellView> = None;
 }
 
 pub trait CellViewExt: 'static {

@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl CheckMenuItem {
+    pub const NONE: Option<&'static CheckMenuItem> = None;
+
     #[doc(alias = "gtk_check_menu_item_new")]
     pub fn new() -> CheckMenuItem {
         assert_initialized_main_thread!();
@@ -510,10 +512,6 @@ impl CheckMenuItemBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl CheckMenuItem {
-    pub const NONE: Option<&'static CheckMenuItem> = None;
 }
 
 pub trait CheckMenuItemExt: 'static {

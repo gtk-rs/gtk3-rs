@@ -26,6 +26,8 @@ glib::wrapper! {
 }
 
 impl SizeGroup {
+    pub const NONE: Option<&'static SizeGroup> = None;
+
     #[doc(alias = "gtk_size_group_new")]
     pub fn new(mode: SizeGroupMode) -> SizeGroup {
         assert_initialized_main_thread!();
@@ -91,10 +93,6 @@ impl SizeGroupBuilder {
         self.mode = Some(mode);
         self
     }
-}
-
-impl SizeGroup {
-    pub const NONE: Option<&'static SizeGroup> = None;
 }
 
 pub trait SizeGroupExt: 'static {

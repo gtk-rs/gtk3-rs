@@ -46,6 +46,8 @@ glib::wrapper! {
 }
 
 impl Widget {
+    pub const NONE: Option<&'static Widget> = None;
+
     //#[doc(alias = "gtk_widget_new")]
     //pub fn new(type_: glib::types::Type, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Widget {
     //    unsafe { TODO: call ffi:gtk_widget_new() }
@@ -72,10 +74,6 @@ impl fmt::Display for Widget {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str(&WidgetExt::widget_name(self))
     }
-}
-
-impl Widget {
-    pub const NONE: Option<&'static Widget> = None;
 }
 
 pub trait WidgetExt: 'static {

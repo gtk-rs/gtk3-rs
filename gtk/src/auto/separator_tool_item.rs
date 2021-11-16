@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl SeparatorToolItem {
+    pub const NONE: Option<&'static SeparatorToolItem> = None;
+
     #[doc(alias = "gtk_separator_tool_item_new")]
     pub fn new() -> SeparatorToolItem {
         assert_initialized_main_thread!();
@@ -430,10 +432,6 @@ impl SeparatorToolItemBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl SeparatorToolItem {
-    pub const NONE: Option<&'static SeparatorToolItem> = None;
 }
 
 pub trait SeparatorToolItemExt: 'static {

@@ -37,6 +37,8 @@ glib::wrapper! {
 }
 
 impl FontButton {
+    pub const NONE: Option<&'static FontButton> = None;
+
     #[doc(alias = "gtk_font_button_new")]
     pub fn new() -> FontButton {
         assert_initialized_main_thread!();
@@ -605,10 +607,6 @@ impl FontButtonBuilder {
         self.show_preview_entry = Some(show_preview_entry);
         self
     }
-}
-
-impl FontButton {
-    pub const NONE: Option<&'static FontButton> = None;
 }
 
 pub trait FontButtonExt: 'static {

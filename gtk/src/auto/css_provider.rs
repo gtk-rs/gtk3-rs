@@ -24,6 +24,8 @@ glib::wrapper! {
 }
 
 impl CssProvider {
+    pub const NONE: Option<&'static CssProvider> = None;
+
     #[doc(alias = "gtk_css_provider_new")]
     pub fn new() -> CssProvider {
         assert_initialized_main_thread!();
@@ -62,10 +64,6 @@ impl fmt::Display for CssProvider {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str(&CssProviderExt::to_str(self))
     }
-}
-
-impl CssProvider {
-    pub const NONE: Option<&'static CssProvider> = None;
 }
 
 pub trait CssProviderExt: 'static {

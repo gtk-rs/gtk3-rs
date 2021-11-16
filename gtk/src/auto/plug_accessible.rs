@@ -19,6 +19,8 @@ glib::wrapper! {
 }
 
 impl PlugAccessible {
+    pub const NONE: Option<&'static PlugAccessible> = None;
+
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`PlugAccessible`] objects.
     ///
@@ -185,10 +187,6 @@ impl PlugAccessibleBuilder {
         self.accessible_value = Some(accessible_value);
         self
     }
-}
-
-impl PlugAccessible {
-    pub const NONE: Option<&'static PlugAccessible> = None;
 }
 
 pub trait PlugAccessibleExt: 'static {

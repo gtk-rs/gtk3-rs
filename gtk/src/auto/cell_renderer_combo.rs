@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl CellRendererCombo {
+    pub const NONE: Option<&'static CellRendererCombo> = None;
+
     #[doc(alias = "gtk_cell_renderer_combo_new")]
     pub fn new() -> CellRendererCombo {
         assert_initialized_main_thread!();
@@ -640,10 +642,6 @@ impl CellRendererComboBuilder {
         self.ypad = Some(ypad);
         self
     }
-}
-
-impl CellRendererCombo {
-    pub const NONE: Option<&'static CellRendererCombo> = None;
 }
 
 pub trait CellRendererComboExt: 'static {

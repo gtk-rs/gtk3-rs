@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl SearchBar {
+    pub const NONE: Option<&'static SearchBar> = None;
+
     #[doc(alias = "gtk_search_bar_new")]
     pub fn new() -> SearchBar {
         assert_initialized_main_thread!();
@@ -412,10 +414,6 @@ impl SearchBarBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl SearchBar {
-    pub const NONE: Option<&'static SearchBar> = None;
 }
 
 pub trait SearchBarExt: 'static {

@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl LinkButton {
+    pub const NONE: Option<&'static LinkButton> = None;
+
     #[doc(alias = "gtk_link_button_new")]
     pub fn new(uri: &str) -> LinkButton {
         assert_initialized_main_thread!();
@@ -503,10 +505,6 @@ impl LinkButtonBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl LinkButton {
-    pub const NONE: Option<&'static LinkButton> = None;
 }
 
 pub trait LinkButtonExt: 'static {

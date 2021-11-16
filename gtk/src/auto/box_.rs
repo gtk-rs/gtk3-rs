@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl Box {
+    pub const NONE: Option<&'static Box> = None;
+
     #[doc(alias = "gtk_box_new")]
     pub fn new(orientation: Orientation, spacing: i32) -> Box {
         assert_initialized_main_thread!();
@@ -435,10 +437,6 @@ impl BoxBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl Box {
-    pub const NONE: Option<&'static Box> = None;
 }
 
 pub trait BoxExt: 'static {

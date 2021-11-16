@@ -24,6 +24,8 @@ glib::wrapper! {
 }
 
 impl IconTheme {
+    pub const NONE: Option<&'static IconTheme> = None;
+
     #[doc(alias = "gtk_icon_theme_new")]
     pub fn new() -> IconTheme {
         assert_initialized_main_thread!();
@@ -49,10 +51,6 @@ impl Default for IconTheme {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl IconTheme {
-    pub const NONE: Option<&'static IconTheme> = None;
 }
 
 pub trait IconThemeExt: 'static {

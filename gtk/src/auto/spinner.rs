@@ -27,6 +27,8 @@ glib::wrapper! {
 }
 
 impl Spinner {
+    pub const NONE: Option<&'static Spinner> = None;
+
     #[doc(alias = "gtk_spinner_new")]
     pub fn new() -> Spinner {
         assert_initialized_main_thread!();
@@ -372,10 +374,6 @@ impl SpinnerBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Spinner {
-    pub const NONE: Option<&'static Spinner> = None;
 }
 
 pub trait SpinnerExt: 'static {

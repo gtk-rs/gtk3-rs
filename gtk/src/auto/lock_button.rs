@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl LockButton {
+    pub const NONE: Option<&'static LockButton> = None;
+
     #[doc(alias = "gtk_lock_button_new")]
     pub fn new(permission: Option<&impl IsA<gio::Permission>>) -> LockButton {
         assert_initialized_main_thread!();
@@ -529,10 +531,6 @@ impl LockButtonBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl LockButton {
-    pub const NONE: Option<&'static LockButton> = None;
 }
 
 pub trait LockButtonExt: 'static {

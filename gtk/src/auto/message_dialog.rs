@@ -36,6 +36,8 @@ glib::wrapper! {
 }
 
 impl MessageDialog {
+    pub const NONE: Option<&'static MessageDialog> = None;
+
     //#[doc(alias = "gtk_message_dialog_new")]
     //pub fn new(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> MessageDialog {
     //    unsafe { TODO: call ffi:gtk_message_dialog_new() }
@@ -721,10 +723,6 @@ impl MessageDialogBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl MessageDialog {
-    pub const NONE: Option<&'static MessageDialog> = None;
 }
 
 pub trait MessageDialogExt: 'static {

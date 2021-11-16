@@ -28,6 +28,8 @@ glib::wrapper! {
 }
 
 impl CellRendererAccel {
+    pub const NONE: Option<&'static CellRendererAccel> = None;
+
     #[doc(alias = "gtk_cell_renderer_accel_new")]
     pub fn new() -> CellRendererAccel {
         assert_initialized_main_thread!();
@@ -648,10 +650,6 @@ impl CellRendererAccelBuilder {
         self.ypad = Some(ypad);
         self
     }
-}
-
-impl CellRendererAccel {
-    pub const NONE: Option<&'static CellRendererAccel> = None;
 }
 
 pub trait CellRendererAccelExt: 'static {

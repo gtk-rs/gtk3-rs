@@ -27,6 +27,8 @@ glib::wrapper! {
 }
 
 impl Invisible {
+    pub const NONE: Option<&'static Invisible> = None;
+
     #[doc(alias = "gtk_invisible_new")]
     pub fn new() -> Invisible {
         assert_initialized_main_thread!();
@@ -383,10 +385,6 @@ impl InvisibleBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Invisible {
-    pub const NONE: Option<&'static Invisible> = None;
 }
 
 pub trait InvisibleExt: 'static {

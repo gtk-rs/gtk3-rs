@@ -34,6 +34,8 @@ glib::wrapper! {
 }
 
 impl ToolItem {
+    pub const NONE: Option<&'static ToolItem> = None;
+
     #[doc(alias = "gtk_tool_item_new")]
     pub fn new() -> ToolItem {
         assert_initialized_main_thread!();
@@ -425,10 +427,6 @@ impl ToolItemBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl ToolItem {
-    pub const NONE: Option<&'static ToolItem> = None;
 }
 
 pub trait ToolItemExt: 'static {

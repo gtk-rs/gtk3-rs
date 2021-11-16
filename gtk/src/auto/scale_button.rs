@@ -38,6 +38,8 @@ glib::wrapper! {
 }
 
 impl ScaleButton {
+    pub const NONE: Option<&'static ScaleButton> = None;
+
     #[doc(alias = "gtk_scale_button_new")]
     pub fn new(size: IconSize, min: f64, max: f64, step: f64, icons: &[&str]) -> ScaleButton {
         assert_initialized_main_thread!();
@@ -529,10 +531,6 @@ impl ScaleButtonBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl ScaleButton {
-    pub const NONE: Option<&'static ScaleButton> = None;
 }
 
 pub trait ScaleButtonExt: 'static {

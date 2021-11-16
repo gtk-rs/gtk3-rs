@@ -31,6 +31,8 @@ glib::wrapper! {
 }
 
 impl AspectFrame {
+    pub const NONE: Option<&'static AspectFrame> = None;
+
     #[doc(alias = "gtk_aspect_frame_new")]
     pub fn new(
         label: Option<&str>,
@@ -492,10 +494,6 @@ impl AspectFrameBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl AspectFrame {
-    pub const NONE: Option<&'static AspectFrame> = None;
 }
 
 pub trait AspectFrameExt: 'static {

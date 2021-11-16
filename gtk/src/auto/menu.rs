@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl Menu {
+    pub const NONE: Option<&'static Menu> = None;
+
     #[doc(alias = "gtk_menu_new")]
     pub fn new() -> Menu {
         assert_initialized_main_thread!();
@@ -538,10 +540,6 @@ impl MenuBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Menu {
-    pub const NONE: Option<&'static Menu> = None;
 }
 
 pub trait GtkMenuExt: 'static {

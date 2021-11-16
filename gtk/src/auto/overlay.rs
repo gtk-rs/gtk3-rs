@@ -25,6 +25,8 @@ glib::wrapper! {
 }
 
 impl Overlay {
+    pub const NONE: Option<&'static Overlay> = None;
+
     #[doc(alias = "gtk_overlay_new")]
     pub fn new() -> Overlay {
         assert_initialized_main_thread!();
@@ -388,10 +390,6 @@ impl OverlayBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Overlay {
-    pub const NONE: Option<&'static Overlay> = None;
 }
 
 pub trait OverlayExt: 'static {

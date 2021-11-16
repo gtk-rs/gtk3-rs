@@ -13,8 +13,6 @@ glib::wrapper! {
     }
 }
 
-impl Util {}
-
 impl Util {
     pub const NONE: Option<&'static Util> = None;
 }

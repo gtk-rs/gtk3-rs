@@ -25,6 +25,8 @@ glib::wrapper! {
 }
 
 impl CellRendererPixbuf {
+    pub const NONE: Option<&'static CellRendererPixbuf> = None;
+
     #[doc(alias = "gtk_cell_renderer_pixbuf_new")]
     pub fn new() -> CellRendererPixbuf {
         assert_initialized_main_thread!();
@@ -267,10 +269,6 @@ impl CellRendererPixbufBuilder {
         self.ypad = Some(ypad);
         self
     }
-}
-
-impl CellRendererPixbuf {
-    pub const NONE: Option<&'static CellRendererPixbuf> = None;
 }
 
 pub trait CellRendererPixbufExt: 'static {

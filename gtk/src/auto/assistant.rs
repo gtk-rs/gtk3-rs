@@ -35,6 +35,8 @@ glib::wrapper! {
 }
 
 impl Assistant {
+    pub const NONE: Option<&'static Assistant> = None;
+
     #[doc(alias = "gtk_assistant_new")]
     pub fn new() -> Assistant {
         assert_initialized_main_thread!();
@@ -660,10 +662,6 @@ impl AssistantBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Assistant {
-    pub const NONE: Option<&'static Assistant> = None;
 }
 
 pub trait AssistantExt: 'static {

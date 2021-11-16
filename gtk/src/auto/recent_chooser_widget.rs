@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl RecentChooserWidget {
+    pub const NONE: Option<&'static RecentChooserWidget> = None;
+
     #[doc(alias = "gtk_recent_chooser_widget_new")]
     pub fn new() -> RecentChooserWidget {
         assert_initialized_main_thread!();
@@ -534,10 +536,6 @@ impl RecentChooserWidgetBuilder {
         self.sort_type = Some(sort_type);
         self
     }
-}
-
-impl RecentChooserWidget {
-    pub const NONE: Option<&'static RecentChooserWidget> = None;
 }
 
 impl fmt::Display for RecentChooserWidget {

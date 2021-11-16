@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl StyleContext {
+    pub const NONE: Option<&'static StyleContext> = None;
+
     #[doc(alias = "gtk_style_context_new")]
     pub fn new() -> StyleContext {
         assert_initialized_main_thread!();
@@ -148,10 +150,6 @@ impl StyleContextBuilder {
         self.screen = Some(screen.clone());
         self
     }
-}
-
-impl StyleContext {
-    pub const NONE: Option<&'static StyleContext> = None;
 }
 
 pub trait StyleContextExt: 'static {

@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl Viewport {
+    pub const NONE: Option<&'static Viewport> = None;
+
     #[doc(alias = "gtk_viewport_new")]
     pub fn new(
         hadjustment: Option<&impl IsA<Adjustment>>,
@@ -452,10 +454,6 @@ impl ViewportBuilder {
         self.vscroll_policy = Some(vscroll_policy);
         self
     }
-}
-
-impl Viewport {
-    pub const NONE: Option<&'static Viewport> = None;
 }
 
 pub trait ViewportExt: 'static {

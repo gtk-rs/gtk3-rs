@@ -36,6 +36,8 @@ glib::wrapper! {
 }
 
 impl FileChooserButton {
+    pub const NONE: Option<&'static FileChooserButton> = None;
+
     #[doc(alias = "gtk_file_chooser_button_new")]
     pub fn new(title: &str, action: FileChooserAction) -> FileChooserButton {
         assert_initialized_main_thread!();
@@ -581,10 +583,6 @@ impl FileChooserButtonBuilder {
         self.use_preview_label = Some(use_preview_label);
         self
     }
-}
-
-impl FileChooserButton {
-    pub const NONE: Option<&'static FileChooserButton> = None;
 }
 
 pub trait FileChooserButtonExt: 'static {

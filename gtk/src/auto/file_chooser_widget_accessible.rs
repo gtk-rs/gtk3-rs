@@ -13,8 +13,6 @@ glib::wrapper! {
     }
 }
 
-impl FileChooserWidgetAccessible {}
-
 impl FileChooserWidgetAccessible {
     pub const NONE: Option<&'static FileChooserWidgetAccessible> = None;
 }

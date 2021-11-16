@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl ListBox {
+    pub const NONE: Option<&'static ListBox> = None;
+
     #[doc(alias = "gtk_list_box_new")]
     pub fn new() -> ListBox {
         assert_initialized_main_thread!();
@@ -414,10 +416,6 @@ impl ListBoxBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl ListBox {
-    pub const NONE: Option<&'static ListBox> = None;
 }
 
 pub trait ListBoxExt: 'static {

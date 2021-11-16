@@ -22,6 +22,8 @@ glib::wrapper! {
 }
 
 impl ListStore {
+    pub const NONE: Option<&'static ListStore> = None;
+
     //#[doc(alias = "gtk_list_store_new")]
     //pub fn new(n_columns: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> ListStore {
     //    unsafe { TODO: call ffi:gtk_list_store_new() }
@@ -31,10 +33,6 @@ impl ListStore {
     //pub fn newv(types: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 30 }) -> ListStore {
     //    unsafe { TODO: call ffi:gtk_list_store_newv() }
     //}
-}
-
-impl ListStore {
-    pub const NONE: Option<&'static ListStore> = None;
 }
 
 pub trait GtkListStoreExt: 'static {

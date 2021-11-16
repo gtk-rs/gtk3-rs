@@ -14,8 +14,6 @@ glib::wrapper! {
     }
 }
 
-impl StyleProperties {}
-
 impl StyleProperties {
     pub const NONE: Option<&'static StyleProperties> = None;
 }

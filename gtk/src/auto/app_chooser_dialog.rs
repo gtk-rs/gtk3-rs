@@ -36,6 +36,8 @@ glib::wrapper! {
 }
 
 impl AppChooserDialog {
+    pub const NONE: Option<&'static AppChooserDialog> = None;
+
     #[doc(alias = "gtk_app_chooser_dialog_new")]
     pub fn new(
         parent: Option<&impl IsA<Window>>,
@@ -718,10 +720,6 @@ impl AppChooserDialogBuilder {
         self.content_type = Some(content_type.to_string());
         self
     }
-}
-
-impl AppChooserDialog {
-    pub const NONE: Option<&'static AppChooserDialog> = None;
 }
 
 pub trait AppChooserDialogExt: 'static {

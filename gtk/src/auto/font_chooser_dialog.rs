@@ -34,6 +34,8 @@ glib::wrapper! {
 }
 
 impl FontChooserDialog {
+    pub const NONE: Option<&'static FontChooserDialog> = None;
+
     #[doc(alias = "gtk_font_chooser_dialog_new")]
     pub fn new(title: Option<&str>, parent: Option<&impl IsA<Window>>) -> FontChooserDialog {
         assert_initialized_main_thread!();
@@ -730,10 +732,6 @@ impl FontChooserDialogBuilder {
         self.show_preview_entry = Some(show_preview_entry);
         self
     }
-}
-
-impl FontChooserDialog {
-    pub const NONE: Option<&'static FontChooserDialog> = None;
 }
 
 impl fmt::Display for FontChooserDialog {

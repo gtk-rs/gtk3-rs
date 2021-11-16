@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl RadioMenuItem {
+    pub const NONE: Option<&'static RadioMenuItem> = None;
+
     #[doc(alias = "gtk_radio_menu_item_new_from_widget")]
     #[doc(alias = "new_from_widget")]
     pub fn from_widget(group: &impl IsA<RadioMenuItem>) -> RadioMenuItem {
@@ -519,10 +521,6 @@ impl RadioMenuItemBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl RadioMenuItem {
-    pub const NONE: Option<&'static RadioMenuItem> = None;
 }
 
 pub trait RadioMenuItemExt: 'static {

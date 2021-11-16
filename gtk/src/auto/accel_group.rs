@@ -21,6 +21,8 @@ glib::wrapper! {
 }
 
 impl AccelGroup {
+    pub const NONE: Option<&'static AccelGroup> = None;
+
     #[doc(alias = "gtk_accel_group_new")]
     pub fn new() -> AccelGroup {
         assert_initialized_main_thread!();
@@ -42,10 +44,6 @@ impl Default for AccelGroup {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl AccelGroup {
-    pub const NONE: Option<&'static AccelGroup> = None;
 }
 
 pub trait AccelGroupExt: 'static {

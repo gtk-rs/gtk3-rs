@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl RadioToolButton {
+    pub const NONE: Option<&'static RadioToolButton> = None;
+
     #[doc(alias = "gtk_radio_tool_button_new_from_widget")]
     #[doc(alias = "new_from_widget")]
     pub fn from_widget(group: &impl IsA<RadioToolButton>) -> RadioToolButton {
@@ -493,10 +495,6 @@ impl RadioToolButtonBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl RadioToolButton {
-    pub const NONE: Option<&'static RadioToolButton> = None;
 }
 
 pub trait RadioToolButtonExt: 'static {

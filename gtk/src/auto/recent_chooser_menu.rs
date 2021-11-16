@@ -35,6 +35,8 @@ glib::wrapper! {
 }
 
 impl RecentChooserMenu {
+    pub const NONE: Option<&'static RecentChooserMenu> = None;
+
     #[doc(alias = "gtk_recent_chooser_menu_new")]
     pub fn new() -> RecentChooserMenu {
         assert_initialized_main_thread!();
@@ -629,10 +631,6 @@ impl RecentChooserMenuBuilder {
         self.sort_type = Some(sort_type);
         self
     }
-}
-
-impl RecentChooserMenu {
-    pub const NONE: Option<&'static RecentChooserMenu> = None;
 }
 
 pub trait RecentChooserMenuExt: 'static {

@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl NoOpObject {
+    pub const NONE: Option<&'static NoOpObject> = None;
+
     #[doc(alias = "atk_no_op_object_new")]
     pub fn new(obj: &impl IsA<glib::Object>) -> NoOpObject {
         assert_initialized_main_thread!();
@@ -38,10 +40,6 @@ impl NoOpObject {
                 .unsafe_cast()
         }
     }
-}
-
-impl NoOpObject {
-    pub const NONE: Option<&'static NoOpObject> = None;
 }
 
 impl fmt::Display for NoOpObject {

@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl Paned {
+    pub const NONE: Option<&'static Paned> = None;
+
     #[doc(alias = "gtk_paned_new")]
     pub fn new(orientation: Orientation) -> Paned {
         assert_initialized_main_thread!();
@@ -432,10 +434,6 @@ impl PanedBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl Paned {
-    pub const NONE: Option<&'static Paned> = None;
 }
 
 pub trait PanedExt: 'static {

@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl Switch {
+    pub const NONE: Option<&'static Switch> = None;
+
     #[doc(alias = "gtk_switch_new")]
     pub fn new() -> Switch {
         assert_initialized_main_thread!();
@@ -401,10 +403,6 @@ impl SwitchBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl Switch {
-    pub const NONE: Option<&'static Switch> = None;
 }
 
 pub trait SwitchExt: 'static {

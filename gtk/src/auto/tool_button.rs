@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl ToolButton {
+    pub const NONE: Option<&'static ToolButton> = None;
+
     #[doc(alias = "gtk_tool_button_new")]
     pub fn new(icon_widget: Option<&impl IsA<Widget>>, label: Option<&str>) -> ToolButton {
         assert_initialized_main_thread!();
@@ -493,10 +495,6 @@ impl ToolButtonBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl ToolButton {
-    pub const NONE: Option<&'static ToolButton> = None;
 }
 
 pub trait ToolButtonExt: 'static {

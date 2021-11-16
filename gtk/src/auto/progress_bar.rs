@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl ProgressBar {
+    pub const NONE: Option<&'static ProgressBar> = None;
+
     #[doc(alias = "gtk_progress_bar_new")]
     pub fn new() -> ProgressBar {
         assert_initialized_main_thread!();
@@ -429,10 +431,6 @@ impl ProgressBarBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl ProgressBar {
-    pub const NONE: Option<&'static ProgressBar> = None;
 }
 
 pub trait ProgressBarExt: 'static {

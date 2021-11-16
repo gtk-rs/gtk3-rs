@@ -28,6 +28,8 @@ glib::wrapper! {
 }
 
 impl EntryCompletion {
+    pub const NONE: Option<&'static EntryCompletion> = None;
+
     #[doc(alias = "gtk_entry_completion_new")]
     pub fn new() -> EntryCompletion {
         assert_initialized_main_thread!();
@@ -164,10 +166,6 @@ impl EntryCompletionBuilder {
         self.text_column = Some(text_column);
         self
     }
-}
-
-impl EntryCompletion {
-    pub const NONE: Option<&'static EntryCompletion> = None;
 }
 
 pub trait EntryCompletionExt: 'static {

@@ -38,6 +38,8 @@ glib::wrapper! {
 }
 
 impl ScrolledWindow {
+    pub const NONE: Option<&'static ScrolledWindow> = None;
+
     #[doc(alias = "gtk_scrolled_window_new")]
     pub fn new(
         hadjustment: Option<&impl IsA<Adjustment>>,
@@ -558,10 +560,6 @@ impl ScrolledWindowBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl ScrolledWindow {
-    pub const NONE: Option<&'static ScrolledWindow> = None;
 }
 
 pub trait ScrolledWindowExt: 'static {

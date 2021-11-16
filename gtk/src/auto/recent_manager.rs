@@ -26,6 +26,8 @@ glib::wrapper! {
 }
 
 impl RecentManager {
+    pub const NONE: Option<&'static RecentManager> = None;
+
     #[doc(alias = "gtk_recent_manager_new")]
     pub fn new() -> RecentManager {
         assert_initialized_main_thread!();
@@ -86,10 +88,6 @@ impl RecentManagerBuilder {
         self.filename = Some(filename.to_string());
         self
     }
-}
-
-impl RecentManager {
-    pub const NONE: Option<&'static RecentManager> = None;
 }
 
 pub trait RecentManagerExt: 'static {

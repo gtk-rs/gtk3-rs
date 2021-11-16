@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl TreeViewColumn {
+    pub const NONE: Option<&'static TreeViewColumn> = None;
+
     #[doc(alias = "gtk_tree_view_column_new")]
     pub fn new() -> TreeViewColumn {
         assert_initialized_main_thread!();
@@ -241,10 +243,6 @@ impl TreeViewColumnBuilder {
         self.widget = Some(widget.clone().upcast());
         self
     }
-}
-
-impl TreeViewColumn {
-    pub const NONE: Option<&'static TreeViewColumn> = None;
 }
 
 pub trait TreeViewColumnExt: 'static {

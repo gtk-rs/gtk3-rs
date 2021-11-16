@@ -37,6 +37,8 @@ glib::wrapper! {
 }
 
 impl Window {
+    pub const NONE: Option<&'static Window> = None;
+
     #[doc(alias = "gtk_window_new")]
     pub fn new(type_: WindowType) -> Window {
         assert_initialized_main_thread!();
@@ -734,10 +736,6 @@ impl WindowBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Window {
-    pub const NONE: Option<&'static Window> = None;
 }
 
 pub trait GtkWindowExt: 'static {

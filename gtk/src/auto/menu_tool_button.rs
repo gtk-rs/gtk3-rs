@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl MenuToolButton {
+    pub const NONE: Option<&'static MenuToolButton> = None;
+
     #[doc(alias = "gtk_menu_tool_button_new")]
     pub fn new(icon_widget: Option<&impl IsA<Widget>>, label: Option<&str>) -> MenuToolButton {
         assert_initialized_main_thread!();
@@ -503,10 +505,6 @@ impl MenuToolButtonBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl MenuToolButton {
-    pub const NONE: Option<&'static MenuToolButton> = None;
 }
 
 pub trait MenuToolButtonExt: 'static {

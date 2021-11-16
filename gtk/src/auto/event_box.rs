@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl EventBox {
+    pub const NONE: Option<&'static EventBox> = None;
+
     #[doc(alias = "gtk_event_box_new")]
     pub fn new() -> EventBox {
         assert_initialized_main_thread!();
@@ -411,10 +413,6 @@ impl EventBoxBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl EventBox {
-    pub const NONE: Option<&'static EventBox> = None;
 }
 
 pub trait EventBoxExt: 'static {

@@ -25,6 +25,8 @@ glib::wrapper! {
 }
 
 impl Separator {
+    pub const NONE: Option<&'static Separator> = None;
+
     #[doc(alias = "gtk_separator_new")]
     pub fn new(orientation: Orientation) -> Separator {
         assert_initialized_main_thread!();
@@ -374,10 +376,6 @@ impl SeparatorBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl Separator {
-    pub const NONE: Option<&'static Separator> = None;
 }
 
 impl fmt::Display for Separator {

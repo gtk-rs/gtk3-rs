@@ -34,6 +34,8 @@ glib::wrapper! {
 }
 
 impl ColorButton {
+    pub const NONE: Option<&'static ColorButton> = None;
+
     #[doc(alias = "gtk_color_button_new")]
     pub fn new() -> ColorButton {
         assert_initialized_main_thread!();
@@ -530,10 +532,6 @@ impl ColorButtonBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl ColorButton {
-    pub const NONE: Option<&'static ColorButton> = None;
 }
 
 pub trait ColorButtonExt: 'static {

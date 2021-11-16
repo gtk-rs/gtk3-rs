@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl Socket {
+    pub const NONE: Option<&'static Socket> = None;
+
     #[doc(alias = "gtk_socket_new")]
     pub fn new() -> Socket {
         assert_initialized_main_thread!();
@@ -392,10 +394,6 @@ impl SocketBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Socket {
-    pub const NONE: Option<&'static Socket> = None;
 }
 
 pub trait GtkSocketExt: 'static {

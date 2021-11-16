@@ -23,6 +23,8 @@ glib::wrapper! {
 }
 
 impl DrawingArea {
+    pub const NONE: Option<&'static DrawingArea> = None;
+
     #[doc(alias = "gtk_drawing_area_new")]
     pub fn new() -> DrawingArea {
         assert_initialized_main_thread!();
@@ -360,10 +362,6 @@ impl DrawingAreaBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl DrawingArea {
-    pub const NONE: Option<&'static DrawingArea> = None;
 }
 
 impl fmt::Display for DrawingArea {
