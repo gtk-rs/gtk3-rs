@@ -35,7 +35,7 @@ impl SizeGroup {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`SizeGroup`] objects.
     ///
-    /// This method returns an instance of [`SizeGroupBuilder`] which can be used to create [`SizeGroup`] objects.
+    /// This method returns an instance of [`SizeGroupBuilder`](crate::builders::SizeGroupBuilder) which can be used to create [`SizeGroup`] objects.
     pub fn builder() -> SizeGroupBuilder {
         SizeGroupBuilder::default()
     }

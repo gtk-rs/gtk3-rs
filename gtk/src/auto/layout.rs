@@ -50,7 +50,7 @@ impl Layout {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`Layout`] objects.
     ///
-    /// This method returns an instance of [`LayoutBuilder`] which can be used to create [`Layout`] objects.
+    /// This method returns an instance of [`LayoutBuilder`](crate::builders::LayoutBuilder) which can be used to create [`Layout`] objects.
     pub fn builder() -> LayoutBuilder {
         LayoutBuilder::default()
     }

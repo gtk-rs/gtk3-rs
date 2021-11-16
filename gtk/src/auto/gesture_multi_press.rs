@@ -43,7 +43,7 @@ impl GestureMultiPress {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`GestureMultiPress`] objects.
     ///
-    /// This method returns an instance of [`GestureMultiPressBuilder`] which can be used to create [`GestureMultiPress`] objects.
+    /// This method returns an instance of [`GestureMultiPressBuilder`](crate::builders::GestureMultiPressBuilder) which can be used to create [`GestureMultiPress`] objects.
     pub fn builder() -> GestureMultiPressBuilder {
         GestureMultiPressBuilder::default()
     }

@@ -44,7 +44,7 @@ impl ButtonBox {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ButtonBox`] objects.
     ///
-    /// This method returns an instance of [`ButtonBoxBuilder`] which can be used to create [`ButtonBox`] objects.
+    /// This method returns an instance of [`ButtonBoxBuilder`](crate::builders::ButtonBoxBuilder) which can be used to create [`ButtonBox`] objects.
     pub fn builder() -> ButtonBoxBuilder {
         ButtonBoxBuilder::default()
     }

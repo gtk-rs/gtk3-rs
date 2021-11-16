@@ -65,7 +65,7 @@ impl CheckMenuItem {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`CheckMenuItem`] objects.
     ///
-    /// This method returns an instance of [`CheckMenuItemBuilder`] which can be used to create [`CheckMenuItem`] objects.
+    /// This method returns an instance of [`CheckMenuItemBuilder`](crate::builders::CheckMenuItemBuilder) which can be used to create [`CheckMenuItem`] objects.
     pub fn builder() -> CheckMenuItemBuilder {
         CheckMenuItemBuilder::default()
     }

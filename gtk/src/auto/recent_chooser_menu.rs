@@ -56,7 +56,7 @@ impl RecentChooserMenu {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`RecentChooserMenu`] objects.
     ///
-    /// This method returns an instance of [`RecentChooserMenuBuilder`] which can be used to create [`RecentChooserMenu`] objects.
+    /// This method returns an instance of [`RecentChooserMenuBuilder`](crate::builders::RecentChooserMenuBuilder) which can be used to create [`RecentChooserMenu`] objects.
     pub fn builder() -> RecentChooserMenuBuilder {
         RecentChooserMenuBuilder::default()
     }

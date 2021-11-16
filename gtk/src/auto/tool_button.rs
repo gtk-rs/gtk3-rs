@@ -47,7 +47,7 @@ impl ToolButton {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ToolButton`] objects.
     ///
-    /// This method returns an instance of [`ToolButtonBuilder`] which can be used to create [`ToolButton`] objects.
+    /// This method returns an instance of [`ToolButtonBuilder`](crate::builders::ToolButtonBuilder) which can be used to create [`ToolButton`] objects.
     pub fn builder() -> ToolButtonBuilder {
         ToolButtonBuilder::default()
     }

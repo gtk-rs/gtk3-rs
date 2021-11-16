@@ -54,4 +54,7 @@ pub use self::x11_window::X11Window;
 pub mod functions;
 
 #[doc(hidden)]
-pub mod traits {}
+pub mod builders {
+    pub use super::x11_device_manager_xi2::X11DeviceManagerXI2Builder;
+    pub use super::x11_device_xi2::X11DeviceXI2Builder;
+}

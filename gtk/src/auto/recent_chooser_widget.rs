@@ -53,7 +53,7 @@ impl RecentChooserWidget {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`RecentChooserWidget`] objects.
     ///
-    /// This method returns an instance of [`RecentChooserWidgetBuilder`] which can be used to create [`RecentChooserWidget`] objects.
+    /// This method returns an instance of [`RecentChooserWidgetBuilder`](crate::builders::RecentChooserWidgetBuilder) which can be used to create [`RecentChooserWidget`] objects.
     pub fn builder() -> RecentChooserWidgetBuilder {
         RecentChooserWidgetBuilder::default()
     }

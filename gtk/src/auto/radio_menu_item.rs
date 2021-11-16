@@ -80,7 +80,7 @@ impl RadioMenuItem {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`RadioMenuItem`] objects.
     ///
-    /// This method returns an instance of [`RadioMenuItemBuilder`] which can be used to create [`RadioMenuItem`] objects.
+    /// This method returns an instance of [`RadioMenuItemBuilder`](crate::builders::RadioMenuItemBuilder) which can be used to create [`RadioMenuItem`] objects.
     pub fn builder() -> RadioMenuItemBuilder {
         RadioMenuItemBuilder::default()
     }

@@ -35,7 +35,7 @@ impl RecentManager {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`RecentManager`] objects.
     ///
-    /// This method returns an instance of [`RecentManagerBuilder`] which can be used to create [`RecentManager`] objects.
+    /// This method returns an instance of [`RecentManagerBuilder`](crate::builders::RecentManagerBuilder) which can be used to create [`RecentManager`] objects.
     pub fn builder() -> RecentManagerBuilder {
         RecentManagerBuilder::default()
     }

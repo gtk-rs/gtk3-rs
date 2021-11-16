@@ -37,7 +37,7 @@ impl SeparatorMenuItem {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`SeparatorMenuItem`] objects.
     ///
-    /// This method returns an instance of [`SeparatorMenuItemBuilder`] which can be used to create [`SeparatorMenuItem`] objects.
+    /// This method returns an instance of [`SeparatorMenuItemBuilder`](crate::builders::SeparatorMenuItemBuilder) which can be used to create [`SeparatorMenuItem`] objects.
     pub fn builder() -> SeparatorMenuItemBuilder {
         SeparatorMenuItemBuilder::default()
     }

@@ -56,7 +56,7 @@ impl Plug {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`Plug`] objects.
     ///
-    /// This method returns an instance of [`PlugBuilder`] which can be used to create [`Plug`] objects.
+    /// This method returns an instance of [`PlugBuilder`](crate::builders::PlugBuilder) which can be used to create [`Plug`] objects.
     pub fn builder() -> PlugBuilder {
         PlugBuilder::default()
     }

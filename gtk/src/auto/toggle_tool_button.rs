@@ -41,7 +41,7 @@ impl ToggleToolButton {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ToggleToolButton`] objects.
     ///
-    /// This method returns an instance of [`ToggleToolButtonBuilder`] which can be used to create [`ToggleToolButton`] objects.
+    /// This method returns an instance of [`ToggleToolButtonBuilder`](crate::builders::ToggleToolButtonBuilder) which can be used to create [`ToggleToolButton`] objects.
     pub fn builder() -> ToggleToolButtonBuilder {
         ToggleToolButtonBuilder::default()
     }

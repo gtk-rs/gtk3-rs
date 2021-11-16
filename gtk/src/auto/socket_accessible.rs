@@ -22,7 +22,7 @@ impl SocketAccessible {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`SocketAccessible`] objects.
     ///
-    /// This method returns an instance of [`SocketAccessibleBuilder`] which can be used to create [`SocketAccessible`] objects.
+    /// This method returns an instance of [`SocketAccessibleBuilder`](crate::builders::SocketAccessibleBuilder) which can be used to create [`SocketAccessible`] objects.
     pub fn builder() -> SocketAccessibleBuilder {
         SocketAccessibleBuilder::default()
     }

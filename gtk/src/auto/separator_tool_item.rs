@@ -39,7 +39,7 @@ impl SeparatorToolItem {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`SeparatorToolItem`] objects.
     ///
-    /// This method returns an instance of [`SeparatorToolItemBuilder`] which can be used to create [`SeparatorToolItem`] objects.
+    /// This method returns an instance of [`SeparatorToolItemBuilder`](crate::builders::SeparatorToolItemBuilder) which can be used to create [`SeparatorToolItem`] objects.
     pub fn builder() -> SeparatorToolItemBuilder {
         SeparatorToolItemBuilder::default()
     }

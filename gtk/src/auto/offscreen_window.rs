@@ -38,7 +38,7 @@ impl OffscreenWindow {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`OffscreenWindow`] objects.
     ///
-    /// This method returns an instance of [`OffscreenWindowBuilder`] which can be used to create [`OffscreenWindow`] objects.
+    /// This method returns an instance of [`OffscreenWindowBuilder`](crate::builders::OffscreenWindowBuilder) which can be used to create [`OffscreenWindow`] objects.
     pub fn builder() -> OffscreenWindowBuilder {
         OffscreenWindowBuilder::default()
     }

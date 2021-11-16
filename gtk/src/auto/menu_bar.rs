@@ -51,7 +51,7 @@ impl MenuBar {
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`MenuBar`] objects.
     ///
-    /// This method returns an instance of [`MenuBarBuilder`] which can be used to create [`MenuBar`] objects.
+    /// This method returns an instance of [`MenuBarBuilder`](crate::builders::MenuBarBuilder) which can be used to create [`MenuBar`] objects.
     pub fn builder() -> MenuBarBuilder {
         MenuBarBuilder::default()
     }
