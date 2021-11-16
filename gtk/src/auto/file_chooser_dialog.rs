@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl FileChooserDialog {
+    pub const NONE: Option<&'static FileChooserDialog> = None;
+
     //#[doc(alias = "gtk_file_chooser_dialog_new")]
     //pub fn new(title: Option<&str>, parent: Option<&impl IsA<Window>>, action: FileChooserAction, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> FileChooserDialog {
     //    unsafe { TODO: call ffi:gtk_file_chooser_dialog_new() }
@@ -756,10 +758,6 @@ impl FileChooserDialogBuilder {
         self.use_preview_label = Some(use_preview_label);
         self
     }
-}
-
-impl FileChooserDialog {
-    pub const NONE: Option<&'static FileChooserDialog> = None;
 }
 
 impl fmt::Display for FileChooserDialog {

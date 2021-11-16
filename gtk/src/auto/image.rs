@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl Image {
+    pub const NONE: Option<&'static Image> = None;
+
     #[doc(alias = "gtk_image_new")]
     pub fn new() -> Image {
         assert_initialized_main_thread!();
@@ -125,10 +127,6 @@ impl Default for Image {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl Image {
-    pub const NONE: Option<&'static Image> = None;
 }
 
 pub trait ImageExt: 'static {

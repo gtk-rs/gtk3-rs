@@ -27,6 +27,8 @@ glib::wrapper! {
 }
 
 impl CellRendererProgress {
+    pub const NONE: Option<&'static CellRendererProgress> = None;
+
     #[doc(alias = "gtk_cell_renderer_progress_new")]
     pub fn new() -> CellRendererProgress {
         assert_initialized_main_thread!();
@@ -260,10 +262,6 @@ impl CellRendererProgressBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl CellRendererProgress {
-    pub const NONE: Option<&'static CellRendererProgress> = None;
 }
 
 pub trait CellRendererProgressExt: 'static {

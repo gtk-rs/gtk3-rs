@@ -28,6 +28,8 @@ glib::wrapper! {
 }
 
 impl Scrollbar {
+    pub const NONE: Option<&'static Scrollbar> = None;
+
     #[doc(alias = "gtk_scrollbar_new")]
     pub fn new(orientation: Orientation, adjustment: Option<&impl IsA<Adjustment>>) -> Scrollbar {
         assert_initialized_main_thread!();
@@ -453,10 +455,6 @@ impl ScrollbarBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl Scrollbar {
-    pub const NONE: Option<&'static Scrollbar> = None;
 }
 
 impl fmt::Display for Scrollbar {

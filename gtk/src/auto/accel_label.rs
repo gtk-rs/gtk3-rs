@@ -31,6 +31,8 @@ glib::wrapper! {
 }
 
 impl AccelLabel {
+    pub const NONE: Option<&'static AccelLabel> = None;
+
     #[doc(alias = "gtk_accel_label_new")]
     pub fn new(string: &str) -> AccelLabel {
         assert_initialized_main_thread!();
@@ -560,10 +562,6 @@ impl AccelLabelBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl AccelLabel {
-    pub const NONE: Option<&'static AccelLabel> = None;
 }
 
 pub trait AccelLabelExt: 'static {

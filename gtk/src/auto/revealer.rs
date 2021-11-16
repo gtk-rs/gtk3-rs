@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl Revealer {
+    pub const NONE: Option<&'static Revealer> = None;
+
     #[doc(alias = "gtk_revealer_new")]
     pub fn new() -> Revealer {
         assert_initialized_main_thread!();
@@ -421,10 +423,6 @@ impl RevealerBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Revealer {
-    pub const NONE: Option<&'static Revealer> = None;
 }
 
 pub trait RevealerExt: 'static {

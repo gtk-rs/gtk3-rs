@@ -36,6 +36,8 @@ glib::wrapper! {
 }
 
 impl AppChooserButton {
+    pub const NONE: Option<&'static AppChooserButton> = None;
+
     #[doc(alias = "gtk_app_chooser_button_new")]
     pub fn new(content_type: &str) -> AppChooserButton {
         assert_initialized_main_thread!();
@@ -568,10 +570,6 @@ impl AppChooserButtonBuilder {
         self.content_type = Some(content_type.to_string());
         self
     }
-}
-
-impl AppChooserButton {
-    pub const NONE: Option<&'static AppChooserButton> = None;
 }
 
 pub trait AppChooserButtonExt: 'static {

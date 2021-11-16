@@ -23,6 +23,8 @@ glib::wrapper! {
 }
 
 impl TextTagTable {
+    pub const NONE: Option<&'static TextTagTable> = None;
+
     #[doc(alias = "gtk_text_tag_table_new")]
     pub fn new() -> TextTagTable {
         assert_initialized_main_thread!();
@@ -34,10 +36,6 @@ impl Default for TextTagTable {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl TextTagTable {
-    pub const NONE: Option<&'static TextTagTable> = None;
 }
 
 pub trait TextTagTableExt: 'static {

@@ -35,6 +35,8 @@ glib::wrapper! {
 }
 
 impl AboutDialog {
+    pub const NONE: Option<&'static AboutDialog> = None;
+
     #[doc(alias = "gtk_about_dialog_new")]
     pub fn new() -> AboutDialog {
         assert_initialized_main_thread!();
@@ -795,10 +797,6 @@ impl AboutDialogBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl AboutDialog {
-    pub const NONE: Option<&'static AboutDialog> = None;
 }
 
 pub trait AboutDialogExt: 'static {

@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl TextBuffer {
+    pub const NONE: Option<&'static TextBuffer> = None;
+
     #[doc(alias = "gtk_text_buffer_new")]
     pub fn new(table: Option<&impl IsA<TextTagTable>>) -> TextBuffer {
         assert_initialized_main_thread!();
@@ -99,10 +101,6 @@ impl TextBufferBuilder {
         self.text = Some(text.to_string());
         self
     }
-}
-
-impl TextBuffer {
-    pub const NONE: Option<&'static TextBuffer> = None;
 }
 
 pub trait TextBufferExt: 'static {

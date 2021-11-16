@@ -15,8 +15,6 @@ glib::wrapper! {
     }
 }
 
-impl Misc {}
-
 impl Misc {
     pub const NONE: Option<&'static Misc> = None;
 }

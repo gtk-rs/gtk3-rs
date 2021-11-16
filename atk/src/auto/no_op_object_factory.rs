@@ -17,6 +17,8 @@ glib::wrapper! {
 }
 
 impl NoOpObjectFactory {
+    pub const NONE: Option<&'static NoOpObjectFactory> = None;
+
     #[doc(alias = "atk_no_op_object_factory_new")]
     pub fn new() -> NoOpObjectFactory {
         assert_initialized_main_thread!();
@@ -28,10 +30,6 @@ impl Default for NoOpObjectFactory {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl NoOpObjectFactory {
-    pub const NONE: Option<&'static NoOpObjectFactory> = None;
 }
 
 impl fmt::Display for NoOpObjectFactory {

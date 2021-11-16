@@ -35,6 +35,8 @@ glib::wrapper! {
 }
 
 impl FlowBox {
+    pub const NONE: Option<&'static FlowBox> = None;
+
     #[doc(alias = "gtk_flow_box_new")]
     pub fn new() -> FlowBox {
         assert_initialized_main_thread!();
@@ -470,10 +472,6 @@ impl FlowBoxBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl FlowBox {
-    pub const NONE: Option<&'static FlowBox> = None;
 }
 
 pub trait FlowBoxExt: 'static {

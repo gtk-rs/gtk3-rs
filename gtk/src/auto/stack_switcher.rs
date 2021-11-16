@@ -27,6 +27,8 @@ glib::wrapper! {
 }
 
 impl StackSwitcher {
+    pub const NONE: Option<&'static StackSwitcher> = None;
+
     #[doc(alias = "gtk_stack_switcher_new")]
     pub fn new() -> StackSwitcher {
         assert_initialized_main_thread!();
@@ -38,10 +40,6 @@ impl Default for StackSwitcher {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl StackSwitcher {
-    pub const NONE: Option<&'static StackSwitcher> = None;
 }
 
 pub trait StackSwitcherExt: 'static {

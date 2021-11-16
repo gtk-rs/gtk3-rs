@@ -36,6 +36,8 @@ glib::wrapper! {
 }
 
 impl SearchEntry {
+    pub const NONE: Option<&'static SearchEntry> = None;
+
     #[doc(alias = "gtk_search_entry_new")]
     pub fn new() -> SearchEntry {
         assert_initialized_main_thread!();
@@ -765,10 +767,6 @@ impl SearchEntryBuilder {
         self.editing_canceled = Some(editing_canceled);
         self
     }
-}
-
-impl SearchEntry {
-    pub const NONE: Option<&'static SearchEntry> = None;
 }
 
 pub trait SearchEntryExt: 'static {

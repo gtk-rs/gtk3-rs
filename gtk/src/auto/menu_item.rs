@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl MenuItem {
+    pub const NONE: Option<&'static MenuItem> = None;
+
     #[doc(alias = "gtk_menu_item_new")]
     pub fn new() -> MenuItem {
         assert_initialized_main_thread!();
@@ -479,10 +481,6 @@ impl MenuItemBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl MenuItem {
-    pub const NONE: Option<&'static MenuItem> = None;
 }
 
 pub trait GtkMenuItemExt: 'static {

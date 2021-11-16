@@ -17,6 +17,8 @@ glib::wrapper! {
 }
 
 impl StateSet {
+    pub const NONE: Option<&'static StateSet> = None;
+
     #[doc(alias = "atk_state_set_new")]
     pub fn new() -> StateSet {
         assert_initialized_main_thread!();
@@ -28,10 +30,6 @@ impl Default for StateSet {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl StateSet {
-    pub const NONE: Option<&'static StateSet> = None;
 }
 
 pub trait StateSetExt: 'static {

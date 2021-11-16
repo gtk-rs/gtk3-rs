@@ -19,6 +19,8 @@ glib::wrapper! {
 }
 
 impl SocketAccessible {
+    pub const NONE: Option<&'static SocketAccessible> = None;
+
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`SocketAccessible`] objects.
     ///
@@ -185,10 +187,6 @@ impl SocketAccessibleBuilder {
         self.accessible_value = Some(accessible_value);
         self
     }
-}
-
-impl SocketAccessible {
-    pub const NONE: Option<&'static SocketAccessible> = None;
 }
 
 pub trait SocketAccessibleExt: 'static {

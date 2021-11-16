@@ -19,6 +19,8 @@ glib::wrapper! {
 }
 
 impl Socket {
+    pub const NONE: Option<&'static Socket> = None;
+
     #[doc(alias = "atk_socket_new")]
     pub fn new() -> Socket {
         assert_initialized_main_thread!();
@@ -30,10 +32,6 @@ impl Default for Socket {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl Socket {
-    pub const NONE: Option<&'static Socket> = None;
 }
 
 pub trait AtkSocketExt: 'static {

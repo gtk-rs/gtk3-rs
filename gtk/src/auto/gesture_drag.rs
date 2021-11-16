@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl GestureDrag {
+    pub const NONE: Option<&'static GestureDrag> = None;
+
     #[doc(alias = "gtk_gesture_drag_new")]
     pub fn new(widget: &impl IsA<Widget>) -> GestureDrag {
         skip_assert_initialized!();
@@ -140,10 +142,6 @@ impl GestureDragBuilder {
         self.widget = Some(widget.clone().upcast());
         self
     }
-}
-
-impl GestureDrag {
-    pub const NONE: Option<&'static GestureDrag> = None;
 }
 
 pub trait GestureDragExt: 'static {

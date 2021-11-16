@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl StackSidebar {
+    pub const NONE: Option<&'static StackSidebar> = None;
+
     #[doc(alias = "gtk_stack_sidebar_new")]
     pub fn new() -> StackSidebar {
         assert_initialized_main_thread!();
@@ -403,10 +405,6 @@ impl StackSidebarBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl StackSidebar {
-    pub const NONE: Option<&'static StackSidebar> = None;
 }
 
 pub trait StackSidebarExt: 'static {

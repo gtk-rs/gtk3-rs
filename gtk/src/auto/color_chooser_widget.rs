@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl ColorChooserWidget {
+    pub const NONE: Option<&'static ColorChooserWidget> = None;
+
     #[doc(alias = "gtk_color_chooser_widget_new")]
     pub fn new() -> ColorChooserWidget {
         assert_initialized_main_thread!();
@@ -460,10 +462,6 @@ impl ColorChooserWidgetBuilder {
         self.use_alpha = Some(use_alpha);
         self
     }
-}
-
-impl ColorChooserWidget {
-    pub const NONE: Option<&'static ColorChooserWidget> = None;
 }
 
 pub trait ColorChooserWidgetExt: 'static {

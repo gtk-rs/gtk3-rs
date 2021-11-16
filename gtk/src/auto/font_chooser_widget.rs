@@ -36,6 +36,8 @@ glib::wrapper! {
 }
 
 impl FontChooserWidget {
+    pub const NONE: Option<&'static FontChooserWidget> = None;
+
     #[doc(alias = "gtk_font_chooser_widget_new")]
     pub fn new() -> FontChooserWidget {
         assert_initialized_main_thread!();
@@ -500,10 +502,6 @@ impl FontChooserWidgetBuilder {
         self.show_preview_entry = Some(show_preview_entry);
         self
     }
-}
-
-impl FontChooserWidget {
-    pub const NONE: Option<&'static FontChooserWidget> = None;
 }
 
 pub trait FontChooserWidgetExt: 'static {

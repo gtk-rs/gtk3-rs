@@ -19,6 +19,8 @@ glib::wrapper! {
 }
 
 impl Plug {
+    pub const NONE: Option<&'static Plug> = None;
+
     #[doc(alias = "atk_plug_new")]
     pub fn new() -> Plug {
         assert_initialized_main_thread!();
@@ -30,10 +32,6 @@ impl Default for Plug {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl Plug {
-    pub const NONE: Option<&'static Plug> = None;
 }
 
 pub trait AtkPlugExt: 'static {

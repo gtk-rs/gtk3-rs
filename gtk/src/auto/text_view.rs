@@ -47,6 +47,8 @@ glib::wrapper! {
 }
 
 impl TextView {
+    pub const NONE: Option<&'static TextView> = None;
+
     #[doc(alias = "gtk_text_view_new")]
     pub fn new() -> TextView {
         assert_initialized_main_thread!();
@@ -648,10 +650,6 @@ impl TextViewBuilder {
         self.vscroll_policy = Some(vscroll_policy);
         self
     }
-}
-
-impl TextView {
-    pub const NONE: Option<&'static TextView> = None;
 }
 
 pub trait TextViewExt: 'static {

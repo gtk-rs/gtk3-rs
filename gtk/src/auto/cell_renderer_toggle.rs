@@ -26,6 +26,8 @@ glib::wrapper! {
 }
 
 impl CellRendererToggle {
+    pub const NONE: Option<&'static CellRendererToggle> = None;
+
     #[doc(alias = "gtk_cell_renderer_toggle_new")]
     pub fn new() -> CellRendererToggle {
         assert_initialized_main_thread!();
@@ -241,10 +243,6 @@ impl CellRendererToggleBuilder {
         self.ypad = Some(ypad);
         self
     }
-}
-
-impl CellRendererToggle {
-    pub const NONE: Option<&'static CellRendererToggle> = None;
 }
 
 pub trait CellRendererToggleExt: 'static {

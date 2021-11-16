@@ -41,6 +41,8 @@ glib::wrapper! {
 }
 
 impl ToolPalette {
+    pub const NONE: Option<&'static ToolPalette> = None;
+
     #[doc(alias = "gtk_tool_palette_new")]
     pub fn new() -> ToolPalette {
         assert_initialized_main_thread!();
@@ -491,10 +493,6 @@ impl ToolPaletteBuilder {
         self.vscroll_policy = Some(vscroll_policy);
         self
     }
-}
-
-impl ToolPalette {
-    pub const NONE: Option<&'static ToolPalette> = None;
 }
 
 pub trait ToolPaletteExt: 'static {

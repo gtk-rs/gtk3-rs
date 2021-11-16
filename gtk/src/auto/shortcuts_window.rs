@@ -34,6 +34,8 @@ glib::wrapper! {
 }
 
 impl ShortcutsWindow {
+    pub const NONE: Option<&'static ShortcutsWindow> = None;
+
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ShortcutsWindow`] objects.
     ///
@@ -656,10 +658,6 @@ impl ShortcutsWindowBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl ShortcutsWindow {
-    pub const NONE: Option<&'static ShortcutsWindow> = None;
 }
 
 pub trait ShortcutsWindowExt: 'static {

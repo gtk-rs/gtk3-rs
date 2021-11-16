@@ -36,6 +36,8 @@ glib::wrapper! {
 }
 
 impl InfoBar {
+    pub const NONE: Option<&'static InfoBar> = None;
+
     #[doc(alias = "gtk_info_bar_new")]
     pub fn new() -> InfoBar {
         assert_initialized_main_thread!();
@@ -473,10 +475,6 @@ impl InfoBarBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl InfoBar {
-    pub const NONE: Option<&'static InfoBar> = None;
 }
 
 pub trait InfoBarExt: 'static {

@@ -32,6 +32,8 @@ glib::wrapper! {
 }
 
 impl Layout {
+    pub const NONE: Option<&'static Layout> = None;
+
     #[doc(alias = "gtk_layout_new")]
     pub fn new(
         hadjustment: Option<&impl IsA<Adjustment>>,
@@ -459,10 +461,6 @@ impl LayoutBuilder {
         self.vscroll_policy = Some(vscroll_policy);
         self
     }
-}
-
-impl Layout {
-    pub const NONE: Option<&'static Layout> = None;
 }
 
 pub trait LayoutExt: 'static {

@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl CellAreaBox {
+    pub const NONE: Option<&'static CellAreaBox> = None;
+
     #[doc(alias = "gtk_cell_area_box_new")]
     pub fn new() -> CellAreaBox {
         assert_initialized_main_thread!();
@@ -100,10 +102,6 @@ impl CellAreaBoxBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl CellAreaBox {
-    pub const NONE: Option<&'static CellAreaBox> = None;
 }
 
 pub trait CellAreaBoxExt: 'static {

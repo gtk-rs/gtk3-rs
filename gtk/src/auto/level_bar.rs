@@ -31,6 +31,8 @@ glib::wrapper! {
 }
 
 impl LevelBar {
+    pub const NONE: Option<&'static LevelBar> = None;
+
     #[doc(alias = "gtk_level_bar_new")]
     pub fn new() -> LevelBar {
         assert_initialized_main_thread!();
@@ -432,10 +434,6 @@ impl LevelBarBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl LevelBar {
-    pub const NONE: Option<&'static LevelBar> = None;
 }
 
 pub trait LevelBarExt: 'static {

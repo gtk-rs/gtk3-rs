@@ -24,6 +24,8 @@ glib::wrapper! {
 }
 
 impl Relation {
+    pub const NONE: Option<&'static Relation> = None;
+
     #[doc(alias = "atk_relation_new")]
     pub fn new(targets: &[Object], relationship: RelationType) -> Relation {
         assert_initialized_main_thread!();
@@ -36,10 +38,6 @@ impl Relation {
             ))
         }
     }
-}
-
-impl Relation {
-    pub const NONE: Option<&'static Relation> = None;
 }
 
 pub trait RelationExt: 'static {

@@ -34,6 +34,8 @@ glib::wrapper! {
 }
 
 impl Button {
+    pub const NONE: Option<&'static Button> = None;
+
     #[doc(alias = "gtk_button_new")]
     pub fn new() -> Button {
         assert_initialized_main_thread!();
@@ -502,10 +504,6 @@ impl ButtonBuilder {
         self.action_target = Some(action_target.clone());
         self
     }
-}
-
-impl Button {
-    pub const NONE: Option<&'static Button> = None;
 }
 
 pub trait ButtonExt: 'static {

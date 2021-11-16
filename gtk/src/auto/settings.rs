@@ -24,6 +24,8 @@ glib::wrapper! {
 }
 
 impl Settings {
+    pub const NONE: Option<&'static Settings> = None;
+
     #[doc(alias = "gtk_settings_get_default")]
     #[doc(alias = "get_default")]
     pub fn default() -> Option<Settings> {
@@ -37,10 +39,6 @@ impl Settings {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_settings_get_for_screen(screen.to_glib_none().0)) }
     }
-}
-
-impl Settings {
-    pub const NONE: Option<&'static Settings> = None;
 }
 
 pub trait SettingsExt: 'static {

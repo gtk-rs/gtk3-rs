@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl Popover {
+    pub const NONE: Option<&'static Popover> = None;
+
     #[doc(alias = "gtk_popover_new")]
     pub fn new(relative_to: Option<&impl IsA<Widget>>) -> Popover {
         assert_initialized_main_thread!();
@@ -479,10 +481,6 @@ impl PopoverBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Popover {
-    pub const NONE: Option<&'static Popover> = None;
 }
 
 pub trait PopoverExt: 'static {

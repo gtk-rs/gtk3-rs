@@ -30,6 +30,8 @@ glib::wrapper! {
 }
 
 impl Expander {
+    pub const NONE: Option<&'static Expander> = None;
+
     #[doc(alias = "gtk_expander_new")]
     pub fn new(label: Option<&str>) -> Expander {
         assert_initialized_main_thread!();
@@ -481,10 +483,6 @@ impl ExpanderBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Expander {
-    pub const NONE: Option<&'static Expander> = None;
 }
 
 pub trait ExpanderExt: 'static {

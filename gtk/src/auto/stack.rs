@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl Stack {
+    pub const NONE: Option<&'static Stack> = None;
+
     #[doc(alias = "gtk_stack_new")]
     pub fn new() -> Stack {
         assert_initialized_main_thread!();
@@ -464,10 +466,6 @@ impl StackBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Stack {
-    pub const NONE: Option<&'static Stack> = None;
 }
 
 pub trait StackExt: 'static {

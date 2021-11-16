@@ -17,6 +17,8 @@ glib::wrapper! {
 }
 
 impl TextChildAnchor {
+    pub const NONE: Option<&'static TextChildAnchor> = None;
+
     #[doc(alias = "gtk_text_child_anchor_new")]
     pub fn new() -> TextChildAnchor {
         assert_initialized_main_thread!();
@@ -28,10 +30,6 @@ impl Default for TextChildAnchor {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl TextChildAnchor {
-    pub const NONE: Option<&'static TextChildAnchor> = None;
 }
 
 pub trait TextChildAnchorExt: 'static {

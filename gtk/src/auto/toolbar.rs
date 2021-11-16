@@ -35,6 +35,8 @@ glib::wrapper! {
 }
 
 impl Toolbar {
+    pub const NONE: Option<&'static Toolbar> = None;
+
     #[doc(alias = "gtk_toolbar_new")]
     pub fn new() -> Toolbar {
         assert_initialized_main_thread!();
@@ -443,10 +445,6 @@ impl ToolbarBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl Toolbar {
-    pub const NONE: Option<&'static Toolbar> = None;
 }
 
 pub trait ToolbarExt: 'static {

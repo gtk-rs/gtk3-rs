@@ -34,6 +34,8 @@ glib::wrapper! {
 }
 
 impl Plug {
+    pub const NONE: Option<&'static Plug> = None;
+
     #[doc(alias = "gtk_plug_new")]
     pub fn new(socket_id: xlib::Window) -> Plug {
         assert_initialized_main_thread!();
@@ -663,10 +665,6 @@ impl PlugBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Plug {
-    pub const NONE: Option<&'static Plug> = None;
 }
 
 pub trait PlugExt: 'static {

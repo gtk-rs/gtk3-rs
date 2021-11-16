@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl HeaderBar {
+    pub const NONE: Option<&'static HeaderBar> = None;
+
     #[doc(alias = "gtk_header_bar_new")]
     pub fn new() -> HeaderBar {
         assert_initialized_main_thread!();
@@ -465,10 +467,6 @@ impl HeaderBarBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl HeaderBar {
-    pub const NONE: Option<&'static HeaderBar> = None;
 }
 
 pub trait HeaderBarExt: 'static {

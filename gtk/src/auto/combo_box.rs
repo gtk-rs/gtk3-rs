@@ -37,6 +37,8 @@ glib::wrapper! {
 }
 
 impl ComboBox {
+    pub const NONE: Option<&'static ComboBox> = None;
+
     #[doc(alias = "gtk_combo_box_new")]
     pub fn new() -> ComboBox {
         assert_initialized_main_thread!();
@@ -582,10 +584,6 @@ impl ComboBoxBuilder {
         self.editing_canceled = Some(editing_canceled);
         self
     }
-}
-
-impl ComboBox {
-    pub const NONE: Option<&'static ComboBox> = None;
 }
 
 pub trait ComboBoxExt: 'static {

@@ -38,6 +38,8 @@ glib::wrapper! {
 }
 
 impl VolumeButton {
+    pub const NONE: Option<&'static VolumeButton> = None;
+
     #[doc(alias = "gtk_volume_button_new")]
     pub fn new() -> VolumeButton {
         assert_initialized_main_thread!();
@@ -528,10 +530,6 @@ impl VolumeButtonBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl VolumeButton {
-    pub const NONE: Option<&'static VolumeButton> = None;
 }
 
 pub trait VolumeButtonExt: 'static {

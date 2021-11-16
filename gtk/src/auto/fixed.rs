@@ -24,6 +24,8 @@ glib::wrapper! {
 }
 
 impl Fixed {
+    pub const NONE: Option<&'static Fixed> = None;
+
     #[doc(alias = "gtk_fixed_new")]
     pub fn new() -> Fixed {
         assert_initialized_main_thread!();
@@ -387,10 +389,6 @@ impl FixedBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Fixed {
-    pub const NONE: Option<&'static Fixed> = None;
 }
 
 pub trait FixedExt: 'static {

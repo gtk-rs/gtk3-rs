@@ -26,6 +26,8 @@ glib::wrapper! {
 }
 
 impl CellRendererSpinner {
+    pub const NONE: Option<&'static CellRendererSpinner> = None;
+
     #[doc(alias = "gtk_cell_renderer_spinner_new")]
     pub fn new() -> CellRendererSpinner {
         assert_initialized_main_thread!();
@@ -223,10 +225,6 @@ impl CellRendererSpinnerBuilder {
         self.ypad = Some(ypad);
         self
     }
-}
-
-impl CellRendererSpinner {
-    pub const NONE: Option<&'static CellRendererSpinner> = None;
 }
 
 pub trait CellRendererSpinnerExt: 'static {

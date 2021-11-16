@@ -45,6 +45,8 @@ glib::wrapper! {
 }
 
 impl IconView {
+    pub const NONE: Option<&'static IconView> = None;
+
     #[doc(alias = "gtk_icon_view_new")]
     pub fn new() -> IconView {
         assert_initialized_main_thread!();
@@ -613,10 +615,6 @@ impl IconViewBuilder {
         self.vscroll_policy = Some(vscroll_policy);
         self
     }
-}
-
-impl IconView {
-    pub const NONE: Option<&'static IconView> = None;
 }
 
 pub trait IconViewExt: 'static {

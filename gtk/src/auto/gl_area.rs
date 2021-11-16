@@ -28,6 +28,8 @@ glib::wrapper! {
 }
 
 impl GLArea {
+    pub const NONE: Option<&'static GLArea> = None;
+
     #[doc(alias = "gtk_gl_area_new")]
     pub fn new() -> GLArea {
         assert_initialized_main_thread!();
@@ -414,10 +416,6 @@ impl GLAreaBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl GLArea {
-    pub const NONE: Option<&'static GLArea> = None;
 }
 
 pub trait GLAreaExt: 'static {

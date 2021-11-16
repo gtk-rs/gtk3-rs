@@ -24,6 +24,8 @@ glib::wrapper! {
 }
 
 impl Builder {
+    pub const NONE: Option<&'static Builder> = None;
+
     #[doc(alias = "gtk_builder_new")]
     pub fn new() -> Builder {
         assert_initialized_main_thread!();
@@ -59,10 +61,6 @@ impl Default for Builder {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl Builder {
-    pub const NONE: Option<&'static Builder> = None;
 }
 
 pub trait BuilderExt: 'static {

@@ -36,6 +36,8 @@ glib::wrapper! {
 }
 
 impl ApplicationWindow {
+    pub const NONE: Option<&'static ApplicationWindow> = None;
+
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ApplicationWindow`] objects.
     ///
@@ -649,10 +651,6 @@ impl ApplicationWindowBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl ApplicationWindow {
-    pub const NONE: Option<&'static ApplicationWindow> = None;
 }
 
 pub trait ApplicationWindowExt: 'static {

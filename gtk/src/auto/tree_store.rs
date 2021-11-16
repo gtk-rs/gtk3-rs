@@ -22,6 +22,8 @@ glib::wrapper! {
 }
 
 impl TreeStore {
+    pub const NONE: Option<&'static TreeStore> = None;
+
     //#[doc(alias = "gtk_tree_store_new")]
     //pub fn new(n_columns: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreeStore {
     //    unsafe { TODO: call ffi:gtk_tree_store_new() }
@@ -31,10 +33,6 @@ impl TreeStore {
     //pub fn newv(types: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 30 }) -> TreeStore {
     //    unsafe { TODO: call ffi:gtk_tree_store_newv() }
     //}
-}
-
-impl TreeStore {
-    pub const NONE: Option<&'static TreeStore> = None;
 }
 
 pub trait TreeStoreExt: 'static {

@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl RecentChooserDialog {
+    pub const NONE: Option<&'static RecentChooserDialog> = None;
+
     //#[doc(alias = "gtk_recent_chooser_dialog_new")]
     //pub fn new(title: Option<&str>, parent: Option<&impl IsA<Window>>, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
     //    unsafe { TODO: call ffi:gtk_recent_chooser_dialog_new() }
@@ -754,10 +756,6 @@ impl RecentChooserDialogBuilder {
         self.sort_type = Some(sort_type);
         self
     }
-}
-
-impl RecentChooserDialog {
-    pub const NONE: Option<&'static RecentChooserDialog> = None;
 }
 
 impl fmt::Display for RecentChooserDialog {

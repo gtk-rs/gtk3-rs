@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl Notebook {
+    pub const NONE: Option<&'static Notebook> = None;
+
     #[doc(alias = "gtk_notebook_new")]
     pub fn new() -> Notebook {
         assert_initialized_main_thread!();
@@ -460,10 +462,6 @@ impl NotebookBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Notebook {
-    pub const NONE: Option<&'static Notebook> = None;
 }
 
 pub trait NotebookExt: 'static {

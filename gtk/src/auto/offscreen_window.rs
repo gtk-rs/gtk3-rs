@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl OffscreenWindow {
+    pub const NONE: Option<&'static OffscreenWindow> = None;
+
     #[doc(alias = "gtk_offscreen_window_new")]
     pub fn new() -> OffscreenWindow {
         assert_initialized_main_thread!();
@@ -645,10 +647,6 @@ impl OffscreenWindowBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl OffscreenWindow {
-    pub const NONE: Option<&'static OffscreenWindow> = None;
 }
 
 pub trait OffscreenWindowExt: 'static {

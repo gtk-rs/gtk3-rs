@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl Label {
+    pub const NONE: Option<&'static Label> = None;
+
     #[doc(alias = "gtk_label_new")]
     pub fn new(str: Option<&str>) -> Label {
         assert_initialized_main_thread!();
@@ -551,10 +553,6 @@ impl LabelBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Label {
-    pub const NONE: Option<&'static Label> = None;
 }
 
 pub trait LabelExt: 'static {

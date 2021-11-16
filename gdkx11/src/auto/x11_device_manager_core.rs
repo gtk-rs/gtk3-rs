@@ -13,8 +13,6 @@ glib::wrapper! {
     }
 }
 
-impl X11DeviceManagerCore {}
-
 impl X11DeviceManagerCore {
     pub const NONE: Option<&'static X11DeviceManagerCore> = None;
 }

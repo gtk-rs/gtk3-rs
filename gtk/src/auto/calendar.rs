@@ -29,6 +29,8 @@ glib::wrapper! {
 }
 
 impl Calendar {
+    pub const NONE: Option<&'static Calendar> = None;
+
     #[doc(alias = "gtk_calendar_new")]
     pub fn new() -> Calendar {
         assert_initialized_main_thread!();
@@ -456,10 +458,6 @@ impl CalendarBuilder {
         self.width_request = Some(width_request);
         self
     }
-}
-
-impl Calendar {
-    pub const NONE: Option<&'static Calendar> = None;
 }
 
 pub trait CalendarExt: 'static {

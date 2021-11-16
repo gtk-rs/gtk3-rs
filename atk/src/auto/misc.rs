@@ -16,16 +16,14 @@ glib::wrapper! {
 }
 
 impl Misc {
+    pub const NONE: Option<&'static Misc> = None;
+
     #[doc(alias = "atk_misc_get_instance")]
     #[doc(alias = "get_instance")]
     pub fn instance() -> Option<Misc> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_misc_get_instance()) }
     }
-}
-
-impl Misc {
-    pub const NONE: Option<&'static Misc> = None;
 }
 
 pub trait AtkMiscExt: 'static {

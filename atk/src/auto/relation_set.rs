@@ -19,6 +19,8 @@ glib::wrapper! {
 }
 
 impl RelationSet {
+    pub const NONE: Option<&'static RelationSet> = None;
+
     #[doc(alias = "atk_relation_set_new")]
     pub fn new() -> RelationSet {
         assert_initialized_main_thread!();
@@ -30,10 +32,6 @@ impl Default for RelationSet {
     fn default() -> Self {
         Self::new()
     }
-}
-
-impl RelationSet {
-    pub const NONE: Option<&'static RelationSet> = None;
 }
 
 pub trait RelationSetExt: 'static {

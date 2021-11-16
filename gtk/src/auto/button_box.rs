@@ -33,6 +33,8 @@ glib::wrapper! {
 }
 
 impl ButtonBox {
+    pub const NONE: Option<&'static ButtonBox> = None;
+
     #[doc(alias = "gtk_button_box_new")]
     pub fn new(orientation: Orientation) -> ButtonBox {
         assert_initialized_main_thread!();
@@ -445,10 +447,6 @@ impl ButtonBoxBuilder {
         self.orientation = Some(orientation);
         self
     }
-}
-
-impl ButtonBox {
-    pub const NONE: Option<&'static ButtonBox> = None;
 }
 
 pub trait ButtonBoxExt: 'static {
