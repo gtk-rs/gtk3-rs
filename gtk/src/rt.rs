@@ -86,7 +86,7 @@ pub unsafe fn set_initialized() {
     {
         assert_eq!(
             pthread_main_np(),
-            0,
+            1,
             "Attempted to initialize GTK on OSX from non-main thread"
         );
     }
