@@ -11,9 +11,6 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-use glib_sys as glib;
-use gobject_sys as gobject;
-
 #[allow(unused_imports)]
 use libc::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,

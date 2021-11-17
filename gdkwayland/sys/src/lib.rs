@@ -1,5 +1,5 @@
-use gdk_sys::{GdkAtom, GdkDevicePadFeature};
-use glib_sys::{gpointer, GType};
+use gdk::{GdkAtom, GdkDevicePadFeature};
+use glib::{gpointer, GType};
 use libc::{c_char, c_int, c_uint};
 
 macro_rules! opaque {
@@ -70,21 +70,21 @@ extern "C" {
         cb: Option<unsafe extern "C" fn(*mut GdkWaylandWindow, *const c_char, *mut libc::c_void)>,
         user_data: *mut libc::c_void,
         destroy_notify: Option<unsafe extern "C" fn(*mut libc::c_void)>,
-    ) -> glib_sys::gboolean;
+    ) -> glib::gboolean;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_window_set_transient_for_exported(
         window: *mut GdkWaylandWindow,
         parent_handle: *const c_char,
-    ) -> glib_sys::gboolean;
+    ) -> glib::gboolean;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gdk_wayland_window_set_application_id(
         window: *mut GdkWaylandWindow,
         application_id: *const c_char,
-    ) -> glib_sys::gboolean;
+    ) -> glib::gboolean;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -98,14 +98,14 @@ extern "C" {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gdk_wayland_window_add_frame_callback_surface(
         window: *mut GdkWaylandWindow,
-        surface: glib_sys::gconstpointer,
+        surface: glib::gconstpointer,
     );
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gdk_wayland_window_remove_frame_callback_surface(
         window: *mut GdkWaylandWindow,
-        surface: glib_sys::gconstpointer,
+        surface: glib::gconstpointer,
     );
 
     //=========================================================================
@@ -154,14 +154,14 @@ extern "C" {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn gdk_wayland_display_prefers_ssd(display: *mut GdkWaylandDisplay) -> glib_sys::gboolean;
+    pub fn gdk_wayland_display_prefers_ssd(display: *mut GdkWaylandDisplay) -> glib::gboolean;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_display_query_registry(
         display: *mut GdkWaylandDisplay,
         global: *const c_char,
-    ) -> glib_sys::gboolean;
+    ) -> glib::gboolean;
 
     //=========================================================================
     // GdkWaylandGLContext
