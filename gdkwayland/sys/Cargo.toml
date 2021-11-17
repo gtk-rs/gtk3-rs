@@ -15,21 +15,24 @@ rust-version = "1.56"
 name = "gdk_wayland_sys"
 
 [features]
-v3_20 = ["gdk-sys/v3_20"]
-v3_22 = ["v3_20", "gdk-sys/v3_22"]
-v3_24 = ["v3_22", "gdk-sys/v3_24"]
-dox = ["gdk-sys/dox"]
+v3_20 = ["gdk/v3_20"]
+v3_22 = ["v3_20", "gdk/v3_22"]
+v3_24 = ["v3_22", "gdk/v3_24"]
+dox = ["gdk/dox"]
 
 [dependencies]
 libc = "0.2"
 
-[dependencies.glib-sys]
+[dependencies.glib]
+package = "glib-sys"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
-[dependencies.gobject-sys]
+[dependencies.gobject]
+package = "gobject-sys"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
-[dependencies.gdk-sys]
+[dependencies.gdk]
+package = "gdk-sys"
 path = "../../gdk/sys"
 
 [build-dependencies]

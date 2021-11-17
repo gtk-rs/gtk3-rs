@@ -30,10 +30,12 @@ name = "gdk_x11_sys"
 libc = "0.2"
 x11 = "2.18"
 
-[dependencies.gdk-sys]
+[dependencies.gdk]
+package = "gdk-sys"
 path = "../../gdk/sys"
 
-[dependencies.glib-sys]
+[dependencies.glib]
+package = "glib-sys"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.cairo]
