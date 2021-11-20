@@ -31,9 +31,11 @@ use syn::{parse_macro_input, DeriveInput};
 /// use gtk::subclass::prelude::*;
 ///
 /// mod imp {
-///     use super::*;
-/// 
-///     #[derive(Debug, Default, CompositeTemplate)]
+///     use gtk::prelude::*;
+///     use gtk::glib;
+///     use gtk::subclass::prelude::*;
+///
+///     #[derive(Debug, Default, gtk::CompositeTemplate)]
 ///     #[template(file = "composite_template.ui")]
 ///     pub struct MyWidget {
 ///         #[template_child]
@@ -41,37 +43,38 @@ use syn::{parse_macro_input, DeriveInput};
 ///         #[template_child(id = "my_button_id")]
 ///         pub button: TemplateChild<gtk::Button>,
 ///     }
-/// 
+///
 ///     #[glib::object_subclass]
 ///     impl ObjectSubclass for MyWidget {
 ///         const NAME: &'static str = "MyWidget";
 ///         type Type = super::MyWidget;
 ///         type ParentType = gtk::Box;
-/// 
+///
 ///         fn class_init(klass: &mut Self::Class) {
 ///             Self::bind_template(klass);
 ///         }
-/// 
+///
 ///         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
 ///             obj.init_template();
 ///         }
 ///     }
-/// 
+///
 ///     impl ObjectImpl for MyWidget {}
 ///     impl WidgetImpl for MyWidget {}
 ///     impl ContainerImpl for MyWidget {}
 ///     impl BoxImpl for MyWidget {}
 /// }
-/// 
+///
 /// glib::wrapper! {
 ///     pub struct MyWidget(ObjectSubclass<imp::MyWidget>) @extends gtk::Widget, gtk::Container, gtk::Box;
 /// }
-/// 
+///
 /// impl MyWidget {
 ///     pub fn new() -> Self {
 ///         glib::Object::new(&[]).expect("Failed to create an instance of MyWidget")
 ///     }
 /// }
+/// # fn main() {}
 /// ```
 #[proc_macro_derive(CompositeTemplate, attributes(template, template_child))]
 #[proc_macro_error]
