@@ -29,14 +29,14 @@ impl ObjectImpl for RowData {
         use once_cell::sync::Lazy;
         static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
             vec![
-                glib::ParamSpec::new_string(
+                glib::ParamSpecString::new(
                     "name",
                     "Name",
                     "Name",
                     None, // Default value
                     glib::ParamFlags::READWRITE,
                 ),
-                glib::ParamSpec::new_uint(
+                glib::ParamSpecUInt::new(
                     "count",
                     "Count",
                     "Count",
