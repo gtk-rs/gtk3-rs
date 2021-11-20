@@ -40,7 +40,7 @@ mod rt;
 #[cfg(test)]
 pub(crate) static TEST_THREAD_WORKER: once_cell::sync::Lazy<glib::ThreadPool> =
     once_cell::sync::Lazy::new(|| {
-        let pool = glib::ThreadPool::new_exclusive(1).unwrap();
+        let pool = glib::ThreadPool::exclusive(1).unwrap();
         pool.push(move || {
             crate::init().expect("Tests failed to initialize gtk");
         })
