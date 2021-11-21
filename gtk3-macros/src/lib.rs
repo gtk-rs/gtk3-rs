@@ -31,9 +31,7 @@ use syn::{parse_macro_input, DeriveInput};
 /// use gtk::subclass::prelude::*;
 ///
 /// mod imp {
-///     use gtk::prelude::*;
-///     use gtk::glib;
-///     use gtk::subclass::prelude::*;
+///     use super::*;
 ///
 ///     #[derive(Debug, Default, gtk::CompositeTemplate)]
 ///     #[template(file = "composite_template.ui")]
