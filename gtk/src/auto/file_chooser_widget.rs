@@ -666,7 +666,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_desktop_folder(&self) {
-        let _ = self.emit_by_name("desktop-folder", &[]);
+        self.emit_by_name::<()>("desktop-folder", &[]);
     }
 
     fn connect_down_folder<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -694,7 +694,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_down_folder(&self) {
-        let _ = self.emit_by_name("down-folder", &[]);
+        self.emit_by_name::<()>("down-folder", &[]);
     }
 
     fn connect_home_folder<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -722,7 +722,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_home_folder(&self) {
-        let _ = self.emit_by_name("home-folder", &[]);
+        self.emit_by_name::<()>("home-folder", &[]);
     }
 
     fn connect_location_popup<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -754,7 +754,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_location_popup(&self, path: &str) {
-        let _ = self.emit_by_name("location-popup", &[&path]);
+        self.emit_by_name::<()>("location-popup", &[&path]);
     }
 
     fn connect_location_popup_on_paste<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -782,7 +782,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_location_popup_on_paste(&self) {
-        let _ = self.emit_by_name("location-popup-on-paste", &[]);
+        self.emit_by_name::<()>("location-popup-on-paste", &[]);
     }
 
     fn connect_location_toggle_popup<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -810,7 +810,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_location_toggle_popup(&self) {
-        let _ = self.emit_by_name("location-toggle-popup", &[]);
+        self.emit_by_name::<()>("location-toggle-popup", &[]);
     }
 
     fn connect_places_shortcut<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -838,7 +838,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_places_shortcut(&self) {
-        let _ = self.emit_by_name("places-shortcut", &[]);
+        self.emit_by_name::<()>("places-shortcut", &[]);
     }
 
     fn connect_quick_bookmark<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -870,7 +870,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_quick_bookmark(&self, bookmark_index: i32) {
-        let _ = self.emit_by_name("quick-bookmark", &[&bookmark_index]);
+        self.emit_by_name::<()>("quick-bookmark", &[&bookmark_index]);
     }
 
     fn connect_recent_shortcut<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -898,7 +898,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_recent_shortcut(&self) {
-        let _ = self.emit_by_name("recent-shortcut", &[]);
+        self.emit_by_name::<()>("recent-shortcut", &[]);
     }
 
     fn connect_search_shortcut<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -926,7 +926,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_search_shortcut(&self) {
-        let _ = self.emit_by_name("search-shortcut", &[]);
+        self.emit_by_name::<()>("search-shortcut", &[]);
     }
 
     fn connect_show_hidden<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -954,7 +954,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_show_hidden(&self) {
-        let _ = self.emit_by_name("show-hidden", &[]);
+        self.emit_by_name::<()>("show-hidden", &[]);
     }
 
     fn connect_up_folder<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -982,7 +982,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn emit_up_folder(&self) {
-        let _ = self.emit_by_name("up-folder", &[]);
+        self.emit_by_name::<()>("up-folder", &[]);
     }
 
     fn connect_search_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

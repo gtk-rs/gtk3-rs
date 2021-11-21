@@ -1768,7 +1768,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_backspace(&self) {
-        let _ = self.emit_by_name("backspace", &[]);
+        self.emit_by_name::<()>("backspace", &[]);
     }
 
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1793,7 +1793,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_copy_clipboard(&self) {
-        let _ = self.emit_by_name("copy-clipboard", &[]);
+        self.emit_by_name::<()>("copy-clipboard", &[]);
     }
 
     fn connect_cut_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1818,7 +1818,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_cut_clipboard(&self) {
-        let _ = self.emit_by_name("cut-clipboard", &[]);
+        self.emit_by_name::<()>("cut-clipboard", &[]);
     }
 
     fn connect_delete_from_cursor<F: Fn(&Self, DeleteType, i32) + 'static>(
@@ -1855,7 +1855,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_delete_from_cursor(&self, type_: DeleteType, count: i32) {
-        let _ = self.emit_by_name("delete-from-cursor", &[&type_, &count]);
+        self.emit_by_name::<()>("delete-from-cursor", &[&type_, &count]);
     }
 
     fn connect_extend_selection<
@@ -1935,7 +1935,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_insert_at_cursor(&self, string: &str) {
-        let _ = self.emit_by_name("insert-at-cursor", &[&string]);
+        self.emit_by_name::<()>("insert-at-cursor", &[&string]);
     }
 
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
@@ -1964,7 +1964,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     fn emit_insert_emoji(&self) {
-        let _ = self.emit_by_name("insert-emoji", &[]);
+        self.emit_by_name::<()>("insert-emoji", &[]);
     }
 
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
@@ -2003,7 +2003,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool) {
-        let _ = self.emit_by_name("move-cursor", &[&step, &count, &extend_selection]);
+        self.emit_by_name::<()>("move-cursor", &[&step, &count, &extend_selection]);
     }
 
     fn connect_move_viewport<F: Fn(&Self, ScrollStep, i32) + 'static>(
@@ -2040,7 +2040,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_move_viewport(&self, step: ScrollStep, count: i32) {
-        let _ = self.emit_by_name("move-viewport", &[&step, &count]);
+        self.emit_by_name::<()>("move-viewport", &[&step, &count]);
     }
 
     fn connect_paste_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2065,7 +2065,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_paste_clipboard(&self) {
-        let _ = self.emit_by_name("paste-clipboard", &[]);
+        self.emit_by_name::<()>("paste-clipboard", &[]);
     }
 
     fn connect_populate_popup<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2125,7 +2125,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_preedit_changed(&self, preedit: &str) {
-        let _ = self.emit_by_name("preedit-changed", &[&preedit]);
+        self.emit_by_name::<()>("preedit-changed", &[&preedit]);
     }
 
     fn connect_select_all<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2154,7 +2154,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_select_all(&self, select: bool) {
-        let _ = self.emit_by_name("select-all", &[&select]);
+        self.emit_by_name::<()>("select-all", &[&select]);
     }
 
     fn connect_set_anchor<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2179,7 +2179,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_set_anchor(&self) {
-        let _ = self.emit_by_name("set-anchor", &[]);
+        self.emit_by_name::<()>("set-anchor", &[]);
     }
 
     fn connect_toggle_cursor_visible<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2207,7 +2207,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_toggle_cursor_visible(&self) {
-        let _ = self.emit_by_name("toggle-cursor-visible", &[]);
+        self.emit_by_name::<()>("toggle-cursor-visible", &[]);
     }
 
     fn connect_toggle_overwrite<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2232,7 +2232,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn emit_toggle_overwrite(&self) {
-        let _ = self.emit_by_name("toggle-overwrite", &[]);
+        self.emit_by_name::<()>("toggle-overwrite", &[]);
     }
 
     fn connect_accepts_tab_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

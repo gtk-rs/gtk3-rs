@@ -729,7 +729,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     }
 
     fn emit_close(&self) {
-        let _ = self.emit_by_name("close", &[]);
+        self.emit_by_name::<()>("close", &[]);
     }
 
     fn connect_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -754,7 +754,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     }
 
     fn emit_search(&self) {
-        let _ = self.emit_by_name("search", &[]);
+        self.emit_by_name::<()>("search", &[]);
     }
 
     fn connect_section_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

@@ -731,10 +731,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     }
 
     fn emit_focus_home_or_end(&self, focus_home: bool) -> bool {
-        let res = self.emit_by_name("focus-home-or-end", &[&focus_home]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_focus_home_or_end`")
+        self.emit_by_name("focus-home-or-end", &[&focus_home])
     }
 
     fn connect_orientation_changed<F: Fn(&Self, Orientation) + 'static>(

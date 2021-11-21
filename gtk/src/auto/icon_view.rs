@@ -1509,10 +1509,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_activate_cursor_item(&self) -> bool {
-        let res = self.emit_by_name("activate-cursor-item", &[]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_activate_cursor_item`")
+        self.emit_by_name("activate-cursor-item", &[])
     }
 
     fn connect_item_activated<F: Fn(&Self, &TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1578,10 +1575,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32) -> bool {
-        let res = self.emit_by_name("move-cursor", &[&step, &count]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_move_cursor`")
+        self.emit_by_name("move-cursor", &[&step, &count])
     }
 
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1606,7 +1600,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_select_all(&self) {
-        let _ = self.emit_by_name("select-all", &[]);
+        self.emit_by_name::<()>("select-all", &[]);
     }
 
     fn connect_select_cursor_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1634,7 +1628,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_select_cursor_item(&self) {
-        let _ = self.emit_by_name("select-cursor-item", &[]);
+        self.emit_by_name::<()>("select-cursor-item", &[]);
     }
 
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1683,7 +1677,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_toggle_cursor_item(&self) {
-        let _ = self.emit_by_name("toggle-cursor-item", &[]);
+        self.emit_by_name::<()>("toggle-cursor-item", &[]);
     }
 
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1708,7 +1702,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
     }
 
     fn emit_unselect_all(&self) {
-        let _ = self.emit_by_name("unselect-all", &[]);
+        self.emit_by_name::<()>("unselect-all", &[]);
     }
 
     fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(

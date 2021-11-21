@@ -2231,7 +2231,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_activate(&self) {
-        let _ = self.emit_by_name("activate", &[]);
+        self.emit_by_name::<()>("activate", &[]);
     }
 
     fn connect_backspace<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2256,7 +2256,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_backspace(&self) {
-        let _ = self.emit_by_name("backspace", &[]);
+        self.emit_by_name::<()>("backspace", &[]);
     }
 
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2281,7 +2281,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_copy_clipboard(&self) {
-        let _ = self.emit_by_name("copy-clipboard", &[]);
+        self.emit_by_name::<()>("copy-clipboard", &[]);
     }
 
     fn connect_cut_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2306,7 +2306,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_cut_clipboard(&self) {
-        let _ = self.emit_by_name("cut-clipboard", &[]);
+        self.emit_by_name::<()>("cut-clipboard", &[]);
     }
 
     fn connect_delete_from_cursor<F: Fn(&Self, DeleteType, i32) + 'static>(
@@ -2343,7 +2343,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_delete_from_cursor(&self, type_: DeleteType, count: i32) {
-        let _ = self.emit_by_name("delete-from-cursor", &[&type_, &count]);
+        self.emit_by_name::<()>("delete-from-cursor", &[&type_, &count]);
     }
 
     fn connect_icon_press<F: Fn(&Self, EntryIconPosition, &gdk::Event) + 'static>(
@@ -2441,7 +2441,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_insert_at_cursor(&self, string: &str) {
-        let _ = self.emit_by_name("insert-at-cursor", &[&string]);
+        self.emit_by_name::<()>("insert-at-cursor", &[&string]);
     }
 
     #[cfg(any(feature = "v3_22_27", feature = "dox"))]
@@ -2470,7 +2470,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     #[cfg(any(feature = "v3_22_27", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
     fn emit_insert_emoji(&self) {
-        let _ = self.emit_by_name("insert-emoji", &[]);
+        self.emit_by_name::<()>("insert-emoji", &[]);
     }
 
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
@@ -2509,7 +2509,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool) {
-        let _ = self.emit_by_name("move-cursor", &[&step, &count, &extend_selection]);
+        self.emit_by_name::<()>("move-cursor", &[&step, &count, &extend_selection]);
     }
 
     fn connect_paste_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2534,7 +2534,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_paste_clipboard(&self) {
-        let _ = self.emit_by_name("paste-clipboard", &[]);
+        self.emit_by_name::<()>("paste-clipboard", &[]);
     }
 
     fn connect_populate_popup<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2594,7 +2594,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_preedit_changed(&self, preedit: &str) {
-        let _ = self.emit_by_name("preedit-changed", &[&preedit]);
+        self.emit_by_name::<()>("preedit-changed", &[&preedit]);
     }
 
     fn connect_toggle_overwrite<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -2619,7 +2619,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn emit_toggle_overwrite(&self) {
-        let _ = self.emit_by_name("toggle-overwrite", &[]);
+        self.emit_by_name::<()>("toggle-overwrite", &[]);
     }
 
     fn connect_activates_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

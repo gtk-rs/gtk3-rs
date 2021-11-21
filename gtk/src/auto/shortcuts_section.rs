@@ -109,10 +109,7 @@ impl ShortcutsSection {
     }
 
     pub fn emit_change_current_page(&self, object: i32) -> bool {
-        let res = self.emit_by_name("change-current-page", &[&object]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_change_current_page`")
+        self.emit_by_name("change-current-page", &[&object])
     }
 
     #[doc(alias = "max-height")]

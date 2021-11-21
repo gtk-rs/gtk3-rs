@@ -3220,7 +3220,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn emit_composited_changed(&self) {
-        let _ = self.emit_by_name("composited-changed", &[]);
+        self.emit_by_name::<()>("composited-changed", &[]);
     }
 
     fn connect_configure_event<F: Fn(&Self, &gdk::EventConfigure) -> bool + 'static>(
@@ -4000,7 +4000,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn emit_grab_focus(&self) {
-        let _ = self.emit_by_name("grab-focus", &[]);
+        self.emit_by_name::<()>("grab-focus", &[]);
     }
 
     fn connect_grab_notify<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -4330,7 +4330,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn emit_move_focus(&self, direction: DirectionType) {
-        let _ = self.emit_by_name("move-focus", &[&direction]);
+        self.emit_by_name::<()>("move-focus", &[&direction]);
     }
 
     fn connect_parent_set<F: Fn(&Self, Option<&Widget>) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -4385,10 +4385,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn emit_popup_menu(&self) -> bool {
-        let res = self.emit_by_name("popup-menu", &[]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_popup_menu`")
+        self.emit_by_name("popup-menu", &[])
     }
 
     fn connect_property_notify_event<
@@ -4841,10 +4838,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn emit_show_help(&self, help_type: WidgetHelpType) -> bool {
-        let res = self.emit_by_name("show-help", &[&help_type]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_show_help`")
+        self.emit_by_name("show-help", &[&help_type])
     }
 
     fn connect_size_allocate<F: Fn(&Self, &Allocation) + 'static>(&self, f: F) -> SignalHandlerId {
