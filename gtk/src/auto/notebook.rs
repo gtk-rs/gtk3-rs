@@ -1189,10 +1189,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_change_current_page(&self, object: i32) -> bool {
-        let res = self.emit_by_name("change-current-page", &[&object]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_change_current_page`")
+        self.emit_by_name("change-current-page", &[&object])
     }
 
     fn connect_create_window<F: Fn(&Self, &Widget, i32, i32) -> Notebook + 'static>(
@@ -1265,10 +1262,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_focus_tab(&self, object: NotebookTab) -> bool {
-        let res = self.emit_by_name("focus-tab", &[&object]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_focus_tab`")
+        self.emit_by_name("focus-tab", &[&object])
     }
 
     fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
@@ -1303,7 +1297,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_move_focus_out(&self, object: DirectionType) {
-        let _ = self.emit_by_name("move-focus-out", &[&object]);
+        self.emit_by_name::<()>("move-focus-out", &[&object]);
     }
 
     fn connect_page_added<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1434,10 +1428,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_reorder_tab(&self, object: DirectionType, p0: bool) -> bool {
-        let res = self.emit_by_name("reorder-tab", &[&object, &p0]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_reorder_tab`")
+        self.emit_by_name("reorder-tab", &[&object, &p0])
     }
 
     fn connect_select_page<F: Fn(&Self, bool) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1470,10 +1461,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn emit_select_page(&self, object: bool) -> bool {
-        let res = self.emit_by_name("select-page", &[&object]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_select_page`")
+        self.emit_by_name("select-page", &[&object])
     }
 
     fn connect_switch_page<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {

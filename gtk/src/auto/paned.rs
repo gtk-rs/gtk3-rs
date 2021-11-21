@@ -724,10 +724,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_accept_position(&self) -> bool {
-        let res = self.emit_by_name("accept-position", &[]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_accept_position`")
+        self.emit_by_name("accept-position", &[])
     }
 
     fn connect_cancel_position<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
@@ -755,10 +752,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_cancel_position(&self) -> bool {
-        let res = self.emit_by_name("cancel-position", &[]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_cancel_position`")
+        self.emit_by_name("cancel-position", &[])
     }
 
     fn connect_cycle_child_focus<F: Fn(&Self, bool) -> bool + 'static>(
@@ -794,10 +788,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_cycle_child_focus(&self, reversed: bool) -> bool {
-        let res = self.emit_by_name("cycle-child-focus", &[&reversed]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_cycle_child_focus`")
+        self.emit_by_name("cycle-child-focus", &[&reversed])
     }
 
     fn connect_cycle_handle_focus<F: Fn(&Self, bool) -> bool + 'static>(
@@ -833,10 +824,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_cycle_handle_focus(&self, reversed: bool) -> bool {
-        let res = self.emit_by_name("cycle-handle-focus", &[&reversed]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_cycle_handle_focus`")
+        self.emit_by_name("cycle-handle-focus", &[&reversed])
     }
 
     fn connect_move_handle<F: Fn(&Self, ScrollType) -> bool + 'static>(
@@ -872,10 +860,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_move_handle(&self, scroll_type: ScrollType) -> bool {
-        let res = self.emit_by_name("move-handle", &[&scroll_type]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_move_handle`")
+        self.emit_by_name("move-handle", &[&scroll_type])
     }
 
     fn connect_toggle_handle_focus<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
@@ -903,10 +888,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn emit_toggle_handle_focus(&self) -> bool {
-        let res = self.emit_by_name("toggle-handle-focus", &[]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_toggle_handle_focus`")
+        self.emit_by_name("toggle-handle-focus", &[])
     }
 
     fn connect_max_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

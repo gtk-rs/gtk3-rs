@@ -824,7 +824,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
     }
 
     fn emit_next_match(&self) {
-        let _ = self.emit_by_name("next-match", &[]);
+        self.emit_by_name::<()>("next-match", &[]);
     }
 
     fn connect_previous_match<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -849,7 +849,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
     }
 
     fn emit_previous_match(&self) {
-        let _ = self.emit_by_name("previous-match", &[]);
+        self.emit_by_name::<()>("previous-match", &[]);
     }
 
     fn connect_search_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -895,7 +895,7 @@ impl<O: IsA<SearchEntry>> SearchEntryExt for O {
     }
 
     fn emit_stop_search(&self) {
-        let _ = self.emit_by_name("stop-search", &[]);
+        self.emit_by_name::<()>("stop-search", &[]);
     }
 }
 

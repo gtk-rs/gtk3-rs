@@ -659,7 +659,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
     }
 
     fn emit_clicked(&self) {
-        let _ = self.emit_by_name("clicked", &[]);
+        self.emit_by_name::<()>("clicked", &[]);
     }
 
     fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

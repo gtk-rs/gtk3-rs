@@ -277,7 +277,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
     }
 
     fn emit_activate_current(&self, force_hide: bool) {
-        let _ = self.emit_by_name("activate-current", &[&force_hide]);
+        self.emit_by_name::<()>("activate-current", &[&force_hide]);
     }
 
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -302,7 +302,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
     }
 
     fn emit_cancel(&self) {
-        let _ = self.emit_by_name("cancel", &[]);
+        self.emit_by_name::<()>("cancel", &[]);
     }
 
     fn connect_cycle_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -334,7 +334,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
     }
 
     fn emit_cycle_focus(&self, direction: DirectionType) {
-        let _ = self.emit_by_name("cycle-focus", &[&direction]);
+        self.emit_by_name::<()>("cycle-focus", &[&direction]);
     }
 
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -420,7 +420,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
     }
 
     fn emit_move_current(&self, direction: MenuDirectionType) {
-        let _ = self.emit_by_name("move-current", &[&direction]);
+        self.emit_by_name::<()>("move-current", &[&direction]);
     }
 
     fn connect_move_selected<F: Fn(&Self, i32) -> glib::signal::Inhibit + 'static>(

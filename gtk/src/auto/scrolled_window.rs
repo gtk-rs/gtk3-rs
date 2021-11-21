@@ -1154,7 +1154,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     }
 
     fn emit_move_focus_out(&self, direction_type: DirectionType) {
-        let _ = self.emit_by_name("move-focus-out", &[&direction_type]);
+        self.emit_by_name::<()>("move-focus-out", &[&direction_type]);
     }
 
     fn connect_scroll_child<F: Fn(&Self, ScrollType, bool) -> bool + 'static>(
@@ -1192,10 +1192,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     }
 
     fn emit_scroll_child(&self, scroll: ScrollType, horizontal: bool) -> bool {
-        let res = self.emit_by_name("scroll-child", &[&scroll, &horizontal]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_scroll_child`")
+        self.emit_by_name("scroll-child", &[&scroll, &horizontal])
     }
 
     fn connect_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

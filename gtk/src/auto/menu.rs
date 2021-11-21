@@ -1151,7 +1151,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     fn emit_move_scroll(&self, scroll_type: ScrollType) {
-        let _ = self.emit_by_name("move-scroll", &[&scroll_type]);
+        self.emit_by_name::<()>("move-scroll", &[&scroll_type]);
     }
 
     //#[cfg(any(feature = "v3_22", feature = "dox"))]

@@ -1204,7 +1204,7 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn emit_activate_current_link(&self) {
-        let _ = self.emit_by_name("activate-current-link", &[]);
+        self.emit_by_name::<()>("activate-current-link", &[]);
     }
 
     fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
@@ -1261,7 +1261,7 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn emit_copy_clipboard(&self) {
-        let _ = self.emit_by_name("copy-clipboard", &[]);
+        self.emit_by_name::<()>("copy-clipboard", &[]);
     }
 
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
@@ -1300,7 +1300,7 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool) {
-        let _ = self.emit_by_name("move-cursor", &[&step, &count, &extend_selection]);
+        self.emit_by_name::<()>("move-cursor", &[&step, &count, &extend_selection]);
     }
 
     fn connect_populate_popup<F: Fn(&Self, &Menu) + 'static>(&self, f: F) -> SignalHandlerId {

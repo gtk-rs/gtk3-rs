@@ -1187,7 +1187,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
     }
 
     fn emit_escape(&self) {
-        let _ = self.emit_by_name("escape", &[]);
+        self.emit_by_name::<()>("escape", &[]);
     }
 
     fn connect_prepare<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {

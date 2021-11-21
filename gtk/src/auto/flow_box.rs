@@ -1004,7 +1004,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
     }
 
     fn emit_activate_cursor_child(&self) {
-        let _ = self.emit_by_name("activate-cursor-child", &[]);
+        self.emit_by_name::<()>("activate-cursor-child", &[]);
     }
 
     fn connect_child_activated<F: Fn(&Self, &FlowBoxChild) + 'static>(
@@ -1073,10 +1073,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
     }
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32) -> bool {
-        let res = self.emit_by_name("move-cursor", &[&step, &count]);
-        res.unwrap()
-            .get()
-            .expect("Return Value for `emit_move_cursor`")
+        self.emit_by_name("move-cursor", &[&step, &count])
     }
 
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1101,7 +1098,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
     }
 
     fn emit_select_all(&self) {
-        let _ = self.emit_by_name("select-all", &[]);
+        self.emit_by_name::<()>("select-all", &[]);
     }
 
     fn connect_selected_children_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1153,7 +1150,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
     }
 
     fn emit_toggle_cursor_child(&self) {
-        let _ = self.emit_by_name("toggle-cursor-child", &[]);
+        self.emit_by_name::<()>("toggle-cursor-child", &[]);
     }
 
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -1178,7 +1175,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
     }
 
     fn emit_unselect_all(&self) {
-        let _ = self.emit_by_name("unselect-all", &[]);
+        self.emit_by_name::<()>("unselect-all", &[]);
     }
 
     fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(

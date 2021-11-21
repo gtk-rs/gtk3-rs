@@ -689,7 +689,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
     }
 
     fn emit_close(&self) {
-        let _ = self.emit_by_name("close", &[]);
+        self.emit_by_name::<()>("close", &[]);
     }
 
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
