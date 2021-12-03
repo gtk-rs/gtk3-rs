@@ -135,16 +135,21 @@ pub use event_touchpad_swipe::EventTouchpadSwipe;
 pub type key = i32;
 
 /// The primary button. This is typically the left mouse button, or the right button in a left-handed setup.
+#[doc(alias = "GDK_BUTTON_PRIMARY")]
 pub const BUTTON_PRIMARY: u32 = ffi::GDK_BUTTON_PRIMARY as u32;
 
 /// The middle button.
+#[doc(alias = "GDK_BUTTON_MIDDLE")]
 pub const BUTTON_MIDDLE: u32 = ffi::GDK_BUTTON_MIDDLE as u32;
 
 /// The secondary button. This is typically the right mouse button, or the left button in a left-handed setup.
+#[doc(alias = "GDK_BUTTON_SECONDARY")]
 pub const BUTTON_SECONDARY: u32 = ffi::GDK_BUTTON_SECONDARY as u32;
 
 // Used as the return value for stopping the propagation of an event handler.
+#[doc(alias = "GDK_EVENT_STOP")]
 pub const EVENT_STOP: u32 = ffi::GDK_EVENT_STOP as u32;
 
 // Used as the return value for continuing the propagation of an event handler.
+#[doc(alias = "GDK_EVENT_PROPAGATE")]
 pub const EVENT_PROPAGATE: u32 = ffi::GDK_EVENT_PROPAGATE as u32;
