@@ -350,6 +350,7 @@ impl Default for ModelButton {
 /// A [builder-pattern] type to construct [`ModelButton`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct ModelButtonBuilder {
     active: Option<bool>,
     centered: Option<bool>,
@@ -418,7 +419,7 @@ impl ModelButtonBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`ModelButton`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ModelButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref active) = self.active {

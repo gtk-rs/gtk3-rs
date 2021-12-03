@@ -35,6 +35,7 @@ impl PlugAccessible {
 /// A [builder-pattern] type to construct [`PlugAccessible`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct PlugAccessibleBuilder {
     accessible_description: Option<String>,
     accessible_name: Option<String>,
@@ -59,7 +60,7 @@ impl PlugAccessibleBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`PlugAccessible`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> PlugAccessible {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accessible_description) = self.accessible_description {

@@ -75,6 +75,7 @@ impl Default for RecentChooserMenu {
 /// A [builder-pattern] type to construct [`RecentChooserMenu`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct RecentChooserMenuBuilder {
     show_numbers: Option<bool>,
     accel_group: Option<AccelGroup>,
@@ -154,7 +155,7 @@ impl RecentChooserMenuBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`RecentChooserMenu`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> RecentChooserMenu {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref show_numbers) = self.show_numbers {
