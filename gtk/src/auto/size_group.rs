@@ -55,6 +55,7 @@ impl Default for SizeGroup {
 /// A [builder-pattern] type to construct [`SizeGroup`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct SizeGroupBuilder {
     #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
     ignore_hidden: Option<bool>,
@@ -70,7 +71,7 @@ impl SizeGroupBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`SizeGroup`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SizeGroup {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref ignore_hidden) = self.ignore_hidden {

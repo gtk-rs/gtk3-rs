@@ -56,6 +56,7 @@ impl Default for SeparatorMenuItem {
 /// A [builder-pattern] type to construct [`SeparatorMenuItem`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct SeparatorMenuItemBuilder {
     accel_path: Option<String>,
     label: Option<String>,
@@ -112,7 +113,7 @@ impl SeparatorMenuItemBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`SeparatorMenuItem`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SeparatorMenuItem {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accel_path) = self.accel_path {

@@ -58,6 +58,7 @@ impl Default for StackSidebar {
 /// A [builder-pattern] type to construct [`StackSidebar`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct StackSidebarBuilder {
     stack: Option<Stack>,
     border_width: Option<u32>,
@@ -108,7 +109,7 @@ impl StackSidebarBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`StackSidebar`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> StackSidebar {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref stack) = self.stack {

@@ -47,6 +47,7 @@ impl X11DeviceManagerXI2 {
 /// A [builder-pattern] type to construct [`X11DeviceManagerXI2`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct X11DeviceManagerXI2Builder {
     major: Option<i32>,
     minor: Option<i32>,
@@ -63,7 +64,7 @@ impl X11DeviceManagerXI2Builder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`X11DeviceManagerXI2`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> X11DeviceManagerXI2 {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref major) = self.major {

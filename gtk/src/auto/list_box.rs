@@ -61,6 +61,7 @@ impl Default for ListBox {
 /// A [builder-pattern] type to construct [`ListBox`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct ListBoxBuilder {
     activate_on_single_click: Option<bool>,
     selection_mode: Option<SelectionMode>,
@@ -112,7 +113,7 @@ impl ListBoxBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`ListBox`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ListBox {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref activate_on_single_click) = self.activate_on_single_click {

@@ -94,6 +94,7 @@ impl StackSwitcher {
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A builder for generating a [`StackSwitcher`].
+#[must_use = "The builder must be built to be used"]
 pub struct StackSwitcherBuilder {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -151,7 +152,7 @@ impl StackSwitcherBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`StackSwitcher`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> StackSwitcher {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_20", feature = "dox"))]

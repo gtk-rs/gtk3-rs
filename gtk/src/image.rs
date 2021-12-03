@@ -69,6 +69,7 @@ impl Image {
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A builder for generating a [`Image`].
+#[must_use = "The builder must be built to be used"]
 pub struct ImageBuilder {
     file: Option<String>,
     gicon: Option<gio::Icon>,
@@ -125,7 +126,7 @@ impl ImageBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Image`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Image {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref file) = self.file {

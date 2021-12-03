@@ -58,6 +58,7 @@ impl Default for Revealer {
 /// A [builder-pattern] type to construct [`Revealer`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
 pub struct RevealerBuilder {
     reveal_child: Option<bool>,
     transition_duration: Option<u32>,
@@ -110,7 +111,7 @@ impl RevealerBuilder {
 
     // rustdoc-stripper-ignore-next
     /// Build the [`Revealer`].
-    #[must_use = "The builder must be built to be used"]
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Revealer {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref reveal_child) = self.reveal_child {
