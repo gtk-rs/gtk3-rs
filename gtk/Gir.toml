@@ -1772,6 +1772,10 @@ status = "generate"
 name = "Gtk.PrintOperation"
 status = "generate"
 generate_builder = true
+    [[object.function]]
+    name = "get_error"
+    # It quacks like a fallible function, but it isn't.
+    ignore = true
 
 [[object]]
 name = "Gtk.PrintSettings"
