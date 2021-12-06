@@ -99,6 +99,7 @@ mod pad_action_entry;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod pad_controller;
 mod page_range;
+mod print_operation;
 mod print_settings;
 mod radio_button;
 mod radio_menu_item;
