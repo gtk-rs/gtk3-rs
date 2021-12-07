@@ -316,11 +316,12 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
     fn add_shortcut_folder(&self, folder: impl AsRef<std::path::Path>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_file_chooser_add_shortcut_folder(
+            let is_ok = ffi::gtk_file_chooser_add_shortcut_folder(
                 self.as_ref().to_glib_none().0,
                 folder.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -332,11 +333,12 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
     fn add_shortcut_folder_uri(&self, uri: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_file_chooser_add_shortcut_folder_uri(
+            let is_ok = ffi::gtk_file_chooser_add_shortcut_folder_uri(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -598,11 +600,12 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_file_chooser_remove_shortcut_folder(
+            let is_ok = ffi::gtk_file_chooser_remove_shortcut_folder(
                 self.as_ref().to_glib_none().0,
                 folder.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -614,11 +617,12 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
     fn remove_shortcut_folder_uri(&self, uri: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_file_chooser_remove_shortcut_folder_uri(
+            let is_ok = ffi::gtk_file_chooser_remove_shortcut_folder_uri(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -636,11 +640,12 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
     fn select_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_file_chooser_select_file(
+            let is_ok = ffi::gtk_file_chooser_select_file(
                 self.as_ref().to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -706,11 +711,12 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
     fn set_current_folder_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_file_chooser_set_current_folder_file(
+            let is_ok = ffi::gtk_file_chooser_set_current_folder_file(
                 self.as_ref().to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -758,11 +764,12 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
     fn set_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_file_chooser_set_file(
+            let is_ok = ffi::gtk_file_chooser_set_file(
                 self.as_ref().to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
