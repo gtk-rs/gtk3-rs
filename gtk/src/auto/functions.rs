@@ -998,12 +998,13 @@ pub fn show_uri(
     assert_initialized_main_thread!();
     unsafe {
         let mut error = ptr::null_mut();
-        let _ = ffi::gtk_show_uri(
+        let is_ok = ffi::gtk_show_uri(
             screen.to_glib_none().0,
             uri.to_glib_none().0,
             timestamp,
             &mut error,
         );
+        assert_eq!(is_ok == 0, !error.is_null());
         if error.is_null() {
             Ok(())
         } else {
@@ -1023,12 +1024,13 @@ pub fn show_uri_on_window(
     assert_initialized_main_thread!();
     unsafe {
         let mut error = ptr::null_mut();
-        let _ = ffi::gtk_show_uri_on_window(
+        let is_ok = ffi::gtk_show_uri_on_window(
             parent.map(|p| p.as_ref()).to_glib_none().0,
             uri.to_glib_none().0,
             timestamp,
             &mut error,
         );
+        assert_eq!(is_ok == 0, !error.is_null());
         if error.is_null() {
             Ok(())
         } else {

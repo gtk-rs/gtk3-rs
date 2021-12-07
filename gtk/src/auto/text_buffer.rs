@@ -588,7 +588,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         let length = data.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_text_buffer_deserialize(
+            let is_ok = ffi::gtk_text_buffer_deserialize(
                 self.as_ref().to_glib_none().0,
                 content_buffer.as_ref().to_glib_none().0,
                 format.to_glib_none().0,
@@ -597,6 +597,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 length,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {

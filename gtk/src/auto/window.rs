@@ -98,10 +98,11 @@ impl Window {
         assert_initialized_main_thread!();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_window_set_default_icon_from_file(
+            let is_ok = ffi::gtk_window_set_default_icon_from_file(
                 filename.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -1826,11 +1827,12 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     fn set_icon_from_file(&self, filename: impl AsRef<std::path::Path>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_window_set_icon_from_file(
+            let is_ok = ffi::gtk_window_set_icon_from_file(
                 self.as_ref().to_glib_none().0,
                 filename.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {

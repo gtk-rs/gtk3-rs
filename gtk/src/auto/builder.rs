@@ -156,11 +156,12 @@ impl<O: IsA<Builder>> BuilderExt for O {
     fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_builder_add_from_resource(
+            let is_ok = ffi::gtk_builder_add_from_resource(
                 self.as_ref().to_glib_none().0,
                 resource_path.to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -173,12 +174,13 @@ impl<O: IsA<Builder>> BuilderExt for O {
         let length = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_builder_add_from_string(
+            let is_ok = ffi::gtk_builder_add_from_string(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 length,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -194,12 +196,13 @@ impl<O: IsA<Builder>> BuilderExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_builder_add_objects_from_resource(
+            let is_ok = ffi::gtk_builder_add_objects_from_resource(
                 self.as_ref().to_glib_none().0,
                 resource_path.to_glib_none().0,
                 object_ids.to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -216,13 +219,14 @@ impl<O: IsA<Builder>> BuilderExt for O {
         let length = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_builder_add_objects_from_string(
+            let is_ok = ffi::gtk_builder_add_objects_from_string(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 length,
                 object_ids.to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -254,7 +258,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         let length = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_builder_extend_with_template(
+            let is_ok = ffi::gtk_builder_extend_with_template(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
                 template_type.into_glib(),
@@ -262,6 +266,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
                 length,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -333,13 +338,14 @@ impl<O: IsA<Builder>> BuilderExt for O {
         unsafe {
             let mut value = glib::Value::uninitialized();
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_builder_value_from_string(
+            let is_ok = ffi::gtk_builder_value_from_string(
                 self.as_ref().to_glib_none().0,
                 pspec.to_glib_none().0,
                 string.to_glib_none().0,
                 value.to_glib_none_mut().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(value)
             } else {
@@ -356,13 +362,14 @@ impl<O: IsA<Builder>> BuilderExt for O {
         unsafe {
             let mut value = glib::Value::uninitialized();
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_builder_value_from_string_type(
+            let is_ok = ffi::gtk_builder_value_from_string_type(
                 self.as_ref().to_glib_none().0,
                 type_.into_glib(),
                 string.to_glib_none().0,
                 value.to_glib_none_mut().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(value)
             } else {

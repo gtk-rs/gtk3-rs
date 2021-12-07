@@ -95,12 +95,13 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         let length = data.len() as isize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_css_provider_load_from_data(
+            let is_ok = ffi::gtk_css_provider_load_from_data(
                 self.as_ref().to_glib_none().0,
                 data.to_glib_none().0,
                 length,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -112,11 +113,12 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
     fn load_from_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_css_provider_load_from_file(
+            let is_ok = ffi::gtk_css_provider_load_from_file(
                 self.as_ref().to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -128,11 +130,12 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
     fn load_from_path(&self, path: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::gtk_css_provider_load_from_path(
+            let is_ok = ffi::gtk_css_provider_load_from_path(
                 self.as_ref().to_glib_none().0,
                 path.to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(is_ok == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
