@@ -1,11 +1,12 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Builder;
+use crate::{Builder, Widget};
 use glib::prelude::*;
 use glib::translate::*;
 use glib::GString;
 use glib::Object;
 use std::path::Path;
+use std::ptr;
 
 impl Builder {
     #[doc(alias = "gtk_builder_new_from_file")]
@@ -26,6 +27,21 @@ pub trait BuilderExtManual: 'static {
 
     #[doc(alias = "gtk_builder_add_from_file")]
     fn add_from_file<T: AsRef<Path>>(&self, file_path: T) -> Result<(), glib::Error>;
+    #[doc(alias = "gtk_builder_add_from_resource")]
+    fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error>;
+    #[doc(alias = "gtk_builder_add_from_string")]
+    fn add_from_string(&self, buffer: &str) -> Result<(), glib::Error>;
+
+    #[doc(alias = "gtk_builder_add_objects_from_resource")]
+    fn add_objects_from_resource(
+        &self,
+        resource_path: &str,
+        object_ids: &[&str],
+    ) -> Result<(), glib::Error>;
+    #[doc(alias = "gtk_builder_add_objects_from_string")]
+    fn add_objects_from_string(&self, buffer: &str, object_ids: &[&str])
+        -> Result<(), glib::Error>;
+
     #[doc(alias = "gtk_builder_connect_signals_full")]
     fn connect_signals<
         P: FnMut(&Builder, &str) -> Box<dyn Fn(&[glib::Value]) -> Option<glib::Value> + 'static>,
@@ -33,6 +49,14 @@ pub trait BuilderExtManual: 'static {
         &self,
         func: P,
     );
+
+    #[doc(alias = "gtk_builder_extend_with_template")]
+    fn extend_with_template(
+        &self,
+        widget: &impl IsA<Widget>,
+        template_type: glib::types::Type,
+        buffer: &str,
+    ) -> Result<(), glib::Error>;
 }
 
 impl<O: IsA<Builder>> BuilderExtManual for O {
@@ -54,6 +78,88 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
                 file_path.as_ref().to_glib_none().0,
                 &mut error,
             );
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let exit_code = ffi::gtk_builder_add_from_resource(
+                self.as_ref().to_glib_none().0,
+                resource_path.to_glib_none().0,
+                &mut error,
+            );
+            assert_eq!(exit_code == 0, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    fn add_from_string(&self, buffer: &str) -> Result<(), glib::Error> {
+        let length = buffer.len() as usize;
+        unsafe {
+            let mut error = ptr::null_mut();
+            let exit_code = ffi::gtk_builder_add_from_string(
+                self.as_ref().to_glib_none().0,
+                buffer.to_glib_none().0,
+                length,
+                &mut error,
+            );
+            assert_eq!(exit_code == 0, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    fn add_objects_from_resource(
+        &self,
+        resource_path: &str,
+        object_ids: &[&str],
+    ) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let exit_code = ffi::gtk_builder_add_objects_from_resource(
+                self.as_ref().to_glib_none().0,
+                resource_path.to_glib_none().0,
+                object_ids.to_glib_none().0,
+                &mut error,
+            );
+            assert_eq!(exit_code == 0, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    fn add_objects_from_string(
+        &self,
+        buffer: &str,
+        object_ids: &[&str],
+    ) -> Result<(), glib::Error> {
+        let length = buffer.len() as usize;
+        unsafe {
+            let mut error = ptr::null_mut();
+            let exit_code = ffi::gtk_builder_add_objects_from_string(
+                self.as_ref().to_glib_none().0,
+                buffer.to_glib_none().0,
+                length,
+                object_ids.to_glib_none().0,
+                &mut error,
+            );
+            assert_eq!(exit_code == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -108,6 +214,32 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
                 func,
                 super_callback0 as *const _ as usize as *mut _,
             );
+        }
+    }
+
+    fn extend_with_template(
+        &self,
+        widget: &impl IsA<Widget>,
+        template_type: glib::types::Type,
+        buffer: &str,
+    ) -> Result<(), glib::Error> {
+        let length = buffer.len() as usize;
+        unsafe {
+            let mut error = ptr::null_mut();
+            let exit_code = ffi::gtk_builder_extend_with_template(
+                self.as_ref().to_glib_none().0,
+                widget.as_ref().to_glib_none().0,
+                template_type.into_glib(),
+                buffer.to_glib_none().0,
+                length,
+                &mut error,
+            );
+            assert_eq!(exit_code == 0, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 }
