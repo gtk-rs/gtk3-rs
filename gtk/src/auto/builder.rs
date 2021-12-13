@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::Application;
-use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -70,36 +69,11 @@ pub trait BuilderExt: 'static {
     //#[doc(alias = "gtk_builder_add_callback_symbols")]
     //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
-    #[doc(alias = "gtk_builder_add_from_resource")]
-    fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_builder_add_from_string")]
-    fn add_from_string(&self, buffer: &str) -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_builder_add_objects_from_resource")]
-    fn add_objects_from_resource(
-        &self,
-        resource_path: &str,
-        object_ids: &[&str],
-    ) -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_builder_add_objects_from_string")]
-    fn add_objects_from_string(&self, buffer: &str, object_ids: &[&str])
-        -> Result<(), glib::Error>;
-
     //#[doc(alias = "gtk_builder_connect_signals")]
     //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
     #[doc(alias = "gtk_builder_expose_object")]
     fn expose_object(&self, name: &str, object: &impl IsA<glib::Object>);
-
-    #[doc(alias = "gtk_builder_extend_with_template")]
-    fn extend_with_template(
-        &self,
-        widget: &impl IsA<Widget>,
-        template_type: glib::types::Type,
-        buffer: &str,
-    ) -> Result<(), glib::Error>;
 
     #[doc(alias = "gtk_builder_get_application")]
     #[doc(alias = "get_application")]
@@ -153,88 +127,6 @@ impl<O: IsA<Builder>> BuilderExt for O {
     //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbols() }
     //}
 
-    fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let is_ok = ffi::gtk_builder_add_from_resource(
-                self.as_ref().to_glib_none().0,
-                resource_path.to_glib_none().0,
-                &mut error,
-            );
-            assert_eq!(is_ok == 0, !error.is_null());
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
-    }
-
-    fn add_from_string(&self, buffer: &str) -> Result<(), glib::Error> {
-        let length = buffer.len() as usize;
-        unsafe {
-            let mut error = ptr::null_mut();
-            let is_ok = ffi::gtk_builder_add_from_string(
-                self.as_ref().to_glib_none().0,
-                buffer.to_glib_none().0,
-                length,
-                &mut error,
-            );
-            assert_eq!(is_ok == 0, !error.is_null());
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
-    }
-
-    fn add_objects_from_resource(
-        &self,
-        resource_path: &str,
-        object_ids: &[&str],
-    ) -> Result<(), glib::Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let is_ok = ffi::gtk_builder_add_objects_from_resource(
-                self.as_ref().to_glib_none().0,
-                resource_path.to_glib_none().0,
-                object_ids.to_glib_none().0,
-                &mut error,
-            );
-            assert_eq!(is_ok == 0, !error.is_null());
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
-    }
-
-    fn add_objects_from_string(
-        &self,
-        buffer: &str,
-        object_ids: &[&str],
-    ) -> Result<(), glib::Error> {
-        let length = buffer.len() as usize;
-        unsafe {
-            let mut error = ptr::null_mut();
-            let is_ok = ffi::gtk_builder_add_objects_from_string(
-                self.as_ref().to_glib_none().0,
-                buffer.to_glib_none().0,
-                length,
-                object_ids.to_glib_none().0,
-                &mut error,
-            );
-            assert_eq!(is_ok == 0, !error.is_null());
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
-    }
-
     //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_builder_connect_signals() }
     //}
@@ -246,32 +138,6 @@ impl<O: IsA<Builder>> BuilderExt for O {
                 name.to_glib_none().0,
                 object.as_ref().to_glib_none().0,
             );
-        }
-    }
-
-    fn extend_with_template(
-        &self,
-        widget: &impl IsA<Widget>,
-        template_type: glib::types::Type,
-        buffer: &str,
-    ) -> Result<(), glib::Error> {
-        let length = buffer.len() as usize;
-        unsafe {
-            let mut error = ptr::null_mut();
-            let is_ok = ffi::gtk_builder_extend_with_template(
-                self.as_ref().to_glib_none().0,
-                widget.as_ref().to_glib_none().0,
-                template_type.into_glib(),
-                buffer.to_glib_none().0,
-                length,
-                &mut error,
-            );
-            assert_eq!(is_ok == 0, !error.is_null());
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
         }
     }
 
