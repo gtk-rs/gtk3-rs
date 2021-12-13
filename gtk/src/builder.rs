@@ -73,11 +73,12 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
     fn add_from_file<T: AsRef<Path>>(&self, file_path: T) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ::std::ptr::null_mut();
-            ffi::gtk_builder_add_from_file(
+            let exit_code = ffi::gtk_builder_add_from_file(
                 self.upcast_ref().to_glib_none().0,
                 file_path.as_ref().to_glib_none().0,
                 &mut error,
             );
+            assert_eq!(exit_code == 0, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
