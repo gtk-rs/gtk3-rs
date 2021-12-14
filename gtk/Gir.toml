@@ -527,6 +527,21 @@ manual_traits = ["BuilderExtManual"]
     #downcast
     ignore = true
     doc_trait_name = "BuilderExtManual"
+    [[object.function]]
+    pattern = "add_from_.+"
+    #non-boolean return code
+    manual = true
+    doc_trait_name = "BuilderExtManual"
+    [[object.function]]
+    pattern = "add_objects_from_.+"
+    #non-boolean return code
+    manual = true
+    doc_trait_name = "BuilderExtManual"
+    [[object.function]]
+    pattern = "extend_with_template"
+    #non-boolean return code
+    manual = true
+    doc_trait_name = "BuilderExtManual"
 
 [[object]]
 name = "Gtk.Button"
