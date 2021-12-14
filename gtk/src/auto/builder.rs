@@ -211,7 +211,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
                 value.to_glib_none_mut().0,
                 &mut error,
             );
-            assert_eq!(is_ok == 0, !error.is_null());
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(value)
             } else {
@@ -235,7 +235,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
                 value.to_glib_none_mut().0,
                 &mut error,
             );
-            assert_eq!(is_ok == 0, !error.is_null());
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(value)
             } else {
