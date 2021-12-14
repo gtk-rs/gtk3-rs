@@ -106,7 +106,7 @@ impl IconInfo {
         }
     }
 
-    pub fn load_icon_async_future(
+    pub fn load_icon_future(
         &self,
     ) -> Pin<
         Box_<dyn std::future::Future<Output = Result<gdk_pixbuf::Pixbuf, glib::Error>> + 'static>,
@@ -219,7 +219,7 @@ impl IconInfo {
         }
     }
 
-    pub fn load_symbolic_async_future(
+    pub fn load_symbolic_future(
         &self,
         fg: &gdk::RGBA,
         success_color: Option<&gdk::RGBA>,
@@ -318,7 +318,7 @@ impl IconInfo {
         }
     }
 
-    pub fn load_symbolic_for_context_async_future(
+    pub fn load_symbolic_for_context_future(
         &self,
         context: &(impl IsA<StyleContext> + Clone + 'static),
     ) -> Pin<

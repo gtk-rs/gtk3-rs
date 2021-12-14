@@ -597,7 +597,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 length,
                 &mut error,
             );
-            assert_eq!(is_ok == 0, !error.is_null());
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
