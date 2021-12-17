@@ -22,7 +22,6 @@ proc-macro = true
 
 [dependencies]
 anyhow = "1.0"
-heck = "0.3"
 proc-macro-error = "1.0"
 proc-macro2 = "1.0"
 quote = "1.0"
