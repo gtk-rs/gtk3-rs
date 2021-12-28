@@ -104,7 +104,7 @@ unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(
     hardware_keycode: c_uint,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<CellRendererAccel> = from_glib_borrow(ptr);
 
     imp.accel_edited(
@@ -121,7 +121,7 @@ unsafe extern "C" fn cell_renderer_accel_cleared<T: CellRendererAccelImpl>(
     path: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<CellRendererAccel> = from_glib_borrow(ptr);
 
     imp.accel_cleared(wrap.unsafe_cast_ref(), &GString::from_glib_borrow(path))

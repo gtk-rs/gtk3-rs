@@ -45,7 +45,7 @@ unsafe impl<T: PlugImpl> IsSubclassable<T> for Plug {
 
 unsafe extern "C" fn plug_embedded<T: PlugImpl>(ptr: *mut ffi::GtkPlug) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Plug> = from_glib_borrow(ptr);
 
     imp.embedded(wrap.unsafe_cast_ref())

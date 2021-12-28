@@ -58,7 +58,7 @@ unsafe extern "C" fn cell_renderer_text_edited<T: CellRendererTextImpl>(
     new_text: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<CellRendererText> = from_glib_borrow(ptr);
 
     imp.edited(
