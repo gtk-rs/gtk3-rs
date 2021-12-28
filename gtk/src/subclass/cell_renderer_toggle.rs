@@ -56,7 +56,7 @@ unsafe extern "C" fn cell_renderer_toggle_toggled<T: CellRendererToggleImpl>(
     path: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<CellRendererToggle> = from_glib_borrow(ptr);
 
     imp.toggled(wrap.unsafe_cast_ref(), &GString::from_glib_borrow(path))

@@ -168,7 +168,7 @@ unsafe extern "C" fn container_add<T: ContainerImpl>(
     wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -180,7 +180,7 @@ unsafe extern "C" fn container_remove<T: ContainerImpl>(
     wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -189,7 +189,7 @@ unsafe extern "C" fn container_remove<T: ContainerImpl>(
 
 unsafe extern "C" fn container_check_resize<T: ContainerImpl>(ptr: *mut ffi::GtkContainer) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
 
     imp.check_resize(wrap.unsafe_cast_ref())
@@ -200,7 +200,7 @@ unsafe extern "C" fn container_set_focus_child<T: ContainerImpl>(
     wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Option<Widget>> = from_glib_borrow(wdgtptr);
 
@@ -211,7 +211,7 @@ unsafe extern "C" fn container_child_type<T: ContainerImpl>(
     ptr: *mut ffi::GtkContainer,
 ) -> glib::ffi::GType {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
 
     imp.child_type(wrap.unsafe_cast_ref()).into_glib()
@@ -222,7 +222,7 @@ unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
     wdgtptr: *mut ffi::GtkWidget,
 ) -> *mut ffi::GtkWidgetPath {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
@@ -240,7 +240,7 @@ unsafe extern "C" fn container_forall<T: ObjectSubclass>(
     T: ContainerImpl,
 {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
     let callback = Callback {
         callback,

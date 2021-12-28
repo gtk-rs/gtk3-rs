@@ -68,7 +68,7 @@ unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
 
 unsafe extern "C" fn socket_plug_added<T: SocketImpl>(ptr: *mut ffi::GtkSocket) {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Socket> = from_glib_borrow(ptr);
 
     imp.plug_added(wrap.unsafe_cast_ref())
@@ -78,7 +78,7 @@ unsafe extern "C" fn socket_plug_removed<T: SocketImpl>(
     ptr: *mut ffi::GtkSocket,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.impl_();
+    let imp = instance.imp();
     let wrap: Borrowed<Socket> = from_glib_borrow(ptr);
 
     imp.plug_removed(wrap.unsafe_cast_ref()).into_glib()

@@ -67,7 +67,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
             wptr: *mut ffi::GtkWindow,
         ) {
             let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.impl_();
+            let imp = instance.imp();
             let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
             imp.window_added(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
@@ -77,7 +77,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
             wptr: *mut ffi::GtkWindow,
         ) {
             let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.impl_();
+            let imp = instance.imp();
             let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
             imp.window_removed(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
@@ -87,7 +87,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
             ptr: *mut gio::ffi::GApplication,
         ) {
             let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.impl_();
+            let imp = instance.imp();
             let wrap: Borrowed<gio::Application> = from_glib_borrow(ptr);
             crate::rt::set_initialized();
             imp.startup(wrap.unsafe_cast_ref())
