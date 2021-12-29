@@ -14,7 +14,7 @@ glib::wrapper! {
 
 impl WaylandWindow {
     #[doc(alias = "gdk_wayland_selection_add_targets")]
-    pub fn selection_add_targets(&self, selection: &Atom, targets: &[&Atom]) {
+    pub fn selection_add_targets(&self, selection: &Atom, targets: &[Atom]) {
         unsafe {
             ffi::gdk_wayland_selection_add_targets(
                 self.to_glib_none().0,

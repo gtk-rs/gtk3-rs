@@ -98,7 +98,7 @@ impl DragContext {
     }
 
     #[doc(alias = "gdk_drag_begin")]
-    pub fn drag_begin(window: &Window, targets: &[&Atom]) -> Option<DragContext> {
+    pub fn drag_begin(window: &Window, targets: &[Atom]) -> Option<DragContext> {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gdk_drag_begin(
@@ -112,7 +112,7 @@ impl DragContext {
     pub fn drag_begin_for_device<P: IsA<Device>>(
         window: &Window,
         device: &P,
-        targets: &[&Atom],
+        targets: &[Atom],
     ) -> Option<DragContext> {
         skip_assert_initialized!();
         unsafe {
@@ -130,7 +130,7 @@ impl DragContext {
     pub fn drag_begin_from_point<P: IsA<Device>>(
         window: &Window,
         device: &P,
-        targets: &[&Atom],
+        targets: &[Atom],
         x_root: i32,
         y_root: i32,
     ) -> Option<DragContext> {
