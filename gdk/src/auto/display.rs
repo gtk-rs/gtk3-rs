@@ -273,7 +273,7 @@ impl Display {
     }
 
     #[doc(alias = "gdk_display_store_clipboard")]
-    pub fn store_clipboard(&self, clipboard_window: &Window, time_: u32, targets: &[&Atom]) {
+    pub fn store_clipboard(&self, clipboard_window: &Window, time_: u32, targets: &[Atom]) {
         let n_targets = targets.len() as i32;
         unsafe {
             ffi::gdk_display_store_clipboard(

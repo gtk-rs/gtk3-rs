@@ -1040,7 +1040,7 @@ pub fn show_uri_on_window(
 }
 
 #[doc(alias = "gtk_targets_include_image")]
-pub fn targets_include_image(targets: &[&gdk::Atom], writable: bool) -> bool {
+pub fn targets_include_image(targets: &[gdk::Atom], writable: bool) -> bool {
     assert_initialized_main_thread!();
     let n_targets = targets.len() as i32;
     unsafe {
@@ -1053,7 +1053,7 @@ pub fn targets_include_image(targets: &[&gdk::Atom], writable: bool) -> bool {
 }
 
 #[doc(alias = "gtk_targets_include_rich_text")]
-pub fn targets_include_rich_text(targets: &[&gdk::Atom], buffer: &impl IsA<TextBuffer>) -> bool {
+pub fn targets_include_rich_text(targets: &[gdk::Atom], buffer: &impl IsA<TextBuffer>) -> bool {
     skip_assert_initialized!();
     let n_targets = targets.len() as i32;
     unsafe {
@@ -1066,7 +1066,7 @@ pub fn targets_include_rich_text(targets: &[&gdk::Atom], buffer: &impl IsA<TextB
 }
 
 #[doc(alias = "gtk_targets_include_text")]
-pub fn targets_include_text(targets: &[&gdk::Atom]) -> bool {
+pub fn targets_include_text(targets: &[gdk::Atom]) -> bool {
     assert_initialized_main_thread!();
     let n_targets = targets.len() as i32;
     unsafe {
@@ -1078,7 +1078,7 @@ pub fn targets_include_text(targets: &[&gdk::Atom]) -> bool {
 }
 
 #[doc(alias = "gtk_targets_include_uri")]
-pub fn targets_include_uri(targets: &[&gdk::Atom]) -> bool {
+pub fn targets_include_uri(targets: &[gdk::Atom]) -> bool {
     assert_initialized_main_thread!();
     let n_targets = targets.len() as i32;
     unsafe {

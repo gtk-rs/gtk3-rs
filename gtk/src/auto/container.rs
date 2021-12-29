@@ -51,7 +51,7 @@ pub trait ContainerExt: 'static {
     fn child_notify(&self, child: &impl IsA<Widget>, child_property: &str);
 
     #[doc(alias = "gtk_container_child_notify_by_pspec")]
-    fn child_notify_by_pspec(&self, child: &impl IsA<Widget>, pspec: &glib::ParamSpec);
+    fn child_notify_by_pspec(&self, child: &impl IsA<Widget>, pspec: impl AsRef<glib::ParamSpec>);
 
     //#[doc(alias = "gtk_container_child_set")]
     //fn child_set(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
@@ -191,12 +191,12 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    fn child_notify_by_pspec(&self, child: &impl IsA<Widget>, pspec: &glib::ParamSpec) {
+    fn child_notify_by_pspec(&self, child: &impl IsA<Widget>, pspec: impl AsRef<glib::ParamSpec>) {
         unsafe {
             ffi::gtk_container_child_notify_by_pspec(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
-                pspec.to_glib_none().0,
+                pspec.as_ref().to_glib_none().0,
             );
         }
     }

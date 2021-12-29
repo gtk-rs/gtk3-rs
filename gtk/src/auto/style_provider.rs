@@ -28,7 +28,7 @@ pub trait StyleProviderExt: 'static {
         &self,
         path: &WidgetPath,
         state: StateFlags,
-        pspec: &glib::ParamSpec,
+        pspec: impl AsRef<glib::ParamSpec>,
     ) -> Option<glib::Value>;
 }
 
@@ -37,7 +37,7 @@ impl<O: IsA<StyleProvider>> StyleProviderExt for O {
         &self,
         path: &WidgetPath,
         state: StateFlags,
-        pspec: &glib::ParamSpec,
+        pspec: impl AsRef<glib::ParamSpec>,
     ) -> Option<glib::Value> {
         unsafe {
             let mut value = glib::Value::uninitialized();
@@ -45,7 +45,7 @@ impl<O: IsA<StyleProvider>> StyleProviderExt for O {
                 self.as_ref().to_glib_none().0,
                 path.to_glib_none().0,
                 state.into_glib(),
-                pspec.to_glib_none().0,
+                pspec.as_ref().to_glib_none().0,
                 value.to_glib_none_mut().0,
             ));
             if ret {
