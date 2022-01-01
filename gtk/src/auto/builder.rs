@@ -103,7 +103,7 @@ pub trait BuilderExt: 'static {
     #[doc(alias = "gtk_builder_value_from_string")]
     fn value_from_string(
         &self,
-        pspec: &glib::ParamSpec,
+        pspec: impl AsRef<glib::ParamSpec>,
         string: &str,
     ) -> Result<glib::Value, glib::Error>;
 
@@ -198,7 +198,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
 
     fn value_from_string(
         &self,
-        pspec: &glib::ParamSpec,
+        pspec: impl AsRef<glib::ParamSpec>,
         string: &str,
     ) -> Result<glib::Value, glib::Error> {
         unsafe {
@@ -206,7 +206,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
             let mut error = ptr::null_mut();
             let is_ok = ffi::gtk_builder_value_from_string(
                 self.as_ref().to_glib_none().0,
-                pspec.to_glib_none().0,
+                pspec.as_ref().to_glib_none().0,
                 string.to_glib_none().0,
                 value.to_glib_none_mut().0,
                 &mut error,
