@@ -60,6 +60,7 @@ impl GLContext {
 
     #[doc(alias = "gdk_gl_context_get_shared_context")]
     #[doc(alias = "get_shared_context")]
+    #[must_use]
     pub fn shared_context(&self) -> Option<GLContext> {
         unsafe {
             from_glib_none(ffi::gdk_gl_context_get_shared_context(

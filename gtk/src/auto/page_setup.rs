@@ -77,6 +77,7 @@ impl PageSetup {
     }
 
     #[doc(alias = "gtk_page_setup_copy")]
+    #[must_use]
     pub fn copy(&self) -> Option<PageSetup> {
         unsafe { from_glib_full(ffi::gtk_page_setup_copy(self.to_glib_none().0)) }
     }

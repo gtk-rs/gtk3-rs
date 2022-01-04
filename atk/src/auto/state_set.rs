@@ -40,6 +40,7 @@ pub trait StateSetExt: 'static {
     //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 });
 
     #[doc(alias = "atk_state_set_and_sets")]
+    #[must_use]
     fn and_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet>;
 
     #[doc(alias = "atk_state_set_clear_states")]
@@ -55,12 +56,14 @@ pub trait StateSetExt: 'static {
     fn is_empty(&self) -> bool;
 
     #[doc(alias = "atk_state_set_or_sets")]
+    #[must_use]
     fn or_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet>;
 
     #[doc(alias = "atk_state_set_remove_state")]
     fn remove_state(&self, type_: StateType) -> bool;
 
     #[doc(alias = "atk_state_set_xor_sets")]
+    #[must_use]
     fn xor_sets(&self, compare_set: &impl IsA<StateSet>) -> Option<StateSet>;
 }
 
