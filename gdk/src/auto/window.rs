@@ -438,12 +438,14 @@ impl Window {
 
     #[doc(alias = "gdk_window_get_effective_parent")]
     #[doc(alias = "get_effective_parent")]
+    #[must_use]
     pub fn effective_parent(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_window_get_effective_parent(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_window_get_effective_toplevel")]
     #[doc(alias = "get_effective_toplevel")]
+    #[must_use]
     pub fn effective_toplevel(&self) -> Window {
         unsafe {
             from_glib_none(ffi::gdk_window_get_effective_toplevel(
@@ -517,6 +519,7 @@ impl Window {
 
     #[doc(alias = "gdk_window_get_group")]
     #[doc(alias = "get_group")]
+    #[must_use]
     pub fn group(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_window_get_group(self.to_glib_none().0)) }
     }
@@ -549,6 +552,7 @@ impl Window {
 
     #[doc(alias = "gdk_window_get_parent")]
     #[doc(alias = "get_parent")]
+    #[must_use]
     pub fn parent(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_window_get_parent(self.to_glib_none().0)) }
     }
@@ -645,6 +649,7 @@ impl Window {
 
     #[doc(alias = "gdk_window_get_toplevel")]
     #[doc(alias = "get_toplevel")]
+    #[must_use]
     pub fn toplevel(&self) -> Window {
         unsafe { from_glib_none(ffi::gdk_window_get_toplevel(self.to_glib_none().0)) }
     }

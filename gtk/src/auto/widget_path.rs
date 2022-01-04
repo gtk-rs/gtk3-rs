@@ -53,6 +53,7 @@ impl WidgetPath {
     }
 
     #[doc(alias = "gtk_widget_path_copy")]
+    #[must_use]
     pub fn copy(&self) -> Option<WidgetPath> {
         unsafe { from_glib_full(ffi::gtk_widget_path_copy(self.to_glib_none().0)) }
     }
@@ -135,6 +136,7 @@ impl WidgetPath {
     }
 
     #[doc(alias = "gtk_widget_path_iter_get_siblings")]
+    #[must_use]
     pub fn iter_get_siblings(&self, pos: i32) -> Option<WidgetPath> {
         unsafe {
             from_glib_none(ffi::gtk_widget_path_iter_get_siblings(

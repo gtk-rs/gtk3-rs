@@ -186,6 +186,7 @@ pub trait StyleContextExt: 'static {
 
     #[doc(alias = "gtk_style_context_get_parent")]
     #[doc(alias = "get_parent")]
+    #[must_use]
     fn parent(&self) -> Option<StyleContext>;
 
     #[doc(alias = "gtk_style_context_get_path")]

@@ -260,6 +260,7 @@ pub trait WidgetExt: 'static {
 
     #[doc(alias = "gtk_widget_get_ancestor")]
     #[doc(alias = "get_ancestor")]
+    #[must_use]
     fn ancestor(&self, widget_type: glib::types::Type) -> Option<Widget>;
 
     #[doc(alias = "gtk_widget_get_app_paintable")]
@@ -386,6 +387,7 @@ pub trait WidgetExt: 'static {
 
     #[doc(alias = "gtk_widget_get_parent")]
     #[doc(alias = "get_parent")]
+    #[must_use]
     fn parent(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_widget_get_parent_window")]
@@ -481,6 +483,7 @@ pub trait WidgetExt: 'static {
 
     #[doc(alias = "gtk_widget_get_toplevel")]
     #[doc(alias = "get_toplevel")]
+    #[must_use]
     fn toplevel(&self) -> Option<Widget>;
 
     #[doc(alias = "gtk_widget_get_valign")]

@@ -23,6 +23,7 @@ impl TextAttributes {
     }
 
     #[doc(alias = "gtk_text_attributes_copy")]
+    #[must_use]
     pub fn copy(&self) -> Option<TextAttributes> {
         unsafe { from_glib_full(ffi::gtk_text_attributes_copy(self.to_glib_none().0)) }
     }

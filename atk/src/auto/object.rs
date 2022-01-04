@@ -72,6 +72,7 @@ pub trait AtkObjectExt: 'static {
 
     #[doc(alias = "atk_object_get_parent")]
     #[doc(alias = "get_parent")]
+    #[must_use]
     fn parent(&self) -> Option<Object>;
 
     #[doc(alias = "atk_object_get_role")]
@@ -85,9 +86,11 @@ pub trait AtkObjectExt: 'static {
     fn notify_state_change(&self, state: State, value: bool);
 
     #[doc(alias = "atk_object_peek_parent")]
+    #[must_use]
     fn peek_parent(&self) -> Option<Object>;
 
     #[doc(alias = "atk_object_ref_accessible_child")]
+    #[must_use]
     fn ref_accessible_child(&self, i: i32) -> Option<Object>;
 
     #[doc(alias = "atk_object_ref_relation_set")]

@@ -49,6 +49,7 @@ glib::wrapper! {
 impl Device {
     #[doc(alias = "gdk_device_get_associated_device")]
     #[doc(alias = "get_associated_device")]
+    #[must_use]
     pub fn associated_device(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_device_get_associated_device(self.to_glib_none().0)) }
     }
