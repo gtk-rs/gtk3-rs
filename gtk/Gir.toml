@@ -854,9 +854,10 @@ generate_builder = true
 [[object]]
 name = "Gtk.Container"
 status = "generate"
+manual_traits = ["ContainerExtManual"]
     [[object.function]]
     pattern = "child_[gs]et_property"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "propagate_draw"
         [[object.function.parameter]]

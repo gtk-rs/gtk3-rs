@@ -25,6 +25,7 @@ pub use crate::cell_renderer_pixbuf::CellRendererPixbufExtManual;
 pub use crate::color_button::ColorButtonExtManual;
 pub use crate::color_chooser::ColorChooserExtManual;
 pub use crate::combo_box::ComboBoxExtManual;
+pub use crate::container::ContainerExtManual;
 pub use crate::dialog::DialogExtManual;
 pub use crate::drag_context::DragContextExtManual;
 pub use crate::entry::EntryExtManual;
