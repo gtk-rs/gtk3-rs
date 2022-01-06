@@ -967,198 +967,135 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     #[doc(hidden)]
     fn child_is_detachable<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"detachable\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `detachable` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "detachable",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_detachable<T: IsA<crate::Widget>>(&self, item: &T, detachable: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"detachable\0".as_ptr() as *const _,
-                detachable.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "detachable",
+            &detachable,
+        )
     }
 
     #[doc(hidden)]
     fn child_menu_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"menu-label\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `menu-label` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "menu-label",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_menu_label<T: IsA<crate::Widget>>(&self, item: &T, menu_label: Option<&str>) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"menu-label\0".as_ptr() as *const _,
-                menu_label.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "menu-label",
+            &menu_label,
+        )
     }
 
     #[doc(hidden)]
     fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `position` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "position",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"position\0".as_ptr() as *const _,
-                position.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "position",
+            &position,
+        )
     }
 
     #[doc(hidden)]
     fn child_is_reorderable<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"reorderable\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `reorderable` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "reorderable",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_reorderable<T: IsA<crate::Widget>>(&self, item: &T, reorderable: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"reorderable\0".as_ptr() as *const _,
-                reorderable.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "reorderable",
+            &reorderable,
+        )
     }
 
     #[doc(hidden)]
     fn child_tab_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"tab-expand\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `tab-expand` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "tab-expand",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_tab_expand<T: IsA<crate::Widget>>(&self, item: &T, tab_expand: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"tab-expand\0".as_ptr() as *const _,
-                tab_expand.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "tab-expand",
+            &tab_expand,
+        )
     }
 
     #[doc(hidden)]
     fn child_tab_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"tab-fill\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `tab-fill` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "tab-fill",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_tab_fill<T: IsA<crate::Widget>>(&self, item: &T, tab_fill: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"tab-fill\0".as_ptr() as *const _,
-                tab_fill.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "tab-fill",
+            &tab_fill,
+        )
     }
 
     #[doc(hidden)]
     fn child_tab_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"tab-label\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `tab-label` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "tab-label",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_tab_label<T: IsA<crate::Widget>>(&self, item: &T, tab_label: Option<&str>) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"tab-label\0".as_ptr() as *const _,
-                tab_label.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "tab-label",
+            &tab_label,
+        )
     }
 
     fn connect_change_current_page<F: Fn(&Self, i32) -> bool + 'static>(

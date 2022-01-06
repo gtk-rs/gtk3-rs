@@ -999,108 +999,71 @@ impl<O: IsA<Assistant>> AssistantExt for O {
     }
 
     fn child_is_complete<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"complete\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `complete` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "complete",
+        )
     }
 
     fn set_child_complete<T: IsA<crate::Widget>>(&self, item: &T, complete: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"complete\0".as_ptr() as *const _,
-                complete.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "complete",
+            &complete,
+        )
     }
 
     fn child_has_padding<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"has-padding\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `has-padding` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "has-padding",
+        )
     }
 
     fn set_child_has_padding<T: IsA<crate::Widget>>(&self, item: &T, has_padding: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"has-padding\0".as_ptr() as *const _,
-                has_padding.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "has-padding",
+            &has_padding,
+        )
     }
 
     fn child_page_type<T: IsA<crate::Widget>>(&self, item: &T) -> AssistantPageType {
-        unsafe {
-            let mut value =
-                glib::Value::from_type(<AssistantPageType as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"page-type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `page-type` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "page-type",
+        )
     }
 
     fn set_child_page_type<T: IsA<crate::Widget>>(&self, item: &T, page_type: AssistantPageType) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"page-type\0".as_ptr() as *const _,
-                page_type.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "page-type",
+            &page_type,
+        )
     }
 
     fn child_title<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"title\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `title` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "title",
+        )
     }
 
     fn set_child_title<T: IsA<crate::Widget>>(&self, item: &T, title: Option<&str>) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"title\0".as_ptr() as *const _,
-                title.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "title",
+            &title,
+        )
     }
 
     fn connect_apply<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

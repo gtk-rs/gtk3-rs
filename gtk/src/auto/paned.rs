@@ -649,55 +649,37 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn child_resizes<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"resize\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `resize` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "resize",
+        )
     }
 
     fn set_child_resize<T: IsA<crate::Widget>>(&self, item: &T, resize: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"resize\0".as_ptr() as *const _,
-                resize.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "resize",
+            &resize,
+        )
     }
 
     fn child_shrinks<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"shrink\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `shrink` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "shrink",
+        )
     }
 
     fn set_child_shrink<T: IsA<crate::Widget>>(&self, item: &T, shrink: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"shrink\0".as_ptr() as *const _,
-                shrink.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "shrink",
+            &shrink,
+        )
     }
 
     fn connect_accept_position<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {

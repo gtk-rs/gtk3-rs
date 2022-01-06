@@ -669,140 +669,95 @@ impl<O: IsA<Box>> BoxExt for O {
 
     #[doc(hidden)]
     fn child_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"expand\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `expand` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "expand",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_expand<T: IsA<crate::Widget>>(&self, item: &T, expand: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"expand\0".as_ptr() as *const _,
-                expand.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "expand",
+            &expand,
+        )
     }
 
     #[doc(hidden)]
     fn child_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"fill\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `fill` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "fill",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_fill<T: IsA<crate::Widget>>(&self, item: &T, fill: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"fill\0".as_ptr() as *const _,
-                fill.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "fill",
+            &fill,
+        )
     }
 
     #[doc(hidden)]
     fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType {
-        unsafe {
-            let mut value = glib::Value::from_type(<PackType as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"pack-type\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `pack-type` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "pack-type",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"pack-type\0".as_ptr() as *const _,
-                pack_type.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "pack-type",
+            &pack_type,
+        )
     }
 
     #[doc(hidden)]
     fn child_padding<T: IsA<crate::Widget>>(&self, item: &T) -> u32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"padding\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `padding` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "padding",
+        )
     }
 
     #[doc(hidden)]
     fn set_child_padding<T: IsA<crate::Widget>>(&self, item: &T, padding: u32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"padding\0".as_ptr() as *const _,
-                padding.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "padding",
+            &padding,
+        )
     }
 
     fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `position` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "position",
+        )
     }
 
     fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"position\0".as_ptr() as *const _,
-                position.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "position",
+            &position,
+        )
     }
 
     fn connect_baseline_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

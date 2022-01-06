@@ -727,107 +727,71 @@ impl<O: IsA<Grid>> GridExt for O {
     }
 
     fn cell_height<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"height\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `height` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "height",
+        )
     }
 
     fn set_cell_height<T: IsA<crate::Widget>>(&self, item: &T, height: i32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"height\0".as_ptr() as *const _,
-                height.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "height",
+            &height,
+        )
     }
 
     fn cell_width<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"width\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `width` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "width",
+        )
     }
 
     fn set_cell_width<T: IsA<crate::Widget>>(&self, item: &T, width: i32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"width\0".as_ptr() as *const _,
-                width.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "width",
+            &width,
+        )
     }
 
     fn cell_left_attach<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"left-attach\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `left-attach` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "left-attach",
+        )
     }
 
     fn set_cell_left_attach<T: IsA<crate::Widget>>(&self, item: &T, left_attach: i32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"left-attach\0".as_ptr() as *const _,
-                left_attach.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "left-attach",
+            &left_attach,
+        )
     }
 
     fn cell_top_attach<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"top-attach\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `top-attach` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "top-attach",
+        )
     }
 
     fn set_cell_top_attach<T: IsA<crate::Widget>>(&self, item: &T, top_attach: i32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"top-attach\0".as_ptr() as *const _,
-                top_attach.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "top-attach",
+            &top_attach,
+        )
     }
 
     fn connect_baseline_row_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
