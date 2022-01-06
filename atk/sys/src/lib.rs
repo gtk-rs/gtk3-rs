@@ -252,7 +252,8 @@ pub const ATK_STATE_CHECKABLE: AtkStateType = 39;
 pub const ATK_STATE_HAS_POPUP: AtkStateType = 40;
 pub const ATK_STATE_HAS_TOOLTIP: AtkStateType = 41;
 pub const ATK_STATE_READ_ONLY: AtkStateType = 42;
-pub const ATK_STATE_LAST_DEFINED: AtkStateType = 43;
+pub const ATK_STATE_COLLAPSED: AtkStateType = 43;
+pub const ATK_STATE_LAST_DEFINED: AtkStateType = 44;
 
 pub type AtkTextAttribute = c_int;
 pub const ATK_TEXT_ATTR_INVALID: AtkTextAttribute = 0;
