@@ -160,6 +160,12 @@ status = "generate"
 [[object]]
 name = "Atk.StateType"
 status = "generate"
+    [[object.member]]
+    name = "collapsed"
+    version = "2.38"
+    [[object.member]]
+    name = "last_defined"
+    alias = true # not useful
     [[object.function]]
     name = "register"
     # Problematic function needs manual implementation

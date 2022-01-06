@@ -1362,8 +1362,10 @@ pub enum StateType {
     HasTooltip,
     #[doc(alias = "ATK_STATE_READ_ONLY")]
     ReadOnly,
-    #[doc(alias = "ATK_STATE_LAST_DEFINED")]
-    LastDefined,
+    #[cfg(any(feature = "v2_38", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
+    #[doc(alias = "ATK_STATE_COLLAPSED")]
+    Collapsed,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -1432,7 +1434,8 @@ impl fmt::Display for StateType {
                 Self::HasPopup => "HasPopup",
                 Self::HasTooltip => "HasTooltip",
                 Self::ReadOnly => "ReadOnly",
-                Self::LastDefined => "LastDefined",
+                #[cfg(any(feature = "v2_38", feature = "dox"))]
+                Self::Collapsed => "Collapsed",
                 _ => "Unknown",
             }
         )
@@ -1488,7 +1491,8 @@ impl IntoGlib for StateType {
             Self::HasPopup => ffi::ATK_STATE_HAS_POPUP,
             Self::HasTooltip => ffi::ATK_STATE_HAS_TOOLTIP,
             Self::ReadOnly => ffi::ATK_STATE_READ_ONLY,
-            Self::LastDefined => ffi::ATK_STATE_LAST_DEFINED,
+            #[cfg(any(feature = "v2_38", feature = "dox"))]
+            Self::Collapsed => ffi::ATK_STATE_COLLAPSED,
             Self::__Unknown(value) => value,
         }
     }
@@ -1542,7 +1546,8 @@ impl FromGlib<ffi::AtkStateType> for StateType {
             ffi::ATK_STATE_HAS_POPUP => Self::HasPopup,
             ffi::ATK_STATE_HAS_TOOLTIP => Self::HasTooltip,
             ffi::ATK_STATE_READ_ONLY => Self::ReadOnly,
-            ffi::ATK_STATE_LAST_DEFINED => Self::LastDefined,
+            #[cfg(any(feature = "v2_38", feature = "dox"))]
+            ffi::ATK_STATE_COLLAPSED => Self::Collapsed,
             value => Self::__Unknown(value),
         }
     }

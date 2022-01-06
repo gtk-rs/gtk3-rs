@@ -19,3 +19,17 @@ ignore = [
     "Atk.MINOR_VERSION",
     "Atk.VERSION_MIN_REQUIRED",
 ]
+
+extra_versions = [
+    "2.38"
+]
+
+[[object]]
+name = "Atk.StateType"
+status = "generate"
+    [[object.member]]
+    name = "collapsed"
+    version = "2.38"
+    [[object.member]]
+    name = "last_defined"
+    alias = true # not useful and should fix -sys tests
