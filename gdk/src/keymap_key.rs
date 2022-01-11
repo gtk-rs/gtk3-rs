@@ -9,13 +9,13 @@ glib::wrapper! {
 
 impl KeymapKey {
     pub fn keycode(&self) -> u32 {
-        self.0.keycode
+        self.inner.keycode
     }
     pub fn group(&self) -> i32 {
-        self.0.group
+        self.inner.group
     }
     pub fn level(&self) -> i32 {
-        self.0.level
+        self.inner.level
     }
 }
 

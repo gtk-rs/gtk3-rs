@@ -2,43 +2,46 @@
 
 use crate::Rectangle;
 use cairo::RectangleInt;
+use glib::translate::*;
 use std::convert::{AsRef, From};
 use std::fmt;
 
 impl Rectangle {
     pub fn new(x: i32, y: i32, width: i32, height: i32) -> Rectangle {
         skip_assert_initialized!();
-        Rectangle(ffi::GdkRectangle {
-            x,
-            y,
-            width,
-            height,
-        })
+        unsafe {
+            Rectangle::unsafe_from(ffi::GdkRectangle {
+                x,
+                y,
+                width,
+                height,
+            })
+        }
     }
 
     pub fn x(&self) -> i32 {
-        self.0.x
+        self.inner.x
     }
 
     pub fn y(&self) -> i32 {
-        self.0.y
+        self.inner.y
     }
 
     pub fn width(&self) -> i32 {
-        self.0.width
+        self.inner.width
     }
 
     pub fn height(&self) -> i32 {
-        self.0.height
+        self.inner.height
     }
 
     #[cfg(not(any(feature = "v3_20", feature = "dox")))]
     #[doc(alias = "gdk_rectangle_equal")]
     fn equal(&self, rect2: &Rectangle) -> bool {
-        self.0.x == rect2.0.x
-            && self.0.y == rect2.0.y
-            && self.0.width == rect2.0.width
-            && self.0.height == rect2.0.height
+        self.inner.x == rect2.inner.x
+            && self.inner.y == rect2.inner.y
+            && self.inner.width == rect2.inner.width
+            && self.inner.height == rect2.inner.height
     }
 }
 

@@ -19,13 +19,13 @@ impl ops::Deref for Border {
     type Target = ffi::GtkBorder;
 
     fn deref(&self) -> &Self::Target {
-        &self.0
+        &self.inner
     }
 }
 
 impl ops::DerefMut for Border {
     fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
+        &mut self.inner
     }
 }
 
