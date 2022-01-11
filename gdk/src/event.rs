@@ -416,7 +416,7 @@ impl Event {
 impl fmt::Debug for Event {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         fmt.debug_struct("Event")
-            .field("inner", &self.0)
+            .field("inner", &self.inner)
             .field("type", &self.event_type())
             .finish()
     }
@@ -435,7 +435,8 @@ macro_rules! event_wrapper {
 
             #[inline]
             fn to_glib_none(&'a self) -> Stash<'a, *const ::ffi::$ffi_name, Self> {
-                let ptr = ToGlibPtr::<*const ::ffi::GdkEvent>::to_glib_none(&self.0).0;
+                let ptr =
+                    <$crate::Event as ToGlibPtr<*const ::ffi::GdkEvent>>::to_glib_none(&*self).0;
                 Stash(ptr as *const ::ffi::$ffi_name, self)
             }
         }
@@ -445,7 +446,10 @@ macro_rules! event_wrapper {
 
             #[inline]
             fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ::ffi::$ffi_name, Self> {
-                let ptr = ToGlibPtrMut::<*mut ::ffi::GdkEvent>::to_glib_none_mut(&mut self.0).0;
+                let ptr = <$crate::Event as ToGlibPtrMut<*mut ::ffi::GdkEvent>>::to_glib_none_mut(
+                    &mut *self,
+                )
+                .0;
                 StashMut(ptr as *mut ::ffi::$ffi_name, self)
             }
         }
@@ -453,7 +457,10 @@ macro_rules! event_wrapper {
         impl FromGlibPtrNone<*mut ::ffi::$ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_none(ptr: *mut ::ffi::$ffi_name) -> Self {
-                $name(from_glib_none(ptr as *mut ::ffi::GdkEvent))
+                <$name as crate::event::FromEvent>::from(from_glib_none(
+                    ptr as *mut ::ffi::GdkEvent,
+                ))
+                .unwrap()
             }
         }
 
@@ -475,7 +482,10 @@ macro_rules! event_wrapper {
         impl FromGlibPtrFull<*mut ::ffi::$ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_full(ptr: *mut ::ffi::$ffi_name) -> Self {
-                $name(from_glib_full(ptr as *mut ::ffi::GdkEvent))
+                <$name as crate::event::FromEvent>::from(from_glib_full(
+                    ptr as *mut ::ffi::GdkEvent,
+                ))
+                .unwrap()
             }
         }
 

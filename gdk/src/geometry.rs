@@ -11,37 +11,37 @@ glib::wrapper! {
 
 impl Geometry {
     pub fn min_width(&self) -> i32 {
-        self.0.min_width
+        self.inner.min_width
     }
     pub fn min_height(&self) -> i32 {
-        self.0.min_height
+        self.inner.min_height
     }
     pub fn max_width(&self) -> i32 {
-        self.0.max_width
+        self.inner.max_width
     }
     pub fn max_height(&self) -> i32 {
-        self.0.max_height
+        self.inner.max_height
     }
     pub fn base_width(&self) -> i32 {
-        self.0.base_width
+        self.inner.base_width
     }
     pub fn base_height(&self) -> i32 {
-        self.0.base_height
+        self.inner.base_height
     }
     pub fn width_inc(&self) -> i32 {
-        self.0.width_inc
+        self.inner.width_inc
     }
     pub fn height_inc(&self) -> i32 {
-        self.0.height_inc
+        self.inner.height_inc
     }
     pub fn min_aspect(&self) -> f64 {
-        self.0.min_aspect
+        self.inner.min_aspect
     }
     pub fn max_aspect(&self) -> f64 {
-        self.0.max_aspect
+        self.inner.max_aspect
     }
     pub fn win_gravity(&self) -> Gravity {
-        unsafe { from_glib(self.0.win_gravity) }
+        unsafe { from_glib(self.inner.win_gravity) }
     }
 }
 

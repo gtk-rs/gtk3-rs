@@ -10,44 +10,46 @@ use std::str::FromStr;
 impl RGBA {
     pub fn new(red: f64, green: f64, blue: f64, alpha: f64) -> RGBA {
         skip_assert_initialized!();
-        RGBA(ffi::GdkRGBA {
-            red,
-            green,
-            blue,
-            alpha,
-        })
+        unsafe {
+            RGBA::unsafe_from(ffi::GdkRGBA {
+                red,
+                green,
+                blue,
+                alpha,
+            })
+        }
     }
 
     pub fn red(&self) -> f64 {
-        self.0.red
+        self.inner.red
     }
 
     pub fn set_red(&mut self, red: f64) {
-        self.0.red = red;
+        self.inner.red = red;
     }
 
     pub fn green(&self) -> f64 {
-        self.0.green
+        self.inner.green
     }
 
     pub fn set_green(&mut self, green: f64) {
-        self.0.green = green;
+        self.inner.green = green;
     }
 
     pub fn blue(&self) -> f64 {
-        self.0.blue
+        self.inner.blue
     }
 
     pub fn set_blue(&mut self, blue: f64) {
-        self.0.blue = blue;
+        self.inner.blue = blue;
     }
 
     pub fn alpha(&self) -> f64 {
-        self.0.alpha
+        self.inner.alpha
     }
 
     pub fn set_alpha(&mut self, alpha: f64) {
-        self.0.alpha = alpha;
+        self.inner.alpha = alpha;
     }
 
     #[doc(alias = "gdk_rgba_parse")]
@@ -63,40 +65,55 @@ impl RGBA {
         }
     }
 
-    pub const BLACK: RGBA = RGBA(ffi::GdkRGBA {
-        red: 0f64,
-        green: 0f64,
-        blue: 0f64,
-        alpha: 1f64,
-    });
+    pub const BLACK: RGBA = RGBA {
+        inner: ffi::GdkRGBA {
+            red: 0f64,
+            green: 0f64,
+            blue: 0f64,
+            alpha: 1f64,
+        },
+        phantom: std::marker::PhantomData,
+    };
 
-    pub const BLUE: RGBA = RGBA(ffi::GdkRGBA {
-        red: 0f64,
-        green: 0f64,
-        blue: 1f64,
-        alpha: 1f64,
-    });
+    pub const BLUE: RGBA = RGBA {
+        inner: ffi::GdkRGBA {
+            red: 0f64,
+            green: 0f64,
+            blue: 1f64,
+            alpha: 1f64,
+        },
+        phantom: std::marker::PhantomData,
+    };
 
-    pub const GREEN: RGBA = RGBA(ffi::GdkRGBA {
-        red: 0f64,
-        green: 1f64,
-        blue: 0f64,
-        alpha: 1f64,
-    });
+    pub const GREEN: RGBA = RGBA {
+        inner: ffi::GdkRGBA {
+            red: 0f64,
+            green: 1f64,
+            blue: 0f64,
+            alpha: 1f64,
+        },
+        phantom: std::marker::PhantomData,
+    };
 
-    pub const RED: RGBA = RGBA(ffi::GdkRGBA {
-        red: 1f64,
-        green: 0f64,
-        blue: 0f64,
-        alpha: 1f64,
-    });
+    pub const RED: RGBA = RGBA {
+        inner: ffi::GdkRGBA {
+            red: 1f64,
+            green: 0f64,
+            blue: 0f64,
+            alpha: 1f64,
+        },
+        phantom: std::marker::PhantomData,
+    };
 
-    pub const WHITE: RGBA = RGBA(ffi::GdkRGBA {
-        red: 1f64,
-        green: 1f64,
-        blue: 1f64,
-        alpha: 1f64,
-    });
+    pub const WHITE: RGBA = RGBA {
+        inner: ffi::GdkRGBA {
+            red: 1f64,
+            green: 1f64,
+            blue: 1f64,
+            alpha: 1f64,
+        },
+        phantom: std::marker::PhantomData,
+    };
 }
 
 impl fmt::Debug for RGBA {

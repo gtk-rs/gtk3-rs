@@ -7,10 +7,10 @@ glib::wrapper! {
 
 impl TimeCoord {
     pub fn time(&self) -> u32 {
-        self.0.time
+        self.inner.time
     }
 
     pub fn axes(&self) -> &[f64; ffi::GDK_MAX_TIMECOORD_AXES as usize] {
-        &self.0.axes
+        &self.inner.axes
     }
 }
