@@ -648,55 +648,37 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     }
 
     fn item_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"expand\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `expand` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "expand",
+        )
     }
 
     fn set_item_expand<T: IsA<crate::Widget>>(&self, item: &T, expand: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"expand\0".as_ptr() as *const _,
-                expand.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "expand",
+            &expand,
+        )
     }
 
     fn item_is_homogeneous<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
-        unsafe {
-            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"homogeneous\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `homogeneous` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "homogeneous",
+        )
     }
 
     fn set_item_homogeneous<T: IsA<crate::Widget>>(&self, item: &T, homogeneous: bool) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"homogeneous\0".as_ptr() as *const _,
-                homogeneous.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "homogeneous",
+            &homogeneous,
+        )
     }
 
     fn connect_focus_home_or_end<F: Fn(&Self, bool) -> bool + 'static>(

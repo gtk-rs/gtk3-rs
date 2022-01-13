@@ -455,29 +455,20 @@ impl<O: IsA<Overlay>> OverlayExt for O {
     }
 
     fn child_index<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"index\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `index` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "index",
+        )
     }
 
     fn set_child_index<T: IsA<crate::Widget>>(&self, item: &T, index: i32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"index\0".as_ptr() as *const _,
-                index.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self.as_ref(),
+            &item.clone().upcast(),
+            "index",
+            &index,
+        )
     }
 
     //fn connect_get_child_position<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
