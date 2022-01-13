@@ -67,55 +67,29 @@ impl PopoverMenu {
     }
 
     pub fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
-        unsafe {
-            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.as_ptr() as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"position\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `position` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(self, &item.clone().upcast(), "position")
     }
 
     pub fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.as_ptr() as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"position\0".as_ptr() as *const _,
-                position.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self,
+            &item.clone().upcast(),
+            "position",
+            &position,
+        )
     }
 
     pub fn child_submenu<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
-        unsafe {
-            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
-            crate::ffi::gtk_container_child_get_property(
-                self.as_ptr() as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"submenu\0".as_ptr() as *const _,
-                value.to_glib_none_mut().0,
-            );
-            value
-                .get()
-                .expect("Return Value for property `submenu` getter")
-        }
+        crate::prelude::ContainerExtManual::child_property(self, &item.clone().upcast(), "submenu")
     }
 
     pub fn set_child_submenu<T: IsA<crate::Widget>>(&self, item: &T, submenu: Option<&str>) {
-        unsafe {
-            crate::ffi::gtk_container_child_set_property(
-                self.as_ptr() as *mut crate::ffi::GtkContainer,
-                item.to_glib_none().0 as *mut _,
-                b"submenu\0".as_ptr() as *const _,
-                submenu.to_value().to_glib_none().0,
-            );
-        }
+        crate::prelude::ContainerExtManual::child_set_property(
+            self,
+            &item.clone().upcast(),
+            "submenu",
+            &submenu,
+        )
     }
 
     #[doc(alias = "visible-submenu")]
