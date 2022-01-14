@@ -25,15 +25,16 @@ libc = "0.2"
 
 [dependencies.glib]
 package = "glib-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.15.0"
 
 [dependencies.gobject]
 package = "gobject-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.15.0"
 
 [dependencies.gdk]
 package = "gdk-sys"
 path = "../../gdk/sys"
+version = "0.15.0"
 
 [build-dependencies]
 pkg-config = "0.3.7"

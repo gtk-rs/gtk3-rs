@@ -6,11 +6,11 @@ libc = "0.2"
 
 [dependencies.glib]
 package = "glib-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.15.0"
 
 [dependencies.gobject]
 package = "gobject-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+version = "0.15.0"
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -40,8 +40,10 @@ version = "0.15.0"
 include = ["../../LICENSE"]
 edition = "2021"
 rust-version = "1.56"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.atk]
 name = "atk"
 version = "2.18"
