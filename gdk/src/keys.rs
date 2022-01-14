@@ -82,12 +82,14 @@ impl Key {
     }
 
     #[doc(alias = "gdk_keyval_to_upper")]
+    #[must_use]
     pub fn to_upper(&self) -> Self {
         skip_assert_initialized!();
         unsafe { ffi::gdk_keyval_to_upper(**self) }.into()
     }
 
     #[doc(alias = "gdk_keyval_to_lower")]
+    #[must_use]
     pub fn to_lower(&self) -> Self {
         skip_assert_initialized!();
         unsafe { ffi::gdk_keyval_to_lower(**self) }.into()
