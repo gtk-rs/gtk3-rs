@@ -53,7 +53,6 @@ links = "gdk-3"
 name = "gdk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.16.0"
-include = ["../../LICENSE"]
 edition = "2021"
 rust-version = "1.56"
 [package.metadata.docs.rs]
