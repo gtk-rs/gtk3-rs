@@ -7,7 +7,6 @@ license = "MIT"
 name = "gdkwayland-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.15.0"
-include = ["../../LICENSE"]
 edition = "2021"
 rust-version = "1.56"
 

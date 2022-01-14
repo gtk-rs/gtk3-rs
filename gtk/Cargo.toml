@@ -14,7 +14,6 @@ build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
-include = ["../LICENSE"]
 edition = "2021"
 rust-version = "1.56"
 
