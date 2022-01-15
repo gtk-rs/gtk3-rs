@@ -25,10 +25,14 @@ libc = "0.2"
 [dependencies.glib]
 package = "glib-sys"
 version = "0.15.1"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "0.15"
 
 [dependencies.gobject]
 package = "gobject-sys"
 version = "0.15.1"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "0.15"
 
 [dependencies.gdk]
 package = "gdk-sys"

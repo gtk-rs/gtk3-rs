@@ -10,10 +10,8 @@ version = "0.15.1"
 build = "build.rs"
 edition = "2021"
 rust-version = "1.56"
-
 [package.metadata.docs.rs]
 features = ["dox"]
-
 [package.metadata.system-deps.gdk_x11_3_0]
 name = "gdk-x11-3.0"
 version = "3.18"
@@ -39,11 +37,15 @@ version = "0.15.1"
 [dependencies.glib]
 package = "glib-sys"
 version = "0.15.1"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "0.15"
 
 [dependencies.cairo]
 package = "cairo-sys-rs"
 optional = true
 version = "0.15.1"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "0.15"
 
 [build-dependencies]
 system-deps = "6"

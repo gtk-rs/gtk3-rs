@@ -31,11 +31,11 @@ features = ["dox"]
 libc = "0.2"
 bitflags = "1.0"
 ffi = {package = "gdk-sys", path = "sys", version = "0.15.1"}
-cairo-rs = "0.15.1"
-gdk-pixbuf = "0.15.1"
-gio = "0.15.1"
-glib = "0.15.1"
-pango = "0.15.1"
+cairo-rs = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
+gdk-pixbuf = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
+gio = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
+glib = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
+pango = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

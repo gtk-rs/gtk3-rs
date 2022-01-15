@@ -12,6 +12,8 @@ once_cell = "1.2.0"
 
 [dependencies.glib]
 version = "0.15.1"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "0.15"
 
 [dependencies.gtk]
 path = "../gtk"
@@ -20,15 +22,21 @@ version = "0.15.1"
 [dependencies.pangocairo]
 optional = true
 version = "0.15.1"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "0.15"
 
 [dependencies.cairo]
 package = "cairo-rs"
 features = ["png"]
 optional = true
 version = "0.15.1"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "0.15"
 
 [build-dependencies.gio]
+version = "0.15.1"
 git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "0.15"
 
 [[bin]]
 name = "accessibility"
