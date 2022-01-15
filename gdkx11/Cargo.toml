@@ -32,9 +32,9 @@ features = ["dox"]
 libc = "0.2"
 x11 = "2.18"
 ffi = {package = "gdkx11-sys", path = "sys", version = "0.15.1"}
-glib = "0.15.1"
+glib = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 gdk = {path = "../gdk", version = "0.15.1"}
-gio = "0.15.1"
+gio = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

@@ -33,7 +33,7 @@ features = ["dox"]
 libc = "0.2"
 bitflags = "1.0"
 ffi = {package = "atk-sys", path = "sys", version = "0.15.1"}
-glib = "0.15.1"
+glib = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
