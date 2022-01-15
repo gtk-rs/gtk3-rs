@@ -9,7 +9,7 @@ license = "MIT"
 name = "gdkwayland"
 readme = "README.md"
 repository = "https://github.com/gtk-rs/gtk3-rs"
-version = "0.15.0"
+version = "0.15.1"
 rust-version = "1.56"
 
 [features]
@@ -22,9 +22,9 @@ dox = ["ffi/dox"]
 features = ["dox"]
 
 [dependencies]
-ffi = {path = "./sys", package = "gdkwayland-sys", version = "0.15.0"}
-gdk = {path = "../gdk", version = "0.15.0"}
-glib = "0.15.0"
+ffi = {path = "./sys", package = "gdkwayland-sys", version = "0.15.1"}
+gdk = {path = "../gdk", version = "0.15.1"}
+glib = "0.15.1"
 libc = "0.2"
 wayland-client = {version = "0.29", features = ["use_system_lib"]}
 

@@ -13,8 +13,8 @@ Currently, the minimum supported Rust version is `1.56.0`.
 
 ## Documentation
 
- * [Rust API - Stable](https://gtk-rs.org/gtk3-rs/stable/latest/docs/gdk-wayland/)
- * [Rust API - Development](https://gtk-rs.org/gtk3-rs/git/docs/gdk-wayland)
+ * [Rust API - Stable](https://gtk-rs.org/gtk3-rs/stable/latest/docs/gdkwayland/)
+ * [Rust API - Development](https://gtk-rs.org/gtk3-rs/git/docs/gdkwayland)
  * [C API](https://developer.gnome.org/gdk3/stable/)
  * [GTK Installation instructions](https://www.gtk.org/docs/installations/)
 
@@ -27,7 +27,7 @@ If you want to track the bleeding edge, use the git dependency instead:
 
 ```toml
 [dependencies]
-gdk-wayland = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdk-wayland" }
+gdkwayland = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdkwayland" }
 ```
 
 Avoid mixing versioned and git crates like this:
@@ -35,8 +35,8 @@ Avoid mixing versioned and git crates like this:
 ```toml
 # This will not compile
 [dependencies]
-gdk-wayland = "0.15"
-gdk-wayland = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdk-wayland" }
+gdkwayland = "0.15"
+gdkwayland = { git = "https://github.com/gtk-rs/gtk3-rs.git", package = "gdkwayland" }
 ```
 
 ### See Also

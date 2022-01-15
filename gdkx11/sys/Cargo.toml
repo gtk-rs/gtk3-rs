@@ -6,7 +6,7 @@ keywords = ["gdkx11", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 name = "gdkx11-sys"
-version = "0.15.0"
+version = "0.15.1"
 build = "build.rs"
 edition = "2021"
 rust-version = "1.56"
@@ -34,16 +34,16 @@ x11 = "2.18"
 [dependencies.gdk]
 package = "gdk-sys"
 path = "../../gdk/sys"
-version = "0.15.0"
+version = "0.15.1"
 
 [dependencies.glib]
 package = "glib-sys"
-version = "0.15.0"
+version = "0.15.1"
 
 [dependencies.cairo]
 package = "cairo-sys-rs"
 optional = true
-version = "0.15.0"
+version = "0.15.1"
 
 [build-dependencies]
 system-deps = "6"

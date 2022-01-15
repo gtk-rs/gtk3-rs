@@ -7,7 +7,7 @@ name = "atk"
 homepage = "https://gtk-rs.org/"
 authors = ["The gtk-rs Project Developers"]
 readme = "README.md"
-version = "0.15.0"
+version = "0.15.1"
 keywords = ["atk", "gtk-rs", "gnome", "accessibility"]
 repository = "https://github.com/gtk-rs/gtk3-rs"
 exclude = [
@@ -32,8 +32,8 @@ features = ["dox"]
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-ffi = {package = "atk-sys", path = "sys", version = "0.15.0"}
-glib = "0.15.0"
+ffi = {package = "atk-sys", path = "sys", version = "0.15.1"}
+glib = "0.15.1"
 
 [dev-dependencies]
 gir-format-check = "^0.1"
