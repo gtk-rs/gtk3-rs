@@ -9,7 +9,6 @@ license = "MIT"
 name = "gdkwayland"
 readme = "README.md"
 repository = "https://github.com/gtk-rs/gtk3-rs"
-include = ["../LICENSE"]
 version = "0.15.0"
 rust-version = "1.56"
 
