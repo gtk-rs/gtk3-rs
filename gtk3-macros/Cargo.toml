@@ -14,7 +14,6 @@ exclude = [
     "gir-files/*",
     "src/composite_template.ui"
 ]
-include = ["../LICENSE"]
 rust-version = "1.56"
 
 [lib]
