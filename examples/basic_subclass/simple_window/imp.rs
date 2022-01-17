@@ -41,8 +41,8 @@ impl ObjectImpl for SimpleWindow {
         // Connect our method `on_increment_clicked` to be called
         // when the increment button is clicked.
         increment.connect_clicked(clone!(@weak obj => move |_| {
-            let priv_ = obj.imp();
-            priv_.on_increment_clicked();
+            let imp = obj.imp();
+            imp.on_increment_clicked();
         }));
 
         obj.add(&label);
