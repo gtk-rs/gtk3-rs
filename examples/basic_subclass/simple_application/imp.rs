@@ -29,7 +29,7 @@ impl ApplicationImpl for SimpleApplication {
     /// aksed to present itself.
     fn activate(&self, app: &Self::Type) {
         let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
-        let priv_ = SimpleApplication::from_instance(app);
+        let priv_ = app.imp();
         let window = priv_
             .window
             .get()
@@ -49,7 +49,7 @@ impl ApplicationImpl for SimpleApplication {
         self.parent_startup(app);
 
         let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
-        let priv_ = SimpleApplication::from_instance(app);
+        let priv_ = app.imp();
         let window = SimpleWindow::new(app);
         priv_
             .window
