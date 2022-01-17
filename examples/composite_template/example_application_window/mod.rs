@@ -18,7 +18,7 @@ impl ExampleApplicationWindow {
     fn init_label(&self) {
         // To access fields such as template children, you must get
         // the private struct.
-        let self_ = imp::ExampleApplicationWindow::from_instance(self);
+        let self_ = self.imp();
         self_
             .subtitle
             .set_text("This is an example window made using composite templates");

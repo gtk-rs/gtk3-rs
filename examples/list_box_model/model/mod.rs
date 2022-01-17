@@ -19,7 +19,7 @@ impl Model {
     }
 
     pub fn append(&self, obj: &RowData) {
-        let self_ = imp::Model::from_instance(self);
+        let self_ = self.imp();
         let index = {
             // Borrow the data only once and ensure the borrow guard is dropped
             // before we emit the items_changed signal because the view
@@ -33,7 +33,7 @@ impl Model {
     }
 
     pub fn remove(&self, index: u32) {
-        let self_ = imp::Model::from_instance(self);
+        let self_ = self.imp();
         self_.0.borrow_mut().remove(index as usize);
         // Emits a signal that 1 item was removed, 0 added at the position index
         self.items_changed(index, 1, 0);
