@@ -29,8 +29,8 @@ impl ApplicationImpl for SimpleApplication {
     /// aksed to present itself.
     fn activate(&self, app: &Self::Type) {
         let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
-        let priv_ = SimpleApplication::from_instance(app);
-        let window = priv_
+        let imp = app.imp();
+        let window = imp
             .window
             .get()
             .expect("Should always be initiliazed in gio_application_startup");
@@ -49,10 +49,9 @@ impl ApplicationImpl for SimpleApplication {
         self.parent_startup(app);
 
         let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
-        let priv_ = SimpleApplication::from_instance(app);
+        let imp = app.imp();
         let window = SimpleWindow::new(app);
-        priv_
-            .window
+        imp.window
             .set(window)
             .expect("Failed to initialize application window");
     }
