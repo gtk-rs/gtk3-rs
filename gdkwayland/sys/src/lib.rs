@@ -1,3 +1,5 @@
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
+
 use gdk::{GdkAtom, GdkDevicePadFeature};
 use glib::{gpointer, GType};
 use libc::{c_char, c_int, c_uint};
