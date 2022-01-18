@@ -10,6 +10,38 @@ glib::wrapper! {
 }
 
 impl Geometry {
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        min_width: i32,
+        min_height: i32,
+        max_width: i32,
+        max_height: i32,
+        base_width: i32,
+        base_height: i32,
+        width_inc: i32,
+        height_inc: i32,
+        min_aspect: f64,
+        max_aspect: f64,
+        win_gravity: Gravity,
+    ) -> Self {
+        assert_initialized_main_thread!();
+        unsafe {
+            Geometry::unsafe_from(ffi::GdkGeometry {
+                min_width,
+                min_height,
+                max_width,
+                max_height,
+                base_width,
+                base_height,
+                width_inc,
+                height_inc,
+                min_aspect,
+                max_aspect,
+                win_gravity: win_gravity.into_glib(),
+            })
+        }
+    }
+
     pub fn min_width(&self) -> i32 {
         self.inner.min_width
     }
