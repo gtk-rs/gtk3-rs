@@ -62,48 +62,68 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
 
 unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
     fn class_init(class: &mut ::glib::Class<Self>) {
-        unsafe extern "C" fn application_window_added<T: GtkApplicationImpl>(
-            ptr: *mut ffi::GtkApplication,
-            wptr: *mut ffi::GtkWindow,
-        ) {
-            let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.imp();
-            let wrap: Borrowed<Application> = from_glib_borrow(ptr);
+        // Override the original `GtkApplication` startup implementation so that
+        // we can set GTK as initialized right afterwards.
+        {
+            use std::sync;
 
-            imp.window_added(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
-        }
-        unsafe extern "C" fn application_window_removed<T: GtkApplicationImpl>(
-            ptr: *mut ffi::GtkApplication,
-            wptr: *mut ffi::GtkWindow,
-        ) {
-            let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.imp();
-            let wrap: Borrowed<Application> = from_glib_borrow(ptr);
+            // Needed because the function pointer is not `Send+Sync` otherwise but has to be to be
+            // stored in a `static mut`.
+            struct WrapFn(unsafe extern "C" fn(*mut gio::ffi::GApplication));
+            unsafe impl Send for WrapFn {}
+            unsafe impl Sync for WrapFn {}
 
-            imp.window_removed(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
-        }
+            static ONCE: sync::Once = sync::Once::new();
+            static mut OLD_STARTUP: Option<WrapFn> = None;
 
-        unsafe extern "C" fn application_startup<T: GtkApplicationImpl>(
-            ptr: *mut gio::ffi::GApplication,
-        ) {
-            let instance = &*(ptr as *mut T::Instance);
-            let imp = instance.imp();
-            let wrap: Borrowed<gio::Application> = from_glib_borrow(ptr);
-            crate::rt::set_initialized();
-            imp.startup(wrap.unsafe_cast_ref())
+            // One the very first call replace the original `GtkApplication` startup with a
+            // function that first calls the original one and then marks gtk-rs as initialized.
+            ONCE.call_once(|| unsafe {
+                let base_klass =
+                    glib::gobject_ffi::g_type_class_ref(ffi::gtk_application_get_type());
+                assert!(!base_klass.is_null());
+
+                let app_klass = &mut *(base_klass as *mut gio::ffi::GApplicationClass);
+                OLD_STARTUP = app_klass.startup.map(WrapFn);
+
+                unsafe extern "C" fn replace_startup(app: *mut gio::ffi::GApplication) {
+                    if let Some(WrapFn(old_startup)) = OLD_STARTUP {
+                        old_startup(app);
+                    }
+                    crate::rt::set_initialized();
+                }
+
+                app_klass.startup = Some(replace_startup);
+
+                glib::gobject_ffi::g_type_class_unref(base_klass);
+            });
         }
 
         Self::parent_class_init::<T>(class);
 
-        if !crate::rt::is_initialized() {
-            panic!("GTK has to be initialized first");
-        }
-
         let klass = class.as_mut();
         klass.window_added = Some(application_window_added::<T>);
         klass.window_removed = Some(application_window_removed::<T>);
-        // Chain our startup handler in here
-        let klass = &mut class.as_mut().parent_class;
-        klass.startup = Some(application_startup::<T>);
     }
+}
+
+unsafe extern "C" fn application_window_added<T: GtkApplicationImpl>(
+    ptr: *mut ffi::GtkApplication,
+    wptr: *mut ffi::GtkWindow,
+) {
+    let instance = &*(ptr as *mut T::Instance);
+    let imp = instance.imp();
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
+
+    imp.window_added(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
+}
+unsafe extern "C" fn application_window_removed<T: GtkApplicationImpl>(
+    ptr: *mut ffi::GtkApplication,
+    wptr: *mut ffi::GtkWindow,
+) {
+    let instance = &*(ptr as *mut T::Instance);
+    let imp = instance.imp();
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
+
+    imp.window_removed(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
 }
