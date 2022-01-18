@@ -14,10 +14,10 @@ pub trait CellRendererPixbufExtManual: 'static {
 
 impl<O: IsA<CellRendererPixbuf> + IsA<glib::object::Object>> CellRendererPixbufExtManual for O {
     fn property_stock_size(&self) -> IconSize {
-        unsafe { from_glib(self.property::<i32>("stock-size")) }
+        unsafe { from_glib(self.property::<u32>("stock-size") as i32) }
     }
 
     fn set_property_stock_size(&self, stock_size: IconSize) {
-        self.set_property("stock-size", &stock_size.into_glib());
+        self.set_property("stock-size", stock_size.into_glib() as u32);
     }
 }
