@@ -2,8 +2,8 @@
 
 #![doc = include_str!("../README.md")]
 
-pub use gdk;
 pub use ffi;
+pub use gdk;
 
 mod wayland_device;
 pub use wayland_device::WaylandDevice;
