@@ -2276,6 +2276,8 @@ manual_traits = ["TextBufferExtManual"]
 name = "Gtk.TextIter"
 status = "generate"
 boxed_inline = true
+    [[object.derive]]
+    name = "Debug"
     [[object.function]]
     name = "get_attributes"
     manual = true
@@ -2394,6 +2396,8 @@ generate_builder = true
 name = "Gtk.TreeIter"
 status = "generate"
 boxed_inline = true
+    [[object.derive]]
+    name = "Debug"
 
 [[object]]
 name = "Gtk.TreeModel"
