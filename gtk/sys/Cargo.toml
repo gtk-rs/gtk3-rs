@@ -1,6 +1,6 @@
 [package]
 name = "gtk-sys"
-version = "0.15.2"
+version = "0.15.3"
 links = "gtk-3"
 build = "build.rs"
 authors = ["The gtk-rs Project Developers"]
