@@ -47,7 +47,6 @@ generate = [
     "Gtk.FileChooserAction",
     "Gtk.FileChooserConfirmation",
     "Gtk.FileChooserError",
-    "Gtk.FileChooserWidgetAccessible",
     "Gtk.FileFilter",
     "Gtk.FileFilterFlags",
     "Gtk.GestureSingle",
@@ -1045,6 +1044,11 @@ status = "generate"
 generate_builder = true
 
 [[object]]
+name = "Gtk.FileChooserWidgetAccessible"
+status = "generate"
+version = "3.24.30"
+
+[[object]]
 name = "Gtk.Fixed"
 status = "generate"
 generate_builder = true
@@ -1229,6 +1233,12 @@ generate_builder = true
     [[object.child_prop]]
     name = "position"
     type = "gint"
+
+[[object]]
+name = "Gtk.HeaderBarAccessible"
+status = "generate"
+generate_builder = true
+version = "3.24.11"
 
 [[object]]
 name = "Gtk.IconTheme"
@@ -1757,6 +1767,7 @@ name = "Gtk.PlugAccessible"
 status = "generate"
 generate_builder = true
 cfg_condition = "gdk_backend = \"x11\""
+version = "3.24.30"
 
 [[object]]
 name = "Gtk.Popover"
@@ -2106,6 +2117,7 @@ name = "Gtk.SocketAccessible"
 status = "generate"
 generate_builder = true
 cfg_condition = "gdk_backend = \"x11\""
+version = "3.24.30"
 
 [[object]]
 name = "Gtk.SpinButton"
