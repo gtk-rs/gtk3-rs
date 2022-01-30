@@ -41,14 +41,20 @@ version = "3.22.30"
 [package.metadata.system-deps."gtk+_3_0".v3_24]
 version = "3.24"
 
+[package.metadata.system-deps."gtk+_3_0".v3_24_1]
+version = "3.24.1"
+
 [package.metadata.system-deps."gtk+_3_0".v3_24_8]
 version = "3.24.8"
 
 [package.metadata.system-deps."gtk+_3_0".v3_24_9]
 version = "3.24.9"
 
-[package.metadata.system-deps."gtk+_3_0".v3_24_1]
-version = "3.24.1"
+[package.metadata.system-deps."gtk+_3_0".v3_24_11]
+version = "3.24.11"
+
+[package.metadata.system-deps."gtk+_3_0".v3_24_30]
+version = "3.24.30"
 
 [lib]
 name = "gtk_sys"
@@ -96,7 +102,6 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-v3_24_11 = ["v3_24_9"]
 v3_20 = []
 v3_22 = ["v3_20"]
 v3_22_6 = ["v3_22"]
@@ -107,5 +112,7 @@ v3_22_30 = ["v3_22_29"]
 v3_24 = ["v3_22_29"]
 v3_24_8 = ["v3_24_1"]
 v3_24_9 = ["v3_24_8"]
+v3_24_11 = ["v3_24_9"]
+v3_24_30 = ["v3_24_11"]
 dox = []
 v3_24_1 = ["v3_24"]
