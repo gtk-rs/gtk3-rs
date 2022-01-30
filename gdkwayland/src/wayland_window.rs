@@ -101,8 +101,8 @@ impl WaylandWindow {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_22")))]
     #[doc(alias = "gdk_wayland_window_set_application_id")]
     pub fn set_application_id(&self, application_id: &str) -> bool {
         unsafe {
