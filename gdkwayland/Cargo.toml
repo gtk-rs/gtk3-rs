@@ -16,6 +16,7 @@ rust-version = "1.56"
 v3_20 = ["ffi/v3_20", "gdk/v3_20"]
 v3_22 = ["v3_20", "ffi/v3_22", "gdk/v3_22"]
 v3_24 = ["v3_22", "ffi/v3_24", "gdk/v3_24"]
+v3_24_22 = ["v3_24", "ffi/v3_24_22"]
 dox = ["ffi/dox"]
 
 [package.metadata.docs.rs]
