@@ -204,7 +204,11 @@ pub use self::file_chooser_native::FileChooserNative;
 mod file_chooser_widget;
 pub use self::file_chooser_widget::FileChooserWidget;
 
+#[cfg(any(feature = "v3_24_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
 mod file_chooser_widget_accessible;
+#[cfg(any(feature = "v3_24_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
 pub use self::file_chooser_widget_accessible::FileChooserWidgetAccessible;
 
 mod file_filter;
@@ -276,6 +280,13 @@ pub use self::grid::Grid;
 
 mod header_bar;
 pub use self::header_bar::HeaderBar;
+
+#[cfg(any(feature = "v3_24_11", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_11")))]
+mod header_bar_accessible;
+#[cfg(any(feature = "v3_24_11", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_11")))]
+pub use self::header_bar_accessible::HeaderBarAccessible;
 
 mod im_context;
 pub use self::im_context::IMContext;
@@ -402,9 +413,13 @@ pub use self::plug::Plug;
 
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+#[cfg(any(feature = "v3_24_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
 mod plug_accessible;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+#[cfg(any(feature = "v3_24_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
 pub use self::plug_accessible::PlugAccessible;
 
 mod popover;
@@ -541,9 +556,13 @@ pub use self::socket::Socket;
 
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+#[cfg(any(feature = "v3_24_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
 mod socket_accessible;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+#[cfg(any(feature = "v3_24_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
 pub use self::socket_accessible::SocketAccessible;
 
 mod spin_button;
@@ -1072,6 +1091,8 @@ pub mod traits {
     pub use super::plug::PlugExt;
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub use super::plug_accessible::PlugAccessibleExt;
     pub use super::popover::PopoverExt;
     pub use super::print_operation::PrintOperationExt;
@@ -1102,6 +1123,8 @@ pub mod traits {
     pub use super::socket::GtkSocketExt;
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub use super::socket_accessible::SocketAccessibleExt;
     pub use super::spin_button::SpinButtonExt;
     pub use super::spinner::SpinnerExt;
@@ -1205,6 +1228,9 @@ pub mod builders {
     pub use super::gl_area::GLAreaBuilder;
     pub use super::grid::GridBuilder;
     pub use super::header_bar::HeaderBarBuilder;
+    #[cfg(any(feature = "v3_24_11", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_11")))]
+    pub use super::header_bar_accessible::HeaderBarAccessibleBuilder;
     pub use super::icon_view::IconViewBuilder;
     pub use super::im_context_simple::IMContextSimpleBuilder;
     pub use super::im_multicontext::IMMulticontextBuilder;
@@ -1238,6 +1264,8 @@ pub mod builders {
     pub use super::plug::PlugBuilder;
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub use super::plug_accessible::PlugAccessibleBuilder;
     pub use super::popover::PopoverBuilder;
     pub use super::popover_menu::PopoverMenuBuilder;
@@ -1281,6 +1309,8 @@ pub mod builders {
     pub use super::socket::SocketBuilder;
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub use super::socket_accessible::SocketAccessibleBuilder;
     pub use super::spin_button::SpinButtonBuilder;
     pub use super::spinner::SpinnerBuilder;
