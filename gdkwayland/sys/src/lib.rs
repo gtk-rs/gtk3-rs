@@ -81,8 +81,8 @@ extern "C" {
         parent_handle: *const c_char,
     ) -> glib::gboolean;
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_22")))]
     pub fn gdk_wayland_window_set_application_id(
         window: *mut GdkWaylandWindow,
         application_id: *const c_char,

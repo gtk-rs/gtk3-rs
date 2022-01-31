@@ -80,6 +80,11 @@ status = "generate"
 version = "3.24"
 
 [[object]]
+name = "Gtk.FileChooserWidgetAccessible"
+status = "generate"
+version = "3.24.30"
+
+[[object]]
 name = "Gtk.FontChooserLevel"
 status = "generate"
 version = "3.24"
@@ -105,9 +110,19 @@ status = "generate"
 version = "3.22"
 
 [[object]]
+name = "Gtk.PlugAccessible"
+status = "generate"
+version = "3.24.30"
+
+[[object]]
 name = "Gtk.ShortcutLabel"
 status = "generate"
 version = "3.22"
+
+[[object]]
+name = "Gtk.SocketAccessible"
+status = "generate"
+version = "3.24.30"
 
 [[object]]
 name = "Gtk.StackAccessible"

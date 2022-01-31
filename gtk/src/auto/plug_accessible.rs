@@ -40,7 +40,7 @@ pub struct PlugAccessibleBuilder {
     accessible_description: Option<String>,
     accessible_name: Option<String>,
     accessible_parent: Option<atk::Object>,
-    //accessible-role: /*Unknown type*/,
+    accessible_role: Option<atk::Role>,
     accessible_table_caption: Option<String>,
     accessible_table_caption_object: Option<atk::Object>,
     accessible_table_column_description: Option<String>,
@@ -71,6 +71,9 @@ impl PlugAccessibleBuilder {
         }
         if let Some(ref accessible_parent) = self.accessible_parent {
             properties.push(("accessible-parent", accessible_parent));
+        }
+        if let Some(ref accessible_role) = self.accessible_role {
+            properties.push(("accessible-role", accessible_role));
         }
         if let Some(ref accessible_table_caption) = self.accessible_table_caption {
             properties.push(("accessible-table-caption", accessible_table_caption));
@@ -126,6 +129,11 @@ impl PlugAccessibleBuilder {
 
     pub fn accessible_parent(mut self, accessible_parent: &impl IsA<atk::Object>) -> Self {
         self.accessible_parent = Some(accessible_parent.clone().upcast());
+        self
+    }
+
+    pub fn accessible_role(mut self, accessible_role: atk::Role) -> Self {
+        self.accessible_role = Some(accessible_role);
         self
     }
 

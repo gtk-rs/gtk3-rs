@@ -20038,6 +20038,8 @@ extern "C" {
     //=========================================================================
     // GtkFileChooserWidgetAccessible
     //=========================================================================
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_file_chooser_widget_accessible_get_type() -> GType;
 
     //=========================================================================
@@ -22388,7 +22390,11 @@ extern "C" {
     //=========================================================================
     // GtkPlugAccessible
     //=========================================================================
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_plug_accessible_get_type() -> GType;
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_plug_accessible_get_id(plug: *mut GtkPlugAccessible) -> *mut c_char;
 
     //=========================================================================
@@ -23505,7 +23511,11 @@ extern "C" {
     //=========================================================================
     // GtkSocketAccessible
     //=========================================================================
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_socket_accessible_get_type() -> GType;
+    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_socket_accessible_embed(socket: *mut GtkSocketAccessible, path: *mut c_char);
 
     //=========================================================================

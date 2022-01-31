@@ -4,39 +4,38 @@
 
 use glib::object::Cast;
 use glib::object::IsA;
-use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
 glib::wrapper! {
-    #[doc(alias = "GtkSocketAccessible")]
-    pub struct SocketAccessible(Object<ffi::GtkSocketAccessible, ffi::GtkSocketAccessibleClass>) @extends atk::Object;
+    #[doc(alias = "GtkHeaderBarAccessible")]
+    pub struct HeaderBarAccessible(Object<ffi::GtkHeaderBarAccessible, ffi::GtkHeaderBarAccessibleClass>) @extends atk::Object;
 
     match fn {
-        type_ => || ffi::gtk_socket_accessible_get_type(),
+        type_ => || ffi::gtk_header_bar_accessible_get_type(),
     }
 }
 
-impl SocketAccessible {
-    pub const NONE: Option<&'static SocketAccessible> = None;
+impl HeaderBarAccessible {
+    pub const NONE: Option<&'static HeaderBarAccessible> = None;
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-pattern struct instance to construct [`SocketAccessible`] objects.
+    /// Creates a new builder-pattern struct instance to construct [`HeaderBarAccessible`] objects.
     ///
-    /// This method returns an instance of [`SocketAccessibleBuilder`](crate::builders::SocketAccessibleBuilder) which can be used to create [`SocketAccessible`] objects.
-    pub fn builder() -> SocketAccessibleBuilder {
-        SocketAccessibleBuilder::default()
+    /// This method returns an instance of [`HeaderBarAccessibleBuilder`](crate::builders::HeaderBarAccessibleBuilder) which can be used to create [`HeaderBarAccessible`] objects.
+    pub fn builder() -> HeaderBarAccessibleBuilder {
+        HeaderBarAccessibleBuilder::default()
     }
 }
 
 #[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
-/// A [builder-pattern] type to construct [`SocketAccessible`] objects.
+/// A [builder-pattern] type to construct [`HeaderBarAccessible`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
-pub struct SocketAccessibleBuilder {
+pub struct HeaderBarAccessibleBuilder {
     accessible_description: Option<String>,
     accessible_name: Option<String>,
     accessible_parent: Option<atk::Object>,
@@ -51,17 +50,17 @@ pub struct SocketAccessibleBuilder {
     accessible_value: Option<f64>,
 }
 
-impl SocketAccessibleBuilder {
+impl HeaderBarAccessibleBuilder {
     // rustdoc-stripper-ignore-next
-    /// Create a new [`SocketAccessibleBuilder`].
+    /// Create a new [`HeaderBarAccessibleBuilder`].
     pub fn new() -> Self {
         Self::default()
     }
 
     // rustdoc-stripper-ignore-next
-    /// Build the [`SocketAccessible`].
+    /// Build the [`HeaderBarAccessible`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
-    pub fn build(self) -> SocketAccessible {
+    pub fn build(self) -> HeaderBarAccessible {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         if let Some(ref accessible_description) = self.accessible_description {
             properties.push(("accessible-description", accessible_description));
@@ -113,8 +112,8 @@ impl SocketAccessibleBuilder {
         if let Some(ref accessible_value) = self.accessible_value {
             properties.push(("accessible-value", accessible_value));
         }
-        glib::Object::new::<SocketAccessible>(&properties)
-            .expect("Failed to create an instance of SocketAccessible")
+        glib::Object::new::<HeaderBarAccessible>(&properties)
+            .expect("Failed to create an instance of HeaderBarAccessible")
     }
 
     pub fn accessible_description(mut self, accessible_description: &str) -> Self {
@@ -198,21 +197,8 @@ impl SocketAccessibleBuilder {
     }
 }
 
-pub trait SocketAccessibleExt: 'static {
-    #[doc(alias = "gtk_socket_accessible_embed")]
-    fn embed(&self, path: &str);
-}
-
-impl<O: IsA<SocketAccessible>> SocketAccessibleExt for O {
-    fn embed(&self, path: &str) {
-        unsafe {
-            ffi::gtk_socket_accessible_embed(self.as_ref().to_glib_none().0, path.to_glib_none().0);
-        }
-    }
-}
-
-impl fmt::Display for SocketAccessible {
+impl fmt::Display for HeaderBarAccessible {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SocketAccessible")
+        f.write_str("HeaderBarAccessible")
     }
 }
