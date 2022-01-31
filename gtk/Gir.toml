@@ -169,6 +169,7 @@ ignore = [
 
 manual = [
     "Atk.Object",
+    "Atk.Role",
     "cairo.Context",
     "cairo.FontOptions",
     "cairo.RectangleInt",
