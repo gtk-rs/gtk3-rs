@@ -54,7 +54,7 @@ ffi = {package = "gtk-sys", path = "sys", version = "0.15.1"}
 gtk3-macros = {path = "../gtk3-macros", version = "0.15.1"}
 cairo-rs = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 gio = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
-glib = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
+glib = { version = "0.15.3", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 gdk = {path = "../gdk", version = "0.15.1"}
 gdk-pixbuf = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 pango = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
