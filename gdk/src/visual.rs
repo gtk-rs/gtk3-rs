@@ -13,7 +13,11 @@ impl Visual {
 
         unsafe {
             ffi::gdk_query_depths(&mut ptr, &mut count);
-            Vec::from(slice::from_raw_parts(ptr as *const i32, count as usize))
+            if ptr.is_null() || count == 0 {
+                vec![]
+            } else {
+                Vec::from(slice::from_raw_parts(ptr as *const i32, count as usize))
+            }
         }
     }
 }

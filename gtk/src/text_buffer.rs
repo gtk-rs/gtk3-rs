@@ -223,10 +223,16 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             let f: &F = &*(f as *const F);
             let mut location_copy = from_glib_none(location);
 
+            let text = if len <= 0 {
+                &[]
+            } else {
+                slice::from_raw_parts(text as *const u8, len as usize)
+            };
+
             f(
                 TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
                 &mut location_copy,
-                str::from_utf8(slice::from_raw_parts(text as *const u8, len as usize)).unwrap(),
+                str::from_utf8(text).unwrap(),
             );
 
             *location = *location_copy.to_glib_none().0;
