@@ -80,11 +80,6 @@ status = "generate"
 version = "3.24"
 
 [[object]]
-name = "Gtk.FileChooserWidgetAccessible"
-status = "generate"
-version = "3.24.30"
-
-[[object]]
 name = "Gtk.FontChooserLevel"
 status = "generate"
 version = "3.24"
@@ -93,11 +88,6 @@ version = "3.24"
 name = "Gtk.GestureStyle"
 status = "generate"
 version = "3.24"
-
-[[object]]
-name = "Gtk.HeaderBarAccessible"
-status = "generate"
-version = "3.24.11"
 
 [[object]]
 name = "Gtk.PadActionType"
@@ -110,21 +100,11 @@ status = "generate"
 version = "3.22"
 
 [[object]]
-name = "Gtk.PlugAccessible"
-status = "generate"
-version = "3.24.30"
-
-[[object]]
-name = "Gtk.ShortcutLabel"
+name = "Gtk.StackAccessible"
 status = "generate"
 version = "3.22"
 
 [[object]]
-name = "Gtk.SocketAccessible"
-status = "generate"
-version = "3.24.30"
-
-[[object]]
-name = "Gtk.StackAccessible"
+name = "Gtk.ShortcutLabel"
 status = "generate"
 version = "3.22"
