@@ -21,9 +21,15 @@ use syn::{parse_macro_input, DeriveInput};
 /// Specify that `MyWidget` is using a composite template and load the
 /// template file the `composite_template.ui` file.
 ///
-/// Then, in the `ObjectSubclass` implementation you will need to call
-/// `bind_template` in the `class_init` function, and `init_template` in
-/// `instance_init` function.
+/// Then, in the [`ObjectSubclass`] implementation you will need to call
+/// [`bind_template`] in the [`class_init`] function, and [`init_template`] in
+/// [`instance_init`] function.
+///
+/// [`ObjectSubclass`]: ../glib/subclass/types/trait.ObjectSubclass.html
+/// [`bind_template`]: ../gtk/subclass/widget/trait.CompositeTemplate.html#tymethod.bind_template
+/// [`class_init`]: ../glib/subclass/types/trait.ObjectSubclass.html#method.class_init
+/// [`init_template`]: ../gtk/prelude/trait.InitializingWidgetExt.html#tymethod.init_template
+/// [`instance_init`]: ../glib/subclass/types/trait.ObjectSubclass.html#method.instance_init
 ///
 /// ```no_run
 /// use gtk::prelude::*;
