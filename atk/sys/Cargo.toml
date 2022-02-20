@@ -40,7 +40,7 @@ license = "MIT"
 links = "atk-1.0"
 name = "atk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
-version = "0.15.3"
+version = "0.15.4"
 edition = "2021"
 rust-version = "1.56"
 [package.metadata.docs.rs]
