@@ -54,7 +54,7 @@ name = "gdk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.16.0"
 edition = "2021"
-rust-version = "1.56"
+rust-version = "1.57"
 [package.metadata.docs.rs]
 features = ["dox"]
 [package.metadata.system-deps.gdk_3_0]
