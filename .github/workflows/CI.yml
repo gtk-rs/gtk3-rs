@@ -18,7 +18,7 @@ jobs:
           - stable
           - beta
           - nightly
-          - "1.56.0"
+          - "1.57.0"
         conf:
           - { name: "atk", features: "v2_34", test_sys: false } # disable for now, until we get 2.38 on the docker image
           - { name: "gdk", features: "v3_24", test_sys: true }
@@ -98,7 +98,7 @@ jobs:
           - stable
           - beta
           - nightly
-          - "1.56.0"
+          - "1.57.0"
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
