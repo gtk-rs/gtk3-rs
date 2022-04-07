@@ -14,9 +14,7 @@ rust-version = "1.57"
 name = "gdk_wayland_sys"
 
 [features]
-v3_20 = ["gdk/v3_20"]
-v3_22 = ["v3_20", "gdk/v3_22"]
-v3_24 = ["v3_22", "gdk/v3_24"]
+v3_24 = ["gdk/v3_24"]
 v3_24_22 = ["v3_24"]
 dox = ["gdk/dox"]
 

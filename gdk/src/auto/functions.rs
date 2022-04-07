@@ -8,7 +8,6 @@ use crate::Event;
 use crate::EventType;
 use crate::ModifierType;
 use crate::Screen;
-use crate::Visual;
 use crate::Window;
 use crate::WindowState;
 use glib::translate::*;
@@ -140,13 +139,6 @@ pub fn shows_events() -> bool {
     unsafe { from_glib(ffi::gdk_get_show_events()) }
 }
 
-#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-#[doc(alias = "gdk_list_visuals")]
-pub fn list_visuals() -> Vec<Visual> {
-    assert_initialized_main_thread!();
-    unsafe { FromGlibPtrContainer::from_glib_container(ffi::gdk_list_visuals()) }
-}
-
 #[doc(alias = "gdk_notify_startup_complete")]
 pub fn notify_startup_complete() {
     assert_initialized_main_thread!();
@@ -169,8 +161,6 @@ pub fn pango_context_get() -> Option<pango::Context> {
     unsafe { from_glib_full(ffi::gdk_pango_context_get()) }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(alias = "gdk_pango_context_get_for_display")]
 pub fn pango_context_get_for_display(display: &Display) -> Option<pango::Context> {
     skip_assert_initialized!();
@@ -263,24 +253,6 @@ pub fn property_get(
         }
     }
 }
-
-#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-#[doc(alias = "gdk_query_depths")]
-pub fn query_depths() -> Vec<i32> {
-    assert_initialized_main_thread!();
-    unsafe {
-        let mut depths = ptr::null_mut();
-        let mut count = mem::MaybeUninit::uninit();
-        ffi::gdk_query_depths(&mut depths, count.as_mut_ptr());
-        FromGlibContainer::from_glib_none_num(depths, count.assume_init() as usize)
-    }
-}
-
-//#[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-//#[doc(alias = "gdk_query_visual_types")]
-//pub fn query_visual_types(visual_types: /*Unimplemented*/CArray TypeId { ns_id: 1, id: 99 }) -> i32 {
-//    unsafe { TODO: call ffi:gdk_query_visual_types() }
-//}
 
 #[doc(alias = "gdk_selection_convert")]
 pub fn selection_convert(requestor: &Window, selection: &Atom, target: &Atom, time_: u32) {

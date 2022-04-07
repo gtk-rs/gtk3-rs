@@ -9,7 +9,6 @@ use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::StaticType;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -97,38 +96,6 @@ impl Monitor {
         unsafe { from_glib(ffi::gdk_monitor_is_primary(self.to_glib_none().0)) }
     }
 
-    pub fn get_property_display(&self) -> Option<Display> {
-        glib::ObjectExt::property(self, "display")
-    }
-
-    pub fn get_property_geometry(&self) -> Option<Rectangle> {
-        glib::ObjectExt::property(self, "geometry")
-    }
-
-    #[doc(alias = "height-mm")]
-    pub fn get_property_height_mm(&self) -> i32 {
-        glib::ObjectExt::property(self, "height-mm")
-    }
-
-    #[doc(alias = "refresh-rate")]
-    pub fn get_property_refresh_rate(&self) -> i32 {
-        glib::ObjectExt::property(self, "refresh-rate")
-    }
-
-    #[doc(alias = "scale-factor")]
-    pub fn get_property_scale_factor(&self) -> i32 {
-        glib::ObjectExt::property(self, "scale-factor")
-    }
-
-    #[doc(alias = "width-mm")]
-    pub fn get_property_width_mm(&self) -> i32 {
-        glib::ObjectExt::property(self, "width-mm")
-    }
-
-    pub fn get_property_workarea(&self) -> Option<Rectangle> {
-        glib::ObjectExt::property(self, "workarea")
-    }
-
     #[doc(alias = "invalidate")]
     pub fn connect_invalidate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn invalidate_trampoline<F: Fn(&Monitor) + 'static>(
@@ -197,8 +164,6 @@ impl Monitor {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "manufacturer")]
     pub fn connect_manufacturer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_manufacturer_trampoline<F: Fn(&Monitor) + 'static>(
@@ -222,8 +187,6 @@ impl Monitor {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "model")]
     pub fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_model_trampoline<F: Fn(&Monitor) + 'static>(
@@ -293,8 +256,6 @@ impl Monitor {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "subpixel-layout")]
     pub fn connect_subpixel_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_subpixel_layout_trampoline<F: Fn(&Monitor) + 'static>(

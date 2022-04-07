@@ -45,8 +45,6 @@ impl WaylandDisplay {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_wayland_display_set_startup_notification_id")]
     pub fn set_startup_notification_id(&self, startup_id: &str) {
         unsafe {
@@ -57,15 +55,11 @@ impl WaylandDisplay {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_wayland_display_prefers_ssd")]
     pub fn prefers_ssd(&self) -> bool {
         unsafe { from_glib(ffi::gdk_wayland_display_prefers_ssd(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_wayland_display_query_registry")]
     pub fn query_registry(&self, global: &str) -> bool {
         unsafe {

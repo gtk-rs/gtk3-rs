@@ -10,9 +10,7 @@ use glib::StaticType;
 use glib::Type;
 use std::fmt;
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 bitflags! {
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "GdkAnchorHints")]
     pub struct AnchorHints: u32 {
         #[doc(alias = "GDK_ANCHOR_FLIP_X")]
@@ -36,16 +34,12 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl fmt::Display for AnchorHints {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl IntoGlib for AnchorHints {
     type GlibType = ffi::GdkAnchorHints;
@@ -55,8 +49,6 @@ impl IntoGlib for AnchorHints {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkAnchorHints> for AnchorHints {
     unsafe fn from_glib(value: ffi::GdkAnchorHints) -> Self {
@@ -65,22 +57,16 @@ impl FromGlib<ffi::GdkAnchorHints> for AnchorHints {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for AnchorHints {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_anchor_hints_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl glib::value::ValueType for AnchorHints {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 unsafe impl<'a> FromValue<'a> for AnchorHints {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -90,8 +76,6 @@ unsafe impl<'a> FromValue<'a> for AnchorHints {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for AnchorHints {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -106,9 +90,7 @@ impl ToValue for AnchorHints {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 bitflags! {
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "GdkAxisFlags")]
     pub struct AxisFlags: u32 {
         #[doc(alias = "GDK_AXIS_FLAG_X")]
@@ -132,16 +114,12 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl fmt::Display for AxisFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl IntoGlib for AxisFlags {
     type GlibType = ffi::GdkAxisFlags;
@@ -151,8 +129,6 @@ impl IntoGlib for AxisFlags {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkAxisFlags> for AxisFlags {
     unsafe fn from_glib(value: ffi::GdkAxisFlags) -> Self {
@@ -161,22 +137,16 @@ impl FromGlib<ffi::GdkAxisFlags> for AxisFlags {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for AxisFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_axis_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl glib::value::ValueType for AxisFlags {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 unsafe impl<'a> FromValue<'a> for AxisFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -186,8 +156,6 @@ unsafe impl<'a> FromValue<'a> for AxisFlags {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for AxisFlags {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -594,9 +562,7 @@ impl ToValue for ModifierType {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
 bitflags! {
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "GdkSeatCapabilities")]
     pub struct SeatCapabilities: u32 {
         #[doc(alias = "GDK_SEAT_CAPABILITY_NONE")]
@@ -616,16 +582,12 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl fmt::Display for SeatCapabilities {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl IntoGlib for SeatCapabilities {
     type GlibType = ffi::GdkSeatCapabilities;
@@ -635,8 +597,6 @@ impl IntoGlib for SeatCapabilities {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkSeatCapabilities> for SeatCapabilities {
     unsafe fn from_glib(value: ffi::GdkSeatCapabilities) -> Self {
@@ -645,22 +605,16 @@ impl FromGlib<ffi::GdkSeatCapabilities> for SeatCapabilities {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl StaticType for SeatCapabilities {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_seat_capabilities_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl glib::value::ValueType for SeatCapabilities {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 unsafe impl<'a> FromValue<'a> for SeatCapabilities {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -670,8 +624,6 @@ unsafe impl<'a> FromValue<'a> for SeatCapabilities {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl ToValue for SeatCapabilities {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();

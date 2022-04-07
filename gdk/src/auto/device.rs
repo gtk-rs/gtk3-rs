@@ -3,26 +3,16 @@
 // DO NOT EDIT
 
 use crate::Atom;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::AxisFlags;
 use crate::AxisUse;
-use crate::Cursor;
 use crate::DeviceManager;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::DeviceTool;
 use crate::DeviceType;
 use crate::Display;
-use crate::EventMask;
-use crate::GrabOwnership;
-use crate::GrabStatus;
 use crate::InputMode;
 use crate::InputSource;
 use crate::ModifierType;
 use crate::Screen;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Seat;
 use crate::Window;
 use glib::object::ObjectType as ObjectType_;
@@ -54,8 +44,6 @@ impl Device {
         unsafe { from_glib_none(ffi::gdk_device_get_associated_device(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_device_get_axes")]
     #[doc(alias = "get_axes")]
     pub fn axes(&self) -> AxisFlags {
@@ -194,8 +182,6 @@ impl Device {
         unsafe { from_glib_none(ffi::gdk_device_get_product_id(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_device_get_seat")]
     #[doc(alias = "get_seat")]
     pub fn seat(&self) -> Option<Seat> {
@@ -254,30 +240,6 @@ impl Device {
         }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gdk_device_grab")]
-    pub fn grab(
-        &self,
-        window: &Window,
-        grab_ownership: GrabOwnership,
-        owner_events: bool,
-        event_mask: EventMask,
-        cursor: Option<&Cursor>,
-        time_: u32,
-    ) -> GrabStatus {
-        unsafe {
-            from_glib(ffi::gdk_device_grab(
-                self.to_glib_none().0,
-                window.to_glib_none().0,
-                grab_ownership.into_glib(),
-                owner_events.into_glib(),
-                event_mask.into_glib(),
-                cursor.to_glib_none().0,
-                time_,
-            ))
-        }
-    }
-
     #[doc(alias = "gdk_device_list_axes")]
     pub fn list_axes(&self) -> Vec<Atom> {
         unsafe {
@@ -320,14 +282,6 @@ impl Device {
         }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gdk_device_ungrab")]
-    pub fn ungrab(&self, time_: u32) {
-        unsafe {
-            ffi::gdk_device_ungrab(self.to_glib_none().0, time_);
-        }
-    }
-
     #[doc(alias = "gdk_device_warp")]
     pub fn warp(&self, screen: &Screen, x: i32, y: i32) {
         unsafe {
@@ -355,21 +309,15 @@ impl Device {
         glib::ObjectExt::property(self, "input-source")
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "num-touches")]
     pub fn num_touches(&self) -> u32 {
         glib::ObjectExt::property(self, "num-touches")
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn set_seat(&self, seat: Option<&Seat>) {
         glib::ObjectExt::set_property(self, "seat", &seat)
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn tool(&self) -> Option<DeviceTool> {
         glib::ObjectExt::property(self, "tool")
     }
@@ -401,8 +349,6 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "tool-changed")]
     pub fn connect_tool_changed<F: Fn(&Self, &DeviceTool) + 'static>(
         &self,
@@ -455,8 +401,6 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "axes")]
     pub fn connect_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_axes_trampoline<F: Fn(&Device) + 'static>(
@@ -526,8 +470,6 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "seat")]
     pub fn connect_seat_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_seat_trampoline<F: Fn(&Device) + 'static>(
@@ -551,8 +493,6 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "tool")]
     pub fn connect_tool_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tool_trampoline<F: Fn(&Device) + 'static>(

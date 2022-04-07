@@ -5,14 +5,9 @@
 use crate::AppLaunchContext;
 use crate::Atom;
 use crate::Device;
-use crate::DeviceManager;
 use crate::Event;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::Monitor;
 use crate::Screen;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Seat;
 use crate::Window;
 use glib::object::ObjectType as ObjectType_;
@@ -93,19 +88,10 @@ impl Display {
         unsafe { from_glib_none(ffi::gdk_display_get_default_screen(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_display_get_default_seat")]
     #[doc(alias = "get_default_seat")]
     pub fn default_seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(ffi::gdk_display_get_default_seat(self.to_glib_none().0)) }
-    }
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gdk_display_get_device_manager")]
-    #[doc(alias = "get_device_manager")]
-    pub fn device_manager(&self) -> Option<DeviceManager> {
-        unsafe { from_glib_none(ffi::gdk_display_get_device_manager(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "gdk_display_get_event")]
@@ -131,8 +117,6 @@ impl Display {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_monitor")]
     #[doc(alias = "get_monitor")]
     pub fn monitor(&self, monitor_num: i32) -> Option<Monitor> {
@@ -144,8 +128,6 @@ impl Display {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_monitor_at_point")]
     #[doc(alias = "get_monitor_at_point")]
     pub fn monitor_at_point(&self, x: i32, y: i32) -> Option<Monitor> {
@@ -158,8 +140,6 @@ impl Display {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_monitor_at_window")]
     #[doc(alias = "get_monitor_at_window")]
     pub fn monitor_at_window(&self, window: &Window) -> Option<Monitor> {
@@ -171,8 +151,6 @@ impl Display {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_n_monitors")]
     #[doc(alias = "get_n_monitors")]
     pub fn n_monitors(&self) -> i32 {
@@ -185,24 +163,10 @@ impl Display {
         unsafe { from_glib_none(ffi::gdk_display_get_name(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_display_get_primary_monitor")]
     #[doc(alias = "get_primary_monitor")]
     pub fn primary_monitor(&self) -> Option<Monitor> {
         unsafe { from_glib_none(ffi::gdk_display_get_primary_monitor(self.to_glib_none().0)) }
-    }
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gdk_display_get_screen")]
-    #[doc(alias = "get_screen")]
-    pub fn screen(&self, screen_num: i32) -> Screen {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_screen(
-                self.to_glib_none().0,
-                screen_num,
-            ))
-        }
     }
 
     #[doc(alias = "gdk_display_has_pending")]
@@ -215,8 +179,6 @@ impl Display {
         unsafe { from_glib(ffi::gdk_display_is_closed(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_display_list_seats")]
     pub fn list_seats(&self) -> Vec<Seat> {
         unsafe {
@@ -379,8 +341,6 @@ impl Display {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "monitor-added")]
     pub fn connect_monitor_added<F: Fn(&Self, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn monitor_added_trampoline<F: Fn(&Display, &Monitor) + 'static>(
@@ -404,8 +364,6 @@ impl Display {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "monitor-removed")]
     pub fn connect_monitor_removed<F: Fn(&Self, &Monitor) + 'static>(
         &self,
@@ -454,8 +412,6 @@ impl Display {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "seat-added")]
     pub fn connect_seat_added<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn seat_added_trampoline<F: Fn(&Display, &Seat) + 'static>(
@@ -479,8 +435,6 @@ impl Display {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "seat-removed")]
     pub fn connect_seat_removed<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn seat_removed_trampoline<F: Fn(&Display, &Seat) + 'static>(
