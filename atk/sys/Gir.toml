@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "Atk"
 version = "1.0"
-min_cfg_version = "2.18"
+min_cfg_version = "2.28"
 single_version_file = "."
 girs_directories = ["../../gir-files"]
 
