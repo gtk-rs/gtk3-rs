@@ -5,7 +5,7 @@ Project site is [here](https://gtk-rs.org/).
 __Rust__ bindings and wrappers for [GDK3-Wayland](https://developer.gnome.org/gdk3/),
 part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
 
-GDK3-Wayland __3.18__ is the lowest supported version for the underlying library.
+GDK3-Wayland __3.22__ is the lowest supported version for the underlying library.
 
 ## Minimum supported Rust version
 

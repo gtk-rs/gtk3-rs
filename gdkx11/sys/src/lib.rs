@@ -460,11 +460,7 @@ extern "C" {
     //=========================================================================
     // GdkX11Monitor
     //=========================================================================
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_x11_monitor_get_type() -> GType;
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_x11_monitor_get_output(monitor: *mut gdk::GdkMonitor) -> xlib::XID;
 
     //=========================================================================

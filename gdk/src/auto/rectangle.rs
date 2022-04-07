@@ -15,8 +15,6 @@ glib::wrapper! {
 }
 
 impl Rectangle {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_rectangle_equal")]
     fn equal(&self, rect2: &Rectangle) -> bool {
         unsafe {
@@ -59,8 +57,6 @@ impl Rectangle {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl PartialEq for Rectangle {
     #[inline]
     fn eq(&self, other: &Self) -> bool {

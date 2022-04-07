@@ -1,6 +1,5 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 use gdk::DevicePadFeature;
 use glib::translate::*;
 
@@ -18,8 +17,6 @@ glib::wrapper! {
 }
 
 impl WaylandDevice {
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_wayland_device_pad_set_feedback")]
     pub fn pad_set_feedback(&self, element: DevicePadFeature, idx: usize, label: &str) {
         unsafe {

@@ -817,8 +817,6 @@ impl ToValue for CursorType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GdkDevicePadFeature")]
@@ -833,8 +831,6 @@ pub enum DevicePadFeature {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl fmt::Display for DevicePadFeature {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -850,8 +846,6 @@ impl fmt::Display for DevicePadFeature {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl IntoGlib for DevicePadFeature {
     type GlibType = ffi::GdkDevicePadFeature;
@@ -866,8 +860,6 @@ impl IntoGlib for DevicePadFeature {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDevicePadFeature> for DevicePadFeature {
     unsafe fn from_glib(value: ffi::GdkDevicePadFeature) -> Self {
@@ -881,22 +873,16 @@ impl FromGlib<ffi::GdkDevicePadFeature> for DevicePadFeature {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for DevicePadFeature {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_device_pad_feature_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl glib::value::ValueType for DevicePadFeature {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 unsafe impl<'a> FromValue<'a> for DevicePadFeature {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -906,8 +892,6 @@ unsafe impl<'a> FromValue<'a> for DevicePadFeature {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for DevicePadFeature {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -922,8 +906,6 @@ impl ToValue for DevicePadFeature {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GdkDeviceToolType")]
@@ -948,8 +930,6 @@ pub enum DeviceToolType {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl fmt::Display for DeviceToolType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -970,8 +950,6 @@ impl fmt::Display for DeviceToolType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl IntoGlib for DeviceToolType {
     type GlibType = ffi::GdkDeviceToolType;
@@ -991,8 +969,6 @@ impl IntoGlib for DeviceToolType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDeviceToolType> for DeviceToolType {
     unsafe fn from_glib(value: ffi::GdkDeviceToolType) -> Self {
@@ -1011,22 +987,16 @@ impl FromGlib<ffi::GdkDeviceToolType> for DeviceToolType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for DeviceToolType {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_device_tool_type_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl glib::value::ValueType for DeviceToolType {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 unsafe impl<'a> FromValue<'a> for DeviceToolType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -1036,8 +1006,6 @@ unsafe impl<'a> FromValue<'a> for DeviceToolType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for DeviceToolType {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -1141,8 +1109,6 @@ impl ToValue for DeviceType {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GdkDragCancelReason")]
@@ -1157,8 +1123,6 @@ pub enum DragCancelReason {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl fmt::Display for DragCancelReason {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1174,8 +1138,6 @@ impl fmt::Display for DragCancelReason {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl IntoGlib for DragCancelReason {
     type GlibType = ffi::GdkDragCancelReason;
@@ -1190,8 +1152,6 @@ impl IntoGlib for DragCancelReason {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDragCancelReason> for DragCancelReason {
     unsafe fn from_glib(value: ffi::GdkDragCancelReason) -> Self {
@@ -1205,22 +1165,16 @@ impl FromGlib<ffi::GdkDragCancelReason> for DragCancelReason {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl StaticType for DragCancelReason {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_drag_cancel_reason_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl glib::value::ValueType for DragCancelReason {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 unsafe impl<'a> FromValue<'a> for DragCancelReason {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -1230,8 +1184,6 @@ unsafe impl<'a> FromValue<'a> for DragCancelReason {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl ToValue for DragCancelReason {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -3057,8 +3009,6 @@ impl ToValue for SettingAction {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GdkSubpixelLayout")]
@@ -3079,8 +3029,6 @@ pub enum SubpixelLayout {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl fmt::Display for SubpixelLayout {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -3099,8 +3047,6 @@ impl fmt::Display for SubpixelLayout {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl IntoGlib for SubpixelLayout {
     type GlibType = ffi::GdkSubpixelLayout;
@@ -3118,8 +3064,6 @@ impl IntoGlib for SubpixelLayout {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkSubpixelLayout> for SubpixelLayout {
     unsafe fn from_glib(value: ffi::GdkSubpixelLayout) -> Self {
@@ -3136,22 +3080,16 @@ impl FromGlib<ffi::GdkSubpixelLayout> for SubpixelLayout {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for SubpixelLayout {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_subpixel_layout_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl glib::value::ValueType for SubpixelLayout {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 unsafe impl<'a> FromValue<'a> for SubpixelLayout {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -3161,8 +3099,6 @@ unsafe impl<'a> FromValue<'a> for SubpixelLayout {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for SubpixelLayout {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();

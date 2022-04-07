@@ -26,11 +26,7 @@ macro_rules! opaque {
 opaque!(GdkWaylandDevice);
 opaque!(GdkWaylandDisplay);
 opaque!(GdkWaylandGLContext);
-opaque!(
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    GdkWaylandMonitor
-);
+opaque!(GdkWaylandMonitor);
 opaque!(GdkWaylandWindow);
 opaque!(GdkWaylandSeat);
 
@@ -61,12 +57,8 @@ extern "C" {
         targets: *mut GdkAtom,
     );
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_window_unexport_handle(window: *mut GdkWaylandWindow);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_window_export_handle(
         window: *mut GdkWaylandWindow,
         cb: Option<unsafe extern "C" fn(*mut GdkWaylandWindow, *const c_char, *mut libc::c_void)>,
@@ -74,8 +66,6 @@ extern "C" {
         destroy_notify: Option<unsafe extern "C" fn(*mut libc::c_void)>,
     ) -> glib::gboolean;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_window_set_transient_for_exported(
         window: *mut GdkWaylandWindow,
         parent_handle: *const c_char,
@@ -88,8 +78,6 @@ extern "C" {
         application_id: *const c_char,
     ) -> glib::gboolean;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_window_announce_csd(window: *mut GdkWaylandWindow);
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
@@ -121,8 +109,6 @@ extern "C" {
 
     pub fn gdk_wayland_device_get_wl_keyboard(device: *mut GdkWaylandDevice) -> gpointer;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_device_get_node_path(device: *mut GdkWaylandDevice) -> *const c_char;
 
     pub fn gdk_wayland_device_pad_set_feedback(
@@ -147,19 +133,13 @@ extern "C" {
 
     pub fn gdk_wayland_display_get_wl_compositor(display: *mut GdkWaylandDisplay) -> gpointer;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_display_set_startup_notification_id(
         display: *mut GdkWaylandDisplay,
         startup_id: *const c_char,
     );
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_display_prefers_ssd(display: *mut GdkWaylandDisplay) -> glib::gboolean;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_display_query_registry(
         display: *mut GdkWaylandDisplay,
         global: *const c_char,
@@ -175,18 +155,12 @@ extern "C" {
     //=========================================================================
     pub fn gdk_wayland_seat_get_type() -> GType;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gdk_wayland_seat_get_wl_seat(seat: *mut GdkWaylandSeat) -> gpointer;
 
     //=========================================================================
     // GdkWaylandMonitor
     //=========================================================================
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_monitor_get_type() -> GType;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_wayland_monitor_get_wl_output(monitor: *mut GdkWaylandMonitor) -> gpointer;
 }

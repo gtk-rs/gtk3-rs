@@ -109,14 +109,6 @@ impl Keymap {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gdk_keymap_get_default")]
-    #[doc(alias = "get_default")]
-    pub fn default() -> Option<Keymap> {
-        assert_initialized_main_thread!();
-        unsafe { from_glib_none(ffi::gdk_keymap_get_default()) }
-    }
-
     #[doc(alias = "gdk_keymap_get_for_display")]
     #[doc(alias = "get_for_display")]
     pub fn for_display(display: &Display) -> Option<Keymap> {

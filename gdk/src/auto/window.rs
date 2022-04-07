@@ -9,8 +9,6 @@ use crate::Cursor;
 use crate::Device;
 use crate::Display;
 use crate::DragProtocol;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::DrawingContext;
 use crate::Event;
 use crate::EventMask;
@@ -33,7 +31,6 @@ use crate::WindowHints;
 use crate::WindowState;
 use crate::WindowType;
 use crate::WindowTypeHint;
-use crate::RGBA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
@@ -66,8 +63,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_window_begin_draw_frame")]
     pub fn begin_draw_frame(&self, region: &cairo::Region) -> Option<DrawingContext> {
         unsafe {
@@ -109,22 +104,6 @@ impl Window {
                 root_y,
                 timestamp,
             );
-        }
-    }
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gdk_window_begin_paint_rect")]
-    pub fn begin_paint_rect(&self, rectangle: &Rectangle) {
-        unsafe {
-            ffi::gdk_window_begin_paint_rect(self.to_glib_none().0, rectangle.to_glib_none().0);
-        }
-    }
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gdk_window_begin_paint_region")]
-    pub fn begin_paint_region(&self, region: &cairo::Region) {
-        unsafe {
-            ffi::gdk_window_begin_paint_region(self.to_glib_none().0, region.to_glib_none().0);
         }
     }
 
@@ -242,8 +221,6 @@ impl Window {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_window_end_draw_frame")]
     pub fn end_draw_frame(&self, context: &DrawingContext) {
         unsafe {
@@ -904,14 +881,6 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gdk_window_process_updates")]
-    pub fn process_updates(&self, update_children: bool) {
-        unsafe {
-            ffi::gdk_window_process_updates(self.to_glib_none().0, update_children.into_glib());
-        }
-    }
-
     #[doc(alias = "gdk_window_raise")]
     pub fn raise(&self) {
         unsafe {
@@ -967,14 +936,6 @@ impl Window {
     pub fn set_accept_focus(&self, accept_focus: bool) {
         unsafe {
             ffi::gdk_window_set_accept_focus(self.to_glib_none().0, accept_focus.into_glib());
-        }
-    }
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gdk_window_set_background_rgba")]
-    pub fn set_background_rgba(&self, rgba: &RGBA) {
-        unsafe {
-            ffi::gdk_window_set_background_rgba(self.to_glib_none().0, rgba.to_glib_none().0);
         }
     }
 
@@ -1350,24 +1311,6 @@ impl Window {
         }
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gdk_window_process_all_updates")]
-    pub fn process_all_updates() {
-        assert_initialized_main_thread!();
-        unsafe {
-            ffi::gdk_window_process_all_updates();
-        }
-    }
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gdk_window_set_debug_updates")]
-    pub fn set_debug_updates(setting: bool) {
-        assert_initialized_main_thread!();
-        unsafe {
-            ffi::gdk_window_set_debug_updates(setting.into_glib());
-        }
-    }
-
     #[doc(alias = "create-surface")]
     pub fn connect_create_surface<F: Fn(&Self, i32, i32) -> cairo::Surface + 'static>(
         &self,
@@ -1403,8 +1346,6 @@ impl Window {
     //    Out offscreen_y: *.Double
     //}
 
-    //#[cfg(any(feature = "v3_22", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     //#[doc(alias = "moved-to-rect")]
     //pub fn connect_moved_to_rect<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented flipped_rect: *.Pointer

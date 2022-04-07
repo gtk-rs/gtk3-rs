@@ -34,15 +34,6 @@ impl Rectangle {
     pub fn height(&self) -> i32 {
         self.inner.height
     }
-
-    #[cfg(not(any(feature = "v3_20", feature = "dox")))]
-    #[doc(alias = "gdk_rectangle_equal")]
-    fn equal(&self, rect2: &Rectangle) -> bool {
-        self.inner.x == rect2.inner.x
-            && self.inner.y == rect2.inner.y
-            && self.inner.width == rect2.inner.width
-            && self.inner.height == rect2.inner.height
-    }
 }
 
 impl fmt::Debug for Rectangle {
@@ -53,14 +44,6 @@ impl fmt::Debug for Rectangle {
             .field("width", &self.width())
             .field("height", &self.height())
             .finish()
-    }
-}
-
-#[cfg(not(any(feature = "v3_20", feature = "dox")))]
-impl PartialEq for Rectangle {
-    #[inline]
-    fn eq(&self, other: &Self) -> bool {
-        self.equal(other)
     }
 }
 

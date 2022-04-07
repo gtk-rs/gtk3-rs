@@ -111,8 +111,6 @@ pub struct ButtonBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -198,7 +196,6 @@ impl ButtonBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -359,8 +356,6 @@ impl ButtonBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -519,13 +514,6 @@ pub trait ButtonExt: 'static {
     #[doc(alias = "get_event_window")]
     fn event_window(&self) -> Option<gdk::Window>;
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    #[doc(alias = "gtk_button_get_focus_on_click")]
-    #[doc(alias = "get_focus_on_click")]
-    fn gets_focus_on_click(&self) -> bool;
-
     #[doc(alias = "gtk_button_get_image")]
     #[doc(alias = "get_image")]
     fn image(&self) -> Option<Widget>;
@@ -548,12 +536,6 @@ pub trait ButtonExt: 'static {
 
     #[doc(alias = "gtk_button_set_always_show_image")]
     fn set_always_show_image(&self, always_show: bool);
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    #[doc(alias = "gtk_button_set_focus_on_click")]
-    fn set_focus_on_click(&self, focus_on_click: bool);
 
     #[doc(alias = "gtk_button_set_image")]
     fn set_image(&self, image: Option<&impl IsA<Widget>>);
@@ -622,16 +604,6 @@ impl<O: IsA<Button>> ButtonExt for O {
         }
     }
 
-    #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    fn gets_focus_on_click(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_button_get_focus_on_click(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
     fn image(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_button_get_image(self.as_ref().to_glib_none().0)) }
     }
@@ -665,17 +637,6 @@ impl<O: IsA<Button>> ButtonExt for O {
             ffi::gtk_button_set_always_show_image(
                 self.as_ref().to_glib_none().0,
                 always_show.into_glib(),
-            );
-        }
-    }
-
-    #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    fn set_focus_on_click(&self, focus_on_click: bool) {
-        unsafe {
-            ffi::gtk_button_set_focus_on_click(
-                self.as_ref().to_glib_none().0,
-                focus_on_click.into_glib(),
             );
         }
     }

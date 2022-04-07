@@ -118,8 +118,6 @@ pub struct TextViewBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -252,7 +250,6 @@ impl TextViewBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -495,8 +492,6 @@ impl TextViewBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -821,8 +816,6 @@ pub trait TextViewExt: 'static {
     #[doc(alias = "gtk_text_view_place_cursor_onscreen")]
     fn place_cursor_onscreen(&self) -> bool;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_text_view_reset_cursor_blink")]
     fn reset_cursor_blink(&self);
 
@@ -972,13 +965,9 @@ pub trait TextViewExt: 'static {
 
     fn emit_insert_at_cursor(&self, string: &str);
 
-    #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     #[doc(alias = "insert-emoji")]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     fn emit_insert_emoji(&self);
 
     #[doc(alias = "move-cursor")]
@@ -1485,8 +1474,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn reset_cursor_blink(&self) {
         unsafe {
             ffi::gtk_text_view_reset_cursor_blink(self.as_ref().to_glib_none().0);
@@ -1939,8 +1926,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         self.emit_by_name::<()>("insert-at-cursor", &[&string]);
     }
 
-    #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_emoji_trampoline<P: IsA<TextView>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextView,
@@ -1962,8 +1947,6 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     fn emit_insert_emoji(&self) {
         self.emit_by_name::<()>("insert-emoji", &[]);
     }

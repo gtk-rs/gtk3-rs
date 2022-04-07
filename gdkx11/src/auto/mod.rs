@@ -35,11 +35,7 @@ pub use self::x11gl_context::X11GLContext;
 mod x11_keymap;
 pub use self::x11_keymap::X11Keymap;
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 mod x11_monitor;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::x11_monitor::X11Monitor;
 
 mod x11_screen;

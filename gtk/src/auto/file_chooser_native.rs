@@ -99,26 +99,6 @@ impl FileChooserNative {
     }
 
     #[doc(alias = "accept-label")]
-    pub fn get_property_accept_label(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self, "accept-label")
-    }
-
-    #[doc(alias = "accept-label")]
-    pub fn set_property_accept_label(&self, accept_label: Option<&str>) {
-        glib::ObjectExt::set_property(self, "accept-label", &accept_label)
-    }
-
-    #[doc(alias = "cancel-label")]
-    pub fn get_property_cancel_label(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self, "cancel-label")
-    }
-
-    #[doc(alias = "cancel-label")]
-    pub fn set_property_cancel_label(&self, cancel_label: Option<&str>) {
-        glib::ObjectExt::set_property(self, "cancel-label", &cancel_label)
-    }
-
-    #[doc(alias = "accept-label")]
     pub fn connect_accept_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accept_label_trampoline<F: Fn(&FileChooserNative) + 'static>(
             this: *mut ffi::GtkFileChooserNative,
@@ -165,8 +145,6 @@ impl FileChooserNative {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl Default for FileChooserNative {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
@@ -183,17 +161,9 @@ impl Default for FileChooserNative {
 pub struct FileChooserNativeBuilder {
     accept_label: Option<String>,
     cancel_label: Option<String>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     modal: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     title: Option<String>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     transient_for: Option<Window>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     visible: Option<bool>,
     action: Option<FileChooserAction>,
     create_folders: Option<bool>,
@@ -226,19 +196,15 @@ impl FileChooserNativeBuilder {
         if let Some(ref cancel_label) = self.cancel_label {
             properties.push(("cancel-label", cancel_label));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref modal) = self.modal {
             properties.push(("modal", modal));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref title) = self.title {
             properties.push(("title", title));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref transient_for) = self.transient_for {
             properties.push(("transient-for", transient_for));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref visible) = self.visible {
             properties.push(("visible", visible));
         }
@@ -289,29 +255,21 @@ impl FileChooserNativeBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn modal(mut self, modal: bool) -> Self {
         self.modal = Some(modal);
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn title(mut self, title: &str) -> Self {
         self.title = Some(title.to_string());
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn transient_for(mut self, transient_for: &impl IsA<Window>) -> Self {
         self.transient_for = Some(transient_for.clone().upcast());
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn visible(mut self, visible: bool) -> Self {
         self.visible = Some(visible);
         self

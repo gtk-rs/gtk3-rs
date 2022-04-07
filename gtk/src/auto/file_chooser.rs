@@ -43,8 +43,6 @@ pub trait FileChooserExt: 'static {
     #[doc(alias = "get_action")]
     fn action(&self) -> FileChooserAction;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_chooser_get_choice")]
     #[doc(alias = "get_choice")]
     fn choice(&self, id: &str) -> Option<glib::GString>;
@@ -150,8 +148,6 @@ pub trait FileChooserExt: 'static {
     #[doc(alias = "gtk_file_chooser_list_shortcut_folders")]
     fn list_shortcut_folders(&self) -> Vec<std::path::PathBuf>;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_chooser_remove_choice")]
     fn remove_choice(&self, id: &str);
 
@@ -182,8 +178,6 @@ pub trait FileChooserExt: 'static {
     #[doc(alias = "gtk_file_chooser_set_action")]
     fn set_action(&self, action: FileChooserAction);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_chooser_set_choice")]
     fn set_choice(&self, id: &str, option: &str);
 
@@ -355,8 +349,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn choice(&self, id: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_get_choice(
@@ -574,8 +566,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn remove_choice(&self, id: &str) {
         unsafe {
             ffi::gtk_file_chooser_remove_choice(
@@ -678,8 +668,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_choice(&self, id: &str, option: &str) {
         unsafe {
             ffi::gtk_file_chooser_set_choice(

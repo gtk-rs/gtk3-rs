@@ -3,8 +3,6 @@
 use crate::Align;
 use crate::BaselinePosition;
 use crate::Container;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::IconSize;
 use crate::Orientation;
 use crate::ResizeMode;
@@ -12,26 +10,14 @@ use crate::Stack;
 use crate::StackSwitcher;
 use crate::Widget;
 use glib::object::IsA;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::ObjectExt;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::signal::{connect_raw, SignalHandlerId};
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::translate::*;
 use glib::Cast;
 use glib::ToValue;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::boxed::Box as Box_;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::mem::transmute;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub trait StackSwitcherExtManual: 'static {
     #[doc(alias = "icon-size")]
     fn icon_size(&self) -> IconSize;
@@ -43,8 +29,6 @@ pub trait StackSwitcherExtManual: 'static {
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl<O: IsA<StackSwitcher>> StackSwitcherExtManual for O {
     fn icon_size(&self) -> IconSize {
         unsafe { from_glib(self.as_ref().property::<i32>("icon-size")) }
@@ -65,7 +49,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExtManual for O {
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(&StackSwitcher::from_glib_borrow(this).unsafe_cast_ref())
+            f(StackSwitcher::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -96,8 +80,6 @@ impl StackSwitcher {
 /// A builder for generating a [`StackSwitcher`].
 #[must_use = "The builder must be built to be used"]
 pub struct StackSwitcherBuilder {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     icon_size: Option<i32>,
     stack: Option<Stack>,
     baseline_position: Option<BaselinePosition>,
@@ -111,8 +93,6 @@ pub struct StackSwitcherBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -155,7 +135,6 @@ impl StackSwitcherBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> StackSwitcher {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref icon_size) = self.icon_size {
             properties.push(("icon-size", icon_size));
         }
@@ -195,7 +174,6 @@ impl StackSwitcherBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -284,8 +262,6 @@ impl StackSwitcherBuilder {
             .expect("Failed to create an instance of StackSwitcher")
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn icon_size(mut self, icon_size: IconSize) -> Self {
         self.icon_size = Some(icon_size.into_glib());
         self
@@ -351,8 +327,6 @@ impl StackSwitcherBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self

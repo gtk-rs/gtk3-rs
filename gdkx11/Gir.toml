@@ -1,19 +1,16 @@
 [external_libraries]
-Gdk = {min_version = "3.18"}
+Gdk = {min_version = "3.22"}
 
 [options]
 girs_directories = ["../gir-files"]
 library = "GdkX11"
 version = "3.0"
-min_cfg_version = "3.18"
+min_cfg_version = "3.22"
 target_path = "."
 work_mode = "normal"
 single_version_file = true
 generate_safety_asserts = true
 deprecate_by_min_version = true
-extra_versions = [
-    "3.22"
-]
 
 generate = [
     "GdkX11.X11AppLaunchContext",
@@ -23,6 +20,7 @@ generate = [
     "GdkX11.X11DragContext",
     "GdkX11.X11GLContext",
     "GdkX11.X11Keymap",
+    "GdkX11.X11Monitor",
     "GdkX11.X11Window"
 ]
 
@@ -104,11 +102,6 @@ status = "generate"
     name = "text_property_to_text_list"
     # manual, the annotations are wrong
     ignore = true
-
-[[object]]
-name = "GdkX11.X11Monitor"
-status = "generate"
-version = "3.22"
 
 [[object]]
 name = "GdkX11.X11Screen"

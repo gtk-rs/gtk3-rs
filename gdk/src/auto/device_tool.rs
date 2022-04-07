@@ -40,20 +40,6 @@ impl DeviceTool {
     pub fn axes(&self) -> AxisFlags {
         glib::ObjectExt::property(self, "axes")
     }
-
-    #[doc(alias = "hardware-id")]
-    pub fn get_property_hardware_id(&self) -> u64 {
-        glib::ObjectExt::property(self, "hardware-id")
-    }
-
-    pub fn get_property_serial(&self) -> u64 {
-        glib::ObjectExt::property(self, "serial")
-    }
-
-    #[doc(alias = "tool-type")]
-    pub fn get_property_tool_type(&self) -> DeviceToolType {
-        glib::ObjectExt::property(self, "tool-type")
-    }
 }
 
 impl fmt::Display for DeviceTool {

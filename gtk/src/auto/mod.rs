@@ -194,11 +194,7 @@ pub use self::file_chooser_button::FileChooserButton;
 mod file_chooser_dialog;
 pub use self::file_chooser_dialog::FileChooserDialog;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 mod file_chooser_native;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::file_chooser_native::FileChooserNative;
 
 mod file_chooser_widget;
@@ -369,11 +365,7 @@ pub use self::model_button::ModelButton;
 mod mount_operation;
 pub use self::mount_operation::MountOperation;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 mod native_dialog;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::native_dialog::NativeDialog;
 
 mod notebook;
@@ -388,11 +380,7 @@ pub use self::orientable::Orientable;
 mod overlay;
 pub use self::overlay::Overlay;
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 mod pad_controller;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::pad_controller::PadController;
 
 mod page_setup;
@@ -509,39 +497,19 @@ pub use self::separator_tool_item::SeparatorToolItem;
 mod settings;
 pub use self::settings::Settings;
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 mod shortcut_label;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::shortcut_label::ShortcutLabel;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 mod shortcuts_group;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::shortcuts_group::ShortcutsGroup;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 mod shortcuts_section;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::shortcuts_section::ShortcutsSection;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 mod shortcuts_shortcut;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::shortcuts_shortcut::ShortcutsShortcut;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 mod shortcuts_window;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::shortcuts_window::ShortcutsWindow;
 
 mod size_group;
@@ -757,15 +725,11 @@ pub use self::enums::NumberUpLayout;
 pub use self::enums::Orientation;
 pub use self::enums::PackDirection;
 pub use self::enums::PackType;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::enums::PadActionType;
 pub use self::enums::PageOrientation;
 pub use self::enums::PageSet;
 pub use self::enums::PanDirection;
 pub use self::enums::PolicyType;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::enums::PopoverConstraint;
 pub use self::enums::PositionType;
 pub use self::enums::PrintDuplex;
@@ -788,8 +752,6 @@ pub use self::enums::ScrollablePolicy;
 pub use self::enums::SelectionMode;
 pub use self::enums::SensitivityType;
 pub use self::enums::ShadowType;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::enums::ShortcutType;
 pub use self::enums::SizeGroupMode;
 pub use self::enums::SizeRequestMode;
@@ -832,8 +794,6 @@ pub use self::flags::PlacesOpenFlags;
 pub use self::flags::RecentFilterFlags;
 pub use self::flags::RegionFlags;
 pub use self::flags::StateFlags;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::flags::StyleContextPrintFlags;
 pub use self::flags::TargetFlags;
 pub use self::flags::TextSearchFlags;
@@ -843,8 +803,6 @@ pub use self::flags::TreeModelFlags;
 pub mod functions;
 
 mod constants;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::constants::LEVEL_BAR_OFFSET_FULL;
 pub use self::constants::LEVEL_BAR_OFFSET_HIGH;
 pub use self::constants::LEVEL_BAR_OFFSET_LOW;
@@ -981,10 +939,6 @@ pub use self::constants::STYLE_PROPERTY_COLOR;
 pub use self::constants::STYLE_PROPERTY_FONT;
 pub use self::constants::STYLE_PROPERTY_MARGIN;
 pub use self::constants::STYLE_PROPERTY_PADDING;
-pub use self::constants::STYLE_REGION_COLUMN;
-pub use self::constants::STYLE_REGION_COLUMN_HEADER;
-pub use self::constants::STYLE_REGION_ROW;
-pub use self::constants::STYLE_REGION_TAB;
 
 #[doc(hidden)]
 pub mod traits {
@@ -1078,8 +1032,6 @@ pub mod traits {
     pub use super::menu_tool_button::MenuToolButtonExt;
     pub use super::message_dialog::MessageDialogExt;
     pub use super::mount_operation::MountOperationExt;
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub use super::native_dialog::NativeDialogExt;
     pub use super::notebook::NotebookExt;
     pub use super::offscreen_window::OffscreenWindowExt;
@@ -1114,8 +1066,6 @@ pub mod traits {
     pub use super::search_entry::SearchEntryExt;
     pub use super::separator_tool_item::SeparatorToolItemExt;
     pub use super::settings::SettingsExt;
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub use super::shortcuts_window::ShortcutsWindowExt;
     pub use super::size_group::SizeGroupExt;
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
@@ -1207,8 +1157,6 @@ pub mod builders {
     pub use super::expander::ExpanderBuilder;
     pub use super::file_chooser_button::FileChooserButtonBuilder;
     pub use super::file_chooser_dialog::FileChooserDialogBuilder;
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub use super::file_chooser_native::FileChooserNativeBuilder;
     pub use super::file_chooser_widget::FileChooserWidgetBuilder;
     pub use super::fixed::FixedBuilder;
@@ -1254,8 +1202,6 @@ pub mod builders {
     pub use super::notebook::NotebookBuilder;
     pub use super::offscreen_window::OffscreenWindowBuilder;
     pub use super::overlay::OverlayBuilder;
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub use super::pad_controller::PadControllerBuilder;
     pub use super::paned::PanedBuilder;
     pub use super::places_sidebar::PlacesSidebarBuilder;
@@ -1288,20 +1234,9 @@ pub mod builders {
     pub use super::separator::SeparatorBuilder;
     pub use super::separator_menu_item::SeparatorMenuItemBuilder;
     pub use super::separator_tool_item::SeparatorToolItemBuilder;
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub use super::shortcut_label::ShortcutLabelBuilder;
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub use super::shortcuts_group::ShortcutsGroupBuilder;
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub use super::shortcuts_section::ShortcutsSectionBuilder;
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub use super::shortcuts_shortcut::ShortcutsShortcutBuilder;
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub use super::shortcuts_window::ShortcutsWindowBuilder;
     pub use super::size_group::SizeGroupBuilder;
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]

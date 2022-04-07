@@ -80,8 +80,6 @@ impl PadController {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl Default for PadController {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])

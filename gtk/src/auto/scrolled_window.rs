@@ -81,20 +81,12 @@ pub struct ScrolledWindowBuilder {
     hadjustment: Option<Adjustment>,
     hscrollbar_policy: Option<PolicyType>,
     kinetic_scrolling: Option<bool>,
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     max_content_height: Option<i32>,
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     max_content_width: Option<i32>,
     min_content_height: Option<i32>,
     min_content_width: Option<i32>,
     overlay_scrolling: Option<bool>,
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     propagate_natural_height: Option<bool>,
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     propagate_natural_width: Option<bool>,
     shadow_type: Option<ShadowType>,
     vadjustment: Option<Adjustment>,
@@ -108,8 +100,6 @@ pub struct ScrolledWindowBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -160,11 +150,9 @@ impl ScrolledWindowBuilder {
         if let Some(ref kinetic_scrolling) = self.kinetic_scrolling {
             properties.push(("kinetic-scrolling", kinetic_scrolling));
         }
-        #[cfg(any(feature = "v3_22", feature = "dox"))]
         if let Some(ref max_content_height) = self.max_content_height {
             properties.push(("max-content-height", max_content_height));
         }
-        #[cfg(any(feature = "v3_22", feature = "dox"))]
         if let Some(ref max_content_width) = self.max_content_width {
             properties.push(("max-content-width", max_content_width));
         }
@@ -177,11 +165,9 @@ impl ScrolledWindowBuilder {
         if let Some(ref overlay_scrolling) = self.overlay_scrolling {
             properties.push(("overlay-scrolling", overlay_scrolling));
         }
-        #[cfg(any(feature = "v3_22", feature = "dox"))]
         if let Some(ref propagate_natural_height) = self.propagate_natural_height {
             properties.push(("propagate-natural-height", propagate_natural_height));
         }
-        #[cfg(any(feature = "v3_22", feature = "dox"))]
         if let Some(ref propagate_natural_width) = self.propagate_natural_width {
             properties.push(("propagate-natural-width", propagate_natural_width));
         }
@@ -221,7 +207,6 @@ impl ScrolledWindowBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -322,15 +307,11 @@ impl ScrolledWindowBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn max_content_height(mut self, max_content_height: i32) -> Self {
         self.max_content_height = Some(max_content_height);
         self
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn max_content_width(mut self, max_content_width: i32) -> Self {
         self.max_content_width = Some(max_content_width);
         self
@@ -351,15 +332,11 @@ impl ScrolledWindowBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn propagate_natural_height(mut self, propagate_natural_height: bool) -> Self {
         self.propagate_natural_height = Some(propagate_natural_height);
         self
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn propagate_natural_width(mut self, propagate_natural_width: bool) -> Self {
         self.propagate_natural_width = Some(propagate_natural_width);
         self
@@ -425,8 +402,6 @@ impl ScrolledWindowBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -580,14 +555,10 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "get_kinetic_scrolling")]
     fn is_kinetic_scrolling(&self) -> bool;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_get_max_content_height")]
     #[doc(alias = "get_max_content_height")]
     fn max_content_height(&self) -> i32;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_get_max_content_width")]
     #[doc(alias = "get_max_content_width")]
     fn max_content_width(&self) -> i32;
@@ -612,14 +583,10 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "get_policy")]
     fn policy(&self) -> (PolicyType, PolicyType);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_get_propagate_natural_height")]
     #[doc(alias = "get_propagate_natural_height")]
     fn propagates_natural_height(&self) -> bool;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_get_propagate_natural_width")]
     #[doc(alias = "get_propagate_natural_width")]
     fn propagates_natural_width(&self) -> bool;
@@ -645,13 +612,9 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "gtk_scrolled_window_set_kinetic_scrolling")]
     fn set_kinetic_scrolling(&self, kinetic_scrolling: bool);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_set_max_content_height")]
     fn set_max_content_height(&self, height: i32);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_set_max_content_width")]
     fn set_max_content_width(&self, width: i32);
 
@@ -670,13 +633,9 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "gtk_scrolled_window_set_policy")]
     fn set_policy(&self, hscrollbar_policy: PolicyType, vscrollbar_policy: PolicyType);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_set_propagate_natural_height")]
     fn set_propagate_natural_height(&self, propagate: bool);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_scrolled_window_set_propagate_natural_width")]
     fn set_propagate_natural_width(&self, propagate: bool);
 
@@ -738,13 +697,9 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "kinetic-scrolling")]
     fn connect_kinetic_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "max-content-height")]
     fn connect_max_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "max-content-width")]
     fn connect_max_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -757,16 +712,12 @@ pub trait ScrolledWindowExt: 'static {
     #[doc(alias = "overlay-scrolling")]
     fn connect_overlay_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "propagate-natural-height")]
     fn connect_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "propagate-natural-width")]
     fn connect_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -819,14 +770,10 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn max_content_height(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_max_content_height(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn max_content_width(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_max_content_width(self.as_ref().to_glib_none().0) }
     }
@@ -870,8 +817,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn propagates_natural_height(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_propagate_natural_height(
@@ -880,8 +825,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn propagates_natural_width(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_propagate_natural_width(
@@ -941,16 +884,12 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_max_content_height(&self, height: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_max_content_height(self.as_ref().to_glib_none().0, height);
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_max_content_width(&self, width: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_max_content_width(self.as_ref().to_glib_none().0, width);
@@ -997,8 +936,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_propagate_natural_height(&self, propagate: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_propagate_natural_height(
@@ -1008,8 +945,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_propagate_natural_width(&self, propagate: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_propagate_natural_width(
@@ -1271,8 +1206,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_max_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_content_height_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1298,8 +1231,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_max_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_content_width_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1400,8 +1331,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1430,8 +1359,6 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

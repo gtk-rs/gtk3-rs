@@ -15,16 +15,10 @@ pub use wayland_display::WaylandDisplay;
 mod wayland_gl_context;
 pub use wayland_gl_context::WaylandGLContext;
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 mod wayland_monitor;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use wayland_monitor::WaylandMonitor;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
 mod wayland_seat;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use wayland_seat::WaylandSeat;
 
 mod wayland_window;

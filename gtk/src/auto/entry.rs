@@ -16,7 +16,6 @@ use crate::ImageType;
 use crate::InputHints;
 use crate::InputPurpose;
 use crate::MovementStep;
-use crate::ShadowType;
 use crate::TargetList;
 use crate::Widget;
 use glib::object::Cast;
@@ -118,8 +117,6 @@ pub struct EntryBuilder {
     secondary_icon_sensitive: Option<bool>,
     secondary_icon_tooltip_markup: Option<String>,
     secondary_icon_tooltip_text: Option<String>,
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    shadow_type: Option<ShadowType>,
     show_emoji_icon: Option<bool>,
     tabs: Option<pango::TabArray>,
     text: Option<String>,
@@ -132,8 +129,6 @@ pub struct EntryBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -281,9 +276,6 @@ impl EntryBuilder {
         if let Some(ref secondary_icon_tooltip_text) = self.secondary_icon_tooltip_text {
             properties.push(("secondary-icon-tooltip-text", secondary_icon_tooltip_text));
         }
-        if let Some(ref shadow_type) = self.shadow_type {
-            properties.push(("shadow-type", shadow_type));
-        }
         if let Some(ref show_emoji_icon) = self.show_emoji_icon {
             properties.push(("show-emoji-icon", show_emoji_icon));
         }
@@ -320,7 +312,6 @@ impl EntryBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -578,12 +569,6 @@ impl EntryBuilder {
         self
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    pub fn shadow_type(mut self, shadow_type: ShadowType) -> Self {
-        self.shadow_type = Some(shadow_type);
-        self
-    }
-
     pub fn show_emoji_icon(mut self, show_emoji_icon: bool) -> Self {
         self.show_emoji_icon = Some(show_emoji_icon);
         self
@@ -644,8 +629,6 @@ impl EntryBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -1167,14 +1150,6 @@ pub trait EntryExt: 'static {
     #[doc(alias = "selection-bound")]
     fn selection_bound(&self) -> i32;
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "shadow-type")]
-    fn shadow_type(&self) -> ShadowType;
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "shadow-type")]
-    fn set_shadow_type(&self, shadow_type: ShadowType);
-
     #[doc(alias = "show-emoji-icon")]
     fn shows_emoji_icon(&self) -> bool;
 
@@ -1236,13 +1211,9 @@ pub trait EntryExt: 'static {
 
     fn emit_insert_at_cursor(&self, string: &str);
 
-    #[cfg(any(feature = "v3_22_27", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
     #[doc(alias = "insert-emoji")]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22_27", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
     fn emit_insert_emoji(&self);
 
     #[doc(alias = "move-cursor")]
@@ -1421,10 +1392,6 @@ pub trait EntryExt: 'static {
 
     #[doc(alias = "selection-bound")]
     fn connect_selection_bound_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "shadow-type")]
-    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[doc(alias = "show-emoji-icon")]
     fn connect_show_emoji_icon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -2178,14 +2145,6 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::property(self.as_ref(), "selection-bound")
     }
 
-    fn shadow_type(&self) -> ShadowType {
-        glib::ObjectExt::property(self.as_ref(), "shadow-type")
-    }
-
-    fn set_shadow_type(&self, shadow_type: ShadowType) {
-        glib::ObjectExt::set_property(self.as_ref(), "shadow-type", &shadow_type)
-    }
-
     fn shows_emoji_icon(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "show-emoji-icon")
     }
@@ -2445,8 +2404,6 @@ impl<O: IsA<Entry>> EntryExt for O {
         self.emit_by_name::<()>("insert-at-cursor", &[&string]);
     }
 
-    #[cfg(any(feature = "v3_22_27", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_emoji_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2468,8 +2425,6 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22_27", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
     fn emit_insert_emoji(&self) {
         self.emit_by_name::<()>("insert-emoji", &[]);
     }
@@ -3595,28 +3550,6 @@ impl<O: IsA<Entry>> EntryExt for O {
                 b"notify::selection-bound\0".as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     notify_selection_bound_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_shadow_type_trampoline<P: IsA<Entry>, F: Fn(&P) + 'static>(
-            this: *mut ffi::GtkEntry,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(Entry::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::shadow-type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_shadow_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

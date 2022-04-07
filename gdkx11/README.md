@@ -5,7 +5,7 @@ Project site is [here](https://gtk-rs.org/).
 __Rust__ bindings and wrappers for [GDKX11](https://developer.gnome.org/gdk3/stable/gdk3-X-Window-System-Interaction.html),
 part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
 
-GDKX11 __3.18__ is the lowest supported version for the underlying library.
+GDKX11 __3.22__ is the lowest supported version for the underlying library.
 
 ## Minimum supported Rust version
 

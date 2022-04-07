@@ -40,8 +40,6 @@ impl Clipboard {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_owner(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_clipboard_get_selection")]
     #[doc(alias = "get_selection")]
     pub fn selection(&self) -> Option<gdk::Atom> {

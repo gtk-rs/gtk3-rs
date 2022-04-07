@@ -25,14 +25,10 @@ pub trait NativeDialogExtManual {
     /// dialog.destroy();
     /// # }
     /// ```
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn run_future<'a>(&'a self) -> Pin<Box<dyn Future<Output = ResponseType> + 'a>>;
 }
 
 impl<O: IsA<NativeDialog>> NativeDialogExtManual for O {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn run_future<'a>(&'a self) -> Pin<Box<dyn Future<Output = ResponseType> + 'a>> {
         Box::pin(async move {
             let (sender, receiver) = futures_channel::oneshot::channel();

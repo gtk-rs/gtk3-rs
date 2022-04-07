@@ -79,8 +79,6 @@ impl Default for FontButton {
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct FontButtonBuilder {
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    font_name: Option<String>,
     show_size: Option<bool>,
     show_style: Option<bool>,
     title: Option<String>,
@@ -100,8 +98,6 @@ pub struct FontButtonBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -155,9 +151,6 @@ impl FontButtonBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> FontButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref font_name) = self.font_name {
-            properties.push(("font-name", font_name));
-        }
         if let Some(ref show_size) = self.show_size {
             properties.push(("show-size", show_size));
         }
@@ -215,7 +208,6 @@ impl FontButtonBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -327,12 +319,6 @@ impl FontButtonBuilder {
             .expect("Failed to create an instance of FontButton")
     }
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    pub fn font_name(mut self, font_name: &str) -> Self {
-        self.font_name = Some(font_name.to_string());
-        self
-    }
-
     pub fn show_size(mut self, show_size: bool) -> Self {
         self.show_size = Some(show_size);
         self
@@ -428,8 +414,6 @@ impl FontButtonBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -611,11 +595,6 @@ impl FontButtonBuilder {
 }
 
 pub trait FontButtonExt: 'static {
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_font_button_get_font_name")]
-    #[doc(alias = "get_font_name")]
-    fn font_name(&self) -> Option<glib::GString>;
-
     #[doc(alias = "gtk_font_button_get_show_size")]
     #[doc(alias = "get_show_size")]
     fn shows_size(&self) -> bool;
@@ -636,10 +615,6 @@ pub trait FontButtonExt: 'static {
     #[doc(alias = "get_use_size")]
     fn uses_size(&self) -> bool;
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_font_button_set_font_name")]
-    fn set_font_name(&self, fontname: &str) -> bool;
-
     #[doc(alias = "gtk_font_button_set_show_size")]
     fn set_show_size(&self, show_size: bool);
 
@@ -658,10 +633,6 @@ pub trait FontButtonExt: 'static {
     #[doc(alias = "font-set")]
     fn connect_font_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "font-name")]
-    fn connect_font_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     #[doc(alias = "show-size")]
     fn connect_show_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -679,14 +650,6 @@ pub trait FontButtonExt: 'static {
 }
 
 impl<O: IsA<FontButton>> FontButtonExt for O {
-    fn font_name(&self) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::gtk_font_button_get_font_name(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
     fn shows_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_show_size(
@@ -723,15 +686,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
         unsafe {
             from_glib(ffi::gtk_font_button_get_use_size(
                 self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn set_font_name(&self, fontname: &str) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_font_button_set_font_name(
-                self.as_ref().to_glib_none().0,
-                fontname.to_glib_none().0,
             ))
         }
     }
@@ -787,31 +741,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
                 b"font-set\0".as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     font_set_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    fn connect_font_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_font_name_trampoline<
-            P: IsA<FontButton>,
-            F: Fn(&P) + 'static,
-        >(
-            this: *mut ffi::GtkFontButton,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::font-name\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_font_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

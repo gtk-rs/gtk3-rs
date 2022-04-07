@@ -30,15 +30,11 @@ impl WaylandWindow {
         unsafe { ffi::gdk_wayland_window_set_use_custom_surface(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_wayland_window_unexport_handle")]
     pub fn unexport_handle(&self) {
         unsafe { ffi::gdk_wayland_window_unexport_handle(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_wayland_window_export_handle")]
     pub fn export_handle<P: Fn(&Self, &str) + 'static>(&self, callback: P) -> bool {
         unsafe extern "C" fn callback_trampoline<P: Fn(&WaylandWindow, &str) + 'static>(
@@ -49,7 +45,7 @@ impl WaylandWindow {
             let window = from_glib_borrow(window);
             let handle: Borrowed<glib::GString> = from_glib_borrow(handle);
             let callback: &P = &*(user_data as *mut _);
-            (*callback)(&window, &handle.as_str());
+            (*callback)(&window, handle.as_str());
         }
         unsafe extern "C" fn destroy_notify<P: Fn(&WaylandWindow, &str) + 'static>(
             data: glib::ffi::gpointer,
@@ -89,8 +85,6 @@ impl WaylandWindow {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_wayland_window_set_transient_for_exported")]
     pub fn set_transient_for_exported(&self, parent_handle: &str) -> bool {
         unsafe {
@@ -113,8 +107,6 @@ impl WaylandWindow {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_wayland_window_announce_csd")]
     pub fn announce_csd(&self) {
         unsafe { ffi::gdk_wayland_window_announce_csd(self.to_glib_none().0) }

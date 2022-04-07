@@ -186,8 +186,6 @@ pub struct WindowBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -337,7 +335,6 @@ impl WindowBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -602,8 +599,6 @@ impl WindowBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -935,10 +930,6 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "move")]
     fn move_(&self, x: i32, y: i32);
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gtk_window_parse_geometry")]
-    fn parse_geometry(&self, geometry: &str) -> bool;
-
     #[doc(alias = "gtk_window_present")]
     fn present(&self);
 
@@ -957,10 +948,6 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "gtk_window_resize")]
     fn resize(&self, width: i32, height: i32);
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gtk_window_resize_to_geometry")]
-    fn resize_to_geometry(&self, width: i32, height: i32);
-
     #[doc(alias = "gtk_window_set_accept_focus")]
     fn set_accept_focus(&self, setting: bool);
 
@@ -975,10 +962,6 @@ pub trait GtkWindowExt: 'static {
 
     #[doc(alias = "gtk_window_set_default")]
     fn set_default(&self, default_widget: Option<&impl IsA<Widget>>);
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gtk_window_set_default_geometry")]
-    fn set_default_geometry(&self, width: i32, height: i32);
 
     #[doc(alias = "gtk_window_set_default_size")]
     fn set_default_size(&self, width: i32, height: i32);
@@ -1077,10 +1060,6 @@ pub trait GtkWindowExt: 'static {
 
     #[doc(alias = "gtk_window_set_urgency_hint")]
     fn set_urgency_hint(&self, setting: bool);
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_window_set_wmclass")]
-    fn set_wmclass(&self, wmclass_name: &str, wmclass_class: &str);
 
     #[doc(alias = "gtk_window_stick")]
     fn stick(&self);
@@ -1631,15 +1610,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn parse_geometry(&self, geometry: &str) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_window_parse_geometry(
-                self.as_ref().to_glib_none().0,
-                geometry.to_glib_none().0,
-            ))
-        }
-    }
-
     fn present(&self) {
         unsafe {
             ffi::gtk_window_present(self.as_ref().to_glib_none().0);
@@ -1686,12 +1656,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
-    fn resize_to_geometry(&self, width: i32, height: i32) {
-        unsafe {
-            ffi::gtk_window_resize_to_geometry(self.as_ref().to_glib_none().0, width, height);
-        }
-    }
-
     fn set_accept_focus(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_accept_focus(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -1728,12 +1692,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
                 self.as_ref().to_glib_none().0,
                 default_widget.map(|p| p.as_ref()).to_glib_none().0,
             );
-        }
-    }
-
-    fn set_default_geometry(&self, width: i32, height: i32) {
-        unsafe {
-            ffi::gtk_window_set_default_geometry(self.as_ref().to_glib_none().0, width, height);
         }
     }
 
@@ -1974,16 +1932,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     fn set_urgency_hint(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_urgency_hint(self.as_ref().to_glib_none().0, setting.into_glib());
-        }
-    }
-
-    fn set_wmclass(&self, wmclass_name: &str, wmclass_class: &str) {
-        unsafe {
-            ffi::gtk_window_set_wmclass(
-                self.as_ref().to_glib_none().0,
-                wmclass_name.to_glib_none().0,
-                wmclass_class.to_glib_none().0,
-            );
         }
     }
 

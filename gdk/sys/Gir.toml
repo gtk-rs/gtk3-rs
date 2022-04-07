@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "Gdk"
 version = "3.0"
-min_cfg_version = "3.18"
+min_cfg_version = "3.22"
 single_version_file = "."
 split_build_rs = true
 girs_directories = ["../../gir-files"]
@@ -34,33 +34,3 @@ status = "generate"
     [[object.member]]
     name = "event_last"
     alias = true
-
-[[object]]
-name = "Gdk.Seat"
-status = "generate"
-version = "3.20"
-
-[[object]]
-name = "Gdk.Monitor"
-status = "generate"
-version = "3.22"
-
-[[object]]
-name = "Gdk.DevicePadFeature"
-status = "generate"
-version = "3.22"
-
-[[object]]
-name = "Gdk.DevicePad"
-status = "generate"
-version = "3.22"
-
-[[object]]
-name = "Gdk.DeviceTool"
-status = "generate"
-version = "3.22"
-
-[[object]]
-name = "Gdk.DrawingContext"
-status = "generate"
-version = "3.22"

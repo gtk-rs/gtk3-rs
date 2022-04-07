@@ -143,8 +143,6 @@ pub struct ComboBoxBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -250,7 +248,6 @@ impl ComboBoxBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -444,8 +441,6 @@ impl ComboBoxBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -608,13 +603,6 @@ pub trait ComboBoxExt: 'static {
     #[doc(alias = "get_entry_text_column")]
     fn entry_text_column(&self) -> i32;
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    #[doc(alias = "gtk_combo_box_get_focus_on_click")]
-    #[doc(alias = "get_focus_on_click")]
-    fn gets_focus_on_click(&self) -> bool;
-
     #[doc(alias = "gtk_combo_box_get_has_entry")]
     #[doc(alias = "get_has_entry")]
     fn has_entry(&self) -> bool;
@@ -670,12 +658,6 @@ pub trait ComboBoxExt: 'static {
 
     #[doc(alias = "gtk_combo_box_set_entry_text_column")]
     fn set_entry_text_column(&self, text_column: i32);
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    #[doc(alias = "gtk_combo_box_set_focus_on_click")]
-    fn set_focus_on_click(&self, focus_on_click: bool);
 
     #[doc(alias = "gtk_combo_box_set_id_column")]
     fn set_id_column(&self, id_column: i32);
@@ -808,16 +790,6 @@ impl<O: IsA<ComboBox>> ComboBoxExt for O {
         unsafe { ffi::gtk_combo_box_get_entry_text_column(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    fn gets_focus_on_click(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_combo_box_get_focus_on_click(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
     fn has_entry(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_combo_box_get_has_entry(
@@ -919,17 +891,6 @@ impl<O: IsA<ComboBox>> ComboBoxExt for O {
     fn set_entry_text_column(&self, text_column: i32) {
         unsafe {
             ffi::gtk_combo_box_set_entry_text_column(self.as_ref().to_glib_none().0, text_column);
-        }
-    }
-
-    #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
-    fn set_focus_on_click(&self, focus_on_click: bool) {
-        unsafe {
-            ffi::gtk_combo_box_set_focus_on_click(
-                self.as_ref().to_glib_none().0,
-                focus_on_click.into_glib(),
-            );
         }
     }
 

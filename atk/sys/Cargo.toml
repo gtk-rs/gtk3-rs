@@ -17,10 +17,10 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
+dox = []
 v2_30 = []
 v2_32 = ["v2_30"]
 v2_34 = ["v2_32"]
-dox = []
 v2_38 = ["v2_34"]
 
 [lib]
@@ -43,7 +43,7 @@ rust-version = "1.57"
 features = ["dox"]
 [package.metadata.system-deps.atk]
 name = "atk"
-version = "2.18"
+version = "2.28"
 
 [package.metadata.system-deps.atk.v2_30]
 version = "2.30"

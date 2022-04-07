@@ -7,8 +7,6 @@ use crate::Bin;
 use crate::Buildable;
 use crate::Container;
 use crate::Popover;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::PopoverConstraint;
 use crate::PositionType;
 use crate::ResizeMode;
@@ -130,15 +128,11 @@ impl Default for PopoverMenu {
 #[must_use = "The builder must be built to be used"]
 pub struct PopoverMenuBuilder {
     visible_submenu: Option<String>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     constrain_to: Option<PopoverConstraint>,
     modal: Option<bool>,
     pointing_to: Option<gdk::Rectangle>,
     position: Option<PositionType>,
     relative_to: Option<Widget>,
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    transitions_enabled: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
     resize_mode: Option<ResizeMode>,
@@ -147,8 +141,6 @@ pub struct PopoverMenuBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -193,7 +185,6 @@ impl PopoverMenuBuilder {
         if let Some(ref visible_submenu) = self.visible_submenu {
             properties.push(("visible-submenu", visible_submenu));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref constrain_to) = self.constrain_to {
             properties.push(("constrain-to", constrain_to));
         }
@@ -208,9 +199,6 @@ impl PopoverMenuBuilder {
         }
         if let Some(ref relative_to) = self.relative_to {
             properties.push(("relative-to", relative_to));
-        }
-        if let Some(ref transitions_enabled) = self.transitions_enabled {
-            properties.push(("transitions-enabled", transitions_enabled));
         }
         if let Some(ref border_width) = self.border_width {
             properties.push(("border-width", border_width));
@@ -236,7 +224,6 @@ impl PopoverMenuBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -327,8 +314,6 @@ impl PopoverMenuBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn constrain_to(mut self, constrain_to: PopoverConstraint) -> Self {
         self.constrain_to = Some(constrain_to);
         self
@@ -351,12 +336,6 @@ impl PopoverMenuBuilder {
 
     pub fn relative_to(mut self, relative_to: &impl IsA<Widget>) -> Self {
         self.relative_to = Some(relative_to.clone().upcast());
-        self
-    }
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    pub fn transitions_enabled(mut self, transitions_enabled: bool) -> Self {
-        self.transitions_enabled = Some(transitions_enabled);
         self
     }
 
@@ -400,8 +379,6 @@ impl PopoverMenuBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self

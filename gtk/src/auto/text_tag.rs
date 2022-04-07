@@ -716,8 +716,6 @@ impl TextTagBuilder {
 }
 
 pub trait TextTagExt: 'static {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_text_tag_changed")]
     fn changed(&self, size_changed: bool);
 
@@ -1353,8 +1351,6 @@ pub trait TextTagExt: 'static {
 }
 
 impl<O: IsA<TextTag>> TextTagExt for O {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn changed(&self, size_changed: bool) {
         unsafe {
             ffi::gtk_text_tag_changed(self.as_ref().to_glib_none().0, size_changed.into_glib());

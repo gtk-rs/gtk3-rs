@@ -44,11 +44,8 @@ mod event_grab_broken;
 mod event_key;
 mod event_motion;
 mod event_owner_change;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 mod event_pad_axis;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 mod event_pad_button;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 mod event_pad_group_mode;
 mod event_property;
 mod event_proximity;
@@ -122,11 +119,8 @@ pub use crate::geometry::Geometry;
 pub use crate::keymap_key::KeymapKey;
 pub use crate::time_coord::TimeCoord;
 pub use crate::window::WindowAttr;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use event_pad_axis::EventPadAxis;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use event_pad_button::EventPadButton;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use event_pad_group_mode::EventPadGroupMode;
 pub use event_touchpad_pinch::EventTouchpadPinch;
 pub use event_touchpad_swipe::EventTouchpadSwipe;

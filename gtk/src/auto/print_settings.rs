@@ -50,8 +50,6 @@ impl PrintSettings {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_print_settings_new_from_gvariant")]
     #[doc(alias = "new_from_gvariant")]
     pub fn from_gvariant(variant: &glib::Variant) -> PrintSettings {
@@ -693,8 +691,6 @@ impl PrintSettings {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_print_settings_to_gvariant")]
     pub fn to_gvariant(&self) -> Option<glib::Variant> {
         unsafe { from_glib_none(ffi::gtk_print_settings_to_gvariant(self.to_glib_none().0)) }

@@ -12,7 +12,6 @@ use crate::EntryBuffer;
 use crate::EntryCompletion;
 use crate::InputHints;
 use crate::InputPurpose;
-use crate::ShadowType;
 use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -100,8 +99,6 @@ pub struct SearchEntryBuilder {
     secondary_icon_sensitive: Option<bool>,
     secondary_icon_tooltip_markup: Option<String>,
     secondary_icon_tooltip_text: Option<String>,
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    shadow_type: Option<ShadowType>,
     show_emoji_icon: Option<bool>,
     tabs: Option<pango::TabArray>,
     text: Option<String>,
@@ -114,8 +111,6 @@ pub struct SearchEntryBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -263,9 +258,6 @@ impl SearchEntryBuilder {
         if let Some(ref secondary_icon_tooltip_text) = self.secondary_icon_tooltip_text {
             properties.push(("secondary-icon-tooltip-text", secondary_icon_tooltip_text));
         }
-        if let Some(ref shadow_type) = self.shadow_type {
-            properties.push(("shadow-type", shadow_type));
-        }
         if let Some(ref show_emoji_icon) = self.show_emoji_icon {
             properties.push(("show-emoji-icon", show_emoji_icon));
         }
@@ -302,7 +294,6 @@ impl SearchEntryBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -561,12 +552,6 @@ impl SearchEntryBuilder {
         self
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    pub fn shadow_type(mut self, shadow_type: ShadowType) -> Self {
-        self.shadow_type = Some(shadow_type);
-        self
-    }
-
     pub fn show_emoji_icon(mut self, show_emoji_icon: bool) -> Self {
         self.show_emoji_icon = Some(show_emoji_icon);
         self
@@ -627,8 +612,6 @@ impl SearchEntryBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self

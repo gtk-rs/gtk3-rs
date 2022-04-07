@@ -8,14 +8,12 @@ use std::ptr;
 
 use crate::AxisUse;
 use crate::Device;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 use crate::DeviceTool;
 use crate::EventSequence;
 use crate::EventType;
 use crate::ModifierType;
 use crate::Screen;
 use crate::ScrollDirection;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
 use crate::Seat;
 use crate::Window;
 
@@ -244,8 +242,6 @@ impl Event {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_event_is_scroll_stop_event")]
     pub fn is_scroll_stop_event(&self) -> bool {
         unsafe { from_glib(ffi::gdk_event_is_scroll_stop_event(self.to_glib_none().0)) }
@@ -291,24 +287,18 @@ impl Event {
         unsafe { from_glib(ffi::gdk_event_triggers_context_menu(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_event_get_seat")]
     #[doc(alias = "get_seat")]
     pub fn seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(ffi::gdk_event_get_seat(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_get_scancode")]
     #[doc(alias = "get_scancode")]
     pub fn scancode(&self) -> i32 {
         unsafe { ffi::gdk_event_get_scancode(mut_override(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_get_pointer_emulated")]
     #[doc(alias = "get_pointer_emulated")]
     pub fn is_pointer_emulated(&self) -> bool {
@@ -354,8 +344,6 @@ impl Event {
         unsafe { from_glib_none(ffi::gdk_event_get_source_device(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_set_device_tool")]
     pub fn set_device_tool(&mut self, device: Option<&DeviceTool>) {
         unsafe {
@@ -363,8 +351,6 @@ impl Event {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_event_get_device_tool")]
     #[doc(alias = "get_device_tool")]
     pub fn device_tool(&self) -> Option<DeviceTool> {

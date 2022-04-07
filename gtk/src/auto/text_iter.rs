@@ -239,17 +239,6 @@ impl TextIter {
         }
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gtk_text_iter_begins_tag")]
-    pub fn begins_tag(&self, tag: Option<&impl IsA<TextTag>>) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_text_iter_begins_tag(
-                self.to_glib_none().0,
-                tag.map(|p| p.as_ref()).to_glib_none().0,
-            ))
-        }
-    }
-
     #[doc(alias = "gtk_text_iter_can_insert")]
     pub fn can_insert(&self, default_editability: bool) -> bool {
         unsafe {
@@ -787,8 +776,6 @@ impl TextIter {
         unsafe { from_glib(ffi::gtk_text_iter_starts_sentence(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_text_iter_starts_tag")]
     pub fn starts_tag(&self, tag: Option<&impl IsA<TextTag>>) -> bool {
         unsafe {

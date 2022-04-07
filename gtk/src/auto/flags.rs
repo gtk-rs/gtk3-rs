@@ -785,12 +785,8 @@ bitflags! {
         const INHIBIT_OSK = ffi::GTK_INPUT_HINT_INHIBIT_OSK as u32;
         #[doc(alias = "GTK_INPUT_HINT_VERTICAL_WRITING")]
         const VERTICAL_WRITING = ffi::GTK_INPUT_HINT_VERTICAL_WRITING as u32;
-        #[cfg(any(feature = "v3_22_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_20")))]
         #[doc(alias = "GTK_INPUT_HINT_EMOJI")]
         const EMOJI = ffi::GTK_INPUT_HINT_EMOJI as u32;
-        #[cfg(any(feature = "v3_22_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_20")))]
         #[doc(alias = "GTK_INPUT_HINT_NO_EMOJI")]
         const NO_EMOJI = ffi::GTK_INPUT_HINT_NO_EMOJI as u32;
     }
@@ -1238,9 +1234,7 @@ impl ToValue for StateFlags {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
 bitflags! {
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "GtkStyleContextPrintFlags")]
     pub struct StyleContextPrintFlags: u32 {
         #[doc(alias = "GTK_STYLE_CONTEXT_PRINT_NONE")]
@@ -1252,16 +1246,12 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl fmt::Display for StyleContextPrintFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl IntoGlib for StyleContextPrintFlags {
     type GlibType = ffi::GtkStyleContextPrintFlags;
@@ -1271,8 +1261,6 @@ impl IntoGlib for StyleContextPrintFlags {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkStyleContextPrintFlags> for StyleContextPrintFlags {
     unsafe fn from_glib(value: ffi::GtkStyleContextPrintFlags) -> Self {
@@ -1281,22 +1269,16 @@ impl FromGlib<ffi::GtkStyleContextPrintFlags> for StyleContextPrintFlags {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl StaticType for StyleContextPrintFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_style_context_print_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl glib::value::ValueType for StyleContextPrintFlags {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 unsafe impl<'a> FromValue<'a> for StyleContextPrintFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -1306,8 +1288,6 @@ unsafe impl<'a> FromValue<'a> for StyleContextPrintFlags {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl ToValue for StyleContextPrintFlags {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();

@@ -53,11 +53,6 @@ pub trait RangeExt: 'static {
     #[doc(alias = "get_lower_stepper_sensitivity")]
     fn lower_stepper_sensitivity(&self) -> SensitivityType;
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gtk_range_get_min_slider_size")]
-    #[doc(alias = "get_min_slider_size")]
-    fn min_slider_size(&self) -> i32;
-
     #[doc(alias = "gtk_range_get_range_rect")]
     #[doc(alias = "get_range_rect")]
     fn range_rect(&self) -> gdk::Rectangle;
@@ -107,10 +102,6 @@ pub trait RangeExt: 'static {
 
     #[doc(alias = "gtk_range_set_lower_stepper_sensitivity")]
     fn set_lower_stepper_sensitivity(&self, sensitivity: SensitivityType);
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gtk_range_set_min_slider_size")]
-    fn set_min_slider_size(&self, min_size: i32);
 
     #[doc(alias = "gtk_range_set_range")]
     fn set_range(&self, min: f64, max: f64);
@@ -211,10 +202,6 @@ impl<O: IsA<Range>> RangeExt for O {
                 self.as_ref().to_glib_none().0,
             ))
         }
-    }
-
-    fn min_slider_size(&self) -> i32 {
-        unsafe { ffi::gtk_range_get_min_slider_size(self.as_ref().to_glib_none().0) }
     }
 
     fn range_rect(&self) -> gdk::Rectangle {
@@ -322,12 +309,6 @@ impl<O: IsA<Range>> RangeExt for O {
                 self.as_ref().to_glib_none().0,
                 sensitivity.into_glib(),
             );
-        }
-    }
-
-    fn set_min_slider_size(&self, min_size: i32) {
-        unsafe {
-            ffi::gtk_range_set_min_slider_size(self.as_ref().to_glib_none().0, min_size);
         }
     }
 

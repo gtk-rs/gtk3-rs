@@ -4,8 +4,6 @@
 
 use std::ffi::CStr;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(alias = "GTK_LEVEL_BAR_OFFSET_FULL")]
 pub static LEVEL_BAR_OFFSET_FULL: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
@@ -887,32 +885,4 @@ pub static STYLE_PROPERTY_PADDING: once_cell::sync::Lazy<&'static str> =
         CStr::from_ptr(ffi::GTK_STYLE_PROPERTY_PADDING)
             .to_str()
             .unwrap()
-    });
-#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-#[doc(alias = "GTK_STYLE_REGION_COLUMN")]
-pub static STYLE_REGION_COLUMN: once_cell::sync::Lazy<&'static str> =
-    once_cell::sync::Lazy::new(|| unsafe {
-        CStr::from_ptr(ffi::GTK_STYLE_REGION_COLUMN)
-            .to_str()
-            .unwrap()
-    });
-#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-#[doc(alias = "GTK_STYLE_REGION_COLUMN_HEADER")]
-pub static STYLE_REGION_COLUMN_HEADER: once_cell::sync::Lazy<&'static str> =
-    once_cell::sync::Lazy::new(|| unsafe {
-        CStr::from_ptr(ffi::GTK_STYLE_REGION_COLUMN_HEADER)
-            .to_str()
-            .unwrap()
-    });
-#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-#[doc(alias = "GTK_STYLE_REGION_ROW")]
-pub static STYLE_REGION_ROW: once_cell::sync::Lazy<&'static str> =
-    once_cell::sync::Lazy::new(|| unsafe {
-        CStr::from_ptr(ffi::GTK_STYLE_REGION_ROW).to_str().unwrap()
-    });
-#[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-#[doc(alias = "GTK_STYLE_REGION_TAB")]
-pub static STYLE_REGION_TAB: once_cell::sync::Lazy<&'static str> =
-    once_cell::sync::Lazy::new(|| unsafe {
-        CStr::from_ptr(ffi::GTK_STYLE_REGION_TAB).to_str().unwrap()
     });
