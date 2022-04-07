@@ -6,8 +6,6 @@ use crate::Align;
 use crate::Bin;
 use crate::Buildable;
 use crate::Container;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::PopoverConstraint;
 use crate::PositionType;
 use crate::ResizeMode;
@@ -85,15 +83,11 @@ impl Default for Popover {
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct PopoverBuilder {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     constrain_to: Option<PopoverConstraint>,
     modal: Option<bool>,
     pointing_to: Option<gdk::Rectangle>,
     position: Option<PositionType>,
     relative_to: Option<Widget>,
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    transitions_enabled: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
     resize_mode: Option<ResizeMode>,
@@ -102,8 +96,6 @@ pub struct PopoverBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -145,7 +137,6 @@ impl PopoverBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Popover {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref constrain_to) = self.constrain_to {
             properties.push(("constrain-to", constrain_to));
         }
@@ -160,9 +151,6 @@ impl PopoverBuilder {
         }
         if let Some(ref relative_to) = self.relative_to {
             properties.push(("relative-to", relative_to));
-        }
-        if let Some(ref transitions_enabled) = self.transitions_enabled {
-            properties.push(("transitions-enabled", transitions_enabled));
         }
         if let Some(ref border_width) = self.border_width {
             properties.push(("border-width", border_width));
@@ -188,7 +176,6 @@ impl PopoverBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -273,8 +260,6 @@ impl PopoverBuilder {
         glib::Object::new::<Popover>(&properties).expect("Failed to create an instance of Popover")
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn constrain_to(mut self, constrain_to: PopoverConstraint) -> Self {
         self.constrain_to = Some(constrain_to);
         self
@@ -297,12 +282,6 @@ impl PopoverBuilder {
 
     pub fn relative_to(mut self, relative_to: &impl IsA<Widget>) -> Self {
         self.relative_to = Some(relative_to.clone().upcast());
-        self
-    }
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    pub fn transitions_enabled(mut self, transitions_enabled: bool) -> Self {
-        self.transitions_enabled = Some(transitions_enabled);
         self
     }
 
@@ -346,8 +325,6 @@ impl PopoverBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -488,8 +465,6 @@ pub trait PopoverExt: 'static {
     #[doc(alias = "gtk_popover_bind_model")]
     fn bind_model(&self, model: Option<&impl IsA<gio::MenuModel>>, action_namespace: Option<&str>);
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_popover_get_constrain_to")]
     #[doc(alias = "get_constrain_to")]
     fn constrain_to(&self) -> PopoverConstraint;
@@ -514,23 +489,12 @@ pub trait PopoverExt: 'static {
     #[doc(alias = "get_relative_to")]
     fn relative_to(&self) -> Option<Widget>;
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_popover_get_transitions_enabled")]
-    #[doc(alias = "get_transitions_enabled")]
-    fn is_transitions_enabled(&self) -> bool;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_popover_popdown")]
     fn popdown(&self);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_popover_popup")]
     fn popup(&self);
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_popover_set_constrain_to")]
     fn set_constrain_to(&self, constraint: PopoverConstraint);
 
@@ -549,15 +513,9 @@ pub trait PopoverExt: 'static {
     #[doc(alias = "gtk_popover_set_relative_to")]
     fn set_relative_to(&self, relative_to: Option<&impl IsA<Widget>>);
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_popover_set_transitions_enabled")]
-    fn set_transitions_enabled(&self, transitions_enabled: bool);
-
     #[doc(alias = "closed")]
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "constrain-to")]
     fn connect_constrain_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -572,10 +530,6 @@ pub trait PopoverExt: 'static {
 
     #[doc(alias = "relative-to")]
     fn connect_relative_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "transitions-enabled")]
-    fn connect_transitions_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Popover>> PopoverExt for O {
@@ -589,8 +543,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn constrain_to(&self) -> PopoverConstraint {
         unsafe {
             from_glib(ffi::gtk_popover_get_constrain_to(
@@ -642,32 +594,18 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn is_transitions_enabled(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_popover_get_transitions_enabled(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popdown(&self) {
         unsafe {
             ffi::gtk_popover_popdown(self.as_ref().to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popup(&self) {
         unsafe {
             ffi::gtk_popover_popup(self.as_ref().to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_constrain_to(&self, constraint: PopoverConstraint) {
         unsafe {
             ffi::gtk_popover_set_constrain_to(
@@ -713,15 +651,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    fn set_transitions_enabled(&self, transitions_enabled: bool) {
-        unsafe {
-            ffi::gtk_popover_set_transitions_enabled(
-                self.as_ref().to_glib_none().0,
-                transitions_enabled.into_glib(),
-            );
-        }
-    }
-
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn closed_trampoline<P: IsA<Popover>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPopover,
@@ -743,8 +672,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_constrain_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_constrain_to_trampoline<
             P: IsA<Popover>,
@@ -852,31 +779,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
                 b"notify::relative-to\0".as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     notify_relative_to_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    fn connect_transitions_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_transitions_enabled_trampoline<
-            P: IsA<Popover>,
-            F: Fn(&P) + 'static,
-        >(
-            this: *mut ffi::GtkPopover,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::transitions-enabled\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_transitions_enabled_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

@@ -92,12 +92,9 @@ mod list_box;
 mod list_store;
 mod menu;
 mod message_dialog;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
 mod native_dialog;
 mod notebook;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 mod pad_action_entry;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 mod pad_controller;
 mod page_range;
 mod print_operation;
@@ -151,5 +148,4 @@ pub use crate::target_entry::TargetEntry;
 pub use crate::tree_sortable::SortColumn;
 pub use crate::widget::TickCallbackId;
 pub use functions::*;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use pad_action_entry::PadActionEntry;

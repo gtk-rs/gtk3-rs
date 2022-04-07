@@ -23,8 +23,6 @@ impl FileFilter {
         unsafe { from_glib_none(ffi::gtk_file_filter_new()) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_filter_new_from_gvariant")]
     #[doc(alias = "new_from_gvariant")]
     pub fn from_gvariant(variant: &glib::Variant) -> FileFilter {
@@ -86,8 +84,6 @@ impl FileFilter {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_filter_to_gvariant")]
     pub fn to_gvariant(&self) -> Option<glib::Variant> {
         unsafe { from_glib_none(ffi::gtk_file_filter_to_gvariant(self.to_glib_none().0)) }

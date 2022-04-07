@@ -62,16 +62,12 @@ pub struct GLAreaBuilder {
     has_alpha: Option<bool>,
     has_depth_buffer: Option<bool>,
     has_stencil_buffer: Option<bool>,
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     use_es: Option<bool>,
     app_paintable: Option<bool>,
     can_default: Option<bool>,
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -125,7 +121,6 @@ impl GLAreaBuilder {
         if let Some(ref has_stencil_buffer) = self.has_stencil_buffer {
             properties.push(("has-stencil-buffer", has_stencil_buffer));
         }
-        #[cfg(any(feature = "v3_22", feature = "dox"))]
         if let Some(ref use_es) = self.use_es {
             properties.push(("use-es", use_es));
         }
@@ -144,7 +139,6 @@ impl GLAreaBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -249,8 +243,6 @@ impl GLAreaBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn use_es(mut self, use_es: bool) -> Self {
         self.use_es = Some(use_es);
         self
@@ -281,8 +273,6 @@ impl GLAreaBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -451,8 +441,6 @@ pub trait GLAreaExt: 'static {
     #[doc(alias = "get_required_version")]
     fn required_version(&self) -> (i32, i32);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_gl_area_get_use_es")]
     #[doc(alias = "get_use_es")]
     fn uses_es(&self) -> bool;
@@ -481,8 +469,6 @@ pub trait GLAreaExt: 'static {
     #[doc(alias = "gtk_gl_area_set_required_version")]
     fn set_required_version(&self, major: i32, minor: i32);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_gl_area_set_use_es")]
     fn set_use_es(&self, use_es: bool);
 
@@ -516,8 +502,6 @@ pub trait GLAreaExt: 'static {
     #[doc(alias = "has-stencil-buffer")]
     fn connect_has_stencil_buffer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "use-es")]
     fn connect_use_es_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -584,8 +568,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn uses_es(&self) -> bool {
         unsafe { from_glib(ffi::gtk_gl_area_get_use_es(self.as_ref().to_glib_none().0)) }
     }
@@ -647,8 +629,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_use_es(&self, use_es: bool) {
         unsafe {
             ffi::gtk_gl_area_set_use_es(self.as_ref().to_glib_none().0, use_es.into_glib());
@@ -857,8 +837,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_use_es_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_es_trampoline<P: IsA<GLArea>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkGLArea,

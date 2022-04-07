@@ -78,8 +78,6 @@ pub struct ExpanderBuilder {
     label_fill: Option<bool>,
     label_widget: Option<Widget>,
     resize_toplevel: Option<bool>,
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    spacing: Option<i32>,
     use_markup: Option<bool>,
     use_underline: Option<bool>,
     border_width: Option<u32>,
@@ -90,8 +88,6 @@ pub struct ExpanderBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -148,9 +144,6 @@ impl ExpanderBuilder {
         if let Some(ref resize_toplevel) = self.resize_toplevel {
             properties.push(("resize-toplevel", resize_toplevel));
         }
-        if let Some(ref spacing) = self.spacing {
-            properties.push(("spacing", spacing));
-        }
         if let Some(ref use_markup) = self.use_markup {
             properties.push(("use-markup", use_markup));
         }
@@ -181,7 +174,6 @@ impl ExpanderBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -292,12 +284,6 @@ impl ExpanderBuilder {
         self
     }
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    pub fn spacing(mut self, spacing: i32) -> Self {
-        self.spacing = Some(spacing);
-        self
-    }
-
     pub fn use_markup(mut self, use_markup: bool) -> Self {
         self.use_markup = Some(use_markup);
         self
@@ -348,8 +334,6 @@ impl ExpanderBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -507,11 +491,6 @@ pub trait ExpanderExt: 'static {
     #[doc(alias = "get_resize_toplevel")]
     fn resizes_toplevel(&self) -> bool;
 
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gtk_expander_get_spacing")]
-    #[doc(alias = "get_spacing")]
-    fn spacing(&self) -> i32;
-
     #[doc(alias = "gtk_expander_get_use_markup")]
     #[doc(alias = "get_use_markup")]
     fn uses_markup(&self) -> bool;
@@ -534,10 +513,6 @@ pub trait ExpanderExt: 'static {
 
     #[doc(alias = "gtk_expander_set_resize_toplevel")]
     fn set_resize_toplevel(&self, resize_toplevel: bool);
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "gtk_expander_set_spacing")]
-    fn set_spacing(&self, spacing: i32);
 
     #[doc(alias = "gtk_expander_set_use_markup")]
     fn set_use_markup(&self, use_markup: bool);
@@ -564,10 +539,6 @@ pub trait ExpanderExt: 'static {
 
     #[doc(alias = "resize-toplevel")]
     fn connect_resize_toplevel_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg_attr(feature = "v3_20", deprecated = "Since 3.20")]
-    #[doc(alias = "spacing")]
-    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[doc(alias = "use-markup")]
     fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -611,10 +582,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
                 self.as_ref().to_glib_none().0,
             ))
         }
-    }
-
-    fn spacing(&self) -> i32 {
-        unsafe { ffi::gtk_expander_get_spacing(self.as_ref().to_glib_none().0) }
     }
 
     fn uses_markup(&self) -> bool {
@@ -669,12 +636,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
                 self.as_ref().to_glib_none().0,
                 resize_toplevel.into_glib(),
             );
-        }
-    }
-
-    fn set_spacing(&self, spacing: i32) {
-        unsafe {
-            ffi::gtk_expander_set_spacing(self.as_ref().to_glib_none().0, spacing);
         }
     }
 
@@ -831,28 +792,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
                 b"notify::resize-toplevel\0".as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     notify_resize_toplevel_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_spacing_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
-            this: *mut ffi::GtkExpander,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

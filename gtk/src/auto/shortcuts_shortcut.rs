@@ -57,15 +57,11 @@ impl ShortcutsShortcut {
         glib::ObjectExt::set_property(self, "accelerator", &accelerator)
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "action-name")]
     pub fn action_name(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self, "action-name")
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "action-name")]
     pub fn set_action_name(&self, action_name: Option<&str>) {
         glib::ObjectExt::set_property(self, "action-name", &action_name)
@@ -178,8 +174,6 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "action-name")]
     pub fn connect_action_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_action_name_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
@@ -401,8 +395,6 @@ impl ShortcutsShortcut {
 pub struct ShortcutsShortcutBuilder {
     accel_size_group: Option<SizeGroup>,
     accelerator: Option<String>,
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     action_name: Option<String>,
     direction: Option<TextDirection>,
     icon: Option<gio::Icon>,
@@ -423,8 +415,6 @@ pub struct ShortcutsShortcutBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -473,7 +463,6 @@ impl ShortcutsShortcutBuilder {
         if let Some(ref accelerator) = self.accelerator {
             properties.push(("accelerator", accelerator));
         }
-        #[cfg(any(feature = "v3_22", feature = "dox"))]
         if let Some(ref action_name) = self.action_name {
             properties.push(("action-name", action_name));
         }
@@ -534,7 +523,6 @@ impl ShortcutsShortcutBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -633,8 +621,6 @@ impl ShortcutsShortcutBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn action_name(mut self, action_name: &str) -> Self {
         self.action_name = Some(action_name.to_string());
         self
@@ -735,8 +721,6 @@ impl ShortcutsShortcutBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self

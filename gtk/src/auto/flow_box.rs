@@ -80,8 +80,6 @@ pub struct FlowBoxBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -169,7 +167,6 @@ impl FlowBoxBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -332,8 +329,6 @@ impl FlowBoxBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -491,8 +486,6 @@ pub trait FlowBoxExt: 'static {
     #[doc(alias = "get_child_at_index")]
     fn child_at_index(&self, idx: i32) -> Option<FlowBoxChild>;
 
-    #[cfg(any(feature = "v3_22_6", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_6")))]
     #[doc(alias = "gtk_flow_box_get_child_at_pos")]
     #[doc(alias = "get_child_at_pos")]
     fn child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild>;
@@ -701,8 +694,6 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22_6", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_6")))]
     fn child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild> {
         unsafe {
             from_glib_none(ffi::gtk_flow_box_get_child_at_pos(

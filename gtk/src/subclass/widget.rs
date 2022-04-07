@@ -1705,8 +1705,6 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
         )
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_widget_class_set_css_name")]
     fn set_css_name(&mut self, name: &str) {
         unsafe {
@@ -1715,8 +1713,6 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_widget_class_get_css_name")]
     fn css_name(&self) -> glib::GString {
         unsafe {

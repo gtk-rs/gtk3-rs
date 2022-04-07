@@ -162,15 +162,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_drag_dest_get_track_motion")]
     fn drag_dest_get_track_motion(&self) -> bool;
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_drag_dest_set_proxy")]
-    fn drag_dest_set_proxy(
-        &self,
-        proxy_window: &gdk::Window,
-        protocol: gdk::DragProtocol,
-        use_coordinates: bool,
-    );
-
     #[doc(alias = "gtk_drag_dest_set_target_list")]
     fn drag_dest_set_target_list(&self, target_list: Option<&TargetList>);
 
@@ -244,8 +235,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "get_allocated_height")]
     fn allocated_height(&self) -> i32;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_widget_get_allocated_size")]
     #[doc(alias = "get_allocated_size")]
     fn allocated_size(&self) -> (Allocation, i32);
@@ -307,8 +296,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "get_double_buffered")]
     fn is_double_buffered(&self) -> bool;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_widget_get_focus_on_click")]
     #[doc(alias = "get_focus_on_click")]
     fn gets_focus_on_click(&self) -> bool;
@@ -558,10 +545,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_is_ancestor")]
     fn is_ancestor(&self, ancestor: &impl IsA<Widget>) -> bool;
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_widget_is_composited")]
-    fn is_composited(&self) -> bool;
-
     #[doc(alias = "gtk_widget_is_drawable")]
     fn is_drawable(&self) -> bool;
 
@@ -595,8 +578,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_mnemonic_activate")]
     fn mnemonic_activate(&self, group_cycling: bool) -> bool;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_widget_queue_allocate")]
     fn queue_allocate(&self);
 
@@ -638,10 +619,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_reset_style")]
     fn reset_style(&self);
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_widget_send_expose")]
-    fn send_expose(&self, event: &gdk::Event) -> i32;
-
     #[doc(alias = "gtk_widget_send_focus_change")]
     fn send_focus_change(&self, event: &gdk::Event) -> bool;
 
@@ -675,8 +652,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "gtk_widget_set_direction")]
     fn set_direction(&self, dir: TextDirection);
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_widget_set_focus_on_click")]
     fn set_focus_on_click(&self, focus_on_click: bool);
 
@@ -899,13 +874,6 @@ pub trait WidgetExt: 'static {
         detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "composited-changed")]
-    fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    fn emit_composited_changed(&self);
 
     #[doc(alias = "configure-event")]
     fn connect_configure_event<F: Fn(&Self, &gdk::EventConfigure) -> bool + 'static>(
@@ -1259,8 +1227,6 @@ pub trait WidgetExt: 'static {
     #[doc(alias = "expand")]
     fn connect_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "focus-on-click")]
     fn connect_focus_on_click_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -1547,22 +1513,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn drag_dest_set_proxy(
-        &self,
-        proxy_window: &gdk::Window,
-        protocol: gdk::DragProtocol,
-        use_coordinates: bool,
-    ) {
-        unsafe {
-            ffi::gtk_drag_dest_set_proxy(
-                self.as_ref().to_glib_none().0,
-                proxy_window.to_glib_none().0,
-                protocol.into_glib(),
-                use_coordinates.into_glib(),
-            );
-        }
-    }
-
     fn drag_dest_set_target_list(&self, target_list: Option<&TargetList>) {
         unsafe {
             ffi::gtk_drag_dest_set_target_list(
@@ -1733,8 +1683,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe { ffi::gtk_widget_get_allocated_height(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn allocated_size(&self) -> (Allocation, i32) {
         unsafe {
             let mut allocation = Allocation::uninitialized();
@@ -1860,8 +1808,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn gets_focus_on_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_widget_get_focus_on_click(
@@ -2342,14 +2288,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn is_composited(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_widget_is_composited(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
     fn is_drawable(&self) -> bool {
         unsafe { from_glib(ffi::gtk_widget_is_drawable(self.as_ref().to_glib_none().0)) }
     }
@@ -2418,8 +2356,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn queue_allocate(&self) {
         unsafe {
             ffi::gtk_widget_queue_allocate(self.as_ref().to_glib_none().0);
@@ -2508,15 +2444,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn reset_style(&self) {
         unsafe {
             ffi::gtk_widget_reset_style(self.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn send_expose(&self, event: &gdk::Event) -> i32 {
-        unsafe {
-            ffi::gtk_widget_send_expose(
-                self.as_ref().to_glib_none().0,
-                mut_override(event.to_glib_none().0),
-            )
         }
     }
 
@@ -2613,8 +2540,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_focus_on_click(&self, focus_on_click: bool) {
         unsafe {
             ffi::gtk_widget_set_focus_on_click(
@@ -3199,31 +3124,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
                 Box_::into_raw(f),
             )
         }
-    }
-
-    fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn composited_changed_trampoline<P: IsA<Widget>, F: Fn(&P) + 'static>(
-            this: *mut ffi::GtkWidget,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(Widget::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"composited-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    composited_changed_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    fn emit_composited_changed(&self) {
-        self.emit_by_name::<()>("composited-changed", &[]);
     }
 
     fn connect_configure_event<F: Fn(&Self, &gdk::EventConfigure) -> bool + 'static>(
@@ -5170,8 +5070,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_focus_on_click_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_focus_on_click_trampoline<
             P: IsA<Widget>,

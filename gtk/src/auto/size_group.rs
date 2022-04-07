@@ -57,8 +57,6 @@ impl Default for SizeGroup {
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct SizeGroupBuilder {
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    ignore_hidden: Option<bool>,
     mode: Option<SizeGroupMode>,
 }
 
@@ -74,20 +72,11 @@ impl SizeGroupBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SizeGroup {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref ignore_hidden) = self.ignore_hidden {
-            properties.push(("ignore-hidden", ignore_hidden));
-        }
         if let Some(ref mode) = self.mode {
             properties.push(("mode", mode));
         }
         glib::Object::new::<SizeGroup>(&properties)
             .expect("Failed to create an instance of SizeGroup")
-    }
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    pub fn ignore_hidden(mut self, ignore_hidden: bool) -> Self {
-        self.ignore_hidden = Some(ignore_hidden);
-        self
     }
 
     pub fn mode(mut self, mode: SizeGroupMode) -> Self {
@@ -100,11 +89,6 @@ pub trait SizeGroupExt: 'static {
     #[doc(alias = "gtk_size_group_add_widget")]
     fn add_widget(&self, widget: &impl IsA<Widget>);
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_size_group_get_ignore_hidden")]
-    #[doc(alias = "get_ignore_hidden")]
-    fn ignores_hidden(&self) -> bool;
-
     #[doc(alias = "gtk_size_group_get_mode")]
     #[doc(alias = "get_mode")]
     fn mode(&self) -> SizeGroupMode;
@@ -116,16 +100,8 @@ pub trait SizeGroupExt: 'static {
     #[doc(alias = "gtk_size_group_remove_widget")]
     fn remove_widget(&self, widget: &impl IsA<Widget>);
 
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "gtk_size_group_set_ignore_hidden")]
-    fn set_ignore_hidden(&self, ignore_hidden: bool);
-
     #[doc(alias = "gtk_size_group_set_mode")]
     fn set_mode(&self, mode: SizeGroupMode);
-
-    #[cfg_attr(feature = "v3_22", deprecated = "Since 3.22")]
-    #[doc(alias = "ignore-hidden")]
-    fn connect_ignore_hidden_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[doc(alias = "mode")]
     fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -138,14 +114,6 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
             );
-        }
-    }
-
-    fn ignores_hidden(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_size_group_get_ignore_hidden(
-                self.as_ref().to_glib_none().0,
-            ))
         }
     }
 
@@ -170,43 +138,9 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
-    fn set_ignore_hidden(&self, ignore_hidden: bool) {
-        unsafe {
-            ffi::gtk_size_group_set_ignore_hidden(
-                self.as_ref().to_glib_none().0,
-                ignore_hidden.into_glib(),
-            );
-        }
-    }
-
     fn set_mode(&self, mode: SizeGroupMode) {
         unsafe {
             ffi::gtk_size_group_set_mode(self.as_ref().to_glib_none().0, mode.into_glib());
-        }
-    }
-
-    fn connect_ignore_hidden_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_ignore_hidden_trampoline<
-            P: IsA<SizeGroup>,
-            F: Fn(&P) + 'static,
-        >(
-            this: *mut ffi::GtkSizeGroup,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(SizeGroup::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::ignore-hidden\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_ignore_hidden_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
         }
     }
 

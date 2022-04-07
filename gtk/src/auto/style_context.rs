@@ -6,8 +6,6 @@ use crate::Border;
 use crate::CssSection;
 use crate::JunctionSides;
 use crate::StateFlags;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::StyleContextPrintFlags;
 use crate::StyleProvider;
 use crate::TextDirection;
@@ -271,8 +269,6 @@ pub trait StyleContextExt: 'static {
     #[doc(alias = "gtk_style_context_set_state")]
     fn set_state(&self, flags: StateFlags);
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_style_context_to_string")]
     fn to_string(&self, flags: StyleContextPrintFlags) -> Option<glib::GString>;
 
@@ -585,8 +581,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn to_string(&self, flags: StyleContextPrintFlags) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_style_context_to_string(

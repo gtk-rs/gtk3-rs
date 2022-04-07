@@ -4014,8 +4014,6 @@ impl ToValue for PackType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GtkPadActionType")]
@@ -4030,8 +4028,6 @@ pub enum PadActionType {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl fmt::Display for PadActionType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -4047,8 +4043,6 @@ impl fmt::Display for PadActionType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl IntoGlib for PadActionType {
     type GlibType = ffi::GtkPadActionType;
@@ -4063,8 +4057,6 @@ impl IntoGlib for PadActionType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkPadActionType> for PadActionType {
     unsafe fn from_glib(value: ffi::GtkPadActionType) -> Self {
@@ -4078,22 +4070,16 @@ impl FromGlib<ffi::GtkPadActionType> for PadActionType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for PadActionType {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_pad_action_type_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl glib::value::ValueType for PadActionType {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 unsafe impl<'a> FromValue<'a> for PadActionType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -4103,8 +4089,6 @@ unsafe impl<'a> FromValue<'a> for PadActionType {
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl ToValue for PadActionType {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -4490,8 +4474,6 @@ impl ToValue for PolicyType {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GtkPopoverConstraint")]
@@ -4504,8 +4486,6 @@ pub enum PopoverConstraint {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl fmt::Display for PopoverConstraint {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -4520,8 +4500,6 @@ impl fmt::Display for PopoverConstraint {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl IntoGlib for PopoverConstraint {
     type GlibType = ffi::GtkPopoverConstraint;
@@ -4535,8 +4513,6 @@ impl IntoGlib for PopoverConstraint {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkPopoverConstraint> for PopoverConstraint {
     unsafe fn from_glib(value: ffi::GtkPopoverConstraint) -> Self {
@@ -4549,22 +4525,16 @@ impl FromGlib<ffi::GtkPopoverConstraint> for PopoverConstraint {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl StaticType for PopoverConstraint {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_popover_constraint_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl glib::value::ValueType for PopoverConstraint {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 unsafe impl<'a> FromValue<'a> for PopoverConstraint {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -4574,8 +4544,6 @@ unsafe impl<'a> FromValue<'a> for PopoverConstraint {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl ToValue for PopoverConstraint {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
@@ -6719,8 +6687,6 @@ impl ToValue for ShadowType {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "GtkShortcutType")]
@@ -6745,8 +6711,6 @@ pub enum ShortcutType {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl fmt::Display for ShortcutType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -6767,8 +6731,6 @@ impl fmt::Display for ShortcutType {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl IntoGlib for ShortcutType {
     type GlibType = ffi::GtkShortcutType;
@@ -6790,8 +6752,6 @@ impl IntoGlib for ShortcutType {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkShortcutType> for ShortcutType {
     unsafe fn from_glib(value: ffi::GtkShortcutType) -> Self {
@@ -6812,22 +6772,16 @@ impl FromGlib<ffi::GtkShortcutType> for ShortcutType {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl StaticType for ShortcutType {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_shortcut_type_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl glib::value::ValueType for ShortcutType {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 unsafe impl<'a> FromValue<'a> for ShortcutType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -6837,8 +6791,6 @@ unsafe impl<'a> FromValue<'a> for ShortcutType {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl ToValue for ShortcutType {
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();

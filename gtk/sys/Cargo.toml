@@ -15,28 +15,7 @@ rust-version = "1.57"
 features = ["dox"]
 [package.metadata.system-deps."gtk+_3_0"]
 name = "gtk+-3.0"
-version = "3.18"
-
-[package.metadata.system-deps."gtk+_3_0".v3_20]
-version = "3.20"
-
-[package.metadata.system-deps."gtk+_3_0".v3_22]
 version = "3.22"
-
-[package.metadata.system-deps."gtk+_3_0".v3_22_6]
-version = "3.22.6"
-
-[package.metadata.system-deps."gtk+_3_0".v3_22_26]
-version = "3.22.26"
-
-[package.metadata.system-deps."gtk+_3_0".v3_22_27]
-version = "3.22.27"
-
-[package.metadata.system-deps."gtk+_3_0".v3_22_29]
-version = "3.22.29"
-
-[package.metadata.system-deps."gtk+_3_0".v3_22_30]
-version = "3.22.30"
 
 [package.metadata.system-deps."gtk+_3_0".v3_24]
 version = "3.24"
@@ -102,14 +81,7 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-v3_20 = []
-v3_22 = ["v3_20"]
-v3_22_6 = ["v3_22"]
-v3_22_26 = ["v3_22_6"]
-v3_22_27 = ["v3_22_26"]
-v3_22_29 = ["v3_22_27"]
-v3_22_30 = ["v3_22_29"]
-v3_24 = ["v3_22_29"]
+v3_24 = []
 v3_24_8 = ["v3_24_1"]
 v3_24_9 = ["v3_24_8"]
 v3_24_11 = ["v3_24_9"]

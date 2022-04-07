@@ -42,8 +42,6 @@ impl Settings {
 }
 
 pub trait SettingsExt: 'static {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_settings_reset_property")]
     fn reset_property(&self, name: &str);
 
@@ -213,13 +211,9 @@ pub trait SettingsExt: 'static {
     #[doc(alias = "gtk-key-theme-name")]
     fn set_gtk_key_theme_name(&self, gtk_key_theme_name: Option<&str>);
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk-keynav-use-caret")]
     fn is_gtk_keynav_use_caret(&self) -> bool;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk-keynav-use-caret")]
     fn set_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool);
 
@@ -496,8 +490,6 @@ pub trait SettingsExt: 'static {
     #[doc(alias = "gtk-key-theme-name")]
     fn connect_gtk_key_theme_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk-keynav-use-caret")]
     fn connect_gtk_keynav_use_caret_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -608,8 +600,6 @@ pub trait SettingsExt: 'static {
 }
 
 impl<O: IsA<Settings>> SettingsExt for O {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn reset_property(&self, name: &str) {
         unsafe {
             ffi::gtk_settings_reset_property(self.as_ref().to_glib_none().0, name.to_glib_none().0);
@@ -916,14 +906,10 @@ impl<O: IsA<Settings>> SettingsExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "gtk-key-theme-name", &gtk_key_theme_name)
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn is_gtk_keynav_use_caret(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "gtk-keynav-use-caret")
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "gtk-keynav-use-caret", &gtk_keynav_use_caret)
     }
@@ -1901,8 +1887,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_gtk_keynav_use_caret_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_gtk_keynav_use_caret_trampoline<
             P: IsA<Settings>,
