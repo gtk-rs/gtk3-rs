@@ -124,7 +124,12 @@ impl Clipboard {
             let format = from_glib_borrow(format);
             let text: Borrowed<Option<glib::GString>> = from_glib_borrow(text);
             let callback: Box_<P> = Box_::from_raw(data as *mut _);
-            (*callback)(&clipboard, &format, text.as_ref().as_deref(), length);
+            (*callback)(
+                &clipboard,
+                &format,
+                (*text).as_ref().map(|s| s.as_str()),
+                length,
+            );
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: Box_<P> = callback_data;
@@ -149,7 +154,7 @@ impl Clipboard {
             let clipboard = from_glib_borrow(clipboard);
             let text: Borrowed<Option<glib::GString>> = from_glib_borrow(text);
             let callback: Box_<P> = Box_::from_raw(data as *mut _);
-            (*callback)(&clipboard, text.as_ref().as_deref());
+            (*callback)(&clipboard, (*text).as_ref().map(|s| s.as_str()));
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: Box_<P> = callback_data;

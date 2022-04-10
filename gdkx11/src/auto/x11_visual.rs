@@ -13,6 +13,8 @@ glib::wrapper! {
     }
 }
 
+impl X11Visual {}
+
 impl fmt::Display for X11Visual {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str("X11Visual")
