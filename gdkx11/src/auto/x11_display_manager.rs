@@ -13,6 +13,8 @@ glib::wrapper! {
     }
 }
 
+impl X11DisplayManager {}
+
 impl fmt::Display for X11DisplayManager {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str("X11DisplayManager")
