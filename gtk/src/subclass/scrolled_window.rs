@@ -71,6 +71,10 @@ unsafe impl<T: ScrolledWindowImpl> IsSubclassable<T> for ScrolledWindow {
     fn class_init(class: &mut ::glib::Class<Self>) {
         Self::parent_class_init::<T>(class);
 
+        if !crate::rt::is_initialized() {
+            panic!("GTK has to be initialized first");
+        }
+
         let klass = class.as_mut();
         klass.move_focus_out = Some(window_move_focus_out::<T>);
         klass.scroll_child = Some(window_scroll_child::<T>);
