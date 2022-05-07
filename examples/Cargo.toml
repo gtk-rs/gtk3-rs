@@ -26,7 +26,7 @@ git = "https://github.com/gtk-rs/gtk-rs-core"
 features = ["png"]
 optional = true
 
-[build-dependencies.gio]
+[build-dependencies.glib-build-tools]
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [[bin]]
