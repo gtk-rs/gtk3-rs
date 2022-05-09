@@ -1,13 +1,17 @@
-FROM ubuntu:20.10
+FROM ghcr.io/gtk-rs/gtk-rs-core/core:latest
 
-RUN apt update -y
-RUN apt install -y \
-    libgtk-3-dev \
-    libglib2.0-dev \
-    libgraphene-1.0-dev \
-    git \
-    xvfb \
-    curl \
-    libcairo-gobject2 \
-    libcairo2-dev \
-    wget
+RUN dnf update -y && \
+    dnf install xorg-x11-server-Xvfb procps-ng \
+    dbus-devel libxkbcommon-devel wayland-devel wayland-protocols-devel mesa-libEGL-devel \
+    libXi-devel libXrandr-devel libXcursor-devel libXdamage-devel libXinerama-devel libXtst-devel -y && \
+    dnf clean all -y
+
+RUN git clone https://gitlab.gnome.org/GNOME/at-spi2-atk.git --depth=1 && \
+    (cd /at-spi2-atk && \
+        meson setup builddir --prefix=/usr --buildtype release -Dtests=false -Datk:introspection=false -Dat-spi2-core:introspection=no && \
+        meson install -C builddir) && \
+    git clone https://gitlab.gnome.org/GNOME/gtk.git --depth=1 -b gtk-3-24 && \
+    (cd /gtk && \
+        meson setup builddir --prefix=/usr --buildtype release -Dintrospection=false -Dexamples=false -Dtests=false -Ddemos=false -Dlibepoxy:tests=false && \
+        meson install -C builddir) && \
+    rm -rf /at-spi2-atk /gtk
