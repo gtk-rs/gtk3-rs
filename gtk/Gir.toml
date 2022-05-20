@@ -1616,7 +1616,7 @@ manual_traits = ["NotebookExtManual"]
     manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
-    name = "set_current_pxage"
+    name = "set_current_page"
     manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.child_prop]]

@@ -527,9 +527,6 @@ pub trait NotebookExt: 'static {
     #[doc(alias = "gtk_notebook_set_action_widget")]
     fn set_action_widget(&self, widget: &impl IsA<Widget>, pack_type: PackType);
 
-    #[doc(alias = "gtk_notebook_set_current_page")]
-    fn set_current_page(&self, page_num: i32);
-
     #[doc(alias = "gtk_notebook_set_group_name")]
     fn set_group_name(&self, group_name: Option<&str>);
 
@@ -831,12 +828,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
                 widget.as_ref().to_glib_none().0,
                 pack_type.into_glib(),
             );
-        }
-    }
-
-    fn set_current_page(&self, page_num: i32) {
-        unsafe {
-            ffi::gtk_notebook_set_current_page(self.as_ref().to_glib_none().0, page_num);
         }
     }
 
