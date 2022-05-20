@@ -163,9 +163,7 @@ impl Window {
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
             );
-            let x = x.assume_init();
-            let y = y.assume_init();
-            (x, y)
+            (x.assume_init(), y.assume_init())
         }
     }
 
@@ -181,9 +179,7 @@ impl Window {
                 parent_x.as_mut_ptr(),
                 parent_y.as_mut_ptr(),
             );
-            let parent_x = parent_x.assume_init();
-            let parent_y = parent_y.assume_init();
-            (parent_x, parent_y)
+            (parent_x.assume_init(), parent_y.assume_init())
         }
     }
 
@@ -318,9 +314,8 @@ impl Window {
                 self.to_glib_none().0,
                 decorations.as_mut_ptr(),
             ));
-            let decorations = decorations.assume_init();
             if ret {
-                Some(from_glib(decorations))
+                Some(from_glib(decorations.assume_init()))
             } else {
                 None
             }
@@ -363,10 +358,12 @@ impl Window {
                 y.as_mut_ptr(),
                 mask.as_mut_ptr(),
             ));
-            let x = x.assume_init();
-            let y = y.assume_init();
-            let mask = mask.assume_init();
-            (ret, x, y, from_glib(mask))
+            (
+                ret,
+                x.assume_init(),
+                y.assume_init(),
+                from_glib(mask.assume_init()),
+            )
         }
     }
 
@@ -387,10 +384,12 @@ impl Window {
                 y.as_mut_ptr(),
                 mask.as_mut_ptr(),
             ));
-            let x = x.assume_init();
-            let y = y.assume_init();
-            let mask = mask.assume_init();
-            (ret, x, y, from_glib(mask))
+            (
+                ret,
+                x.assume_init(),
+                y.assume_init(),
+                from_glib(mask.assume_init()),
+            )
         }
     }
 
@@ -486,11 +485,12 @@ impl Window {
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
             );
-            let x = x.assume_init();
-            let y = y.assume_init();
-            let width = width.assume_init();
-            let height = height.assume_init();
-            (x, y, width, height)
+            (
+                x.assume_init(),
+                y.assume_init(),
+                width.assume_init(),
+                height.assume_init(),
+            )
         }
     }
 
@@ -521,9 +521,7 @@ impl Window {
             let mut y = mem::MaybeUninit::uninit();
             let ret =
                 ffi::gdk_window_get_origin(self.to_glib_none().0, x.as_mut_ptr(), y.as_mut_ptr());
-            let x = x.assume_init();
-            let y = y.assume_init();
-            (ret, x, y)
+            (ret, x.assume_init(), y.assume_init())
         }
     }
 
@@ -547,9 +545,7 @@ impl Window {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
             ffi::gdk_window_get_position(self.to_glib_none().0, x.as_mut_ptr(), y.as_mut_ptr());
-            let x = x.assume_init();
-            let y = y.assume_init();
-            (x, y)
+            (x.assume_init(), y.assume_init())
         }
     }
 
@@ -566,9 +562,7 @@ impl Window {
                 root_x.as_mut_ptr(),
                 root_y.as_mut_ptr(),
             );
-            let root_x = root_x.assume_init();
-            let root_y = root_y.assume_init();
-            (root_x, root_y)
+            (root_x.assume_init(), root_y.assume_init())
         }
     }
 
@@ -579,9 +573,7 @@ impl Window {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
             ffi::gdk_window_get_root_origin(self.to_glib_none().0, x.as_mut_ptr(), y.as_mut_ptr());
-            let x = x.assume_init();
-            let y = y.assume_init();
-            (x, y)
+            (x.assume_init(), y.assume_init())
         }
     }
 
@@ -1305,9 +1297,7 @@ impl Window {
                 new_width.as_mut_ptr(),
                 new_height.as_mut_ptr(),
             );
-            let new_width = new_width.assume_init();
-            let new_height = new_height.assume_init();
-            (new_width, new_height)
+            (new_width.assume_init(), new_height.assume_init())
         }
     }
 

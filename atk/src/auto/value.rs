@@ -140,8 +140,7 @@ impl<O: IsA<Value>> ValueExt for O {
                 value.as_mut_ptr(),
                 &mut text,
             );
-            let value = value.assume_init();
-            (value, from_glib_full(text))
+            (value.assume_init(), from_glib_full(text))
         }
     }
 

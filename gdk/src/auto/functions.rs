@@ -54,9 +54,8 @@ pub fn events_get_angle(event1: &mut Event, event2: &mut Event) -> Option<f64> {
             event2.to_glib_none_mut().0,
             angle.as_mut_ptr(),
         ));
-        let angle = angle.assume_init();
         if ret {
-            Some(angle)
+            Some(angle.assume_init())
         } else {
             None
         }
@@ -75,10 +74,8 @@ pub fn events_get_center(event1: &mut Event, event2: &mut Event) -> Option<(f64,
             x.as_mut_ptr(),
             y.as_mut_ptr(),
         ));
-        let x = x.assume_init();
-        let y = y.assume_init();
         if ret {
-            Some((x, y))
+            Some((x.assume_init(), y.assume_init()))
         } else {
             None
         }
@@ -95,9 +92,8 @@ pub fn events_get_distance(event1: &mut Event, event2: &mut Event) -> Option<f64
             event2.to_glib_none_mut().0,
             distance.as_mut_ptr(),
         ));
-        let distance = distance.assume_init();
         if ret {
-            Some(distance)
+            Some(distance.assume_init())
         } else {
             None
         }
@@ -241,11 +237,10 @@ pub fn property_get(
             actual_length.as_mut_ptr(),
             &mut data,
         ));
-        let actual_format = actual_format.assume_init();
         if ret {
             Some((
                 actual_property_type,
-                actual_format,
+                actual_format.assume_init(),
                 FromGlibContainer::from_glib_full_num(data, actual_length.assume_init() as usize),
             ))
         } else {

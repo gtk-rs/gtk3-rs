@@ -616,10 +616,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
                 month.as_mut_ptr(),
                 day.as_mut_ptr(),
             );
-            let year = year.assume_init();
-            let month = month.assume_init();
-            let day = day.assume_init();
-            (year, month, day)
+            (year.assume_init(), month.assume_init(), day.assume_init())
         }
     }
 

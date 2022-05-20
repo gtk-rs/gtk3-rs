@@ -128,9 +128,10 @@ pub fn accelerator_parse(accelerator: &str) -> (u32, gdk::ModifierType) {
             accelerator_key.as_mut_ptr(),
             accelerator_mods.as_mut_ptr(),
         );
-        let accelerator_key = accelerator_key.assume_init();
-        let accelerator_mods = accelerator_mods.assume_init();
-        (accelerator_key, from_glib(accelerator_mods))
+        (
+            accelerator_key.assume_init(),
+            from_glib(accelerator_mods.assume_init()),
+        )
     }
 }
 
@@ -292,9 +293,8 @@ pub fn current_event_state() -> Option<gdk::ModifierType> {
     unsafe {
         let mut state = mem::MaybeUninit::uninit();
         let ret = from_glib(ffi::gtk_get_current_event_state(state.as_mut_ptr()));
-        let state = state.assume_init();
         if ret {
-            Some(from_glib(state))
+            Some(from_glib(state.assume_init()))
         } else {
             None
         }
@@ -876,10 +876,7 @@ pub fn rgb_to_hsv(r: f64, g: f64, b: f64) -> (f64, f64, f64) {
         let mut s = mem::MaybeUninit::uninit();
         let mut v = mem::MaybeUninit::uninit();
         ffi::gtk_rgb_to_hsv(r, g, b, h.as_mut_ptr(), s.as_mut_ptr(), v.as_mut_ptr());
-        let h = h.assume_init();
-        let s = s.assume_init();
-        let v = v.assume_init();
-        (h, s, v)
+        (h.assume_init(), s.assume_init(), v.assume_init())
     }
 }
 

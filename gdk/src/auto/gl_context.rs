@@ -52,9 +52,7 @@ impl GLContext {
                 major.as_mut_ptr(),
                 minor.as_mut_ptr(),
             );
-            let major = major.assume_init();
-            let minor = minor.assume_init();
-            (major, minor)
+            (major.assume_init(), minor.assume_init())
         }
     }
 
@@ -86,9 +84,7 @@ impl GLContext {
                 major.as_mut_ptr(),
                 minor.as_mut_ptr(),
             );
-            let major = major.assume_init();
-            let minor = minor.assume_init();
-            (major, minor)
+            (major.assume_init(), minor.assume_init())
         }
     }
 

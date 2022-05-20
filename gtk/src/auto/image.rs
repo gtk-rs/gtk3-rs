@@ -265,8 +265,7 @@ impl<O: IsA<Image>> ImageExt for O {
                 &mut gicon,
                 size.as_mut_ptr(),
             );
-            let size = size.assume_init();
-            (from_glib_none(gicon), from_glib(size))
+            (from_glib_none(gicon), from_glib(size.assume_init()))
         }
     }
 

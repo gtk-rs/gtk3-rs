@@ -69,10 +69,12 @@ impl RecentInfo {
                 count.as_mut_ptr(),
                 time_.as_mut_ptr(),
             ));
-            let count = count.assume_init();
-            let time_ = time_.assume_init();
             if ret {
-                Some((from_glib_none(app_exec), count, time_))
+                Some((
+                    from_glib_none(app_exec),
+                    count.assume_init(),
+                    time_.assume_init(),
+                ))
             } else {
                 None
             }

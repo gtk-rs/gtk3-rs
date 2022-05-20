@@ -174,10 +174,8 @@ impl<O: IsA<GestureDrag>> GestureDragExt for O {
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
             ));
-            let x = x.assume_init();
-            let y = y.assume_init();
             if ret {
-                Some((x, y))
+                Some((x.assume_init(), y.assume_init()))
             } else {
                 None
             }
@@ -193,10 +191,8 @@ impl<O: IsA<GestureDrag>> GestureDragExt for O {
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
             ));
-            let x = x.assume_init();
-            let y = y.assume_init();
             if ret {
-                Some((x, y))
+                Some((x.assume_init(), y.assume_init()))
             } else {
                 None
             }

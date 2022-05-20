@@ -222,11 +222,12 @@ impl<O: IsA<Text>> TextExt for O {
                 height.as_mut_ptr(),
                 coords.into_glib(),
             );
-            let x = x.assume_init();
-            let y = y.assume_init();
-            let width = width.assume_init();
-            let height = height.assume_init();
-            (x, y, width, height)
+            (
+                x.assume_init(),
+                y.assume_init(),
+                width.assume_init(),
+                height.assume_init(),
+            )
         }
     }
 
@@ -282,9 +283,7 @@ impl<O: IsA<Text>> TextExt for O {
                 start_offset.as_mut_ptr(),
                 end_offset.as_mut_ptr(),
             ));
-            let start_offset = start_offset.assume_init();
-            let end_offset = end_offset.assume_init();
-            (ret, start_offset, end_offset)
+            (ret, start_offset.assume_init(), end_offset.assume_init())
         }
     }
 
@@ -303,9 +302,7 @@ impl<O: IsA<Text>> TextExt for O {
                 start_offset.as_mut_ptr(),
                 end_offset.as_mut_ptr(),
             ));
-            let start_offset = start_offset.assume_init();
-            let end_offset = end_offset.assume_init();
-            (ret, start_offset, end_offset)
+            (ret, start_offset.assume_init(), end_offset.assume_init())
         }
     }
 
@@ -334,9 +331,7 @@ impl<O: IsA<Text>> TextExt for O {
                 start_offset.as_mut_ptr(),
                 end_offset.as_mut_ptr(),
             ));
-            let start_offset = start_offset.assume_init();
-            let end_offset = end_offset.assume_init();
-            (ret, start_offset, end_offset)
+            (ret, start_offset.assume_init(), end_offset.assume_init())
         }
     }
 

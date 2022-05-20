@@ -92,16 +92,12 @@ impl Keymap {
                 level.as_mut_ptr(),
                 consumed_modifiers.as_mut_ptr(),
             ));
-            let keyval = keyval.assume_init();
-            let effective_group = effective_group.assume_init();
-            let level = level.assume_init();
-            let consumed_modifiers = consumed_modifiers.assume_init();
             if ret {
                 Some((
-                    keyval,
-                    effective_group,
-                    level,
-                    from_glib(consumed_modifiers),
+                    keyval.assume_init(),
+                    effective_group.assume_init(),
+                    level.assume_init(),
+                    from_glib(consumed_modifiers.assume_init()),
                 ))
             } else {
                 None

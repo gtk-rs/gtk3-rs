@@ -98,10 +98,8 @@ impl Device {
                 keyval.as_mut_ptr(),
                 modifiers.as_mut_ptr(),
             ));
-            let keyval = keyval.assume_init();
-            let modifiers = modifiers.assume_init();
             if ret {
-                Some((keyval, from_glib(modifiers)))
+                Some((keyval.assume_init(), from_glib(modifiers.assume_init())))
             } else {
                 None
             }
@@ -151,9 +149,7 @@ impl Device {
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
             );
-            let x = x.assume_init();
-            let y = y.assume_init();
-            (from_glib_none(screen), x, y)
+            (from_glib_none(screen), x.assume_init(), y.assume_init())
         }
     }
 
@@ -170,9 +166,7 @@ impl Device {
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
             );
-            let x = x.assume_init();
-            let y = y.assume_init();
-            (from_glib_none(screen), x, y)
+            (from_glib_none(screen), x.assume_init(), y.assume_init())
         }
     }
 
@@ -217,9 +211,7 @@ impl Device {
                 win_x.as_mut_ptr(),
                 win_y.as_mut_ptr(),
             ));
-            let win_x = win_x.assume_init();
-            let win_y = win_y.assume_init();
-            (ret, win_x, win_y)
+            (ret, win_x.assume_init(), win_y.assume_init())
         }
     }
 
@@ -234,9 +226,7 @@ impl Device {
                 win_x.as_mut_ptr(),
                 win_y.as_mut_ptr(),
             ));
-            let win_x = win_x.assume_init();
-            let win_y = win_y.assume_init();
-            (ret, win_x, win_y)
+            (ret, win_x.assume_init(), win_y.assume_init())
         }
     }
 

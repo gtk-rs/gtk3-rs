@@ -171,9 +171,8 @@ impl IconInfo {
                 was_symbolic.as_mut_ptr(),
                 &mut error,
             );
-            let was_symbolic = was_symbolic.assume_init();
             if error.is_null() {
-                Ok((from_glib_full(ret), from_glib(was_symbolic)))
+                Ok((from_glib_full(ret), from_glib(was_symbolic.assume_init())))
             } else {
                 Err(from_glib_full(error))
             }
@@ -219,9 +218,8 @@ impl IconInfo {
                 was_symbolic.as_mut_ptr(),
                 &mut error,
             );
-            let was_symbolic = was_symbolic.assume_init();
             let result = if error.is_null() {
-                Ok((from_glib_full(ret), from_glib(was_symbolic)))
+                Ok((from_glib_full(ret), from_glib(was_symbolic.assume_init())))
             } else {
                 Err(from_glib_full(error))
             };
@@ -289,9 +287,8 @@ impl IconInfo {
                 was_symbolic.as_mut_ptr(),
                 &mut error,
             );
-            let was_symbolic = was_symbolic.assume_init();
             if error.is_null() {
-                Ok((from_glib_full(ret), from_glib(was_symbolic)))
+                Ok((from_glib_full(ret), from_glib(was_symbolic.assume_init())))
             } else {
                 Err(from_glib_full(error))
             }
@@ -334,9 +331,8 @@ impl IconInfo {
                 was_symbolic.as_mut_ptr(),
                 &mut error,
             );
-            let was_symbolic = was_symbolic.assume_init();
             let result = if error.is_null() {
-                Ok((from_glib_full(ret), from_glib(was_symbolic)))
+                Ok((from_glib_full(ret), from_glib(was_symbolic.assume_init())))
             } else {
                 Err(from_glib_full(error))
             };

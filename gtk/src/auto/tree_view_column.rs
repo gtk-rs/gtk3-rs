@@ -481,10 +481,8 @@ impl<O: IsA<TreeViewColumn>> TreeViewColumnExt for O {
                 x_offset.as_mut_ptr(),
                 width.as_mut_ptr(),
             ));
-            let x_offset = x_offset.assume_init();
-            let width = width.assume_init();
             if ret {
-                Some((x_offset, width))
+                Some((x_offset.assume_init(), width.assume_init()))
             } else {
                 None
             }
@@ -505,11 +503,12 @@ impl<O: IsA<TreeViewColumn>> TreeViewColumnExt for O {
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
             );
-            let x_offset = x_offset.assume_init();
-            let y_offset = y_offset.assume_init();
-            let width = width.assume_init();
-            let height = height.assume_init();
-            (x_offset, y_offset, width, height)
+            (
+                x_offset.assume_init(),
+                y_offset.assume_init(),
+                width.assume_init(),
+                height.assume_init(),
+            )
         }
     }
 
