@@ -482,19 +482,15 @@ generate_builder = true
     [[object.child_prop]]
     name = "expand"
     type = "gboolean"
-    doc_hidden = true
     [[object.child_prop]]
     name = "fill"
     type = "gboolean"
-    doc_hidden = true
     [[object.child_prop]]
     name = "pack-type"
     type = "Gtk.PackType"
-    doc_hidden = true
     [[object.child_prop]]
     name = "padding"
     type = "guint"
-    doc_hidden = true
     [[object.child_prop]]
     name = "position"
     type = "gint"
@@ -1620,39 +1616,32 @@ manual_traits = ["NotebookExtManual"]
     manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
-    name = "set_current_page"
+    name = "set_current_pxage"
     manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.child_prop]]
     name = "detachable"
     type = "gboolean"
-    doc_hidden=true
     [[object.child_prop]]
     name = "menu-label"
     type = "utf8"
-    doc_hidden=true
     [[object.child_prop]]
     name = "position"
     type = "gint"
-    doc_hidden=true
     [[object.child_prop]]
     name = "reorderable"
     type = "gboolean"
-    doc_hidden=true
     [[object.child_prop]]
     name = "tab-expand"
     rename_getter = "tab_expands"
     type = "gboolean"
-    doc_hidden=true
     [[object.child_prop]]
     name = "tab-fill"
     rename_getter = "tab_fills"
     type = "gboolean"
-    doc_hidden=true
     [[object.child_prop]]
     name = "tab-label"
     type = "utf8"
-    doc_hidden=true
 
 [[object]]
 name = "Gtk.OffscreenWindow"

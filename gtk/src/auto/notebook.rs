@@ -527,6 +527,9 @@ pub trait NotebookExt: 'static {
     #[doc(alias = "gtk_notebook_set_action_widget")]
     fn set_action_widget(&self, widget: &impl IsA<Widget>, pack_type: PackType);
 
+    #[doc(alias = "gtk_notebook_set_current_page")]
+    fn set_current_page(&self, page_num: i32);
+
     #[doc(alias = "gtk_notebook_set_group_name")]
     fn set_group_name(&self, group_name: Option<&str>);
 
@@ -570,53 +573,39 @@ pub trait NotebookExt: 'static {
 
     fn set_page(&self, page: i32);
 
-    #[doc(hidden)]
     fn child_is_detachable<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    #[doc(hidden)]
     fn set_child_detachable<T: IsA<crate::Widget>>(&self, item: &T, detachable: bool);
 
-    #[doc(hidden)]
     #[doc(alias = "child.menu-label")]
     fn child_menu_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
 
-    #[doc(hidden)]
     #[doc(alias = "child.menu-label")]
     fn set_child_menu_label<T: IsA<crate::Widget>>(&self, item: &T, menu_label: Option<&str>);
 
-    #[doc(hidden)]
     fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
 
-    #[doc(hidden)]
     fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
 
-    #[doc(hidden)]
     fn child_is_reorderable<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    #[doc(hidden)]
     fn set_child_reorderable<T: IsA<crate::Widget>>(&self, item: &T, reorderable: bool);
 
-    #[doc(hidden)]
     #[doc(alias = "child.tab-expand")]
     fn child_tab_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    #[doc(hidden)]
     #[doc(alias = "child.tab-expand")]
     fn set_child_tab_expand<T: IsA<crate::Widget>>(&self, item: &T, tab_expand: bool);
 
-    #[doc(hidden)]
     #[doc(alias = "child.tab-fill")]
     fn child_tab_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    #[doc(hidden)]
     #[doc(alias = "child.tab-fill")]
     fn set_child_tab_fill<T: IsA<crate::Widget>>(&self, item: &T, tab_fill: bool);
 
-    #[doc(hidden)]
     #[doc(alias = "child.tab-label")]
     fn child_tab_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
 
-    #[doc(hidden)]
     #[doc(alias = "child.tab-label")]
     fn set_child_tab_label<T: IsA<crate::Widget>>(&self, item: &T, tab_label: Option<&str>);
 
@@ -845,6 +834,12 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    fn set_current_page(&self, page_num: i32) {
+        unsafe {
+            ffi::gtk_notebook_set_current_page(self.as_ref().to_glib_none().0, page_num);
+        }
+    }
+
     fn set_group_name(&self, group_name: Option<&str>) {
         unsafe {
             ffi::gtk_notebook_set_group_name(
@@ -960,7 +955,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "page", &page)
     }
 
-    #[doc(hidden)]
     fn child_is_detachable<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -969,7 +963,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_detachable<T: IsA<crate::Widget>>(&self, item: &T, detachable: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -979,7 +972,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_menu_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -988,7 +980,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_menu_label<T: IsA<crate::Widget>>(&self, item: &T, menu_label: Option<&str>) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -998,7 +989,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -1007,7 +997,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -1017,7 +1006,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_is_reorderable<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -1026,7 +1014,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_reorderable<T: IsA<crate::Widget>>(&self, item: &T, reorderable: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -1036,7 +1023,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_tab_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -1045,7 +1031,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_tab_expand<T: IsA<crate::Widget>>(&self, item: &T, tab_expand: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -1055,7 +1040,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_tab_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -1064,7 +1048,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_tab_fill<T: IsA<crate::Widget>>(&self, item: &T, tab_fill: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -1074,7 +1057,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_tab_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -1083,7 +1065,6 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_tab_label<T: IsA<crate::Widget>>(&self, item: &T, tab_label: Option<&str>) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),

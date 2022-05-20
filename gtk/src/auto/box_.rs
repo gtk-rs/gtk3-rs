@@ -486,30 +486,22 @@ pub trait BoxExt: 'static {
     #[doc(alias = "gtk_box_set_spacing")]
     fn set_spacing(&self, spacing: i32);
 
-    #[doc(hidden)]
     fn child_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    #[doc(hidden)]
     fn set_child_expand<T: IsA<crate::Widget>>(&self, item: &T, expand: bool);
 
-    #[doc(hidden)]
     fn child_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
 
-    #[doc(hidden)]
     fn set_child_fill<T: IsA<crate::Widget>>(&self, item: &T, fill: bool);
 
-    #[doc(hidden)]
     #[doc(alias = "child.pack-type")]
     fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType;
 
-    #[doc(hidden)]
     #[doc(alias = "child.pack-type")]
     fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType);
 
-    #[doc(hidden)]
     fn child_padding<T: IsA<crate::Widget>>(&self, item: &T) -> u32;
 
-    #[doc(hidden)]
     fn set_child_padding<T: IsA<crate::Widget>>(&self, item: &T, padding: u32);
 
     fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
@@ -658,7 +650,6 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
-    #[doc(hidden)]
     fn child_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -667,7 +658,6 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_expand<T: IsA<crate::Widget>>(&self, item: &T, expand: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -677,7 +667,6 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -686,7 +675,6 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_fill<T: IsA<crate::Widget>>(&self, item: &T, fill: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -696,7 +684,6 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -705,7 +692,6 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -715,7 +701,6 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn child_padding<T: IsA<crate::Widget>>(&self, item: &T) -> u32 {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -724,7 +709,6 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
-    #[doc(hidden)]
     fn set_child_padding<T: IsA<crate::Widget>>(&self, item: &T, padding: u32) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
