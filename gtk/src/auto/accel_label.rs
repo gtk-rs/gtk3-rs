@@ -605,9 +605,10 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
                 accelerator_key.as_mut_ptr(),
                 accelerator_mods.as_mut_ptr(),
             );
-            let accelerator_key = accelerator_key.assume_init();
-            let accelerator_mods = accelerator_mods.assume_init();
-            (accelerator_key, from_glib(accelerator_mods))
+            (
+                accelerator_key.assume_init(),
+                from_glib(accelerator_mods.assume_init()),
+            )
         }
     }
 

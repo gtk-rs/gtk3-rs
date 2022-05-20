@@ -540,9 +540,8 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
                 name.to_glib_none().0,
                 value.as_mut_ptr(),
             ));
-            let value = value.assume_init();
             if ret {
-                Some(value)
+                Some(value.assume_init())
             } else {
                 None
             }

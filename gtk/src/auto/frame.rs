@@ -511,9 +511,7 @@ impl<O: IsA<Frame>> FrameExt for O {
                 xalign.as_mut_ptr(),
                 yalign.as_mut_ptr(),
             );
-            let xalign = xalign.assume_init();
-            let yalign = yalign.assume_init();
-            (xalign, yalign)
+            (xalign.assume_init(), yalign.assume_init())
         }
     }
 

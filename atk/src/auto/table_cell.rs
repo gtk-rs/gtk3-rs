@@ -73,10 +73,8 @@ impl<O: IsA<TableCell>> TableCellExt for O {
                 row.as_mut_ptr(),
                 column.as_mut_ptr(),
             ));
-            let row = row.assume_init();
-            let column = column.assume_init();
             if ret {
-                Some((row, column))
+                Some((row.assume_init(), column.assume_init()))
             } else {
                 None
             }
@@ -96,12 +94,13 @@ impl<O: IsA<TableCell>> TableCellExt for O {
                 row_span.as_mut_ptr(),
                 column_span.as_mut_ptr(),
             ));
-            let row = row.assume_init();
-            let column = column.assume_init();
-            let row_span = row_span.assume_init();
-            let column_span = column_span.assume_init();
             if ret {
-                Some((row, column, row_span, column_span))
+                Some((
+                    row.assume_init(),
+                    column.assume_init(),
+                    row_span.assume_init(),
+                    column_span.assume_init(),
+                ))
             } else {
                 None
             }

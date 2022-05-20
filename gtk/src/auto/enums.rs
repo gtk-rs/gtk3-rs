@@ -2345,10 +2345,8 @@ impl IconSize {
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
             ));
-            let width = width.assume_init();
-            let height = height.assume_init();
             if ret {
-                Some((width, height))
+                Some((width.assume_init(), height.assume_init()))
             } else {
                 None
             }

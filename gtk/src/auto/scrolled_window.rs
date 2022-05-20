@@ -811,9 +811,10 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
                 hscrollbar_policy.as_mut_ptr(),
                 vscrollbar_policy.as_mut_ptr(),
             );
-            let hscrollbar_policy = hscrollbar_policy.assume_init();
-            let vscrollbar_policy = vscrollbar_policy.assume_init();
-            (from_glib(hscrollbar_policy), from_glib(vscrollbar_policy))
+            (
+                from_glib(hscrollbar_policy.assume_init()),
+                from_glib(vscrollbar_policy.assume_init()),
+            )
         }
     }
 

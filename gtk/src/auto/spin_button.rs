@@ -1002,9 +1002,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
                 step.as_mut_ptr(),
                 page.as_mut_ptr(),
             );
-            let step = step.assume_init();
-            let page = page.assume_init();
-            (step, page)
+            (step.assume_init(), page.assume_init())
         }
     }
 
@@ -1025,9 +1023,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
                 min.as_mut_ptr(),
                 max.as_mut_ptr(),
             );
-            let min = min.assume_init();
-            let max = max.assume_init();
-            (min, max)
+            (min.assume_init(), max.assume_init())
         }
     }
 

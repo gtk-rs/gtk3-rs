@@ -31,10 +31,11 @@ impl Visual {
                 shift.as_mut_ptr(),
                 precision.as_mut_ptr(),
             );
-            let mask = mask.assume_init();
-            let shift = shift.assume_init();
-            let precision = precision.assume_init();
-            (mask, shift, precision)
+            (
+                mask.assume_init(),
+                shift.assume_init(),
+                precision.assume_init(),
+            )
         }
     }
 
@@ -57,10 +58,11 @@ impl Visual {
                 shift.as_mut_ptr(),
                 precision.as_mut_ptr(),
             );
-            let mask = mask.assume_init();
-            let shift = shift.assume_init();
-            let precision = precision.assume_init();
-            (mask, shift, precision)
+            (
+                mask.assume_init(),
+                shift.assume_init(),
+                precision.assume_init(),
+            )
         }
     }
 
@@ -77,10 +79,11 @@ impl Visual {
                 shift.as_mut_ptr(),
                 precision.as_mut_ptr(),
             );
-            let mask = mask.assume_init();
-            let shift = shift.assume_init();
-            let precision = precision.assume_init();
-            (mask, shift, precision)
+            (
+                mask.assume_init(),
+                shift.assume_init(),
+                precision.assume_init(),
+            )
         }
     }
 

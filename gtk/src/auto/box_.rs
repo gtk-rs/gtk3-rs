@@ -589,15 +589,11 @@ impl<O: IsA<Box>> BoxExt for O {
                 padding.as_mut_ptr(),
                 pack_type.as_mut_ptr(),
             );
-            let expand = expand.assume_init();
-            let fill = fill.assume_init();
-            let padding = padding.assume_init();
-            let pack_type = pack_type.assume_init();
             (
-                from_glib(expand),
-                from_glib(fill),
-                padding,
-                from_glib(pack_type),
+                from_glib(expand.assume_init()),
+                from_glib(fill.assume_init()),
+                padding.assume_init(),
+                from_glib(pack_type.assume_init()),
             )
         }
     }

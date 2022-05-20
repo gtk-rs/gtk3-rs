@@ -1189,9 +1189,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 tx.as_mut_ptr(),
                 ty.as_mut_ptr(),
             );
-            let tx = tx.assume_init();
-            let ty = ty.assume_init();
-            (tx, ty)
+            (tx.assume_init(), ty.assume_init())
         }
     }
 
@@ -1206,9 +1204,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 wx.as_mut_ptr(),
                 wy.as_mut_ptr(),
             );
-            let wx = wx.assume_init();
-            let wy = wy.assume_init();
-            (wx, wy)
+            (wx.assume_init(), wy.assume_init())
         }
     }
 
@@ -1223,9 +1219,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 bx.as_mut_ptr(),
                 by.as_mut_ptr(),
             );
-            let bx = bx.assume_init();
-            let by = by.assume_init();
-            (bx, by)
+            (bx.assume_init(), by.assume_init())
         }
     }
 
@@ -1240,9 +1234,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 wx.as_mut_ptr(),
                 wy.as_mut_ptr(),
             );
-            let wx = wx.assume_init();
-            let wy = wy.assume_init();
-            (wx, wy)
+            (wx.assume_init(), wy.assume_init())
         }
     }
 
@@ -1257,9 +1249,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 bx.as_mut_ptr(),
                 by.as_mut_ptr(),
             );
-            let bx = bx.assume_init();
-            let by = by.assume_init();
-            (bx, by)
+            (bx.assume_init(), by.assume_init())
         }
     }
 
@@ -1274,9 +1264,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 tx.as_mut_ptr(),
                 ty.as_mut_ptr(),
             );
-            let tx = tx.assume_init();
-            let ty = ty.assume_init();
-            (tx, ty)
+            (tx.assume_init(), ty.assume_init())
         }
     }
 
@@ -1409,9 +1397,8 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 &mut path,
                 pos.as_mut_ptr(),
             ));
-            let pos = pos.assume_init();
             if ret {
-                Some((from_glib_full(path), from_glib(pos)))
+                Some((from_glib_full(path), from_glib(pos.assume_init())))
             } else {
                 None
             }
@@ -1427,8 +1414,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 &mut path,
                 pos.as_mut_ptr(),
             );
-            let pos = pos.assume_init();
-            (from_glib_full(path), from_glib(pos))
+            (from_glib_full(path), from_glib(pos.assume_init()))
         }
     }
 
@@ -1535,10 +1521,13 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 cell_x.as_mut_ptr(),
                 cell_y.as_mut_ptr(),
             ));
-            let cell_x = cell_x.assume_init();
-            let cell_y = cell_y.assume_init();
             if ret {
-                Some((from_glib_full(path), from_glib_none(column), cell_x, cell_y))
+                Some((
+                    from_glib_full(path),
+                    from_glib_none(column),
+                    cell_x.assume_init(),
+                    cell_y.assume_init(),
+                ))
             } else {
                 None
             }
@@ -1742,10 +1731,13 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 cell_x.as_mut_ptr(),
                 cell_y.as_mut_ptr(),
             ));
-            let cell_x = cell_x.assume_init();
-            let cell_y = cell_y.assume_init();
             if ret {
-                Some((from_glib_full(path), from_glib_none(column), cell_x, cell_y))
+                Some((
+                    from_glib_full(path),
+                    from_glib_none(column),
+                    cell_x.assume_init(),
+                    cell_y.assume_init(),
+                ))
             } else {
                 None
             }
