@@ -4,7 +4,9 @@
 
 use crate::Buildable;
 use crate::FileFilterFlags;
+use crate::FileFilterInfo;
 use glib::translate::*;
+use std::boxed::Box as Box_;
 use std::fmt;
 
 glib::wrapper! {
@@ -34,10 +36,40 @@ impl FileFilter {
         }
     }
 
-    //#[doc(alias = "gtk_file_filter_add_custom")]
-    //pub fn add_custom(&self, needed: FileFilterFlags, func: /*Unimplemented*/Fn(/*Ignored*/FileFilterInfo) -> bool, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call ffi:gtk_file_filter_add_custom() }
-    //}
+    #[doc(alias = "gtk_file_filter_add_custom")]
+    pub fn add_custom<P: Fn(&FileFilterInfo) -> bool + 'static>(
+        &self,
+        needed: FileFilterFlags,
+        func: P,
+    ) {
+        let func_data: Box_<P> = Box_::new(func);
+        unsafe extern "C" fn func_func<P: Fn(&FileFilterInfo) -> bool + 'static>(
+            filter_info: *const ffi::GtkFileFilterInfo,
+            data: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean {
+            let filter_info = from_glib_borrow(filter_info);
+            let callback: &P = &*(data as *mut _);
+            let res = (*callback)(&filter_info);
+            res.into_glib()
+        }
+        let func = Some(func_func::<P> as _);
+        unsafe extern "C" fn notify_func<P: Fn(&FileFilterInfo) -> bool + 'static>(
+            data: glib::ffi::gpointer,
+        ) {
+            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+        }
+        let destroy_call4 = Some(notify_func::<P> as _);
+        let super_callback0: Box_<P> = func_data;
+        unsafe {
+            ffi::gtk_file_filter_add_custom(
+                self.to_glib_none().0,
+                needed.into_glib(),
+                func,
+                Box_::into_raw(super_callback0) as *mut _,
+                destroy_call4,
+            );
+        }
+    }
 
     #[doc(alias = "gtk_file_filter_add_mime_type")]
     pub fn add_mime_type(&self, mime_type: &str) {
@@ -60,10 +92,15 @@ impl FileFilter {
         }
     }
 
-    //#[doc(alias = "gtk_file_filter_filter")]
-    //pub fn filter(&self, filter_info: /*Ignored*/&FileFilterInfo) -> bool {
-    //    unsafe { TODO: call ffi:gtk_file_filter_filter() }
-    //}
+    #[doc(alias = "gtk_file_filter_filter")]
+    pub fn filter(&self, filter_info: &FileFilterInfo) -> bool {
+        unsafe {
+            from_glib(ffi::gtk_file_filter_filter(
+                self.to_glib_none().0,
+                filter_info.to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "gtk_file_filter_get_name")]
     #[doc(alias = "get_name")]
