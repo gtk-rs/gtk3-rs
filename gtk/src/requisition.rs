@@ -23,7 +23,7 @@ impl<'a> ToGlibPtr<'a, *const ffi::GtkRequisition> for Requisition {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *const ffi::GtkRequisition, Self> {
-        let ptr: *const Requisition = &*self;
+        let ptr: *const Requisition = self;
         Stash(ptr as *const ffi::GtkRequisition, self)
     }
 }

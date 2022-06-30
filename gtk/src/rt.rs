@@ -37,7 +37,6 @@ macro_rules! skip_assert_initialized {
 #[allow(unused_macros)]
 macro_rules! assert_not_initialized {
     () => {
-        #[allow(clippy::if_then_panic)]
         if crate::rt::is_initialized() {
             panic!("This function has to be called before `gtk::init`.");
         }
