@@ -3,7 +3,7 @@ use gtk::glib;
 use gtk::prelude::*;
 
 fn current_time() -> String {
-    return format!("{}", Local::now().format("%Y-%m-%d %H:%M:%S"));
+    format!("{}", Local::now().format("%Y-%m-%d %H:%M:%S"))
 }
 
 fn build_ui(application: &gtk::Application) {

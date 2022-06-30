@@ -33,7 +33,6 @@ macro_rules! skip_assert_initialized {
 /// Asserts that neither `gdk::init` nor `gtk::init` has been called.
 macro_rules! assert_not_initialized {
     () => {
-        #[allow(clippy::if_then_panic)]
         if crate::rt::is_initialized() {
             panic!("This function has to be called before `gdk::init` or `gtk::init`.");
         }
