@@ -247,6 +247,7 @@ manual = [
     "Gtk.Allocation",
     "Gtk.AppChooser",
     "Gtk.Border",
+    "Gtk.FileFilterInfo",
     "Gtk.PadActionEntry",
     "Gtk.PageRange",
     "Gtk.RecentData",
