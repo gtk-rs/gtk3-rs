@@ -1021,9 +1021,10 @@ generate_builder = true
 [[object]]
 name = "Gtk.FileChooser"
 status = "generate"
+manual_traits = ["FileChooserExtManual"]
     [[object.function]]
     name = "add_choice"
-    ignore = true  #strange type of options and option_labels
+    manual = true # rust-ify the options param
 
 [[object]]
 name = "Gtk.FileChooserButton"

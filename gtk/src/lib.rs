@@ -79,6 +79,7 @@ mod entry;
 mod entry_buffer;
 mod entry_completion;
 mod enums;
+mod file_chooser;
 mod file_chooser_dialog;
 mod file_filter_info;
 mod fixed;

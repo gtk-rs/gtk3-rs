@@ -30,6 +30,7 @@ pub use crate::dialog::DialogExtManual;
 pub use crate::drag_context::DragContextExtManual;
 pub use crate::entry::EntryExtManual;
 pub use crate::entry_completion::EntryCompletionExtManual;
+pub use crate::file_chooser::FileChooserExtManual;
 pub use crate::fixed::FixedExtManual;
 pub use crate::flow_box::FlowBoxExtManual;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
