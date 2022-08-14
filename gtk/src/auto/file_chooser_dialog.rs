@@ -35,7 +35,7 @@ impl FileChooserDialog {
     pub const NONE: Option<&'static FileChooserDialog> = None;
 
     //#[doc(alias = "gtk_file_chooser_dialog_new")]
-    //pub fn new(title: Option<&str>, parent: Option<&impl IsA<Window>>, action: FileChooserAction, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> FileChooserDialog {
+    //pub fn new(title: Option<&str>, parent: Option<&impl IsA<Window>>, action: FileChooserAction, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> FileChooserDialog {
     //    unsafe { TODO: call ffi:gtk_file_chooser_dialog_new() }
     //}
 

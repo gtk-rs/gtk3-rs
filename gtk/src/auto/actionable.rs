@@ -39,7 +39,7 @@ pub trait ActionableExt: 'static {
     fn set_action_name(&self, action_name: Option<&str>);
 
     //#[doc(alias = "gtk_actionable_set_action_target")]
-    //fn set_action_target(&self, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn set_action_target(&self, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_actionable_set_action_target_value")]
     fn set_action_target_value(&self, target_value: Option<&glib::Variant>);
@@ -80,7 +80,7 @@ impl<O: IsA<Actionable>> ActionableExt for O {
         }
     }
 
-    //fn set_action_target(&self, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn set_action_target(&self, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_actionable_set_action_target() }
     //}
 

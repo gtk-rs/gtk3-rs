@@ -36,13 +36,13 @@ impl RecentChooserDialog {
     pub const NONE: Option<&'static RecentChooserDialog> = None;
 
     //#[doc(alias = "gtk_recent_chooser_dialog_new")]
-    //pub fn new(title: Option<&str>, parent: Option<&impl IsA<Window>>, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
+    //pub fn new(title: Option<&str>, parent: Option<&impl IsA<Window>>, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> RecentChooserDialog {
     //    unsafe { TODO: call ffi:gtk_recent_chooser_dialog_new() }
     //}
 
     //#[doc(alias = "gtk_recent_chooser_dialog_new_for_manager")]
     //#[doc(alias = "new_for_manager")]
-    //pub fn for_manager(title: Option<&str>, parent: Option<&impl IsA<Window>>, manager: &impl IsA<RecentManager>, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
+    //pub fn for_manager(title: Option<&str>, parent: Option<&impl IsA<Window>>, manager: &impl IsA<RecentManager>, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> RecentChooserDialog {
     //    unsafe { TODO: call ffi:gtk_recent_chooser_dialog_new_for_manager() }
     //}
 

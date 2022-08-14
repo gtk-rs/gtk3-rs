@@ -905,9 +905,6 @@ pub trait IconViewExt: 'static {
     #[doc(alias = "item-width")]
     fn connect_item_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[doc(alias = "margin")]
-    fn connect_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     #[doc(alias = "markup-column")]
     fn connect_markup_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -1838,28 +1835,6 @@ impl<O: IsA<IconView>> IconViewExt for O {
                 b"notify::item-width\0".as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     notify_item_width_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    fn connect_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_margin_trampoline<P: IsA<IconView>, F: Fn(&P) + 'static>(
-            this: *mut ffi::GtkIconView,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::margin\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_margin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

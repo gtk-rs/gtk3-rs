@@ -25,7 +25,7 @@ impl ListStore {
     pub const NONE: Option<&'static ListStore> = None;
 
     //#[doc(alias = "gtk_list_store_new")]
-    //pub fn new(n_columns: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> ListStore {
+    //pub fn new(n_columns: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> ListStore {
     //    unsafe { TODO: call ffi:gtk_list_store_new() }
     //}
 
@@ -52,7 +52,7 @@ pub trait GtkListStoreExt: 'static {
     fn insert_before(&self, sibling: Option<&TreeIter>) -> TreeIter;
 
     //#[doc(alias = "gtk_list_store_insert_with_values")]
-    //fn insert_with_values(&self, position: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreeIter;
+    //fn insert_with_values(&self, position: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> TreeIter;
 
     //#[doc(alias = "gtk_list_store_insert_with_valuesv")]
     //fn insert_with_valuesv(&self, position: i32, columns: &[i32], values: &[&glib::Value]) -> TreeIter;
@@ -136,7 +136,7 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
-    //fn insert_with_values(&self, position: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreeIter {
+    //fn insert_with_values(&self, position: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> TreeIter {
     //    unsafe { TODO: call ffi:gtk_list_store_insert_with_values() }
     //}
 

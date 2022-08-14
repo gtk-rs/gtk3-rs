@@ -67,10 +67,10 @@ pub trait BuilderExt: 'static {
     //fn add_callback_symbol<P: FnOnce() + 'static>(&self, callback_name: &str, callback_symbol: P);
 
     //#[doc(alias = "gtk_builder_add_callback_symbols")]
-    //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     //#[doc(alias = "gtk_builder_connect_signals")]
-    //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
+    //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Basic: Pointer>);
 
     #[doc(alias = "gtk_builder_expose_object")]
     fn expose_object(&self, name: &str, object: &impl IsA<glib::Object>);
@@ -123,11 +123,11 @@ impl<O: IsA<Builder>> BuilderExt for O {
     //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbol() }
     //}
 
-    //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbols() }
     //}
 
-    //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+    //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_builder_connect_signals() }
     //}
 

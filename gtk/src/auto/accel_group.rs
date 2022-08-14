@@ -63,7 +63,7 @@ pub trait AccelGroupExt: 'static {
     fn disconnect_key(&self, accel_key: u32, accel_mods: gdk::ModifierType) -> bool;
 
     //#[doc(alias = "gtk_accel_group_find")]
-    //fn find(&self, find_func: /*Unimplemented*/FnMut(/*Ignored*/AccelKey, &glib::Closure) -> bool, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/Option<AccelKey>;
+    //fn find(&self, find_func: /*Unimplemented*/FnMut(/*Ignored*/AccelKey, &glib::Closure) -> bool, data: /*Unimplemented*/Option<Basic: Pointer>) -> /*Ignored*/Option<AccelKey>;
 
     #[doc(alias = "gtk_accel_group_get_is_locked")]
     #[doc(alias = "get_is_locked")]
@@ -140,7 +140,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
     }
 
-    //fn find(&self, find_func: /*Unimplemented*/FnMut(/*Ignored*/AccelKey, &glib::Closure) -> bool, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/Option<AccelKey> {
+    //fn find(&self, find_func: /*Unimplemented*/FnMut(/*Ignored*/AccelKey, &glib::Closure) -> bool, data: /*Unimplemented*/Option<Basic: Pointer>) -> /*Ignored*/Option<AccelKey> {
     //    unsafe { TODO: call ffi:gtk_accel_group_find() }
     //}
 

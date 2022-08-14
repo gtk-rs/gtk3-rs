@@ -39,13 +39,13 @@ impl MessageDialog {
     pub const NONE: Option<&'static MessageDialog> = None;
 
     //#[doc(alias = "gtk_message_dialog_new")]
-    //pub fn new(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> MessageDialog {
+    //pub fn new(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> MessageDialog {
     //    unsafe { TODO: call ffi:gtk_message_dialog_new() }
     //}
 
     //#[doc(alias = "gtk_message_dialog_new_with_markup")]
     //#[doc(alias = "new_with_markup")]
-    //pub fn with_markup(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> MessageDialog {
+    //pub fn with_markup(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> MessageDialog {
     //    unsafe { TODO: call ffi:gtk_message_dialog_new_with_markup() }
     //}
 
@@ -723,10 +723,10 @@ impl MessageDialogBuilder {
 
 pub trait MessageDialogExt: 'static {
     //#[doc(alias = "gtk_message_dialog_format_secondary_markup")]
-    //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     //#[doc(alias = "gtk_message_dialog_format_secondary_text")]
-    //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_message_dialog_get_message_area")]
     #[doc(alias = "get_message_area")]
@@ -783,11 +783,11 @@ pub trait MessageDialogExt: 'static {
 }
 
 impl<O: IsA<MessageDialog>> MessageDialogExt for O {
-    //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_markup() }
     //}
 
-    //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_text() }
     //}
 

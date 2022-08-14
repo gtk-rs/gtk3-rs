@@ -56,7 +56,7 @@ pub trait TreeSelectionExt: 'static {
 
     //#[doc(alias = "gtk_tree_selection_get_user_data")]
     //#[doc(alias = "get_user_data")]
-    //fn user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn user_data(&self) -> /*Unimplemented*/Option<Basic: Pointer>;
 
     #[doc(alias = "gtk_tree_selection_iter_is_selected")]
     fn iter_is_selected(&self, iter: &TreeIter) -> bool;
@@ -161,7 +161,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
         }
     }
 
-    //fn user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn user_data(&self) -> /*Unimplemented*/Option<Basic: Pointer> {
     //    unsafe { TODO: call ffi:gtk_tree_selection_get_user_data() }
     //}
 

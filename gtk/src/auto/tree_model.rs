@@ -32,7 +32,7 @@ pub trait TreeModelExt: 'static {
     fn foreach<P: FnMut(&TreeModel, &TreePath, &TreeIter) -> bool>(&self, func: P);
 
     //#[doc(alias = "gtk_tree_model_get")]
-    //fn get(&self, iter: &TreeIter, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn get(&self, iter: &TreeIter, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_tree_model_get_column_type")]
     #[doc(alias = "get_column_type")]
@@ -167,7 +167,7 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         }
     }
 
-    //fn get(&self, iter: &TreeIter, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn get(&self, iter: &TreeIter, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_tree_model_get() }
     //}
 

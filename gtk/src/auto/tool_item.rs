@@ -504,6 +504,12 @@ pub trait ToolItemExt: 'static {
     #[doc(alias = "gtk_tool_item_set_proxy_menu_item")]
     fn set_proxy_menu_item(&self, menu_item_id: &str, menu_item: Option<&impl IsA<Widget>>);
 
+    #[doc(alias = "gtk_tool_item_set_tooltip_markup")]
+    fn set_tooltip_markup(&self, markup: &str);
+
+    #[doc(alias = "gtk_tool_item_set_tooltip_text")]
+    fn set_tooltip_text(&self, text: &str);
+
     #[doc(alias = "gtk_tool_item_set_use_drag_window")]
     fn set_use_drag_window(&self, use_drag_window: bool);
 
@@ -697,6 +703,24 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
                 self.as_ref().to_glib_none().0,
                 menu_item_id.to_glib_none().0,
                 menu_item.map(|p| p.as_ref()).to_glib_none().0,
+            );
+        }
+    }
+
+    fn set_tooltip_markup(&self, markup: &str) {
+        unsafe {
+            ffi::gtk_tool_item_set_tooltip_markup(
+                self.as_ref().to_glib_none().0,
+                markup.to_glib_none().0,
+            );
+        }
+    }
+
+    fn set_tooltip_text(&self, text: &str) {
+        unsafe {
+            ffi::gtk_tool_item_set_tooltip_text(
+                self.as_ref().to_glib_none().0,
+                text.to_glib_none().0,
             );
         }
     }

@@ -36,13 +36,13 @@ pub trait ContainerExt: 'static {
     fn add(&self, widget: &impl IsA<Widget>);
 
     //#[doc(alias = "gtk_container_add_with_properties")]
-    //fn add_with_properties(&self, widget: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn add_with_properties(&self, widget: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_container_check_resize")]
     fn check_resize(&self);
 
     //#[doc(alias = "gtk_container_child_get")]
-    //fn child_get(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn child_get(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     //#[doc(alias = "gtk_container_child_get_valist")]
     //fn child_get_valist(&self, child: &impl IsA<Widget>, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
@@ -54,7 +54,7 @@ pub trait ContainerExt: 'static {
     fn child_notify_by_pspec(&self, child: &impl IsA<Widget>, pspec: impl AsRef<glib::ParamSpec>);
 
     //#[doc(alias = "gtk_container_child_set")]
-    //fn child_set(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn child_set(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     //#[doc(alias = "gtk_container_child_set_valist")]
     //fn child_set_valist(&self, child: &impl IsA<Widget>, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
@@ -163,7 +163,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    //fn add_with_properties(&self, widget: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn add_with_properties(&self, widget: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_container_add_with_properties() }
     //}
 
@@ -173,7 +173,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    //fn child_get(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn child_get(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_container_child_get() }
     //}
 
@@ -201,7 +201,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         }
     }
 
-    //fn child_set(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn child_set(&self, child: &impl IsA<Widget>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_container_child_set() }
     //}
 

@@ -47,7 +47,7 @@ impl Dialog {
 
     //#[doc(alias = "gtk_dialog_new_with_buttons")]
     //#[doc(alias = "new_with_buttons")]
-    //pub fn with_buttons(title: Option<&str>, parent: Option<&impl IsA<Window>>, flags: DialogFlags, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Dialog {
+    //pub fn with_buttons(title: Option<&str>, parent: Option<&impl IsA<Window>>, flags: DialogFlags, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> Dialog {
     //    unsafe { TODO: call ffi:gtk_dialog_new_with_buttons() }
     //}
 

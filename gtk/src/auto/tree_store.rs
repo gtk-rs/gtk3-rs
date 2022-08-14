@@ -25,7 +25,7 @@ impl TreeStore {
     pub const NONE: Option<&'static TreeStore> = None;
 
     //#[doc(alias = "gtk_tree_store_new")]
-    //pub fn new(n_columns: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreeStore {
+    //pub fn new(n_columns: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> TreeStore {
     //    unsafe { TODO: call ffi:gtk_tree_store_new() }
     //}
 
@@ -52,7 +52,7 @@ pub trait TreeStoreExt: 'static {
     fn insert_before(&self, parent: Option<&TreeIter>, sibling: Option<&TreeIter>) -> TreeIter;
 
     //#[doc(alias = "gtk_tree_store_insert_with_values")]
-    //fn insert_with_values(&self, parent: Option<&TreeIter>, position: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreeIter;
+    //fn insert_with_values(&self, parent: Option<&TreeIter>, position: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> TreeIter;
 
     //#[doc(alias = "gtk_tree_store_insert_with_valuesv")]
     //fn insert_with_valuesv(&self, parent: Option<&TreeIter>, position: i32, columns: &[i32], values: &[&glib::Value]) -> TreeIter;
@@ -149,7 +149,7 @@ impl<O: IsA<TreeStore>> TreeStoreExt for O {
         }
     }
 
-    //fn insert_with_values(&self, parent: Option<&TreeIter>, position: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreeIter {
+    //fn insert_with_values(&self, parent: Option<&TreeIter>, position: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> TreeIter {
     //    unsafe { TODO: call ffi:gtk_tree_store_insert_with_values() }
     //}
 

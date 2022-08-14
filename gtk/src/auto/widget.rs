@@ -49,7 +49,7 @@ impl Widget {
     pub const NONE: Option<&'static Widget> = None;
 
     //#[doc(alias = "gtk_widget_new")]
-    //pub fn new(type_: glib::types::Type, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Widget {
+    //pub fn new(type_: glib::types::Type, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> Widget {
     //    unsafe { TODO: call ffi:gtk_widget_new() }
     //}
 
@@ -774,7 +774,7 @@ pub trait WidgetExt: 'static {
     fn size_allocate_with_baseline(&self, allocation: &mut Allocation, baseline: i32);
 
     //#[doc(alias = "gtk_widget_style_get")]
-    //fn style_get(&self, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn style_get(&self, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_widget_style_get_property")]
     fn style_get_property(&self, property_name: &str) -> glib::Value;
@@ -2815,7 +2815,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    //fn style_get(&self, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn style_get(&self, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_widget_style_get() }
     //}
 
