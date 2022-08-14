@@ -32,7 +32,7 @@ impl Clipboard {
             _clipboard: *mut ffi::GtkClipboard,
             user_data: gpointer,
         ) {
-            Box_::<F>::from_raw(user_data as *mut _);
+            let _ = Box_::<F>::from_raw(user_data as *mut _);
         }
         let stashed_targets: Vec<_> = targets.iter().map(|e| e.to_glib_none()).collect();
         let mut t = Vec::with_capacity(stashed_targets.len());
@@ -61,7 +61,7 @@ impl Clipboard {
         if !success {
             // Cleanup function is not called in case of a failure.
             unsafe {
-                Box_::<F>::from_raw(user_data as *mut _);
+                let _ = Box_::<F>::from_raw(user_data as *mut _);
             }
         }
         success
