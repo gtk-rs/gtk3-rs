@@ -131,7 +131,7 @@ impl<O: IsA<TreeSortable>> TreeSortableExtManual for O {
         >(
             ptr: gpointer,
         ) {
-            Box::<F>::from_raw(ptr as *mut _);
+            let _ = Box::<F>::from_raw(ptr as *mut _);
         }
         unsafe {
             ffi::gtk_tree_sortable_set_default_sort_func(
@@ -187,7 +187,7 @@ impl<O: IsA<TreeSortable>> TreeSortableExtManual for O {
         >(
             ptr: gpointer,
         ) {
-            Box::<F>::from_raw(ptr as *mut _);
+            let _ = Box::<F>::from_raw(ptr as *mut _);
         }
         unsafe {
             ffi::gtk_tree_sortable_set_sort_func(

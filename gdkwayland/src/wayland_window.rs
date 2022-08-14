@@ -50,7 +50,7 @@ impl WaylandWindow {
         unsafe extern "C" fn destroy_notify<P: Fn(&WaylandWindow, &str) + 'static>(
             data: glib::ffi::gpointer,
         ) {
-            Box::from_raw(data as *mut _);
+            let _ = Box::from_raw(data as *mut _);
         }
         unsafe {
             from_glib(ffi::gdk_wayland_window_export_handle(
