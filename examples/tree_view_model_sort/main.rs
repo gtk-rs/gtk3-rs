@@ -29,8 +29,8 @@ fn build_ui(application: &gtk::Application) {
     column.set_sort_column_id(0);
 
     let renderer = gtk::CellRendererText::new();
-    column.pack_end(&renderer, true);
-    column.add_attribute(&renderer, "text", 0);
+    TreeViewColumnExt::pack_end(&column, &renderer, true);
+    TreeViewColumnExt::add_attribute(&column, &renderer, "text", 0);
 
     treeview.append_column(&column);
 

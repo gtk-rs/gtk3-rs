@@ -20,9 +20,9 @@ fn append_column(tree: &TreeView, id: i32) {
     let column = TreeViewColumn::new();
     let cell = CellRendererText::new();
 
-    column.pack_start(&cell, true);
+    TreeViewColumnExt::pack_start(&column, &cell, true);
     // Association of the view's column with the model's `id` column.
-    column.add_attribute(&cell, "text", id);
+    TreeViewColumnExt::add_attribute(&column, &cell, "text", id);
     tree.append_column(&column);
 }
 
