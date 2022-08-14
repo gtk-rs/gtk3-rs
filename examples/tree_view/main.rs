@@ -10,8 +10,8 @@ fn append_text_column(tree: &TreeView) {
     let column = TreeViewColumn::new();
     let cell = CellRendererText::new();
 
-    column.pack_start(&cell, true);
-    column.add_attribute(&cell, "text", 0);
+    TreeViewColumnExt::pack_start(&column, &cell, true);
+    TreeViewColumnExt::add_attribute(&column, &cell, "text", 0);
     tree.append_column(&column);
 }
 
@@ -48,13 +48,13 @@ fn build_ui(application: &gtk::Application) {
     let col = TreeViewColumn::new();
 
     col.set_title("Picture");
-    col.pack_start(&renderer, false);
+    TreeViewColumnExt::pack_start(&col, &renderer, false);
 
-    col.add_attribute(&renderer, "pixbuf", 0);
+    TreeViewColumnExt::add_attribute(&col, &renderer, "pixbuf", 0);
 
     let renderer2 = CellRendererText::new();
-    col.pack_start(&renderer2, true);
-    col.add_attribute(&renderer2, "text", 1);
+    TreeViewColumnExt::pack_start(&col, &renderer2, true);
+    TreeViewColumnExt::add_attribute(&col, &renderer2, "text", 1);
     let image = Pixbuf::from_resource("/org/gtk-rs/examples/eye.png")
         .map_err(|err| {
             let msg = err.to_string();

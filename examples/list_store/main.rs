@@ -232,9 +232,9 @@ fn add_columns(model: &Rc<gtk::ListStore>, treeview: &gtk::TreeView) {
         let model_clone = model.clone();
         renderer.connect_toggled(move |w, path| fixed_toggled(&model_clone, w, path));
         let column = gtk::TreeViewColumn::new();
-        column.pack_start(&renderer, true);
+        TreeViewColumnExt::pack_start(&column, &renderer, true);
         column.set_title("Fixed?");
-        column.add_attribute(&renderer, "active", Columns::Fixed as i32);
+        TreeViewColumnExt::add_attribute(&column, &renderer, "active", Columns::Fixed as i32);
         column.set_sizing(gtk::TreeViewColumnSizing::Fixed);
         column.set_fixed_width(50);
         treeview.append_column(&column);
@@ -244,9 +244,9 @@ fn add_columns(model: &Rc<gtk::ListStore>, treeview: &gtk::TreeView) {
     {
         let renderer = gtk::CellRendererText::new();
         let column = gtk::TreeViewColumn::new();
-        column.pack_start(&renderer, true);
+        TreeViewColumnExt::pack_start(&column, &renderer, true);
         column.set_title("Bug number");
-        column.add_attribute(&renderer, "text", Columns::Number as i32);
+        TreeViewColumnExt::add_attribute(&column, &renderer, "text", Columns::Number as i32);
         column.set_sort_column_id(Columns::Number as i32);
         treeview.append_column(&column);
     }
@@ -255,9 +255,9 @@ fn add_columns(model: &Rc<gtk::ListStore>, treeview: &gtk::TreeView) {
     {
         let renderer = gtk::CellRendererText::new();
         let column = gtk::TreeViewColumn::new();
-        column.pack_start(&renderer, true);
+        TreeViewColumnExt::pack_start(&column, &renderer, true);
         column.set_title("Severity");
-        column.add_attribute(&renderer, "text", Columns::Severity as i32);
+        TreeViewColumnExt::add_attribute(&column, &renderer, "text", Columns::Severity as i32);
         column.set_sort_column_id(Columns::Severity as i32);
         treeview.append_column(&column);
     }
@@ -266,9 +266,9 @@ fn add_columns(model: &Rc<gtk::ListStore>, treeview: &gtk::TreeView) {
     {
         let renderer = gtk::CellRendererText::new();
         let column = gtk::TreeViewColumn::new();
-        column.pack_start(&renderer, true);
+        TreeViewColumnExt::pack_start(&column, &renderer, true);
         column.set_title("Description");
-        column.add_attribute(&renderer, "text", Columns::Description as i32);
+        TreeViewColumnExt::add_attribute(&column, &renderer, "text", Columns::Description as i32);
         column.set_sort_column_id(Columns::Description as i32);
         treeview.append_column(&column);
     }
@@ -277,10 +277,10 @@ fn add_columns(model: &Rc<gtk::ListStore>, treeview: &gtk::TreeView) {
     {
         let renderer = gtk::CellRendererSpinner::new();
         let column = gtk::TreeViewColumn::new();
-        column.pack_start(&renderer, true);
+        TreeViewColumnExt::pack_start(&column, &renderer, true);
         column.set_title("Spinning");
-        column.add_attribute(&renderer, "pulse", Columns::Pulse as i32);
-        column.add_attribute(&renderer, "active", Columns::Active as i32);
+        TreeViewColumnExt::add_attribute(&column, &renderer, "pulse", Columns::Pulse as i32);
+        TreeViewColumnExt::add_attribute(&column, &renderer, "active", Columns::Active as i32);
         treeview.append_column(&column);
     }
 
@@ -288,10 +288,15 @@ fn add_columns(model: &Rc<gtk::ListStore>, treeview: &gtk::TreeView) {
     {
         let renderer = gtk::CellRendererPixbuf::new();
         let column = gtk::TreeViewColumn::new();
-        column.pack_start(&renderer, true);
+        TreeViewColumnExt::pack_start(&column, &renderer, true);
         column.set_title("Symbolic icon");
-        column.add_attribute(&renderer, "icon-name", Columns::Icon as i32);
-        column.add_attribute(&renderer, "sensitive", Columns::Sensitive as i32);
+        TreeViewColumnExt::add_attribute(&column, &renderer, "icon-name", Columns::Icon as i32);
+        TreeViewColumnExt::add_attribute(
+            &column,
+            &renderer,
+            "sensitive",
+            Columns::Sensitive as i32,
+        );
         column.set_sort_column_id(Columns::Icon as i32);
         treeview.append_column(&column);
     }
