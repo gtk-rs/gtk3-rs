@@ -868,6 +868,10 @@ pub trait GtkWindowExt: 'static {
     #[doc(alias = "get_role")]
     fn role(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_window_get_screen")]
+    #[doc(alias = "get_screen")]
+    fn screen(&self) -> Option<gdk::Screen>;
+
     #[doc(alias = "gtk_window_get_size")]
     #[doc(alias = "get_size")]
     fn size(&self) -> (i32, i32);
@@ -1485,6 +1489,10 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn role(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_window_get_role(self.as_ref().to_glib_none().0)) }
+    }
+
+    fn screen(&self) -> Option<gdk::Screen> {
+        unsafe { from_glib_none(ffi::gtk_window_get_screen(self.as_ref().to_glib_none().0)) }
     }
 
     fn size(&self) -> (i32, i32) {

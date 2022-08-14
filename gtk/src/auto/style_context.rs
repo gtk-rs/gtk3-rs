@@ -213,7 +213,7 @@ pub trait StyleContextExt: 'static {
 
     //#[doc(alias = "gtk_style_context_get_style")]
     //#[doc(alias = "get_style")]
-    //fn style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn style(&self, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_style_context_get_style_property")]
     #[doc(alias = "get_style_property")]
@@ -440,7 +440,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    //fn style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn style(&self, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_style_context_get_style() }
     //}
 

@@ -70,7 +70,7 @@ pub trait CellAreaExt: 'static {
     );
 
     //#[doc(alias = "gtk_cell_area_add_with_properties")]
-    //fn add_with_properties(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn add_with_properties(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_cell_area_apply_attributes")]
     fn apply_attributes(
@@ -91,7 +91,7 @@ pub trait CellAreaExt: 'static {
     fn attribute_get_column(&self, renderer: &impl IsA<CellRenderer>, attribute: &str) -> i32;
 
     //#[doc(alias = "gtk_cell_area_cell_get")]
-    //fn cell_get(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn cell_get(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_cell_area_cell_get_property")]
     fn cell_get_property(
@@ -104,7 +104,7 @@ pub trait CellAreaExt: 'static {
     //fn cell_get_valist(&self, renderer: &impl IsA<CellRenderer>, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     //#[doc(alias = "gtk_cell_area_cell_set")]
-    //fn cell_set(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn cell_set(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_cell_area_cell_set_property")]
     fn cell_set_property(
@@ -389,7 +389,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    //fn add_with_properties(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn add_with_properties(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_cell_area_add_with_properties() }
     //}
 
@@ -442,7 +442,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
         }
     }
 
-    //fn cell_get(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn cell_get(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_cell_area_cell_get() }
     //}
 
@@ -467,7 +467,7 @@ impl<O: IsA<CellArea>> CellAreaExt for O {
     //    unsafe { TODO: call ffi:gtk_cell_area_cell_get_valist() }
     //}
 
-    //fn cell_set(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn cell_set(&self, renderer: &impl IsA<CellRenderer>, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_cell_area_cell_set() }
     //}
 

@@ -80,7 +80,7 @@ pub trait AtkObjectExt: 'static {
     fn role(&self) -> Role;
 
     //#[doc(alias = "atk_object_initialize")]
-    //fn initialize(&self, data: /*Unimplemented*/Option<Fundamental: Pointer>);
+    //fn initialize(&self, data: /*Unimplemented*/Option<Basic: Pointer>);
 
     #[doc(alias = "atk_object_notify_state_change")]
     fn notify_state_change(&self, state: State, value: bool);
@@ -383,7 +383,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         unsafe { from_glib(ffi::atk_object_get_role(self.as_ref().to_glib_none().0)) }
     }
 
-    //fn initialize(&self, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+    //fn initialize(&self, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:atk_object_initialize() }
     //}
 

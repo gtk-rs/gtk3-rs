@@ -8,6 +8,7 @@ use crate::Container;
 use crate::IconSize;
 use crate::Orientable;
 use crate::Orientation;
+use crate::ReliefStyle;
 use crate::ResizeMode;
 use crate::ToolItem;
 use crate::ToolShell;
@@ -448,6 +449,10 @@ pub trait ToolbarExt: 'static {
     #[doc(alias = "get_drop_index")]
     fn drop_index(&self, x: i32, y: i32) -> i32;
 
+    #[doc(alias = "gtk_toolbar_get_icon_size")]
+    #[doc(alias = "get_icon_size")]
+    fn icon_size(&self) -> IconSize;
+
     #[doc(alias = "gtk_toolbar_get_item_index")]
     #[doc(alias = "get_item_index")]
     fn item_index(&self, item: &impl IsA<ToolItem>) -> i32;
@@ -460,9 +465,17 @@ pub trait ToolbarExt: 'static {
     #[doc(alias = "get_nth_item")]
     fn nth_item(&self, n: i32) -> Option<ToolItem>;
 
+    #[doc(alias = "gtk_toolbar_get_relief_style")]
+    #[doc(alias = "get_relief_style")]
+    fn relief_style(&self) -> ReliefStyle;
+
     #[doc(alias = "gtk_toolbar_get_show_arrow")]
     #[doc(alias = "get_show_arrow")]
     fn shows_arrow(&self) -> bool;
+
+    #[doc(alias = "gtk_toolbar_get_style")]
+    #[doc(alias = "get_style")]
+    fn style(&self) -> ToolbarStyle;
 
     #[doc(alias = "gtk_toolbar_insert")]
     fn insert(&self, item: &impl IsA<ToolItem>, pos: i32);
@@ -546,6 +559,14 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         unsafe { ffi::gtk_toolbar_get_drop_index(self.as_ref().to_glib_none().0, x, y) }
     }
 
+    fn icon_size(&self) -> IconSize {
+        unsafe {
+            from_glib(ffi::gtk_toolbar_get_icon_size(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
     fn item_index(&self, item: &impl IsA<ToolItem>) -> i32 {
         unsafe {
             ffi::gtk_toolbar_get_item_index(
@@ -568,12 +589,24 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         }
     }
 
+    fn relief_style(&self) -> ReliefStyle {
+        unsafe {
+            from_glib(ffi::gtk_toolbar_get_relief_style(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
     fn shows_arrow(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_toolbar_get_show_arrow(
                 self.as_ref().to_glib_none().0,
             ))
         }
+    }
+
+    fn style(&self) -> ToolbarStyle {
+        unsafe { from_glib(ffi::gtk_toolbar_get_style(self.as_ref().to_glib_none().0)) }
     }
 
     fn insert(&self, item: &impl IsA<ToolItem>, pos: i32) {

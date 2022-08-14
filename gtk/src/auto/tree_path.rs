@@ -33,7 +33,7 @@ impl TreePath {
 
     //#[doc(alias = "gtk_tree_path_new_from_indices")]
     //#[doc(alias = "new_from_indices")]
-    //pub fn from_indices(first_index: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreePath {
+    //pub fn from_indices(first_index: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> TreePath {
     //    unsafe { TODO: call ffi:gtk_tree_path_new_from_indices() }
     //}
 

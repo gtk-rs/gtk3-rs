@@ -35,7 +35,7 @@ pub trait DocumentExt: 'static {
 
     //#[doc(alias = "atk_document_get_document")]
     //#[doc(alias = "get_document")]
-    //fn document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn document(&self) -> /*Unimplemented*/Option<Basic: Pointer>;
 
     #[doc(alias = "atk_document_get_document_type")]
     #[doc(alias = "get_document_type")]
@@ -75,7 +75,7 @@ impl<O: IsA<Document>> DocumentExt for O {
         unsafe { ffi::atk_document_get_current_page_number(self.as_ref().to_glib_none().0) }
     }
 
-    //fn document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn document(&self) -> /*Unimplemented*/Option<Basic: Pointer> {
     //    unsafe { TODO: call ffi:atk_document_get_document() }
     //}
 

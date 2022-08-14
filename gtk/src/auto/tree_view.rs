@@ -818,7 +818,7 @@ pub trait TreeViewExt: 'static {
     fn insert_column(&self, column: &impl IsA<TreeViewColumn>, position: i32) -> i32;
 
     //#[doc(alias = "gtk_tree_view_insert_column_with_attributes")]
-    //fn insert_column_with_attributes(&self, position: i32, title: &str, cell: &impl IsA<CellRenderer>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> i32;
+    //fn insert_column_with_attributes(&self, position: i32, title: &str, cell: &impl IsA<CellRenderer>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> i32;
 
     #[doc(alias = "gtk_tree_view_insert_column_with_data_func")]
     fn insert_column_with_data_func<
@@ -1659,7 +1659,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
         }
     }
 
-    //fn insert_column_with_attributes(&self, position: i32, title: &str, cell: &impl IsA<CellRenderer>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> i32 {
+    //fn insert_column_with_attributes(&self, position: i32, title: &str, cell: &impl IsA<CellRenderer>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> i32 {
     //    unsafe { TODO: call ffi:gtk_tree_view_insert_column_with_attributes() }
     //}
 

@@ -46,7 +46,7 @@ impl InfoBar {
 
     //#[doc(alias = "gtk_info_bar_new_with_buttons")]
     //#[doc(alias = "new_with_buttons")]
-    //pub fn with_buttons(first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> InfoBar {
+    //pub fn with_buttons(first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> InfoBar {
     //    unsafe { TODO: call ffi:gtk_info_bar_new_with_buttons() }
     //}
 
@@ -476,7 +476,7 @@ pub trait InfoBarExt: 'static {
     fn add_button(&self, button_text: &str, response_id: ResponseType) -> Option<Button>;
 
     //#[doc(alias = "gtk_info_bar_add_buttons")]
-    //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
 
     #[doc(alias = "gtk_info_bar_get_action_area")]
     #[doc(alias = "get_action_area")]
@@ -555,7 +555,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_info_bar_add_buttons() }
     //}
 

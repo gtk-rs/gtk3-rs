@@ -41,7 +41,7 @@ impl RecentFilter {
     }
 
     //#[doc(alias = "gtk_recent_filter_add_custom")]
-    //pub fn add_custom(&self, needed: RecentFilterFlags, func: /*Unimplemented*/Fn(/*Ignored*/RecentFilterInfo) -> bool, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+    //pub fn add_custom(&self, needed: RecentFilterFlags, func: /*Unimplemented*/Fn(/*Ignored*/RecentFilterInfo) -> bool, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_recent_filter_add_custom() }
     //}
 

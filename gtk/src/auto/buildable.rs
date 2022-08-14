@@ -33,13 +33,13 @@ pub trait BuildableExt: 'static {
     fn construct_child(&self, builder: &impl IsA<Builder>, name: &str) -> Option<glib::Object>;
 
     //#[doc(alias = "gtk_buildable_custom_finished")]
-    //fn custom_finished(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Fundamental: Pointer>);
+    //fn custom_finished(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Basic: Pointer>);
 
     //#[doc(alias = "gtk_buildable_custom_tag_end")]
-    //fn custom_tag_end(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Fundamental: Pointer>);
+    //fn custom_tag_end(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Basic: Pointer>);
 
     //#[doc(alias = "gtk_buildable_custom_tag_start")]
-    //fn custom_tag_start(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, parser: /*Ignored*/glib::MarkupParser, data: /*Unimplemented*/&mut Option<Fundamental: Pointer>) -> bool;
+    //fn custom_tag_start(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, parser: /*Ignored*/glib::MarkupParser, data: /*Unimplemented*/&mut Option<Basic: Pointer>) -> bool;
 
     #[doc(alias = "gtk_buildable_get_internal_child")]
     #[doc(alias = "get_internal_child")]
@@ -79,15 +79,15 @@ impl<O: IsA<Buildable>> BuildableExt for O {
         }
     }
 
-    //fn custom_finished(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+    //fn custom_finished(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_buildable_custom_finished() }
     //}
 
-    //fn custom_tag_end(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+    //fn custom_tag_end(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_buildable_custom_tag_end() }
     //}
 
-    //fn custom_tag_start(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, parser: /*Ignored*/glib::MarkupParser, data: /*Unimplemented*/&mut Option<Fundamental: Pointer>) -> bool {
+    //fn custom_tag_start(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, parser: /*Ignored*/glib::MarkupParser, data: /*Unimplemented*/&mut Option<Basic: Pointer>) -> bool {
     //    unsafe { TODO: call ffi:gtk_buildable_custom_tag_start() }
     //}
 

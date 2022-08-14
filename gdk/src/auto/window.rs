@@ -52,7 +52,7 @@ glib::wrapper! {
 
 impl Window {
     //#[doc(alias = "gdk_window_add_filter")]
-    //pub fn add_filter(&self, function: /*Unimplemented*/Fn(/*Unimplemented*/XEvent, &Event) -> /*Ignored*/FilterReturn, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+    //pub fn add_filter(&self, function: /*Unimplemented*/Fn(/*Unimplemented*/XEvent, &Event) -> /*Ignored*/FilterReturn, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gdk_window_add_filter() }
     //}
 
@@ -289,7 +289,7 @@ impl Window {
 
     //#[doc(alias = "gdk_window_get_children_with_user_data")]
     //#[doc(alias = "get_children_with_user_data")]
-    //pub fn children_with_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Vec<Window> {
+    //pub fn children_with_user_data(&self, user_data: /*Unimplemented*/Option<Basic: Pointer>) -> Vec<Window> {
     //    unsafe { TODO: call ffi:gdk_window_get_children_with_user_data() }
     //}
 
@@ -888,7 +888,7 @@ impl Window {
     }
 
     //#[doc(alias = "gdk_window_remove_filter")]
-    //pub fn remove_filter(&self, function: /*Unimplemented*/Fn(/*Unimplemented*/XEvent, &Event) -> /*Ignored*/FilterReturn, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+    //pub fn remove_filter(&self, function: /*Unimplemented*/Fn(/*Unimplemented*/XEvent, &Event) -> /*Ignored*/FilterReturn, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gdk_window_remove_filter() }
     //}
 

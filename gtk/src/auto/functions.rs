@@ -978,7 +978,7 @@ pub fn set_debug_flags(flags: u32) {
 }
 
 //#[doc(alias = "gtk_show_about_dialog")]
-//pub fn show_about_dialog(parent: Option<&impl IsA<Window>>, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn show_about_dialog(parent: Option<&impl IsA<Window>>, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
 //    unsafe { TODO: call ffi:gtk_show_about_dialog() }
 //}
 
