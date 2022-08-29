@@ -247,12 +247,12 @@ impl Event {
         unsafe { from_glib(ffi::gdk_event_is_scroll_stop_event(self.to_glib_none().0)) }
     }
 
-    #[doc(alias = "gdk_event_get_scroll_direction")]
+    #[doc(alias = "gdk_event_get_state")]
     #[doc(alias = "get_state")]
     pub fn state(&self) -> Option<ModifierType> {
         unsafe {
             let mut state = mem::MaybeUninit::uninit();
-            if from_glib(ffi::gdk_event_get_scroll_direction(
+            if from_glib(ffi::gdk_event_get_state(
                 self.to_glib_none().0,
                 state.as_mut_ptr(),
             )) {
