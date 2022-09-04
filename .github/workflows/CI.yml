@@ -139,10 +139,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+          set-safe-directory: true
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
+      - run: git submodule update --checkout
       - run: python3 generator.py
       - run: git diff --exit-code
