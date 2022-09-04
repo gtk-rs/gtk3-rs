@@ -18,7 +18,7 @@ jobs:
           - stable
           - beta
           - nightly
-          - "1.57.0"
+          - "1.63.0"
         conf:
           - { name: "atk", features: "v2_34", test_sys: false } # disable for now, until we get 2.38 on the docker image
           - { name: "gdk", features: "v3_24", test_sys: true }
@@ -98,7 +98,7 @@ jobs:
           - stable
           - beta
           - nightly
-          - "1.57.0"
+          - "1.63.0"
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -139,10 +139,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+          set-safe-directory: true
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
+      - run: git submodule update --checkout
       - run: python3 generator.py
       - run: git diff --exit-code

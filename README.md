@@ -8,7 +8,7 @@ information about each crate, please refer to their `README.md` file in their di
 
 ## Minimum supported Rust version
 
-Currently, the minimum supported Rust version is `1.57.0`.
+Currently, the minimum supported Rust version is `1.63.0`.
 
 ## Documentation
 
@@ -39,6 +39,12 @@ file as follows:
 
 ```bash
 $ python3 generator.py
+```
+
+If you didn't do so yet, please check out all the submodules before via
+
+```bash
+$ git submodule update --checkout
 ```
 
 ## Development
