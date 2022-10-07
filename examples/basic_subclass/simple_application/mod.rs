@@ -15,6 +15,5 @@ impl SimpleApplication {
             ("application-id", &"org.gtk-rs.SimpleApplication"),
             ("flags", &ApplicationFlags::empty()),
         ])
-        .expect("Failed to create SimpleApp")
     }
 }

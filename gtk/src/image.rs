@@ -253,7 +253,7 @@ impl ImageBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Image>(&properties).expect("Failed to create an instance of Image")
+        glib::Object::new::<Image>(&properties)
     }
 
     pub fn file(mut self, file: &str) -> Self {
