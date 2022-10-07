@@ -81,7 +81,6 @@ impl GestureRotate {
 impl Default for GestureRotate {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct GestureRotate object with default parameters")
     }
 }
 
@@ -123,7 +122,6 @@ impl GestureRotateBuilder {
             properties.push(("widget", widget));
         }
         glib::Object::new::<GestureRotate>(&properties)
-            .expect("Failed to create an instance of GestureRotate")
     }
 
     pub fn n_points(mut self, n_points: u32) -> Self {

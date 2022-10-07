@@ -284,7 +284,7 @@ impl MenuBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Menu>(&properties).expect("Failed to create an instance of Menu")
+        glib::Object::new::<Menu>(&properties)
     }
 
     pub fn accel_group(mut self, accel_group: &impl IsA<AccelGroup>) -> Self {

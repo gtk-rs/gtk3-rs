@@ -231,7 +231,6 @@ impl SeparatorToolItemBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<SeparatorToolItem>(&properties)
-            .expect("Failed to create an instance of SeparatorToolItem")
     }
 
     pub fn draw(mut self, draw: bool) -> Self {

@@ -281,7 +281,6 @@ impl CheckMenuItemBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<CheckMenuItem>(&properties)
-            .expect("Failed to create an instance of CheckMenuItem")
     }
 
     pub fn active(mut self, active: bool) -> Self {

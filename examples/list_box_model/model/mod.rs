@@ -15,7 +15,7 @@ glib::wrapper! {
 impl Model {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Model {
-        glib::Object::new(&[]).expect("Failed to create Model")
+        glib::Object::new(&[])
     }
 
     pub fn append(&self, obj: &RowData) {

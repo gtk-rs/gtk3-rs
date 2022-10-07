@@ -215,7 +215,6 @@ impl FlowBoxChildBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<FlowBoxChild>(&properties)
-            .expect("Failed to create an instance of FlowBoxChild")
     }
 
     pub fn border_width(mut self, border_width: u32) -> Self {

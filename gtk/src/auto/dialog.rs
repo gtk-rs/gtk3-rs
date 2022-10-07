@@ -343,7 +343,7 @@ impl DialogBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Dialog>(&properties).expect("Failed to create an instance of Dialog")
+        glib::Object::new::<Dialog>(&properties)
     }
 
     pub fn use_header_bar(mut self, use_header_bar: i32) -> Self {

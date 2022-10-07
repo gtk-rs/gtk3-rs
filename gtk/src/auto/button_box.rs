@@ -55,7 +55,6 @@ impl ButtonBox {
 impl Default for ButtonBox {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct ButtonBox object with default parameters")
     }
 }
 
@@ -241,7 +240,6 @@ impl ButtonBoxBuilder {
             properties.push(("orientation", orientation));
         }
         glib::Object::new::<ButtonBox>(&properties)
-            .expect("Failed to create an instance of ButtonBox")
     }
 
     pub fn layout_style(mut self, layout_style: ButtonBoxStyle) -> Self {

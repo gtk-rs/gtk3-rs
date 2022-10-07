@@ -196,7 +196,6 @@ impl DrawingAreaBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<DrawingArea>(&properties)
-            .expect("Failed to create an instance of DrawingArea")
     }
 
     pub fn app_paintable(mut self, app_paintable: bool) -> Self {

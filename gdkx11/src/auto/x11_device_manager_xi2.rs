@@ -80,7 +80,6 @@ impl X11DeviceManagerXI2Builder {
             properties.push(("display", display));
         }
         glib::Object::new::<X11DeviceManagerXI2>(&properties)
-            .expect("Failed to create an instance of X11DeviceManagerXI2")
     }
 
     pub fn major(mut self, major: i32) -> Self {

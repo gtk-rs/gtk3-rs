@@ -214,7 +214,6 @@ impl InvisibleBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<Invisible>(&properties)
-            .expect("Failed to create an instance of Invisible")
     }
 
     pub fn screen(mut self, screen: &gdk::Screen) -> Self {

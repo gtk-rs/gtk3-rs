@@ -72,7 +72,6 @@ impl Popover {
 impl Default for Popover {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct Popover object with default parameters")
     }
 }
 
@@ -257,7 +256,7 @@ impl PopoverBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Popover>(&properties).expect("Failed to create an instance of Popover")
+        glib::Object::new::<Popover>(&properties)
     }
 
     pub fn constrain_to(mut self, constrain_to: PopoverConstraint) -> Self {

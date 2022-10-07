@@ -51,7 +51,6 @@ impl FileChooserDialog {
 impl Default for FileChooserDialog {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct FileChooserDialog object with default parameters")
     }
 }
 
@@ -377,7 +376,6 @@ impl FileChooserDialogBuilder {
             properties.push(("use-preview-label", use_preview_label));
         }
         glib::Object::new::<FileChooserDialog>(&properties)
-            .expect("Failed to create an instance of FileChooserDialog")
     }
 
     pub fn use_header_bar(mut self, use_header_bar: i32) -> Self {

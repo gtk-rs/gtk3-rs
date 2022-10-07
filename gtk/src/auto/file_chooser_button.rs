@@ -74,7 +74,6 @@ impl FileChooserButton {
 impl Default for FileChooserButton {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct FileChooserButton object with default parameters")
     }
 }
 
@@ -312,7 +311,6 @@ impl FileChooserButtonBuilder {
             properties.push(("use-preview-label", use_preview_label));
         }
         glib::Object::new::<FileChooserButton>(&properties)
-            .expect("Failed to create an instance of FileChooserButton")
     }
 
     pub fn dialog(mut self, dialog: &impl IsA<FileChooser>) -> Self {

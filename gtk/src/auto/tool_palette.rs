@@ -272,7 +272,6 @@ impl ToolPaletteBuilder {
             properties.push(("vscroll-policy", vscroll_policy));
         }
         glib::Object::new::<ToolPalette>(&properties)
-            .expect("Failed to create an instance of ToolPalette")
     }
 
     pub fn icon_size(mut self, icon_size: IconSize) -> Self {

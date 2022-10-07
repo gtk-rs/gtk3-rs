@@ -63,7 +63,6 @@ impl Label {
 impl Default for Label {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct Label object with default parameters")
     }
 }
 
@@ -292,7 +291,7 @@ impl LabelBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Label>(&properties).expect("Failed to create an instance of Label")
+        glib::Object::new::<Label>(&properties)
     }
 
     pub fn angle(mut self, angle: f64) -> Self {

@@ -219,7 +219,6 @@ impl StackSidebarBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<StackSidebar>(&properties)
-            .expect("Failed to create an instance of StackSidebar")
     }
 
     pub fn stack(mut self, stack: &impl IsA<Stack>) -> Self {

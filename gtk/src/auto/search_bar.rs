@@ -223,7 +223,6 @@ impl SearchBarBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<SearchBar>(&properties)
-            .expect("Failed to create an instance of SearchBar")
     }
 
     pub fn search_mode_enabled(mut self, search_mode_enabled: bool) -> Self {

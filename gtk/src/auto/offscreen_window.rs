@@ -326,7 +326,6 @@ impl OffscreenWindowBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<OffscreenWindow>(&properties)
-            .expect("Failed to create an instance of OffscreenWindow")
     }
 
     pub fn accept_focus(mut self, accept_focus: bool) -> Self {

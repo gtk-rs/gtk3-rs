@@ -320,7 +320,6 @@ impl RecentChooserMenuBuilder {
             properties.push(("sort-type", sort_type));
         }
         glib::Object::new::<RecentChooserMenu>(&properties)
-            .expect("Failed to create an instance of RecentChooserMenu")
     }
 
     pub fn show_numbers(mut self, show_numbers: bool) -> Self {

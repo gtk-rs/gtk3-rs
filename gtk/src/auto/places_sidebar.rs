@@ -1060,7 +1060,6 @@ impl PlacesSidebarBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<PlacesSidebar>(&properties)
-            .expect("Failed to create an instance of PlacesSidebar")
     }
 
     pub fn local_only(mut self, local_only: bool) -> Self {

@@ -78,7 +78,6 @@ impl GestureZoom {
 impl Default for GestureZoom {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct GestureZoom object with default parameters")
     }
 }
 
@@ -120,7 +119,6 @@ impl GestureZoomBuilder {
             properties.push(("widget", widget));
         }
         glib::Object::new::<GestureZoom>(&properties)
-            .expect("Failed to create an instance of GestureZoom")
     }
 
     pub fn n_points(mut self, n_points: u32) -> Self {

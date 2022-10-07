@@ -281,7 +281,6 @@ impl ColorButtonBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<ColorButton>(&properties)
-            .expect("Failed to create an instance of ColorButton")
     }
 
     pub fn alpha(mut self, alpha: u32) -> Self {

@@ -225,7 +225,7 @@ impl ListBoxBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<ListBox>(&properties).expect("Failed to create an instance of ListBox")
+        glib::Object::new::<ListBox>(&properties)
     }
 
     pub fn activate_on_single_click(mut self, activate_on_single_click: bool) -> Self {

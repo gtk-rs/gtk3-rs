@@ -54,7 +54,6 @@ impl ToolItemGroup {
 impl Default for ToolItemGroup {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct ToolItemGroup object with default parameters")
     }
 }
 
@@ -240,7 +239,6 @@ impl ToolItemGroupBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<ToolItemGroup>(&properties)
-            .expect("Failed to create an instance of ToolItemGroup")
     }
 
     pub fn collapsed(mut self, collapsed: bool) -> Self {

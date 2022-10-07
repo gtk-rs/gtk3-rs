@@ -327,7 +327,6 @@ impl ShortcutsWindowBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<ShortcutsWindow>(&properties)
-            .expect("Failed to create an instance of ShortcutsWindow")
     }
 
     pub fn section_name(mut self, section_name: &str) -> Self {

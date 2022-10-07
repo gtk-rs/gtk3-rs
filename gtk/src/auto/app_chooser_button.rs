@@ -61,7 +61,6 @@ impl AppChooserButton {
 impl Default for AppChooserButton {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct AppChooserButton object with default parameters")
     }
 }
 
@@ -299,7 +298,6 @@ impl AppChooserButtonBuilder {
             properties.push(("content-type", content_type));
         }
         glib::Object::new::<AppChooserButton>(&properties)
-            .expect("Failed to create an instance of AppChooserButton")
     }
 
     pub fn heading(mut self, heading: &str) -> Self {

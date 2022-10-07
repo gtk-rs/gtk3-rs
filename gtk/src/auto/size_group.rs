@@ -46,7 +46,6 @@ impl SizeGroup {
 impl Default for SizeGroup {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct SizeGroup object with default parameters")
     }
 }
 
@@ -76,7 +75,6 @@ impl SizeGroupBuilder {
             properties.push(("mode", mode));
         }
         glib::Object::new::<SizeGroup>(&properties)
-            .expect("Failed to create an instance of SizeGroup")
     }
 
     pub fn mode(mut self, mode: SizeGroupMode) -> Self {

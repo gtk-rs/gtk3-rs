@@ -94,7 +94,6 @@ impl GestureSwipe {
 impl Default for GestureSwipe {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct GestureSwipe object with default parameters")
     }
 }
 
@@ -148,7 +147,6 @@ impl GestureSwipeBuilder {
             properties.push(("widget", widget));
         }
         glib::Object::new::<GestureSwipe>(&properties)
-            .expect("Failed to create an instance of GestureSwipe")
     }
 
     pub fn button(mut self, button: u32) -> Self {

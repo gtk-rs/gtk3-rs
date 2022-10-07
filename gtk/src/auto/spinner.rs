@@ -203,7 +203,7 @@ impl SpinnerBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Spinner>(&properties).expect("Failed to create an instance of Spinner")
+        glib::Object::new::<Spinner>(&properties)
     }
 
     pub fn active(mut self, active: bool) -> Self {

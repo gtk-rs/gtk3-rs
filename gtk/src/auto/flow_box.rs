@@ -251,7 +251,7 @@ impl FlowBoxBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        glib::Object::new::<FlowBox>(&properties).expect("Failed to create an instance of FlowBox")
+        glib::Object::new::<FlowBox>(&properties)
     }
 
     pub fn activate_on_single_click(mut self, activate_on_single_click: bool) -> Self {

@@ -62,7 +62,6 @@ impl Expander {
 impl Default for Expander {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct Expander object with default parameters")
     }
 }
 
@@ -256,7 +255,6 @@ impl ExpanderBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<Expander>(&properties)
-            .expect("Failed to create an instance of Expander")
     }
 
     pub fn expanded(mut self, expanded: bool) -> Self {

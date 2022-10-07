@@ -246,7 +246,6 @@ impl NotebookBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<Notebook>(&properties)
-            .expect("Failed to create an instance of Notebook")
     }
 
     pub fn enable_popup(mut self, enable_popup: bool) -> Self {

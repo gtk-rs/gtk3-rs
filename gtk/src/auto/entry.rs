@@ -396,7 +396,7 @@ impl EntryBuilder {
         if let Some(ref editing_canceled) = self.editing_canceled {
             properties.push(("editing-canceled", editing_canceled));
         }
-        glib::Object::new::<Entry>(&properties).expect("Failed to create an instance of Entry")
+        glib::Object::new::<Entry>(&properties)
     }
 
     pub fn activates_default(mut self, activates_default: bool) -> Self {

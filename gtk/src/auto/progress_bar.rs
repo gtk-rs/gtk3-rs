@@ -230,7 +230,6 @@ impl ProgressBarBuilder {
             properties.push(("orientation", orientation));
         }
         glib::Object::new::<ProgressBar>(&properties)
-            .expect("Failed to create an instance of ProgressBar")
     }
 
     pub fn ellipsize(mut self, ellipsize: pango::EllipsizeMode) -> Self {

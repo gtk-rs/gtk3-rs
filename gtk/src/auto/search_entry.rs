@@ -379,7 +379,6 @@ impl SearchEntryBuilder {
             properties.push(("editing-canceled", editing_canceled));
         }
         glib::Object::new::<SearchEntry>(&properties)
-            .expect("Failed to create an instance of SearchEntry")
     }
 
     pub fn activates_default(mut self, activates_default: bool) -> Self {

@@ -158,7 +158,6 @@ impl CellRendererPixbufBuilder {
             properties.push(("ypad", ypad));
         }
         glib::Object::new::<CellRendererPixbuf>(&properties)
-            .expect("Failed to create an instance of CellRendererPixbuf")
     }
 
     pub fn gicon(mut self, gicon: &impl IsA<gio::Icon>) -> Self {

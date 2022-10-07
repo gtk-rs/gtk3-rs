@@ -67,7 +67,6 @@ impl ScrolledWindow {
 impl Default for ScrolledWindow {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct ScrolledWindow object with default parameters")
     }
 }
 
@@ -289,7 +288,6 @@ impl ScrolledWindowBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<ScrolledWindow>(&properties)
-            .expect("Failed to create an instance of ScrolledWindow")
     }
 
     pub fn hadjustment(mut self, hadjustment: &impl IsA<Adjustment>) -> Self {

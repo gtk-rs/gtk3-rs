@@ -227,7 +227,6 @@ impl RevealerBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<Revealer>(&properties)
-            .expect("Failed to create an instance of Revealer")
     }
 
     pub fn reveal_child(mut self, reveal_child: bool) -> Self {

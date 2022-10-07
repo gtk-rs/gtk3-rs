@@ -81,7 +81,6 @@ impl SpinButton {
 impl Default for SpinButton {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct SpinButton object with default parameters")
     }
 }
 
@@ -442,7 +441,6 @@ impl SpinButtonBuilder {
             properties.push(("orientation", orientation));
         }
         glib::Object::new::<SpinButton>(&properties)
-            .expect("Failed to create an instance of SpinButton")
     }
 
     pub fn adjustment(mut self, adjustment: &impl IsA<Adjustment>) -> Self {

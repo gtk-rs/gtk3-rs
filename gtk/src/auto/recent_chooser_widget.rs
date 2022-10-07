@@ -285,7 +285,6 @@ impl RecentChooserWidgetBuilder {
             properties.push(("sort-type", sort_type));
         }
         glib::Object::new::<RecentChooserWidget>(&properties)
-            .expect("Failed to create an instance of RecentChooserWidget")
     }
 
     pub fn baseline_position(mut self, baseline_position: BaselinePosition) -> Self {

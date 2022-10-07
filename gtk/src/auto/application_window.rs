@@ -323,7 +323,6 @@ impl ApplicationWindowBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<ApplicationWindow>(&properties)
-            .expect("Failed to create an instance of ApplicationWindow")
     }
 
     pub fn show_menubar(mut self, show_menubar: bool) -> Self {

@@ -396,7 +396,6 @@ impl AboutDialogBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<AboutDialog>(&properties)
-            .expect("Failed to create an instance of AboutDialog")
     }
 
     pub fn artists(mut self, artists: Vec<String>) -> Self {

@@ -238,7 +238,7 @@ impl MenuBarBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<MenuBar>(&properties).expect("Failed to create an instance of MenuBar")
+        glib::Object::new::<MenuBar>(&properties)
     }
 
     pub fn child_pack_direction(mut self, child_pack_direction: PackDirection) -> Self {

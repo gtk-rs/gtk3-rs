@@ -61,7 +61,6 @@ impl MessageDialog {
 impl Default for MessageDialog {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct MessageDialog object with default parameters")
     }
 }
 
@@ -367,7 +366,6 @@ impl MessageDialogBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<MessageDialog>(&properties)
-            .expect("Failed to create an instance of MessageDialog")
     }
 
     pub fn buttons(mut self, buttons: ButtonsType) -> Self {

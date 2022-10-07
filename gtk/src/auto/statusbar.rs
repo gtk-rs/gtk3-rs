@@ -233,7 +233,6 @@ impl StatusbarBuilder {
             properties.push(("orientation", orientation));
         }
         glib::Object::new::<Statusbar>(&properties)
-            .expect("Failed to create an instance of Statusbar")
     }
 
     pub fn baseline_position(mut self, baseline_position: BaselinePosition) -> Self {
