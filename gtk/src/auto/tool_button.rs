@@ -58,7 +58,6 @@ impl ToolButton {
 impl Default for ToolButton {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct ToolButton object with default parameters")
     }
 }
 
@@ -264,7 +263,6 @@ impl ToolButtonBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<ToolButton>(&properties)
-            .expect("Failed to create an instance of ToolButton")
     }
 
     pub fn icon_name(mut self, icon_name: &str) -> Self {

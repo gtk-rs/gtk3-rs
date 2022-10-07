@@ -66,7 +66,6 @@ impl AspectFrame {
 impl Default for AspectFrame {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct AspectFrame object with default parameters")
     }
 }
 
@@ -268,7 +267,6 @@ impl AspectFrameBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<AspectFrame>(&properties)
-            .expect("Failed to create an instance of AspectFrame")
     }
 
     pub fn obey_child(mut self, obey_child: bool) -> Self {

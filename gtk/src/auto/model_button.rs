@@ -578,7 +578,6 @@ impl ModelButtonBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<ModelButton>(&properties)
-            .expect("Failed to create an instance of ModelButton")
     }
 
     pub fn active(mut self, active: bool) -> Self {

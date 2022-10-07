@@ -58,7 +58,6 @@ impl RecentChooserDialog {
 impl Default for RecentChooserDialog {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct RecentChooserDialog object with default parameters")
     }
 }
 
@@ -380,7 +379,6 @@ impl RecentChooserDialogBuilder {
             properties.push(("sort-type", sort_type));
         }
         glib::Object::new::<RecentChooserDialog>(&properties)
-            .expect("Failed to create an instance of RecentChooserDialog")
     }
 
     pub fn use_header_bar(mut self, use_header_bar: i32) -> Self {

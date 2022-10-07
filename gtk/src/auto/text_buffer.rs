@@ -56,7 +56,6 @@ impl TextBuffer {
 impl Default for TextBuffer {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct TextBuffer object with default parameters")
     }
 }
 
@@ -90,7 +89,6 @@ impl TextBufferBuilder {
             properties.push(("text", text));
         }
         glib::Object::new::<TextBuffer>(&properties)
-            .expect("Failed to create an instance of TextBuffer")
     }
 
     pub fn tag_table(mut self, tag_table: &impl IsA<TextTagTable>) -> Self {

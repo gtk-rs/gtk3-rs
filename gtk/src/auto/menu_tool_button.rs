@@ -59,7 +59,6 @@ impl MenuToolButton {
 impl Default for MenuToolButton {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct MenuToolButton object with default parameters")
     }
 }
 
@@ -269,7 +268,6 @@ impl MenuToolButtonBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<MenuToolButton>(&properties)
-            .expect("Failed to create an instance of MenuToolButton")
     }
 
     pub fn menu(mut self, menu: &impl IsA<Menu>) -> Self {

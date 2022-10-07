@@ -131,7 +131,6 @@ impl GestureLongPress {
 impl Default for GestureLongPress {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct GestureLongPress object with default parameters")
     }
 }
 
@@ -189,7 +188,6 @@ impl GestureLongPressBuilder {
             properties.push(("widget", widget));
         }
         glib::Object::new::<GestureLongPress>(&properties)
-            .expect("Failed to create an instance of GestureLongPress")
     }
 
     pub fn delay_factor(mut self, delay_factor: f64) -> Self {

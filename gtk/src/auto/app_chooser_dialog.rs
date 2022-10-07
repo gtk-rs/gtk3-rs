@@ -85,7 +85,6 @@ impl AppChooserDialog {
 impl Default for AppChooserDialog {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct AppChooserDialog object with default parameters")
     }
 }
 
@@ -379,7 +378,6 @@ impl AppChooserDialogBuilder {
             properties.push(("content-type", content_type));
         }
         glib::Object::new::<AppChooserDialog>(&properties)
-            .expect("Failed to create an instance of AppChooserDialog")
     }
 
     pub fn gfile(mut self, gfile: &impl IsA<gio::File>) -> Self {

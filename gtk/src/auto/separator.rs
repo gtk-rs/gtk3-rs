@@ -47,7 +47,6 @@ impl Separator {
 impl Default for Separator {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct Separator object with default parameters")
     }
 }
 
@@ -205,7 +204,6 @@ impl SeparatorBuilder {
             properties.push(("orientation", orientation));
         }
         glib::Object::new::<Separator>(&properties)
-            .expect("Failed to create an instance of Separator")
     }
 
     pub fn app_paintable(mut self, app_paintable: bool) -> Self {

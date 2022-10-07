@@ -116,7 +116,6 @@ impl GesturePan {
 impl Default for GesturePan {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct GesturePan object with default parameters")
     }
 }
 
@@ -174,7 +173,6 @@ impl GesturePanBuilder {
             properties.push(("widget", widget));
         }
         glib::Object::new::<GesturePan>(&properties)
-            .expect("Failed to create an instance of GesturePan")
     }
 
     pub fn orientation(mut self, orientation: Orientation) -> Self {

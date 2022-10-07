@@ -290,7 +290,6 @@ impl RadioMenuItemBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<RadioMenuItem>(&properties)
-            .expect("Failed to create an instance of RadioMenuItem")
     }
 
     pub fn active(mut self, active: bool) -> Self {

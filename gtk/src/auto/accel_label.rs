@@ -53,7 +53,6 @@ impl AccelLabel {
 impl Default for AccelLabel {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct AccelLabel object with default parameters")
     }
 }
 
@@ -291,7 +290,6 @@ impl AccelLabelBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<AccelLabel>(&properties)
-            .expect("Failed to create an instance of AccelLabel")
     }
 
     pub fn accel_closure(mut self, accel_closure: &glib::Closure) -> Self {

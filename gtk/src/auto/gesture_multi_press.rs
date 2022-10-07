@@ -152,7 +152,6 @@ impl GestureMultiPress {
 impl Default for GestureMultiPress {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct GestureMultiPress object with default parameters")
     }
 }
 
@@ -206,7 +205,6 @@ impl GestureMultiPressBuilder {
             properties.push(("widget", widget));
         }
         glib::Object::new::<GestureMultiPress>(&properties)
-            .expect("Failed to create an instance of GestureMultiPress")
     }
 
     pub fn button(mut self, button: u32) -> Self {

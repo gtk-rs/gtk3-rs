@@ -139,7 +139,6 @@ impl Window {
 impl Default for Window {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct Window object with default parameters")
     }
 }
 
@@ -416,7 +415,7 @@ impl WindowBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Window>(&properties).expect("Failed to create an instance of Window")
+        glib::Object::new::<Window>(&properties)
     }
 
     pub fn accept_focus(mut self, accept_focus: bool) -> Self {

@@ -68,7 +68,6 @@ impl LinkButton {
 impl Default for LinkButton {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct LinkButton object with default parameters")
     }
 }
 
@@ -274,7 +273,6 @@ impl LinkButtonBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<LinkButton>(&properties)
-            .expect("Failed to create an instance of LinkButton")
     }
 
     pub fn uri(mut self, uri: &str) -> Self {

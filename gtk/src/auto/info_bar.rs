@@ -254,7 +254,7 @@ impl InfoBarBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        glib::Object::new::<InfoBar>(&properties).expect("Failed to create an instance of InfoBar")
+        glib::Object::new::<InfoBar>(&properties)
     }
 
     pub fn message_type(mut self, message_type: MessageType) -> Self {

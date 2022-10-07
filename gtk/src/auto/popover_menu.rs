@@ -306,7 +306,6 @@ impl PopoverMenuBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<PopoverMenu>(&properties)
-            .expect("Failed to create an instance of PopoverMenu")
     }
 
     pub fn visible_submenu(mut self, visible_submenu: &str) -> Self {

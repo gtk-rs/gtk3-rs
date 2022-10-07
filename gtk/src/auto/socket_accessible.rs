@@ -114,7 +114,6 @@ impl SocketAccessibleBuilder {
             properties.push(("accessible-value", accessible_value));
         }
         glib::Object::new::<SocketAccessible>(&properties)
-            .expect("Failed to create an instance of SocketAccessible")
     }
 
     pub fn accessible_description(mut self, accessible_description: &str) -> Self {

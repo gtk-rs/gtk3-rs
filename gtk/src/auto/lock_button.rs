@@ -58,7 +58,6 @@ impl LockButton {
 impl Default for LockButton {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct LockButton object with default parameters")
     }
 }
 
@@ -280,7 +279,6 @@ impl LockButtonBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<LockButton>(&properties)
-            .expect("Failed to create an instance of LockButton")
     }
 
     pub fn permission(mut self, permission: &impl IsA<gio::Permission>) -> Self {

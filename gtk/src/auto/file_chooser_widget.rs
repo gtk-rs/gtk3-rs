@@ -59,7 +59,6 @@ impl FileChooserWidget {
 impl Default for FileChooserWidget {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct FileChooserWidget object with default parameters")
     }
 }
 
@@ -289,7 +288,6 @@ impl FileChooserWidgetBuilder {
             properties.push(("use-preview-label", use_preview_label));
         }
         glib::Object::new::<FileChooserWidget>(&properties)
-            .expect("Failed to create an instance of FileChooserWidget")
     }
 
     pub fn search_mode(mut self, search_mode: bool) -> Self {

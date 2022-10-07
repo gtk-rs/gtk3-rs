@@ -127,7 +127,6 @@ impl StyleContextBuilder {
             properties.push(("screen", screen));
         }
         glib::Object::new::<StyleContext>(&properties)
-            .expect("Failed to create an instance of StyleContext")
     }
 
     pub fn direction(mut self, direction: TextDirection) -> Self {

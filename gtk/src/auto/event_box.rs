@@ -222,7 +222,6 @@ impl EventBoxBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<EventBox>(&properties)
-            .expect("Failed to create an instance of EventBox")
     }
 
     pub fn above_child(mut self, above_child: bool) -> Self {

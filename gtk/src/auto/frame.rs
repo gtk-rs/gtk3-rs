@@ -51,7 +51,6 @@ impl Frame {
 impl Default for Frame {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct Frame object with default parameters")
     }
 }
 
@@ -236,7 +235,7 @@ impl FrameBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Frame>(&properties).expect("Failed to create an instance of Frame")
+        glib::Object::new::<Frame>(&properties)
     }
 
     pub fn label(mut self, label: &str) -> Self {

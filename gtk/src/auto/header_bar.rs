@@ -246,7 +246,6 @@ impl HeaderBarBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<HeaderBar>(&properties)
-            .expect("Failed to create an instance of HeaderBar")
     }
 
     pub fn custom_title(mut self, custom_title: &impl IsA<Widget>) -> Self {

@@ -52,7 +52,6 @@ impl GestureDrag {
 impl Default for GestureDrag {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct GestureDrag object with default parameters")
     }
 }
 
@@ -106,7 +105,6 @@ impl GestureDragBuilder {
             properties.push(("widget", widget));
         }
         glib::Object::new::<GestureDrag>(&properties)
-            .expect("Failed to create an instance of GestureDrag")
     }
 
     pub fn button(mut self, button: u32) -> Self {

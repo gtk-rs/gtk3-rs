@@ -61,7 +61,6 @@ impl Layout {
 impl Default for Layout {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct Layout object with default parameters")
     }
 }
 
@@ -250,7 +249,7 @@ impl LayoutBuilder {
         if let Some(ref vscroll_policy) = self.vscroll_policy {
             properties.push(("vscroll-policy", vscroll_policy));
         }
-        glib::Object::new::<Layout>(&properties).expect("Failed to create an instance of Layout")
+        glib::Object::new::<Layout>(&properties)
     }
 
     pub fn height(mut self, height: u32) -> Self {

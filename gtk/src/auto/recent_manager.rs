@@ -82,7 +82,6 @@ impl RecentManagerBuilder {
             properties.push(("filename", filename));
         }
         glib::Object::new::<RecentManager>(&properties)
-            .expect("Failed to create an instance of RecentManager")
     }
 
     pub fn filename(mut self, filename: &str) -> Self {

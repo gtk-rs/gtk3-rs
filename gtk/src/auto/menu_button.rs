@@ -290,7 +290,6 @@ impl MenuButtonBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<MenuButton>(&properties)
-            .expect("Failed to create an instance of MenuButton")
     }
 
     pub fn align_widget(mut self, align_widget: &impl IsA<Container>) -> Self {

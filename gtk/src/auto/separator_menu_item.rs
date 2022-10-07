@@ -241,7 +241,6 @@ impl SeparatorMenuItemBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<SeparatorMenuItem>(&properties)
-            .expect("Failed to create an instance of SeparatorMenuItem")
     }
 
     pub fn accel_path(mut self, accel_path: &str) -> Self {

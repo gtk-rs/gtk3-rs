@@ -231,7 +231,6 @@ impl ToolItemBuilder {
             properties.push(("width-request", width_request));
         }
         glib::Object::new::<ToolItem>(&properties)
-            .expect("Failed to create an instance of ToolItem")
     }
 
     pub fn is_important(mut self, is_important: bool) -> Self {

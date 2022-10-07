@@ -265,7 +265,6 @@ impl MenuItemBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<MenuItem>(&properties)
-            .expect("Failed to create an instance of MenuItem")
     }
 
     pub fn accel_path(mut self, accel_path: &str) -> Self {

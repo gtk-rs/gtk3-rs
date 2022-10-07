@@ -67,7 +67,6 @@ impl Plug {
 impl Default for Plug {
     fn default() -> Self {
         glib::object::Object::new::<Self>(&[])
-            .expect("Can't construct Plug object with default parameters")
     }
 }
 
@@ -344,7 +343,7 @@ impl PlugBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Plug>(&properties).expect("Failed to create an instance of Plug")
+        glib::Object::new::<Plug>(&properties)
     }
 
     pub fn accept_focus(mut self, accept_focus: bool) -> Self {

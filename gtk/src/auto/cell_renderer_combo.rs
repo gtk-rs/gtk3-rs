@@ -326,7 +326,6 @@ impl CellRendererComboBuilder {
             properties.push(("ypad", ypad));
         }
         glib::Object::new::<CellRendererCombo>(&properties)
-            .expect("Failed to create an instance of CellRendererCombo")
     }
 
     pub fn has_entry(mut self, has_entry: bool) -> Self {

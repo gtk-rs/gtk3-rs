@@ -220,7 +220,7 @@ impl GLAreaBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<GLArea>(&properties).expect("Failed to create an instance of GLArea")
+        glib::Object::new::<GLArea>(&properties)
     }
 
     pub fn auto_render(mut self, auto_render: bool) -> Self {

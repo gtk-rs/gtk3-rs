@@ -213,7 +213,7 @@ impl SocketBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        glib::Object::new::<Socket>(&properties).expect("Failed to create an instance of Socket")
+        glib::Object::new::<Socket>(&properties)
     }
 
     pub fn border_width(mut self, border_width: u32) -> Self {

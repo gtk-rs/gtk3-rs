@@ -259,7 +259,6 @@ impl RadioToolButtonBuilder {
             properties.push(("action-target", action_target));
         }
         glib::Object::new::<RadioToolButton>(&properties)
-            .expect("Failed to create an instance of RadioToolButton")
     }
 
     pub fn active(mut self, active: bool) -> Self {

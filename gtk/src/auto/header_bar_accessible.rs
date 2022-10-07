@@ -113,7 +113,6 @@ impl HeaderBarAccessibleBuilder {
             properties.push(("accessible-value", accessible_value));
         }
         glib::Object::new::<HeaderBarAccessible>(&properties)
-            .expect("Failed to create an instance of HeaderBarAccessible")
     }
 
     pub fn accessible_description(mut self, accessible_description: &str) -> Self {

@@ -386,7 +386,6 @@ impl ShortcutsGroupBuilder {
             properties.push(("orientation", orientation));
         }
         glib::Object::new::<ShortcutsGroup>(&properties)
-            .expect("Failed to create an instance of ShortcutsGroup")
     }
 
     pub fn accel_size_group(mut self, accel_size_group: &impl IsA<SizeGroup>) -> Self {
