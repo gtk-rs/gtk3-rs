@@ -27,8 +27,10 @@ impl ObjectImpl for SimpleWindow {
     // Here we are overriding the glib::Objcet::contructed
     // method. Its what gets called when we create our Object
     // and where we can initialize things.
-    fn constructed(&self, obj: &Self::Type) {
-        self.parent_constructed(obj);
+    fn constructed(&self) {
+        self.parent_constructed();
+
+        let instance = self.instance();
 
         let headerbar = gtk::HeaderBar::new();
         let increment = gtk::Button::with_label("Increment!");
@@ -40,14 +42,13 @@ impl ObjectImpl for SimpleWindow {
 
         // Connect our method `on_increment_clicked` to be called
         // when the increment button is clicked.
-        increment.connect_clicked(clone!(@weak obj => move |_| {
-            let imp = obj.imp();
+        increment.connect_clicked(clone!(@weak self as imp => move |_| {
             imp.on_increment_clicked();
         }));
 
-        obj.add(&label);
-        obj.set_titlebar(Some(&headerbar));
-        obj.set_default_size(640, 480);
+        instance.add(&label);
+        instance.set_titlebar(Some(&headerbar));
+        instance.set_default_size(640, 480);
 
         self.widgets
             .set(WindowWidgets { label })
