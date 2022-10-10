@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -686,57 +686,6 @@
 <span id="613">613</span>
 <span id="614">614</span>
 <span id="615">615</span>
-<span id="616">616</span>
-<span id="617">617</span>
-<span id="618">618</span>
-<span id="619">619</span>
-<span id="620">620</span>
-<span id="621">621</span>
-<span id="622">622</span>
-<span id="623">623</span>
-<span id="624">624</span>
-<span id="625">625</span>
-<span id="626">626</span>
-<span id="627">627</span>
-<span id="628">628</span>
-<span id="629">629</span>
-<span id="630">630</span>
-<span id="631">631</span>
-<span id="632">632</span>
-<span id="633">633</span>
-<span id="634">634</span>
-<span id="635">635</span>
-<span id="636">636</span>
-<span id="637">637</span>
-<span id="638">638</span>
-<span id="639">639</span>
-<span id="640">640</span>
-<span id="641">641</span>
-<span id="642">642</span>
-<span id="643">643</span>
-<span id="644">644</span>
-<span id="645">645</span>
-<span id="646">646</span>
-<span id="647">647</span>
-<span id="648">648</span>
-<span id="649">649</span>
-<span id="650">650</span>
-<span id="651">651</span>
-<span id="652">652</span>
-<span id="653">653</span>
-<span id="654">654</span>
-<span id="655">655</span>
-<span id="656">656</span>
-<span id="657">657</span>
-<span id="658">658</span>
-<span id="659">659</span>
-<span id="660">660</span>
-<span id="661">661</span>
-<span id="662">662</span>
-<span id="663">663</span>
-<span id="664">664</span>
-<span id="665">665</span>
-<span id="666">666</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>libc::{c_char, c_int};
@@ -755,65 +704,52 @@
 <span class="kw">use </span><span class="kw">crate</span>::Widget;
 
 <span class="kw">pub trait </span>CellRendererImpl: CellRendererImplExt + ObjectImpl {
-    <span class="kw">fn </span>request_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) -&gt; SizeRequestMode {
-        <span class="self">self</span>.parent_request_mode(renderer)
+    <span class="kw">fn </span>request_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SizeRequestMode {
+        <span class="self">self</span>.parent_request_mode()
     }
 
-    <span class="kw">fn </span>preferred_width&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>P) -&gt; (i32, i32) {
-        <span class="self">self</span>.parent_preferred_width(renderer, widget)
+    <span class="kw">fn </span>preferred_width&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>P) -&gt; (i32, i32) {
+        <span class="self">self</span>.parent_preferred_width(widget)
     }
 
     <span class="attribute">#[doc(alias = <span class="string">&quot;get_preferred_width_for_height&quot;</span>)]
-    </span><span class="kw">fn </span>preferred_width_for_height&lt;P: IsA&lt;Widget&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
-        widget: <span class="kw-2">&amp;</span>P,
-        height: i32,
-    ) -&gt; (i32, i32) {
-        <span class="self">self</span>.parent_preferred_width_for_height(renderer, widget, height)
+    </span><span class="kw">fn </span>preferred_width_for_height&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>P, height: i32) -&gt; (i32, i32) {
+        <span class="self">self</span>.parent_preferred_width_for_height(widget, height)
     }
 
     <span class="attribute">#[doc(alias = <span class="string">&quot;get_preferred_height&quot;</span>)]
-    </span><span class="kw">fn </span>preferred_height&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>P) -&gt; (i32, i32) {
-        <span class="self">self</span>.parent_preferred_height(renderer, widget)
+    </span><span class="kw">fn </span>preferred_height&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>P) -&gt; (i32, i32) {
+        <span class="self">self</span>.parent_preferred_height(widget)
     }
 
     <span class="attribute">#[doc(alias = <span class="string">&quot;get_preferred_height_for_width&quot;</span>)]
-    </span><span class="kw">fn </span>preferred_height_for_width&lt;P: IsA&lt;Widget&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
-        widget: <span class="kw-2">&amp;</span>P,
-        width: i32,
-    ) -&gt; (i32, i32) {
-        <span class="self">self</span>.parent_preferred_height_for_width(renderer, widget, width)
+    </span><span class="kw">fn </span>preferred_height_for_width&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>P, width: i32) -&gt; (i32, i32) {
+        <span class="self">self</span>.parent_preferred_height_for_width(widget, width)
     }
 
     <span class="attribute">#[doc(alias = <span class="string">&quot;get_aligned_area&quot;</span>)]
     </span><span class="kw">fn </span>aligned_area&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         widget: <span class="kw-2">&amp;</span>P,
         flags: CellRendererState,
         cell_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
     ) -&gt; gdk::Rectangle {
-        <span class="self">self</span>.parent_aligned_area(renderer, widget, flags, cell_area)
+        <span class="self">self</span>.parent_aligned_area(widget, flags, cell_area)
     }
 
     <span class="kw">fn </span>render&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         cr: <span class="kw-2">&amp;</span>cairo::Context,
         widget: <span class="kw-2">&amp;</span>P,
         background_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
         cell_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
         flags: CellRendererState,
     ) {
-        <span class="self">self</span>.parent_render(renderer, cr, widget, background_area, cell_area, flags);
+        <span class="self">self</span>.parent_render(cr, widget, background_area, cell_area, flags);
     }
 
     <span class="kw">fn </span>activate&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         event: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Event&gt;,
         widget: <span class="kw-2">&amp;</span>P,
         path: <span class="kw-2">&amp;</span>str,
@@ -821,20 +757,11 @@
         cell_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
         flags: CellRendererState,
     ) -&gt; bool {
-        <span class="self">self</span>.parent_activate(
-            renderer,
-            event,
-            widget,
-            path,
-            background_area,
-            cell_area,
-            flags,
-        )
+        <span class="self">self</span>.parent_activate(event, widget, path, background_area, cell_area, flags)
     }
 
     <span class="kw">fn </span>start_editing&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         event: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Event&gt;,
         widget: <span class="kw-2">&amp;</span>P,
         path: <span class="kw-2">&amp;</span>str,
@@ -842,60 +769,40 @@
         cell_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
         flags: CellRendererState,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;CellEditable&gt; {
-        <span class="self">self</span>.parent_start_editing(
-            renderer,
-            event,
-            widget,
-            path,
-            background_area,
-            cell_area,
-            flags,
-        )
+        <span class="self">self</span>.parent_start_editing(event, widget, path, background_area, cell_area, flags)
     }
 
-    <span class="kw">fn </span>editing_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
-        <span class="self">self</span>.parent_editing_canceled(renderer)
+    <span class="kw">fn </span>editing_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.parent_editing_canceled()
     }
 
-    <span class="kw">fn </span>editing_started(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, editable: <span class="kw-2">&amp;</span>CellEditable, path: <span class="kw-2">&amp;</span>str) {
-        <span class="self">self</span>.parent_editing_started(renderer, editable, path)
+    <span class="kw">fn </span>editing_started(<span class="kw-2">&amp;</span><span class="self">self</span>, editable: <span class="kw-2">&amp;</span>CellEditable, path: <span class="kw-2">&amp;</span>str) {
+        <span class="self">self</span>.parent_editing_started(editable, path)
     }
 }
 
 <span class="kw">pub trait </span>CellRendererImplExt: ObjectSubclass {
-    <span class="kw">fn </span>parent_request_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) -&gt; SizeRequestMode;
-    <span class="kw">fn </span>parent_preferred_width&lt;P: IsA&lt;Widget&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
-        widget: <span class="kw-2">&amp;</span>P,
-    ) -&gt; (i32, i32);
+    <span class="kw">fn </span>parent_request_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SizeRequestMode;
+    <span class="kw">fn </span>parent_preferred_width&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>P) -&gt; (i32, i32);
     <span class="kw">fn </span>parent_preferred_width_for_height&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         widget: <span class="kw-2">&amp;</span>P,
         height: i32,
     ) -&gt; (i32, i32);
-    <span class="kw">fn </span>parent_preferred_height&lt;P: IsA&lt;Widget&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
-        widget: <span class="kw-2">&amp;</span>P,
-    ) -&gt; (i32, i32);
+    <span class="kw">fn </span>parent_preferred_height&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>P) -&gt; (i32, i32);
     <span class="kw">fn </span>parent_preferred_height_for_width&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         widget: <span class="kw-2">&amp;</span>P,
         width: i32,
     ) -&gt; (i32, i32);
     <span class="kw">fn </span>parent_aligned_area&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         widget: <span class="kw-2">&amp;</span>P,
         flags: CellRendererState,
         cell_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
     ) -&gt; gdk::Rectangle;
     <span class="kw">fn </span>parent_render&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         cr: <span class="kw-2">&amp;</span>cairo::Context,
         widget: <span class="kw-2">&amp;</span>P,
         background_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
@@ -904,7 +811,6 @@
     );
     <span class="kw">fn </span>parent_activate&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         event: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Event&gt;,
         widget: <span class="kw-2">&amp;</span>P,
         path: <span class="kw-2">&amp;</span>str,
@@ -914,7 +820,6 @@
     ) -&gt; bool;
     <span class="kw">fn </span>parent_start_editing&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         event: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Event&gt;,
         widget: <span class="kw-2">&amp;</span>P,
         path: <span class="kw-2">&amp;</span>str,
@@ -922,28 +827,25 @@
         cell_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
         flags: CellRendererState,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;CellEditable&gt;;
-    <span class="kw">fn </span>parent_editing_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
-    <span class="kw">fn </span>parent_editing_started(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, editable: <span class="kw-2">&amp;</span>CellEditable, path: <span class="kw-2">&amp;</span>str);
+    <span class="kw">fn </span>parent_editing_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    <span class="kw">fn </span>parent_editing_started(<span class="kw-2">&amp;</span><span class="self">self</span>, editable: <span class="kw-2">&amp;</span>CellEditable, path: <span class="kw-2">&amp;</span>str);
 }
 
 <span class="kw">impl</span>&lt;T: CellRendererImpl&gt; CellRendererImplExt <span class="kw">for </span>T {
-    <span class="kw">fn </span>parent_request_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) -&gt; SizeRequestMode {
+    <span class="kw">fn </span>parent_request_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SizeRequestMode {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererClass;
             <span class="kw">let </span>f = (<span class="kw-2">*</span>parent_class).get_request_mode.unwrap();
-            from_glib(f(renderer
+            from_glib(f(<span class="self">self
+                </span>.instance()
                 .unsafe_cast_ref::&lt;CellRenderer&gt;()
                 .to_glib_none()
                 .<span class="number">0</span>))
         }
     }
 
-    <span class="kw">fn </span>parent_preferred_width&lt;P: IsA&lt;Widget&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
-        widget: <span class="kw-2">&amp;</span>P,
-    ) -&gt; (i32, i32) {
+    <span class="kw">fn </span>parent_preferred_width&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>P) -&gt; (i32, i32) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererClass;
@@ -952,7 +854,10 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             f(
-                renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.instance()
+                    .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>,
                 widget.as_ref().to_glib_none().<span class="number">0</span>,
                 minimum_size.as_mut_ptr(),
                 natural_size.as_mut_ptr(),
@@ -963,7 +868,6 @@
 
     <span class="kw">fn </span>parent_preferred_width_for_height&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         widget: <span class="kw-2">&amp;</span>P,
         height: i32,
     ) -&gt; (i32, i32) {
@@ -975,7 +879,10 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             f(
-                renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.instance()
+                    .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>,
                 widget.as_ref().to_glib_none().<span class="number">0</span>,
                 height,
                 minimum_size.as_mut_ptr(),
@@ -984,11 +891,7 @@
             (minimum_size.assume_init(), natural_size.assume_init())
         }
     }
-    <span class="kw">fn </span>parent_preferred_height&lt;P: IsA&lt;Widget&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
-        widget: <span class="kw-2">&amp;</span>P,
-    ) -&gt; (i32, i32) {
+    <span class="kw">fn </span>parent_preferred_height&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>P) -&gt; (i32, i32) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererClass;
@@ -996,7 +899,10 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             f(
-                renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.instance()
+                    .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>,
                 widget.as_ref().to_glib_none().<span class="number">0</span>,
                 minimum_size.as_mut_ptr(),
                 natural_size.as_mut_ptr(),
@@ -1006,7 +912,6 @@
     }
     <span class="kw">fn </span>parent_preferred_height_for_width&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         widget: <span class="kw-2">&amp;</span>P,
         width: i32,
     ) -&gt; (i32, i32) {
@@ -1017,7 +922,10 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             f(
-                renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.instance()
+                    .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>,
                 widget.as_ref().to_glib_none().<span class="number">0</span>,
                 width,
                 minimum_size.as_mut_ptr(),
@@ -1029,7 +937,6 @@
 
     <span class="kw">fn </span>parent_aligned_area&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         widget: <span class="kw-2">&amp;</span>P,
         flags: CellRendererState,
         cell_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
@@ -1040,7 +947,10 @@
             <span class="kw">let </span><span class="kw-2">mut </span>aligned_area = gdk::Rectangle::uninitialized();
             <span class="kw">let </span>f = (<span class="kw-2">*</span>parent_class).get_aligned_area.unwrap();
             f(
-                renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.instance()
+                    .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>,
                 widget.as_ref().to_glib_none().<span class="number">0</span>,
                 flags.into_glib(),
                 cell_area.to_glib_none().<span class="number">0</span>,
@@ -1052,7 +962,6 @@
 
     <span class="kw">fn </span>parent_render&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         cr: <span class="kw-2">&amp;</span>cairo::Context,
         widget: <span class="kw-2">&amp;</span>P,
         background_area: <span class="kw-2">&amp;</span>gdk::Rectangle,
@@ -1064,7 +973,10 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).render {
                 f(
-                    renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     cr.to_glib_none().<span class="number">0</span>,
                     widget.as_ref().to_glib_none().<span class="number">0</span>,
                     background_area.to_glib_none().<span class="number">0</span>,
@@ -1077,7 +989,6 @@
 
     <span class="kw">fn </span>parent_activate&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         event: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Event&gt;,
         widget: <span class="kw-2">&amp;</span>P,
         path: <span class="kw-2">&amp;</span>str,
@@ -1090,7 +1001,10 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).activate {
                 from_glib(f(
-                    renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     mut_override(event.to_glib_none().<span class="number">0</span>),
                     widget.as_ref().to_glib_none().<span class="number">0</span>,
                     path.to_glib_none().<span class="number">0</span>,
@@ -1106,7 +1020,6 @@
 
     <span class="kw">fn </span>parent_start_editing&lt;P: IsA&lt;Widget&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
         event: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Event&gt;,
         widget: <span class="kw-2">&amp;</span>P,
         path: <span class="kw-2">&amp;</span>str,
@@ -1119,7 +1032,10 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).start_editing {
                 from_glib_none(f(
-                    renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     mut_override(event.to_glib_none().<span class="number">0</span>),
                     widget.as_ref().to_glib_none().<span class="number">0</span>,
                     path.to_glib_none().<span class="number">0</span>,
@@ -1133,23 +1049,30 @@
         }
     }
 
-    <span class="kw">fn </span>parent_editing_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+    <span class="kw">fn </span>parent_editing_canceled(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).editing_canceled {
-                f(renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self
+                    </span>.instance()
+                    .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn </span>parent_editing_started(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, editable: <span class="kw-2">&amp;</span>CellEditable, path: <span class="kw-2">&amp;</span>str) {
+    <span class="kw">fn </span>parent_editing_started(<span class="kw-2">&amp;</span><span class="self">self</span>, editable: <span class="kw-2">&amp;</span>CellEditable, path: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).editing_started {
                 f(
-                    renderer.unsafe_cast_ref::&lt;CellRenderer&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;CellRenderer&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     editable.to_glib_none().<span class="number">0</span>,
                     path.to_glib_none().<span class="number">0</span>,
                 )
@@ -1188,9 +1111,8 @@
 ) -&gt; ffi::GtkSizeRequestMode {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
 
-    imp.request_mode(wrap.unsafe_cast_ref()).into_glib()
+    imp.request_mode().into_glib()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>cell_renderer_get_preferred_width&lt;T: CellRendererImpl&gt;(
@@ -1201,10 +1123,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
 
-    <span class="kw">let </span>(min_size, nat_size) = imp.preferred_width(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;*</span>widget);
+    <span class="kw">let </span>(min_size, nat_size) = imp.preferred_width(<span class="kw-2">&amp;*</span>widget);
     <span class="kw">if </span>!minptr.is_null() {
         <span class="kw-2">*</span>minptr = min_size;
     }
@@ -1222,11 +1143,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
 
-    <span class="kw">let </span>(min_height, nat_height) =
-        imp.preferred_height_for_width(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;*</span>widget, width);
+    <span class="kw">let </span>(min_height, nat_height) = imp.preferred_height_for_width(<span class="kw-2">&amp;*</span>widget, width);
     <span class="kw">if </span>!min_height_ptr.is_null() {
         <span class="kw-2">*</span>min_height_ptr = min_height;
     }
@@ -1243,10 +1162,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
 
-    <span class="kw">let </span>(min_size, nat_size) = imp.preferred_height(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;*</span>widget);
+    <span class="kw">let </span>(min_size, nat_size) = imp.preferred_height(<span class="kw-2">&amp;*</span>widget);
     <span class="kw">if </span>!minptr.is_null() {
         <span class="kw-2">*</span>minptr = min_size;
     }
@@ -1264,11 +1182,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
 
-    <span class="kw">let </span>(min_width, nat_width) =
-        imp.preferred_width_for_height(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;*</span>widget, height);
+    <span class="kw">let </span>(min_width, nat_width) = imp.preferred_width_for_height(<span class="kw-2">&amp;*</span>widget, height);
     <span class="kw">if </span>!min_width_ptr.is_null() {
         <span class="kw-2">*</span>min_width_ptr = min_width;
     }
@@ -1286,15 +1202,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
 
-    <span class="kw">let </span>rectangle = imp.aligned_area(
-        wrap.unsafe_cast_ref(),
-        <span class="kw-2">&amp;*</span>widget,
-        from_glib(flags),
-        <span class="kw-2">&amp;</span>from_glib_borrow(cellarea),
-    );
+    <span class="kw">let </span>rectangle = imp.aligned_area(<span class="kw-2">&amp;*</span>widget, from_glib(flags), <span class="kw-2">&amp;</span>from_glib_borrow(cellarea));
     <span class="kw-2">*</span>alignedptr = <span class="kw-2">*</span>rectangle.to_glib_none().<span class="number">0</span>;
 }
 
@@ -1308,12 +1218,10 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
     <span class="kw">let </span>cr: Borrowed&lt;cairo::Context&gt; = from_glib_borrow(crptr);
 
     imp.render(
-        wrap.unsafe_cast_ref(),
         <span class="kw-2">&amp;</span>cr,
         <span class="kw-2">&amp;*</span>widget,
         <span class="kw-2">&amp;</span>from_glib_borrow(bgptr),
@@ -1333,12 +1241,10 @@
 ) -&gt; glib::ffi::gboolean {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
     <span class="kw">let </span>evt: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;gdk::Event&gt;&gt; = from_glib_borrow(evtptr);
 
     imp.activate(
-        wrap.unsafe_cast_ref(),
         evt.as_ref().as_ref(),
         <span class="kw-2">&amp;*</span>widget,
         <span class="kw-2">&amp;</span>GString::from_glib_borrow(pathptr),
@@ -1360,12 +1266,10 @@
 ) -&gt; <span class="kw-2">*mut </span>ffi::GtkCellEditable {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
     <span class="kw">let </span>evt: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;gdk::Event&gt;&gt; = from_glib_borrow(evtptr);
 
     imp.start_editing(
-        wrap.unsafe_cast_ref(),
         evt.as_ref().as_ref(),
         <span class="kw-2">&amp;*</span>widget,
         <span class="kw-2">&amp;</span>GString::from_glib_borrow(pathptr),
@@ -1382,9 +1286,8 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
 
-    imp.editing_canceled(wrap.unsafe_cast_ref());
+    imp.editing_canceled();
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>cell_renderer_editing_started&lt;T: CellRendererImpl&gt;(
@@ -1394,14 +1297,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRenderer&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>editable = from_glib_borrow(editableptr);
 
-    imp.editing_started(
-        wrap.unsafe_cast_ref(),
-        <span class="kw-2">&amp;</span>editable,
-        <span class="kw-2">&amp;</span>GString::from_glib_borrow(pathptr),
-    );
+    imp.editing_started(<span class="kw-2">&amp;</span>editable, <span class="kw-2">&amp;</span>GString::from_glib_borrow(pathptr));
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (0ca356586 2022-10-06)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (81f391930 2022-10-09)" ></div></body></html>

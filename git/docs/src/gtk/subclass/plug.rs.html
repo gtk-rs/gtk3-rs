@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -122,7 +122,6 @@
 <span id="49">49</span>
 <span id="50">50</span>
 <span id="51">51</span>
-<span id="52">52</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>glib::subclass::prelude::<span class="kw-2">*</span>;
@@ -134,22 +133,22 @@
 <span class="kw">use </span><span class="kw">crate</span>::Plug;
 
 <span class="kw">pub trait </span>PlugImpl: PlugImplExt + WindowImpl {
-    <span class="kw">fn </span>embedded(<span class="kw-2">&amp;</span><span class="self">self</span>, plug: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
-        <span class="self">self</span>.parent_embedded(plug)
+    <span class="kw">fn </span>embedded(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.parent_embedded()
     }
 }
 
 <span class="kw">pub trait </span>PlugImplExt: ObjectSubclass {
-    <span class="kw">fn </span>parent_embedded(<span class="kw-2">&amp;</span><span class="self">self</span>, plug: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
+    <span class="kw">fn </span>parent_embedded(<span class="kw-2">&amp;</span><span class="self">self</span>);
 }
 
 <span class="kw">impl</span>&lt;T: PlugImpl&gt; PlugImplExt <span class="kw">for </span>T {
-    <span class="kw">fn </span>parent_embedded(<span class="kw-2">&amp;</span><span class="self">self</span>, plug: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+    <span class="kw">fn </span>parent_embedded(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkPlugClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).embedded {
-                f(plug.unsafe_cast_ref::&lt;Plug&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self</span>.instance().unsafe_cast_ref::&lt;Plug&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -171,9 +170,8 @@
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>plug_embedded&lt;T: PlugImpl&gt;(ptr: <span class="kw-2">*mut </span>ffi::GtkPlug) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Plug&gt; = from_glib_borrow(ptr);
 
-    imp.embedded(wrap.unsafe_cast_ref())
+    imp.embedded()
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (0ca356586 2022-10-06)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (81f391930 2022-10-09)" ></div></body></html>

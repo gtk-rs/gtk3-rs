@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -138,8 +138,6 @@
 <span id="65">65</span>
 <span id="66">66</span>
 <span id="67">67</span>
-<span id="68">68</span>
-<span id="69">69</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>libc::c_char;
@@ -153,23 +151,23 @@
 <span class="kw">use </span><span class="kw">crate</span>::CellRendererText;
 
 <span class="kw">pub trait </span>CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
-    <span class="kw">fn </span>edited(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, path: <span class="kw-2">&amp;</span>str, new_text: <span class="kw-2">&amp;</span>str) {
-        <span class="self">self</span>.parent_edited(renderer, path, new_text);
+    <span class="kw">fn </span>edited(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str, new_text: <span class="kw-2">&amp;</span>str) {
+        <span class="self">self</span>.parent_edited(path, new_text);
     }
 }
 
 <span class="kw">pub trait </span>CellRendererTextImplExt: ObjectSubclass {
-    <span class="kw">fn </span>parent_edited(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, path: <span class="kw-2">&amp;</span>str, new_text: <span class="kw-2">&amp;</span>str);
+    <span class="kw">fn </span>parent_edited(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str, new_text: <span class="kw-2">&amp;</span>str);
 }
 
 <span class="kw">impl</span>&lt;T: CellRendererTextImpl&gt; CellRendererTextImplExt <span class="kw">for </span>T {
-    <span class="kw">fn </span>parent_edited(<span class="kw-2">&amp;</span><span class="self">self</span>, renderer: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, path: <span class="kw-2">&amp;</span>str, new_text: <span class="kw-2">&amp;</span>str) {
+    <span class="kw">fn </span>parent_edited(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str, new_text: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkCellRendererTextClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).edited {
                 f(
-                    renderer
+                    <span class="self">self</span>.instance()
                         .unsafe_cast_ref::&lt;CellRendererText&gt;()
                         .to_glib_none()
                         .<span class="number">0</span>,
@@ -201,13 +199,11 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;CellRendererText&gt; = from_glib_borrow(ptr);
 
     imp.edited(
-        wrap.unsafe_cast_ref(),
         <span class="kw-2">&amp;</span>GString::from_glib_borrow(path),
         <span class="kw-2">&amp;</span>GString::from_glib_borrow(new_text),
     )
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (0ca356586 2022-10-06)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (81f391930 2022-10-09)" ></div></body></html>

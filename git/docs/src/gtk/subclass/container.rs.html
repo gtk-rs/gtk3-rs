@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -354,6 +354,16 @@
 <span id="281">281</span>
 <span id="282">282</span>
 <span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
@@ -368,109 +378,126 @@
 <span class="kw">use </span><span class="kw">crate</span>::WidgetPath;
 
 <span class="kw">pub trait </span>ContainerImpl: ContainerImplExt + WidgetImpl {
-    <span class="kw">fn </span>add(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget) {
-        <span class="self">self</span>.parent_add(container, widget)
+    <span class="kw">fn </span>add(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget) {
+        <span class="self">self</span>.parent_add(widget)
     }
 
-    <span class="kw">fn </span>remove(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget) {
-        <span class="self">self</span>.parent_remove(container, widget)
+    <span class="kw">fn </span>remove(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget) {
+        <span class="self">self</span>.parent_remove(widget)
     }
 
-    <span class="kw">fn </span>check_resize(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
-        <span class="self">self</span>.parent_check_resize(container)
+    <span class="kw">fn </span>check_resize(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.parent_check_resize()
     }
 
-    <span class="kw">fn </span>set_focus_child(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Widget&gt;) {
-        <span class="self">self</span>.parent_set_focus_child(container, widget)
+    <span class="kw">fn </span>set_focus_child(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Widget&gt;) {
+        <span class="self">self</span>.parent_set_focus_child(widget)
     }
 
-    <span class="kw">fn </span>child_type(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) -&gt; glib::Type {
-        <span class="self">self</span>.parent_child_type(container)
+    <span class="kw">fn </span>child_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+        <span class="self">self</span>.parent_child_type()
     }
 
     <span class="attribute">#[doc(alias = <span class="string">&quot;get_path_for_child&quot;</span>)]
-    </span><span class="kw">fn </span>path_for_child(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget) -&gt; WidgetPath {
-        <span class="self">self</span>.parent_path_for_child(container, widget)
+    </span><span class="kw">fn </span>path_for_child(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget) -&gt; WidgetPath {
+        <span class="self">self</span>.parent_path_for_child(widget)
     }
 
-    <span class="kw">fn </span>forall(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, include_internals: bool, callback: <span class="kw-2">&amp;</span>Callback) {
-        <span class="self">self</span>.parent_forall(container, include_internals, callback);
+    <span class="kw">fn </span>forall(<span class="kw-2">&amp;</span><span class="self">self</span>, include_internals: bool, callback: <span class="kw-2">&amp;</span>Callback) {
+        <span class="self">self</span>.parent_forall(include_internals, callback);
     }
 }
 
 <span class="kw">pub trait </span>ContainerImplExt: ObjectSubclass {
-    <span class="kw">fn </span>parent_add(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget);
-    <span class="kw">fn </span>parent_remove(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget);
-    <span class="kw">fn </span>parent_check_resize(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
-    <span class="kw">fn </span>parent_set_focus_child(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Widget&gt;);
-    <span class="kw">fn </span>parent_child_type(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) -&gt; glib::Type;
-    <span class="kw">fn </span>parent_path_for_child(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget) -&gt; WidgetPath;
-    <span class="kw">fn </span>parent_forall(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, include_internals: bool, callback: <span class="kw-2">&amp;</span>Callback);
+    <span class="kw">fn </span>parent_add(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget);
+    <span class="kw">fn </span>parent_remove(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget);
+    <span class="kw">fn </span>parent_check_resize(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    <span class="kw">fn </span>parent_set_focus_child(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Widget&gt;);
+    <span class="kw">fn </span>parent_child_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type;
+    <span class="kw">fn </span>parent_path_for_child(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget) -&gt; WidgetPath;
+    <span class="kw">fn </span>parent_forall(<span class="kw-2">&amp;</span><span class="self">self</span>, include_internals: bool, callback: <span class="kw-2">&amp;</span>Callback);
 }
 
 <span class="kw">impl</span>&lt;T: ContainerImpl&gt; ContainerImplExt <span class="kw">for </span>T {
-    <span class="kw">fn </span>parent_add(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget) {
+    <span class="kw">fn </span>parent_add(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).add {
                 f(
-                    container.unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;Container&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     widget.to_glib_none().<span class="number">0</span>,
                 )
             }
         }
     }
 
-    <span class="kw">fn </span>parent_remove(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget) {
+    <span class="kw">fn </span>parent_remove(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).remove {
                 f(
-                    container.unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;Container&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     widget.to_glib_none().<span class="number">0</span>,
                 )
             }
         }
     }
 
-    <span class="kw">fn </span>parent_check_resize(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+    <span class="kw">fn </span>parent_check_resize(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).check_resize {
-                f(container.unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self
+                    </span>.instance()
+                    .unsafe_cast_ref::&lt;Container&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn </span>parent_set_focus_child(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Widget&gt;) {
+    <span class="kw">fn </span>parent_set_focus_child(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Widget&gt;) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).set_focus_child {
                 f(
-                    container.unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;Container&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     widget.to_glib_none().<span class="number">0</span>,
                 )
             }
         }
     }
 
-    <span class="kw">fn </span>parent_child_type(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) -&gt; glib::Type {
+    <span class="kw">fn </span>parent_child_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).child_type {
-                from_glib(f(container.unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>))
+                from_glib(f(<span class="self">self
+                    </span>.instance()
+                    .unsafe_cast_ref::&lt;Container&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>))
             } <span class="kw">else </span>{
                 glib::Type::UNIT
             }
         }
     }
 
-    <span class="kw">fn </span>parent_path_for_child(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, widget: <span class="kw-2">&amp;</span>Widget) -&gt; WidgetPath {
+    <span class="kw">fn </span>parent_path_for_child(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span>Widget) -&gt; WidgetPath {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
@@ -478,19 +505,25 @@
                 .get_path_for_child
                 .expect(<span class="string">&quot;No parent class impl for \&quot;get_path_for_child\&quot;&quot;</span>);
             from_glib_none(f(
-                container.unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.instance()
+                    .unsafe_cast_ref::&lt;Container&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>,
                 widget.to_glib_none().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="kw">fn </span>parent_forall(<span class="kw-2">&amp;</span><span class="self">self</span>, container: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, include_internals: bool, callback: <span class="kw-2">&amp;</span>Callback) {
+    <span class="kw">fn </span>parent_forall(<span class="kw-2">&amp;</span><span class="self">self</span>, include_internals: bool, callback: <span class="kw-2">&amp;</span>Callback) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).forall {
                 f(
-                    container.unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;Container&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     include_internals.into_glib(),
                     callback.callback,
                     callback.user_data,
@@ -525,10 +558,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Container&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
 
-    imp.add(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;</span>widget)
+    imp.add(<span class="kw-2">&amp;</span>widget)
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>container_remove&lt;T: ContainerImpl&gt;(
@@ -537,18 +569,16 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Container&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
 
-    imp.remove(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;</span>widget)
+    imp.remove(<span class="kw-2">&amp;</span>widget)
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>container_check_resize&lt;T: ContainerImpl&gt;(ptr: <span class="kw-2">*mut </span>ffi::GtkContainer) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Container&gt; = from_glib_borrow(ptr);
 
-    imp.check_resize(wrap.unsafe_cast_ref())
+    imp.check_resize()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>container_set_focus_child&lt;T: ContainerImpl&gt;(
@@ -557,10 +587,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Container&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;Widget&gt;&gt; = from_glib_borrow(wdgtptr);
 
-    imp.set_focus_child(wrap.unsafe_cast_ref(), widget.as_ref().as_ref())
+    imp.set_focus_child(widget.as_ref().as_ref())
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>container_child_type&lt;T: ContainerImpl&gt;(
@@ -568,9 +597,8 @@
 ) -&gt; glib::ffi::GType {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Container&gt; = from_glib_borrow(ptr);
 
-    imp.child_type(wrap.unsafe_cast_ref()).into_glib()
+    imp.child_type().into_glib()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>container_get_path_for_child&lt;T: ContainerImpl&gt;(
@@ -579,12 +607,9 @@
 ) -&gt; <span class="kw-2">*mut </span>ffi::GtkWidgetPath {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Container&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>widget: Borrowed&lt;Widget&gt; = from_glib_borrow(wdgtptr);
 
-    imp.path_for_child(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;</span>widget)
-        .to_glib_none()
-        .<span class="number">0
+    imp.path_for_child(<span class="kw-2">&amp;</span>widget).to_glib_none().<span class="number">0
 </span>}
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>container_forall&lt;T: ObjectSubclass&gt;(
@@ -597,17 +622,12 @@
 {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Container&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>callback = Callback {
         callback,
         user_data,
     };
 
-    imp.forall(
-        wrap.unsafe_cast_ref(),
-        from_glib(include_internals),
-        <span class="kw-2">&amp;</span>callback,
-    )
+    imp.forall(from_glib(include_internals), <span class="kw-2">&amp;</span>callback)
 }
 
 <span class="attribute">#[derive(Debug)]
@@ -638,4 +658,4 @@
 
 <span class="kw">unsafe impl</span>&lt;T: ClassStruct&gt; ContainerClassSubclassExt <span class="kw">for </span>T <span class="kw">where </span>T::Type: ContainerImpl {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (0ca356586 2022-10-06)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (81f391930 2022-10-09)" ></div></body></html>

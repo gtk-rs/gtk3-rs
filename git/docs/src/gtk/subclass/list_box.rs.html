@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -317,6 +317,27 @@
 <span id="244">244</span>
 <span id="245">245</span>
 <span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>glib::subclass::prelude::<span class="kw-2">*</span>;
@@ -332,68 +353,75 @@
 <span class="kw">use </span><span class="kw">crate</span>::MovementStep;
 
 <span class="kw">pub trait </span>ListBoxImpl: ListBoxImplExt + ContainerImpl + WidgetImpl {
-    <span class="kw">fn </span>activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
-        <span class="self">self</span>.list_box_activate_cursor_row(list_box)
+    <span class="kw">fn </span>activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.list_box_activate_cursor_row()
     }
 
-    <span class="kw">fn </span>move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, step: MovementStep, count: i32) {
-        <span class="self">self</span>.list_box_move_cursor(list_box, step, count)
+    <span class="kw">fn </span>move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, step: MovementStep, count: i32) {
+        <span class="self">self</span>.list_box_move_cursor(step, count)
     }
 
-    <span class="kw">fn </span>row_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, row: <span class="kw-2">&amp;</span>ListBoxRow) {
-        <span class="self">self</span>.list_box_row_activated(list_box, row)
+    <span class="kw">fn </span>row_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span>ListBoxRow) {
+        <span class="self">self</span>.list_box_row_activated(row)
     }
 
-    <span class="kw">fn </span>row_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) {
-        <span class="self">self</span>.list_box_row_selected(list_box, row)
+    <span class="kw">fn </span>row_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) {
+        <span class="self">self</span>.list_box_row_selected(row)
     }
 
-    <span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
-        <span class="self">self</span>.list_box_select_all(list_box)
+    <span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.list_box_select_all()
     }
 
-    <span class="kw">fn </span>selected_rows_changed(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
-        <span class="self">self</span>.list_box_selected_rows_changed(list_box)
+    <span class="kw">fn </span>selected_rows_changed(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.list_box_selected_rows_changed()
     }
 
-    <span class="kw">fn </span>toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
-        <span class="self">self</span>.list_box_toggle_cursor_row(list_box)
+    <span class="kw">fn </span>toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.list_box_toggle_cursor_row()
     }
 
-    <span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
-        <span class="self">self</span>.list_box_unselect_all(list_box)
+    <span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.list_box_unselect_all()
     }
 }
 
 <span class="kw">pub trait </span>ListBoxImplExt: ObjectSubclass {
-    <span class="kw">fn </span>list_box_activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
-    <span class="kw">fn </span>list_box_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, step: MovementStep, count: i32);
-    <span class="kw">fn </span>list_box_row_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, row: <span class="kw-2">&amp;</span>ListBoxRow);
-    <span class="kw">fn </span>list_box_row_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;);
-    <span class="kw">fn </span>list_box_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
-    <span class="kw">fn </span>list_box_selected_rows_changed(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
-    <span class="kw">fn </span>list_box_toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
-    <span class="kw">fn </span>list_box_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
+    <span class="kw">fn </span>list_box_activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    <span class="kw">fn </span>list_box_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, step: MovementStep, count: i32);
+    <span class="kw">fn </span>list_box_row_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span>ListBoxRow);
+    <span class="kw">fn </span>list_box_row_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;);
+    <span class="kw">fn </span>list_box_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    <span class="kw">fn </span>list_box_selected_rows_changed(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    <span class="kw">fn </span>list_box_toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    <span class="kw">fn </span>list_box_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 }
 
 <span class="kw">impl</span>&lt;T: ListBoxImpl&gt; ListBoxImplExt <span class="kw">for </span>T {
-    <span class="kw">fn </span>list_box_activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+    <span class="kw">fn </span>list_box_activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkListBoxClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).activate_cursor_row {
-                f(list_box.unsafe_cast_ref::&lt;ListBox&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self
+                    </span>.instance()
+                    .unsafe_cast_ref::&lt;ListBox&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn </span>list_box_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, step: MovementStep, count: i32) {
+    <span class="kw">fn </span>list_box_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, step: MovementStep, count: i32) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkListBoxClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).move_cursor {
                 f(
-                    list_box.unsafe_cast_ref::&lt;ListBox&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;ListBox&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     step.into_glib(),
                     count,
                 );
@@ -401,68 +429,90 @@
         }
     }
 
-    <span class="kw">fn </span>list_box_row_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, row: <span class="kw-2">&amp;</span>ListBoxRow) {
+    <span class="kw">fn </span>list_box_row_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span>ListBoxRow) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkListBoxClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).row_activated {
                 f(
-                    list_box.unsafe_cast_ref::&lt;ListBox&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;ListBox&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     row.to_glib_none().<span class="number">0</span>,
                 )
             }
         }
     }
 
-    <span class="kw">fn </span>list_box_row_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) {
+    <span class="kw">fn </span>list_box_row_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkListBoxClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).row_selected {
                 f(
-                    list_box.unsafe_cast_ref::&lt;ListBox&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;ListBox&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     mut_override(row.to_glib_none().<span class="number">0</span>),
                 )
             }
         }
     }
 
-    <span class="kw">fn </span>list_box_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+    <span class="kw">fn </span>list_box_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkListBoxClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).select_all {
-                f(list_box.unsafe_cast_ref::&lt;ListBox&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self
+                    </span>.instance()
+                    .unsafe_cast_ref::&lt;ListBox&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn </span>list_box_selected_rows_changed(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+    <span class="kw">fn </span>list_box_selected_rows_changed(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkListBoxClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).selected_rows_changed {
-                f(list_box.unsafe_cast_ref::&lt;ListBox&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self
+                    </span>.instance()
+                    .unsafe_cast_ref::&lt;ListBox&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn </span>list_box_toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+    <span class="kw">fn </span>list_box_toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkListBoxClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).toggle_cursor_row {
-                f(list_box.unsafe_cast_ref::&lt;ListBox&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self
+                    </span>.instance()
+                    .unsafe_cast_ref::&lt;ListBox&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>)
             }
         }
     }
 
-    <span class="kw">fn </span>list_box_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>, list_box: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+    <span class="kw">fn </span>list_box_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkListBoxClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).unselect_all {
-                f(list_box.unsafe_cast_ref::&lt;ListBox&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self
+                    </span>.instance()
+                    .unsafe_cast_ref::&lt;ListBox&gt;()
+                    .to_glib_none()
+                    .<span class="number">0</span>)
             }
         }
     }
@@ -491,9 +541,8 @@
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_activate_cursor_row&lt;T: ListBoxImpl&gt;(ptr: <span class="kw-2">*mut </span>ffi::GtkListBox) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ListBox&gt; = from_glib_borrow(ptr);
 
-    imp.activate_cursor_row(wrap.unsafe_cast_ref())
+    imp.activate_cursor_row()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_move_cursor&lt;T: ListBoxImpl&gt;(
@@ -503,9 +552,8 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ListBox&gt; = from_glib_borrow(ptr);
 
-    imp.move_cursor(wrap.unsafe_cast_ref(), from_glib(step), count)
+    imp.move_cursor(from_glib(step), count)
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_row_activated&lt;T: ListBoxImpl&gt;(
@@ -514,10 +562,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ListBox&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>row: Borrowed&lt;ListBoxRow&gt; = from_glib_borrow(rowptr);
 
-    imp.row_activated(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;</span>row)
+    imp.row_activated(<span class="kw-2">&amp;</span>row)
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_row_selected&lt;T: ListBoxImpl&gt;(
@@ -526,42 +573,37 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ListBox&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>row: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;ListBoxRow&gt;&gt; = from_glib_borrow(rowptr);
 
-    imp.row_selected(wrap.unsafe_cast_ref(), row.as_ref().as_ref())
+    imp.row_selected(row.as_ref().as_ref())
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_select_all&lt;T: ListBoxImpl&gt;(ptr: <span class="kw-2">*mut </span>ffi::GtkListBox) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ListBox&gt; = from_glib_borrow(ptr);
 
-    imp.select_all(wrap.unsafe_cast_ref())
+    imp.select_all()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_selected_rows_changed&lt;T: ListBoxImpl&gt;(ptr: <span class="kw-2">*mut </span>ffi::GtkListBox) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ListBox&gt; = from_glib_borrow(ptr);
 
-    imp.selected_rows_changed(wrap.unsafe_cast_ref())
+    imp.selected_rows_changed()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_toggle_cursor_row&lt;T: ListBoxImpl&gt;(ptr: <span class="kw-2">*mut </span>ffi::GtkListBox) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ListBox&gt; = from_glib_borrow(ptr);
 
-    imp.toggle_cursor_row(wrap.unsafe_cast_ref())
+    imp.toggle_cursor_row()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_unselect_all&lt;T: ListBoxImpl&gt;(ptr: <span class="kw-2">*mut </span>ffi::GtkListBox) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ListBox&gt; = from_glib_borrow(ptr);
 
-    imp.unselect_all(wrap.unsafe_cast_ref())
+    imp.unselect_all()
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (0ca356586 2022-10-06)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (81f391930 2022-10-09)" ></div></body></html>

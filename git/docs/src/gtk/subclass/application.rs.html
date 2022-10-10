@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -198,8 +198,6 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
-<span id="128">128</span>
-<span id="129">129</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>glib::Cast;
@@ -214,28 +212,28 @@
 <span class="kw">pub trait </span>GtkApplicationImpl:
     GtkApplicationImplExt + gio::subclass::prelude::ApplicationImpl
 {
-    <span class="kw">fn </span>window_added(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, window: <span class="kw-2">&amp;</span>Window) {
-        <span class="self">self</span>.parent_window_added(application, window)
+    <span class="kw">fn </span>window_added(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>Window) {
+        <span class="self">self</span>.parent_window_added(window)
     }
 
-    <span class="kw">fn </span>window_removed(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, window: <span class="kw-2">&amp;</span>Window) {
-        <span class="self">self</span>.parent_window_removed(application, window)
+    <span class="kw">fn </span>window_removed(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>Window) {
+        <span class="self">self</span>.parent_window_removed(window)
     }
 }
 
 <span class="kw">pub trait </span>GtkApplicationImplExt: ObjectSubclass {
-    <span class="kw">fn </span>parent_window_added(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, window: <span class="kw-2">&amp;</span>Window);
-    <span class="kw">fn </span>parent_window_removed(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, window: <span class="kw-2">&amp;</span>Window);
+    <span class="kw">fn </span>parent_window_added(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>Window);
+    <span class="kw">fn </span>parent_window_removed(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>Window);
 }
 
 <span class="kw">impl</span>&lt;T: GtkApplicationImpl&gt; GtkApplicationImplExt <span class="kw">for </span>T {
-    <span class="kw">fn </span>parent_window_added(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, window: <span class="kw-2">&amp;</span>Window) {
+    <span class="kw">fn </span>parent_window_added(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>Window) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkApplicationClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).window_added {
                 f(
-                    application
+                    <span class="self">self</span>.instance()
                         .unsafe_cast_ref::&lt;Application&gt;()
                         .to_glib_none()
                         .<span class="number">0</span>,
@@ -245,13 +243,13 @@
         }
     }
 
-    <span class="kw">fn </span>parent_window_removed(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, window: <span class="kw-2">&amp;</span>Window) {
+    <span class="kw">fn </span>parent_window_removed(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>Window) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkApplicationClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).window_removed {
                 f(
-                    application
+                    <span class="self">self</span>.instance()
                         .unsafe_cast_ref::&lt;Application&gt;()
                         .to_glib_none()
                         .<span class="number">0</span>,
@@ -315,9 +313,8 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Application&gt; = from_glib_borrow(ptr);
 
-    imp.window_added(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;</span>from_glib_borrow(wptr))
+    imp.window_added(<span class="kw-2">&amp;</span>from_glib_borrow(wptr))
 }
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>application_window_removed&lt;T: GtkApplicationImpl&gt;(
     ptr: <span class="kw-2">*mut </span>ffi::GtkApplication,
@@ -325,9 +322,8 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;Application&gt; = from_glib_borrow(ptr);
 
-    imp.window_removed(wrap.unsafe_cast_ref(), <span class="kw-2">&amp;</span>from_glib_borrow(wptr))
+    imp.window_removed(<span class="kw-2">&amp;</span>from_glib_borrow(wptr))
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (0ca356586 2022-10-06)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (81f391930 2022-10-09)" ></div></body></html>

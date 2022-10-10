@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"><a class="sidebar-logo" href="../../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -169,13 +169,6 @@
 <span id="96">96</span>
 <span id="97">97</span>
 <span id="98">98</span>
-<span id="99">99</span>
-<span id="100">100</span>
-<span id="101">101</span>
-<span id="102">102</span>
-<span id="103">103</span>
-<span id="104">104</span>
-<span id="105">105</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
@@ -190,51 +183,47 @@
 <span class="kw">use </span><span class="kw">crate</span>::ScrolledWindow;
 
 <span class="kw">pub trait </span>ScrolledWindowImpl: ScrolledWindowImplExt + BinImpl {
-    <span class="kw">fn </span>move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, direction_type: DirectionType) {
-        <span class="self">self</span>.parent_move_focus_out(window, direction_type)
+    <span class="kw">fn </span>move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, direction_type: DirectionType) {
+        <span class="self">self</span>.parent_move_focus_out(direction_type)
     }
 
-    <span class="kw">fn </span>scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, scroll: ScrollType, horizontal: bool) -&gt; bool {
-        <span class="self">self</span>.parent_scroll_child(window, scroll, horizontal)
+    <span class="kw">fn </span>scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll: ScrollType, horizontal: bool) -&gt; bool {
+        <span class="self">self</span>.parent_scroll_child(scroll, horizontal)
     }
 }
 
 <span class="kw">pub trait </span>ScrolledWindowImplExt: ObjectSubclass {
-    <span class="kw">fn </span>parent_move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, direction_type: DirectionType);
-    <span class="kw">fn </span>parent_scroll_child(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        window: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
-        scroll: ScrollType,
-        borizontal: bool,
-    ) -&gt; bool;
+    <span class="kw">fn </span>parent_move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, direction_type: DirectionType);
+    <span class="kw">fn </span>parent_scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll: ScrollType, borizontal: bool) -&gt; bool;
 }
 
 <span class="kw">impl</span>&lt;T: ScrolledWindowImpl&gt; ScrolledWindowImplExt <span class="kw">for </span>T {
-    <span class="kw">fn </span>parent_move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, direction_type: DirectionType) {
+    <span class="kw">fn </span>parent_move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, direction_type: DirectionType) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkScrolledWindowClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).move_focus_out {
                 f(
-                    window.unsafe_cast_ref::&lt;ScrolledWindow&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;ScrolledWindow&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     direction_type.into_glib(),
                 )
             }
         }
     }
 
-    <span class="kw">fn </span>parent_scroll_child(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        window: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
-        scroll: ScrollType,
-        horizontal: bool,
-    ) -&gt; bool {
+    <span class="kw">fn </span>parent_scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll: ScrollType, horizontal: bool) -&gt; bool {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkScrolledWindowClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).scroll_child {
                 from_glib(f(
-                    window.unsafe_cast_ref::&lt;ScrolledWindow&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.instance()
+                        .unsafe_cast_ref::&lt;ScrolledWindow&gt;()
+                        .to_glib_none()
+                        .<span class="number">0</span>,
                     scroll.into_glib(),
                     horizontal.into_glib(),
                 ))
@@ -261,10 +250,9 @@
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ScrolledWindow&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>direction_type: DirectionType = from_glib(directiontypeptr);
 
-    imp.move_focus_out(wrap.unsafe_cast_ref(), direction_type)
+    imp.move_focus_out(direction_type)
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>window_scroll_child&lt;T: ScrolledWindowImpl&gt;(
@@ -274,12 +262,10 @@
 ) -&gt; glib::ffi::gboolean {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
-    <span class="kw">let </span>wrap: Borrowed&lt;ScrolledWindow&gt; = from_glib_borrow(ptr);
     <span class="kw">let </span>scroll: ScrollType = from_glib(scrollptr);
     <span class="kw">let </span>horizontal: bool = from_glib(horizontalptr);
 
-    imp.scroll_child(wrap.unsafe_cast_ref(), scroll, horizontal)
-        .into_glib()
+    imp.scroll_child(scroll, horizontal).into_glib()
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (0ca356586 2022-10-06)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (81f391930 2022-10-09)" ></div></body></html>
