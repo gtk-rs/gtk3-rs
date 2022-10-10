@@ -9,22 +9,23 @@ use glib::Cast;
 use super::bin::BinImpl;
 
 pub trait ListBoxRowImpl: ListBoxRowImplExt + BinImpl {
-    fn activate(&self, list_box_row: &Self::Type) {
-        self.parent_activate(list_box_row)
+    fn activate(&self) {
+        self.parent_activate()
     }
 }
 
 pub trait ListBoxRowImplExt: ObjectSubclass {
-    fn parent_activate(&self, list_box_row: &Self::Type);
+    fn parent_activate(&self);
 }
 
 impl<T: ListBoxRowImpl> ListBoxRowImplExt for T {
-    fn parent_activate(&self, list_box_row: &Self::Type) {
+    fn parent_activate(&self) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxRowClass;
             if let Some(f) = (*parent_class).activate {
-                f(list_box_row
+                f(self
+                    .instance()
                     .unsafe_cast_ref::<ListBoxRow>()
                     .to_glib_none()
                     .0)
@@ -49,7 +50,6 @@ unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
 unsafe extern "C" fn list_box_row_activate<T: ListBoxRowImpl>(ptr: *mut ffi::GtkListBoxRow) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.imp();
-    let wrap: Borrowed<ListBoxRow> = from_glib_borrow(ptr);
 
-    imp.activate(wrap.unsafe_cast_ref())
+    imp.activate()
 }

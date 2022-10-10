@@ -38,9 +38,9 @@ impl ObjectSubclass for ExampleApplicationWindow {
 }
 
 impl ObjectImpl for ExampleApplicationWindow {
-    fn constructed(&self, obj: &Self::Type) {
-        obj.init_label();
-        self.parent_constructed(obj);
+    fn constructed(&self) {
+        self.instance().init_label();
+        self.parent_constructed();
     }
 }
 

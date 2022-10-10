@@ -11,23 +11,23 @@ use super::cell_renderer::CellRendererImpl;
 use crate::CellRendererToggle;
 
 pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
-    fn toggled(&self, renderer: &Self::Type, path: &str) {
-        self.parent_toggled(renderer, path);
+    fn toggled(&self, path: &str) {
+        self.parent_toggled(path);
     }
 }
 
 pub trait CellRendererToggleImplExt: ObjectSubclass {
-    fn parent_toggled(&self, renderer: &Self::Type, path: &str);
+    fn parent_toggled(&self, path: &str);
 }
 
 impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
-    fn parent_toggled(&self, renderer: &Self::Type, path: &str) {
+    fn parent_toggled(&self, path: &str) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererToggleClass;
             if let Some(f) = (*parent_class).toggled {
                 f(
-                    renderer
+                    self.instance()
                         .unsafe_cast_ref::<CellRendererToggle>()
                         .to_glib_none()
                         .0,
@@ -57,7 +57,6 @@ unsafe extern "C" fn cell_renderer_toggle_toggled<T: CellRendererToggleImpl>(
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.imp();
-    let wrap: Borrowed<CellRendererToggle> = from_glib_borrow(ptr);
 
-    imp.toggled(wrap.unsafe_cast_ref(), &GString::from_glib_borrow(path))
+    imp.toggled(&GString::from_glib_borrow(path))
 }

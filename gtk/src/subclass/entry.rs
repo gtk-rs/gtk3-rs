@@ -9,40 +9,40 @@ use crate::Entry;
 use crate::Widget;
 
 pub trait EntryImpl: EntryImplExt + WidgetImpl {
-    fn populate_popup(&self, entry: &Self::Type, popup: &Widget) {
-        self.parent_populate_popup(entry, popup)
+    fn populate_popup(&self, popup: &Widget) {
+        self.parent_populate_popup(popup)
     }
 
-    fn activate(&self, entry: &Self::Type) {
-        self.parent_activate(entry)
+    fn activate(&self) {
+        self.parent_activate()
     }
 }
 
 pub trait EntryImplExt: ObjectSubclass {
-    fn parent_populate_popup(&self, entry: &Self::Type, popup: &Widget);
-    fn parent_activate(&self, entry: &Self::Type);
+    fn parent_populate_popup(&self, popup: &Widget);
+    fn parent_activate(&self);
 }
 
 impl<T: EntryImpl> EntryImplExt for T {
-    fn parent_populate_popup(&self, entry: &Self::Type, popup: &Widget) {
+    fn parent_populate_popup(&self, popup: &Widget) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkEntryClass;
             if let Some(f) = (*parent_class).populate_popup {
                 f(
-                    entry.unsafe_cast_ref::<Entry>().to_glib_none().0,
+                    self.instance().unsafe_cast_ref::<Entry>().to_glib_none().0,
                     popup.to_glib_none().0,
                 )
             }
         }
     }
 
-    fn parent_activate(&self, entry: &Self::Type) {
+    fn parent_activate(&self) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkEntryClass;
             if let Some(f) = (*parent_class).activate {
-                f(entry.unsafe_cast_ref::<Entry>().to_glib_none().0)
+                f(self.instance().unsafe_cast_ref::<Entry>().to_glib_none().0)
             }
         }
     }
@@ -68,16 +68,14 @@ unsafe extern "C" fn entry_populate_popup<T: EntryImpl>(
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.imp();
-    let wrap: Borrowed<Entry> = from_glib_borrow(ptr);
     let popup: Borrowed<Widget> = from_glib_borrow(popupptr);
 
-    imp.populate_popup(wrap.unsafe_cast_ref(), &popup)
+    imp.populate_popup(&popup)
 }
 
 unsafe extern "C" fn entry_activate<T: EntryImpl>(ptr: *mut ffi::GtkEntry) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.imp();
-    let wrap: Borrowed<Entry> = from_glib_borrow(ptr);
 
-    imp.activate(wrap.unsafe_cast_ref())
+    imp.activate()
 }

@@ -27,10 +27,8 @@ impl ApplicationImpl for SimpleApplication {
     /// `gio::Application::activate` is what gets called when the
     /// application is launched by the desktop environment and
     /// aksed to present itself.
-    fn activate(&self, app: &Self::Type) {
-        let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
-        let imp = app.imp();
-        let window = imp
+    fn activate(&self) {
+        let window = self
             .window
             .get()
             .expect("Should always be initiliazed in gio_application_startup");
@@ -45,13 +43,11 @@ impl ApplicationImpl for SimpleApplication {
     ///
     /// Due to this, we create and initialize the `SimpleWindow` widget
     /// here. Widgets can't be created before `startup` has been called.
-    fn startup(&self, app: &Self::Type) {
-        self.parent_startup(app);
+    fn startup(&self) {
+        self.parent_startup();
 
-        let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
-        let imp = app.imp();
-        let window = SimpleWindow::new(app);
-        imp.window
+        let window = SimpleWindow::new(&self.instance());
+        self.window
             .set(window)
             .expect("Failed to initialize application window");
     }
