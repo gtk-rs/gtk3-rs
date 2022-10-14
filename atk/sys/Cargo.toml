@@ -22,6 +22,7 @@ v2_30 = []
 v2_32 = ["v2_30"]
 v2_34 = ["v2_32"]
 v2_38 = ["v2_34"]
+v2_46 = ["v2_38"]
 
 [lib]
 name = "atk_sys"
@@ -56,3 +57,6 @@ version = "2.34"
 
 [package.metadata.system-deps.atk.v2_38]
 version = "2.38"
+
+[package.metadata.system-deps.atk.v2_46]
+version = "2.46"

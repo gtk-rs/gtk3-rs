@@ -197,7 +197,8 @@ pub const ATK_ROLE_CONTENT_DELETION: AtkRole = 123;
 pub const ATK_ROLE_CONTENT_INSERTION: AtkRole = 124;
 pub const ATK_ROLE_MARK: AtkRole = 125;
 pub const ATK_ROLE_SUGGESTION: AtkRole = 126;
-pub const ATK_ROLE_LAST_DEFINED: AtkRole = 127;
+pub const ATK_ROLE_PUSH_BUTTON_MENU: AtkRole = 127;
+pub const ATK_ROLE_LAST_DEFINED: AtkRole = 128;
 
 pub type AtkScrollType = c_int;
 pub const ATK_SCROLL_TOP_LEFT: AtkScrollType = 0;

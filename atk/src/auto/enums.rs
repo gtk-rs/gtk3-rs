@@ -669,6 +669,8 @@ pub enum Role {
     Mark,
     #[doc(alias = "ATK_ROLE_SUGGESTION")]
     Suggestion,
+    #[doc(alias = "ATK_ROLE_PUSH_BUTTON_MENU")]
+    PushButtonMenu,
     #[doc(alias = "ATK_ROLE_LAST_DEFINED")]
     LastDefined,
     #[doc(hidden)]
@@ -830,6 +832,7 @@ impl fmt::Display for Role {
                 Self::ContentInsertion => "ContentInsertion",
                 Self::Mark => "Mark",
                 Self::Suggestion => "Suggestion",
+                Self::PushButtonMenu => "PushButtonMenu",
                 Self::LastDefined => "LastDefined",
                 _ => "Unknown",
             }
@@ -970,6 +973,7 @@ impl IntoGlib for Role {
             Self::ContentInsertion => ffi::ATK_ROLE_CONTENT_INSERTION,
             Self::Mark => ffi::ATK_ROLE_MARK,
             Self::Suggestion => ffi::ATK_ROLE_SUGGESTION,
+            Self::PushButtonMenu => ffi::ATK_ROLE_PUSH_BUTTON_MENU,
             Self::LastDefined => ffi::ATK_ROLE_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
@@ -1108,6 +1112,7 @@ impl FromGlib<ffi::AtkRole> for Role {
             ffi::ATK_ROLE_CONTENT_INSERTION => Self::ContentInsertion,
             ffi::ATK_ROLE_MARK => Self::Mark,
             ffi::ATK_ROLE_SUGGESTION => Self::Suggestion,
+            ffi::ATK_ROLE_PUSH_BUTTON_MENU => Self::PushButtonMenu,
             ffi::ATK_ROLE_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }

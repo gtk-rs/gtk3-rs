@@ -219,6 +219,11 @@ pub trait AtkObjectExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[doc(alias = "announcement")]
+    fn connect_announcement<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
+
     #[doc(alias = "children-changed")]
     fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(
         &self,
@@ -660,6 +665,33 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     active_descendant_changed_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    fn connect_announcement<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn announcement_trampoline<P: IsA<Object>, F: Fn(&P, &str) + 'static>(
+            this: *mut ffi::AtkObject,
+            arg1: *mut libc::c_char,
+            f: glib::ffi::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(
+                Object::from_glib_borrow(this).unsafe_cast_ref(),
+                &glib::GString::from_glib_borrow(arg1),
+            )
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"announcement\0".as_ptr() as *const _,
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    announcement_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
