@@ -9,9 +9,7 @@ documentation = "https://gtk-rs.org/gtk3-rs/stable/latest/docs/gdkx11/"
 version = "0.16.0"
 description = "Rust bindings for the GDK X11 library"
 repository = "https://github.com/gtk-rs/gtk3-rs"
-exclude = [
-    "gir-files/*",
-]
+exclude = ["gir-files/*"]
 edition = "2021"
 rust-version = "1.63"
 
@@ -19,7 +17,7 @@ rust-version = "1.63"
 name = "gdkx11"
 
 [features]
-dox = ["gdk/dox", "ffi/dox"]
+dox = ["x11/dox", "glib/dox", "gdk/dox", "gio/dox", "ffi/dox"]
 v3_24 = ["ffi/v3_24_2"]
 
 [package.metadata.docs.rs]

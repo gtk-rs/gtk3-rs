@@ -10,9 +10,7 @@ readme = "README.md"
 version = "0.16.0"
 keywords = ["atk", "gtk-rs", "gnome", "accessibility"]
 repository = "https://github.com/gtk-rs/gtk3-rs"
-exclude = [
-    "gir-files/*",
-]
+exclude = ["gir-files/*"]
 edition = "2021"
 rust-version = "1.63"
 
@@ -20,7 +18,7 @@ rust-version = "1.63"
 name = "atk"
 
 [features]
-dox = ["ffi/dox"]
+dox = ["ffi/dox", "glib/dox"]
 v2_30 = ["ffi/v2_30"]
 v2_32 = ["v2_30", "ffi/v2_32"]
 v2_34 = ["v2_32", "ffi/v2_34"]
