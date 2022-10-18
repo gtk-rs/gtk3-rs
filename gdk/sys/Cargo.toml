@@ -9,7 +9,7 @@ libc = "0.2"
 package = "cairo-sys-rs"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
-[dependencies.gdk-pixbuf]
+[dependencies.gdk_pixbuf]
 package = "gdk-pixbuf-sys"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
@@ -35,7 +35,7 @@ tempfile = "3"
 
 [features]
 v3_24 = []
-dox = []
+dox = ["glib/dox", "gobject/dox", "gio/dox", "gdk_pixbuf/dox", "pango/dox", "cairo/dox"]
 
 [lib]
 name = "gdk_sys"

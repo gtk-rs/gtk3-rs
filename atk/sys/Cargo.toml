@@ -17,7 +17,7 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-dox = []
+dox = ["glib/dox", "gobject/dox"]
 v2_30 = []
 v2_32 = ["v2_30"]
 v2_34 = ["v2_32"]
