@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["WaylandDevice",""],["WaylandDisplay",""],["WaylandGLContext",""],["WaylandMonitor",""],["WaylandSeat",""],["WaylandWindow",""]]});

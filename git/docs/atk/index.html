@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Rust ATK bindings"><meta name="keywords" content="rust, rustlang, rust-lang, atk"><title>atk - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../normalize.css"><link rel="stylesheet" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../ayu.css" disabled><link rel="stylesheet" href="../dark.css" disabled><link rel="stylesheet" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script defer src="../crates.js"></script><script defer src="../main.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../atk/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../atk/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Crate atk</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.17.0</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#types">Type Definitions</a></li></ul></section></div></nav><main><div class="width-limiter"><div class="sub-container"><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Crate <a class="mod" href="#">atk</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/atk/lib.rs.html#3-27">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rust-atk-bindings"><a href="#rust-atk-bindings">Rust ATK bindings</a></h2>
+<p>Project site is <a href="https://gtk-rs.org/">here</a>.</p>
+<p><strong>Rust</strong> bindings and wrappers for <a href="https://developer.gnome.org/atk">ATK</a>,
+part of <a href="https://github.com/gtk-rs/gtk3-rs">gtk3-rs</a>.</p>
+<p>ATK <strong>2.28</strong> is the lowest supported version for the underlying library.</p>
+<h3 id="minimum-supported-rust-version"><a href="#minimum-supported-rust-version">Minimum supported Rust version</a></h3>
+<p>Currently, the minimum supported Rust version is <code>1.63.0</code>.</p>
+<h3 id="documentation"><a href="#documentation">Documentation</a></h3>
+<ul>
+<li><a href="https://gtk-rs.org/gtk3-rs/stable/latest/docs/atk/">Rust API - Stable</a></li>
+<li><a href="https://gtk-rs.org/gtk3-rs/git/docs/atk">Rust API - Development</a></li>
+<li><a href="https://www.gtk.org/docs/installations/">GTK Installation instructions</a></li>
+</ul>
+<h3 id="using"><a href="#using">Using</a></h3>
+<p>We recommend using <a href="https://crates.io/keywords/gtk-rs">crates from crates.io</a>,
+as <a href="https://gtk-rs.org/#using">demonstrated here</a>.</p>
+<p>If you want to track the bleeding edge, use the git dependency instead:</p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+atk = { git = &quot;https://github.com/gtk-rs/gtk3-rs.git&quot;, package = &quot;atk&quot; }</code></pre></div>
+<p>Avoid mixing versioned and git crates like this:</p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+atk = &quot;0.13&quot;
+atk = { git = &quot;https://github.com/gtk-rs/gtk3-rs.git&quot;, package = &quot;atk&quot; }</code></pre></div><h4 id="see-also"><a href="#see-also">See Also</a></h4>
+<ul>
+<li><a href="https://crates.io/crates/glib">glib</a></li>
+</ul>
+<h3 id="license"><a href="#license">License</a></h3>
+<p><strong>atk</strong> is available under the MIT License, please refer to it.</p>
+</div></details><h2 id="reexports" class="small-section-header"><a href="#reexports">Re-exports</a></h2><div class="item-table"><div class="item-row"><div class="item-left import-item" id="reexport.ffi"><code>pub use ffi;</code></div></div><div class="item-row"><div class="item-left import-item" id="reexport.glib"><code>pub use <a class="mod" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/index.html" title="mod glib">glib</a>;</code></div></div></div><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="prelude/index.html" title="atk::prelude mod">prelude</a></div><div class="item-right docblock-short">Traits intended for blanket imports.</div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Action.html" title="atk::Action struct">Action</a></div><div class="item-right docblock-short">The ATK interface provided by UI components
+which the user can activate/interact with.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Attribute.html" title="atk::Attribute struct">Attribute</a></div><div class="item-right docblock-short">AtkAttribute is a string name/value pair representing a generic
+attribute. This can be used to expose additional information from
+an accessible object as a whole (see <code>atk_object_get_attributes()</code>)
+or an document (see <code>atk_document_get_attributes()</code>). In the case of
+text attributes (see <code>atk_text_get_default_attributes()</code>),
+<a href="enum.TextAttribute.html" title="crate::TextAttribute"><code>TextAttribute</code></a> enum defines all the possible text attribute
+names. You can use <a href="enum.TextAttribute.html#method.name" title="crate::TextAttribute::name()"><code>TextAttribute::name()</code></a> to get the string
+name from the enum value. See also <a href="enum.TextAttribute.html#method.for_name" title="crate::TextAttribute::for_name()"><code>TextAttribute::for_name()</code></a>
+and <a href="enum.TextAttribute.html#method.value" title="crate::TextAttribute::value()"><code>TextAttribute::value()</code></a> for more information.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Component.html" title="atk::Component struct">Component</a></div><div class="item-right docblock-short">The ATK interface provided by UI components
+which occupy a physical area on the screen.
+which the user can activate/interact with.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Document.html" title="atk::Document struct">Document</a></div><div class="item-right docblock-short">The ATK interface which represents the toplevel
+container for document content.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EditableText.html" title="atk::EditableText struct">EditableText</a></div><div class="item-right docblock-short">The ATK interface implemented by components containing user-editable text content.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.GObjectAccessible.html" title="atk::GObjectAccessible struct">GObjectAccessible</a></div><div class="item-right docblock-short">This object class is derived from AtkObject and can be used as a basis implementing accessible objects.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Hyperlink.html" title="atk::Hyperlink struct">Hyperlink</a></div><div class="item-right docblock-short">An ATK object which encapsulates a link or set of links in a hypertext document.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.HyperlinkImpl.html" title="atk::HyperlinkImpl struct">HyperlinkImpl</a></div><div class="item-right docblock-short">A queryable interface which allows AtkHyperlink instances
+associated with an AtkObject to be obtained. AtkHyperlinkImpl
+corresponds to AT-SPI’s Hyperlink interface, and differs from
+AtkHyperlink in that AtkHyperlink is an object type, rather than an
+interface, and thus cannot be directly queried. FTW</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.HyperlinkStateFlags.html" title="atk::HyperlinkStateFlags struct">HyperlinkStateFlags</a></div><div class="item-right docblock-short">Describes the type of link</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Hypertext.html" title="atk::Hypertext struct">Hypertext</a></div><div class="item-right docblock-short">The ATK interface which provides standard mechanism for manipulating hyperlinks.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Image.html" title="atk::Image struct">Image</a></div><div class="item-right docblock-short">The ATK Interface implemented by components
+which expose image or pixmap content on-screen.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Misc.html" title="atk::Misc struct">Misc</a></div><div class="item-right docblock-short">A set of ATK utility functions for thread locking</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.NoOpObject.html" title="atk::NoOpObject struct">NoOpObject</a></div><div class="item-right docblock-short">An AtkObject which purports to implement all ATK interfaces.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.NoOpObjectFactory.html" title="atk::NoOpObjectFactory struct">NoOpObjectFactory</a></div><div class="item-right docblock-short">The AtkObjectFactory which creates an AtkNoOpObject.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Object.html" title="atk::Object struct">Object</a></div><div class="item-right docblock-short">The base object class for the Accessibility Toolkit API.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ObjectFactory.html" title="atk::ObjectFactory struct">ObjectFactory</a></div><div class="item-right docblock-short">The base object class for a factory used to
+create accessible objects for objects of a specific GType.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Plug.html" title="atk::Plug struct">Plug</a></div><div class="item-right docblock-short">Toplevel for embedding into other processes</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Range.html" title="atk::Range struct">Range</a></div><div class="item-right docblock-short">A given range or subrange, to be used with <a href="struct.Value.html" title="crate::Value"><code>Value</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Rectangle.html" title="atk::Rectangle struct">Rectangle</a></div><div class="item-right docblock-short">A data structure for holding a rectangle. Those coordinates are
+relative to the component top-level parent.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Registry.html" title="atk::Registry struct">Registry</a></div><div class="item-right docblock-short">An object used to store the GType of the
+factories used to create an accessible object for an object of a
+particular GType.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Relation.html" title="atk::Relation struct">Relation</a></div><div class="item-right docblock-short">An object used to describe a relation between a
+object and one or more other objects.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RelationSet.html" title="atk::RelationSet struct">RelationSet</a></div><div class="item-right docblock-short">A set of AtkRelations, normally the set of
+AtkRelations which an AtkObject has.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Selection.html" title="atk::Selection struct">Selection</a></div><div class="item-right docblock-short">The ATK interface implemented by container objects whose <a href="struct.Object.html" title="crate::Object"><code>Object</code></a> children can be selected.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Socket.html" title="atk::Socket struct">Socket</a></div><div class="item-right docblock-short">Container for AtkPlug objects from other processes</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StateSet.html" title="atk::StateSet struct">StateSet</a></div><div class="item-right docblock-short">An AtkStateSet contains the states of an object.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StreamableContent.html" title="atk::StreamableContent struct">StreamableContent</a></div><div class="item-right docblock-short">The ATK interface which provides access to streamable content.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Table.html" title="atk::Table struct">Table</a></div><div class="item-right docblock-short">The ATK interface implemented for UI components which contain tabular or row/column information.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TableCell.html" title="atk::TableCell struct">TableCell</a></div><div class="item-right docblock-short">The ATK interface implemented for a cell inside a two-dimentional <a href="struct.Table.html" title="crate::Table"><code>Table</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Text.html" title="atk::Text struct">Text</a></div><div class="item-right docblock-short">The ATK interface implemented by components with text content.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TextRange.html" title="atk::TextRange struct">TextRange</a></div><div class="item-right docblock-short">A structure used to describe a text range.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TextRectangle.html" title="atk::TextRectangle struct">TextRectangle</a></div><div class="item-right docblock-short">A structure used to store a rectangle used by AtkText.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Util.html" title="atk::Util struct">Util</a></div><div class="item-right docblock-short">A set of ATK utility functions for event and toolkit support.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Value.html" title="atk::Value struct">Value</a></div><div class="item-right docblock-short">The ATK interface implemented by valuators and components which display or select a value from a bounded range of values.</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Window.html" title="atk::Window struct">Window</a></div><div class="item-right docblock-short">The ATK Interface provided by UI components that represent a top-level window.</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.CoordType.html" title="atk::CoordType enum">CoordType</a></div><div class="item-right docblock-short">Specifies how xy coordinates are to be interpreted. Used by functions such
+as <a href="prelude/trait.ComponentExt.html#tymethod.position" title="crate::prelude::ComponentExt::position()"><code>ComponentExt::position()</code></a> and <a href="prelude/trait.TextExt.html#tymethod.character_extents" title="crate::prelude::TextExt::character_extents()"><code>TextExt::character_extents()</code></a></div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Layer.html" title="atk::Layer enum">Layer</a></div><div class="item-right docblock-short">Describes the layer of a component</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.RelationType.html" title="atk::RelationType enum">RelationType</a></div><div class="item-right docblock-short">Describes the type of the relation</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Role.html" title="atk::Role enum">Role</a></div><div class="item-right docblock-short">Describes the role of an object</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ScrollType.html" title="atk::ScrollType enum">ScrollType</a><span class="stab portability" title="Available on crate feature `v2_30` only"><code>v2_30</code></span></div><div class="item-right docblock-short">Specifies where an object should be placed on the screen when using scroll_to.</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.StateType.html" title="atk::StateType enum">StateType</a></div><div class="item-right docblock-short">The possible types of states of an object</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TextAttribute.html" title="atk::TextAttribute enum">TextAttribute</a></div><div class="item-right docblock-short">Describes the text attributes supported</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TextBoundary.html" title="atk::TextBoundary enum">TextBoundary</a></div><div class="item-right docblock-short">Text boundary types used for specifying boundaries for regions of text.
+This enumeration is deprecated since 2.9.4 and should not be used. Use
+AtkTextGranularity with <code>atk_text_get_string_at_offset</code> instead.</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TextClipType.html" title="atk::TextClipType enum">TextClipType</a></div><div class="item-right docblock-short">Describes the type of clipping required.</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TextGranularity.html" title="atk::TextGranularity enum">TextGranularity</a></div><div class="item-right docblock-short">Text granularity types used for specifying the granularity of the region of
+text we are interested in.</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ValueType.html" title="atk::ValueType enum">ValueType</a></div><div class="item-right docblock-short">Default types for a given value. Those are defined in order to
+easily get localized strings to describe a given value or a given
+subrange, using <a href="enum.ValueType.html#method.localized_name" title="Self::localized_name()"><code>localized_name()</code></a>.</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.AttributeSet.html" title="atk::AttributeSet type">AttributeSet</a></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.State.html" title="atk::State type">State</a></div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="atk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (a24a020e6 2022-10-18)" ></div></body></html>

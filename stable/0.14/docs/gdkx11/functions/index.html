@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `functions` mod in crate `gdkx11`."><meta name="keywords" content="rust, rustlang, rust-lang, functions"><title>gdkx11::functions - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.14" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.14") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../gdkx11/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Module functions</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#functions">Functions</a></li></ul></div><div id="sidebar-vars" data-name="functions" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../index.html">gdkx11</a>::<wbr><a class="mod" href="#">functions</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/gdkx11/auto/functions.rs.html#5-318" title="goto source code">[src]</a></span></h1><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
+<table><tr class="module-item"><td><a class="fn" href="fn.x11_atom_to_xatom.html" title="gdkx11::functions::x11_atom_to_xatom fn">x11_atom_to_xatom</a></td><td class="docblock-short"><p>Converts from a <a href="../../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a> to the X atom for the default GDK display
+with the same string value.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_atom_to_xatom_for_display.html" title="gdkx11::functions::x11_atom_to_xatom_for_display fn">x11_atom_to_xatom_for_display</a></td><td class="docblock-short"><p>Converts from a <a href="../../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a> to the X atom for a <a href="../../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a>
+with the same string value. The special value <code>GDK_NONE</code>
+is converted to <code>None</code>.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_device_get_id.html" title="gdkx11::functions::x11_device_get_id fn">x11_device_get_id</a></td><td class="docblock-short"><p>Returns the device ID as seen by XInput2.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_device_manager_lookup.html" title="gdkx11::functions::x11_device_manager_lookup fn">x11_device_manager_lookup</a></td><td class="docblock-short"><p>Returns the <a href="../../gdk/auto/device/struct.Device.html" title="crate::gdk::Device"><code>gdk::Device</code></a> that wraps the given device ID.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_get_default_root_xwindow.html" title="gdkx11::functions::x11_get_default_root_xwindow fn">x11_get_default_root_xwindow</a></td><td class="docblock-short"><p>Gets the root window of the default screen
+(see [<code>x11_get_default_screen()</code>][crate::x11_get_default_screen()]).</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_get_default_screen.html" title="gdkx11::functions::x11_get_default_screen fn">x11_get_default_screen</a></td><td class="docblock-short"><p>Gets the default GTK+ screen number.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_get_server_time.html" title="gdkx11::functions::x11_get_server_time fn">x11_get_server_time</a></td><td class="docblock-short"><p>Routine to get the current X server time stamp.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_get_xatom_by_name.html" title="gdkx11::functions::x11_get_xatom_by_name fn">x11_get_xatom_by_name</a></td><td class="docblock-short"><p>Returns the X atom for GDK’s default display corresponding to <code>atom_name</code>.
+This function caches the result, so if called repeatedly it is much
+faster than XInternAtom(), which is a round trip to the server each time.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_get_xatom_by_name_for_display.html" title="gdkx11::functions::x11_get_xatom_by_name_for_display fn">x11_get_xatom_by_name_for_display</a></td><td class="docblock-short"><p>Returns the X atom for a <a href="../../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a> corresponding to <code>atom_name</code>.
+This function caches the result, so if called repeatedly it is much
+faster than XInternAtom(), which is a round trip to the server each time.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_get_xatom_name.html" title="gdkx11::functions::x11_get_xatom_name fn">x11_get_xatom_name</a></td><td class="docblock-short"><p>Returns the name of an X atom for GDK’s default display. This
+function is meant mainly for debugging, so for convenience, unlike
+XAtomName() and <a href="../../gdk/atom/struct.Atom.html#method.name" title="crate::gdk::Atom::name()"><code>gdk::Atom::name()</code></a>, the result
+doesn’t need to be freed. Also, this function will never return <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>,
+even if <code>xatom</code> is invalid.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_get_xatom_name_for_display.html" title="gdkx11::functions::x11_get_xatom_name_for_display fn">x11_get_xatom_name_for_display</a></td><td class="docblock-short"><p>Returns the name of an X atom for its display. This
+function is meant mainly for debugging, so for convenience, unlike
+XAtomName() and <a href="../../gdk/atom/struct.Atom.html#method.name" title="crate::gdk::Atom::name()"><code>gdk::Atom::name()</code></a>, the result doesn’t need to
+be freed.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_grab_server.html" title="gdkx11::functions::x11_grab_server fn">x11_grab_server</a></td><td class="docblock-short"><p>Call <a href="../struct.X11Display.html#method.grab" title="crate::X11Display::grab()"><code>X11Display::grab()</code></a> on the default display.
+To ungrab the server again, use [<code>x11_ungrab_server()</code>][crate::x11_ungrab_server()].</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_register_standard_event_type.html" title="gdkx11::functions::x11_register_standard_event_type fn">x11_register_standard_event_type</a></td><td class="docblock-short"><p>Registers interest in receiving extension events with type codes
+between <code>event_base</code> and <code>event_base + n_events - 1</code>.
+The registered events must have the window field in the same place
+as core X events (this is not the case for e.g. XKB extension events).</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_set_sm_client_id.html" title="gdkx11::functions::x11_set_sm_client_id fn">x11_set_sm_client_id</a></td><td class="docblock-short"><p>Sets the <code>SM_CLIENT_ID</code> property on the application’s leader window so that
+the window manager can save the application’s state using the X11R6 ICCCM
+session management protocol.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_ungrab_server.html" title="gdkx11::functions::x11_ungrab_server fn">x11_ungrab_server</a></td><td class="docblock-short"><p>Ungrab the default display after it has been grabbed with
+[<code>x11_grab_server()</code>][crate::x11_grab_server()].</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_xatom_to_atom.html" title="gdkx11::functions::x11_xatom_to_atom fn">x11_xatom_to_atom</a></td><td class="docblock-short"><p>Convert from an X atom for the default display to the corresponding
+<a href="../../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a>.</p>
+</td></tr><tr class="module-item"><td><a class="fn" href="fn.x11_xatom_to_atom_for_display.html" title="gdkx11::functions::x11_xatom_to_atom_for_display fn">x11_xatom_to_atom_for_display</a></td><td class="docblock-short"><p>Convert from an X atom for a <a href="../../gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a> to the corresponding
+<a href="../../gdk/atom/struct.Atom.html" title="crate::gdk::Atom"><code>gdk::Atom</code></a>.</p>
+</td></tr></table></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gdkx11" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script>
+</body></html>

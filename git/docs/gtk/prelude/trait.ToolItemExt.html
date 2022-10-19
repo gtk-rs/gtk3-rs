@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@ToolItem`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, ToolItemExt"><title>ToolItemExt in gtk::prelude - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">ToolItemExt</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.connect_create_menu_proxy">connect_create_menu_proxy</a></li><li><a href="#tymethod.connect_is_important_notify">connect_is_important_notify</a></li><li><a href="#tymethod.connect_toolbar_reconfigured">connect_toolbar_reconfigured</a></li><li><a href="#tymethod.connect_visible_horizontal_notify">connect_visible_horizontal_notify</a></li><li><a href="#tymethod.connect_visible_vertical_notify">connect_visible_vertical_notify</a></li><li><a href="#tymethod.ellipsize_mode">ellipsize_mode</a></li><li><a href="#tymethod.expands">expands</a></li><li><a href="#tymethod.icon_size">icon_size</a></li><li><a href="#tymethod.is_homogeneous">is_homogeneous</a></li><li><a href="#tymethod.is_important">is_important</a></li><li><a href="#tymethod.is_visible_horizontal">is_visible_horizontal</a></li><li><a href="#tymethod.is_visible_vertical">is_visible_vertical</a></li><li><a href="#tymethod.orientation">orientation</a></li><li><a href="#tymethod.proxy_menu_item">proxy_menu_item</a></li><li><a href="#tymethod.rebuild_menu">rebuild_menu</a></li><li><a href="#tymethod.relief_style">relief_style</a></li><li><a href="#tymethod.retrieve_proxy_menu_item">retrieve_proxy_menu_item</a></li><li><a href="#tymethod.set_expand">set_expand</a></li><li><a href="#tymethod.set_homogeneous">set_homogeneous</a></li><li><a href="#tymethod.set_is_important">set_is_important</a></li><li><a href="#tymethod.set_proxy_menu_item">set_proxy_menu_item</a></li><li><a href="#tymethod.set_tooltip_markup">set_tooltip_markup</a></li><li><a href="#tymethod.set_tooltip_text">set_tooltip_text</a></li><li><a href="#tymethod.set_use_drag_window">set_use_drag_window</a></li><li><a href="#tymethod.set_visible_horizontal">set_visible_horizontal</a></li><li><a href="#tymethod.set_visible_vertical">set_visible_vertical</a></li><li><a href="#tymethod.text_alignment">text_alignment</a></li><li><a href="#tymethod.text_orientation">text_orientation</a></li><li><a href="#tymethod.text_size_group">text_size_group</a></li><li><a href="#tymethod.toolbar_reconfigured">toolbar_reconfigured</a></li><li><a href="#tymethod.toolbar_style">toolbar_style</a></li><li><a href="#tymethod.uses_drag_window">uses_drag_window</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2 class="location"><a href="index.html">In gtk::prelude</a></h2></div></nav><main><div class="width-limiter"><div class="sub-container"><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">ToolItemExt</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/gtk/auto/tool_item.rs.html#523-864">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="item-decl"><pre class="rust trait"><code>pub trait ToolItemExt: 'static {
+<details class="rustdoc-toggle type-contents-toggle"><summary class="hideme"><span>Show 32 methods</span></summary>    fn <a href="#tymethod.ellipsize_mode" class="fnname">ellipsize_mode</a>(&amp;self) -&gt; <a class="enum" href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.expands" class="fnname">expands</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.is_homogeneous" class="fnname">is_homogeneous</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.icon_size" class="fnname">icon_size</a>(&amp;self) -&gt; <a class="enum" href="../enum.IconSize.html" title="enum gtk::IconSize">IconSize</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.is_important" class="fnname">is_important</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.orientation" class="fnname">orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.proxy_menu_item" class="fnname">proxy_menu_item</a>(&amp;self, menu_item_id: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.relief_style" class="fnname">relief_style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ReliefStyle.html" title="enum gtk::ReliefStyle">ReliefStyle</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.text_alignment" class="fnname">text_alignment</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.text_orientation" class="fnname">text_orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.text_size_group" class="fnname">text_size_group</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.SizeGroup.html" title="struct gtk::SizeGroup">SizeGroup</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.toolbar_style" class="fnname">toolbar_style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.uses_drag_window" class="fnname">uses_drag_window</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.is_visible_horizontal" class="fnname">is_visible_horizontal</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.is_visible_vertical" class="fnname">is_visible_vertical</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.rebuild_menu" class="fnname">rebuild_menu</a>(&amp;self);
+<span class="item-spacer"></span>    fn <a href="#tymethod.retrieve_proxy_menu_item" class="fnname">retrieve_proxy_menu_item</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_expand" class="fnname">set_expand</a>(&amp;self, expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_homogeneous" class="fnname">set_homogeneous</a>(&amp;self, homogeneous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_is_important" class="fnname">set_is_important</a>(&amp;self, is_important: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_proxy_menu_item" class="fnname">set_proxy_menu_item</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;menu_item_id: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;menu_item: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_tooltip_markup" class="fnname">set_tooltip_markup</a>(&amp;self, markup: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_tooltip_text" class="fnname">set_tooltip_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_use_drag_window" class="fnname">set_use_drag_window</a>(&amp;self, use_drag_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_visible_horizontal" class="fnname">set_visible_horizontal</a>(&amp;self, visible_horizontal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_visible_vertical" class="fnname">set_visible_vertical</a>(&amp;self, visible_vertical: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.toolbar_reconfigured" class="fnname">toolbar_reconfigured</a>(&amp;self);
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_create_menu_proxy" class="fnname">connect_create_menu_proxy</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_toolbar_reconfigured" class="fnname">connect_toolbar_reconfigured</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_is_important_notify" class="fnname">connect_is_important_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_visible_horizontal_notify" class="fnname">connect_visible_horizontal_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_visible_vertical_notify" class="fnname">connect_visible_vertical_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+</details>}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.ToolItem.html" title="ToolItem"><code>ToolItem</code></a> methods.</p>
+<h2 id="implementors-1"><a href="#implementors-1">Implementors</a></h2>
+<p><a href="../struct.SeparatorToolItem.html" title="crate::SeparatorToolItem"><code>SeparatorToolItem</code></a>, <a href="../struct.ToolButton.html" title="crate::ToolButton"><code>ToolButton</code></a>, <a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.ellipsize_mode" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#534">source</a><h4 class="code-header">fn <a href="#tymethod.ellipsize_mode" class="fnname">ellipsize_mode</a>(&amp;self) -&gt; <a class="enum" href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a></h4></section></summary><div class="docblock"><p>Returns the ellipsize mode used for <code>self</code>. Custom subclasses of
+<a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should call this function to find out how text should
+be ellipsized.</p>
+<h5 id="returns"><a href="#returns">Returns</a></h5>
+<p>a <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.EllipsizeMode.html" title="crate::pango::EllipsizeMode"><code>pango::EllipsizeMode</code></a> indicating how text in <code>self</code>
+should be ellipsized.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.expands" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#544">source</a><h4 class="code-header">fn <a href="#tymethod.expands" class="fnname">expands</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether <code>self</code> is allocated extra space.
+See <a href="trait.ToolItemExt.html#tymethod.set_expand" title="Self::set_expand()"><code>set_expand()</code></a>.</p>
+<h5 id="returns-1"><a href="#returns-1">Returns</a></h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is allocated extra space.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.is_homogeneous" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#555">source</a><h4 class="code-header">fn <a href="#tymethod.is_homogeneous" class="fnname">is_homogeneous</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether <code>self</code> is the same size as other homogeneous
+items. See <a href="trait.ToolItemExt.html#tymethod.set_homogeneous" title="Self::set_homogeneous()"><code>set_homogeneous()</code></a>.</p>
+<h5 id="returns-2"><a href="#returns-2">Returns</a></h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the item is the same size as other homogeneous
+items.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.icon_size" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#567">source</a><h4 class="code-header">fn <a href="#tymethod.icon_size" class="fnname">icon_size</a>(&amp;self) -&gt; <a class="enum" href="../enum.IconSize.html" title="enum gtk::IconSize">IconSize</a></h4></section></summary><div class="docblock"><p>Returns the icon size used for <code>self</code>. Custom subclasses of
+<a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should call this function to find out what size icons
+they should use.</p>
+<h5 id="returns-3"><a href="#returns-3">Returns</a></h5>
+<p>a <a href="../enum.IconSize.html" title="crate::IconSize"><code>IconSize</code></a> indicating the icon size
+used for <code>self</code></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.is_important" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#577">source</a><h4 class="code-header">fn <a href="#tymethod.is_important" class="fnname">is_important</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether <code>self</code> is considered important. See
+<a href="trait.ToolItemExt.html#tymethod.set_is_important" title="Self::set_is_important()"><code>set_is_important()</code></a></p>
+<h5 id="returns-4"><a href="#returns-4">Returns</a></h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is considered important.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.orientation" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#589">source</a><h4 class="code-header">fn <a href="#tymethod.orientation" class="fnname">orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a></h4></section></summary><div class="docblock"><p>Returns the orientation used for <code>self</code>. Custom subclasses of
+<a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should call this function to find out what size icons
+they should use.</p>
+<h5 id="returns-5"><a href="#returns-5">Returns</a></h5>
+<p>a <a href="../enum.Orientation.html" title="crate::Orientation"><code>Orientation</code></a> indicating the orientation
+used for <code>self</code></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.proxy_menu_item" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#608">source</a><h4 class="code-header">fn <a href="#tymethod.proxy_menu_item" class="fnname">proxy_menu_item</a>(&amp;self, menu_item_id: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</h4></section></summary><div class="docblock"><p>If <code>menu_item_id</code> matches the string passed to
+<a href="trait.ToolItemExt.html#tymethod.set_proxy_menu_item" title="Self::set_proxy_menu_item()"><code>set_proxy_menu_item()</code></a> return the corresponding <a href="../struct.MenuItem.html" title="crate::MenuItem"><code>MenuItem</code></a>.</p>
+<p>Custom subclasses of <a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should use this function to
+update their menu item when the <a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> changes. That the
+<code>menu_item_ids</code> must match ensures that a <a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a>
+will not inadvertently change a menu item that they did not create.</p>
+<h6 id="menu_item_id"><a href="#menu_item_id"><code>menu_item_id</code></a></h6>
+<p>a string used to identify the menu item</p>
+<h5 id="returns-6"><a href="#returns-6">Returns</a></h5>
+<p>The <a href="../struct.MenuItem.html" title="crate::MenuItem"><code>MenuItem</code></a> passed to
+<a href="trait.ToolItemExt.html#tymethod.set_proxy_menu_item" title="Self::set_proxy_menu_item()"><code>set_proxy_menu_item()</code></a>, if the <code>menu_item_ids</code>
+match.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.relief_style" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#621">source</a><h4 class="code-header">fn <a href="#tymethod.relief_style" class="fnname">relief_style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ReliefStyle.html" title="enum gtk::ReliefStyle">ReliefStyle</a></h4></section></summary><div class="docblock"><p>Returns the relief style of <code>self</code>. See <a href="trait.ButtonExt.html#tymethod.set_relief" title="crate::prelude::ButtonExt::set_relief()"><code>ButtonExt::set_relief()</code></a>.
+Custom subclasses of <a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should call this function in the handler
+of the <code>signal::ToolItem::toolbar_reconfigured</code> signal to find out the
+relief style of buttons.</p>
+<h5 id="returns-7"><a href="#returns-7">Returns</a></h5>
+<p>a <a href="../enum.ReliefStyle.html" title="crate::ReliefStyle"><code>ReliefStyle</code></a> indicating the relief style used
+for <code>self</code>.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.text_alignment" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#633">source</a><h4 class="code-header">fn <a href="#tymethod.text_alignment" class="fnname">text_alignment</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></h4></section></summary><div class="docblock"><p>Returns the text alignment used for <code>self</code>. Custom subclasses of
+<a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should call this function to find out how text should
+be aligned.</p>
+<h5 id="returns-8"><a href="#returns-8">Returns</a></h5>
+<p>a <code>gfloat</code> indicating the horizontal text alignment
+used for <code>self</code></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.text_orientation" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#645">source</a><h4 class="code-header">fn <a href="#tymethod.text_orientation" class="fnname">text_orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a></h4></section></summary><div class="docblock"><p>Returns the text orientation used for <code>self</code>. Custom subclasses of
+<a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should call this function to find out how text should
+be orientated.</p>
+<h5 id="returns-9"><a href="#returns-9">Returns</a></h5>
+<p>a <a href="../enum.Orientation.html" title="crate::Orientation"><code>Orientation</code></a> indicating the text orientation
+used for <code>self</code></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.text_size_group" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#656">source</a><h4 class="code-header">fn <a href="#tymethod.text_size_group" class="fnname">text_size_group</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.SizeGroup.html" title="struct gtk::SizeGroup">SizeGroup</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the size group used for labels in <code>self</code>.
+Custom subclasses of <a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should call this function
+and use the size group for labels.</p>
+<h5 id="returns-10"><a href="#returns-10">Returns</a></h5>
+<p>a <a href="../struct.SizeGroup.html" title="crate::SizeGroup"><code>SizeGroup</code></a></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.toolbar_style" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#677">source</a><h4 class="code-header">fn <a href="#tymethod.toolbar_style" class="fnname">toolbar_style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a></h4></section></summary><div class="docblock"><p>Returns the toolbar style used for <code>self</code>. Custom subclasses of
+<a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a> should call this function in the handler of the
+GtkToolItem::toolbar_reconfigured signal to find out in what style
+the toolbar is displayed and change themselves accordingly</p>
+<p>Possibilities are:</p>
+<ul>
+<li><a href="../enum.ToolbarStyle.html#variant.Both" title="crate::ToolbarStyle::Both"><code>ToolbarStyle::Both</code></a>, meaning the tool item should show
+both an icon and a label, stacked vertically</li>
+<li><a href="../enum.ToolbarStyle.html#variant.Icons" title="crate::ToolbarStyle::Icons"><code>ToolbarStyle::Icons</code></a>, meaning the toolbar shows only icons</li>
+<li><a href="../enum.ToolbarStyle.html#variant.Text" title="crate::ToolbarStyle::Text"><code>ToolbarStyle::Text</code></a>, meaning the tool item should only show text</li>
+<li><a href="../enum.ToolbarStyle.html#variant.BothHoriz" title="crate::ToolbarStyle::BothHoriz"><code>ToolbarStyle::BothHoriz</code></a>, meaning the tool item should show
+both an icon and a label, arranged horizontally</li>
+</ul>
+<h5 id="returns-11"><a href="#returns-11">Returns</a></h5>
+<p>A <a href="../enum.ToolbarStyle.html" title="crate::ToolbarStyle"><code>ToolbarStyle</code></a> indicating the toolbar style used
+for <code>self</code>.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.uses_drag_window" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#687">source</a><h4 class="code-header">fn <a href="#tymethod.uses_drag_window" class="fnname">uses_drag_window</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether <code>self</code> has a drag window. See
+<a href="trait.ToolItemExt.html#tymethod.set_use_drag_window" title="Self::set_use_drag_window()"><code>set_use_drag_window()</code></a>.</p>
+<h5 id="returns-12"><a href="#returns-12">Returns</a></h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> uses a drag window.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.is_visible_horizontal" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#698">source</a><h4 class="code-header">fn <a href="#tymethod.is_visible_horizontal" class="fnname">is_visible_horizontal</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether the <code>self</code> is visible on toolbars that are
+docked horizontally.</p>
+<h5 id="returns-13"><a href="#returns-13">Returns</a></h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>self</code> is visible on toolbars that are
+docked horizontally.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.is_visible_vertical" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#708">source</a><h4 class="code-header">fn <a href="#tymethod.is_visible_vertical" class="fnname">is_visible_vertical</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether <code>self</code> is visible when the toolbar is docked vertically.
+See <a href="trait.ToolItemExt.html#tymethod.set_visible_vertical" title="Self::set_visible_vertical()"><code>set_visible_vertical()</code></a>.</p>
+<h5 id="returns-14"><a href="#returns-14">Returns</a></h5>
+<p>Whether <code>self</code> is visible when the toolbar is docked vertically</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.rebuild_menu" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#718">source</a><h4 class="code-header">fn <a href="#tymethod.rebuild_menu" class="fnname">rebuild_menu</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Calling this function signals to the toolbar that the
+overflow menu item for <code>self</code> has changed. If the
+overflow menu is visible when this function it called,
+the menu will be rebuilt.</p>
+<p>The function must be called when the tool item changes what it
+will do in response to the <code>signal::ToolItem::create-menu-proxy</code> signal.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.retrieve_proxy_menu_item" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#729">source</a><h4 class="code-header">fn <a href="#tymethod.retrieve_proxy_menu_item" class="fnname">retrieve_proxy_menu_item</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the <a href="../struct.MenuItem.html" title="crate::MenuItem"><code>MenuItem</code></a> that was last set by
+<a href="trait.ToolItemExt.html#tymethod.set_proxy_menu_item" title="Self::set_proxy_menu_item()"><code>set_proxy_menu_item()</code></a>, ie. the <a href="../struct.MenuItem.html" title="crate::MenuItem"><code>MenuItem</code></a>
+that is going to appear in the overflow menu.</p>
+<h5 id="returns-15"><a href="#returns-15">Returns</a></h5>
+<p>The <a href="../struct.MenuItem.html" title="crate::MenuItem"><code>MenuItem</code></a> that is going to appear in the
+overflow menu for <code>self</code>.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_expand" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#738">source</a><h4 class="code-header">fn <a href="#tymethod.set_expand" class="fnname">set_expand</a>(&amp;self, expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> is allocated extra space when there
+is more room on the toolbar then needed for the items. The
+effect is that the item gets bigger when the toolbar gets bigger
+and smaller when the toolbar gets smaller.</p>
+<h6 id="expand"><a href="#expand"><code>expand</code></a></h6>
+<p>Whether <code>self</code> is allocated extra space</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_homogeneous" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#746">source</a><h4 class="code-header">fn <a href="#tymethod.set_homogeneous" class="fnname">set_homogeneous</a>(&amp;self, homogeneous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> is to be allocated the same size as other
+homogeneous items. The effect is that all homogeneous items will have
+the same width as the widest of the items.</p>
+<h6 id="homogeneous"><a href="#homogeneous"><code>homogeneous</code></a></h6>
+<p>whether <code>self</code> is the same size as other homogeneous items</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_is_important" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#756">source</a><h4 class="code-header">fn <a href="#tymethod.set_is_important" class="fnname">set_is_important</a>(&amp;self, is_important: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> should be considered important. The <a href="../struct.ToolButton.html" title="crate::ToolButton"><code>ToolButton</code></a>
+class uses this property to determine whether to show or hide its label
+when the toolbar style is <a href="../enum.ToolbarStyle.html#variant.BothHoriz" title="crate::ToolbarStyle::BothHoriz"><code>ToolbarStyle::BothHoriz</code></a>. The result is that
+only tool buttons with the “is_important” property set have labels, an
+effect known as “priority text”</p>
+<h6 id="is_important"><a href="#is_important"><code>is_important</code></a></h6>
+<p>whether the tool item should be considered important</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_proxy_menu_item" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#768">source</a><h4 class="code-header">fn <a href="#tymethod.set_proxy_menu_item" class="fnname">set_proxy_menu_item</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;menu_item_id: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;menu_item: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;<br>)</h4></section></summary><div class="docblock"><p>Sets the <a href="../struct.MenuItem.html" title="crate::MenuItem"><code>MenuItem</code></a> used in the toolbar overflow menu. The
+<code>menu_item_id</code> is used to identify the caller of this function and
+should also be used with <a href="trait.ToolItemExt.html#tymethod.proxy_menu_item" title="Self::proxy_menu_item()"><code>proxy_menu_item()</code></a>.</p>
+<p>See also <code>signal::ToolItem::create-menu-proxy</code>.</p>
+<h6 id="menu_item_id-1"><a href="#menu_item_id-1"><code>menu_item_id</code></a></h6>
+<p>a string used to identify <code>menu_item</code></p>
+<h6 id="menu_item"><a href="#menu_item"><code>menu_item</code></a></h6>
+<p>a <a href="../struct.MenuItem.html" title="crate::MenuItem"><code>MenuItem</code></a> to use in the overflow menu, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_tooltip_markup" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#775">source</a><h4 class="code-header">fn <a href="#tymethod.set_tooltip_markup" class="fnname">set_tooltip_markup</a>(&amp;self, markup: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Sets the markup text to be displayed as tooltip on the item.
+See <a href="trait.WidgetExt.html#tymethod.set_tooltip_markup" title="crate::prelude::WidgetExt::set_tooltip_markup()"><code>WidgetExt::set_tooltip_markup()</code></a>.</p>
+<h6 id="markup"><a href="#markup"><code>markup</code></a></h6>
+<p>markup text to be used as tooltip for <code>self</code></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_tooltip_text" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#782">source</a><h4 class="code-header">fn <a href="#tymethod.set_tooltip_text" class="fnname">set_tooltip_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Sets the text to be displayed as tooltip on the item.
+See <a href="trait.WidgetExt.html#tymethod.set_tooltip_text" title="crate::prelude::WidgetExt::set_tooltip_text()"><code>WidgetExt::set_tooltip_text()</code></a>.</p>
+<h6 id="text"><a href="#text"><code>text</code></a></h6>
+<p>text to be used as tooltip for <code>self</code></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_use_drag_window" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#791">source</a><h4 class="code-header">fn <a href="#tymethod.set_use_drag_window" class="fnname">set_use_drag_window</a>(&amp;self, use_drag_window: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> has a drag window. When <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> the
+toolitem can be used as a drag source through <a href="trait.WidgetExtManual.html#tymethod.drag_source_set" title="crate::prelude::WidgetExtManual::drag_source_set()"><code>WidgetExtManual::drag_source_set()</code></a>.
+When <code>self</code> has a drag window it will intercept all events,
+even those that would otherwise be sent to a child of <code>self</code>.</p>
+<h6 id="use_drag_window"><a href="#use_drag_window"><code>use_drag_window</code></a></h6>
+<p>Whether <code>self</code> has a drag window.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_visible_horizontal" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#797">source</a><h4 class="code-header">fn <a href="#tymethod.set_visible_horizontal" class="fnname">set_visible_horizontal</a>(&amp;self, visible_horizontal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> is visible when the toolbar is docked horizontally.</p>
+<h6 id="visible_horizontal"><a href="#visible_horizontal"><code>visible_horizontal</code></a></h6>
+<p>Whether <code>self</code> is visible when in horizontal mode</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_visible_vertical" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#807">source</a><h4 class="code-header">fn <a href="#tymethod.set_visible_vertical" class="fnname">set_visible_vertical</a>(&amp;self, visible_vertical: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> is visible when the toolbar is docked
+vertically. Some tool items, such as text entries, are too wide to be
+useful on a vertically docked toolbar. If <code>visible_vertical</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>
+<code>self</code> will not appear on toolbars that are docked vertically.</p>
+<h6 id="visible_vertical"><a href="#visible_vertical"><code>visible_vertical</code></a></h6>
+<p>whether <code>self</code> is visible when the toolbar
+is in vertical mode</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.toolbar_reconfigured" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#813">source</a><h4 class="code-header">fn <a href="#tymethod.toolbar_reconfigured" class="fnname">toolbar_reconfigured</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Emits the signal <code>signal::ToolItem::toolbar_reconfigured</code> on <code>self</code>.
+<a href="../struct.Toolbar.html" title="crate::Toolbar"><code>Toolbar</code></a> and other <a href="../struct.ToolShell.html" title="crate::ToolShell"><code>ToolShell</code></a> implementations use this function
+to notify children, when some aspect of their configuration changes.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.connect_create_menu_proxy" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#839-842">source</a><h4 class="code-header">fn <a href="#tymethod.connect_create_menu_proxy" class="fnname">connect_create_menu_proxy</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>This signal is emitted when the toolbar needs information from <code>tool_item</code>
+about whether the item should appear in the toolbar overflow menu. In
+response the tool item should either</p>
+<ul>
+<li>
+<p>call <a href="trait.ToolItemExt.html#tymethod.set_proxy_menu_item" title="Self::set_proxy_menu_item()"><code>set_proxy_menu_item()</code></a> with a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>
+pointer and return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to indicate that the item should not appear
+in the overflow menu</p>
+</li>
+<li>
+<p>call <a href="trait.ToolItemExt.html#tymethod.set_proxy_menu_item" title="Self::set_proxy_menu_item()"><code>set_proxy_menu_item()</code></a> with a new menu
+item and return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>, or</p>
+</li>
+<li>
+<p>return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> to indicate that the signal was not handled by the item.
+This means that the item will not appear in the overflow menu unless
+a later handler installs a menu item.</p>
+</li>
+</ul>
+<p>The toolbar may cache the result of this signal. When the tool item changes
+how it will respond to this signal it must call <a href="trait.ToolItemExt.html#tymethod.rebuild_menu" title="Self::rebuild_menu()"><code>rebuild_menu()</code></a>
+to invalidate the cache and ensure that the toolbar rebuilds its overflow
+menu.</p>
+<h5 id="returns-16"><a href="#returns-16">Returns</a></h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the signal was handled, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if not</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.connect_toolbar_reconfigured" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#854">source</a><h4 class="code-header">fn <a href="#tymethod.connect_toolbar_reconfigured" class="fnname">connect_toolbar_reconfigured</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>This signal is emitted when some property of the toolbar that the
+item is a child of changes. For custom subclasses of <a href="../struct.ToolItem.html" title="crate::ToolItem"><code>ToolItem</code></a>,
+the default handler of this signal use the functions</p>
+<ul>
+<li><a href="trait.ToolShellExt.html#tymethod.orientation" title="crate::prelude::ToolShellExt::orientation()"><code>ToolShellExt::orientation()</code></a></li>
+<li><a href="trait.ToolShellExt.html#tymethod.style" title="crate::prelude::ToolShellExt::style()"><code>ToolShellExt::style()</code></a></li>
+<li><a href="trait.ToolShellExt.html#tymethod.icon_size" title="crate::prelude::ToolShellExt::icon_size()"><code>ToolShellExt::icon_size()</code></a></li>
+<li><a href="trait.ToolShellExt.html#tymethod.relief_style" title="crate::prelude::ToolShellExt::relief_style()"><code>ToolShellExt::relief_style()</code></a>
+to find out what the toolbar should look like and change
+themselves accordingly.</li>
+</ul>
+</div></details><section id="tymethod.connect_is_important_notify" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#857">source</a><h4 class="code-header">fn <a href="#tymethod.connect_is_important_notify" class="fnname">connect_is_important_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="tymethod.connect_visible_horizontal_notify" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#860">source</a><h4 class="code-header">fn <a href="#tymethod.connect_visible_horizontal_notify" class="fnname">connect_visible_horizontal_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="tymethod.connect_visible_vertical_notify" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#863">source</a><h4 class="code-header">fn <a href="#tymethod.connect_visible_vertical_notify" class="fnname">connect_visible_vertical_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div id="implementors-list"><section id="impl-ToolItemExt-for-O" class="impl has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/tool_item.rs.html#866-1208">source</a><a href="#impl-ToolItemExt-for-O" class="anchor"></a><h3 class="code-header">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItem.html" title="struct gtk::ToolItem">ToolItem</a>&gt;&gt; <a class="trait" href="trait.ToolItemExt.html" title="trait gtk::prelude::ToolItemExt">ToolItemExt</a> for O</h3></section></div><script src="../../implementors/gtk/auto/tool_item/trait.ToolItemExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (a24a020e6 2022-10-18)" ></div></body></html>

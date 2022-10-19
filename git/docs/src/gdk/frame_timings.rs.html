@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/frame_timings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>frame_timings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><a class="sidebar-logo" href="../../gdk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../gdk/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+</pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+
+</span><span class="kw">use </span><span class="kw">crate</span>::FrameTimings;
+<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
+<span class="kw">use </span>std::num::NonZeroU64;
+
+<span class="kw">impl </span>FrameTimings {
+    <span class="doccomment">/// Gets the predicted time at which this frame will be displayed. Although
+    /// no predicted time may be available, if one is available, it will
+    /// be available while the frame is being generated, in contrast to
+    /// [`presentation_time()`][Self::presentation_time()], which is only available
+    /// after the frame has been presented. In general, if you are simply
+    /// animating, you should use [`FrameClock::frame_time()`][crate::FrameClock::frame_time()] rather
+    /// than this function, but this function is useful for applications
+    /// that want exact control over latency. For example, a movie player
+    /// may want this information for Audio/Video synchronization.
+    ///
+    /// # Returns
+    ///
+    /// The predicted time at which the frame will be presented,
+    ///  in the timescale of `g_get_monotonic_time()`, or 0 if no predicted
+    ///  presentation time is available.
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_frame_timings_get_predicted_presentation_time&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_predicted_presentation_time&quot;</span>)]
+    </span><span class="kw">pub fn </span>predicted_presentation_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;NonZeroU64&gt; {
+        <span class="kw">let </span>predicted_presentation_time = <span class="kw">unsafe </span>{
+            ffi::gdk_frame_timings_get_predicted_presentation_time(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)
+        };
+        <span class="comment">// assuming presentation time is always positive
+        </span><span class="macro">assert!</span>(predicted_presentation_time &gt;= <span class="number">0</span>);
+        <span class="comment">// `0` means the value is not available
+        </span>NonZeroU64::new(predicted_presentation_time <span class="kw">as </span>u64)
+    }
+
+    <span class="doccomment">/// Reurns the presentation time. This is the time at which the frame
+    /// became visible to the user.
+    ///
+    /// # Returns
+    ///
+    /// the time the frame was displayed to the user, in the
+    ///  timescale of `g_get_monotonic_time()`, or 0 if no presentation
+    ///  time is available. See [`is_complete()`][Self::is_complete()]
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_frame_timings_get_presentation_time&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_presentation_time&quot;</span>)]
+    </span><span class="kw">pub fn </span>presentation_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;NonZeroU64&gt; {
+        <span class="kw">let </span>presentation_time =
+            <span class="kw">unsafe </span>{ ffi::gdk_frame_timings_get_presentation_time(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) };
+        <span class="comment">// assuming presentation time is always positive
+        </span><span class="macro">assert!</span>(presentation_time &gt;= <span class="number">0</span>);
+        <span class="comment">// `0` means the value is not available
+        </span>NonZeroU64::new(presentation_time <span class="kw">as </span>u64)
+    }
+
+    <span class="doccomment">/// Gets the natural interval between presentation times for
+    /// the display that this frame was displayed on. Frame presentation
+    /// usually happens during the “vertical blanking interval”.
+    ///
+    /// # Returns
+    ///
+    /// the refresh interval of the display, in microseconds,
+    ///  or 0 if the refresh interval is not available.
+    ///  See [`is_complete()`][Self::is_complete()].
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_frame_timings_get_refresh_interval&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_refresh_interval&quot;</span>)]
+    </span><span class="kw">pub fn </span>refresh_interval(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;NonZeroU64&gt; {
+        <span class="kw">let </span>refresh_interval =
+            <span class="kw">unsafe </span>{ ffi::gdk_frame_timings_get_refresh_interval(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) };
+        <span class="comment">// assuming refresh interval is always positive
+        </span><span class="macro">assert!</span>(refresh_interval &gt;= <span class="number">0</span>);
+        <span class="comment">// `0` means the value is not available
+        </span>NonZeroU64::new(refresh_interval <span class="kw">as </span>u64)
+    }
+}
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (a24a020e6 2022-10-18)" ></div></body></html>

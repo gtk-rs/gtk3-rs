@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@Viewport`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, ViewportExt"><title>ViewportExt in gtk::prelude - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">ViewportExt</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.bin_window">bin_window</a></li><li><a href="#tymethod.connect_shadow_type_notify">connect_shadow_type_notify</a></li><li><a href="#tymethod.set_shadow_type">set_shadow_type</a></li><li><a href="#tymethod.shadow_type">shadow_type</a></li><li><a href="#tymethod.view_window">view_window</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2 class="location"><a href="index.html">In gtk::prelude</a></h2></div></nav><main><div class="width-limiter"><div class="sub-container"><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">ViewportExt</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/gtk/auto/viewport.rs.html#571-608">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="item-decl"><pre class="rust trait"><code>pub trait ViewportExt: 'static {
+    fn <a href="#tymethod.bin_window" class="fnname">bin_window</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/window/struct.Window.html" title="struct gdk::auto::window::Window">Window</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.shadow_type" class="fnname">shadow_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.ShadowType.html" title="enum gtk::ShadowType">ShadowType</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.view_window" class="fnname">view_window</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/window/struct.Window.html" title="struct gdk::auto::window::Window">Window</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_shadow_type" class="fnname">set_shadow_type</a>(&amp;self, type_: <a class="enum" href="../enum.ShadowType.html" title="enum gtk::ShadowType">ShadowType</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_shadow_type_notify" class="fnname">connect_shadow_type_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Viewport.html" title="Viewport"><code>Viewport</code></a> methods.</p>
+<h2 id="implementors-1"><a href="#implementors-1">Implementors</a></h2>
+<p><a href="../struct.Viewport.html" title="crate::Viewport"><code>Viewport</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.bin_window" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/viewport.rs.html#579">source</a><h4 class="code-header">fn <a href="#tymethod.bin_window" class="fnname">bin_window</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/window/struct.Window.html" title="struct gdk::auto::window::Window">Window</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the bin window of the <a href="../struct.Viewport.html" title="crate::Viewport"><code>Viewport</code></a>.</p>
+<h5 id="returns"><a href="#returns">Returns</a></h5>
+<p>a <a href="../../gdk/auto/window/struct.Window.html" title="crate::gdk::Window"><code>gdk::Window</code></a></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.shadow_type" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/viewport.rs.html#589">source</a><h4 class="code-header">fn <a href="#tymethod.shadow_type" class="fnname">shadow_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.ShadowType.html" title="enum gtk::ShadowType">ShadowType</a></h4></section></summary><div class="docblock"><p>Gets the shadow type of the <a href="../struct.Viewport.html" title="crate::Viewport"><code>Viewport</code></a>. See
+<a href="trait.ViewportExt.html#tymethod.set_shadow_type" title="Self::set_shadow_type()"><code>set_shadow_type()</code></a>.</p>
+<h5 id="returns-1"><a href="#returns-1">Returns</a></h5>
+<p>the shadow type</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.view_window" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/viewport.rs.html#598">source</a><h4 class="code-header">fn <a href="#tymethod.view_window" class="fnname">view_window</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk/auto/window/struct.Window.html" title="struct gdk::auto::window::Window">Window</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the view window of the <a href="../struct.Viewport.html" title="crate::Viewport"><code>Viewport</code></a>.</p>
+<h5 id="returns-2"><a href="#returns-2">Returns</a></h5>
+<p>a <a href="../../gdk/auto/window/struct.Window.html" title="crate::gdk::Window"><code>gdk::Window</code></a></p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_shadow_type" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/viewport.rs.html#604">source</a><h4 class="code-header">fn <a href="#tymethod.set_shadow_type" class="fnname">set_shadow_type</a>(&amp;self, type_: <a class="enum" href="../enum.ShadowType.html" title="enum gtk::ShadowType">ShadowType</a>)</h4></section></summary><div class="docblock"><p>Sets the shadow type of the viewport.</p>
+<h6 id="type_"><a href="#type_"><code>type_</code></a></h6>
+<p>the new shadow type.</p>
+</div></details><section id="tymethod.connect_shadow_type_notify" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/viewport.rs.html#607">source</a><h4 class="code-header">fn <a href="#tymethod.connect_shadow_type_notify" class="fnname">connect_shadow_type_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div id="implementors-list"><section id="impl-ViewportExt-for-O" class="impl has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/viewport.rs.html#610-665">source</a><a href="#impl-ViewportExt-for-O" class="anchor"></a><h3 class="code-header">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Viewport.html" title="struct gtk::Viewport">Viewport</a>&gt;&gt; <a class="trait" href="trait.ViewportExt.html" title="trait gtk::prelude::ViewportExt">ViewportExt</a> for O</h3></section></div><script src="../../implementors/gtk/auto/viewport/trait.ViewportExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (a24a020e6 2022-10-18)" ></div></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":[["CompositeTemplate","Derive macro for using a composite template in a widget."]]};

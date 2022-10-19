@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@ToolShell`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, ToolShellExt"><title>ToolShellExt in gtk::prelude - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.14" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.14") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../gtk/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Trait ToolShellExt</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.ellipsize_mode">ellipsize_mode</a><a href="#tymethod.icon_size">icon_size</a><a href="#tymethod.orientation">orientation</a><a href="#tymethod.rebuild_menu">rebuild_menu</a><a href="#tymethod.relief_style">relief_style</a><a href="#tymethod.style">style</a><a href="#tymethod.text_alignment">text_alignment</a><a href="#tymethod.text_orientation">text_orientation</a><a href="#tymethod.text_size_group">text_size_group</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class="location">Other items in<br><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></p><div id="sidebar-vars" data-name="ToolShellExt" data-ty="trait" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">ToolShellExt</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#38-133" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust trait">pub trait ToolShellExt: 'static {
+    fn <a href="#tymethod.ellipsize_mode" class="fnname">ellipsize_mode</a>(&amp;self) -&gt; <a class="enum" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.icon_size" class="fnname">icon_size</a>(&amp;self) -&gt; <a class="enum" href="../enum.IconSize.html" title="enum gtk::IconSize">IconSize</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.orientation" class="fnname">orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.relief_style" class="fnname">relief_style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ReliefStyle.html" title="enum gtk::ReliefStyle">ReliefStyle</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.style" class="fnname">style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.text_alignment" class="fnname">text_alignment</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.text_orientation" class="fnname">text_orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.text_size_group" class="fnname">text_size_group</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.SizeGroup.html" title="struct gtk::SizeGroup">SizeGroup</a>&gt;;
+<div class="item-spacer"></div>    fn <a href="#tymethod.rebuild_menu" class="fnname">rebuild_menu</a>(&amp;self);
+}</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.ToolShell.html" title="ToolShell"><code>ToolShell</code></a> methods.</p>
+<h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
+<p><a href="../struct.ToolItemGroup.html" title="crate::ToolItemGroup"><code>ToolItemGroup</code></a>, <a href="../struct.ToolShell.html" title="crate::ToolShell"><code>ToolShell</code></a>, <a href="../struct.Toolbar.html" title="crate::Toolbar"><code>Toolbar</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><div id="tymethod.ellipsize_mode" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#48" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.ellipsize_mode" class="fnname">ellipsize_mode</a>(&amp;self) -&gt; <a class="enum" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/pango/auto/enums/enum.EllipsizeMode.html" title="enum pango::auto::enums::EllipsizeMode">EllipsizeMode</a></code></div></summary><div class="docblock"><p>Retrieves the current ellipsize mode for the tool shell. Tool items must not
+call this function directly, but rely on <a href="trait.ToolItemExt.html#tymethod.ellipsize_mode" title="crate::prelude::ToolItemExt::ellipsize_mode()"><code>ToolItemExt::ellipsize_mode()</code></a>
+instead.</p>
+<h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
+<p>the current ellipsize mode of <code>self</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.icon_size" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#58" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.icon_size" class="fnname">icon_size</a>(&amp;self) -&gt; <a class="enum" href="../enum.IconSize.html" title="enum gtk::IconSize">IconSize</a></code></div></summary><div class="docblock"><p>Retrieves the icon size for the tool shell. Tool items must not call this
+function directly, but rely on <a href="trait.ToolItemExt.html#tymethod.icon_size" title="crate::prelude::ToolItemExt::icon_size()"><code>ToolItemExt::icon_size()</code></a> instead.</p>
+<h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
+<p>the current size (<a href="../enum.IconSize.html" title="crate::IconSize"><code>IconSize</code></a>) for icons of <code>self</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.orientation" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#69" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.orientation" class="fnname">orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a></code></div></summary><div class="docblock"><p>Retrieves the current orientation for the tool shell. Tool items must not
+call this function directly, but rely on <a href="trait.ToolItemExt.html#tymethod.orientation" title="crate::prelude::ToolItemExt::orientation()"><code>ToolItemExt::orientation()</code></a>
+instead.</p>
+<h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
+<p>the current orientation of <code>self</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.relief_style" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#79" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.relief_style" class="fnname">relief_style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ReliefStyle.html" title="enum gtk::ReliefStyle">ReliefStyle</a></code></div></summary><div class="docblock"><p>Returns the relief style of buttons on <code>self</code>. Tool items must not call this
+function directly, but rely on <a href="trait.ToolItemExt.html#tymethod.relief_style" title="crate::prelude::ToolItemExt::relief_style()"><code>ToolItemExt::relief_style()</code></a> instead.</p>
+<h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
+<p>The relief style of buttons on <code>self</code>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.style" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#90" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.style" class="fnname">style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a></code></div></summary><div class="docblock"><p>Retrieves whether the tool shell has text, icons, or both. Tool items must
+not call this function directly, but rely on <a href="trait.ToolItemExt.html#tymethod.toolbar_style" title="crate::prelude::ToolItemExt::toolbar_style()"><code>ToolItemExt::toolbar_style()</code></a>
+instead.</p>
+<h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
+<p>the current style of <code>self</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.text_alignment" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#101" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.text_alignment" class="fnname">text_alignment</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code></div></summary><div class="docblock"><p>Retrieves the current text alignment for the tool shell. Tool items must not
+call this function directly, but rely on <a href="trait.ToolItemExt.html#tymethod.text_alignment" title="crate::prelude::ToolItemExt::text_alignment()"><code>ToolItemExt::text_alignment()</code></a>
+instead.</p>
+<h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
+<p>the current text alignment of <code>self</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.text_orientation" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#112" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.text_orientation" class="fnname">text_orientation</a>(&amp;self) -&gt; <a class="enum" href="../enum.Orientation.html" title="enum gtk::Orientation">Orientation</a></code></div></summary><div class="docblock"><p>Retrieves the current text orientation for the tool shell. Tool items must not
+call this function directly, but rely on <a href="trait.ToolItemExt.html#tymethod.text_orientation" title="crate::prelude::ToolItemExt::text_orientation()"><code>ToolItemExt::text_orientation()</code></a>
+instead.</p>
+<h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
+<p>the current text orientation of <code>self</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.text_size_group" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#123" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.text_size_group" class="fnname">text_size_group</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.SizeGroup.html" title="struct gtk::SizeGroup">SizeGroup</a>&gt;</code></div></summary><div class="docblock"><p>Retrieves the current text size group for the tool shell. Tool items must not
+call this function directly, but rely on <a href="trait.ToolItemExt.html#tymethod.text_size_group" title="crate::prelude::ToolItemExt::text_size_group()"><code>ToolItemExt::text_size_group()</code></a>
+instead.</p>
+<h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
+<p>the current text size group of <code>self</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.rebuild_menu" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#132" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.rebuild_menu" class="fnname">rebuild_menu</a>(&amp;self)</code></div></summary><div class="docblock"><p>Calling this function signals the tool shell that the overflow menu item for
+tool items have changed. If there is an overflow menu and if it is visible
+when this function it called, the menu will be rebuilt.</p>
+<p>Tool items must not call this function directly, but rely on
+<a href="trait.ToolItemExt.html#tymethod.rebuild_menu" title="crate::prelude::ToolItemExt::rebuild_menu()"><code>ToolItemExt::rebuild_menu()</code></a> instead.</p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><div id="impl-ToolShellExt" class="impl has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/tool_shell.rs.html#135-201" title="goto source code">[src]</a></div><a href="#impl-ToolShellExt" class="anchor"></a><code class="in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolShell.html" title="struct gtk::ToolShell">ToolShell</a>&gt;&gt; <a class="trait" href="trait.ToolShellExt.html" title="trait gtk::prelude::ToolShellExt">ToolShellExt</a> for O</code></div></div><script type="text/javascript" src="../../implementors/gtk/prelude/trait.ToolShellExt.js" async></script></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script>
+</body></html>

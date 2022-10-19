@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@AppChooserButton`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, AppChooserButtonExt"><title>AppChooserButtonExt in gtk::prelude - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.14" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.14") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../gtk/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Trait AppChooserButtonExt</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.append_custom_item">append_custom_item</a><a href="#tymethod.append_separator">append_separator</a><a href="#tymethod.connect_custom_item_activated">connect_custom_item_activated</a><a href="#tymethod.connect_heading_notify">connect_heading_notify</a><a href="#tymethod.connect_show_default_item_notify">connect_show_default_item_notify</a><a href="#tymethod.connect_show_dialog_item_notify">connect_show_dialog_item_notify</a><a href="#tymethod.heading">heading</a><a href="#tymethod.set_active_custom_item">set_active_custom_item</a><a href="#tymethod.set_heading">set_heading</a><a href="#tymethod.set_show_default_item">set_show_default_item</a><a href="#tymethod.set_show_dialog_item">set_show_dialog_item</a><a href="#tymethod.shows_default_item">shows_default_item</a><a href="#tymethod.shows_dialog_item">shows_dialog_item</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class="location">Other items in<br><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></p><div id="sidebar-vars" data-name="AppChooserButtonExt" data-ty="trait" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">AppChooserButtonExt</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#725-827" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust trait">pub trait AppChooserButtonExt: 'static {
+<details class="rustdoc-toggle type-contents-toggle"><summary class="hideme"><span>Show methods</span></summary>    fn <a href="#tymethod.append_custom_item" class="fnname">append_custom_item</a>&lt;P:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/gio/auto/icon/struct.Icon.html" title="struct gio::auto::icon::Icon">Icon</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P<br>&nbsp;&nbsp;&nbsp;&nbsp;);
+<div class="item-spacer"></div>    fn <a href="#tymethod.append_separator" class="fnname">append_separator</a>(&amp;self);
+<div class="item-spacer"></div>    fn <a href="#tymethod.heading" class="fnname">heading</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;;
+<div class="item-spacer"></div>    fn <a href="#tymethod.shows_default_item" class="fnname">shows_default_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.shows_dialog_item" class="fnname">shows_dialog_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_active_custom_item" class="fnname">set_active_custom_item</a>(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_heading" class="fnname">set_heading</a>(&amp;self, heading: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_show_default_item" class="fnname">set_show_default_item</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_show_dialog_item" class="fnname">set_show_dialog_item</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_custom_item_activated" class="fnname">connect_custom_item_activated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_heading_notify" class="fnname">connect_heading_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_show_default_item_notify" class="fnname">connect_show_default_item_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_show_dialog_item_notify" class="fnname">connect_show_dialog_item_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+</details>}</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.AppChooserButton.html" title="AppChooserButton"><code>AppChooserButton</code></a> methods.</p>
+<h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
+<p><a href="../struct.AppChooserButton.html" title="crate::AppChooserButton"><code>AppChooserButton</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><div id="tymethod.append_custom_item" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#739" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.append_custom_item" class="fnname">append_custom_item</a>&lt;P:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/gio/auto/icon/struct.Icon.html" title="struct gio::auto::icon::Icon">Icon</a>&gt;&gt;(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, label: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, icon: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code></div></summary><div class="docblock"><p>Appends a custom item to the list of applications that is shown
+in the popup; the item name must be unique per-widget.
+Clients can use the provided name as a detail for the
+<code>signal::AppChooserButton::custom-item-activated</code> signal, to add a
+callback for the activation of a particular custom item in the list.
+See also <a href="trait.AppChooserButtonExt.html#tymethod.append_separator" title="Self::append_separator()"><code>append_separator()</code></a>.</p>
+<h2 id="name" class="section-header"><a href="#name"><code>name</code></a></h2>
+<p>the name of the custom item</p>
+<h2 id="label" class="section-header"><a href="#label"><code>label</code></a></h2>
+<p>the label for the custom item</p>
+<h2 id="icon" class="section-header"><a href="#icon"><code>icon</code></a></h2>
+<p>the icon for the custom item</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.append_separator" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#744" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.append_separator" class="fnname">append_separator</a>(&amp;self)</code></div></summary><div class="docblock"><p>Appends a separator to the list of applications that is shown
+in the popup.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.heading" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#754" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.heading" class="fnname">heading</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code></div></summary><div class="docblock"><p>Returns the text to display at the top of the dialog.</p>
+<h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
+<p>the text to display at the top of the dialog,
+or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>, in which case a default text is displayed</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.shows_default_item" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#764" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.shows_default_item" class="fnname">shows_default_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></div></summary><div class="docblock"><p>Returns the current value of the <code>property::AppChooserButton::show-default-item</code>
+property.</p>
+<h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
+<p>the value of <code>property::AppChooserButton::show-default-item</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.shows_dialog_item" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#774" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.shows_dialog_item" class="fnname">shows_dialog_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></div></summary><div class="docblock"><p>Returns the current value of the <code>property::AppChooserButton::show-dialog-item</code>
+property.</p>
+<h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
+<p>the value of <code>property::AppChooserButton::show-dialog-item</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_active_custom_item" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#784" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_active_custom_item" class="fnname">set_active_custom_item</a>(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></div></summary><div class="docblock"><p>Selects a custom item previously added with
+<a href="trait.AppChooserButtonExt.html#tymethod.append_custom_item" title="Self::append_custom_item()"><code>append_custom_item()</code></a>.</p>
+<p>Use [<code>AppChooserExtManual::refresh()</code>][crate::prelude::AppChooserExtManual::refresh()] to bring the selection
+to its initial state.</p>
+<h2 id="name-1" class="section-header"><a href="#name-1"><code>name</code></a></h2>
+<p>the name of the custom item</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_heading" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#791" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_heading" class="fnname">set_heading</a>(&amp;self, heading: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></div></summary><div class="docblock"><p>Sets the text to display at the top of the dialog.
+If the heading is not set, the dialog displays a default text.</p>
+<h2 id="heading" class="section-header"><a href="#heading"><code>heading</code></a></h2>
+<p>a string containing Pango markup</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_show_default_item" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#798" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_show_default_item" class="fnname">set_show_default_item</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code></div></summary><div class="docblock"><p>Sets whether the dropdown menu of this button should show the
+default application for the given content type at top.</p>
+<h2 id="setting" class="section-header"><a href="#setting"><code>setting</code></a></h2>
+<p>the new value for <code>property::AppChooserButton::show-default-item</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_show_dialog_item" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#805" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_show_dialog_item" class="fnname">set_show_dialog_item</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code></div></summary><div class="docblock"><p>Sets whether the dropdown menu of this button should show an
+entry to trigger a <a href="../struct.AppChooserDialog.html" title="crate::AppChooserDialog"><code>AppChooserDialog</code></a>.</p>
+<h2 id="setting-1" class="section-header"><a href="#setting-1"><code>setting</code></a></h2>
+<p>the new value for <code>property::AppChooserButton::show-dialog-item</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_custom_item_activated" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#813-817" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_custom_item_activated" class="fnname">connect_custom_item_activated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>Emitted when a custom item, previously added with
+<a href="trait.AppChooserButtonExt.html#tymethod.append_custom_item" title="Self::append_custom_item()"><code>append_custom_item()</code></a>, is activated from the
+dropdown menu.</p>
+<h2 id="item_name" class="section-header"><a href="#item_name"><code>item_name</code></a></h2>
+<p>the name of the activated item</p>
+</div></details><div id="tymethod.connect_heading_notify" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#820" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_heading_notify" class="fnname">connect_heading_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div><div id="tymethod.connect_show_default_item_notify" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#823" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_show_default_item_notify" class="fnname">connect_show_default_item_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div><div id="tymethod.connect_show_dialog_item_notify" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#826" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_show_dialog_item_notify" class="fnname">connect_show_dialog_item_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><div id="impl-AppChooserButtonExt" class="impl has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/app_chooser_button.rs.html#829-1018" title="goto source code">[src]</a></div><a href="#impl-AppChooserButtonExt" class="anchor"></a><code class="in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.AppChooserButton.html" title="struct gtk::AppChooserButton">AppChooserButton</a>&gt;&gt; <a class="trait" href="trait.AppChooserButtonExt.html" title="trait gtk::prelude::AppChooserButtonExt">AppChooserButtonExt</a> for O</code></div></div><script type="text/javascript" src="../../implementors/gtk/prelude/trait.AppChooserButtonExt.js" async></script></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script>
+</body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@Statusbar`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, StatusbarExt"><title>StatusbarExt in gtk::prelude - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.14" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.14") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../gtk/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Trait StatusbarExt</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.connect_text_popped">connect_text_popped</a><a href="#tymethod.connect_text_pushed">connect_text_pushed</a><a href="#tymethod.context_id">context_id</a><a href="#tymethod.message_area">message_area</a><a href="#tymethod.pop">pop</a><a href="#tymethod.push">push</a><a href="#tymethod.remove">remove</a><a href="#tymethod.remove_all">remove_all</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class="location">Other items in<br><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></p><div id="sidebar-vars" data-name="StatusbarExt" data-ty="trait" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">StatusbarExt</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#558-638" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust trait">pub trait StatusbarExt: 'static {
+    fn <a href="#tymethod.context_id" class="fnname">context_id</a>(&amp;self, context_description: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.message_area" class="fnname">message_area</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Box.html" title="struct gtk::Box">Box</a>&gt;;
+<div class="item-spacer"></div>    fn <a href="#tymethod.pop" class="fnname">pop</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.push" class="fnname">push</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.remove" class="fnname">remove</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, message_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.remove_all" class="fnname">remove_all</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_text_popped" class="fnname">connect_text_popped</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_text_pushed" class="fnname">connect_text_pushed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+}</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Statusbar.html" title="Statusbar"><code>Statusbar</code></a> methods.</p>
+<h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
+<p><a href="../struct.Statusbar.html" title="crate::Statusbar"><code>Statusbar</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><div id="tymethod.context_id" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#571" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.context_id" class="fnname">context_id</a>(&amp;self, context_description: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code></div></summary><div class="docblock"><p>Returns a new context identifier, given a description
+of the actual context. Note that the description is
+not shown in the UI.</p>
+<h2 id="context_description" class="section-header"><a href="#context_description"><code>context_description</code></a></h2>
+<p>textual description of what context
+the new message is being used in</p>
+<h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
+<p>an integer id</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.message_area" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#580" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.message_area" class="fnname">message_area</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Box.html" title="struct gtk::Box">Box</a>&gt;</code></div></summary><div class="docblock"><p>Retrieves the box containing the label widget.</p>
+<h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
+<p>a <a href="../struct.Box.html" title="crate::Box"><code>Box</code></a></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.pop" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#591" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.pop" class="fnname">pop</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code></div></summary><div class="docblock"><p>Removes the first message in the <a href="../struct.Statusbar.html" title="crate::Statusbar"><code>Statusbar</code></a>’s stack
+with the given context id.</p>
+<p>Note that this may not change the displayed message, if
+the message at the top of the stack has a different
+context id.</p>
+<h2 id="context_id" class="section-header"><a href="#context_id"><code>context_id</code></a></h2>
+<p>a context identifier</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.push" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#605" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.push" class="fnname">push</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code></div></summary><div class="docblock"><p>Pushes a new message onto a statusbar’s stack.</p>
+<h2 id="context_id-1" class="section-header"><a href="#context_id-1"><code>context_id</code></a></h2>
+<p>the message’s context id, as returned by
+<a href="trait.StatusbarExt.html#tymethod.context_id" title="Self::context_id()"><code>context_id()</code></a></p>
+<h2 id="text" class="section-header"><a href="#text"><code>text</code></a></h2>
+<p>the message to add to the statusbar</p>
+<h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
+<p>a message id that can be used with
+<a href="trait.StatusbarExt.html#tymethod.remove" title="Self::remove()"><code>remove()</code></a>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.remove" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#614" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.remove" class="fnname">remove</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, message_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code></div></summary><div class="docblock"><p>Forces the removal of a message from a statusbar’s stack.
+The exact <code>context_id</code> and <code>message_id</code> must be specified.</p>
+<h2 id="context_id-2" class="section-header"><a href="#context_id-2"><code>context_id</code></a></h2>
+<p>a context identifier</p>
+<h2 id="message_id" class="section-header"><a href="#message_id"><code>message_id</code></a></h2>
+<p>a message identifier, as returned by <a href="trait.StatusbarExt.html#tymethod.push" title="Self::push()"><code>push()</code></a></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.remove_all" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#621" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.remove_all" class="fnname">remove_all</a>(&amp;self, context_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code></div></summary><div class="docblock"><p>Forces the removal of all messages from a statusbar’s
+stack with the exact <code>context_id</code>.</p>
+<h2 id="context_id-3" class="section-header"><a href="#context_id-3"><code>context_id</code></a></h2>
+<p>a context identifier</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_text_popped" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#629" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_text_popped" class="fnname">connect_text_popped</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>Is emitted whenever a new message is popped off a statusbar’s stack.</p>
+<h2 id="context_id-4" class="section-header"><a href="#context_id-4"><code>context_id</code></a></h2>
+<p>the context id of the relevant message/statusbar</p>
+<h2 id="text-1" class="section-header"><a href="#text-1"><code>text</code></a></h2>
+<p>the message that was just popped</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_text_pushed" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#637" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_text_pushed" class="fnname">connect_text_pushed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>Is emitted whenever a new message gets pushed onto a statusbar’s stack.</p>
+<h2 id="context_id-5" class="section-header"><a href="#context_id-5"><code>context_id</code></a></h2>
+<p>the context id of the relevant message/statusbar</p>
+<h2 id="text-2" class="section-header"><a href="#text-2"><code>text</code></a></h2>
+<p>the message that was pushed</p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><div id="impl-StatusbarExt" class="impl has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/statusbar.rs.html#640-745" title="goto source code">[src]</a></div><a href="#impl-StatusbarExt" class="anchor"></a><code class="in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Statusbar.html" title="struct gtk::Statusbar">Statusbar</a>&gt;&gt; <a class="trait" href="trait.StatusbarExt.html" title="trait gtk::prelude::StatusbarExt">StatusbarExt</a> for O</code></div></div><script type="text/javascript" src="../../implementors/gtk/prelude/trait.StatusbarExt.js" async></script></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script>
+</body></html>

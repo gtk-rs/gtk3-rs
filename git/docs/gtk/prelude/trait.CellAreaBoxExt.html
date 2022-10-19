@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@CellAreaBox`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, CellAreaBoxExt"><title>CellAreaBoxExt in gtk::prelude - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">CellAreaBoxExt</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.connect_spacing_notify">connect_spacing_notify</a></li><li><a href="#tymethod.pack_end">pack_end</a></li><li><a href="#tymethod.pack_start">pack_start</a></li><li><a href="#tymethod.set_spacing">set_spacing</a></li><li><a href="#tymethod.spacing">spacing</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2 class="location"><a href="index.html">In gtk::prelude</a></h2></div></nav><main><div class="width-limiter"><div class="sub-container"><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">CellAreaBoxExt</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/gtk/auto/cell_area_box.rs.html#141-191">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="item-decl"><pre class="rust trait"><code>pub trait CellAreaBoxExt: 'static {
+    fn <a href="#tymethod.spacing" class="fnname">spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.pack_end" class="fnname">pack_end</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;renderer: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fixed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>&nbsp;&nbsp;&nbsp;&nbsp;);
+<span class="item-spacer"></span>    fn <a href="#tymethod.pack_start" class="fnname">pack_start</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;renderer: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fixed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>&nbsp;&nbsp;&nbsp;&nbsp;);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_spacing" class="fnname">set_spacing</a>(&amp;self, spacing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_spacing_notify" class="fnname">connect_spacing_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.CellAreaBox.html" title="CellAreaBox"><code>CellAreaBox</code></a> methods.</p>
+<h2 id="implementors-1"><a href="#implementors-1">Implementors</a></h2>
+<p><a href="../struct.CellAreaBox.html" title="crate::CellAreaBox"><code>CellAreaBox</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.spacing" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/cell_area_box.rs.html#149">source</a><h4 class="code-header">fn <a href="#tymethod.spacing" class="fnname">spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the spacing added between cell renderers.</p>
+<h5 id="returns"><a href="#returns">Returns</a></h5>
+<p>the space added between cell renderers in <code>self</code>.</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.pack_end" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/cell_area_box.rs.html#165">source</a><h4 class="code-header">fn <a href="#tymethod.pack_end" class="fnname">pack_end</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;renderer: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;fixed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>)</h4></section></summary><div class="docblock"><p>Adds <code>renderer</code> to <code>self</code>, packed with reference to the end of <code>self</code>.</p>
+<p>The <code>renderer</code> is packed after (away from end of) any other
+<a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>CellRenderer</code></a> packed with reference to the end of <code>self</code>.</p>
+<h6 id="renderer"><a href="#renderer"><code>renderer</code></a></h6>
+<p>the <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>CellRenderer</code></a> to add</p>
+<h6 id="expand"><a href="#expand"><code>expand</code></a></h6>
+<p>whether <code>renderer</code> should receive extra space when the area receives
+more than its natural size</p>
+<h6 id="align"><a href="#align"><code>align</code></a></h6>
+<p>whether <code>renderer</code> should be aligned in adjacent rows</p>
+<h6 id="fixed"><a href="#fixed"><code>fixed</code></a></h6>
+<p>whether <code>renderer</code> should have the same size in all rows</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.pack_start" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/cell_area_box.rs.html#181">source</a><h4 class="code-header">fn <a href="#tymethod.pack_start" class="fnname">pack_start</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;renderer: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;align: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;fixed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><br>)</h4></section></summary><div class="docblock"><p>Adds <code>renderer</code> to <code>self</code>, packed with reference to the start of <code>self</code>.</p>
+<p>The <code>renderer</code> is packed after any other <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>CellRenderer</code></a> packed
+with reference to the start of <code>self</code>.</p>
+<h6 id="renderer-1"><a href="#renderer-1"><code>renderer</code></a></h6>
+<p>the <a href="../struct.CellRenderer.html" title="crate::CellRenderer"><code>CellRenderer</code></a> to add</p>
+<h6 id="expand-1"><a href="#expand-1"><code>expand</code></a></h6>
+<p>whether <code>renderer</code> should receive extra space when the area receives
+more than its natural size</p>
+<h6 id="align-1"><a href="#align-1"><code>align</code></a></h6>
+<p>whether <code>renderer</code> should be aligned in adjacent rows</p>
+<h6 id="fixed-1"><a href="#fixed-1"><code>fixed</code></a></h6>
+<p>whether <code>renderer</code> should have the same size in all rows</p>
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="tymethod.set_spacing" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/cell_area_box.rs.html#187">source</a><h4 class="code-header">fn <a href="#tymethod.set_spacing" class="fnname">set_spacing</a>(&amp;self, spacing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Sets the spacing to add between cell renderers in <code>self</code>.</p>
+<h6 id="spacing"><a href="#spacing"><code>spacing</code></a></h6>
+<p>the space to add between <code>GtkCellRenderers</code></p>
+</div></details><section id="tymethod.connect_spacing_notify" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/cell_area_box.rs.html#190">source</a><h4 class="code-header">fn <a href="#tymethod.connect_spacing_notify" class="fnname">connect_spacing_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div id="implementors-list"><section id="impl-CellAreaBoxExt-for-O" class="impl has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/cell_area_box.rs.html#193-255">source</a><a href="#impl-CellAreaBoxExt-for-O" class="anchor"></a><h3 class="code-header">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.CellAreaBox.html" title="struct gtk::CellAreaBox">CellAreaBox</a>&gt;&gt; <a class="trait" href="trait.CellAreaBoxExt.html" title="trait gtk::prelude::CellAreaBoxExt">CellAreaBoxExt</a> for O</h3></section></div><script src="../../implementors/gtk/auto/cell_area_box/trait.CellAreaBoxExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (a24a020e6 2022-10-18)" ></div></body></html>

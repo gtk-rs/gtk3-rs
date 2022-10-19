@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@FileChooserButton`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, FileChooserButtonExt"><title>FileChooserButtonExt in gtk::prelude - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.14" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.14") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../gtk/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Trait FileChooserButtonExt</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.connect_file_set">connect_file_set</a><a href="#tymethod.connect_title_notify">connect_title_notify</a><a href="#tymethod.connect_width_chars_notify">connect_width_chars_notify</a><a href="#tymethod.gets_focus_on_click">gets_focus_on_click</a><a href="#tymethod.set_focus_on_click">set_focus_on_click</a><a href="#tymethod.set_title">set_title</a><a href="#tymethod.set_width_chars">set_width_chars</a><a href="#tymethod.title">title</a><a href="#tymethod.width_chars">width_chars</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class="location">Other items in<br><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></p><div id="sidebar-vars" data-name="FileChooserButtonExt" data-ty="trait" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">FileChooserButtonExt</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#733-811" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust trait">pub trait FileChooserButtonExt: 'static {
+    fn <a href="#tymethod.gets_focus_on_click" class="fnname">gets_focus_on_click</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.title" class="fnname">title</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;;
+<div class="item-spacer"></div>    fn <a href="#tymethod.width_chars" class="fnname">width_chars</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_focus_on_click" class="fnname">set_focus_on_click</a>(&amp;self, focus_on_click: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_title" class="fnname">set_title</a>(&amp;self, title: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_width_chars" class="fnname">set_width_chars</a>(&amp;self, n_chars: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_file_set" class="fnname">connect_file_set</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_title_notify" class="fnname">connect_title_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_width_chars_notify" class="fnname">connect_width_chars_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+}</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.FileChooserButton.html" title="FileChooserButton"><code>FileChooserButton</code></a> methods.</p>
+<h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
+<p><a href="../struct.FileChooserButton.html" title="crate::FileChooserButton"><code>FileChooserButton</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><div id="tymethod.gets_focus_on_click" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#750" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.gets_focus_on_click" class="fnname">gets_focus_on_click</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></div></summary><div class="item-info"><div class="stab portability">This is supported on <strong>non-crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Returns whether the button grabs focus when it is clicked with the mouse.
+See <a href="trait.FileChooserButtonExt.html#tymethod.set_focus_on_click" title="Self::set_focus_on_click()"><code>set_focus_on_click()</code></a>.</p>
+<h1 id="deprecated-since-320" class="section-header"><a href="#deprecated-since-320">Deprecated since 3.20</a></h1>
+<p>Use <a href="trait.WidgetExt.html#tymethod.gets_focus_on_click" title="crate::prelude::WidgetExt::gets_focus_on_click()"><code>WidgetExt::gets_focus_on_click()</code></a> instead</p>
+<h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the button grabs focus when it is clicked with
+the mouse.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.title" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#760" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.title" class="fnname">title</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code></div></summary><div class="docblock"><p>Retrieves the title of the browse dialog used by <code>self</code>. The returned value
+should not be modified or freed.</p>
+<h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
+<p>a pointer to the browse dialog’s title.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.width_chars" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#769" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.width_chars" class="fnname">width_chars</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code></div></summary><div class="docblock"><p>Retrieves the width in characters of the <code>self</code> widget’s entry and/or label.</p>
+<h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
+<p>an integer width (in characters) that the button will use to size itself.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_focus_on_click" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#785" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_focus_on_click" class="fnname">set_focus_on_click</a>(&amp;self, focus_on_click: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code></div></summary><div class="item-info"><div class="stab portability">This is supported on <strong>non-crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Sets whether the button will grab focus when it is clicked with the mouse.
+Making mouse clicks not grab focus is useful in places like toolbars where
+you don’t want the keyboard focus removed from the main area of the
+application.</p>
+<h1 id="deprecated-since-320-1" class="section-header"><a href="#deprecated-since-320-1">Deprecated since 3.20</a></h1>
+<p>Use <a href="trait.WidgetExt.html#tymethod.set_focus_on_click" title="crate::prelude::WidgetExt::set_focus_on_click()"><code>WidgetExt::set_focus_on_click()</code></a> instead</p>
+<h2 id="focus_on_click" class="section-header"><a href="#focus_on_click"><code>focus_on_click</code></a></h2>
+<p>whether the button grabs focus when clicked with the mouse</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_title" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#791" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_title" class="fnname">set_title</a>(&amp;self, title: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></div></summary><div class="docblock"><p>Modifies the <code>title</code> of the browse dialog used by <code>self</code>.</p>
+<h2 id="title" class="section-header"><a href="#title"><code>title</code></a></h2>
+<p>the new browse dialog title.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_width_chars" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#797" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_width_chars" class="fnname">set_width_chars</a>(&amp;self, n_chars: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code></div></summary><div class="docblock"><p>Sets the width (in characters) that <code>self</code> will use to <code>n_chars</code>.</p>
+<h2 id="n_chars" class="section-header"><a href="#n_chars"><code>n_chars</code></a></h2>
+<p>the new width, in characters.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_file_set" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#804" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_file_set" class="fnname">connect_file_set</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>The ::file-set signal is emitted when the user selects a file.</p>
+<p>Note that this signal is only emitted when the user
+changes the file.</p>
+</div></details><div id="tymethod.connect_title_notify" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#807" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_title_notify" class="fnname">connect_title_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div><div id="tymethod.connect_width_chars_notify" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#810" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_width_chars_notify" class="fnname">connect_width_chars_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><div id="impl-FileChooserButtonExt" class="impl has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/auto/file_chooser_button.rs.html#813-932" title="goto source code">[src]</a></div><a href="#impl-FileChooserButtonExt" class="anchor"></a><code class="in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.FileChooserButton.html" title="struct gtk::FileChooserButton">FileChooserButton</a>&gt;&gt; <a class="trait" href="trait.FileChooserButtonExt.html" title="trait gtk::prelude::FileChooserButtonExt">FileChooserButtonExt</a> for O</code></div></div><script type="text/javascript" src="../../implementors/gtk/prelude/trait.FileChooserButtonExt.js" async></script></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script>
+</body></html>
