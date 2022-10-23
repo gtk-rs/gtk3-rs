@@ -150,7 +150,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_request_mode.unwrap();
             from_glib(f(self
-                .instance()
+                .obj()
                 .unsafe_cast_ref::<CellRenderer>()
                 .to_glib_none()
                 .0))
@@ -166,7 +166,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
             f(
-                self.instance()
+                self.obj()
                     .unsafe_cast_ref::<CellRenderer>()
                     .to_glib_none()
                     .0,
@@ -191,7 +191,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
             f(
-                self.instance()
+                self.obj()
                     .unsafe_cast_ref::<CellRenderer>()
                     .to_glib_none()
                     .0,
@@ -211,7 +211,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
             f(
-                self.instance()
+                self.obj()
                     .unsafe_cast_ref::<CellRenderer>()
                     .to_glib_none()
                     .0,
@@ -234,7 +234,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
             f(
-                self.instance()
+                self.obj()
                     .unsafe_cast_ref::<CellRenderer>()
                     .to_glib_none()
                     .0,
@@ -259,7 +259,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let mut aligned_area = gdk::Rectangle::uninitialized();
             let f = (*parent_class).get_aligned_area.unwrap();
             f(
-                self.instance()
+                self.obj()
                     .unsafe_cast_ref::<CellRenderer>()
                     .to_glib_none()
                     .0,
@@ -285,7 +285,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).render {
                 f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<CellRenderer>()
                         .to_glib_none()
                         .0,
@@ -313,7 +313,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).activate {
                 from_glib(f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<CellRenderer>()
                         .to_glib_none()
                         .0,
@@ -344,7 +344,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).start_editing {
                 from_glib_none(f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<CellRenderer>()
                         .to_glib_none()
                         .0,
@@ -367,7 +367,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).editing_canceled {
                 f(self
-                    .instance()
+                    .obj()
                     .unsafe_cast_ref::<CellRenderer>()
                     .to_glib_none()
                     .0)
@@ -381,7 +381,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).editing_started {
                 f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<CellRenderer>()
                         .to_glib_none()
                         .0,

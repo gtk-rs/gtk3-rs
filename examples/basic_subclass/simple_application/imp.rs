@@ -46,7 +46,7 @@ impl ApplicationImpl for SimpleApplication {
     fn startup(&self) {
         self.parent_startup();
 
-        let window = SimpleWindow::new(&self.instance());
+        let window = SimpleWindow::new(&self.obj());
         self.window
             .set(window)
             .expect("Failed to initialize application window");
