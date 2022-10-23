@@ -33,7 +33,7 @@ impl<T: ScrolledWindowImpl> ScrolledWindowImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkScrolledWindowClass;
             if let Some(f) = (*parent_class).move_focus_out {
                 f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<ScrolledWindow>()
                         .to_glib_none()
                         .0,
@@ -49,7 +49,7 @@ impl<T: ScrolledWindowImpl> ScrolledWindowImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkScrolledWindowClass;
             if let Some(f) = (*parent_class).scroll_child {
                 from_glib(f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<ScrolledWindow>()
                         .to_glib_none()
                         .0,

@@ -24,7 +24,7 @@ impl<T: PlugImpl> PlugImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkPlugClass;
             if let Some(f) = (*parent_class).embedded {
-                f(self.instance().unsafe_cast_ref::<Plug>().to_glib_none().0)
+                f(self.obj().unsafe_cast_ref::<Plug>().to_glib_none().0)
             }
         }
     }

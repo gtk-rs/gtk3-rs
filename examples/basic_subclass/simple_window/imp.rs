@@ -30,7 +30,7 @@ impl ObjectImpl for SimpleWindow {
     fn constructed(&self) {
         self.parent_constructed();
 
-        let instance = self.instance();
+        let instance = self.obj();
 
         let headerbar = gtk::HeaderBar::new();
         let increment = gtk::Button::with_label("Increment!");

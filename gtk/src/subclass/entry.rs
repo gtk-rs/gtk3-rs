@@ -30,7 +30,7 @@ impl<T: EntryImpl> EntryImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkEntryClass;
             if let Some(f) = (*parent_class).populate_popup {
                 f(
-                    self.instance().unsafe_cast_ref::<Entry>().to_glib_none().0,
+                    self.obj().unsafe_cast_ref::<Entry>().to_glib_none().0,
                     popup.to_glib_none().0,
                 )
             }
@@ -42,7 +42,7 @@ impl<T: EntryImpl> EntryImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkEntryClass;
             if let Some(f) = (*parent_class).activate {
-                f(self.instance().unsafe_cast_ref::<Entry>().to_glib_none().0)
+                f(self.obj().unsafe_cast_ref::<Entry>().to_glib_none().0)
             }
         }
     }

@@ -31,7 +31,7 @@ impl<T: SocketImpl> SocketImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkSocketClass;
             if let Some(f) = (*parent_class).plug_added {
-                f(self.instance().unsafe_cast_ref::<Socket>().to_glib_none().0)
+                f(self.obj().unsafe_cast_ref::<Socket>().to_glib_none().0)
             }
         }
     }
@@ -42,7 +42,7 @@ impl<T: SocketImpl> SocketImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkSocketClass;
             if let Some(f) = (*parent_class).plug_removed {
                 Inhibit(from_glib(f(self
-                    .instance()
+                    .obj()
                     .unsafe_cast_ref::<Socket>()
                     .to_glib_none()
                     .0)))

@@ -49,7 +49,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererAccelClass;
             if let Some(f) = (*parent_class).accel_edited {
                 f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<CellRendererAccel>()
                         .to_glib_none()
                         .0,
@@ -68,7 +68,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererAccelClass;
             if let Some(f) = (*parent_class).accel_cleared {
                 f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<CellRendererAccel>()
                         .to_glib_none()
                         .0,
