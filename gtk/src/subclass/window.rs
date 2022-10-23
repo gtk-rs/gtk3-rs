@@ -48,7 +48,7 @@ impl<T: WindowImpl> WindowImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).set_focus {
                 f(
-                    self.instance().unsafe_cast_ref::<Window>().to_glib_none().0,
+                    self.obj().unsafe_cast_ref::<Window>().to_glib_none().0,
                     focus.to_glib_none().0,
                 )
             }
@@ -60,7 +60,7 @@ impl<T: WindowImpl> WindowImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).activate_focus {
-                f(self.instance().unsafe_cast_ref::<Window>().to_glib_none().0)
+                f(self.obj().unsafe_cast_ref::<Window>().to_glib_none().0)
             }
         }
     }
@@ -70,7 +70,7 @@ impl<T: WindowImpl> WindowImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).activate_default {
-                f(self.instance().unsafe_cast_ref::<Window>().to_glib_none().0)
+                f(self.obj().unsafe_cast_ref::<Window>().to_glib_none().0)
             }
         }
     }
@@ -80,7 +80,7 @@ impl<T: WindowImpl> WindowImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).keys_changed {
-                f(self.instance().unsafe_cast_ref::<Window>().to_glib_none().0)
+                f(self.obj().unsafe_cast_ref::<Window>().to_glib_none().0)
             }
         }
     }
@@ -91,7 +91,7 @@ impl<T: WindowImpl> WindowImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).enable_debugging {
                 from_glib(f(
-                    self.instance().unsafe_cast_ref::<Window>().to_glib_none().0,
+                    self.obj().unsafe_cast_ref::<Window>().to_glib_none().0,
                     toggle.into_glib(),
                 ))
             } else {

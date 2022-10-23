@@ -63,11 +63,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).activate_cursor_row {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<ListBox>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }
@@ -78,10 +74,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).move_cursor {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<ListBox>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0,
                     step.into_glib(),
                     count,
                 );
@@ -95,10 +88,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).row_activated {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<ListBox>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0,
                     row.to_glib_none().0,
                 )
             }
@@ -111,10 +101,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).row_selected {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<ListBox>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0,
                     mut_override(row.to_glib_none().0),
                 )
             }
@@ -126,11 +113,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).select_all {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<ListBox>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }
@@ -140,11 +123,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).selected_rows_changed {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<ListBox>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }
@@ -154,11 +133,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).toggle_cursor_row {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<ListBox>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }
@@ -168,11 +143,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).unselect_all {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<ListBox>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }

@@ -57,10 +57,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).item_activated {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<IconView>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0,
                     mut_override(path.to_glib_none().0),
                 )
             }
@@ -72,11 +69,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).selection_changed {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<IconView>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
@@ -86,11 +79,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).select_all {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<IconView>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
@@ -100,11 +89,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).unselect_all {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<IconView>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
@@ -114,11 +99,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).select_cursor_item {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<IconView>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
@@ -128,11 +109,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).toggle_cursor_item {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<IconView>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
@@ -143,10 +120,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).move_cursor {
                 from_glib(f(
-                    self.instance()
-                        .unsafe_cast_ref::<IconView>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0,
                     step.into_glib(),
                     count,
                 ))
@@ -161,11 +135,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).activate_cursor_item {
-                from_glib(f(self
-                    .instance()
-                    .unsafe_cast_ref::<IconView>()
-                    .to_glib_none()
-                    .0))
+                from_glib(f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0))
             } else {
                 false
             }
