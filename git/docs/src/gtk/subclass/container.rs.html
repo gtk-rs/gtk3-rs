@@ -345,25 +345,6 @@
 <span id="272">272</span>
 <span id="273">273</span>
 <span id="274">274</span>
-<span id="275">275</span>
-<span id="276">276</span>
-<span id="277">277</span>
-<span id="278">278</span>
-<span id="279">279</span>
-<span id="280">280</span>
-<span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
-<span id="284">284</span>
-<span id="285">285</span>
-<span id="286">286</span>
-<span id="287">287</span>
-<span id="288">288</span>
-<span id="289">289</span>
-<span id="290">290</span>
-<span id="291">291</span>
-<span id="292">292</span>
-<span id="293">293</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
@@ -425,10 +406,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).add {
                 f(
-                    <span class="self">self</span>.instance()
-                        .unsafe_cast_ref::&lt;Container&gt;()
-                        .to_glib_none()
-                        .<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
                     widget.to_glib_none().<span class="number">0</span>,
                 )
             }
@@ -441,10 +419,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).remove {
                 f(
-                    <span class="self">self</span>.instance()
-                        .unsafe_cast_ref::&lt;Container&gt;()
-                        .to_glib_none()
-                        .<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
                     widget.to_glib_none().<span class="number">0</span>,
                 )
             }
@@ -456,11 +431,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).check_resize {
-                f(<span class="self">self
-                    </span>.instance()
-                    .unsafe_cast_ref::&lt;Container&gt;()
-                    .to_glib_none()
-                    .<span class="number">0</span>)
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -471,10 +442,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).set_focus_child {
                 f(
-                    <span class="self">self</span>.instance()
-                        .unsafe_cast_ref::&lt;Container&gt;()
-                        .to_glib_none()
-                        .<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
                     widget.to_glib_none().<span class="number">0</span>,
                 )
             }
@@ -487,7 +455,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).child_type {
                 from_glib(f(<span class="self">self
-                    </span>.instance()
+                    </span>.obj()
                     .unsafe_cast_ref::&lt;Container&gt;()
                     .to_glib_none()
                     .<span class="number">0</span>))
@@ -505,10 +473,7 @@
                 .get_path_for_child
                 .expect(<span class="string">&quot;No parent class impl for \&quot;get_path_for_child\&quot;&quot;</span>);
             from_glib_none(f(
-                <span class="self">self</span>.instance()
-                    .unsafe_cast_ref::&lt;Container&gt;()
-                    .to_glib_none()
-                    .<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
                 widget.to_glib_none().<span class="number">0</span>,
             ))
         }
@@ -520,10 +485,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkContainerClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).forall {
                 f(
-                    <span class="self">self</span>.instance()
-                        .unsafe_cast_ref::&lt;Container&gt;()
-                        .to_glib_none()
-                        .<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Container&gt;().to_glib_none().<span class="number">0</span>,
                     include_internals.into_glib(),
                     callback.callback,
                     callback.user_data,
@@ -658,4 +620,4 @@
 
 <span class="kw">unsafe impl</span>&lt;T: ClassStruct&gt; ContainerClassSubclassExt <span class="kw">for </span>T <span class="kw">where </span>T::Type: ContainerImpl {}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (6e95b6da8 2022-10-22)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (7fcf850d7 2022-10-23)" ></div></body></html>

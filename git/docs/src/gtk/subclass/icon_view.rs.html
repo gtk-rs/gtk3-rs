@@ -301,36 +301,6 @@
 <span id="228">228</span>
 <span id="229">229</span>
 <span id="230">230</span>
-<span id="231">231</span>
-<span id="232">232</span>
-<span id="233">233</span>
-<span id="234">234</span>
-<span id="235">235</span>
-<span id="236">236</span>
-<span id="237">237</span>
-<span id="238">238</span>
-<span id="239">239</span>
-<span id="240">240</span>
-<span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
-<span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
-<span id="247">247</span>
-<span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
-<span id="252">252</span>
-<span id="253">253</span>
-<span id="254">254</span>
-<span id="255">255</span>
-<span id="256">256</span>
-<span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>libc::c_int;
@@ -390,10 +360,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkIconViewClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).item_activated {
                 f(
-                    <span class="self">self</span>.instance()
-                        .unsafe_cast_ref::&lt;IconView&gt;()
-                        .to_glib_none()
-                        .<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;IconView&gt;().to_glib_none().<span class="number">0</span>,
                     mut_override(path.to_glib_none().<span class="number">0</span>),
                 )
             }
@@ -405,11 +372,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkIconViewClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).selection_changed {
-                f(<span class="self">self
-                    </span>.instance()
-                    .unsafe_cast_ref::&lt;IconView&gt;()
-                    .to_glib_none()
-                    .<span class="number">0</span>)
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;IconView&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -419,11 +382,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkIconViewClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).select_all {
-                f(<span class="self">self
-                    </span>.instance()
-                    .unsafe_cast_ref::&lt;IconView&gt;()
-                    .to_glib_none()
-                    .<span class="number">0</span>)
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;IconView&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -433,11 +392,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkIconViewClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).unselect_all {
-                f(<span class="self">self
-                    </span>.instance()
-                    .unsafe_cast_ref::&lt;IconView&gt;()
-                    .to_glib_none()
-                    .<span class="number">0</span>)
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;IconView&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -447,11 +402,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkIconViewClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).select_cursor_item {
-                f(<span class="self">self
-                    </span>.instance()
-                    .unsafe_cast_ref::&lt;IconView&gt;()
-                    .to_glib_none()
-                    .<span class="number">0</span>)
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;IconView&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -461,11 +412,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkIconViewClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).toggle_cursor_item {
-                f(<span class="self">self
-                    </span>.instance()
-                    .unsafe_cast_ref::&lt;IconView&gt;()
-                    .to_glib_none()
-                    .<span class="number">0</span>)
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;IconView&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -476,10 +423,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkIconViewClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).move_cursor {
                 from_glib(f(
-                    <span class="self">self</span>.instance()
-                        .unsafe_cast_ref::&lt;IconView&gt;()
-                        .to_glib_none()
-                        .<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;IconView&gt;().to_glib_none().<span class="number">0</span>,
                     step.into_glib(),
                     count,
                 ))
@@ -494,11 +438,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkIconViewClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).activate_cursor_item {
-                from_glib(f(<span class="self">self
-                    </span>.instance()
-                    .unsafe_cast_ref::&lt;IconView&gt;()
-                    .to_glib_none()
-                    .<span class="number">0</span>))
+                from_glib(f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;IconView&gt;().to_glib_none().<span class="number">0</span>))
             } <span class="kw">else </span>{
                 <span class="bool-val">false
             </span>}
@@ -592,4 +532,4 @@
     imp.activate_cursor_item().into_glib()
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (6e95b6da8 2022-10-22)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (7fcf850d7 2022-10-23)" ></div></body></html>

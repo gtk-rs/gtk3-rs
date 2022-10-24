@@ -1698,10 +1698,6 @@
 <span id="1625">1625</span>
 <span id="1626">1626</span>
 <span id="1627">1627</span>
-<span id="1628">1628</span>
-<span id="1629">1629</span>
-<span id="1630">1630</span>
-<span id="1631">1631</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>libc::c_int;
@@ -2013,7 +2009,7 @@
                 .adjust_baseline_allocation
                 .expect(<span class="string">&quot;No parent class impl for \&quot;adjust_baseline_allocation\&quot;&quot;</span>);
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 baseline,
             )
         }
@@ -2032,7 +2028,7 @@
                 .adjust_baseline_request
                 .expect(<span class="string">&quot;No parent class impl for \&quot;adjust_baseline_request\&quot;&quot;</span>);
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 minimum_baseline,
                 natural_baseline,
             )
@@ -2055,7 +2051,7 @@
                 .adjust_size_allocation
                 .expect(<span class="string">&quot;No parent class impl for \&quot;adjust_size_allocation\&quot;&quot;</span>);
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 orientation.into_glib(),
                 minimum_size,
                 natural_size,
@@ -2079,7 +2075,7 @@
                 .adjust_size_request
                 .expect(<span class="string">&quot;No parent class impl for \&quot;adjust_size_request\&quot;&quot;</span>);
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 orientation.into_glib(),
                 minimum_size <span class="kw">as </span><span class="kw-2">*mut </span>i32,
                 natural_size <span class="kw">as </span><span class="kw-2">*mut </span>i32,
@@ -2094,7 +2090,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).button_press_event {
                 <span class="kw">let </span>ev_glib = glib::translate::mut_override(event.to_glib_none().<span class="number">0</span>);
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     ev_glib,
                 )))
             } <span class="kw">else </span>{
@@ -2110,7 +2106,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).button_release_event {
                 <span class="kw">let </span>ev_glib = glib::translate::mut_override(event.to_glib_none().<span class="number">0</span>);
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     ev_glib,
                 )))
             } <span class="kw">else </span>{
@@ -2127,7 +2123,7 @@
     //         let f = (*parent_class)
     //             .can_activate_accel
     //             .expect(&quot;No parent class impl for \&quot;can_activate_accel\&quot;&quot;);
-    //         f(self.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().0, signal_id) != 0
+    //         f(self.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().0, signal_id) != 0
     //     }
     // }
 
@@ -2138,7 +2134,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).child_notify {
                 <span class="kw">let </span>pspec_glib = glib::translate::mut_override(child_property.to_glib_none().<span class="number">0</span>);
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     pspec_glib,
                 )
             }
@@ -2150,7 +2146,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).composited_changed {
-                f(<span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -2159,7 +2155,7 @@
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
-            <span class="kw">let </span>widget = <span class="self">self</span>.instance();
+            <span class="kw">let </span>widget = <span class="self">self</span>.obj();
             <span class="kw">let </span>widget = widget.unsafe_cast_ref::&lt;Widget&gt;();
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).compute_expand {
                 <span class="kw">let </span><span class="kw-2">mut </span>hexpand_glib = hexpand.into_glib();
@@ -2182,7 +2178,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).configure_event {
                 <span class="kw">let </span>ev_glib = glib::translate::mut_override(event.to_glib_none().<span class="number">0</span>);
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     ev_glib,
                 )))
             } <span class="kw">else </span>{
@@ -2198,7 +2194,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).damage_event {
                 <span class="kw">let </span>ev_glib = glib::translate::mut_override(event.to_glib_none().<span class="number">0</span>);
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     ev_glib,
                 )))
             } <span class="kw">else </span>{
@@ -2214,7 +2210,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).delete_event {
                 <span class="kw">let </span>ev_glib = glib::translate::mut_override(event.to_glib_none().<span class="number">0</span>);
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     ev_glib,
                 )))
             } <span class="kw">else </span>{
@@ -2228,7 +2224,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).destroy {
-                f(<span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>)
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>)
             }
         }
     }
@@ -2240,7 +2236,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).destroy_event {
                 <span class="kw">let </span>ev_glib = glib::translate::mut_override(event.to_glib_none().<span class="number">0</span>);
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     ev_glib,
                 )))
             } <span class="kw">else </span>{
@@ -2255,7 +2251,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).direction_changed {
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     previous_direction.into_glib(),
                 )
             }
@@ -2273,7 +2269,7 @@
                     .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
                 <span class="kw">let </span>pspecs_ptr = pspecs_array.as_mut_ptr();
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     pspecs.len() <span class="kw">as </span>u32,
                     pspecs_ptr,
                 )
@@ -2287,7 +2283,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_begin {
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                 )
             }
@@ -2300,7 +2296,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_data_delete {
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                 )
             }
@@ -2321,7 +2317,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_data_get {
                 <span class="kw">let </span>selection_mut = glib::translate::mut_override(selection_data.to_glib_none().<span class="number">0</span>);
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                     selection_mut,
                     info,
@@ -2347,7 +2343,7 @@
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_data_received {
                 <span class="kw">let </span>selection_mut = glib::translate::mut_override(selection_data.to_glib_none().<span class="number">0</span>);
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                     x,
                     y,
@@ -2365,7 +2361,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_drop {
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                     x,
                     y,
@@ -2383,7 +2379,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_end {
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                 )
             }
@@ -2396,7 +2392,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_failed {
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                     result.into_glib(),
                 )))
@@ -2412,7 +2408,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_leave {
                 f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                     time,
                 )
@@ -2426,7 +2422,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).drag_motion {
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     context.to_glib_none().<span class="number">0</span>,
                     x,
                     y,
@@ -2444,7 +2440,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).draw {
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     cr.to_glib_none().<span class="number">0</span>,
                 )))
             } <span class="kw">else </span>{
@@ -2458,11 +2454,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">let </span>f = (<span class="kw-2">*</span>parent_class).get_request_mode.unwrap();
-            from_glib(f(<span class="self">self
-                </span>.instance()
-                .unsafe_cast_ref::&lt;Widget&gt;()
-                .to_glib_none()
-                .<span class="number">0</span>))
+            from_glib(f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>))
         }
     }
 
@@ -2475,7 +2467,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 minimum_size.as_mut_ptr(),
                 natural_size.as_mut_ptr(),
             );
@@ -2492,7 +2484,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 height,
                 minimum_size.as_mut_ptr(),
                 natural_size.as_mut_ptr(),
@@ -2508,7 +2500,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 minimum_size.as_mut_ptr(),
                 natural_size.as_mut_ptr(),
             );
@@ -2523,7 +2515,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 width,
                 minimum_size.as_mut_ptr(),
                 natural_size.as_mut_ptr(),
@@ -2540,7 +2532,7 @@
                 .size_allocate
                 .expect(<span class="string">&quot;No parent class impl for \&quot;size_allocate\&quot;&quot;</span>);
             f(
-                <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                 mut_override(allocation.to_glib_none().<span class="number">0</span>),
             );
         }
@@ -2551,7 +2543,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).realize {
-                f(<span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>);
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>);
             }
         }
     }
@@ -2561,7 +2553,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).unrealize {
-                f(<span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>);
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>);
             }
         }
     }
@@ -2571,7 +2563,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).map {
-                f(<span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>);
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>);
             }
         }
     }
@@ -2581,7 +2573,7 @@
             <span class="kw">let </span>data = T::type_data();
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).unmap {
-                f(<span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>);
+                f(<span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>);
             }
         }
     }
@@ -2592,7 +2584,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).motion_notify_event {
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     mut_override(event.to_glib_none().<span class="number">0</span>),
                 )))
             } <span class="kw">else </span>{
@@ -2607,7 +2599,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).scroll_event {
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     mut_override(event.to_glib_none().<span class="number">0</span>),
                 )))
             } <span class="kw">else </span>{
@@ -2622,7 +2614,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).enter_notify_event {
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     mut_override(event.to_glib_none().<span class="number">0</span>),
                 )))
             } <span class="kw">else </span>{
@@ -2637,7 +2629,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkWidgetClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).leave_notify_event {
                 Inhibit(from_glib(f(
-                    <span class="self">self</span>.instance().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="self">self</span>.obj().unsafe_cast_ref::&lt;Widget&gt;().to_glib_none().<span class="number">0</span>,
                     mut_override(event.to_glib_none().<span class="number">0</span>),
                 )))
             } <span class="kw">else </span>{
@@ -2815,7 +2807,7 @@
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(ptr <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
     <span class="kw">let </span>imp = instance.imp();
 
-    <span class="kw">let </span>widget = imp.instance();
+    <span class="kw">let </span>widget = imp.obj();
     <span class="kw">let </span>widget = widget.unsafe_cast_ref::&lt;Widget&gt;();
     <span class="kw">let </span><span class="kw-2">mut </span>hexpand: bool = <span class="kw">if </span>widget.is_hexpand_set() {
         widget.hexpands()
@@ -3334,4 +3326,4 @@
     <span class="kw">fn </span>bind_template(klass: <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Class);
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (6e95b6da8 2022-10-22)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (7fcf850d7 2022-10-23)" ></div></body></html>

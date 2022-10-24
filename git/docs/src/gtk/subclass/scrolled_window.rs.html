@@ -204,7 +204,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkScrolledWindowClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).move_focus_out {
                 f(
-                    <span class="self">self</span>.instance()
+                    <span class="self">self</span>.obj()
                         .unsafe_cast_ref::&lt;ScrolledWindow&gt;()
                         .to_glib_none()
                         .<span class="number">0</span>,
@@ -220,7 +220,7 @@
             <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GtkScrolledWindowClass;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span>parent_class).scroll_child {
                 from_glib(f(
-                    <span class="self">self</span>.instance()
+                    <span class="self">self</span>.obj()
                         .unsafe_cast_ref::&lt;ScrolledWindow&gt;()
                         .to_glib_none()
                         .<span class="number">0</span>,
@@ -268,4 +268,4 @@
     imp.scroll_child(scroll, horizontal).into_glib()
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (6e95b6da8 2022-10-22)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (7fcf850d7 2022-10-23)" ></div></body></html>
