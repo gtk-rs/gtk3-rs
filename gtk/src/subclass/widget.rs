@@ -79,6 +79,10 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_configure_event(event)
     }
 
+    fn window_state_event(&self, event: &gdk::EventWindowState) -> Inhibit {
+        self.parent_window_state_event(event)
+    }
+
     fn damage_event(&self, event: &gdk::EventExpose) -> Inhibit {
         self.parent_damage_event(event)
     }
@@ -252,6 +256,7 @@ pub trait WidgetImplExt: ObjectSubclass {
     fn parent_composited_changed(&self);
     fn parent_compute_expand(&self, hexpand: &mut bool, vexpand: &mut bool);
     fn parent_configure_event(&self, event: &gdk::EventConfigure) -> Inhibit;
+    fn parent_window_state_event(&self, event: &gdk::EventWindowState) -> Inhibit;
     fn parent_damage_event(&self, event: &gdk::EventExpose) -> Inhibit;
     fn parent_delete_event(&self, event: &gdk::Event) -> Inhibit;
     fn parent_destroy(&self);
@@ -476,6 +481,22 @@ impl<T: WidgetImpl> WidgetImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).configure_event {
+                let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
+                Inhibit(from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    ev_glib,
+                )))
+            } else {
+                Inhibit(false)
+            }
+        }
+    }
+
+    fn parent_window_state_event(&self, event: &gdk::EventWindowState) -> Inhibit {
+        unsafe {
+            let data = T::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).window_state_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -959,6 +980,7 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
         klass.composited_changed = Some(widget_composited_changed::<T>);
         klass.compute_expand = Some(widget_compute_expand::<T>);
         klass.configure_event = Some(widget_configure_event::<T>);
+        klass.window_state_event = Some(widget_window_state_event::<T>);
         klass.damage_event = Some(widget_damage_event::<T>);
         klass.delete_event = Some(widget_delete_event::<T>);
         klass.destroy = Some(widget_destroy::<T>);
@@ -1134,6 +1156,17 @@ unsafe extern "C" fn widget_configure_event<T: WidgetImpl>(
     let evwrap: Borrowed<gdk::EventConfigure> = from_glib_borrow(confptr);
 
     imp.configure_event(&evwrap).into_glib()
+}
+
+unsafe extern "C" fn widget_window_state_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    winstateptr: *mut gdk::ffi::GdkEventWindowState,
+) -> glib::ffi::gboolean {
+    let instance = &*(ptr as *mut T::Instance);
+    let imp = instance.imp();
+    let evwrap: Borrowed<gdk::EventWindowState> = from_glib_borrow(winstateptr);
+
+    imp.window_state_event(&evwrap).into_glib()
 }
 
 unsafe extern "C" fn widget_damage_event<T: WidgetImpl>(
