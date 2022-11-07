@@ -59,10 +59,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).add {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<Container>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<Container>().to_glib_none().0,
                     widget.to_glib_none().0,
                 )
             }
@@ -75,10 +72,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).remove {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<Container>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<Container>().to_glib_none().0,
                     widget.to_glib_none().0,
                 )
             }
@@ -90,11 +84,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             let data = T::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).check_resize {
-                f(self
-                    .instance()
-                    .unsafe_cast_ref::<Container>()
-                    .to_glib_none()
-                    .0)
+                f(self.obj().unsafe_cast_ref::<Container>().to_glib_none().0)
             }
         }
     }
@@ -105,10 +95,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).set_focus_child {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<Container>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<Container>().to_glib_none().0,
                     widget.to_glib_none().0,
                 )
             }
@@ -121,7 +108,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).child_type {
                 from_glib(f(self
-                    .instance()
+                    .obj()
                     .unsafe_cast_ref::<Container>()
                     .to_glib_none()
                     .0))
@@ -139,10 +126,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
                 .get_path_for_child
                 .expect("No parent class impl for \"get_path_for_child\"");
             from_glib_none(f(
-                self.instance()
-                    .unsafe_cast_ref::<Container>()
-                    .to_glib_none()
-                    .0,
+                self.obj().unsafe_cast_ref::<Container>().to_glib_none().0,
                 widget.to_glib_none().0,
             ))
         }
@@ -154,10 +138,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).forall {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<Container>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<Container>().to_glib_none().0,
                     include_internals.into_glib(),
                     callback.callback,
                     callback.user_data,

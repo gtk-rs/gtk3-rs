@@ -39,7 +39,7 @@ impl ObjectSubclass for ExampleApplicationWindow {
 
 impl ObjectImpl for ExampleApplicationWindow {
     fn constructed(&self) {
-        self.instance().init_label();
+        self.obj().init_label();
         self.parent_constructed();
     }
 }

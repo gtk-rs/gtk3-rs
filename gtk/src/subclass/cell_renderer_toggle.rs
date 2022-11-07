@@ -27,7 +27,7 @@ impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererToggleClass;
             if let Some(f) = (*parent_class).toggled {
                 f(
-                    self.instance()
+                    self.obj()
                         .unsafe_cast_ref::<CellRendererToggle>()
                         .to_glib_none()
                         .0,

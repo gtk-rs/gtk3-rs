@@ -33,10 +33,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkApplicationClass;
             if let Some(f) = (*parent_class).window_added {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<Application>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<Application>().to_glib_none().0,
                     window.to_glib_none().0,
                 )
             }
@@ -49,10 +46,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkApplicationClass;
             if let Some(f) = (*parent_class).window_removed {
                 f(
-                    self.instance()
-                        .unsafe_cast_ref::<Application>()
-                        .to_glib_none()
-                        .0,
+                    self.obj().unsafe_cast_ref::<Application>().to_glib_none().0,
                     window.to_glib_none().0,
                 )
             }
